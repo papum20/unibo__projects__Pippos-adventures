@@ -4,12 +4,14 @@ main: main.o level.o room.o
 main.o: main.cpp main.h
 	g++ -c main.cpp
 
+#MAP
 level.o: level.cpp level.h
 	g++ -c level.cpp
-
 room.o: room.cpp room.h
 	g++ -c room.cpp
 
+#CHARACTERS
+character.o: character.cpp character
 
 
 clean:

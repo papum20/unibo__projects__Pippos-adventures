@@ -2,7 +2,7 @@
 #define ROOM_H
 
 
-#include "Character.h"
+#include "character.hpp"
 
 
 
@@ -22,4 +22,4 @@ class Room {
 
 
 
-#endif ROOM_H
+#endif

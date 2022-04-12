@@ -1,8 +1,8 @@
-#ifndef LEVEL_H
-#define LEVEL_H
+#ifndef LEVEL_HPP
+#define LEVEL_HPP
 
 #include <curses.h>
-#include "room.h"
+#include "room.hpp"
 
 
 #define LEVEL_WIDTH 135

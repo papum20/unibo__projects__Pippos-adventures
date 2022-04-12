@@ -1,5 +1,7 @@
 #include "main.h"
 #include "level.h"
+#include "InputManager.h"
+#include "Player.h"
 using namespace std;
 
 
@@ -13,17 +15,28 @@ int main() {
 	//// START: ESEGUITO UNA VOLTA ALL'AVVIO
 	cursesInit();
 	gameInit();
+	Level level = level();
+	Hud hud = hud();
+	InputManager inputManager = InputManager();
+	Player player = player();
+
+
 
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while(isRunning)
 	{
+		inputManager.getInput();
+
 		// SE NON IN PAUSA
 		if(!isPaused) {
+			player.move(inputManager.movementInput());
 
+			level.draw();
+			hud.drawHud();
 		}
 		// SE IN PAUSA
 		else {
-
+			hud.drawMenu();
 		}
 
 		// IN OGNI CASO
@@ -36,7 +49,6 @@ int main() {
 }
 
 
-Grandi rega
 
 
 

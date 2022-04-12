@@ -22,14 +22,19 @@ class Level {
 		int n_rooms;
 
 	public:
-		Level();
-		//costruttore
-		draw();
-		//disegna livello (chiamato a inizio di ogni livello)
+		Level();			//costruttore
+		draw();				//disegna livello (chiamato a ogni frame, se non in pausa)
 		generateRoom();
 		//genera una stanza (come array bidimensionale)
 		//generateAll();
 		//genera tutte le stanze
+
+		//ANIMAZIONI
+		//player
+		void playerUpAnimation();
+		void playerRightAnimation();
+		void playerDownAnimation();
+		void playerLeftAnimation();
 };
 
 

@@ -1,7 +1,4 @@
-#include "main.h"
-#include "level.hpp"
-#include "InputManager.h"
-#include "Player.h"
+#include "main.hpp"
 using namespace std;
 
 

@@ -38,4 +38,4 @@ powerups/health_potion.o: powerups/health_potion.cpp powerups/health_potion.hpp
 
 
 clean:
-	rm *.o main main.exe
+	rm *.o */*.o main main.exe

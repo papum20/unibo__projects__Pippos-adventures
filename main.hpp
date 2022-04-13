@@ -5,6 +5,9 @@
 #include <iostream>
 #include <curses.h>
 #include <ctime>
+#include "level.hpp"
+#include "inputmanager.hpp"
+#include "player.hpp"
 
 
 //// INIT

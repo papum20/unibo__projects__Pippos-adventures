@@ -5,21 +5,26 @@
 #include "room.hpp"
 
 
-#define LEVEL_WIDTH 135
-#define LEVEL_HEIGHT 35
-const short wallColors[5] = {COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA};
-const short floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
+#define CAMERA_WIDTH 135
+#define CAMERA_HEIGHT 35
+#define N_ROOMS 10
+
+//const short wallColors[5] = {COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA};
+//const short floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
 
 
 
 class Level {
 	private:
+		//dimensioni dello schermo disponibile, ovvero della parte di stanza disegnata a schermo
 		int width;
 		int height;
-		short wallColor;
-		short floorColor;
+		//short wallColor;
+		//short floorColor;
 
-		int n_rooms;
+		//int n_rooms;
+		pRoom curRoom;
+		
 
 	public:
 		Level();			//costruttore

@@ -1,5 +1,5 @@
-main: main.o level.o room.o
-	g++ main.o level.o room.o -lncurses -o main
+main: main.o level.o room.o character.o player.o enemy.o hud.o inputmanager.o item.o weapon.o powerup.o powerups/health_potion.o
+	g++ main.o level.o room.o character.o player.o enemy.o hud.o inputmanager.o item.o weapon.o powerup.o powerups/health_potion.o -lncurses -o main
 
 main.o: main.cpp main.hpp
 	g++ -c main.cpp

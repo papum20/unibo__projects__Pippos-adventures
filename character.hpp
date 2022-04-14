@@ -1,9 +1,11 @@
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
 
+#include "physical.hpp"
 
 
-class Character {
+
+class Character : public Physical {
 	private:
 		int maxHealth;
 		int curHealth;

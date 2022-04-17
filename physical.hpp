@@ -1,6 +1,8 @@
 #ifndef PHYSICAL_HPP
 #define PHYSICAL_HPP
 
+#include <iostream>
+
 
 //mettere la struttura della lista degli array
 

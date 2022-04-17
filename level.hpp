@@ -22,11 +22,11 @@ class Level {
 		//short wallColor;
 		//short floorColor;
 
-		//int n_rooms;
 		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
 		
 		// FUNZIONI
 		void generateMap();		//genera lo schema della disposizione delle stanze del livello
+		
 	public:
 		Level();
 

@@ -2,6 +2,15 @@
 
 
 
-Door::Door(pRoom room) {
+Door::Door(int x, int y, pRoom room) {
+	xPos = x;
+	yPos = y;
 	this->room = room;
 };
+
+
+
+//// GET
+void Door::getConnected() {
+	return room;
+}

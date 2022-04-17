@@ -9,10 +9,10 @@
 
 class Character : public Physical {
 	private:
+		
+	protected:
 		int maxHealth;
 		int curHealth;
-	protected:
-
 	public:
 		Character(int maxHealth);
 

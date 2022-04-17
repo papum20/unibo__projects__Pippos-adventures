@@ -2,10 +2,10 @@
 #define PHYSICAL_HPP
 
 
-
+//mettere la struttura della lista degli array
 
 class Physical {
-	private:
+	protected:
 		int xPos;
 		int yPos;
 	public:

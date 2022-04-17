@@ -10,7 +10,7 @@ class Weapon : public Item {
 	private:
 
 	public:
-		Weapon() : Item();
+		Weapon();
 };
 
 

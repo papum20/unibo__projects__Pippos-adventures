@@ -14,7 +14,7 @@ class Player : public Character {
 	private:
 
 	public:
-		Player() : Character();
+		Player();
 
 		void move(int input);
 };

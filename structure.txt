@@ -1,0 +1,23 @@
+OGGETTI DEL GIOCO:
+Physical			//tutte le entità che hanno una posizione nella mappa, un'animazione...
+	-Wall			//muro
+	-Door			//porta che collega due stanze
+	-Character		//entità fisiche "viventi", che si muovono, hanno una vita e delle statistiche...
+		-Player		//giocatore
+		-Enemy		//classe padre di ogni nemico
+			-(tipi di nemici...)
+	-(ceste)
+
+Item					//oggetti raccoglibili ed equipaggiabili o utilizzabili
+	-PowerUp			//oggetti che aumentano/ripristinano delle statistiche
+		-HealthPotion	//rigenera la vita di un Character
+	-Weapon				//arma, equipaggiabile
+
+AMBIENTE:
+Level			//gestisce la rappresentazione dello schermo di gioco
+Room			//rappresenta una stanza e tutto ciò che contiene
+
+//VARIO:
+Hud				//interfaccia di gioco, tutto ciò che è presente a schermo e che non sia il gioco effettivo
+
+InputManager	//gestisce l'input (prende, salva...)

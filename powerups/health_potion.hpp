@@ -11,8 +11,8 @@ class HealthPotion : public PowerUp {
 	private:
 		int healthGained;
 	public:
-		HealthPotion() : PowerUp();
-		//costruttore
+		HealthPotion();
+
 		void ChangeStats();
 };
 

@@ -13,10 +13,15 @@
 
 class Room {
 	private:
+		int width;
+		int height;
+		
 		pPhysical grid[ROOM_HEIGHT][ROOM_WIDTH];	//array bidimensionale di oggetti fisici (presenti nelle loro posizioni)
-		Room *connected[MAX_CONNECTED_ROOMS];		//array di puntatori a stanze collegate (con una porta)
+		//Room *connected[MAX_CONNECTED_ROOMS];		//array di puntatori a stanze collegate (con una porta)
 	public:
 		Room();
+		// GENERAZIONE
+		void generateWalls(); 	//genera uno schema randomico per i muri, inserendoli nell'array grid
 		// CONTROLLO
 		pPhysical checkPosition(int x, int y);
 		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)

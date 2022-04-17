@@ -15,7 +15,7 @@ class PowerUp : public Item {
 		Player player;
 
 	public:
-		PowerUp() : Item() {};
+		PowerUp();
 
 		void ChangeStats();
 };

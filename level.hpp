@@ -23,25 +23,41 @@ class Level {
 		//short floorColor;
 
 		//int n_rooms;
-		pRoom curRoom;
+		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
+		
+		// FUNZIONI
+		void generateMap();		//genera lo schema della disposizione delle stanze del livello
+	public:
+		Level();
+
+		void draw();			//disegna la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa)
 		
 
-	public:
-		Level();			//costruttore
-		draw();				//disegna livello (chiamato a ogni frame, se non in pausa)
-		generateRoom();
 		//genera una stanza (come array bidimensionale)
 		//generateAll();
 		//genera tutte le stanze
-
-		//ANIMAZIONI
-		//player
-		void playerUpAnimation();
-		void playerRightAnimation();
-		void playerDownAnimation();
-		void playerLeftAnimation();
 };
 
 
 
 #endif
+
+
+/*
+[mxR=numero tot stanze; cuR=numero attuale stanze create]
+GENERARE TUTTO INSIEME:
+1)con array mxR x mxR + array mxR:
+	-creo e genero una stanza (e inserisco in vettore) (O(1))
+	-ogni volta scelgo una stanza dal vettore (O(mxR)), scelgo una direzione disponibile casuale (O(4)), ci creo una stanza, la aggiungo al vettore (e alla matrice)
+	-se una stanza ne ha 4 collegate, la tolgo dal vettore
+	-per ogni stanza creata, la genero con collegate quelle collegate nella matrice (O(mxR+4))
+	tempo=O(mxR), memoria=O(mxR**2+mxR)=O(mxR**2)
+2) senza matrici:
+	-come per una stanza alla volta
+GENEREARE UNA STANZA ALLA VOLTA:
+-creo un puntatore a una stanza e la genero, con un numero di porte tra min(1,mxR-cuR) e min(4,mxR-cuR), con puntatore a stanze create ma non generate (O(1))
+-ogni volta (O(mxR)) che il giocatore attraversa una porta: se non è stata generata:
+	-cerco ogni stanza per vedere se è collegata a questa e ottengo un numero M (>=1 per la prima stanza a cui è collegata) (O(mxR),con strutture (O(log mxR)))
+	-la genero con un numero di porte tra M e min(4,mxR-cuR)
+	tempo=mxR * secondo step=O(mxR**2), con strutture O(mxR log mxR), memoria=O(1), con strutture O(mxR)
+*/

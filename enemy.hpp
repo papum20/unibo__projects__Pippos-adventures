@@ -10,7 +10,7 @@ class Enemy : public Character {
 	private:
 
 	public:
-		Enemy() : Character();
+		Enemy() : Character();//pippo
 };
 
 

@@ -2,10 +2,9 @@
 
 
 Level::Level() {
-	width = LEVEL_WIDTH;
-	height = LEVEL_HEIGHT;
-	wallColor = wallColors[0];
-	floorColor = floorColors[0];
+	width = CAMERA_WIDTH;
+	height = CAMERA_HEIGHT;
+	generateMap();
 }
 
 
@@ -14,6 +13,6 @@ void Level::draw() {
 }
 
 
-void Level::generateRoom() {
-	
+void Level::generateMap() {
+	//
 }

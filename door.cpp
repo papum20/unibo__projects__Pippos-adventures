@@ -2,6 +2,6 @@
 
 
 
-Door::Door() {
-	
+Door::Door(pRoom room) {
+	this->room = room;
 };

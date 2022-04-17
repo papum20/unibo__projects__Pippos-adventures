@@ -4,6 +4,8 @@
 #include "physical.hpp"
 
 
+//rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
+
 
 class Character : public Physical {
 	private:

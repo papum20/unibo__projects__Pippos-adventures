@@ -4,7 +4,12 @@
 #include <iostream>
 
 
-//mettere la struttura della lista degli array
+//struttura della lista degli array dell'animazione del players
+struct animation_player{
+ char player[3][3];
+ animation_player *next;
+ };
+typedef animation_player *p_animation_player;
 
 class Physical {
 	protected:

@@ -1,13 +1,30 @@
 #ifndef LEVEL_HPP
 #define LEVEL_HPP
 
+#include <cstdlib>
 #include <curses.h>
 #include "room.hpp"
 
 
-#define CAMERA_WIDTH 135
-#define CAMERA_HEIGHT 35
-#define N_ROOMS 10
+#define CAMERA_WIDTH 135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 35	//altezza (massima) inquadratura livello
+#define N_ROOMS 10			//numero di stanze (normali) generate per livello
+
+//dimensioni della matrice available (per generateMap)
+#define MAX_AVAILABLE (N_ROOMS * 2 + 2)
+#define DIM_AVAILABLE 3
+//indice di x,y,n nella matrice
+#define AV_X 0
+#define AV_Y 1
+#define AV_N 2
+
+//direzioni (vettori unitari) (utili per la generazione delle stanze)
+#define DIR_SIZE 4
+#define DIR_COORD 2
+const short directions[DIR_SIZE][DIR_COORD] = {{0,-1},{1,0},{0,1},{-1,0}};
+
+#define MAX_RAND_EXEC 3		//massimo numero di esecuzione di cicli che terminano solo in base a un numero random
+#define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
 
 //const short wallColors[5] = {COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA};
 //const short floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
@@ -17,16 +34,23 @@
 class Level {
 	private:
 		//dimensioni dello schermo disponibile, ovvero della parte di stanza disegnata a schermo
-		int width;
-		int height;
+		short width;
+		short height;
 		//short wallColor;
 		//short floorColor;
 
+		//short n_rooms;			//numero di stanze (normali) generate per livello
 		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
 		
 		// FUNZIONI
 		void generateMap();		//genera lo schema della disposizione delle stanze del livello
-		
+
+		// FUNZIONI AUSILIARIE
+		pRoom findRoomAtCoordinates(pRoom rooms[], int len, short x, short y);				//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
+		int findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], short x, short y);	//ritorna l'indice della posizione dell'array con tali coordinate (-1 se non presenteS)
+		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);				//scambia due elementi di A
+		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);				//aggiusta una posizione del min-heap (mantenendone le proprietà)
+
 	public:
 		Level();
 
@@ -41,6 +65,25 @@ class Level {
 
 
 #endif
+
+
+////APPUNTI:
+
+//generateMap():
+/*IMPLEMENTAZIONE:
+int r = rand() % DIR_SIZE: serve a randomizzare la direzione da cui iniziare a controllare le celle
+adiacenti, altrimenti nel min-heap si avrebbe in testa sempre la stessa direzione, per esempio l'indice
+0 sarebbe la direzione in alto, e quindi si avrebbero mappe tendenzialmente allungate, nel caso dell'esempio
+mappe verticali, perché la testa del min-heap ha maggiore probabilità di uscire, e una volta uscita nella
+maggior parte dei casi la nuova cella disponibile (che si va a mettere nella stessa posizione, nell'array, della
+cella appena usata) si trova sulla stessa direzione - da cui le mappe dritte (verticali)
+*/
+/*COSTO: tempo=O(n**2), memoria=O(n+(2n+2))=O(n); con n=N_ROOMS
+APPUNTO1: con rooms e avail implementati con AVL (forse) si avrebbe un costo logartmico
+	per ricerca, inserimento... e quindi costo totale (n log n), con n=N_ROOMS
+APPUNTO2: si possono togliere gli attributi x,y della classe e calcolarli ogni volta
+	(presumibilmente senza variazione di costo in tempo)
+*/
 
 
 /*

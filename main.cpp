@@ -12,10 +12,10 @@ int main() {
 	//// START: ESEGUITO UNA VOLTA ALL'AVVIO
 	cursesInit();
 	gameInit();
-	Level level = level();
-	Hud hud = hud();
+	Level level = Level();
+	Hud hud = Hud();
 	InputManager inputManager = InputManager();
-	Player player = player();
+	Player player = Player();
 
 
 

@@ -1,7 +1,8 @@
 {
 	"workbench.colorTheme": "Monokai",
 	"files.associations": {
-		"iostream": "cpp"
+		"iostream": "cpp",
+		"exception": "cpp"
 	},
 
 	"C_Cpp.autocomplete": "Default",

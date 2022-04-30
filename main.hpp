@@ -6,6 +6,7 @@
 #include <curses.h>
 #include <ctime>
 #include "level.hpp"
+#include "hud.hpp"
 #include "inputmanager.hpp"
 #include "player.hpp"
 

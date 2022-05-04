@@ -33,7 +33,7 @@ int main() {
 		}
 		// SE IN PAUSA
 		else {
-			hud.drawMenu();
+			hud.drawHud();
 		}
 
 		// IN OGNI CASO

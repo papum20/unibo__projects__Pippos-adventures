@@ -1,5 +1,5 @@
-#ifndef POWERUP_H
-#define POWERUP_H
+#ifndef POWERUP_HPP
+#define POWERUP_HPP
 
 
 #include "item.hpp"

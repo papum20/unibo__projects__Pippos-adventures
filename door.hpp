@@ -14,7 +14,8 @@ class Door : public Physical {
 		Door(int x, int y, pRoom room);
 
 		// GET
-		pRoom getConnected();	//ritorna il puntatore alla stanza collegata
+		void getPosition(int &x, int &y);
+		pRoom getConnected();				//ritorna il puntatore alla stanza collegata
 };
 
 

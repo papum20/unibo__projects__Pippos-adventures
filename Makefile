@@ -1,6 +1,8 @@
-main: Bat.o character.o door.o level.o main.o physical.o player.o powerups/health_potion.o room.o wall.o
-	g++ Bat.o character.o door.o level.o main.o physical.o player.o powerups/health_potion.o room.o wall.o -lncurses -o main
+main: a.o Bat.o character.o door.o level.o main.o physical.o player.o powerups/health_potion.o room.o wall.o
+	g++ a.o Bat.o character.o door.o level.o main.o physical.o player.o powerups/health_potion.o room.o wall.o -lncurses -o main
 
+a.o: a.cpp
+	g++ -c a.cpp
 Bat.o: Bat.cpp Bat.hpp
 	g++ -c Bat.cpp
 character.o: character.cpp character.hpp

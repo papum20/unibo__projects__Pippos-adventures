@@ -19,7 +19,7 @@ const char idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{'-', 'O', '-' },
 	{'/', ' ', '\\'}} //se sono di più si mette qua la virgola e poi si rifà {}
 };
-const char move_right[move_right_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]{
+const char move_right[move_right_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'A' , ' '},
 	{'-', 'O', '-' },
 	{'/', '|', ' '}
@@ -30,7 +30,7 @@ const char move_right[move_right_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]{
 	{'/', '|', ' '}
 	}
 };
-const char move_left[move_left_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]{
+const char move_left[move_left_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'A' , ' ' },
 	{'-', 'O',  '-' },
 	{' ', '|',  '\\'}
@@ -41,7 +41,7 @@ const char move_left[move_left_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]{
 	{' ',  '|', '\\'}
 	}
 };
-const char move_up[move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]{
+const char move_up[move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'A' , ' ' },
 	{'-', 'O',  '-' },
 	{'/', ' ',  '\\'}
@@ -52,7 +52,7 @@ const char move_up[move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]{
 	{'/',  '|', '\\'}
 	}
 };	
-const char move_down[move_down_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]{
+const char move_down[move_down_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'A' , ' ' },
 	{'-', 'O',  '-' },
 	{'/ ',' ',  '\\'}

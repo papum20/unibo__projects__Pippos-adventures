@@ -55,12 +55,12 @@ const char move_up[move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 const char move_down[move_down_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'A' , ' ' },
 	{'-', 'O',  '-' },
-	{'/ ',' ',  '\\'}
+	{'/',' ',  '\\'}
 	},
 
-{   {'\\', 'A' , ' /'},
+{   {'\\', 'A' , '/'},
 	{' ',  'O',  ' '},
-	{'/ ', ' ', '\\'}
+	{'/', ' ', '\\'}
 	}
 };
 

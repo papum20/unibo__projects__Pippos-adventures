@@ -2,9 +2,13 @@
 	"workbench.colorTheme": "Monokai",
 	"files.associations": {
 		"iostream": "cpp",
-		"exception": "cpp"
+		"exception": "cpp",
+		"*.tcc": "cpp",
+		"limits": "cpp",
+		"type_traits": "cpp"
 	},
 
 	"C_Cpp.autocomplete": "Default",
-	"C_Cpp.autocompleteAddParentheses": true
+	"C_Cpp.autocompleteAddParentheses": true,
+	"workbench.activityBar.visible": true
 }

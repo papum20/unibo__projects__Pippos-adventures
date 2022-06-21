@@ -11,6 +11,10 @@ Door::Door(int x, int y, pRoom room) {
 
 
 //// GET
-void Door::getConnected() {
+void Door::getPosition(int &x, int &y) {
+	x = xPos;
+	y = yPos;
+}
+pRoom Door::getConnected() {
 	return room;
 }

@@ -30,8 +30,8 @@
 		//aggiungi ad available le posizioni adiacenti alla prima stanza
 		int r = rand() % DIR_SIZE;
 		for(int i = 0; i < DIR_SIZE; i++) {
-			available[i][AV_X] = directions[(r+i)%4][AV_X];
-			available[i][AV_Y] = directions[(r+i)%4][AV_Y];
+			available[i][AV_X] = DIRECTIONS[(r+i)%4][AV_X];
+			available[i][AV_Y] = DIRECTIONS[(r+i)%4][AV_Y];
 			available[i][AV_N] = 1;
 		}
 		n_available = 4;
@@ -63,7 +63,7 @@
 			for(int j = 0; j < DIR_SIZE; j++)
 			{
 				int c_dir = (r+j) % DIR_SIZE;												//direzione corrente (indice)
-				int nx = cx + directions[c_dir][AV_X], ny = cy + directions[c_dir][AV_Y];	//x,y da controllare
+				int nx = cx + DIRECTIONS[c_dir][AV_X], ny = cy + DIRECTIONS[c_dir][AV_Y];	//x,y da controllare
 				pRoom adjacent_room = findRoomAtCoordinates(rooms, room, nx, ny);
 				int adjacent_cell = findCellAtCoordinates(available, nx, ny);
 
@@ -107,7 +107,7 @@
 
 
 //// AUSILIARIE
-	pRoom Level::findRoomAtCoordinates(pRoom rooms[], int len, short x, short y) {
+	pRoom Level::findRoomAtCoordinates(pRoom rooms[], int len, int x, int y) {
 		int i = 0;
 		pRoom res = NULL;
 		while(res == NULL && i < len) {
@@ -116,7 +116,7 @@
 		}
 		return res;
 	}
-	int Level::findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], short x, short y) {
+	int Level::findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], int x, int y) {
 		int i = 0, res = -1;
 		while(res == -1 && i < MAX_AVAILABLE) {
 			if(A[i][AV_X] == x && A[i][AV_Y] == y)  res = i;

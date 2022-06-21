@@ -18,36 +18,31 @@
 #define AV_Y 1
 #define AV_N 2
 
-//direzioni (vettori unitari) (utili per la generazione delle stanze)
-#define DIR_SIZE 4
-#define DIR_COORD 2
-const short directions[DIR_SIZE][DIR_COORD] = {{0,-1},{1,0},{0,1},{-1,0}};
-
 #define MAX_RAND_EXEC 3		//massimo numero di esecuzione di cicli che terminano solo in base a un numero random
 #define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
 
-//const short wallColors[5] = {COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA};
-//const short floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
+//const int wallColors[5] = {COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA};
+//const int floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
 
 
 
 class Level {
 	private:
 		//dimensioni dello schermo disponibile, ovvero della parte di stanza disegnata a schermo
-		short width;
-		short height;
-		//short wallColor;
-		//short floorColor;
+		int width;
+		int height;
+		//int wallColor;
+		//int floorColor;
 
-		//short n_rooms;			//numero di stanze (normali) generate per livello
+		//int n_rooms;			//numero di stanze (normali) generate per livello
 		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
 		
 		// FUNZIONI
 		void generateMap();		//genera lo schema della disposizione delle stanze del livello
 
 		// FUNZIONI AUSILIARIE
-		pRoom findRoomAtCoordinates(pRoom rooms[], int len, short x, short y);				//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
-		int findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], short x, short y);	//ritorna l'indice della posizione dell'array con tali coordinate (-1 se non presenteS)
+		pRoom findRoomAtCoordinates(pRoom rooms[], int len, int x, int y);				//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
+		int findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], int x, int y);	//ritorna l'indice della posizione dell'array con tali coordinate (-1 se non presenteS)
 		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);				//scambia due elementi di A
 		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);				//aggiusta una posizione del min-heap (mantenendone le proprietà)
 

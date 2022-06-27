@@ -54,6 +54,7 @@
 		}
 
 		// FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
+		connectPaths(sets);
 
 		// RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
 
@@ -79,7 +80,7 @@
 			int tot_chance = DIR_CHANCES[0];	//somma delle probabilità delle direzioni disponibili
 			int unused_dirs_n = 0;
 			for(int d = 0; d < DIR_SIZE; d++) {
-				int nx = x + DIRECTIONS[d][0], ny = y + DIRECTIONS[d][1];
+				int nx = x + DIRECTIONS[d].x, ny = y + DIRECTIONS[d].y;
 				if(validCoordinates(nx, ny, 0, width_t, 0, height) && grid[ny][nx] == NULL) {
 					used_dirs[d] = false;
 					unused_dirs_n++;
@@ -113,10 +114,10 @@
 
 				// PRIMA GENERA MURI, POI VA IN RICORSIONE SULLE DIREZIONI
 				for(int d = 0; d < DIR_SIZE; d++)
-					if(new_dirs[d] == false && used_dirs[d] == false) grid[y + DIRECTIONS[d][1]][x + DIRECTIONS[d][0]] = wallInstance;
+					if(new_dirs[d] == false && used_dirs[d] == false) grid[y + DIRECTIONS[d].y][x + DIRECTIONS[d].x] = wallInstance;
 				for(int d = 0; d < DIR_SIZE; d++) {
 					if(new_dirs[d] == true) {
-						int nx = x + DIRECTIONS[d][0], ny = y + DIRECTIONS[d][1];
+						int nx = x + DIRECTIONS[d].x, ny = y + DIRECTIONS[d].y;
 						sets->merge(singleCoordinate(x, y), singleCoordinate(nx, ny));
 						generatePath(nx, ny, sets);
 					}
@@ -129,7 +130,14 @@
 		non vengano effettivamente usate tutte, perché magari una volta partita la ricorsione da una direzione,
 		questa va a finire in un'altra uscente dallo stesso punto, ma andando a porci un muro.
 	*/
-
+	void Room::connectPaths(pUnionFind sets) {
+		int adjacent_walls[ROOM_WIDTH * ROOM_HEIGHT];
+		int adjacent_walls_n;
+		
+		while(sets->getNumber() > 1) {
+			bool 
+		}
+	}
 
 
 	int Room::singleCoordinate(int x, int y) {

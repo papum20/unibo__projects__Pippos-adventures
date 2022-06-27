@@ -30,8 +30,8 @@
 		//aggiungi ad available le posizioni adiacenti alla prima stanza
 		int r = rand() % DIR_SIZE;
 		for(int i = 0; i < DIR_SIZE; i++) {
-			available[i][AV_X] = DIRECTIONS[(r+i)%4][AV_X];
-			available[i][AV_Y] = DIRECTIONS[(r+i)%4][AV_Y];
+			available[i][AV_X] = DIRECTIONS[(r+i)%4].x;
+			available[i][AV_Y] = DIRECTIONS[(r+i)%4].y;
 			available[i][AV_N] = 1;
 		}
 		n_available = 4;
@@ -63,7 +63,7 @@
 			for(int j = 0; j < DIR_SIZE; j++)
 			{
 				int c_dir = (r+j) % DIR_SIZE;												//direzione corrente (indice)
-				int nx = cx + DIRECTIONS[c_dir][AV_X], ny = cy + DIRECTIONS[c_dir][AV_Y];	//x,y da controllare
+				int nx = cx + DIRECTIONS[c_dir].x, ny = cy + DIRECTIONS[c_dir].y;			//x,y da controllare
 				pRoom adjacent_room = findRoomAtCoordinates(rooms, room, nx, ny);
 				int adjacent_cell = findCellAtCoordinates(available, nx, ny);
 

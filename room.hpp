@@ -19,10 +19,15 @@
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
 
+struct Coordinate {
+	int x;
+	int y;
+};
+
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)
 #define DIR_SIZE 4
-#define DIR_COORD 2
-const int DIRECTIONS[DIR_SIZE][DIR_COORD] = {{0,-1},{1,0},{0,1},{-1,0}};
+//define DIR_COORD 2
+const Coordinate DIRECTIONS[DIR_SIZE] = {{0,-1},{1,0},{0,1},{-1,0}};
 //per ogni indice i, DIR_CHANCES[i] è la probabilità di generare i percorsi a partire da un punto (nella generazione della stanza);
 //la prima posizione indica la probabilità di generare in 0 nuove direzioni (cioè di fermarsi)
 const int DIR_CHANCES[DIR_SIZE + 1] = {5, 20, 10, 3, 1};
@@ -50,6 +55,7 @@ class Room {
 		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array grid
 		// FUNZIONI AUSILIARIE
 		void generatePath(int x, int y, pUnionFind sets);		//genera un percorso casuale a partire da x,y
+		void Room::connectPaths(pUnionFind sets);				//fa in modo che ogni punto sia raggiungibile da ogni altro
 
 		int singleCoordinate(int x, int y);						//converte una coppia di coordinate x,y in una singola coordinata (sulle dimensioni width e height)
 		void doubleCoordinate(int xy, int &x, int &y);			//converte una coordinata (sulle dimensioni width e height) in una coppia x,y
@@ -60,7 +66,7 @@ class Room {
 		// GENERAZIONE
 //		void addNthDoor(int n);	//aggiunge una porta nell'n-esima posizione disponibile
 		// CONTROLLO
-		pPhysical checkPosition(int x, int y);	//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		pPhysical checkPosition(int x, int y);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 
 		// SET
 		void makeConnection(Room *room, int dir);	//connects this room to "room" in direction dir (relative to this)

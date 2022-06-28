@@ -11,9 +11,7 @@ Timer::Timer(double max_time[]){
 int Timer::Check_timer(int timer){//spegne se ha superato il tempo limite, ritorna -1 error, 0 false, 1 true
 if(timer<=n_timers && timer >= 0){
 	double curr_time = (double)clock() / CLOCKS_PER_SEC;
-	cout<<"curr_time =" << " " << curr_time<< endl << "timer = " << " " << timers[timer]<< endl;
 	if(curr_time-timers[timer]>max_time[timer]){
-		cout<<"controllo"<<endl;
 		active_timers[timer]=false;
 		return 1;}
 	else

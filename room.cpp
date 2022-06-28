@@ -38,7 +38,11 @@
 			sets->makeSet(toSingleCoordinate(xDoor, yDoor));
 		}
 
-		//CREA STANZA NELLA STANZA (QUADRATO VUOTO)
+		//CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
+		for(int y = (ROOM_HEIGHT - CENTRAL_ROOM_SIZE) / 2; y < (ROOM_HEIGHT + CENTRAL_ROOM_SIZE) / 2; y++) {
+			for(int x = (ROOM_WIDTH_T - CENTRAL_ROOM_SIZE) / 2; x < (ROOM_WIDTH_T + CENTRAL_ROOM_SIZE) / 2; x++)
+				grid[y][x] = floorInstance;
+		}
 
 		// RIEMPI LA STANZA DI MURI E CORRIDOI
 		int rand_x = rand() % ROOM_WIDTH_T, rand_y = rand() % height;
@@ -56,12 +60,13 @@
 		connectPaths(sets);
 
 		// RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
+		resizeMap();
 
 	}
 
 
 
-//// AUSILIARIE
+//// FUNZIONI AUSILIARIE PRINCIPALI
 	void Room::generatePath(int x, int y, pUnionFind sets)
 	{
 		if(!validCoordinates(x, y, 0, ROOM_WIDTH_T, 0, height)) return;
@@ -141,12 +146,13 @@
 			//TROVA I MURI ADIACENTI AL SET
 			s_coord currentSet = sets->getNth(rand() % sets->getNumber());
 			Coordinate adjacentWalls[ROOM_AREA_T], borderWalls[ROOM_AREA_T];
+			int breakDirections[ROOM_AREA_T];
 			int adjacentWalls_n = getAdjacentWalls(adjacentWalls, currentSet), borderWalls_n = 0;
 
 			//FINCHÉ NON HA CONNESSO QUALCOSA, CERCA SET CHE CONFININO A UNA DETERMINATA DISTANZA OPPURE AUMENTA LA DISTANZA
 			while(!hasConnected) {
 				//OTTIENI I MURI DI CONFINE TRA DUE SET DIVERSI
-				borderWalls_n = getBorderWalls(borderWalls, adjacentWalls, adjacentWalls_n, *sets, currentSet, distance);
+				borderWalls_n = getBorderWalls(borderWalls, breakDirections, adjacentWalls, adjacentWalls_n, *sets, currentSet, distance);
 
 				//SE NE HA TROVATI: CONNETTI (ROMPI IL MURO/I MURI)
 				if(borderWalls_n != 0) {
@@ -183,14 +189,14 @@
 						sets->merge(currentSet, toSingleCoordinate(tx, ty));
 					}*/
 
-/*					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
-					for(int i = 0; i <= distance; i++) {
-						int diff_x = bx - adjacentWalls[brokenWall].x, diff_y = by - adjacentWalls[brokenWall].y;
-						int tx = bx + diff_x * i, ty = by + diff_y * i;
+					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
+					for(int dist = 0; dist <= distance; dist++) {
+						int dx = DIRECTIONS[breakDirections[brokenWall]].x, dy = DIRECTIONS[breakDirections[brokenWall]].y;
+						int tx = bx + dx * dist, ty = by + dy * dist;
 						grid[ty][tx] = floorInstance;
 						sets->merge(currentSet, toSingleCoordinate(tx, ty));
-					}*/
-*/
+					}
+
 					hasConnected = true;
 				}
 				//ALTRIMENTI CERCA A UNA DISTANZA MAGGIORE
@@ -200,8 +206,16 @@
 		}
 	}
 
+	void Room::resizeMap() {
+		for(int y = 0; y < ROOM_HEIGHT; y++) {
+			for(int x = ROOM_WIDTH_T; x >= 0; x++) {
+				for(int s = 0; s < X_SCALE; s++)
+					grid[y][x * X_SCALE + s] = grid[y][x];
+			}
+		}
+	}
 
-// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
+//// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
 	int Room::getAdjacentWalls(Coordinate out[], s_coord currentSet) {
 		int walls = 0;
 		s_coord square = currentSet;
@@ -218,16 +232,18 @@
 		} while(square != currentSet);
 		return walls;
 	}
-	int Room::getBorderWalls(Coordinate border[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance) {
+	int Room::getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance) {
 		int border_n = 0;
 		for(int i = 0; i < walls_n; i++) {
-			int d = 0;
+			int rand_d = rand() % DIR_SIZE, d = 0;
 			bool found = false;
 			while(!found && d < DIR_SIZE) {
-				int nx = walls[i].x + DIRECTIONS[d].x * distance, ny = walls[i].y + DIRECTIONS[d].y * distance;
+				rand_d = (rand_d + 1) % DIR_SIZE;
+				int nx = walls[i].x + DIRECTIONS[rand_d].x * distance, ny = walls[i].y + DIRECTIONS[rand_d].y * distance;
 				if(validCoordinates(nx, ny, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) && sets.find(toSingleCoordinate(nx, ny)) != parent) {
 					border[i] = {nx, ny};
 					border_n++;
+					directions[i] = rand_d;
 					found = true;
 				}
 				else d++;
@@ -237,7 +253,7 @@
 		return border_n;
 	}
 
-//FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E USATE SPESSO)	
+//// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E USATE SPESSO)	
 	s_coord Room::toSingleCoordinate(int x, int y) {
 		return y * width + x;
 	}

@@ -18,6 +18,7 @@
 #define ROOM_WIDTH (ROOM_WIDTH_T * X_SCALE)//320	//larghezza (reale) stanza
 #define ROOM_HEIGHT 40//180							//altezza stanza
 #define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT)
+#define CENTRAL_ROOM_SIZE 8							//dimensioni dello spazio vuoto quadrato al centro
 
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
@@ -56,14 +57,16 @@ class Room {
 		pPhysical wallInstance;
 
 		// FUNZIONI
-		void generate(); 											//genera uno schema randomico per i muri, inserendoli nell'array grid
+		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array grid
 		// FUNZIONI AUSILIARIE PRINCIPALI
-		void generatePath(int x, int y, pUnionFind sets);			//genera un percorso casuale a partire da x,y
-		void connectPaths(pUnionFind sets);							//fa in modo che ogni punto sia raggiungibile da ogni altro
+		void generatePath(int x, int y, pUnionFind sets);		//genera un percorso casuale a partire da x,y
+		void connectPaths(pUnionFind sets);						//fa in modo che ogni punto sia raggiungibile da ogni altro
+		void resizeMap();										//ridimensiona la mappa, allargando quella temporanea generata di X_SCALE
 		// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
 		int getAdjacentWalls(Coordinate out[], s_coord currentSet);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero
-		int getBorderWalls(Coordinate border[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
-					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance), ne ritorna la lunghezza
+		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
+					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
+					//e directions con le rispettive direzioni, ne ritorna il numero
 		//FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E USATE SPESSO)
 		s_coord toSingleCoordinate(int x, int y);					//converte una coppia di coordinate x,y in una singola coordinata (sulle dimensioni width e height)
 		void toDoubleCoordinate(s_coord xy, int &x, int &y);		//converte una coordinata (sulle dimensioni width e height) in una coppia x,y

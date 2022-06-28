@@ -5,7 +5,7 @@
 
 const int ANIMATION_WIDTH = 6;
 const int ANIMATION_HEIGHT = 5;
-//struttura della lista degli array dell'animazione del players
+//struttura della lista degli array dell'animazione del player
 struct Animation{
  char state[ANIMATION_HEIGHT][ANIMATION_WIDTH];
  Animation *next;

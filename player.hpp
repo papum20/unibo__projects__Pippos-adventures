@@ -8,12 +8,14 @@ const int move_right_index = 1;
 const int move_left_index = 2;
 const int move_up_index = 3;
 const int move_down_index = 4;
+
 const int move_right_states = 2;
 const int move_up_states = 2;
 const int move_down_states = 2;
 const int move_left_states = 2;
 const int p_width = 3;
 const int p_height = 3;
+
 const char idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{{' ', 'A' , ' '},
 	{'-', 'O', '-' },

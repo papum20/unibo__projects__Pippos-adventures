@@ -2,6 +2,7 @@
 #define CHARACTER_HPP
 
 #include "physical.hpp"
+#include "timer.hpp"
 
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico

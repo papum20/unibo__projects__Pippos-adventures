@@ -3,5 +3,5 @@
 
 
 Floor::Floor() {
-	
+	id = FLOOR_ID;
 }

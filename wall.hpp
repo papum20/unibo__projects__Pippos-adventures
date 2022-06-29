@@ -4,6 +4,8 @@
 #include "physical.hpp"
 
 
+#define WALL_ID 1
+
 
 //viene creato un solo muro e usato un puntatore allo stesso muro per disegnarlo (nelle classi level/room)
 

@@ -5,6 +5,9 @@
 #include "physical.hpp"
 
 
+#define FLOOR_ID 2
+
+
 
 class Floor : public Physical {
 	private:

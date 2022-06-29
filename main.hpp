@@ -12,16 +12,14 @@
 
 
 //// INIT
-
-void cursesInit();
-
-void gameInit();
-
+	void cursesInit();
+	void gameInit();
 
 //// END
+	void cursesEnd();
 
-
-void cursesEnd();
+//// MATH
+	int ceil(double n);		//arrotondamento per eccesso
 
 
 

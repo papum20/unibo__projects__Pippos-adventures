@@ -9,18 +9,16 @@ Timer::Timer(double max_time[]){
 };
 
 int Timer::Check_timer(int timer){//spegne se ha superato il tempo limite, ritorna -1 error, 0 false, 1 true
-if(timer<=n_timers && timer >= 0){
-	double curr_time = (double)clock() / CLOCKS_PER_SEC;
-	if(curr_time-timers[timer]>max_time[timer]){
-		active_timers[timer]=false;
-		return 1;}
-	else
-		return 0;
-}
-return (-1);
-}
-
-
+	if(timer<=n_timers && timer >= 0){
+		double curr_time = (double)clock() / CLOCKS_PER_SEC;
+		if(curr_time-timers[timer]>max_time[timer]){
+			active_timers[timer]=false;
+			return 1;}
+		else
+			return 0;
+	}
+	return (-1);
+};
 void Timer::Start_timer(int timer){//puoi riattivare un timer già attivo per resettare il suo valore
 	active_timers[timer]=true;
 	timers[timer]=(double)clock() / CLOCKS_PER_SEC;

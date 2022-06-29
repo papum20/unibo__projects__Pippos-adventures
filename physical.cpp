@@ -4,8 +4,18 @@
 
 
 Physical::Physical() {
+        id = DEFAULT_ID;
+    }
+
+void Physical::drawAtPosition(WINDOW *win, Coordinate win_size, Coordinate pos) {
 
 }
+void Physical::drawAtPosition(WINDOW *win, Coordinate win_size) {
+    drawAtPosition(win, win_size, {xPos, yPos});
+}
+
+
+
 p_Animation Physical::tail_insert(p_Animation head, const char state[][ANIMATION_WIDTH], int width, int height) {
     if(head==NULL)
     {

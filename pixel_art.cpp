@@ -158,7 +158,7 @@ j=j+6;
 }
 
 
-void Pixel_Art::clean_window(WINDOW* window, int w_hight, int w_lenght){
+void Pixel_art::clean_window(WINDOW* window, int w_hight, int w_lenght){
 init_pair(4, COLOR_BLACK, COLOR_BLACK);
 for(int i=1; i<w_hight; i++){
     for(int j=1; j<w_lenght; j++){

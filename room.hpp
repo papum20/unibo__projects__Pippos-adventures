@@ -9,6 +9,7 @@
 #include "door.hpp"
 #include "wall.hpp"
 #include "floor.hpp"
+#include "main.hpp"
 
 
 
@@ -22,6 +23,8 @@
 
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
+
+#define WALL_HEIGHT 4
 
 struct Coordinate {
 	int x;
@@ -77,7 +80,10 @@ class Room {
 		// GENERAZIONE
 //		void addNthDoor(int n);	//aggiunge una porta nell'n-esima posizione disponibile
 		// CONTROLLO
-		pPhysical checkPosition(int x, int y);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		// DISEGNO
+		void draw(WINDOW* win, Coordinate win_size, Coordinate center);	//stampa a schermo, con opportune modifiche di prospettiva e altro;
+																		//inquadra solo un rettangolo con le dimensioni dei parametri intorno al giocatore
 
 		// SET
 		void makeConnection(Room *room, int dir);	//connects this room to "room" in direction dir (relative to this)

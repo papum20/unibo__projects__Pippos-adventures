@@ -1,17 +1,18 @@
 #include "level.hpp"
 
 
-	Level::Level() {
+	Level::Level(int win_y, int win_x, int win_h, int win_w) {
 		width = CAMERA_WIDTH;
 		height = CAMERA_HEIGHT;
 
 		//n_rooms = N_ROOMS;
+		levelWindow = newwin(win_y, win_x, win_h, win_w);
 
 		generateMap();
 	}
 
 
-	void Level::draw() {
+	void Level::draw(Coordinate center) {
 
 	}
 

@@ -33,6 +33,7 @@ class Level {
 		int height;
 		//int wallColor;
 		//int floorColor;
+		WINDOW *levelWindow;
 
 		//int n_rooms;			//numero di stanze (normali) generate per livello
 		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
@@ -47,9 +48,9 @@ class Level {
 		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);				//aggiusta una posizione del min-heap (mantenendone le proprietà)
 
 	public:
-		Level();
+		Level(int win_y, int win_x, int win_h, int win_w);
 
-		void draw();			//disegna la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa)
+		void draw(Coordinate center);			//disegna la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa)
 		
 
 		//genera una stanza (come array bidimensionale)

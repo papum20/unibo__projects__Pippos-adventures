@@ -3,5 +3,5 @@
 
 
 Wall::Wall() {
-	
+	id = WALL_ID;
 }

@@ -64,6 +64,22 @@
 
 	}
 
+	void Room::draw(WINDOW* win, Coordinate win_size, Coordinate center) {
+		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
+		for(int y = center.y - win_size.y / 2; y < center.y + ceil(win_size.y / 2.); y++) {
+			for(int x = center.x - win_size.x / 2; x < center.x + ceil(win_size.x / 2.); x++) {
+				int id = grid[y][x]->getId();
+				//wall e floor hanno una singola istanza e sono un caso a parte
+				if(id == WALL_ID || id == FLOOR_ID) grid[y][x]->drawAtPosition(win, win_size, {y, x});
+				//per non disegnare più volte gli stessi oggetti li disegno solo quando incontro la loro posizione di partenza (l'angolo in basso a sinistra)
+				else {
+					Coordinate pos;
+					grid[y][x]->getPosition(pos);
+					if(pos.x == x && pos.y == y) grid[y][x]->drawAtPosition(win, win_size);
+				}
+			}
+		}
+	}
 
 
 //// FUNZIONI AUSILIARIE PRINCIPALI
@@ -92,7 +108,7 @@
 				}
 				else {
 					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
-					if(grid[ny][nx] == floorInstance)
+					if(grid[ny][nx]->getId() == FLOOR_ID)
 						sets->merge(toSingleCoordinate(x, y), toSingleCoordinate(nx, ny));
 					used_dirs[d] = true;
 				}
@@ -224,7 +240,7 @@
 				int x, y;
 				toDoubleCoordinate(square, x, y);
 				int nx = x + DIRECTIONS[d].x, ny = y + DIRECTIONS[d].y;
-				if(validCoordinates(nx, ny, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) && grid[ny][nx] == wallInstance) {
+				if(validCoordinates(nx, ny, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) && grid[ny][nx]->getId() == WALL_ID) {
 					out[walls] = {nx, ny};
 					walls++;
 				}

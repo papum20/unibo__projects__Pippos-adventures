@@ -18,35 +18,49 @@ if(timer<=n_timers && timer >= 0){
 		return 0;
 }
 return (-1);
-};
+}
+
+
 void Timer::Start_timer(int timer){//puoi riattivare un timer già attivo per resettare il suo valore
 	active_timers[timer]=true;
 	timers[timer]=(double)clock() / CLOCKS_PER_SEC;
-};
+}
+
+
 void Timer::Start_all_timers(){
 	for(int i=0; i<n_timers; i++){
 		active_timers[i]=true;
 		timers[i]=(double)clock() / CLOCKS_PER_SEC;
 	}
-};
+}
+
+
 void Timer::Stop_timer(int timer){
 	active_timers[timer]=false;
-};
+}
+
+
 void Timer::Stop_all_timers(){
 	for(int i=0; i<n_timers; i++){
 		active_timers[i]=false;
 	}
-};
+}
+
+
 void Timer::Start_Pause(int timer){
 	if(!State_pause[timer]){
 		Start_Pause_value[timer]=(double)clock() / CLOCKS_PER_SEC;
 		State_pause[timer]=true;
 	}	
-};
+}
+
+
 void Timer::Finish_Pause(int timer){
 	if(State_pause[timer]){
 		double Finish_Pause=(double)clock() / CLOCKS_PER_SEC;
 		Total_Pauses[timer]=Total_Pauses[timer] + (Finish_Pause - Start_Pause_value[timer]);
 		State_pause[timer]=false;
 	}
-};
+}
+
+

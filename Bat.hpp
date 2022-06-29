@@ -8,5 +8,8 @@ Class Bat: public Enemy {
   protected:
   
   public:
+    Bat();
   
-}
+};
+
+#endif 

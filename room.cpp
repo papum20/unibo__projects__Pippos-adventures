@@ -23,14 +23,14 @@
 	{
 		pUnionFind sets = new UnionFind();
 
-		// GENERA MURI LATERALI
+		//GENERA MURI LATERALI
 		for(int y = 0; y < height; y++) {
 			int delta_x = 1;
 			if(y != 0 && y != height - 1) delta_x = ROOM_WIDTH_T - 1;
 			for(int x = 0; x < ROOM_WIDTH_T; x += delta_x) grid[y][x] = wallInstance;
 		}
 
-		// GENERA PORTE
+		//GENERA PORTE
 		for(int door = 0; door < n_doors_sides; door++) {
 			int xDoor, yDoor;
 			doors[door]->getPosition(xDoor, yDoor);
@@ -44,7 +44,7 @@
 				grid[y][x] = floorInstance;
 		}
 
-		// RIEMPI LA STANZA DI MURI E CORRIDOI
+		//RIEMPI LA STANZA DI MURI E CORRIDOI
 		int rand_x = rand() % ROOM_WIDTH_T, rand_y = rand() % height;
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < ROOM_WIDTH_T; x++) {
@@ -56,15 +56,15 @@
 			}
 		}
 
-		// FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
+		//FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
 		connectPaths(sets);
 
-		// RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
+		//RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
 		resizeMap();
 
 	}
 
-	void Room::draw(WINDOW* win, Coordinate win_size, Coordinate center) {
+	void Room::draw(Coordinate win_size, Coordinate center, chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH]) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
 		for(int y = center.y - win_size.y / 2; y < center.y + ceil(win_size.y / 2.); y++) {
 			for(int x = center.x - win_size.x / 2; x < center.x + ceil(win_size.x / 2.); x++) {

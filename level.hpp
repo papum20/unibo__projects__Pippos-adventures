@@ -34,6 +34,7 @@ class Level {
 		//int wallColor;
 		//int floorColor;
 		WINDOW *levelWindow;
+		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
 
 		//int n_rooms;			//numero di stanze (normali) generate per livello
 		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
@@ -50,7 +51,7 @@ class Level {
 	public:
 		Level(int win_y, int win_x, int win_h, int win_w);
 
-		void draw(Coordinate center);			//disegna la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa)
+		void print(Coordinate center);			//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa)
 		
 
 		//genera una stanza (come array bidimensionale)

@@ -12,8 +12,10 @@
 	}
 
 
-	void Level::draw(Coordinate center) {
-
+	void Level::print(Coordinate center) {
+		chtype t_scr[CAMERA_HEIGHT][CAMERA_WIDTH];
+		curRoom->draw({width, height}, center, t_scr);
+		
 	}
 
 

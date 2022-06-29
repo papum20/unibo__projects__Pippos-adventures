@@ -2,18 +2,22 @@
 #define FLOOR_HPP
 
 
-#include "physical.hpp"
-
-
-#define FLOOR_ID 2
+#include "inanimate.hpp"
 
 
 
-class Floor : public Physical {
+
+
+
+
+class Floor : public Inanimate {
 	private:
 
 	public:
 		Floor();
+
+		void drawAtPosition(WINDOW *win, Coordinate win_size, Coordinate pos);	//overridden
+
 };
 
 

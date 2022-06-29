@@ -17,6 +17,9 @@ typedef Animation *p_Animation;
 
 
 #define DEFAULT_ID 0
+#define WALL_ID 10
+#define FLOOR_ID 11
+
 
 
 const int MAX_ANIMATION = 6;

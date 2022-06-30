@@ -2,7 +2,7 @@
 #define BAT_HPP
 
 
-Class Bat: public Enemy {
+class Bat: public Enemy {
   private:
   
   protected:

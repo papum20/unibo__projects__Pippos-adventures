@@ -57,7 +57,7 @@ class Room {
 		// FUNZIONI
 		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array grid
 		// FUNZIONI AUSILIARIE PRINCIPALI
-		void generatePath(int x, int y, pUnionFind sets);		//genera un percorso casuale a partire da x,y
+		void generatePath(Coordinate s, pUnionFind sets);		//genera un percorso casuale a partire da x,y
 		void connectPaths(pUnionFind sets);						//fa in modo che ogni punto sia raggiungibile da ogni altro
 		void resizeMap();										//ridimensiona la mappa, allargando quella temporanea generata di X_SCALE
 		// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)

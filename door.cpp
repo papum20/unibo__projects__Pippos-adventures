@@ -11,9 +11,6 @@ Door::Door(int x, int y, pRoom room) {
 
 
 //// GET
-Coordinate Door::getPosition() {
-	return Coordinate(xPos, yPos);
-}
 pRoom Door::getConnected() {
 	return room;
 }

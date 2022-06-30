@@ -47,7 +47,7 @@ class Physical {
 
 		// GET
 		int getId();
-		void getPosition(Coordinate &out);
+		Coordinate getPosition();
 };
 
 typedef Physical *pPhysical;

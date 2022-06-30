@@ -33,8 +33,9 @@
 		//GENERA PORTE
 		for(int door = 0; door < n_doors_sides; door++) {
 			Coordinate door_p = doors[door]->getPosition();
+			door_p.setMatrix(width, height);
 			grid[door_p.y][door_p.x] = doors[door];
-			sets->makeSet(door_p.single(width));
+			sets->makeSet(door_p.single());
 		}
 
 		//CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
@@ -45,14 +46,13 @@
 
 		//RIEMPI LA STANZA DI MURI E CORRIDOI
 		Coordinate rand_p = Coordinate();
+		rand_p.setMatrix(width, height);
 		rand_p.randomize(0, ROOM_WIDTH_T, 0, height);
-		for(int y = 0; y < height; y++) {
-			for(int x = 0; x < ROOM_WIDTH_T; x++) {
-				int rx = (rand_x + x) % ROOM_WIDTH_T, ry = (rand_y + y) % height;
-				if(grid[ry][rx] == NULL) {
-					sets->makeSet(toSingleCoordinate(rx, ry));
-					generatePath(rx, ry, sets);
-				}
+		for(int i = 0; i < height * ROOM_WIDTH_T; i++) {
+			rand_p.next();
+			if(grid[rand_p.y][rand_p.x] == NULL) {
+				sets->makeSet(rand_p.single());
+				generatePath(rand_p, sets);
 			}
 		}
 
@@ -72,9 +72,8 @@
 				if(grid[y][x]->isInanimate()) grid[y][x]->drawAtPosition(scr, win_size, {y, x});
 				//per non disegnare più volte gli stessi oggetti li disegno solo quando incontro la loro posizione di partenza (l'angolo in basso a sinistra)
 				else {
-					Coordinate pos;
-					grid[y][x]->getPosition(pos);
-					if(pos.x == x && pos.y == y) grid[y][x]->drawAtPosition(scr, win_size);
+					Coordinate pos = grid[y][x]->getPosition();
+					if(pos.x == x && pos.y == y) grid[y][x]->drawAtOwnPosition(scr, win_size);
 				}
 			}
 		}
@@ -84,11 +83,11 @@
 #pragma region AUSILIARIE
 #pragma region AUSILIARIE_PRINCIPALI
 //// FUNZIONI AUSILIARIE PRINCIPALI
-	void Room::generatePath(int x, int y, pUnionFind sets)
+	void Room::generatePath(Coordinate s, pUnionFind sets)
 	{
-		if(!validCoordinates(x, y, 0, ROOM_WIDTH_T, 0, height)) return;
+		if(!s.inOwnBounds()) return;
 		else {
-			grid[y][x] = floorInstance;
+			grid[s.y][s.x] = floorInstance;
 
 			bool used_dirs[DIR_SIZE];		//direzioni usate
 			int used_dirs_n;
@@ -99,9 +98,9 @@
 			int tot_chance = DIR_CHANCES[0];	//somma delle probabilità delle direzioni disponibili
 			int unused_dirs_n = 0;
 			for(int d = 0; d < DIR_SIZE; d++) {
-				int nx = x + DIRECTIONS[d].x, ny = y + DIRECTIONS[d].y;
-				if(grid[ny][nx] == NULL) {
-					if(validCoordinates(nx, ny, 0, ROOM_WIDTH_T, 0, height)) {
+				Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
+				if(grid[nxt.y][nxt.x] == NULL) {
+					if(nxt.inOwnBounds()) {
 						used_dirs[d] = false;
 						unused_dirs_n++;
 						tot_chance += DIR_CHANCES[unused_dirs_n];
@@ -109,8 +108,8 @@
 				}
 				else {
 					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
-					if(grid[ny][nx]->getId() == FLOOR_ID)
-						sets->merge(toSingleCoordinate(x, y), toSingleCoordinate(nx, ny));
+					if(grid[nxt.y][nxt.x]->getId() == FLOOR_ID)
+						sets->merge(s.single(), nxt.single());
 					used_dirs[d] = true;
 				}
 			}
@@ -140,15 +139,15 @@
 
 				// PRIMA GENERA MURI E CASELLE ADIACENTI,
 				for(int d = 0; d < DIR_SIZE; d++) {
-					if(new_dirs[d]) grid[y + DIRECTIONS[d].y][x + DIRECTIONS[d].x] = floorInstance;
-					else if(!used_dirs[d]) grid[y + DIRECTIONS[d].y][x + DIRECTIONS[d].x] = wallInstance;
+					if(new_dirs[d]) grid[s.y + DIRECTIONS[d].y][s.x + DIRECTIONS[d].x] = floorInstance;
+					else if(!used_dirs[d]) grid[s.y + DIRECTIONS[d].y][s.x + DIRECTIONS[d].x] = wallInstance;
 				}
 				//POI VA IN RICORSIONE SULLE DIREZIONI
 				for(int d = 0; d < DIR_SIZE; d++) {
 					if(new_dirs[d]) {
-						int nx = x + DIRECTIONS[d].x, ny = y + DIRECTIONS[d].y;
-						sets->merge(toSingleCoordinate(x, y), toSingleCoordinate(nx, ny));
-						generatePath(nx, ny, sets);
+						Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
+						sets->merge(s.single(), nxt.single());
+						generatePath(nxt, sets);
 					}
 				}
 			}
@@ -179,7 +178,7 @@
 						if(adjacentWalls[brokenWall].x != -1 && adjacentWalls[brokenWall].y != -1) r--;
 						brokenWall++;
 					}
-					int bx = borderWalls[brokenWall].x, by = borderWalls[brokenWall].y;
+					Coordinate bw = borderWalls[brokenWall];
 					
 					/*
 					//CERCA LA GIUSTA DIREZIONE IN CUI ROMPERE
@@ -208,10 +207,10 @@
 
 					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
 					for(int dist = 0; dist <= distance; dist++) {
-						int dx = DIRECTIONS[breakDirections[brokenWall]].x, dy = DIRECTIONS[breakDirections[brokenWall]].y;
-						int tx = bx + dx * dist, ty = by + dy * dist;
-						grid[ty][tx] = floorInstance;
-						sets->merge(currentSet, toSingleCoordinate(tx, ty));
+						Coordinate dir = DIRECTIONS[breakDirections[brokenWall]];
+						Coordinate tw = Coordinate(bw, dir.getTimes(dist, dist));
+						grid[tw.x][tw.x] = floorInstance;
+						sets->merge(currentSet, tw.single());
 					}
 
 					hasConnected = true;
@@ -240,11 +239,10 @@
 		s_coord square = currentSet;
 		do {
 			for(int d = 0; d < DIR_SIZE; d++) {
-				int x, y;
-				toDoubleCoordinate(square, x, y);
-				int nx = x + DIRECTIONS[d].x, ny = y + DIRECTIONS[d].y;
-				if(validCoordinates(nx, ny, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) && grid[ny][nx]->getId() == WALL_ID) {
-					out[walls] = {nx, ny};
+				Coordinate p = Coordinate(square, width, height);
+				Coordinate nxt = Coordinate(p, DIRECTIONS[d]);
+				if(nxt.inOwnBounds() && grid[nxt.y][nxt.x]->getId() == WALL_ID) {
+					out[walls] = nxt;
 					walls++;
 				}
 			}
@@ -258,16 +256,17 @@
 			bool found = false;
 			while(!found && d < DIR_SIZE) {
 				rand_d = (rand_d + 1) % DIR_SIZE;
-				int nx = walls[i].x + DIRECTIONS[rand_d].x * distance, ny = walls[i].y + DIRECTIONS[rand_d].y * distance;
-				if(validCoordinates(nx, ny, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) && sets.find(toSingleCoordinate(nx, ny)) != parent) {
-					border[i] = {nx, ny};
+				Coordinate dir = DIRECTIONS[rand_d];
+				Coordinate nxt = Coordinate(walls[i], dir.getTimes(distance, distance));
+				if(nxt.inOwnBounds() && sets.find(nxt.single()) != parent) {
+					border[i] = {nxt.x, nxt.y};
 					border_n++;
 					directions[i] = rand_d;
 					found = true;
 				}
 				else d++;
 			}
-			if(!found) border[i] = {-1, -1};
+			if(!found) border[i] = Coordinate(-1, -1);
 		}
 		return border_n;
 	}

@@ -8,14 +8,11 @@
 
 class Door : public Physical {
 	private:
-		int xPos;
-		int yPos;
 		pRoom room;		//puntatore a stanza a cui collega
 	public:
 		Door(int x, int y, pRoom room);
 
 		// GET
-		Coordinate getPosition();
 		pRoom getConnected();				//ritorna il puntatore alla stanza collegata
 };
 

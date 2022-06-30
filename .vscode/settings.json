@@ -7,7 +7,8 @@
 		"limits": "cpp",
 		"type_traits": "cpp",
 		"ctime": "cpp",
-		"new": "cpp"
+		"new": "cpp",
+		"cstdlib": "cpp"
 	},
 
 	"C_Cpp.autocomplete": "Default",

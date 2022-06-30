@@ -1,7 +1,7 @@
 #include "character.hpp"
 
 
-Character::Character(int maxHealth) {
+Character::Character(int maxHealth) : Physical() {
 	
 }
 

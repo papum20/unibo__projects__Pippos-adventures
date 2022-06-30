@@ -16,6 +16,10 @@ struct Animation{
 typedef Animation *p_Animation;
 
 
+// ID
+#define INANIMATE_ID_S 10
+#define INANIMATE_ID_E 19
+
 #define DEFAULT_ID 0
 #define WALL_ID 10
 #define FLOOR_ID 11
@@ -31,15 +35,19 @@ class Physical {
 		int id;		//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animation[MAX_ANIMATION]; //array di liste di array bidimensionali
+
 		p_Animation tail_insert(p_Animation head, const char state[][ANIMATION_WIDTH], int width, int height);
 	public:
 		Physical();
-		void drawAtPosition(WINDOW *win, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
-		void drawAtPosition(WINDOW *win, Coordinate win_size);					//disegna l'oggetto nella finestra, nella sua posizione, secondo la sua animazione, entro i limiti della finestra
+		void drawAtPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
+		void drawAtOwnPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size);					//disegna l'oggetto nella finestra, nella sua posizione, secondo la sua animazione, entro i limiti della finestra
+
+		// BOOL
+		bool isInanimate();
 
 		// GET
-		void getPosition(Coordinate &out);
 		int getId();
+		void getPosition(Coordinate &out);
 };
 
 typedef Physical *pPhysical;

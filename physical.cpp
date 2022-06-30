@@ -7,15 +7,16 @@ Physical::Physical() {
         id = DEFAULT_ID;
     }
 
-void Physical::drawAtPosition(WINDOW *win, Coordinate win_size, Coordinate pos) {
+void Physical::drawAtPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate pos) {
 
 }
-void Physical::drawAtPosition(WINDOW *win, Coordinate win_size) {
-    drawAtPosition(win, win_size, {xPos, yPos});
+void Physical::drawAtOwnPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size) {
+    drawAtPosition(scr, win_size, {xPos, yPos});
 }
 
 
 
+#pragma region AUSILIARIE
 p_Animation Physical::tail_insert(p_Animation head, const char state[][ANIMATION_WIDTH], int width, int height) {
     if(head==NULL)
     {
@@ -49,3 +50,16 @@ p_Animation Physical::tail_insert(p_Animation head, const char state[][ANIMATION
         return(head);
     }
 }
+#pragma endregion AUSILIARIE
+
+#pragma region BOOL_GET_SET
+    bool Physical::isInanimate() {
+        return id >= INANIMATE_ID_S && id <= INANIMATE_ID_E;
+    }
+    int Physical::getId() {
+        return id;
+    }
+    void Physical::getPosition(Coordinate &out) {
+        out = {xPos, yPos};
+    }
+#pragma endregion BOOL_GET_SET

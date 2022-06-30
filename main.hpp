@@ -11,6 +11,7 @@
 #include "player.hpp"
 
 
+
 //// INIT
 	void cursesInit();
 	void gameInit();

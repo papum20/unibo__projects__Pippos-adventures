@@ -10,6 +10,7 @@
 #include "wall.hpp"
 #include "floor.hpp"
 #include "main.hpp"
+#include "coordinate.hpp"
 
 
 
@@ -25,11 +26,6 @@
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
 
 
-struct Coordinate {
-	int x;
-	int y;
-};
-typedef int s_coord;						//single coordinate
 
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)
 #define DIR_SIZE 4
@@ -69,11 +65,7 @@ class Room {
 		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
 					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
 					//e directions con le rispettive direzioni, ne ritorna il numero
-		//FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E USATE SPESSO)
-		s_coord toSingleCoordinate(int x, int y);					//converte una coppia di coordinate x,y in una singola coordinata (sulle dimensioni width e height)
-		void toDoubleCoordinate(s_coord xy, int &x, int &y);		//converte una coordinata (sulle dimensioni width e height) in una coppia x,y
-		bool validCoordinates(int x, int y, int xmin, int xmax, int ymin, int ymax);	//ritorna true se xmin<=x<xmax && ymin<=y<ymax
-		
+
 	public:
 		Room(int x, int y);
 		// GENERAZIONE
@@ -81,7 +73,7 @@ class Room {
 		// CONTROLLO
 		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 		// DISEGNO
-		void draw(Coordinate win_size, Coordinate center, chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH]);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
+		void draw(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
 																									//inquadra solo un rettangolo con le dimensioni dei parametri intorno al giocatore
 
 		// SET

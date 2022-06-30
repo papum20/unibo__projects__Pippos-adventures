@@ -3,6 +3,7 @@
 
 #include "physical.hpp"
 #include "room.hpp"
+#include "coordinate.hpp"
 
 
 class Door : public Physical {
@@ -14,7 +15,7 @@ class Door : public Physical {
 		Door(int x, int y, pRoom room);
 
 		// GET
-		void getPosition(int &x, int &y);
+		Coordinate getPosition();
 		pRoom getConnected();				//ritorna il puntatore alla stanza collegata
 };
 

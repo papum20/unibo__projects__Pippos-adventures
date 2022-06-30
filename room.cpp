@@ -1,7 +1,7 @@
 #include "room.hpp"
 
 
-
+#pragma region MAIN
 	Room::Room(int x, int y) {
 		//inzializza stanza
 		this->x = x;
@@ -32,10 +32,9 @@
 
 		//GENERA PORTE
 		for(int door = 0; door < n_doors_sides; door++) {
-			int xDoor, yDoor;
-			doors[door]->getPosition(xDoor, yDoor);
-			grid[yDoor][xDoor] = doors[door];
-			sets->makeSet(toSingleCoordinate(xDoor, yDoor));
+			Coordinate door_p = doors[door]->getPosition();
+			grid[door_p.y][door_p.x] = doors[door];
+			sets->makeSet(door_p.single(width));
 		}
 
 		//CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
@@ -45,7 +44,8 @@
 		}
 
 		//RIEMPI LA STANZA DI MURI E CORRIDOI
-		int rand_x = rand() % ROOM_WIDTH_T, rand_y = rand() % height;
+		Coordinate rand_p = Coordinate();
+		rand_p.randomize(0, ROOM_WIDTH_T, 0, height);
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < ROOM_WIDTH_T; x++) {
 				int rx = (rand_x + x) % ROOM_WIDTH_T, ry = (rand_y + y) % height;
@@ -64,24 +64,25 @@
 
 	}
 
-	void Room::draw(Coordinate win_size, Coordinate center, chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH]) {
+	void Room::draw(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
 		for(int y = center.y - win_size.y / 2; y < center.y + ceil(win_size.y / 2.); y++) {
 			for(int x = center.x - win_size.x / 2; x < center.x + ceil(win_size.x / 2.); x++) {
-				int id = grid[y][x]->getId();
 				//wall e floor hanno una singola istanza e sono un caso a parte
-				if(id == WALL_ID || id == FLOOR_ID) grid[y][x]->drawAtPosition(win, win_size, {y, x});
+				if(grid[y][x]->isInanimate()) grid[y][x]->drawAtPosition(scr, win_size, {y, x});
 				//per non disegnare più volte gli stessi oggetti li disegno solo quando incontro la loro posizione di partenza (l'angolo in basso a sinistra)
 				else {
 					Coordinate pos;
 					grid[y][x]->getPosition(pos);
-					if(pos.x == x && pos.y == y) grid[y][x]->drawAtPosition(win, win_size);
+					if(pos.x == x && pos.y == y) grid[y][x]->drawAtPosition(scr, win_size);
 				}
 			}
 		}
 	}
+#pragma endregion MAIN
 
-
+#pragma region AUSILIARIE
+#pragma region AUSILIARIE_PRINCIPALI
 //// FUNZIONI AUSILIARIE PRINCIPALI
 	void Room::generatePath(int x, int y, pUnionFind sets)
 	{
@@ -230,7 +231,9 @@
 			}
 		}
 	}
+#pragma endregion AUSILIARIE_PRINCIPALI
 
+#pragma region AUSILIARIE_SECONDARIE
 //// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
 	int Room::getAdjacentWalls(Coordinate out[], s_coord currentSet) {
 		int walls = 0;
@@ -268,19 +271,12 @@
 		}
 		return border_n;
 	}
+#pragma endregion AUSILIARIE_SECONDARIE
 
-//// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E USATE SPESSO)	
-	s_coord Room::toSingleCoordinate(int x, int y) {
-		return y * width + x;
-	}
-	void Room::toDoubleCoordinate(s_coord xy, int &x, int &y) {
-		y = xy / width;
-		x = xy - y * width;
-	}
-	bool Room::validCoordinates(int x, int y, int xmin, int xmax, int ymin, int ymax) {
-		return (x >= xmin && x < xmax && y >= ymin && y < ymax);
-	}
 
+#pragma endregion AUSILIARE
+
+#pragma region SET_GET
 //// SET
 	void Room::makeConnection(pRoom room, int dir) {
 		int dir2 = (dir+2) % DIR_SIZE;
@@ -312,3 +308,4 @@
 /*	int Room::getSideDoors() {
 		return n_doors_sides;
 	}*/
+#pragma endregion SET_GET

@@ -16,7 +16,7 @@ class Floor : public Inanimate {
 	public:
 		Floor();
 
-		void drawAtPosition(WINDOW *win, Coordinate win_size, Coordinate pos);	//overridden
+		void drawAtPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate pos);	//overridden
 
 };
 

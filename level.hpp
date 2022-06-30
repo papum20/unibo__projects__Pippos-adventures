@@ -8,6 +8,8 @@
 
 #define CAMERA_WIDTH 135	//larghezza (massima) inquadratura livello
 #define CAMERA_HEIGHT 35	//altezza (massima) inquadratura livello
+#define LR_BORDER 1
+#define TB_BORDER 1
 #define N_ROOMS 10			//numero di stanze (normali) generate per livello
 
 //dimensioni della matrice available (per generateMap)
@@ -25,12 +27,25 @@
 //const int floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
 
 
+//// COLORI
+#define COLOR_WALL COLOR_RED
+#define COLOR_TRANSPARENT COLOR_YELLOW	//per il muro quando diventa più chiaro se c'è qualcosa dietro
+#define COLOR_UPPER_WALL COLOR_BLACK	//bordo superiore muro
+#define COLOR_FLOOR COLOR_GREEN
+#define COLOR_SHADOW COLOR_CYAN			//per il pavimento con l'ombra di un oggetto
+
+
+
+
 
 class Level {
 	private:
 		//dimensioni dello schermo disponibile, ovvero della parte di stanza disegnata a schermo
 		int width;
 		int height;
+		//spessore bordi laterali (lr) e sopra e sotto (tb)
+		int lr_border;
+		int tb_border;
 		//int wallColor;
 		//int floorColor;
 		WINDOW *levelWindow;

@@ -64,16 +64,15 @@
 
 	}
 
-	void Room::draw(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
+	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
 		for(int y = center.y - win_size.y / 2; y < center.y + ceil(win_size.y / 2.); y++) {
 			for(int x = center.x - win_size.x / 2; x < center.x + ceil(win_size.x / 2.); x++) {
 				//wall e floor hanno una singola istanza e sono un caso a parte
 				if(grid[y][x]->isInanimate()) grid[y][x]->drawAtPosition(scr, win_size, {y, x});
-				//per non disegnare più volte gli stessi oggetti li disegno solo quando incontro la loro posizione di partenza (l'angolo in basso a sinistra)
 				else {
-					Coordinate pos = grid[y][x]->getPosition();
-					if(pos.x == x && pos.y == y) grid[y][x]->drawAtOwnPosition(scr, win_size);
+					grid[y][x]->drawAtOwnPosition(scr, win_size);
+					floorInstance->drawAtPosition(scr, win_size, Coordinate(x, y));
 				}
 			}
 		}
@@ -108,7 +107,7 @@
 				}
 				else {
 					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
-					if(grid[nxt.y][nxt.x]->getId() == FLOOR_ID)
+					if(grid[nxt.y][nxt.x]->getId() == ID_FLOOR)
 						sets->merge(s.single(), nxt.single());
 					used_dirs[d] = true;
 				}
@@ -241,7 +240,7 @@
 			for(int d = 0; d < DIR_SIZE; d++) {
 				Coordinate p = Coordinate(square, width, height);
 				Coordinate nxt = Coordinate(p, DIRECTIONS[d]);
-				if(nxt.inOwnBounds() && grid[nxt.y][nxt.x]->getId() == WALL_ID) {
+				if(nxt.inOwnBounds() && grid[nxt.y][nxt.x]->getId() == ID_WALL) {
 					out[walls] = nxt;
 					walls++;
 				}

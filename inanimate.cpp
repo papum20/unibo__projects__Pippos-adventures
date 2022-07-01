@@ -9,9 +9,12 @@ void Inanimate::init_colors() {
 
 }
 
-void Inanimate::drawAtPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate pos, attr_t color) {
-	if(pos.inOwnBounds()) {
-		chtype pixel = scr[pos.relative_x()][pos.relative_y()] | COLOR_PAIR();
-		scr[pos.relative_x()][pos.relative_y()] = pixel;
-	}
+void Inanimate::drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos, attr_t color) {
+	pos.setFullMatrix(win_start.x, win_start.y, -1, -1);
+	if(pos.inOwnBounds())
+		scr[pos.relative_x()][pos.relative_y()].edit(-1, -1, color, -1);
+}
+void Inanimate::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos) {
+	if(scr[pos.y][pos.x].getCh() == CHAR_EMPTY) drawCell(scr, win_start, pos, main_color);
+	else drawCell(scr, win_start, pos, second_color);
 }

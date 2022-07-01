@@ -1,23 +1,24 @@
 #ifndef DOOR_HPP
 #define DOOR_HPP
 
+
+#include "coordinate.hpp"
 #include "physical.hpp"
 #include "room.hpp"
-#include "coordinate.hpp"
 
 
 class Door : public Physical {
 	private:
-		pRoom room;		//puntatore a stanza a cui collega
+		Room *room;		//puntatore a stanza a cui collega
 	public:
-		Door(int x, int y, pRoom room);
+		Door(int x, int y, Room *room);
 
 		// GET
-		pRoom getConnected();				//ritorna il puntatore alla stanza collegata
+		Room *getConnected();				//ritorna il puntatore alla stanza collegata
 };
-
-
 typedef Door *pDoor;
+
+
 
 
 #endif

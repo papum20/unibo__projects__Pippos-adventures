@@ -1,17 +1,7 @@
 #ifndef ROOM_HPP
 #define ROOM_HPP
 
-#include "level.hpp"
-
-#include "union_find.hpp"
-
-#include "physical.hpp"
-#include "door.hpp"
-#include "wall.hpp"
-#include "floor.hpp"
-#include "main.hpp"
 #include "coordinate.hpp"
-
 
 
 #define X_SCALE 9									//coefficiente di "allargamento orizzontale" della stanza
@@ -26,7 +16,6 @@
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
 
 
-
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)
 #define DIR_SIZE 4
 //define DIR_COORD 2
@@ -35,6 +24,13 @@ const Coordinate DIRECTIONS[DIR_SIZE] = {{0,-1},{1,0},{0,1},{-1,0}};
 //la prima posizione indica la probabilità di generare in 0 nuove direzioni (cioè di fermarsi)
 const int DIR_CHANCES[DIR_SIZE + 1] = {5, 20, 10, 3, 1};
 
+
+#include "door.hpp"
+#include "floor.hpp"
+#include "main.hpp"
+#include "physical.hpp"
+#include "union_find.hpp"
+#include "wall.hpp"
 
 
 
@@ -73,7 +69,7 @@ class Room {
 		// CONTROLLO
 		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 		// DISEGNO
-		void draw(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
+		void draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
 																									//inquadra solo un rettangolo con le dimensioni dei parametri intorno al giocatore
 
 		// SET

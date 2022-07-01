@@ -19,6 +19,11 @@ void Cell::edit(char ch, int fg, int bg, attr_t att) {
 	if(bg >= 0) this->bg = bg;
 	if(att >= 0) this->att = att;
 }
+
+/// GET
+char getCh() {
+	return ch;
+}
 chtype Cell::toChtype() {
 	return ch | colorPair() | att;
 }

@@ -27,6 +27,7 @@ class Cell {
 
 		void edit(char ch, int fg, int bg, attr_t att);	//valori minori di 0 non modificano
 		// GET
+		char getCh();
 		chtype toChtype();								//converte in unico valore chtype
 		int colorPairNumber();
 		int colorPair();

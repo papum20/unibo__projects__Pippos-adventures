@@ -13,6 +13,9 @@
 #define DFLT_COORDINATE_SY 0
 
 
+typedef int s_coord;
+
+
 class Coordinate {
 	private:
 		int startx, starty;
@@ -39,7 +42,7 @@ class Coordinate {
 
 		//SET
 		void setMatrix(int width, int height);					//non imposta se <=0
-		void setFullMatrix(int sx, int sy, int ex, int ey);		//non imposta se <=0
+		void setFullMatrix(int sx, int sy, int ex, int ey);		//non imposta se <0 o start > end - 1
 		//GET
 		int relative_x();										//relativi alla matrice
 		int relative_y();
@@ -47,7 +50,6 @@ class Coordinate {
 };
 
 
-typedef int s_coord;
 
 
 

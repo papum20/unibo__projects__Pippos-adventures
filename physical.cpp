@@ -4,14 +4,14 @@
 
 
 Physical::Physical() {
-        id = DEFAULT_ID;
+        id = ID_DEFAULT;
     }
 
-void Physical::drawAtPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate pos) {
+void Physical::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos) {
 
 }
-void Physical::drawAtOwnPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size) {
-    drawAtPosition(scr, win_size, {xPos, yPos});
+void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start) {
+    drawAtPosition(scr, win_start, {xPos, yPos});
 }
 
 
@@ -54,7 +54,10 @@ p_Animation Physical::tail_insert(p_Animation head, const char state[][ANIMATION
 
 #pragma region BOOL_GET_SET
     bool Physical::isInanimate() {
-        return id >= INANIMATE_ID_S && id <= INANIMATE_ID_E;
+        return id >= ID_INANIMATE_S && id <= ID_INANIMATE_E;
+    }
+    bool Physical::isPlaceholder() {
+        return id == ID_PLACEHOLDER;
     }
     int Physical::getId() {
         return id;

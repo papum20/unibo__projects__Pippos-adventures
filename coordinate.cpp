@@ -72,14 +72,22 @@
 #pragma region SET_GET
 // SET
 	void Coordinate::setMatrix(int width, int height) {
-		this->endx = width;
-		this->endy = height;
+		if(width > 0) this->endx = width;
+		if(height > 0) this->endy = height;
 	}
 	void Coordinate::setFullMatrix(int sx, int ex, int sy, int ey) {
-		this->startx = startx;
-		this->endx = endx;
-		this->starty = starty;
-		this->endy = endy;
+		if(sx <= 0) sx = startx;
+		if(ex <= 0) ex = endx;
+		if(sy <= 0) sy = starty;
+		if(ey <= 0) ey = endy;
+		if(sx < ex) {
+			startx = sx;
+			endx = ex;
+		}
+		if(sy < ey) {
+			starty = sy;
+			endy = ey;
+		}
 	}
 
 //GET

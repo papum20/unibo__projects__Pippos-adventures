@@ -68,7 +68,7 @@ const char move_down[move_down_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 
 
-const int p_max_health;
+const int p_max_health = 10;
 //il suo attacco dipende dall'arma
 
 

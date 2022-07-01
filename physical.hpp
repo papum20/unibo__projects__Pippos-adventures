@@ -2,7 +2,6 @@
 #define PHYSICAL_HPP
 
 #include <iostream>
-#include "room.hpp"
 
 const int ANIMATION_WIDTH = 6;
 const int ANIMATION_HEIGHT = 5;
@@ -15,18 +14,22 @@ struct Animation{
 };
 typedef Animation *p_Animation;
 
-
 // ID
-#define INANIMATE_ID_S 10
-#define INANIMATE_ID_E 19
+#define ID_INANIMATE_S 10
+#define ID_INANIMATE_E 19
 
-#define DEFAULT_ID 0
-#define WALL_ID 10
-#define FLOOR_ID 11
-
-
+#define ID_DEFAULT 0
+#define ID_PLACEHOLDER 1
+#define ID_WALL 10
+#define ID_FLOOR 11
 
 const int MAX_ANIMATION = 6;
+
+
+#include "cell.hpp"
+#include "level.hpp"
+
+
 
 class Physical {
 	protected:
@@ -39,11 +42,12 @@ class Physical {
 		p_Animation tail_insert(p_Animation head, const char state[][ANIMATION_WIDTH], int width, int height);
 	public:
 		Physical();
-		void drawAtPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
-		void drawAtOwnPosition(chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size);					//disegna l'oggetto nella finestra, nella sua posizione, secondo la sua animazione, entro i limiti della finestra
+		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
+		void drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start);				//disegna l'oggetto nella finestra, nella sua posizione, secondo la sua animazione, entro i limiti della finestra
 
 		// BOOL
 		bool isInanimate();
+		bool isPlaceholder();
 
 		// GET
 		int getId();
@@ -55,4 +59,4 @@ typedef Physical *pPhysical;
 
 
 
-#endif PHYSICAL_HPP
+#endif

@@ -19,10 +19,12 @@ typedef Animation *p_Animation;
 #define DEFAULT_ID 0
 #define WALL_ID 10
 #define FLOOR_ID 11
+#define PLAYER_ID 20
 
 
 
-const int MAX_ANIMATION = 6;
+
+const int MAX_ANIMATION = 9;
 
 class Physical {
 	protected:

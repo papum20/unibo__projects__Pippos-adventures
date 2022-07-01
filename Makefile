@@ -1,5 +1,5 @@
-main: Bat.o cell.o character.o coordinate.o door.o floor.o inanimate.o level.o main.o physical.o pixel_art.o placeholder.o player.o powerups/health_potion.o room.o timer.o union_find.o wall.o
-	g++ Bat.o cell.o character.o coordinate.o door.o floor.o inanimate.o level.o main.o physical.o pixel_art.o placeholder.o player.o powerups/health_potion.o room.o timer.o union_find.o wall.o -lncurses -o main
+main: Bat.o cell.o character.o connected_room.o coordinate.o door.o floor.o inanimate.o level.o main.o physical.o pixel_art.o placeholder.o player.o powerups/health_potion.o room.o timer.o union_find.o wall.o
+	g++ Bat.o cell.o character.o connected_room.o coordinate.o door.o floor.o inanimate.o level.o main.o physical.o pixel_art.o placeholder.o player.o powerups/health_potion.o room.o timer.o union_find.o wall.o -lncurses -o main
 
 Bat.o: Bat.cpp Bat.hpp
 	g++ -c Bat.cpp
@@ -7,6 +7,8 @@ cell.o: cell.cpp cell.hpp
 	g++ -c cell.cpp
 character.o: character.cpp character.hpp
 	g++ -c character.cpp
+connected_room.o: connected_room.cpp connected_room.hpp
+	g++ -c connected_room.cpp
 coordinate.o: coordinate.cpp coordinate.hpp
 	g++ -c coordinate.cpp
 door.o: door.cpp door.hpp

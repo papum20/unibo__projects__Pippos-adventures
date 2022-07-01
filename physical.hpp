@@ -27,7 +27,6 @@ const int MAX_ANIMATION = 6;
 
 
 #include "cell.hpp"
-#include "level.hpp"
 
 
 

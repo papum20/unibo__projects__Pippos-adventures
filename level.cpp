@@ -102,7 +102,7 @@
 
 	void Level::print(Coordinate center) {
 		//inizializza array
-		chtype t_scr[CAMERA_HEIGHT][CAMERA_WIDTH];		//matrice temporanea per il nuovo schermo da stampare
+		Cell t_scr[CAMERA_HEIGHT][CAMERA_WIDTH];	//matrice temporanea per il nuovo schermo da stampare
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++)
 				t_scr[y][x] = ' ' | A_NORMAL | COLOR_PAIR(0);

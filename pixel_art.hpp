@@ -176,6 +176,10 @@ int ALPHABET[N_ALPHABET][ALPHABET_LENGHT][ALPHABET_HIGHT]={
     }
 };
 
+
+#include <curses.h>
+
+
 class Pixel_art {
 	private:
 

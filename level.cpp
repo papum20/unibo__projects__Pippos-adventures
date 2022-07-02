@@ -20,9 +20,9 @@
 		int available[MAX_AVAILABLE][DIM_AVAILABLE];
 		int n_available;		//spazi utilizzati
 		//stanze generate
-		pRoom rooms[N_ROOMS];
+		pCRoom rooms[N_ROOMS];
 		for(int i = 1; i < N_ROOMS; i++) rooms[i] = NULL;
-		rooms[0] = new Room(0, 0);
+		rooms[0] = new ConnectedRoom(0, 0);
 		this->curRoom = rooms[0];
 		//aggiungi ad available le posizioni adiacenti alla prima stanza
 		int r = rand() % DIR_SIZE;
@@ -52,7 +52,7 @@
 			} while(executions > 0);
 			//crea la stanza
 			int cx = available[randRoom][AV_X], cy = available[randRoom][AV_Y];	//x,y correnti
-			rooms[room] = new Room(cx, cy);
+			rooms[room] = new ConnectedRoom(cx, cy);
 
 			//aggiorna stanze adiacenti e celle disponibili
 			bool first = true;
@@ -61,7 +61,7 @@
 			{
 				int c_dir = (r+j) % DIR_SIZE;												//direzione corrente (indice)
 				int nx = cx + DIRECTIONS[c_dir].x, ny = cy + DIRECTIONS[c_dir].y;			//x,y da controllare
-				pRoom adjacent_room = findRoomAtCoordinates(rooms, room, nx, ny);
+				pCRoom adjacent_room = findRoomAtCoordinates(rooms, room, nx, ny);
 				int adjacent_cell = findCellAtCoordinates(available, nx, ny);
 
 				//se è una stanza, collegala a quella appena generata
@@ -124,9 +124,9 @@
 
 #pragma region AUSILIARIE
 //// AUSILIARIE
-	pRoom Level::findRoomAtCoordinates(pRoom rooms[], int len, int x, int y) {
+	pCRoom Level::findRoomAtCoordinates(pCRoom rooms[], int len, int x, int y) {
 		int i = 0;
-		pRoom res = NULL;
+		pCRoom res = NULL;
 		while(res == NULL && i < len) {
 			if(rooms[i]->getX() == x && rooms[i]->getY() == y) res = rooms[i];
 			else i++;

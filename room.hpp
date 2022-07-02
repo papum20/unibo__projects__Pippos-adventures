@@ -4,15 +4,6 @@
 #include "coordinate.hpp"
 
 
-#define X_SCALE 9									//coefficiente di "allargamento orizzontale" della stanza
-
-#define ROOM_WIDTH_T 30								//larghezza (senza scala) stanza
-#define ROOM_WIDTH (ROOM_WIDTH_T * X_SCALE)//320	//larghezza (reale) stanza
-#define ROOM_HEIGHT 40//180							//altezza stanza
-#define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT)
-#define CENTRAL_ROOM_SIZE 8							//dimensioni dello spazio vuoto quadrato al centro
-
-
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)
 #define DIR_SIZE 4
 //define DIR_COORD 2
@@ -22,8 +13,9 @@ const Coordinate DIRECTIONS[DIR_SIZE] = {{0,-1},{1,0},{0,1},{-1,0}};
 const int DIR_CHANCES[DIR_SIZE + 1] = {5, 20, 10, 3, 1};
 
 
+#include "definitions.hpp"
 #include "floor.hpp"
-#include "main.hpp"
+#include "maths.hpp"
 #include "physical.hpp"
 #include "union_find.hpp"
 #include "wall.hpp"

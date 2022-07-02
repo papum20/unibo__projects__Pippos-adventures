@@ -2,8 +2,7 @@
 #define HEALTH_POTION_HPP
 
 
-#include "powerup.hpp"
-#include "player.hpp"
+#include "../powerup.hpp"
 #define HEALTH_GAINED 10
 
 

@@ -37,6 +37,8 @@ class Room {
 		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
 					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
 					//e directions con le rispettive direzioni, ne ritorna il numero
+		// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E RICORRENTI)
+		void swapPositions(Coordinate a, Coordinate b);
 
 	protected:
 		int width;
@@ -53,16 +55,18 @@ class Room {
 		Room(int x, int y);
 		// GENERAZIONE
 //		void addNthDoor(int n);	//aggiunge una porta nell'n-esima posizione disponibile
-		// CONTROLLO
-		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 		// DISEGNO
 		void draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
 																									//inquadra solo un rettangolo con le dimensioni dei parametri intorno al giocatore
+		// MOVIMENTO
+		bool moveObject(Physical ob, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
+														//precondizione: ob.pos ha bound impostati
 
 		// SET
 		// GET
 		int getX();
 		int getY();
+		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 };
 
 

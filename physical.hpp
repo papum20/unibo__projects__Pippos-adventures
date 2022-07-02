@@ -31,6 +31,7 @@ const int MAX_ANIMATION = 6;
 #define ID_PLACEHOLDER 1
 #define ID_WALL 10
 #define ID_FLOOR 11
+#define ID_DOOR 20
 #pragma endregion PHYSICAL_IDS
 
 //// COSTANTI PER LA RAPPRESENTAZIONE GRAFICA
@@ -59,8 +60,7 @@ const int MAX_ANIMATION = 6;
 
 class Physical {
 	protected:
-		int xPos;
-		int yPos;
+		Coordinate pos;
 		int id;		//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animation[MAX_ANIMATION]; //array di liste di array bidimensionali

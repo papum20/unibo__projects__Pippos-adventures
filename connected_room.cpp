@@ -33,7 +33,7 @@
 			door_p.setMatrix(width, height);
 			grid[door_p.y][door_p.x] = doors[door];
 			sets->makeSet(door_p.single());
-		}	
+		}
 	}
 #pragma endregion AUSILIARIE
 

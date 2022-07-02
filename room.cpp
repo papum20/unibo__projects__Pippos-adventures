@@ -45,6 +45,16 @@
 			}
 		}
 	}
+
+	bool Room::moveObject(Physical ob, Coordinate move) {
+		Coordinate newPos = Coordinate(ob.getPosition(), move);
+		if(newPos.inOwnBounds() || grid[newPos.y][newPos.x]->getId() != ID_FLOOR || ob.isInanimate() || ob.getId() == ID_DOOR)
+			return false;
+		else {
+			swapPositions(newPos, ob.getPosition());
+			return true;
+		}
+	}
 #pragma endregion MAIN
 
 #pragma region AUSILIARIE
@@ -265,10 +275,22 @@
 	}
 #pragma endregion AUSILIARIE_SECONDARIE
 
+#pragma region AUSILIARIE_GENERICHE
+	void Room::swapPositions(Coordinate a, Coordinate b) {
+		pPhysical tmp = grid[a.y][a.x];
+		grid[a.y][a.x] = grid[b.y][b.x];
+		grid[b.y][b.x] = tmp;
+	}
+#pragma endregion AUSILIARIE_GENERICHE
 
 #pragma endregion AUSILIARE
 
 #pragma region SET_GET
+	pPhysical Room::checkPosition(Coordinate pos) {
+		if(!pos.inBounds(Coordinate(0, 0), Coordinate(width, height)))
+			return grid[pos.y][pos.x];
+		else return NULL;
+	}
 //// GET
 	int Room::getX() {
 		return x;

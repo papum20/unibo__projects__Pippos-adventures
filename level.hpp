@@ -1,15 +1,12 @@
-#ifndef LEVEL_HPP
-#define LEVEL_HPP
-
-#include <cstdlib>
-#include <curses.h>
-#include "room.hpp"
-
-
+#ifndef CAMERA_WIDTH
+//// COSTANTI DI INIZIALIZZAZIONE ATTRIBUTI DI LEVEL
 #define CAMERA_WIDTH 135	//larghezza (massima) inquadratura livello
 #define CAMERA_HEIGHT 35	//altezza (massima) inquadratura livello
+#define LR_BORDER 1
+#define TB_BORDER 1
 #define N_ROOMS 10			//numero di stanze (normali) generate per livello
 
+// COSTANTI PER L'IMPLEMENTAZIONE DELLA GENERAZIONE
 //dimensioni della matrice available (per generateMap)
 #define MAX_AVAILABLE (N_ROOMS * 2 + 2)
 #define DIM_AVAILABLE 3
@@ -17,12 +14,38 @@
 #define AV_X 0
 #define AV_Y 1
 #define AV_N 2
-
 #define MAX_RAND_EXEC 3		//massimo numero di esecuzione di cicli che terminano solo in base a un numero random
 #define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
+#endif
+
+
+#ifndef LEVEL_HPP
+#define LEVEL_HPP
+
+#include <cstdlib>
+#include <curses.h>
+
+
+
+
+//// COSTANTI PER LA RAPPRESENTAZIONE GRAFICA
+#pragma region GRAPHICS
+// COLORI
+#define COLOR_WALL COLOR_RED
+#define COLOR_TRANSPARENT COLOR_YELLOW	//per il muro quando diventa più chiaro se c'è qualcosa dietro
+#define COLOR_UPPER_WALL COLOR_BLACK	//bordo superiore muro
+#define COLOR_FLOOR COLOR_GREEN
+#define COLOR_SHADOW COLOR_CYAN			//per il pavimento con l'ombra di un oggetto
+// CARATTERI
+#define CHAR_EMPTY ' '
 
 //const int wallColors[5] = {COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA};
 //const int floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
+#pragma endregion GRAPHICS
+
+
+#include "cell.hpp"
+#include "room.hpp"
 
 
 
@@ -31,8 +54,10 @@ class Level {
 		//dimensioni dello schermo disponibile, ovvero della parte di stanza disegnata a schermo
 		int width;
 		int height;
-		//int wallColor;
-		//int floorColor;
+		//spessore bordi laterali (lr) e sopra e sotto (tb)
+		int lr_border;
+		int tb_border;
+
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
 

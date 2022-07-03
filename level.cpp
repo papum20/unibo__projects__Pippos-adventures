@@ -1,23 +1,17 @@
 #include "level.hpp"
 
-
+#pragma region MAIN
 	Level::Level(int win_y, int win_x, int win_h, int win_w) {
 		width = CAMERA_WIDTH;
 		height = CAMERA_HEIGHT;
+		lr_border = LR_BORDER;
+		tb_border = TB_BORDER;
 
 		//n_rooms = N_ROOMS;
 		levelWindow = newwin(win_y, win_x, win_h, win_w);
 
 		generateMap();
 	}
-
-
-	void Level::print(Coordinate center) {
-		chtype t_scr[CAMERA_HEIGHT][CAMERA_WIDTH];
-		curRoom->draw({width, height}, center, t_scr);
-		
-	}
-
 
 	void Level::generateMap()
 	{
@@ -106,9 +100,29 @@
 		}
 	}
 
+	void Level::print(Coordinate center) {
+		//inizializza array
+		Cell t_scr[CAMERA_HEIGHT][CAMERA_WIDTH];	//matrice temporanea per il nuovo schermo da stampare
+		//fai riempire l'array alla stanza corrente
+		curRoom->draw(t_scr, {width, height}, center);
+
+		//stampa e aggiorna array corrente
+		for(int y = tb_border; y < height - tb_border; y++) {
+			for(int x = lr_border; x < width - lr_border; x++) {
+				chtype cellValue = t_scr[y][x].toChtype();
+				if(screen[y][x] != cellValue) {
+					mvwaddch(levelWindow, y, lr_border, cellValue);
+					screen[y][x] = cellValue;
+				}
+			}
+		}
+	}
 
 
+#pragma endregion MAIN
 
+
+#pragma region AUSILIARIE
 //// AUSILIARIE
 	pRoom Level::findRoomAtCoordinates(pRoom rooms[], int len, int x, int y) {
 		int i = 0;
@@ -150,3 +164,4 @@
 			i = t;
 		}
 	}
+#pragma endregion AUSILIARIE

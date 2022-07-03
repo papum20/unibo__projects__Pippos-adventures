@@ -13,14 +13,13 @@
 
 class Wall : public Inanimate {
 	private:
-		//color
-		//char
+		int top_color;
 		int height;
 
 	public:
 		Wall();
 
-		void drawAtPosition(WINDOW *win, Coordinate win_size, Coordinate pos);	//overridden
+		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);	//overridden
 
 };
 

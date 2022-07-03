@@ -93,9 +93,23 @@ const char dash_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 
 
-const int p_max_health;
+const int p_max_health = 10;
 //il suo attacco dipende dall'arma
 
+//timer
+const int timer_idle = 0;
+const int timer_dash_animation = 1;
+const int timer_dash_trail = 2;
+const int timer_dash_countdown = 3;
+//
+
+const int dash_button = (int)'d';
+const int n_dash_move = 5; //numero di caselle dello spostamento del dash
+const int dash_stamina = 10; //numero di stamina che serve per fare la scivolata
+const int mv_up=KEY_UP;          //generalizzazione del movimento
+const int mv_down=KEY_DOWN;
+const int mv_left=KEY_LEFT;
+const int mv_right=KEY_RIGHT;
 
 class Player : public Character {
 	private:

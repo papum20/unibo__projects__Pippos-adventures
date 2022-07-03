@@ -49,8 +49,7 @@ int main() {
 
 
 
-
-
+#pragma region FUNZIONI
 void cursesInit() {
 	initscr();			//inizializza schermo ncurses
 	start_color();		//inizializza colori
@@ -71,3 +70,4 @@ int ceil(double n) {
 	if(n < 0 || n - (int)n == 0) return n;
 	else return n + 1;
 }
+#pragma endregion FUNZIONI

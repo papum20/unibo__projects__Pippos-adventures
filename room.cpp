@@ -1,7 +1,7 @@
 #include "room.hpp"
 
 
-
+#pragma region MAIN
 	Room::Room(int x, int y) {
 		//inzializza stanza
 		this->x = x;
@@ -14,80 +14,153 @@
 
 		for(int y = 0; y < height; y++)
 			for(int x = 0; x < width; x++) grid[y][x] = NULL;
-		//inizializza porte/stanze collegate
-		n_doors_max = MAX_CONNECTED_R;
-		for(int i = 0; i < n_doors_max; i++) doors[i] = NULL;
 	}
 
 	void Room::generate()
 	{
 		pUnionFind sets = new UnionFind();
-
 		//GENERA MURI LATERALI
+		generateSidesWalls();
+		//GENERA PORTE
+		//CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
+		generateInnerRoom();
+		//RIEMPI LA STANZA DI MURI E CORRIDOI
+		generateAllPaths(sets);
+		//FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
+		connectPaths(sets);
+		//RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
+		resizeMap();
+	}
+
+	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
+		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
+		for(int y = center.y - win_size.y / 2; y < center.y + ceil(win_size.y / 2.); y++) {
+			for(int x = center.x - win_size.x / 2; x < center.x + ceil(win_size.x / 2.); x++) {
+				//wall e floor hanno una singola istanza e sono un caso a parte
+				if(grid[y][x]->isInanimate()) grid[y][x]->drawAtPosition(scr, win_size, {y, x});
+				else {
+					grid[y][x]->drawAtOwnPosition(scr, win_size);
+					floorInstance->drawAtPosition(scr, win_size, Coordinate(x, y));
+				}
+			}
+		}
+	}
+#pragma endregion MAIN
+
+#pragma region AUSILIARIE
+#pragma region AUSILIARIE_PRINCIPALI
+//// FUNZIONI AUSILIARIE PRINCIPALI
+	void Room::generateSidesWalls() {
 		for(int y = 0; y < height; y++) {
 			int delta_x = 1;
 			if(y != 0 && y != height - 1) delta_x = ROOM_WIDTH_T - 1;
 			for(int x = 0; x < ROOM_WIDTH_T; x += delta_x) grid[y][x] = wallInstance;
 		}
-
-		//GENERA PORTE
-		for(int door = 0; door < n_doors_sides; door++) {
-			int xDoor, yDoor;
-			doors[door]->getPosition(xDoor, yDoor);
-			grid[yDoor][xDoor] = doors[door];
-			sets->makeSet(toSingleCoordinate(xDoor, yDoor));
-		}
-
-		//CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
+	}
+	void Room::generateInnerRoom() {
 		for(int y = (ROOM_HEIGHT - CENTRAL_ROOM_SIZE) / 2; y < (ROOM_HEIGHT + CENTRAL_ROOM_SIZE) / 2; y++) {
 			for(int x = (ROOM_WIDTH_T - CENTRAL_ROOM_SIZE) / 2; x < (ROOM_WIDTH_T + CENTRAL_ROOM_SIZE) / 2; x++)
 				grid[y][x] = floorInstance;
 		}
-
-		//RIEMPI LA STANZA DI MURI E CORRIDOI
-		int rand_x = rand() % ROOM_WIDTH_T, rand_y = rand() % height;
-		for(int y = 0; y < height; y++) {
-			for(int x = 0; x < ROOM_WIDTH_T; x++) {
-				int rx = (rand_x + x) % ROOM_WIDTH_T, ry = (rand_y + y) % height;
-				if(grid[ry][rx] == NULL) {
-					sets->makeSet(toSingleCoordinate(rx, ry));
-					generatePath(rx, ry, sets);
-				}
-			}
-		}
-
-		//FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
-		connectPaths(sets);
-
-		//RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
-		resizeMap();
-
 	}
-
-	void Room::draw(Coordinate win_size, Coordinate center, chtype scr[CAMERA_HEIGHT][CAMERA_WIDTH]) {
-		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
-		for(int y = center.y - win_size.y / 2; y < center.y + ceil(win_size.y / 2.); y++) {
-			for(int x = center.x - win_size.x / 2; x < center.x + ceil(win_size.x / 2.); x++) {
-				int id = grid[y][x]->getId();
-				//wall e floor hanno una singola istanza e sono un caso a parte
-				if(id == WALL_ID || id == FLOOR_ID) grid[y][x]->drawAtPosition(win, win_size, {y, x});
-				//per non disegnare più volte gli stessi oggetti li disegno solo quando incontro la loro posizione di partenza (l'angolo in basso a sinistra)
-				else {
-					Coordinate pos;
-					grid[y][x]->getPosition(pos);
-					if(pos.x == x && pos.y == y) grid[y][x]->drawAtPosition(win, win_size);
-				}
+	void Room::generateAllPaths(pUnionFind sets) {
+		Coordinate rand_p = Coordinate();
+		rand_p.setMatrix(width, height);
+		rand_p.randomize(0, width, 0, height);
+		for(int i = 0; i < height * width; i++) {
+			rand_p.next();
+			if(grid[rand_p.y][rand_p.x] == NULL) {
+				sets->makeSet(rand_p.single());
+				generatePath(rand_p, sets);
 			}
 		}
 	}
+	
+	void Room::connectPaths(pUnionFind sets) {
+		while(sets->getNumber() > 1) {
+			bool hasConnected = false;
+			int distance = 1;
 
+			//TROVA I MURI ADIACENTI AL SET
+			s_coord currentSet = sets->getNth(rand() % sets->getNumber());
+			Coordinate adjacentWalls[ROOM_AREA_T], borderWalls[ROOM_AREA_T];
+			int breakDirections[ROOM_AREA_T];
+			int adjacentWalls_n = getAdjacentWalls(adjacentWalls, currentSet), borderWalls_n = 0;
 
-//// FUNZIONI AUSILIARIE PRINCIPALI
-	void Room::generatePath(int x, int y, pUnionFind sets)
+			//FINCHÉ NON HA CONNESSO QUALCOSA, CERCA SET CHE CONFININO A UNA DETERMINATA DISTANZA OPPURE AUMENTA LA DISTANZA
+			while(!hasConnected) {
+				//OTTIENI I MURI DI CONFINE TRA DUE SET DIVERSI
+				borderWalls_n = getBorderWalls(borderWalls, breakDirections, adjacentWalls, adjacentWalls_n, *sets, currentSet, distance);
+
+				//SE NE HA TROVATI: CONNETTI (ROMPI IL MURO/I MURI)
+				if(borderWalls_n != 0) {
+					//ROMPI UN MURO A CASO TRA QUELLI TROVATI
+					int r = rand() % borderWalls_n, brokenWall = 0;
+					while(r > 0) {
+						if(adjacentWalls[brokenWall].x != -1 && adjacentWalls[brokenWall].y != -1) r--;
+						brokenWall++;
+					}
+					Coordinate bw = borderWalls[brokenWall];
+					
+					/*
+					//CERCA LA GIUSTA DIREZIONE IN CUI ROMPERE
+					int rand_dir = rand() % DIR_SIZE;
+					int self_x, self_y;
+					int adjacent_x, adjacent_y;
+					do {
+						int dx = DIRECTIONS[rand_dir].x, dy = DIRECTIONS[rand_dir].y;
+						self_x = bx + dx, self_y = by + dy;
+						adjacent_x = bx + dx * distance, adjacent_y = by + dy * distance;
+						rand_dir = (rand_dir + 1) % DIR_SIZE;
+					} while(!validCoordinates(self_x, self_y, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) || 
+							!validCoordinates(adjacent_x, adjacent_y, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) || 
+							sets->find(toSingleCoordinate(self_x, self_y)) != currentSet ||
+							grid[adjacent_y][adjacent_x] == wallInstance || 
+							sets->find(toSingleCoordinate(adjacent_x, adjacent_y)) == currentSet);					
+					//non servono altri controlli perché si ha la certezza che il ciclo termini
+
+					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
+					for(int i = 0; i <= distance; i++) {
+						int diff_x = bx - self_x, diff_y = by - self_y;
+						int tx = bx + diff_x * i, ty = by + diff_y * i;
+						grid[ty][tx] = floorInstance;
+						sets->merge(currentSet, toSingleCoordinate(tx, ty));
+					}*/
+
+					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
+					for(int dist = 0; dist <= distance; dist++) {
+						Coordinate dir = DIRECTIONS[breakDirections[brokenWall]];
+						Coordinate tw = Coordinate(bw, dir.getTimes(dist, dist));
+						grid[tw.x][tw.x] = floorInstance;
+						sets->merge(currentSet, tw.single());
+					}
+
+					hasConnected = true;
+				}
+				//ALTRIMENTI CERCA A UNA DISTANZA MAGGIORE
+				else
+					distance++;
+			}
+		}
+	}
+
+	void Room::resizeMap() {
+		for(int y = 0; y < ROOM_HEIGHT; y++) {
+			for(int x = ROOM_WIDTH_T; x >= 0; x++) {
+				for(int s = 0; s < X_SCALE; s++)
+					grid[y][x * X_SCALE + s] = grid[y][x];
+			}
+		}
+	}
+#pragma endregion AUSILIARIE_PRINCIPALI
+
+#pragma region AUSILIARIE_SECONDARIE
+//// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
+	void Room::generatePath(Coordinate s, pUnionFind sets)
 	{
-		if(!validCoordinates(x, y, 0, ROOM_WIDTH_T, 0, height)) return;
+		if(!s.inOwnBounds()) return;
 		else {
-			grid[y][x] = floorInstance;
+			grid[s.y][s.x] = floorInstance;
 
 			bool used_dirs[DIR_SIZE];		//direzioni usate
 			int used_dirs_n;
@@ -98,9 +171,9 @@
 			int tot_chance = DIR_CHANCES[0];	//somma delle probabilità delle direzioni disponibili
 			int unused_dirs_n = 0;
 			for(int d = 0; d < DIR_SIZE; d++) {
-				int nx = x + DIRECTIONS[d].x, ny = y + DIRECTIONS[d].y;
-				if(grid[ny][nx] == NULL) {
-					if(validCoordinates(nx, ny, 0, ROOM_WIDTH_T, 0, height)) {
+				Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
+				if(grid[nxt.y][nxt.x] == NULL) {
+					if(nxt.inOwnBounds()) {
 						used_dirs[d] = false;
 						unused_dirs_n++;
 						tot_chance += DIR_CHANCES[unused_dirs_n];
@@ -108,8 +181,8 @@
 				}
 				else {
 					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
-					if(grid[ny][nx]->getId() == FLOOR_ID)
-						sets->merge(toSingleCoordinate(x, y), toSingleCoordinate(nx, ny));
+					if(grid[nxt.y][nxt.x]->getId() == ID_FLOOR)
+						sets->merge(s.single(), nxt.single());
 					used_dirs[d] = true;
 				}
 			}
@@ -139,109 +212,30 @@
 
 				// PRIMA GENERA MURI E CASELLE ADIACENTI,
 				for(int d = 0; d < DIR_SIZE; d++) {
-					if(new_dirs[d]) grid[y + DIRECTIONS[d].y][x + DIRECTIONS[d].x] = floorInstance;
-					else if(!used_dirs[d]) grid[y + DIRECTIONS[d].y][x + DIRECTIONS[d].x] = wallInstance;
+					if(new_dirs[d]) grid[s.y + DIRECTIONS[d].y][s.x + DIRECTIONS[d].x] = floorInstance;
+					else if(!used_dirs[d]) grid[s.y + DIRECTIONS[d].y][s.x + DIRECTIONS[d].x] = wallInstance;
 				}
 				//POI VA IN RICORSIONE SULLE DIREZIONI
 				for(int d = 0; d < DIR_SIZE; d++) {
 					if(new_dirs[d]) {
-						int nx = x + DIRECTIONS[d].x, ny = y + DIRECTIONS[d].y;
-						sets->merge(toSingleCoordinate(x, y), toSingleCoordinate(nx, ny));
-						generatePath(nx, ny, sets);
+						Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
+						sets->merge(s.single(), nxt.single());
+						generatePath(nxt, sets);
 					}
 				}
 			}
 		}
 	}
-	
-	void Room::connectPaths(pUnionFind sets) {
-		while(sets->getNumber() > 1) {
-			bool hasConnected = false;
-			int distance = 1;
 
-			//TROVA I MURI ADIACENTI AL SET
-			s_coord currentSet = sets->getNth(rand() % sets->getNumber());
-			Coordinate adjacentWalls[ROOM_AREA_T], borderWalls[ROOM_AREA_T];
-			int breakDirections[ROOM_AREA_T];
-			int adjacentWalls_n = getAdjacentWalls(adjacentWalls, currentSet), borderWalls_n = 0;
-
-			//FINCHÉ NON HA CONNESSO QUALCOSA, CERCA SET CHE CONFININO A UNA DETERMINATA DISTANZA OPPURE AUMENTA LA DISTANZA
-			while(!hasConnected) {
-				//OTTIENI I MURI DI CONFINE TRA DUE SET DIVERSI
-				borderWalls_n = getBorderWalls(borderWalls, breakDirections, adjacentWalls, adjacentWalls_n, *sets, currentSet, distance);
-
-				//SE NE HA TROVATI: CONNETTI (ROMPI IL MURO/I MURI)
-				if(borderWalls_n != 0) {
-					//ROMPI UN MURO A CASO TRA QUELLI TROVATI
-					int r = rand() % borderWalls_n, brokenWall = 0;
-					while(r > 0) {
-						if(adjacentWalls[brokenWall].x != -1 && adjacentWalls[brokenWall].y != -1) r--;
-						brokenWall++;
-					}
-					int bx = borderWalls[brokenWall].x, by = borderWalls[brokenWall].y;
-					
-					/*
-					//CERCA LA GIUSTA DIREZIONE IN CUI ROMPERE
-					int rand_dir = rand() % DIR_SIZE;
-					int self_x, self_y;
-					int adjacent_x, adjacent_y;
-					do {
-						int dx = DIRECTIONS[rand_dir].x, dy = DIRECTIONS[rand_dir].y;
-						self_x = bx + dx, self_y = by + dy;
-						adjacent_x = bx + dx * distance, adjacent_y = by + dy * distance;
-						rand_dir = (rand_dir + 1) % DIR_SIZE;
-					} while(!validCoordinates(self_x, self_y, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) || 
-							!validCoordinates(adjacent_x, adjacent_y, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) || 
-							sets->find(toSingleCoordinate(self_x, self_y)) != currentSet ||
-							grid[adjacent_y][adjacent_x] == wallInstance || 
-							sets->find(toSingleCoordinate(adjacent_x, adjacent_y)) == currentSet);					
-					//non servono altri controlli perché si ha la certezza che il ciclo termini
-
-					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
-					for(int i = 0; i <= distance; i++) {
-						int diff_x = bx - self_x, diff_y = by - self_y;
-						int tx = bx + diff_x * i, ty = by + diff_y * i;
-						grid[ty][tx] = floorInstance;
-						sets->merge(currentSet, toSingleCoordinate(tx, ty));
-					}*/
-
-					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
-					for(int dist = 0; dist <= distance; dist++) {
-						int dx = DIRECTIONS[breakDirections[brokenWall]].x, dy = DIRECTIONS[breakDirections[brokenWall]].y;
-						int tx = bx + dx * dist, ty = by + dy * dist;
-						grid[ty][tx] = floorInstance;
-						sets->merge(currentSet, toSingleCoordinate(tx, ty));
-					}
-
-					hasConnected = true;
-				}
-				//ALTRIMENTI CERCA A UNA DISTANZA MAGGIORE
-				else
-					distance++;
-			}
-		}
-	}
-
-	void Room::resizeMap() {
-		for(int y = 0; y < ROOM_HEIGHT; y++) {
-			for(int x = ROOM_WIDTH_T; x >= 0; x++) {
-				for(int s = 0; s < X_SCALE; s++)
-					grid[y][x * X_SCALE + s] = grid[y][x];
-			}
-		}
-	}
-
-//// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
 	int Room::getAdjacentWalls(Coordinate out[], s_coord currentSet) {
 		int walls = 0;
 		s_coord square = currentSet;
 		do {
 			for(int d = 0; d < DIR_SIZE; d++) {
-				int x, y;
-				toDoubleCoordinate(square, x, y);
-				int nx = x + DIRECTIONS[d].x, ny = y + DIRECTIONS[d].y;
-				if(validCoordinates(nx, ny, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) && grid[ny][nx]->getId() == WALL_ID) {
-					out[walls] = {nx, ny};
+				Coordinate p = Coordinate(square, width, height);
+				Coordinate nxt = Coordinate(p, DIRECTIONS[d]);
+				if(nxt.inOwnBounds() && grid[nxt.y][nxt.x]->getId() == ID_WALL) {
+					out[walls] = nxt;
 					walls++;
 				}
 			}
@@ -255,49 +249,26 @@
 			bool found = false;
 			while(!found && d < DIR_SIZE) {
 				rand_d = (rand_d + 1) % DIR_SIZE;
-				int nx = walls[i].x + DIRECTIONS[rand_d].x * distance, ny = walls[i].y + DIRECTIONS[rand_d].y * distance;
-				if(validCoordinates(nx, ny, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) && sets.find(toSingleCoordinate(nx, ny)) != parent) {
-					border[i] = {nx, ny};
+				Coordinate dir = DIRECTIONS[rand_d];
+				Coordinate nxt = Coordinate(walls[i], dir.getTimes(distance, distance));
+				if(nxt.inOwnBounds() && sets.find(nxt.single()) != parent) {
+					border[i] = {nxt.x, nxt.y};
 					border_n++;
 					directions[i] = rand_d;
 					found = true;
 				}
 				else d++;
 			}
-			if(!found) border[i] = {-1, -1};
+			if(!found) border[i] = Coordinate(-1, -1);
 		}
 		return border_n;
 	}
+#pragma endregion AUSILIARIE_SECONDARIE
 
-//// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E USATE SPESSO)	
-	s_coord Room::toSingleCoordinate(int x, int y) {
-		return y * width + x;
-	}
-	void Room::toDoubleCoordinate(s_coord xy, int &x, int &y) {
-		y = xy / width;
-		x = xy - y * width;
-	}
-	bool Room::validCoordinates(int x, int y, int xmin, int xmax, int ymin, int ymax) {
-		return (x >= xmin && x < xmax && y >= ymin && y < ymax);
-	}
 
-//// SET
-	void Room::makeConnection(pRoom room, int dir) {
-		int dir2 = (dir+2) % DIR_SIZE;
-		if(dir == 0) {			//su
-			this->doors[dir] = new Door(this->width/2, 0, room);
-			room->doors[dir2] = new Door(room->width/2, room->height-1, this);
-		} else if(dir == 1) {	//destra
-			this->doors[dir] = new Door(this->width-1, this->height/2, room);
-			room->doors[dir2] = new Door(0, room->height/2, this);
-		} else if(dir == 2) {	//giu
-			this->doors[dir] = new Door(this->width/2, this->height-1, room);
-			room->doors[dir2] = new Door(room->width/2, 0, this);
-		} else if(dir == 3) {	//sinistra
-			this->doors[dir] = new Door(0, this->height/2, room);
-			room->doors[dir2] = new Door(room->width-1, room->height/2, this);
-		}
-	}
+#pragma endregion AUSILIARE
+
+#pragma region SET_GET
 //// GET
 	int Room::getX() {
 		return x;
@@ -305,10 +276,4 @@
 	int Room::getY() {
 		return y;
 	}
-	pRoom Room::getConnectedRoom(int dir) {
-		if(dir < 0 || dir >= n_doors_max || doors[dir] == NULL) return NULL;
-		else return doors[dir]->getConnected();
-	}
-/*	int Room::getSideDoors() {
-		return n_doors_sides;
-	}*/
+#pragma endregion SET_GET

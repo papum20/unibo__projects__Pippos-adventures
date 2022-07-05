@@ -98,6 +98,10 @@
 				checkMinHeap(available, n_available, randRoom);
 			}
 		}
+		//avvia generazione di tutte le stanze
+		for(int i = 0; i < N_ROOMS; i++) {
+			if(rooms[i] != NULL) rooms[i]->generate();
+		}
 	}
 
 	void Level::print(Coordinate center) {

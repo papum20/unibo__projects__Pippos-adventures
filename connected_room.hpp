@@ -19,7 +19,6 @@ class ConnectedRoom : public Room {
 		Coordinate door_positions[MAX_SIDES_R];
 
 		// FUNZIONI
-		void generate(); 							//genera uno schema randomico per i muri, inserendoli nell'array grid
 		// FUNZIONI AUSILIARIE PRINCIPALI
 		void generateDoors(pUnionFind sets);
 		pDoor findDoor(Coordinate pos);
@@ -28,6 +27,8 @@ class ConnectedRoom : public Room {
 	public:
 		ConnectedRoom(int x, int y);
 		void recursiveDestroy();
+		
+		void generate(); 							//genera uno schema randomico per i muri, inserendoli nell'array grid
 
 		// SET
 		void makeConnection(ConnectedRoom *room, int dir);	//connects this room to "room" in direction dir (relative to this)

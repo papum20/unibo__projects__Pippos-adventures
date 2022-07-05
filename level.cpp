@@ -118,6 +118,23 @@
 		}
 	}
 
+	void Level::update() {
+		changeRoom();
+	}
+
+	void Level::changeRoom() {
+		pPhysical location = curRoom->checkPosition(player->getPosition());
+		if(location->getId() == ID_DOOR) {
+			curRoom = curRoom->getConnectedRoom(player->getPosition());
+		
+			//spawna cose da spawnare, riposiziona player
+		}
+	}
+	void Level::nextLevel() {
+		curRoom->recursiveDestroy();
+		generateMap();
+		//spawn
+	}
 
 #pragma endregion MAIN
 

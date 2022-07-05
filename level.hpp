@@ -25,6 +25,7 @@
 #include "cell.hpp"
 #include "connected_room.hpp"
 #include "definitions.hpp"
+#include "player.hpp"
 
 
 
@@ -42,21 +43,26 @@ class Level {
 
 		//int n_rooms;			//numero di stanze (normali) generate per livello
 		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
+		pPlayer player;
 		
 		// FUNZIONI
 		void generateMap();		//genera lo schema della disposizione delle stanze del livello
 
+		void changeRoom();
+		void nextLevel();	
+		
+		pCRoom findRoomAtCoordinates(pCRoom rooms[], int len, int x, int y);			//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		// FUNZIONI AUSILIARIE
-		pCRoom findRoomAtCoordinates(pCRoom rooms[], int len, int x, int y);				//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		int findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], int x, int y);	//ritorna l'indice della posizione dell'array con tali coordinate (-1 se non presenteS)
-		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);				//scambia due elementi di A
-		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);				//aggiusta una posizione del min-heap (mantenendone le proprietà)
+		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);			//scambia due elementi di A
+		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);			//aggiusta una posizione del min-heap (mantenendone le proprietà)
 
 	public:
 		Level(int win_y, int win_x, int win_h, int win_w);
 
-		void print(Coordinate center);			//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa)
-		
+		void print(Coordinate center);	//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa)
+
+		void update();					//da richiamare a ogni frame
 
 		//genera una stanza (come array bidimensionale)
 		//generateAll();

@@ -15,6 +15,17 @@
 		for(int y = 0; y < height; y++)
 			for(int x = 0; x < width; x++) grid[y][x] = NULL;
 	}
+	void Room::recursiveDestroy() {
+		Coordinate i(0, 0, width, height);
+		do {
+			pPhysical t = grid[i.y][i.x];
+			if(!t->isInanimate() && t->getId() != ID_DOOR) t->destroy();
+			i.next();
+		} while(!i.equals(Coordinate(0, 0)));
+		wallInstance->destroy();
+		floorInstance->destroy();
+		delete this;
+	}
 
 	void Room::generate()
 	{
@@ -297,5 +308,8 @@
 	}
 	int Room::getY() {
 		return y;
+	}
+	pRoom Room::getConnectedRoom(Coordinate pos) {
+		return NULL;
 	}
 #pragma endregion SET_GET

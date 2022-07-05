@@ -2,14 +2,17 @@
 
 
 
-Door::Door(int x, int y, pRoom room) {
-	pos = Coordinate(x, y);
+Door::Door(Coordinate pos, pRoom room) {
 	id = ID_DOOR;
+	this->pos = pos;
 	this->room = room;
 };
 
 
-
+//// SET
+void Door::unconnect() {
+	room = NULL;
+}
 //// GET
 pRoom Door::getConnected() {
 	return room;

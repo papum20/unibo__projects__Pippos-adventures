@@ -53,6 +53,7 @@ class Room {
 
 	public:
 		Room(int x, int y);
+		void recursiveDestroy();
 		// GENERAZIONE
 //		void addNthDoor(int n);	//aggiunge una porta nell'n-esima posizione disponibile
 		// DISEGNO
@@ -63,10 +64,12 @@ class Room {
 														//precondizione: ob.pos ha bound impostati
 
 		// SET
+		void makeConnection(Room *room, int dir);
 		// GET
 		int getX();
 		int getY();
 		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		pRoom getConnectedRoom(Coordinate pos);			//ritorna il puntatore alla stanza collegata da una porta
 };
 
 

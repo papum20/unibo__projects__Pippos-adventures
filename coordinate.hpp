@@ -33,6 +33,7 @@ class Coordinate {
 		//BOOL
 		bool inBounds(Coordinate mn, Coordinate mx);			//ritorna true se xmin<=x<xmax && ymin<=y<ymax
 		bool inOwnBounds();
+		bool equals(Coordinate B);
 		//EDIT
 		Coordinate times(int px, int py);						//x*px, y*py, modifica e ritorna
 		Coordinate getTimes(int px, int py);					//ritorna solo il risultato

@@ -21,15 +21,20 @@ class Timer {
 	public:
 		Timer();
 		Timer(double max_time[]);
+
 		int Check_timer(int timer);//timer sarebbe la posizione dell'array che indica lo specifico cronometro
+		void Update_timers();
+
 		void Start_timer(int timer);
 		void Start_all_timers();
-		void Update_timers();
+		void Start_Pause(int timer);
 		void Stop_timer(int timer);
 		void Stop_all_timers();
-		void Start_Pause(int timer);
 		void Finish_Pause(int timer);
+
 		void set_max(int timer, int val);
+		bool is_active(int timer);			//true se il timer è attivo
+
 		float deltaTime();					//tempo trascorso dall'ultimo aggiornamento
 };
 

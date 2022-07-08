@@ -66,6 +66,7 @@ class Physical {
 		p_Animation animation[MAX_ANIMATION]; //array di liste di array bidimensionali
 
 		p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
+
 	public:
 		Physical();
 		void destroy();
@@ -79,6 +80,7 @@ class Physical {
 		// GET
 		int getId();
 		Coordinate getPosition();
+		Coordinate lastFrameMovement();
 };
 
 typedef Physical *pPhysical;

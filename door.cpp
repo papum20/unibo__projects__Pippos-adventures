@@ -3,8 +3,8 @@
 
 
 Door::Door(int x, int y, pRoom room) {
-	xPos = x;
-	yPos = y;
+	pos = Coordinate(x, y);
+	id = ID_DOOR;
 	this->room = room;
 };
 

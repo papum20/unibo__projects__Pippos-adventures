@@ -21,7 +21,7 @@ void Cell::edit(char ch, int fg, int bg, attr_t att) {
 }
 
 /// GET
-char getCh() {
+char Cell::getCh() {
 	return ch;
 }
 chtype Cell::toChtype() {

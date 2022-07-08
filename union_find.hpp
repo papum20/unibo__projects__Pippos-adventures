@@ -1,9 +1,13 @@
 #ifndef UNION_FIND_HPP
 #define UNION_FIND_HPP
 
-#include "room.hpp"
 
 #define UNION_FIND_SIZE (ROOM_WIDTH * ROOM_HEIGHT)
+
+
+#include "coordinate.hpp"
+#include "definitions.hpp"
+
 
 
 class UnionFind {

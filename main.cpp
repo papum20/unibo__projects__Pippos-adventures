@@ -12,7 +12,7 @@ int main() {
 	//// START: ESEGUITO UNA VOLTA ALL'AVVIO
 	cursesInit();
 	gameInit();
-	Level level = Level();
+	//Level level = Level();
 	Hud hud = Hud();
 	InputManager inputManager = InputManager();
 	Player player = Player();
@@ -28,7 +28,7 @@ int main() {
 		if(!isPaused) {
 			player.move(inputManager.movementInput());
 
-			level.draw();
+			//level.draw();
 			hud.drawHud();
 		}
 		// SE IN PAUSA
@@ -63,11 +63,5 @@ void gameInit() {
 
 void cursesEnd() {
 	endwin();			//dealloca memoria
-}
-
-
-int ceil(double n) {
-	if(n < 0 || n - (int)n == 0) return n;
-	else return n + 1;
 }
 #pragma endregion FUNZIONI

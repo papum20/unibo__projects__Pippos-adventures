@@ -1,5 +1,5 @@
-main: Bat.o cell.o character.o connected_room.o coordinate.o door.o floor.o inanimate.o level.o main.o physical.o pixel_art.o placeholder.o player.o powerups/health_potion.o room.o timer.o union_find.o wall.o
-	g++ Bat.o cell.o character.o connected_room.o coordinate.o door.o floor.o inanimate.o level.o main.o physical.o pixel_art.o placeholder.o player.o powerups/health_potion.o room.o timer.o union_find.o wall.o -lncurses -o main
+main: Bat.o cell.o character.o connected_room.o coordinate.o door.o floor.o inanimate.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o health_potion.o room.o timer.o union_find.o wall.o
+	g++ Bat.o cell.o character.o connected_room.o coordinate.o door.o floor.o inanimate.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o health_potion.o room.o timer.o union_find.o wall.o -lncurses -o main
 
 Bat.o: Bat.cpp Bat.hpp
 	g++ -c Bat.cpp
@@ -21,6 +21,8 @@ level.o: level.cpp level.hpp
 	g++ -c level.cpp
 main.o: main.cpp main.hpp
 	g++ -c main.cpp
+maths.o: maths.cpp maths.hpp
+	g++ -c maths.cpp
 physical.o: physical.cpp physical.hpp
 	g++ -c physical.cpp
 pixel_art.o: pixel_art.cpp pixel_art.hpp
@@ -29,7 +31,7 @@ placeholder.o: placeholder.cpp placeholder.hpp
 	g++ -c placeholder.cpp
 player.o: player.cpp player.hpp
 	g++ -c player.cpp
-powerups/health_potion.o: powerups/health_potion.cpp powerups/health_potion.hpp
+health_potion.o: powerups/health_potion.cpp powerups/health_potion.hpp
 	g++ -c powerups/health_potion.cpp
 room.o: room.cpp room.hpp
 	g++ -c room.cpp

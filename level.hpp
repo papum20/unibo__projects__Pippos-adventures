@@ -1,7 +1,11 @@
-#ifndef CAMERA_WIDTH
+#ifndef LEVEL_HPP
+#define LEVEL_HPP
+
+#include <cstdlib>
+#include <curses.h>
+
+
 //// COSTANTI DI INIZIALIZZAZIONE ATTRIBUTI DI LEVEL
-#define CAMERA_WIDTH 135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 35	//altezza (massima) inquadratura livello
 #define LR_BORDER 1
 #define TB_BORDER 1
 #define N_ROOMS 10			//numero di stanze (normali) generate per livello
@@ -16,36 +20,11 @@
 #define AV_N 2
 #define MAX_RAND_EXEC 3		//massimo numero di esecuzione di cicli che terminano solo in base a un numero random
 #define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
-#endif
-
-
-#ifndef LEVEL_HPP
-#define LEVEL_HPP
-
-#include <cstdlib>
-#include <curses.h>
-
-
-
-
-//// COSTANTI PER LA RAPPRESENTAZIONE GRAFICA
-#pragma region GRAPHICS
-// COLORI
-#define COLOR_WALL COLOR_RED
-#define COLOR_TRANSPARENT COLOR_YELLOW	//per il muro quando diventa più chiaro se c'è qualcosa dietro
-#define COLOR_UPPER_WALL COLOR_BLACK	//bordo superiore muro
-#define COLOR_FLOOR COLOR_GREEN
-#define COLOR_SHADOW COLOR_CYAN			//per il pavimento con l'ombra di un oggetto
-// CARATTERI
-#define CHAR_EMPTY ' '
-
-//const int wallColors[5] = {COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA};
-//const int floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
-#pragma endregion GRAPHICS
 
 
 #include "cell.hpp"
-#include "room.hpp"
+#include "connected_room.hpp"
+#include "definitions.hpp"
 
 
 
@@ -68,7 +47,7 @@ class Level {
 		void generateMap();		//genera lo schema della disposizione delle stanze del livello
 
 		// FUNZIONI AUSILIARIE
-		pRoom findRoomAtCoordinates(pRoom rooms[], int len, int x, int y);				//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
+		pCRoom findRoomAtCoordinates(pCRoom rooms[], int len, int x, int y);				//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		int findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], int x, int y);	//ritorna l'indice della posizione dell'array con tali coordinate (-1 se non presenteS)
 		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);				//scambia due elementi di A
 		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);				//aggiusta una posizione del min-heap (mantenendone le proprietà)

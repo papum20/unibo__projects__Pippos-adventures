@@ -19,9 +19,5 @@
 //// END
 	void cursesEnd();
 
-//// MATH
-	int ceil(double n);		//arrotondamento per eccesso
-
-
 
 #endif

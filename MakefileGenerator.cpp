@@ -109,6 +109,17 @@ const char *CLEAN_COMMAND = "clean:\n\trm *.o */*.o %s %s.exe";
 		return diff;
 	}
 
+	void getRawFileName(char s[PATH_LENGTH], char out[]) {
+		if(strlen(s) == 0) return;
+		else {
+			int i = strlen(s) - 1;
+			while(i > 0 && s[i] != '.' && s[i] != '/' && s[i] != '\\') i--;
+			if(s[i] == '/')
+				for(int j = 0; i + 1 + j <= strlen(s); j++) out[j] = s[j + i + 1];
+			else strcpy(out, s);
+		}
+	}
+
 
 	bool isDirectory(const char path[]) {
 		struct stat path_stat;
@@ -195,7 +206,9 @@ class FileList {
 				if(p->extensions[EXTENSION_CPP]) {
 					if(!first) fprintf(out, " ");
 					else first = false;
-					fprintf(out, "%s.o", p->path);
+					char rawName[NAME_LENGTH];
+					getRawFileName(p->path, rawName);
+					fprintf(out, "%s.o", rawName);
 				}
 				p = p->next;
 			}
@@ -267,8 +280,10 @@ void printMakefile(FileList &files, const char out[], const char project[])
 	files.getCurrentPath(cur_file);
 	while(strlen(cur_file) != 0) {
 		if(files.getCurrentExtension(EXTENSION_CPP)) {
-			if(files.getCurrentExtension(EXTENSION_HPP)) fprintf(f_out, "%s.o: %s.cpp %s.hpp\n", cur_file, cur_file, cur_file);
-			else fprintf(f_out, "%s.o: %s.cpp\n", cur_file, cur_file);
+			char cur_fileRaw[NAME_LENGTH];
+			getRawFileName(cur_file, cur_fileRaw);
+			if(files.getCurrentExtension(EXTENSION_HPP)) fprintf(f_out, "%s.o: %s.cpp %s.hpp\n", cur_fileRaw, cur_file, cur_file);
+			else fprintf(f_out, "%s.o: %s.cpp\n", cur_fileRaw, cur_file);
 			fprintf(f_out, "\t%s %s %s.cpp\n", COMPILE_COMMAND, COMPILE_PARAMETERS, cur_file);
 		}
 		files.nextFile();

@@ -20,17 +20,15 @@ double Timer::current_time() {
 }
 
 
-int Timer::Check_timer(int timer){//spegne se ha superato il tempo limite, ritorna -1 error, 0 false, 1 true
-	if(timer<=n_timers && timer >= 0){
+bool Timer::Check_timer(int timer){//spegne se ha superato il tempo limite,  ritorna vero se hai superato il limite
+	
 		double curr_time = (double)clock() / CLOCKS_PER_SEC;
-		if(max_time[timer]>=0 && curr_time-timers[timer]>max_time[timer]){
+		if(curr_time-timers[timer] - Total_Pauses[timer]>max_time[timer]){
 			active_timers[timer]=false;
-			return 1;}
+			return true;}
 		else
-			return 0;
-	}
-	return (-1);
-};
+			return false;
+}
 void Timer::Start_timer(int timer){//puoi riattivare un timer già attivo per resettare il suo valore
 	active_timers[timer]=true;
 	timers[timer]=(double)clock() / CLOCKS_PER_SEC;
@@ -47,12 +45,14 @@ void Timer::Start_all_timers(){
 
 void Timer::Stop_timer(int timer){
 	active_timers[timer]=false;
+	Total_Pauses[timer]=0;
 }
 
 
 void Timer::Stop_all_timers(){
 	for(int i=0; i<n_timers; i++){
 		active_timers[i]=false;
+		Total_Pauses[i]=0;
 	}
 }
 

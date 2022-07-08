@@ -30,7 +30,6 @@ class Room {
 		pPhysical wallInstance;
 
 		// FUNZIONI
-		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array grid
 		// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
 		void generatePath(Coordinate s, pUnionFind sets);		//genera un percorso casuale a partire da x,y
 		int getAdjacentWalls(Coordinate out[], s_coord currentSet);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero
@@ -53,7 +52,10 @@ class Room {
 
 	public:
 		Room(int x, int y);
+		void recursiveDestroy();
+		
 		// GENERAZIONE
+		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array grid
 //		void addNthDoor(int n);	//aggiunge una porta nell'n-esima posizione disponibile
 		// DISEGNO
 		void draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
@@ -63,10 +65,12 @@ class Room {
 														//precondizione: ob.pos ha bound impostati
 
 		// SET
+		void makeConnection(Room *room, int dir);
 		// GET
 		int getX();
 		int getY();
 		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		Room *getConnectedRoom(Coordinate pos);			//ritorna il puntatore alla stanza collegata da una porta
 };
 
 

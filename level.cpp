@@ -1,7 +1,7 @@
 #include "level.hpp"
 
 #pragma region MAIN
-	Level::Level(int win_y, int win_x, int win_h, int win_w) {
+	Level::Level(int win_y, int win_x, int win_h, int win_w, pPlayer player) {
 		width = CAMERA_WIDTH;
 		height = CAMERA_HEIGHT;
 		lr_border = LR_BORDER;
@@ -10,7 +10,18 @@
 		//n_rooms = N_ROOMS;
 		levelWindow = newwin(win_y, win_x, win_h, win_w);
 
+		this->player = player;
+
 		generateMap();
+
+		//CAMERA
+		setDefaultCameraSpecs();
+		cameraPosition = player->getPosition();
+		cameraLastMovement = Coordinate(0, 0);
+		cameraPivot = player;
+	}
+	Level::Level(int win_y, int win_x, pPlayer player) {
+		Level(win_y, win_x, CAMERA_HEIGHT, CAMERA_WIDTH, player);
 	}
 
 	void Level::generateMap()
@@ -98,9 +109,17 @@
 				checkMinHeap(available, n_available, randRoom);
 			}
 		}
+		//avvia generazione di tutte le stanze
+		for(int i = 0; i < N_ROOMS; i++) {
+			if(rooms[i] != NULL) rooms[i]->generate();
+		}
 	}
 
-	void Level::print(Coordinate center) {
+	void Level::display() {
+		displayAtPosition(cameraCenter());
+	}
+
+	void Level::displayAtPosition(Coordinate center) {
 		//inizializza array
 		Cell t_scr[CAMERA_HEIGHT][CAMERA_WIDTH];	//matrice temporanea per il nuovo schermo da stampare
 		//fai riempire l'array alla stanza corrente
@@ -118,6 +137,45 @@
 		}
 	}
 
+	void Level::update() {
+		changeRoom();
+		timer.Update_timers();
+	}
+
+	void Level::changeRoom() {
+		pPhysical location = curRoom->checkPosition(player->getPosition());
+		if(location->getId() == ID_DOOR) {
+			curRoom = curRoom->getConnectedRoom(player->getPosition());
+		
+			//spawna cose da spawnare, riposiziona player
+		}
+	}
+	void Level::nextLevel() {
+		curRoom->recursiveDestroy();
+		generateMap();
+		//spawn
+	}
+
+#pragma region SET_GET
+	void Level::setPivot(pPhysical pivot) {
+		cameraPivot = pivot;
+		
+	}
+	void Level::setDefaultCameraSpecs() {
+		camera_offset_max_x = CAMERA_OFFSET_MAX_X;
+		camera_offset_max_y = CAMERA_OFFSET_MAX_Y;
+		camera_speed_x = CAMERA_SPEED_X;
+		camera_speed_y = CAMERA_SPEED_Y;
+		camera_damping_speed_x = CAMERA_DAMPING_SPEED_X;
+		camera_damping_speed_y = CAMERA_DAMPING_SPEED_Y;
+		camera_damping_time_x = CAMERA_DAMPING_TIME_X;
+		camera_damping_time_y = CAMERA_DAMPING_TIME_Y;
+		camera_opposite_speed_x = CAMERA_OPPOSITE_SPEED_X;
+		camera_opposite_speed_y = CAMERA_OPPOSITE_SPEED_Y;
+		camera_change_pivot_speed_x = CAMERA_CHANGE_PIVOT_SPEED_X;
+		camera_change_pivot_speed_y = CAMERA_CHANGE_PIVOT_SPEED_Y;
+	}
+#pragma endregion SET_GET
 
 #pragma endregion MAIN
 
@@ -163,5 +221,14 @@
 			switchQueue(H, i, t);
 			i = t;
 		}
+	}
+
+	Coordinate Level::cameraCenter() {
+		//se il pivot non si è mosso
+		if(cameraPivot->lastFrameMovement().equals(Coordinate(0, 0))) {
+			
+		}
+		//se si è mosso nella stessa direzione dello scorso frame
+
 	}
 #pragma endregion AUSILIARIE

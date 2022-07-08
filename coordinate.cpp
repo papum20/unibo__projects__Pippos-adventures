@@ -41,6 +41,9 @@
 	bool Coordinate::inOwnBounds() {
 		return (x >= startx && x < endx && y >= starty && y < endy);
 	}
+	bool Coordinate::equals(Coordinate B) {
+		return x == B.x && y == B.y;
+	}
 	#pragma endregion BOOL
 
 //// EDIT

@@ -65,9 +65,11 @@ class Physical {
 
 		p_Animation animation[MAX_ANIMATION]; //array di liste di array bidimensionali
 
-		p_Animation tail_insert(p_Animation head, const char state[][ANIMATION_WIDTH], int width, int height);
+		p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
+
 	public:
 		Physical();
+		void destroy();
 		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
 		void drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start);				//disegna l'oggetto nella finestra, nella sua posizione, secondo la sua animazione, entro i limiti della finestra
 
@@ -78,6 +80,7 @@ class Physical {
 		// GET
 		int getId();
 		Coordinate getPosition();
+		Coordinate lastFrameMovement();
 };
 
 typedef Physical *pPhysical;

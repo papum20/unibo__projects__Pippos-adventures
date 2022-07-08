@@ -21,10 +21,26 @@
 #define MAX_RAND_EXEC 3		//massimo numero di esecuzione di cicli che terminano solo in base a un numero random
 #define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
 
+// COSTANTI PER IL MOVIMENTO DELLA CAMERA
+#define CAMERA_OFFSET_MAX_X 15			//massimo spostamento della camera
+#define CAMERA_OFFSET_MAX_Y 8
+#define CAMERA_SPEED_X 2.				//tempo (secondi) per raggiungere il massimo spostamento
+#define CAMERA_SPEED_Y 2.
+#define CAMERA_DAMPING_SPEED_X 1.		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+#define CAMERA_DAMPING_SPEED_Y 1.
+#define CAMERA_DAMPING_TIME_X 1.2		//tempo di attesa prima di tornare alla posizione di riposo
+#define CAMERA_DAMPING_TIME_Y 1.2
+#define CAMERA_OPPOSITE_SPEED_X .6		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
+#define CAMERA_OPPOSITE_SPEED_Y .6
+#define CAMERA_CHANGE_PIVOT_SPEED_X 2.	//tempo per spostarsi su un nuovo pivot
+#define CAMERA_CHANGE_PIVOT_SPEED_Y 2.
+
 
 #include "cell.hpp"
 #include "connected_room.hpp"
 #include "definitions.hpp"
+#include "player.hpp"
+#include "timer.hpp"
 
 
 
@@ -36,27 +52,57 @@ class Level {
 		//spessore bordi laterali (lr) e sopra e sotto (tb)
 		int lr_border;
 		int tb_border;
+		//camera
+		float camera_offset_max_x;			//massimo spostamento della camera
+		float camera_offset_max_y;
+		float camera_speed_x;				//tempo (secondi) per raggiungere il massimo spostamento
+		float camera_speed_y;
+		float camera_damping_speed_x;		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+		float camera_damping_speed_y;
+		float camera_damping_time_x;		//tempo di attesa prima di tornare alla posizione di riposo
+		float camera_damping_time_y;
+		float camera_opposite_speed_x;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
+		float camera_opposite_speed_y;
+		float camera_change_pivot_speed_x;	//tempo per spostarsi su un nuovo pivot
+		float camera_change_pivot_speed_y;
 
+		Coordinate cameraPosition;
+		Coordinate cameraLastMovement;
+		pPhysical cameraPivot;			//la camera segue un oggetto physical
+		//schermo
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
-
+		//oggetti
 		//int n_rooms;			//numero di stanze (normali) generate per livello
 		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
+		pPlayer player;
+		Timer timer;
 		
 		// FUNZIONI
 		void generateMap();		//genera lo schema della disposizione delle stanze del livello
 
+		void changeRoom();
+		void nextLevel();	
+		
+		pCRoom findRoomAtCoordinates(pCRoom rooms[], int len, int x, int y);			//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		// FUNZIONI AUSILIARIE
-		pCRoom findRoomAtCoordinates(pCRoom rooms[], int len, int x, int y);				//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		int findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], int x, int y);	//ritorna l'indice della posizione dell'array con tali coordinate (-1 se non presenteS)
-		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);				//scambia due elementi di A
-		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);				//aggiusta una posizione del min-heap (mantenendone le proprietà)
+		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);			//scambia due elementi di A
+		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);			//aggiusta una posizione del min-heap (mantenendone le proprietà)
+		Coordinate cameraCenter();														//calcola il centro della camera
 
 	public:
-		Level(int win_y, int win_x, int win_h, int win_w);
+		Level(int win_y, int win_x, pPlayer player);
+		Level(int win_y, int win_x, int win_h, int win_w, pPlayer player);
 
-		void print(Coordinate center);			//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa)
-		
+		void display();								//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa), con camera che segue il personaggio
+		void displayAtPosition(Coordinate center);
+
+		void update();								//da richiamare a ogni frame
+
+		// SET
+		void setPivot(pPhysical pivot);
+		void setDefaultCameraSpecs();				//reimposta le caratteristiche di default della camera
 
 		//genera una stanza (come array bidimensionale)
 		//generateAll();

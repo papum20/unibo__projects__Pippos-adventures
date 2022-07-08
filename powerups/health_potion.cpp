@@ -1,7 +1,7 @@
 #include "health_potion.hpp"
 
 
-HealthPotion::HealthPotion() {
+HealthPotion::HealthPotion() : PowerUp() {
 	healthGained = HEALTH_GAINED;
 }
 

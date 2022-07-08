@@ -12,28 +12,36 @@ int main() {
 	//// START: ESEGUITO UNA VOLTA ALL'AVVIO
 	cursesInit();
 	gameInit();
-	//Level level = Level();
+	
+	//calcolo per posizionare la finestra al centro
+	int stdscr_x, stdscr_y;
+	getmaxyx(stdscr, stdscr_y, stdscr_x);
+	int level_x = (stdscr_x - CAMERA_WIDTH) / 2, level_y = (stdscr_y - CAMERA_HEIGHT) / 2;
+
+	//costruttori
+	Player player = Player();
+	Level level = Level(level_x, level_y, &player);
 	Hud hud = Hud();
 	InputManager inputManager = InputManager();
-	Player player = Player();
 
 
 
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while(isRunning)
 	{
-		inputManager.getInput();
+		//inputManager.getInput();
 
 		// SE NON IN PAUSA
 		if(!isPaused) {
-			player.move(inputManager.movementInput());
+			//player.move(inputManager.movementInput());
 
-			//level.draw();
-			hud.drawHud();
+			level.update();
+			level.display();
+			//hud.drawHud();
 		}
 		// SE IN PAUSA
 		else {
-			hud.drawHud();
+			//hud.drawHud();
 		}
 
 		// IN OGNI CASO

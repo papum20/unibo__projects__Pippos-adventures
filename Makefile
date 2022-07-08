@@ -1,5 +1,5 @@
-main: Bat.o cell.o character.o connected_room.o coordinate.o door.o floor.o inanimate.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o health_potion.o room.o timer.o union_find.o wall.o
-	g++ Bat.o cell.o character.o connected_room.o coordinate.o door.o floor.o inanimate.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o health_potion.o room.o timer.o union_find.o wall.o -lncurses -o main
+main: Bat.o cell.o character.o connected_room.o coordinate.o door.o enemy.o floor.o hud.o inanimate.o inputmanager.o item.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o powerup.o health_potion.o room.o timer.o union_find.o wall.o
+	g++ Bat.o cell.o character.o connected_room.o coordinate.o door.o enemy.o floor.o hud.o inanimate.o inputmanager.o item.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o powerup.o health_potion.o room.o timer.o union_find.o wall.o -lncurses -o main
 
 Bat.o: Bat.cpp Bat.hpp
 	g++ -c Bat.cpp
@@ -13,10 +13,18 @@ coordinate.o: coordinate.cpp coordinate.hpp
 	g++ -c coordinate.cpp
 door.o: door.cpp door.hpp
 	g++ -c door.cpp
+enemy.o: enemy.cpp enemy.hpp
+	g++ -c enemy.cpp
 floor.o: floor.cpp floor.hpp
 	g++ -c floor.cpp
+hud.o: hud.cpp hud.hpp
+	g++ -c hud.cpp
 inanimate.o: inanimate.cpp inanimate.hpp
 	g++ -c inanimate.cpp
+inputmanager.o: inputmanager.cpp inputmanager.hpp
+	g++ -c inputmanager.cpp
+item.o: item.cpp item.hpp
+	g++ -c item.cpp
 level.o: level.cpp level.hpp
 	g++ -c level.cpp
 main.o: main.cpp main.hpp
@@ -31,6 +39,8 @@ placeholder.o: placeholder.cpp placeholder.hpp
 	g++ -c placeholder.cpp
 player.o: player.cpp player.hpp
 	g++ -c player.cpp
+powerup.o: powerup.cpp powerup.hpp
+	g++ -c powerup.cpp
 health_potion.o: powerups/health_potion.cpp powerups/health_potion.hpp
 	g++ -c powerups/health_potion.cpp
 room.o: room.cpp room.hpp

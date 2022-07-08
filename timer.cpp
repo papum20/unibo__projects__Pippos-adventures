@@ -1,6 +1,13 @@
 #include "timer.hpp"
 
+
+Timer::Timer() {
+	int maxs[n_timers];
+	for(int i = 0; i < n_timers; i++) maxs[i] = -1;
+	Timer(maxs);
+}
 Timer::Timer(double max_time[]){	
+	last_frame_time = clock();
 	for(int i=0; i<n_timers; i++){
 		this->Total_Pauses[i]=0;
 		this->max_time[i]=max_time[i];
@@ -8,10 +15,15 @@ Timer::Timer(double max_time[]){
 	}	
 };
 
+double Timer::current_time() {
+	return (double)clock() / CLOCKS_PER_SEC;
+}
+
+
 int Timer::Check_timer(int timer){//spegne se ha superato il tempo limite, ritorna -1 error, 0 false, 1 true
 	if(timer<=n_timers && timer >= 0){
 		double curr_time = (double)clock() / CLOCKS_PER_SEC;
-		if(curr_time-timers[timer]>max_time[timer]){
+		if(max_time[timer]>=0 && curr_time-timers[timer]>max_time[timer]){
 			active_timers[timer]=false;
 			return 1;}
 		else
@@ -62,3 +74,12 @@ void Timer::Finish_Pause(int timer){
 }
 
 
+void Timer::set_max(int timer, int val) {
+	if(val > 0)	max_time[timer] = val;
+}
+float Timer::deltaTime() {
+	float current = current_time();
+	float delta = current - last_frame_time;
+	last_frame_time = current;
+	return delta;
+}

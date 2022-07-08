@@ -121,6 +121,7 @@ class Player : public Character {
 
 };
 
+typedef Player *pPlayer;
 
 
 

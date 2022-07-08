@@ -1,12 +1,11 @@
-#ifndef CAMERA_DEFINITIONS
-#define CAMERA_DEFINITIONS
+#ifndef GENERAL_DEFINITIONS
+#define GENERAL_DEFINITIONS
 
+
+#pragma region CAMERA_DEFINITIONS
 #define CAMERA_WIDTH 135	//larghezza (massima) inquadratura livello
 #define CAMERA_HEIGHT 35	//altezza (massima) inquadratura livello
-
-#endif // MACRO
-
-
+#pragma endregion CAMERA_DEFINITIONS
 
 
 #pragma region ROOM_DEFINITIONS
@@ -17,3 +16,5 @@
 #define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT)
 #define CENTRAL_ROOM_SIZE 8							//dimensioni dello spazio vuoto quadrato al centro
 #pragma endregion ROOM_DEFINITIONS
+
+#endif

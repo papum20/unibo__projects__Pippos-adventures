@@ -3,6 +3,6 @@
 //aspetto del pipistrello:   
 //                          \o/ -> /o\
 
-Bat::Bat() {
+Bat::Bat() : Enemy() {
 	
 }

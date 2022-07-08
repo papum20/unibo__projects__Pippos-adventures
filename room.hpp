@@ -70,7 +70,7 @@ class Room {
 		int getX();
 		int getY();
 		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
-		pRoom getConnectedRoom(Coordinate pos);			//ritorna il puntatore alla stanza collegata da una porta
+		Room *getConnectedRoom(Coordinate pos);			//ritorna il puntatore alla stanza collegata da una porta
 };
 
 

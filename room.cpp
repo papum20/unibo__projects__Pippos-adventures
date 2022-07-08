@@ -297,10 +297,9 @@
 #pragma endregion AUSILIARE
 
 #pragma region SET_GET
-	pPhysical Room::checkPosition(Coordinate pos) {
-		if(!pos.inBounds(Coordinate(0, 0), Coordinate(width, height)))
-			return grid[pos.y][pos.x];
-		else return NULL;
+//// SET
+	void Room::makeConnection(Room *room, int dir) {
+
 	}
 //// GET
 	int Room::getX() {
@@ -311,5 +310,10 @@
 	}
 	pRoom Room::getConnectedRoom(Coordinate pos) {
 		return NULL;
+	}
+	pPhysical Room::checkPosition(Coordinate pos) {
+		if(!pos.inBounds(Coordinate(0, 0), Coordinate(width, height)))
+			return grid[pos.y][pos.x];
+		else return NULL;
 	}
 #pragma endregion SET_GET

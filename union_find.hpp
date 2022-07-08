@@ -4,6 +4,10 @@
 #define UNION_FIND_HPP
 
 
+#include "coordinate.hpp"
+#include "definitions.hpp"
+
+
 #define UNION_FIND_SIZE (ROOM_WIDTH * ROOM_HEIGHT)
 
 
@@ -23,8 +27,6 @@ struct UFforest {
 typedef UFforest *pUFforest;
 
 
-#include "coordinate.hpp"
-#include "definitions.hpp"
 
 
 

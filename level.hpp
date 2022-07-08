@@ -21,11 +21,22 @@
 #define MAX_RAND_EXEC 3		//massimo numero di esecuzione di cicli che terminano solo in base a un numero random
 #define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
 
+// COSTANTI PER IL MOVIMENTO DELLA CAMERA
+#define CAMERA_OFFSET_MAX_X 15		//massimo spostamento della camera
+#define CAMERA_OFFSET_MAX_Y 8
+#define CAMERA_SPEED_X 2.			//tempo (secondi) per raggiungere il massimo spostamento
+#define CAMERA_SPEED_Y 2.
+#define CAMERA_DAMPING_SPEED_X 1.	//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+#define CAMERA_DAMPING_SPEED_Y 1.
+#define CAMERA_DAMPING_TIME_X 1.2	//tempo di attesa prima di tornare alla posizione di riposo
+#define CAMERA_DAMPING_TIME_Y 1.2
+
 
 #include "cell.hpp"
 #include "connected_room.hpp"
 #include "definitions.hpp"
 #include "player.hpp"
+#include "timer.hpp"
 
 
 
@@ -37,6 +48,7 @@ class Level {
 		//spessore bordi laterali (lr) e sopra e sotto (tb)
 		int lr_border;
 		int tb_border;
+		Coordinate cameraOffset;
 
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
@@ -44,6 +56,7 @@ class Level {
 		//int n_rooms;			//numero di stanze (normali) generate per livello
 		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
 		pPlayer player;
+		Timer timer;
 		
 		// FUNZIONI
 		void generateMap();		//genera lo schema della disposizione delle stanze del livello
@@ -56,13 +69,16 @@ class Level {
 		int findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], int x, int y);	//ritorna l'indice della posizione dell'array con tali coordinate (-1 se non presenteS)
 		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);			//scambia due elementi di A
 		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);			//aggiusta una posizione del min-heap (mantenendone le proprietà)
+		Coordinate cameraCenter();														//calcola il centro della camera
 
 	public:
-		Level(int win_y, int win_x, int win_h, int win_w);
+		Level(int win_y, int win_x, pPlayer player);
+		Level(int win_y, int win_x, int win_h, int win_w, pPlayer player);
 
-		void print(Coordinate center);	//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa)
+		void display();								//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa), con camera che segue il personaggio
+		void displayAtPosition(Coordinate center);
 
-		void update();					//da richiamare a ogni frame
+		void update();								//da richiamare a ogni frame
 
 		//genera una stanza (come array bidimensionale)
 		//generateAll();

@@ -1,7 +1,7 @@
 #include "level.hpp"
 
 #pragma region MAIN
-	Level::Level(int win_y, int win_x, int win_h, int win_w) {
+	Level::Level(int win_y, int win_x, int win_h, int win_w, pPlayer player) {
 		width = CAMERA_WIDTH;
 		height = CAMERA_HEIGHT;
 		lr_border = LR_BORDER;
@@ -10,7 +10,12 @@
 		//n_rooms = N_ROOMS;
 		levelWindow = newwin(win_y, win_x, win_h, win_w);
 
+		this->player = player;
+
 		generateMap();
+	}
+	Level::Level(int win_y, int win_x, pPlayer player) {
+		Level(win_y, win_x, CAMERA_HEIGHT, CAMERA_WIDTH, player);
 	}
 
 	void Level::generateMap()
@@ -104,7 +109,11 @@
 		}
 	}
 
-	void Level::print(Coordinate center) {
+	void Level::display() {
+		displayAtPosition(cameraCenter());
+	}
+
+	void Level::displayAtPosition(Coordinate center) {
 		//inizializza array
 		Cell t_scr[CAMERA_HEIGHT][CAMERA_WIDTH];	//matrice temporanea per il nuovo schermo da stampare
 		//fai riempire l'array alla stanza corrente
@@ -124,6 +133,7 @@
 
 	void Level::update() {
 		changeRoom();
+		timer.Update_timers();
 	}
 
 	void Level::changeRoom() {
@@ -184,5 +194,9 @@
 			switchQueue(H, i, t);
 			i = t;
 		}
+	}
+
+	Coordinate Level::cameraCenter() {
+
 	}
 #pragma endregion AUSILIARIE

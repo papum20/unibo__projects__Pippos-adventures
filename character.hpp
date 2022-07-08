@@ -15,6 +15,7 @@ class Character : public Physical {
 		int maxHealth;
 		int curHealth;
 	public:
+		Character();
 		Character(int maxHealth);
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE

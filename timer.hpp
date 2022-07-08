@@ -14,8 +14,12 @@ class Timer {
 		double Start_Pause_value[n_timers];
 		double Total_Pauses[n_timers];
 		bool State_pause[n_timers];
+		double last_frame_time;
+
+		double current_time();
 	
 	public:
+		Timer();
 		Timer(double max_time[]);
 		int Check_timer(int timer);//timer sarebbe la posizione dell'array che indica lo specifico cronometro
 		void Start_timer(int timer);
@@ -25,6 +29,8 @@ class Timer {
 		void Stop_all_timers();
 		void Start_Pause(int timer);
 		void Finish_Pause(int timer);
+		void set_max(int timer, int val);
+		float deltaTime();					//tempo trascorso dall'ultimo aggiornamento
 };
 
 #endif

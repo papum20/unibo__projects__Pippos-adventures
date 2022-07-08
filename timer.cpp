@@ -23,7 +23,7 @@ double Timer::current_time() {
 int Timer::Check_timer(int timer){//spegne se ha superato il tempo limite, ritorna -1 error, 0 false, 1 true
 	if(timer<=n_timers && timer >= 0){
 		double curr_time = (double)clock() / CLOCKS_PER_SEC;
-		if(curr_time-timers[timer]>max_time[timer]){
+		if(max_time[timer]>=0 && curr_time-timers[timer]>max_time[timer]){
 			active_timers[timer]=false;
 			return 1;}
 		else

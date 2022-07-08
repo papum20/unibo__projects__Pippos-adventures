@@ -22,14 +22,18 @@
 #define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
 
 // COSTANTI PER IL MOVIMENTO DELLA CAMERA
-#define CAMERA_OFFSET_MAX_X 15		//massimo spostamento della camera
+#define CAMERA_OFFSET_MAX_X 15			//massimo spostamento della camera
 #define CAMERA_OFFSET_MAX_Y 8
-#define CAMERA_SPEED_X 2.			//tempo (secondi) per raggiungere il massimo spostamento
+#define CAMERA_SPEED_X 2.				//tempo (secondi) per raggiungere il massimo spostamento
 #define CAMERA_SPEED_Y 2.
-#define CAMERA_DAMPING_SPEED_X 1.	//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+#define CAMERA_DAMPING_SPEED_X 1.		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
 #define CAMERA_DAMPING_SPEED_Y 1.
-#define CAMERA_DAMPING_TIME_X 1.2	//tempo di attesa prima di tornare alla posizione di riposo
+#define CAMERA_DAMPING_TIME_X 1.2		//tempo di attesa prima di tornare alla posizione di riposo
 #define CAMERA_DAMPING_TIME_Y 1.2
+#define CAMERA_OPPOSITE_SPEED_X .6		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
+#define CAMERA_OPPOSITE_SPEED_Y .6
+#define CAMERA_CHANGE_PIVOT_SPEED_X 2.	//tempo per spostarsi su un nuovo pivot
+#define CAMERA_CHANGE_PIVOT_SPEED_Y 2.
 
 
 #include "cell.hpp"
@@ -48,11 +52,27 @@ class Level {
 		//spessore bordi laterali (lr) e sopra e sotto (tb)
 		int lr_border;
 		int tb_border;
-		Coordinate cameraOffset;
+		//camera
+		float camera_offset_max_x;			//massimo spostamento della camera
+		float camera_offset_max_y;
+		float camera_speed_x;				//tempo (secondi) per raggiungere il massimo spostamento
+		float camera_speed_y;
+		float camera_damping_speed_x;		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+		float camera_damping_speed_y;
+		float camera_damping_time_x;		//tempo di attesa prima di tornare alla posizione di riposo
+		float camera_damping_time_y;
+		float camera_opposite_speed_x;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
+		float camera_opposite_speed_y;
+		float camera_change_pivot_speed_x;	//tempo per spostarsi su un nuovo pivot
+		float camera_change_pivot_speed_y;
 
+		Coordinate cameraPosition;
+		Coordinate cameraLastMovement;
+		pPhysical cameraPivot;			//la camera segue un oggetto physical
+		//schermo
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
-
+		//oggetti
 		//int n_rooms;			//numero di stanze (normali) generate per livello
 		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
 		pPlayer player;
@@ -79,6 +99,10 @@ class Level {
 		void displayAtPosition(Coordinate center);
 
 		void update();								//da richiamare a ogni frame
+
+		// SET
+		void setPivot(pPhysical pivot);
+		void setDefaultCameraSpecs();				//reimposta le caratteristiche di default della camera
 
 		//genera una stanza (come array bidimensionale)
 		//generateAll();

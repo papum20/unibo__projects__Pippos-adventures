@@ -22,7 +22,7 @@ class Timer {
 		Timer();
 		Timer(double max_time[]);
 
-		int Check_timer(int timer);			//						check			//timer sarebbe la posizione dell'array che indica lo specifico cronometro
+		int Check_timer(int timer);			//						check			//timer sarebbe la posizione dell'array che indica lo specifico cronometro	//se max<0 non ha limiti
 		void Update_timers();				//						update_all
 
 		void Start_timer(int timer);		//consiglio di nome:	start

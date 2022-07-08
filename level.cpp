@@ -13,6 +13,12 @@
 		this->player = player;
 
 		generateMap();
+
+		//CAMERA
+		setDefaultCameraSpecs();
+		cameraPosition = player->getPosition();
+		cameraLastMovement = Coordinate(0, 0);
+		cameraPivot = player;
 	}
 	Level::Level(int win_y, int win_x, pPlayer player) {
 		Level(win_y, win_x, CAMERA_HEIGHT, CAMERA_WIDTH, player);
@@ -150,6 +156,27 @@
 		//spawn
 	}
 
+#pragma region SET_GET
+	void Level::setPivot(pPhysical pivot) {
+		cameraPivot = pivot;
+		
+	}
+	void Level::setDefaultCameraSpecs() {
+		camera_offset_max_x = CAMERA_OFFSET_MAX_X;
+		camera_offset_max_y = CAMERA_OFFSET_MAX_Y;
+		camera_speed_x = CAMERA_SPEED_X;
+		camera_speed_y = CAMERA_SPEED_Y;
+		camera_damping_speed_x = CAMERA_DAMPING_SPEED_X;
+		camera_damping_speed_y = CAMERA_DAMPING_SPEED_Y;
+		camera_damping_time_x = CAMERA_DAMPING_TIME_X;
+		camera_damping_time_y = CAMERA_DAMPING_TIME_Y;
+		camera_opposite_speed_x = CAMERA_OPPOSITE_SPEED_X;
+		camera_opposite_speed_y = CAMERA_OPPOSITE_SPEED_Y;
+		camera_change_pivot_speed_x = CAMERA_CHANGE_PIVOT_SPEED_X;
+		camera_change_pivot_speed_y = CAMERA_CHANGE_PIVOT_SPEED_Y;
+	}
+#pragma endregion SET_GET
+
 #pragma endregion MAIN
 
 
@@ -197,6 +224,11 @@
 	}
 
 	Coordinate Level::cameraCenter() {
-		
+		//se il pivot non si è mosso
+		if(cameraPivot->lastFrameMovement().equals(Coordinate(0, 0))) {
+			
+		}
+		//se si è mosso nella stessa direzione dello scorso frame
+
 	}
 #pragma endregion AUSILIARIE

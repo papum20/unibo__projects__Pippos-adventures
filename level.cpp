@@ -197,6 +197,6 @@
 	}
 
 	Coordinate Level::cameraCenter() {
-
+		
 	}
 #pragma endregion AUSILIARIE

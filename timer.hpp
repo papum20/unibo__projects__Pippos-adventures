@@ -22,15 +22,15 @@ class Timer {
 		Timer();
 		Timer(double max_time[]);
 
-		int Check_timer(int timer);//timer sarebbe la posizione dell'array che indica lo specifico cronometro
-		void Update_timers();
+		int Check_timer(int timer);			//						check			//timer sarebbe la posizione dell'array che indica lo specifico cronometro
+		void Update_timers();				//						update_all
 
-		void Start_timer(int timer);
-		void Start_all_timers();
-		void Start_Pause(int timer);
-		void Stop_timer(int timer);
-		void Stop_all_timers();
-		void Finish_Pause(int timer);
+		void Start_timer(int timer);		//consiglio di nome:	start
+		void Start_all_timers();			//consiglio di nome:	start_all
+		void Stop_timer(int timer);			//--:					stop
+		void Stop_all_timers();				//--:					stop_all
+		void Start_Pause(int timer);		//--:					pause
+		void Finish_Pause(int timer);		//--:					resume
 
 		void set_max(int timer, int val);
 		bool is_active(int timer);			//true se il timer è attivo

@@ -2,7 +2,9 @@
 
 
 Timer::Timer() {
-	last_frame_time = clock();
+	int maxs[n_timers];
+	for(int i = 0; i < n_timers; i++) maxs[i] = -1;
+	Timer(maxs);
 }
 Timer::Timer(double max_time[]){	
 	last_frame_time = clock();

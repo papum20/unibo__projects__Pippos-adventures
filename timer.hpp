@@ -22,13 +22,14 @@ class Timer {
 		Timer();
 		Timer(double max_time[]);
 
-		bool Check_timer(int timer);		//check			//timer sarebbe la posizione dell'array che indica lo specifico cronometro	//se max<0 non ha limiti ma max è sempre maggiore di zero perchè sei tu a sceglierlo
-		void Start_timer(int timer);		//starta un singolo timer(si salva il valore del clock in quel momento in timers[timer]) //consiglio di nome:	start
-		void Start_all_timers();			//starta tutti i timer //consiglio di nome:	start_all
-		void Stop_timer(int timer);			//stoppa un timer e quindi non è più attivo //--:					stop
-		void Stop_all_timers();				//--:					stop_all
-		void Start_Pause(int timer);		//mette in pausa un timer(rimane comunque attivo)//--:					pause
-		void Finish_Pause(int timer);		//finisce la pausa di un timer e ritorna attivo//--:					resume
+		int get_time_passed(int timer);              //ritorna il tempo passato da quando hai fatto lo start del timer/cronometro
+		bool check(int timer);		//check			//timer sarebbe la posizione dell'array che indica lo specifico cronometro	//se max<0 non ha limiti ma max è sempre maggiore di zero perchè sei tu a sceglierlo
+		void start(int timer);		//starta un singolo timer(si salva il valore del clock in quel momento in timers[timer]) //consiglio di nome:	start
+		void start_all();			//starta tutti i timer //consiglio di nome:	start_all
+		void stop(int timer);			//stoppa un timer e quindi non è più attivo //--:					stop
+		void stop_all();				//--:					stop_all
+		void start_pause(int timer);		//mette in pausa un timer(rimane comunque attivo)//--:					pause
+		void finish_pause(int timer);		//finisce la pausa di un timer e ritorna attivo//--:					resume
 
 		void set_max(int timer, int val);
 		bool is_active(int timer);			//true se il timer è attivo

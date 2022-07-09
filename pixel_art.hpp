@@ -187,7 +187,6 @@ class Pixel_art {
 		Pixel_art();
     void convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, char c, bool highlight);
     void pixel_phrase(WINDOW* menu, int start_x, int start_y, char string[], bool highlight);
-    void clean_window(WINDOW* window, int w_hight, int w_lenght);//forse sta funzione è già implementata da ncurses
 };
 
 

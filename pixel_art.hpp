@@ -186,7 +186,7 @@ class Pixel_art {
 	public:
 		Pixel_art();
     void convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, char c, bool highlight);
-    void pixel_phrase(WINDOW* menu, int start_x, int start_y, char string[], bool highlight);
+    void pixel_phrase(WINDOW* menu, int start_x, int start_y, const char string[], bool highlight);
 };
 
 

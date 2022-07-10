@@ -138,7 +138,7 @@ void Pixel_art::convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, ch
 }
 
 
-void Pixel_art::pixel_phrase(WINDOW* menu, int start_x, int start_y, char string[], bool highlight){
+void Pixel_art::pixel_phrase(WINDOW* menu, int start_x, int start_y, const char string[], bool highlight){
 int i=0;
 int j=0;
 if(highlight==true){

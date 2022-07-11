@@ -2,23 +2,43 @@
 
 
 UnionFind::UnionFind() {
-	for(int i = 0; i < UNION_FIND_SIZE; i++) parent[i] = NULL;
+	for(int i = 0; i < UNION_FIND_SIZE; i++) sets[i] = NULL;
 }
 void UnionFind::makeSet(s_coord s) {
-	if(parent[s] == NULL) {
-		parent[s] = new UFelement;
-		parent[s]->val = s;
-		parent[s]->weight = 1;
-		parent[s]->parent = parent[s];
-		parent[s]->next = NULL;
-		//UFforest.insert(parent[s])
+	if(sets[s] == NULL) {
+		sets[s] = new UFelement;
+		sets[s]->val = s;
+		sets[s]->weight = 1;
+		sets[s]->parent = sets[s];
+		sets[s]->next = sets[s];
+		//UFforest.insert(sets[s])
 	}
 }
 s_coord UnionFind::find(s_coord s) {
-
+	if(sets[s] == NULL) return NULL;
+	else return sets[s]->parent->val;
 }
 void UnionFind::merge(s_coord a, s_coord b) {
+	if(sets[a] != NULL && sets[b] != NULL) {
+		pUFelement minor, major;
+		if(sets[a]->parent->weight > sets[a]->parent->weight) {
+			minor = sets[b];
+			major = sets[a]->parent;
+		} else {
+			minor = sets[a];
+			major = sets[b]->parent;
+		}
+		pUFelement p = minor;
+		int num = 0;
+		do {
+			p->parent = major;
+			p = p->next;
+			num++;
+		} while(p != minor);
+		major->weight += num;
 
+		number--;
+	}
 }
 
 
@@ -26,14 +46,24 @@ void UnionFind::merge(s_coord a, s_coord b) {
 int UnionFind::getNumber() {
 	return number;
 }
-s_coord UnionFind::getNth(int n) {
+s_coord UnionFind::firstSet() {
+	if(number == 0) return -1;
+	else {
+		int i = 0;
+		while(sets[i] == NULL) i++;
+		return sets[i]->parent->val;
+	}
+}
+
+/*s_coord UnionFind::getNth(int n) {
 	if(n > number || n < 1) return -1;
 	else {
-		pUFforest p = sets;
 		while(n > 1) {
+			if()
 			p = p->next;
 			n--;
 		}
 		return p->tree->val;
 	}
 }
+*/

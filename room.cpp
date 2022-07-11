@@ -97,12 +97,15 @@
 	}
 	
 	void Room::connectPaths(pUnionFind sets) {
+		s_coord currentSet = sets->firstSet();
+
 		while(sets->getNumber() > 1) {
 			bool hasConnected = false;
 			int distance = 1;
 
 			//TROVA I MURI ADIACENTI AL SET
-			s_coord currentSet = sets->getNth(rand() % sets->getNumber());
+			//s_coord currentSet = sets->getNth(rand() % sets->getNumber());
+			currentSet = sets->find(currentSet);
 			Coordinate adjacentWalls[ROOM_AREA_T], borderWalls[ROOM_AREA_T];
 			int breakDirections[ROOM_AREA_T];
 			int adjacentWalls_n = getAdjacentWalls(adjacentWalls, currentSet), borderWalls_n = 0;
@@ -239,6 +242,7 @@
 				for(int d = 0; d < DIR_SIZE; d++) {
 					if(new_dirs[d]) {
 						Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
+						sets->makeSet(nxt.single());
 						sets->merge(s.single(), nxt.single());
 						generatePath(nxt, sets);
 					}

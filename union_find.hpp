@@ -11,6 +11,7 @@
 #define UNION_FIND_SIZE (ROOM_WIDTH * ROOM_HEIGHT)
 
 
+// ELEMENTI COME LISTE CIRCOLARI
 struct UFelement {
 	s_coord val;
 	int weight;
@@ -20,11 +21,11 @@ struct UFelement {
 typedef UFelement *pUFelement;
 
 
-struct UFforest {
+/*struct UFforest {
 	pUFelement tree;
 	UFforest *next;
 };
-typedef UFforest *pUFforest;
+typedef UFforest *pUFforest;*/
 
 
 
@@ -32,8 +33,8 @@ typedef UFforest *pUFforest;
 
 class UnionFind {
 	private:
-		pUFelement parent[UNION_FIND_SIZE];	//puntatori a set
-		pUFforest sets;						//insiemi (foresta di alberi di altezza 1)
+		pUFelement sets[UNION_FIND_SIZE];	//puntatori a set
+		//pUFforest sets;					//insiemi (foresta di alberi di altezza 1)
 		int number;							//numero di insiemi
 	public:
 		UnionFind();
@@ -43,7 +44,8 @@ class UnionFind {
 
 		//GET
 		int getNumber();					//ritorna UnionFind.number
-		s_coord getNth(int n);				//ritorna l'n-esimo insieme (a partire da 1) (-1 se ci sono meno di n elementi)
+		s_coord firstSet();					//ritorna il padre del primo insieme memorizzato
+		//s_coord getNth(int n);				//ritorna l'n-esimo insieme (a partire da 1) (-1 se ci sono meno di n elementi)
 		//s_coord getNextInSet(s_coord current, s_coord parent);	//ritorna l'elemento successivo appartenente al set (in modo circolare, quindi alla fine ricomincia)
 																//-1 se current non appartiene a parent o parent non è un rappresentante
 };

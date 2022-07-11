@@ -49,6 +49,10 @@ const int MAX_ANIMATION = 6;
 //const int floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
 #pragma endregion GRAPHICS
 
+#pragma region PHYSICAL_STATS
+#define PHYSICAL_MAX_SPEED 5.
+#pragma endregion PHYSICAL_STATS
+
 #pragma endregion PHYSICAL_CONSTANTS
 
 
@@ -80,6 +84,7 @@ class Physical {
 		// GET
 		int getId();
 		Coordinate getPosition();
+		Coordinate getSpeed();				//velocità in caselle/secondo (float)
 		Coordinate lastFrameMovement();
 };
 

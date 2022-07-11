@@ -19,6 +19,7 @@
 		cameraPosition = player->getPosition();
 		cameraLastMovement = Coordinate(0, 0);
 		cameraPivot = player;
+		cameraPivotChanged = true;
 	}
 	Level::Level(int win_y, int win_x, pPlayer player) {
 		Level(win_y, win_x, CAMERA_HEIGHT, CAMERA_WIDTH, player);
@@ -116,7 +117,8 @@
 	}
 
 	void Level::display() {
-		displayAtPosition(cameraCenter());
+		cameraUpdate();
+		displayAtPosition(cameraPosition);
 	}
 
 	void Level::displayAtPosition(Coordinate center) {
@@ -158,11 +160,18 @@
 
 #pragma region SET_GET
 	void Level::setPivot(pPhysical pivot) {
+		cameraPivotDistance = Coordinate(pivot->getPosition(), cameraPivot->getPosition().negative());		//nuovo pivot - vecchio pivot
 		cameraPivot = pivot;
-		
+		cameraPivotChanged = true;
 	}
 	void Level::setDefaultCameraSpecs() {
-		camera_offset_max_x = CAMERA_OFFSET_MAX_X;
+		camera_offset_max = CAMERA_OFFSET_MAX;
+		camera_speed = CAMERA_SPEED;
+		camera_damping_speed = CAMERA_DAMPING_SPEED;
+		camera_damping_timeout = CAMERA_DAMPING_TIMEOUT;
+		camera_opposite_speed = CAMERA_OPPOSITE_SPEED;
+		camera_change_pivot_speed = CAMERA_CHANGE_PIVOT_SPEED;
+		/*camera_offset_max_x = CAMERA_OFFSET_MAX_X;
 		camera_offset_max_y = CAMERA_OFFSET_MAX_Y;
 		camera_speed_x = CAMERA_SPEED_X;
 		camera_speed_y = CAMERA_SPEED_Y;
@@ -173,7 +182,8 @@
 		camera_opposite_speed_x = CAMERA_OPPOSITE_SPEED_X;
 		camera_opposite_speed_y = CAMERA_OPPOSITE_SPEED_Y;
 		camera_change_pivot_speed_x = CAMERA_CHANGE_PIVOT_SPEED_X;
-		camera_change_pivot_speed_y = CAMERA_CHANGE_PIVOT_SPEED_Y;
+		camera_change_pivot_speed_y = CAMERA_CHANGE_PIVOT_SPEED_Y;*/
+		timer.set_max(CAMERA_DAMPING_TIMER, camera_damping_timeout);
 	}
 #pragma endregion SET_GET
 
@@ -223,12 +233,40 @@
 		}
 	}
 
-	Coordinate Level::cameraCenter() {
-		//se il pivot non si è mosso
-		if(cameraPivot->lastFrameMovement().equals(Coordinate(0, 0))) {
-			
+	void Level::cameraUpdate() {
+		Coordinate tolerance(REFRESH_RATE / camera_damping_speed / PHYSICAL_MAX_SPEED, REFRESH_RATE / camera_damping_speed / PHYSICAL_MAX_SPEED);
+		float ratio = timer.deltaTime();
+		//se il pivot è cambiato
+		if(cameraPivotChanged) {
+			if(cameraPosition.inBounds(Coordinate(cameraPivot->getPosition(), camera_offset_max.getNegative()), Coordinate(cameraPivot->getPosition(), camera_offset_max)))	//se camera nel rettangolo con dimensioni offset_max e centro pivot
+				cameraPivotChanged = false;
+			else {
+				ratio /= camera_change_pivot_speed;
+				cameraPosition.sum(cameraPivotDistance.getTimes(ratio, ratio));
+			}
 		}
-		//se si è mosso nella stessa direzione dello scorso frame
+		//se il pivot non si è mosso
+		else if(cameraPivot->lastFrameMovement().equals(Coordinate(0, 0))) {
+			if(Coordinate(cameraPosition, cameraPivot->getPosition().getNegative()).inBounds(tolerance.getNegative(), tolerance))	//se camera - pivot nel rettangolo di incertezza (di dimensioni piccole)
+				cameraPosition = cameraPivot->getPosition();
+			else if(!timer.is_active(CAMERA_DAMPING_TIMER))							//se si è appena fermato: avvia timer
+				timer.Start_timer(CAMERA_DAMPING_TIMER);
+			else if(timer.Check_timer(CAMERA_DAMPING_TIMER)) {						//se passato tempo di attesa: muoviti
+				ratio /= camera_damping_speed;
+				cameraPosition.sum(cameraPivotDistance.getTimes(ratio, ratio));		//camera + distance * ratio
+			}
+		}
+		//se si è mosso
+		else {
+			Coordinate target = Coordinate(cameraPivot->getPosition(), cameraPivot->getSpeed().getTimes(1 / PHYSICAL_MAX_SPEED, 1 / PHYSICAL_MAX_SPEED));	//pivot + pivot.speed / max_speed
+			if(Coordinate(cameraPosition, target.getNegative()).inBounds(tolerance.getNegative(), tolerance))		//se camera - target nel rettangolo di incertezza
+				cameraPosition = target;
+			else {
+				ratio /= camera_speed;
+				cameraPosition.sum((Coordinate(target, cameraPosition.getNegative())).getTimes(ratio, ratio));		//camera + (target - camera) * ratio
+			}
+		}
 
+		//DEVE RIENRARE NEL LIVELLO
 	}
 #pragma endregion AUSILIARIE

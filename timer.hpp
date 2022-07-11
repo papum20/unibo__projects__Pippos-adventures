@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ctime>
 
+#define REFRESH_RATE 30
 const int n_timers=5;
 
 class Timer {
@@ -22,7 +23,7 @@ class Timer {
 		Timer();
 		Timer(double max_time[]);
 
-		int Check_timer(int timer);			//						check			//timer sarebbe la posizione dell'array che indica lo specifico cronometro	//se max<0 non ha limiti
+		int Check_timer(int timer);			//						check			//timer sarebbe la posizione dell'array che indica lo specifico cronometro	//se max<0 non ha limiti //non si stoppa alla fine
 		void Update_timers();				//						update_all
 
 		void Start_timer(int timer);		//consiglio di nome:	start

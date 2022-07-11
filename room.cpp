@@ -18,7 +18,7 @@
 	void Room::recursiveDestroy() {
 		Coordinate i(0, 0, width, height);
 		do {
-			pPhysical t = grid[i.y][i.x];
+			pPhysical t = grid[i.inty()][i.intx()];
 			if(!t->isInanimate() && t->getId() != ID_DOOR) t->destroy();
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
@@ -59,7 +59,7 @@
 
 	bool Room::moveObject(Physical ob, Coordinate move) {
 		Coordinate newPos = Coordinate(ob.getPosition(), move);
-		if(newPos.inOwnBounds() || grid[newPos.y][newPos.x]->getId() != ID_FLOOR || ob.isInanimate() || ob.getId() == ID_DOOR)
+		if(newPos.inOwnBounds() || grid[newPos.inty()][newPos.intx()]->getId() != ID_FLOOR || ob.isInanimate() || ob.getId() == ID_DOOR)
 			return false;
 		else {
 			swapPositions(newPos, ob.getPosition());
@@ -90,7 +90,7 @@
 		rand_p.randomize(0, width, 0, height);
 		for(int i = 0; i < height * width; i++) {
 			rand_p.next();
-			if(grid[rand_p.y][rand_p.x] == NULL) {
+			if(grid[rand_p.inty()][rand_p.intx()] == NULL) {
 				sets->makeSet(rand_p.single());
 				generatePath(rand_p, sets);
 			}
@@ -152,7 +152,7 @@
 					for(int dist = 0; dist <= distance; dist++) {
 						Coordinate dir = DIRECTIONS[breakDirections[brokenWall]];
 						Coordinate tw = Coordinate(bw, dir.getTimes(dist, dist));
-						grid[tw.x][tw.x] = floorInstance;
+						grid[tw.inty()][tw.intx()] = floorInstance;
 						sets->merge(currentSet, tw.single());
 					}
 
@@ -181,7 +181,7 @@
 	{
 		if(!s.inOwnBounds()) return;
 		else {
-			grid[s.y][s.x] = floorInstance;
+			grid[s.inty()][s.intx()] = floorInstance;
 
 			bool used_dirs[DIR_SIZE];		//direzioni usate
 			int used_dirs_n;
@@ -193,7 +193,7 @@
 			int unused_dirs_n = 0;
 			for(int d = 0; d < DIR_SIZE; d++) {
 				Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
-				if(grid[nxt.y][nxt.x] == NULL) {
+				if(grid[nxt.inty()][nxt.intx()] == NULL) {
 					if(nxt.inOwnBounds()) {
 						used_dirs[d] = false;
 						unused_dirs_n++;
@@ -202,7 +202,7 @@
 				}
 				else {
 					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
-					if(grid[nxt.y][nxt.x]->getId() == ID_FLOOR)
+					if(grid[nxt.inty()][nxt.intx()]->getId() == ID_FLOOR)
 						sets->merge(s.single(), nxt.single());
 					used_dirs[d] = true;
 				}
@@ -233,8 +233,8 @@
 
 				// PRIMA GENERA MURI E CASELLE ADIACENTI,
 				for(int d = 0; d < DIR_SIZE; d++) {
-					if(new_dirs[d]) grid[s.y + DIRECTIONS[d].y][s.x + DIRECTIONS[d].x] = floorInstance;
-					else if(!used_dirs[d]) grid[s.y + DIRECTIONS[d].y][s.x + DIRECTIONS[d].x] = wallInstance;
+					if(new_dirs[d]) grid[s.inty() + (int)DIRECTIONS[d].y][s.intx() + (int)DIRECTIONS[d].x] = floorInstance;
+					else if(!used_dirs[d]) grid[s.inty() + (int)DIRECTIONS[d].y][s.intx() + (int)DIRECTIONS[d].x] = wallInstance;
 				}
 				//POI VA IN RICORSIONE SULLE DIREZIONI
 				for(int d = 0; d < DIR_SIZE; d++) {
@@ -255,7 +255,7 @@
 			for(int d = 0; d < DIR_SIZE; d++) {
 				Coordinate p = Coordinate(square, width, height);
 				Coordinate nxt = Coordinate(p, DIRECTIONS[d]);
-				if(nxt.inOwnBounds() && grid[nxt.y][nxt.x]->getId() == ID_WALL) {
+				if(nxt.inOwnBounds() && grid[nxt.inty()][nxt.intx()]->getId() == ID_WALL) {
 					out[walls] = nxt;
 					walls++;
 				}
@@ -288,9 +288,9 @@
 
 #pragma region AUSILIARIE_GENERICHE
 	void Room::swapPositions(Coordinate a, Coordinate b) {
-		pPhysical tmp = grid[a.y][a.x];
-		grid[a.y][a.x] = grid[b.y][b.x];
-		grid[b.y][b.x] = tmp;
+		pPhysical tmp = grid[a.inty()][a.intx()];
+		grid[a.inty()][a.intx()] = grid[b.inty()][b.intx()];
+		grid[b.inty()][b.intx()] = tmp;
 	}
 #pragma endregion AUSILIARIE_GENERICHE
 
@@ -313,7 +313,7 @@
 	}
 	pPhysical Room::checkPosition(Coordinate pos) {
 		if(!pos.inBounds(Coordinate(0, 0), Coordinate(width, height)))
-			return grid[pos.y][pos.x];
+			return grid[pos.inty()][pos.intx()];
 		else return NULL;
 	}
 #pragma endregion SET_GET

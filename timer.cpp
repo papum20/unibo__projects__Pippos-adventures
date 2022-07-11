@@ -24,7 +24,7 @@ int Timer::Check_timer(int timer){//spegne se ha superato il tempo limite, ritor
 	if(timer<=n_timers && timer >= 0){
 		double curr_time = (double)clock() / CLOCKS_PER_SEC;
 		if(max_time[timer]>=0 && curr_time-timers[timer]>max_time[timer]){
-			active_timers[timer]=false;
+			//active_timers[timer]=false;
 			return 1;}
 		else
 			return 0;

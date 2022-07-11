@@ -138,7 +138,7 @@ void Pixel_art::convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, ch
 }
 
 
-void Pixel_art::pixel_phrase(WINDOW* menu, int start_x, int start_y, char string[], bool highlight){
+void Pixel_art::pixel_phrase(WINDOW* menu, int start_x, int start_y, const char string[], bool highlight){
 int i=0;
 int j=0;
 if(highlight==true){
@@ -157,12 +157,3 @@ j=j+6;
 }
 }
 
-
-void Pixel_art::clean_window(WINDOW* window, int w_hight, int w_lenght){
-init_pair(4, COLOR_BLACK, COLOR_BLACK);
-for(int i=1; i<w_hight; i++){
-    for(int j=1; j<w_lenght; j++){
-        mvwaddch(window, i, j, ' ');
-    }
-}   
-}

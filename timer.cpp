@@ -19,25 +19,33 @@ double Timer::current_time() {
 	return (double)clock() / CLOCKS_PER_SEC;
 }
 
+int Timer::get_time_passed(int timer){
+	double curr_time = (double)clock() / CLOCKS_PER_SEC;
+return(curr_time - timers[timer] - Total_Pauses[timer]);
+}
 
-int Timer::Check_timer(int timer){//spegne se ha superato il tempo limite, ritorna -1 error, 0 false, 1 true
-	if(timer<=n_timers && timer >= 0){
+bool Timer::check(int timer){//spegne se ha superato il tempo limite,  ritorna vero se hai superato il limite
+	
 		double curr_time = (double)clock() / CLOCKS_PER_SEC;
+<<<<<<< HEAD
 		if(max_time[timer]>=0 && curr_time-timers[timer]>max_time[timer]){
 			//active_timers[timer]=false;
 			return 1;}
+=======
+		if(curr_time-timers[timer] - Total_Pauses[timer]>max_time[timer]){
+			active_timers[timer]=false;
+			return true;}
+>>>>>>> 119ff9d4fd2ac76838e97633b9f56a17773bcd62
 		else
-			return 0;
-	}
-	return (-1);
-};
-void Timer::Start_timer(int timer){//puoi riattivare un timer già attivo per resettare il suo valore
+			return false;
+}
+void Timer::start(int timer){//puoi riattivare un timer già attivo per resettare il suo valore
 	active_timers[timer]=true;
 	timers[timer]=(double)clock() / CLOCKS_PER_SEC;
 }
 
 
-void Timer::Start_all_timers(){
+void Timer::start_all(){
 	for(int i=0; i<n_timers; i++){
 		active_timers[i]=true;
 		timers[i]=(double)clock() / CLOCKS_PER_SEC;
@@ -45,19 +53,21 @@ void Timer::Start_all_timers(){
 }
 
 
-void Timer::Stop_timer(int timer){
+void Timer::stop(int timer){
 	active_timers[timer]=false;
+	Total_Pauses[timer]=0;
 }
 
 
-void Timer::Stop_all_timers(){
+void Timer::stop_all(){
 	for(int i=0; i<n_timers; i++){
 		active_timers[i]=false;
+		Total_Pauses[i]=0;
 	}
 }
 
 
-void Timer::Start_Pause(int timer){
+void Timer::start_pause(int timer){
 	if(!State_pause[timer]){
 		Start_Pause_value[timer]=(double)clock() / CLOCKS_PER_SEC;
 		State_pause[timer]=true;
@@ -65,7 +75,7 @@ void Timer::Start_Pause(int timer){
 }
 
 
-void Timer::Finish_Pause(int timer){
+void Timer::finish_pause(int timer){
 	if(State_pause[timer]){
 		double Finish_Pause=(double)clock() / CLOCKS_PER_SEC;
 		Total_Pauses[timer]=Total_Pauses[timer] + (Finish_Pause - Start_Pause_value[timer]);

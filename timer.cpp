@@ -27,15 +27,8 @@ return(curr_time - timers[timer] - Total_Pauses[timer]);
 bool Timer::check(int timer){//spegne se ha superato il tempo limite,  ritorna vero se hai superato il limite
 	
 		double curr_time = (double)clock() / CLOCKS_PER_SEC;
-<<<<<<< HEAD
-		if(max_time[timer]>=0 && curr_time-timers[timer]>max_time[timer]){
-			//active_timers[timer]=false;
-			return 1;}
-=======
 		if(curr_time-timers[timer] - Total_Pauses[timer]>max_time[timer]){
-			active_timers[timer]=false;
 			return true;}
->>>>>>> 119ff9d4fd2ac76838e97633b9f56a17773bcd62
 		else
 			return false;
 }

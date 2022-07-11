@@ -34,14 +34,14 @@ bool Timer::check(int timer){//spegne se ha superato il tempo limite,  ritorna v
 }
 void Timer::start(int timer){//puoi riattivare un timer già attivo per resettare il suo valore
 	active_timers[timer]=true;
+	Total_Pauses[timer]=0;
 	timers[timer]=(double)clock() / CLOCKS_PER_SEC;
 }
 
 
 void Timer::start_all(){
 	for(int i=0; i<n_timers; i++){
-		active_timers[i]=true;
-		timers[i]=(double)clock() / CLOCKS_PER_SEC;
+		start(i);
 	}
 }
 

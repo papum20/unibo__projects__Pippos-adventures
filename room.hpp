@@ -40,8 +40,7 @@ class Room {
 		void swapPositions(Coordinate a, Coordinate b);
 
 	protected:
-		int width;
-		int height;	
+		Coordinate size;	
 		pPhysical grid[ROOM_HEIGHT][ROOM_WIDTH];	//array bidimensionale di oggetti fisici (presenti nelle loro posizioni)
 		// FUNZIONI AUSILIARIE PRINCIPALI
 		void generateSidesWalls();
@@ -62,13 +61,13 @@ class Room {
 																									//inquadra solo un rettangolo con le dimensioni dei parametri intorno al giocatore
 		// MOVIMENTO
 		bool moveObject(Physical ob, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
-														//precondizione: ob.pos ha bound impostati
 
 		// SET
 		void makeConnection(Room *room, int dir);
 		// GET
 		int getX();
 		int getY();
+		Coordinate getSize();
 		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 		Room *getConnectedRoom(Coordinate pos);			//ritorna il puntatore alla stanza collegata da una porta
 };

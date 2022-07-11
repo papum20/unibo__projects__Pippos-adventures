@@ -25,16 +25,18 @@ class Coordinate {
 
 		Coordinate();
 		Coordinate(float x, float y);
-		Coordinate(float x, float y, float width, float height);
+		Coordinate(float x, float y, Coordinate size);
 		Coordinate(float x, float y, float sx, float sy, float ex, float ey);
-		Coordinate(s_coord xy, float width, float height);			//crea a partire da singola coordinata (vedi sotto)								
+		Coordinate(s_coord xy, Coordinate size);					//crea a partire da singola coordinata (vedi sotto)								
 		Coordinate(const Coordinate a, const Coordinate b);			//crea come somma e matrice del primo
 
 		//BOOL
 		bool inBounds(Coordinate mn, Coordinate mx);			//ritorna true se xmin<=x<xmax && ymin<=y<ymax
 		bool inOwnBounds();
+		//bool inBoundsX(float xmin, float xmax);					//se x compreso, estremi inclusi
+		//bool inBoundsY(float ymin, float ymax);
 		bool equals(Coordinate B);
-		//bool equalsDirection(Coordinate B);						//se hanno la stessa direzione
+		//bool equalsDirection(Coordinate B);					//se hanno la stessa direzione
 		//EDIT
 		Coordinate negative();									//modifica e ritorna l'opposto
 		Coordinate getNegative();
@@ -46,7 +48,7 @@ class Coordinate {
 																//se estremi uguali, non cambia il valore
 
 		//SET
-		void setMatrix(float width, float height);						//non imposta se <=0
+		void setMatrix(Coordinate size);								//non imposta se <=0
 		void setFullMatrix(float sx, float sy, float ex, float ey);		//non imposta se <0 o start > end - 1
 		//GET
 		int intx();										//coordinate intere

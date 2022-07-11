@@ -7,24 +7,24 @@
 	Coordinate::Coordinate() {
 		x = DFLT_COORDINATE_X;
 		y = DFLT_COORDINATE_Y;
-		setMatrix(DFLT_COORDINATE_W, DFLT_COORDINATE_H);
+		setMatrix(Coordinate(DFLT_COORDINATE_W, DFLT_COORDINATE_H));
 	}
 	Coordinate::Coordinate(float x, float y) {
 		this->x = x;
 		this->y = y;
 	}
-	Coordinate::Coordinate(float x, float y, float width, float height) {
+	Coordinate::Coordinate(float x, float y, Coordinate size) {
 		Coordinate(x, y);
-		setMatrix(width, height);
+		setMatrix(size);
 	}
 	Coordinate::Coordinate(float x, float y, float sx, float sy, float ex, float ey) {
 		Coordinate(x, y);
 		setFullMatrix(sx, sy, ex, ey);
 	}
-	Coordinate::Coordinate(s_coord xy, float width, float height) {
-		setMatrix(width, height);
-		y = xy / width;
-		x = xy - y * width;
+	Coordinate::Coordinate(s_coord xy, Coordinate size) {
+		setMatrix(size);
+		y = xy / size.x;
+		x = xy - y * size.x;
 	}
 	Coordinate::Coordinate(const Coordinate a, const Coordinate b) {
 		Coordinate(a.x + b.x, a.y + b.y, a.startx, a.starty, a.endx, a.endy);
@@ -41,6 +41,12 @@
 	bool Coordinate::inOwnBounds() {
 		return (x >= startx && x < endx && y >= starty && y < endy);
 	}
+	/*bool Coordinate::inBoundsX(float xmin, float xmax) {
+		return (x >= xmin && x <= xmax); 
+	}
+	bool Coordinate::inBoundsY(float ymin, float ymax) {
+		return (y >= ymin && y <= ymax);
+	}*/
 	bool Coordinate::equals(Coordinate B) {
 		return x == B.x && y == B.y;
 	}
@@ -93,9 +99,9 @@
 //// SET GET
 #pragma region SET_GET
 // SET
-	void Coordinate::setMatrix(float width, float height) {
-		if(width > 0) this->endx = width;
-		if(height > 0) this->endy = height;
+	void Coordinate::setMatrix(Coordinate size) {
+		if(size.x > 0) this->endx = size.x;
+		if(size.y > 0) this->endy = size.y;
 	}
 	void Coordinate::setFullMatrix(float sx, float ex, float sy, float ey) {
 		if(sx <= 0) sx = startx;

@@ -63,12 +63,12 @@ class Level {
 		int lr_border;
 		int tb_border;
 		//camera
-		Coordinate camera_offset_max;		//massimo spostamento della camera
-		float camera_speed;					//tempo (secondi) per raggiungere il massimo spostamento
-		float camera_damping_speed;			//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
-		float camera_damping_timeout;		//tempo di attesa prima di tornare alla posizione di riposo
-		float camera_opposite_speed;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
-		float camera_change_pivot_speed;	//tempo per spostarsi su un nuovo pivot
+		Coordinate offset_max;		//massimo spostamento della camera
+		float speed;					//tempo (secondi) per raggiungere il massimo spostamento
+		float damping_speed;			//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+		float damping_timeout;		//tempo di attesa prima di tornare alla posizione di riposo
+		float opposite_speed;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
+		float change_pivot_speed;	//tempo per spostarsi su un nuovo pivot
 		/*float camera_offset_max_x;			//massimo spostamento della camera
 		float camera_offset_max_y;
 		float camera_speed_x;				//tempo (secondi) per raggiungere il massimo spostamento
@@ -82,11 +82,11 @@ class Level {
 		float camera_change_pivot_speed_x;	//tempo per spostarsi su un nuovo pivot
 		float camera_change_pivot_speed_y;*/
 
-		Coordinate cameraPosition;
-		Coordinate cameraLastMovement;
-		pPhysical cameraPivot;			//la camera segue un oggetto physical
-		bool cameraPivotChanged;		//se è cambiato il pivot
-		Coordinate cameraPivotDistance;	//(se è cambiato il pivot) distanza dal vecchio pivot
+		Coordinate position;
+		Coordinate lastMovement;
+		pPhysical pivot;			//la camera segue un oggetto physical
+		bool pivotChanged;		//se è cambiato il pivot
+		Coordinate pivotDistance;	//(se è cambiato il pivot) distanza dal vecchio pivot
 		//schermo
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
@@ -108,6 +108,9 @@ class Level {
 		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);			//scambia due elementi di A
 		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);			//aggiusta una posizione del min-heap (mantenendone le proprietà)
 		void cameraUpdate();															//calcola il centro della camera
+
+		Coordinate cameraStart();														//prima casella inquadrata
+		Coordinate cameraEnd();															//ultima inquadrata
 
 	public:
 		Level(int win_y, int win_x, pPlayer player);

@@ -6,17 +6,16 @@
 		//inzializza stanza
 		this->x = x;
 		this->y = y;
-		width = ROOM_WIDTH;
-		height = ROOM_HEIGHT;
+		size = Coordinate(ROOM_WIDTH, ROOM_HEIGHT);
 
 		floorInstance = new Floor();
 		wallInstance = new Wall();
 
-		for(int y = 0; y < height; y++)
-			for(int x = 0; x < width; x++) grid[y][x] = NULL;
+		for(int y = 0; y < size.y; y++)
+			for(int x = 0; x < size.x; x++) grid[y][x] = NULL;
 	}
 	void Room::recursiveDestroy() {
-		Coordinate i(0, 0, width, height);
+		Coordinate i(0, 0, size);
 		do {
 			pPhysical t = grid[i.inty()][i.intx()];
 			if(!t->isInanimate() && t->getId() != ID_DOOR) t->destroy();
@@ -59,7 +58,7 @@
 
 	bool Room::moveObject(Physical ob, Coordinate move) {
 		Coordinate newPos = Coordinate(ob.getPosition(), move);
-		if(newPos.inOwnBounds() || grid[newPos.inty()][newPos.intx()]->getId() != ID_FLOOR || ob.isInanimate() || ob.getId() == ID_DOOR)
+		if(newPos.inBounds(Coordinate(0, 0), size) || grid[newPos.inty()][newPos.intx()]->getId() != ID_FLOOR || ob.isInanimate() || ob.getId() == ID_DOOR)
 			return false;
 		else {
 			swapPositions(newPos, ob.getPosition());
@@ -72,9 +71,9 @@
 #pragma region AUSILIARIE_PRINCIPALI
 //// FUNZIONI AUSILIARIE PRINCIPALI
 	void Room::generateSidesWalls() {
-		for(int y = 0; y < height; y++) {
+		for(int y = 0; y < size.y; y++) {
 			int delta_x = 1;
-			if(y != 0 && y != height - 1) delta_x = ROOM_WIDTH_T - 1;
+			if(y != 0 && y != size.y - 1) delta_x = ROOM_WIDTH_T - 1;
 			for(int x = 0; x < ROOM_WIDTH_T; x += delta_x) grid[y][x] = wallInstance;
 		}
 	}
@@ -86,9 +85,9 @@
 	}
 	void Room::generateAllPaths(pUnionFind sets) {
 		Coordinate rand_p = Coordinate();
-		rand_p.setMatrix(width, height);
-		rand_p.randomize(0, width, 0, height);
-		for(int i = 0; i < height * width; i++) {
+		rand_p.setMatrix(size);
+		rand_p.randomize(0, size.x, 0, size.y);
+		for(int i = 0; i < size.y * size.x; i++) {
 			rand_p.next();
 			if(grid[rand_p.inty()][rand_p.intx()] == NULL) {
 				sets->makeSet(rand_p.single());
@@ -253,7 +252,7 @@
 		s_coord square = currentSet;
 		do {
 			for(int d = 0; d < DIR_SIZE; d++) {
-				Coordinate p = Coordinate(square, width, height);
+				Coordinate p = Coordinate(square, size);
 				Coordinate nxt = Coordinate(p, DIRECTIONS[d]);
 				if(nxt.inOwnBounds() && grid[nxt.inty()][nxt.intx()]->getId() == ID_WALL) {
 					out[walls] = nxt;
@@ -308,11 +307,14 @@
 	int Room::getY() {
 		return y;
 	}
+	Coordinate Room::getSize() {
+		return size;
+	}
 	pRoom Room::getConnectedRoom(Coordinate pos) {
 		return NULL;
 	}
 	pPhysical Room::checkPosition(Coordinate pos) {
-		if(!pos.inBounds(Coordinate(0, 0), Coordinate(width, height)))
+		if(!pos.inBounds(Coordinate(0, 0), size))
 			return grid[pos.inty()][pos.intx()];
 		else return NULL;
 	}

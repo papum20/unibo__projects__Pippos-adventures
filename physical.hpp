@@ -29,6 +29,7 @@ const int MAX_ANIMATION = 6;
 
 #define ID_DEFAULT 0
 #define ID_PLACEHOLDER 1
+#define ID_PLAYER 2
 #define ID_WALL 10
 #define ID_FLOOR 11
 #define ID_DOOR 20

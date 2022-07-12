@@ -2,7 +2,7 @@
 
 Player::Player():Character(p_max_health) {
 
-	id=PLAYER_ID;
+	id=ID_PLAYER;
 	animation[idle_index] = tail_insert(animation[idle_index], idle[0], p_height, p_width);
 	
 	for(int i=0; i<2; i++){

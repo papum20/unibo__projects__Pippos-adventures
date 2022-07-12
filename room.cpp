@@ -2,10 +2,9 @@
 
 
 #pragma region MAIN
-	Room::Room(int x, int y) {
+	Room::Room(Coordinate pos) {
 		//inzializza stanza
-		this->x = x;
-		this->y = y;
+		this->pos = pos;
 		size = Coordinate(ROOM_WIDTH, ROOM_HEIGHT);
 
 		floorInstance = new Floor();
@@ -127,14 +126,14 @@
 					
 					/*
 					//CERCA LA GIUSTA DIREZIONE IN CUI ROMPERE
-					int rand_dir = rand() % DIR_SIZE;
+					int rand_dir = rand() % DIR_TOT;
 					int self_x, self_y;
 					int adjacent_x, adjacent_y;
 					do {
 						int dx = DIRECTIONS[rand_dir].x, dy = DIRECTIONS[rand_dir].y;
 						self_x = bx + dx, self_y = by + dy;
 						adjacent_x = bx + dx * distance, adjacent_y = by + dy * distance;
-						rand_dir = (rand_dir + 1) % DIR_SIZE;
+						rand_dir = (rand_dir + 1) % DIR_TOT;
 					} while(!validCoordinates(self_x, self_y, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) || 
 							!validCoordinates(adjacent_x, adjacent_y, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) || 
 							sets->find(toSingleCoordinate(self_x, self_y)) != currentSet ||
@@ -185,15 +184,15 @@
 		else {
 			grid[s.inty()][s.intx()] = floorInstance;
 
-			bool used_dirs[DIR_SIZE];		//direzioni usate
+			bool used_dirs[DIR_TOT];		//direzioni usate
 			int used_dirs_n;
-			bool new_dirs[DIR_SIZE];		//nuove direzioni da generare
+			bool new_dirs[DIR_TOT];		//nuove direzioni da generare
 			int new_dirs_n;
 
 			// CONTA DIREZIONI INUTILIZZABILI (PERCHÈ GIÀ USATE O FUORI DALLA MAPPA)
 			int tot_chance = DIR_CHANCES[0];	//somma delle probabilità delle direzioni disponibili
 			int unused_dirs_n = 0;
-			for(int d = 0; d < DIR_SIZE; d++) {
+			for(int d = 0; d < DIR_TOT; d++) {
 				Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
 				if(grid[nxt.inty()][nxt.intx()] == NULL) {
 					if(nxt.inOwnBounds()) {
@@ -209,9 +208,9 @@
 					used_dirs[d] = true;
 				}
 			}
-			used_dirs_n = DIR_SIZE - unused_dirs_n;
+			used_dirs_n = DIR_TOT - unused_dirs_n;
 
-			if(used_dirs_n != DIR_SIZE) {
+			if(used_dirs_n != DIR_TOT) {
 				// SCEGLI NUMERO DI DIREZIONI DA GENERARE (TRA QUELLE DISPONIBILI)
 				new_dirs_n = 0;
 				int new_dirs_r = rand() % tot_chance;	//indice per generare un numero random di nuove direzioni
@@ -222,7 +221,7 @@
 				}
 
 				//	SCEGLI DIREZIONI IN CUI GENERARE
-				for(int d = 0; d < DIR_SIZE; d++) new_dirs[d] = false;
+				for(int d = 0; d < DIR_TOT; d++) new_dirs[d] = false;
 				for(int i = 0; i < new_dirs_n; i++) {
 					int r = rand() % (new_dirs_n - i);
 					int d = 0;
@@ -234,12 +233,12 @@
 				}
 
 				// PRIMA GENERA MURI E CASELLE ADIACENTI,
-				for(int d = 0; d < DIR_SIZE; d++) {
+				for(int d = 0; d < DIR_TOT; d++) {
 					if(new_dirs[d]) grid[s.inty() + (int)DIRECTIONS[d].y][s.intx() + (int)DIRECTIONS[d].x] = floorInstance;
 					else if(!used_dirs[d]) grid[s.inty() + (int)DIRECTIONS[d].y][s.intx() + (int)DIRECTIONS[d].x] = wallInstance;
 				}
 				//POI VA IN RICORSIONE SULLE DIREZIONI
-				for(int d = 0; d < DIR_SIZE; d++) {
+				for(int d = 0; d < DIR_TOT; d++) {
 					if(new_dirs[d]) {
 						Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
 						sets->makeSet(nxt.single());
@@ -255,7 +254,7 @@
 		int walls = 0;
 		s_coord square = currentSet;
 		do {
-			for(int d = 0; d < DIR_SIZE; d++) {
+			for(int d = 0; d < DIR_TOT; d++) {
 				Coordinate p = Coordinate(square, size);
 				Coordinate nxt = Coordinate(p, DIRECTIONS[d]);
 				if(nxt.inOwnBounds() && grid[nxt.inty()][nxt.intx()]->getId() == ID_WALL) {
@@ -269,10 +268,10 @@
 	int Room::getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance) {
 		int border_n = 0;
 		for(int i = 0; i < walls_n; i++) {
-			int rand_d = rand() % DIR_SIZE, d = 0;
+			int rand_d = rand() % DIR_TOT, d = 0;
 			bool found = false;
-			while(!found && d < DIR_SIZE) {
-				rand_d = (rand_d + 1) % DIR_SIZE;
+			while(!found && d < DIR_TOT) {
+				rand_d = (rand_d + 1) % DIR_TOT;
 				Coordinate dir = DIRECTIONS[rand_d];
 				Coordinate nxt = Coordinate(walls[i], dir.getTimes(distance, distance));
 				if(nxt.inOwnBounds() && sets.find(nxt.single()) != parent) {
@@ -305,11 +304,8 @@
 
 	}
 //// GET
-	int Room::getX() {
-		return x;
-	}
-	int Room::getY() {
-		return y;
+	Coordinate Room::getPos() {
+		return pos;
 	}
 	Coordinate Room::getSize() {
 		return size;

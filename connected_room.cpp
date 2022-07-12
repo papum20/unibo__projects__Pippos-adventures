@@ -2,20 +2,20 @@
 
 
 #pragma region MAIN
-	ConnectedRoom::ConnectedRoom(int x, int y) : Room(x, y) {
+	ConnectedRoom::ConnectedRoom(Coordinate pos) : Room(pos) {
 		//inizializza porte/stanze collegate
 		n_doors_max = MAX_CONNECTED_R;
 		for(int i = 0; i < n_doors_max; i++) doors[i] = NULL;
 
-		door_positions[0] = Coordinate(width / 2, 0);
-		door_positions[1] = Coordinate(0, height / 2);
-		door_positions[2] = Coordinate(width / 2, height - 1);
-		door_positions[3] = Coordinate(width - 1, height / 2);
+		door_positions[0] = Coordinate(size.x / 2, 0);
+		door_positions[1] = Coordinate(0, size.y / 2);
+		door_positions[2] = Coordinate(size.x / 2, size.y - 1);
+		door_positions[3] = Coordinate(size.x - 1, size.y / 2);
 	}
 	void ConnectedRoom::recursiveDestroy() {
 		for(int i = 0; i < MAX_CONNECTED_R; i++) {
 			if(doors[i] != NULL && doors[i]->getConnected() != NULL) {
-				if(i < DIR_SIZE) doors[i]->getConnected()->makeConnection(NULL, (i + 2) % DIR_SIZE);
+				if(i < DIR_TOT) doors[i]->getConnected()->makeConnection(NULL, (i + 2) % DIR_TOT);
 				else doors[i]->getConnected()->makeConnection(NULL, i);					//scollega la stanza adiacente da questa
 				doors[i]->getConnected()->recursiveDestroy();							//distruggi in ricorsione la stanza adiacente
 				doors[i]->destroy();													//distruggi la porta
@@ -46,13 +46,13 @@
 	void ConnectedRoom::generateDoors(pUnionFind sets) {
 		for(int door = 0; door < n_doors_sides; door++) {
 			Coordinate door_p = doors[door]->getPosition();
-			door_p.setMatrix(width, height);
-			grid[door_p.y][door_p.x] = doors[door];
+			door_p.setMatrix(size);
+			grid[door_p.inty()][door_p.intx()] = doors[door];
 			sets->makeSet(door_p.single());
 		}
 	}
 	pDoor ConnectedRoom::findDoor(Coordinate pos) {
-		if(!pos.inBounds(Coordinate(0, 0), Coordinate(width, height))) return NULL;
+		if(!pos.inBounds(Coordinate(0, 0), size)) return NULL;
 		else {
 			pDoor res = NULL;
 			for(int i = 0; i < MAX_CONNECTED_R; i++) {
@@ -65,9 +65,9 @@
 
 #pragma region SET_GET
 //// SET
-	void ConnectedRoom::makeConnection(pCRoom room, int dir) {
+	void ConnectedRoom::makeConnection(pConnectedRoom room, int dir) {
 		this->doors[dir] = new Door(door_positions[dir], room);
-		int dir2 = (dir + 2) % DIR_SIZE;
+		int dir2 = (dir + 2) % DIR_TOT;
 		room->doors[dir2] = new Door(door_positions[dir2], this);
 	}
 //// GET

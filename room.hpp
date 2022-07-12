@@ -24,7 +24,7 @@ const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
 
 class Room {
 	private:
-		int x, y;									//coordinate rispetto alla prima stanza del livello
+		Coordinate pos;											//coordinate rispetto alla prima stanza del livello
 		//istanze di muro e pavimento, riutilizzate sempre uguali
 		pPhysical floorInstance;
 		pPhysical wallInstance;
@@ -50,7 +50,7 @@ class Room {
 		void resizeMap();										//ridimensiona la mappa, allargando quella temporanea generata di X_SCALE
 
 	public:
-		Room(int x, int y);
+		Room(Coordinate pos);
 		void recursiveDestroy();
 		
 		// GENERAZIONE
@@ -65,8 +65,7 @@ class Room {
 		// SET
 		void makeConnection(Room *room, int dir);
 		// GET
-		int getX();
-		int getY();
+		Coordinate getPos();
 		Coordinate getSize();
 		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 		Room *getConnectedRoom(Coordinate pos);			//ritorna il puntatore alla stanza collegata da una porta

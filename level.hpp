@@ -11,17 +11,6 @@
 #define TB_BORDER 1
 #define N_ROOMS 10			//numero di stanze (normali) generate per livello
 
-// COSTANTI PER L'IMPLEMENTAZIONE DELLA GENERAZIONE
-//dimensioni della matrice available (per generateMap)
-#define MAX_AVAILABLE (N_ROOMS * 2 + 2)
-#define DIM_AVAILABLE 3
-//indice di x,y,n nella matrice
-#define AV_X 0
-#define AV_Y 1
-#define AV_N 2
-#define MAX_RAND_EXEC 3		//massimo numero di esecuzione di cicli che terminano solo in base a un numero random
-#define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
-
 // COSTANTI PER IL MOVIMENTO DELLA CAMERA
 const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 #define CAMERA_SPEED 2.						//tempo (secondi) per raggiungere il massimo spostamento
@@ -51,6 +40,7 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 #include "connected_room.hpp"
 #include "definitions.hpp"
 #include "player.hpp"
+#include "room_priority_queue.hpp"
 #include "timer.hpp"
 
 
@@ -99,19 +89,14 @@ class Level {
 		
 		// FUNZIONI
 		void generateMap();		//genera lo schema della disposizione delle stanze del livello
-
 		void changeRoom();
 		void nextLevel();	
 		
-		pCRoom findRoomAtCoordinates(pCRoom rooms[], int len, int x, int y);			//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		// FUNZIONI AUSILIARIE
-		int findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], int x, int y);	//ritorna l'indice della posizione dell'array con tali coordinate (-1 se non presenteS)
-		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);			//scambia due elementi di A
-		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);			//aggiusta una posizione del min-heap (mantenendone le proprietà)
-		void cameraUpdate();															//calcola il centro della camera
-
-		Coordinate cameraStart();														//prima casella inquadrata
-		Coordinate cameraEnd();															//ultima inquadrata
+		pConnectedRoom findRoomAtCoordinates(pConnectedRoom rooms[], int len, Coordinate c);	//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
+		void cameraUpdate();																	//calcola il centro della camera
+		Coordinate cameraStart();																//prima casella inquadrata
+		Coordinate cameraEnd();																	//ultima inquadrata
 
 	public:
 		Level(int win_y, int win_x, pPlayer player);

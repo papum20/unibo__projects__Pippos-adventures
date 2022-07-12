@@ -25,7 +25,7 @@ class ConnectedRoom : public Room {
 
 
 	public:
-		ConnectedRoom(int x, int y);
+		ConnectedRoom(Coordinate pos);
 		void recursiveDestroy();
 		
 		void generate(); 							//genera uno schema randomico per i muri, inserendoli nell'array grid
@@ -39,7 +39,7 @@ class ConnectedRoom : public Room {
 //		int getSideDoors();				//ritorna il numero di lati occupati da una porta (attualmente)
 };
 
-typedef ConnectedRoom *pCRoom;
+typedef ConnectedRoom *pConnectedRoom;
 
 
 

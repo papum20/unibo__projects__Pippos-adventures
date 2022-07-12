@@ -1,11 +1,11 @@
-#include "priority_queue.hpp"
+#include "room_priority_queue.hpp"
 
 
 
-	PriorityQueue::PriorityQueue() {
-		PriorityQueue(COMPARE_SIGN_DFLT);
+	RoomPriorityQueue::RoomPriorityQueue() {
+		RoomPriorityQueue(COMPARE_SIGN_DFLT);
 	}
-	PriorityQueue::PriorityQueue(int compareSign) {
+	RoomPriorityQueue::RoomPriorityQueue(int compareSign) {
 		size = 0;
 		this->compareSign = compareSign;
 	}
@@ -13,14 +13,14 @@
 
 //// PRINCIPALI
 #pragma region HEAP_PRINCIPALI
-	void PriorityQueue::insert(Comparable x) {
+	void RoomPriorityQueue::insert(RoomPosition x) {
 		if(size < HEAP_SIZE_MAX) {
 			heap[size] = x;
 			fix(size);
 			size++;
 		}
 	}
-	void PriorityQueue::remove(Comparable x) {
+	void RoomPriorityQueue::remove(RoomPosition x) {
 		int ind = find(x);
 		if(ind != -1) {
 			swap(ind, size - 1);
@@ -28,7 +28,7 @@
 			fix(ind);
 		}
 	}
-	void PriorityQueue::increaseKey(Comparable x, Comparable incr) {
+	void RoomPriorityQueue::increaseKey(RoomPosition x, RoomPosition incr) {
 		int ind = find(x);
 		if(ind != -1) {
 			x.add(incr);
@@ -36,17 +36,31 @@
 		}
 	}
 
-	Comparable PriorityQueue::random() {
+	RoomPosition RoomPriorityQueue::random() {
 		return heap[rand() % size];
 	}
-	Comparable PriorityQueue::unevenRandom() {
-
+	RoomPosition RoomPriorityQueue::unevenRandom() {
+		int i = 0;
+		int executions = ROOM_RAND_EXECUTIONS_MAX;
+		do {	//verrebbe comunque eseguito almeno una volta anche con il while
+			if(rand() % ROOM_RAND_CHANCE == 0) executions = 0;
+			else {
+				if(left(i) < size && rand() % 2) i = left(i);
+				else if(right(i) < size) i = right(i);
+				else {
+					i = 0;
+					executions--;
+				}
+			}
+		} while(executions > 0);
+		return heap[i];
 	}
+
 #pragma endregion HEAP_PRINCIPALI
 
 
 #pragma region HEAP_AUSILIARIE
-	int PriorityQueue::find(Comparable x, int i = 0) {
+	int RoomPriorityQueue::find(RoomPosition x, int i = 0) {
 		if(i >= size) return -1;
 		else {
 			if(heap[i].compareTo(x) == 0) return i;
@@ -57,7 +71,7 @@
 			}
 		}
 	}
-	void PriorityQueue::fix(int i) {
+	void RoomPriorityQueue::fix(int i) {
 		if(size > 0) {
 			//controlla su
 			while(i > 0 && heap[parent(i)].compareTo(heap[i]) == compareSign) {
@@ -72,18 +86,18 @@
 			}
 		}
 	}
-	void PriorityQueue::swap(int a, int b) {
-		Comparable tmp = heap[a];
+	void RoomPriorityQueue::swap(int a, int b) {
+		RoomPosition tmp = heap[a];
 		heap[a] = heap[b];
 		heap[b] = tmp;
 	}
-	int PriorityQueue::left(int i) {
+	int RoomPriorityQueue::left(int i) {
 		return i * 2 + 1;
 	}
-	int PriorityQueue::right(int i) {
+	int RoomPriorityQueue::right(int i) {
 		return i * 2 + 2;
 	}
-	int PriorityQueue::parent(int i) {
+	int RoomPriorityQueue::parent(int i) {
 		return (i - 1) / 2;
 	}
 #pragma endregion HEAP_AUSILIARIE

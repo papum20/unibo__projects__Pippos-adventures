@@ -37,8 +37,8 @@
 		rooms[0] = new ConnectedRoom(0, 0);
 		this->curRoom = rooms[0];
 		//aggiungi ad available le posizioni adiacenti alla prima stanza
-		int r = rand() % DIR_SIZE;
-		for(int i = 0; i < DIR_SIZE; i++) {
+		int r = rand() % DIR_TOT;
+		for(int i = 0; i < DIR_TOT; i++) {
 			available[i][AV_X] = DIRECTIONS[(r+i)%4].x;
 			available[i][AV_Y] = DIRECTIONS[(r+i)%4].y;
 			available[i][AV_N] = 1;
@@ -68,10 +68,10 @@
 
 			//aggiorna stanze adiacenti e celle disponibili
 			bool first = true;
-			r = rand() % DIR_SIZE;
-			for(int j = 0; j < DIR_SIZE; j++)
+			r = rand() % DIR_TOT;
+			for(int j = 0; j < DIR_TOT; j++)
 			{
-				int c_dir = (r+j) % DIR_SIZE;												//direzione corrente (indice)
+				int c_dir = (r+j) % DIR_TOT;												//direzione corrente (indice)
 				int nx = cx + DIRECTIONS[c_dir].x, ny = cy + DIRECTIONS[c_dir].y;			//x,y da controllare
 				pCRoom adjacent_room = findRoomAtCoordinates(rooms, room, nx, ny);
 				int adjacent_cell = findCellAtCoordinates(available, nx, ny);

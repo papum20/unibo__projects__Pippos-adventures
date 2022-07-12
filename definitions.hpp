@@ -14,6 +14,7 @@
 #define ROOM_WIDTH (ROOM_WIDTH_T * X_SCALE)//320	//larghezza (reale) stanza
 #define ROOM_HEIGHT 40//180							//altezza stanza
 #define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT)
+#define ROOM_AREA (ROOM_WIDTH * ROOM_HEIGHT)
 #define CENTRAL_ROOM_SIZE 8							//dimensioni dello spazio vuoto quadrato al centro
 #pragma endregion ROOM_DEFINITIONS
 

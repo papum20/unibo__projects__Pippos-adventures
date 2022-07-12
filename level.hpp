@@ -23,12 +23,13 @@
 #define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
 
 // COSTANTI PER IL MOVIMENTO DELLA CAMERA
-const Coordinate CAMERA_OFFSET_MAX(15, 8);
-#define CAMERA_SPEED 2.
-#define CAMERA_DAMPING_SPEED 1.
-#define CAMERA_DAMPING_TIMEOUT 1.2
-#define CAMERA_OPPOSITE_SPEED .6
-#define CAMERA_CHANGE_PIVOT_SPEED 2.
+const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
+#define CAMERA_SPEED 2.						//tempo (secondi) per raggiungere il massimo spostamento
+#define CAMERA_DAMPING_SPEED 1.				//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+#define CAMERA_DAMPING_TIMEOUT 1.2			//tempo di attesa prima di tornare alla posizione di riposo
+#define CAMERA_OPPOSITE_SPEED .6			//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
+#define CAMERA_CHANGE_PIVOT_SPEED 2.		//tempo per spostarsi su un nuovo pivot
+
 /*#define CAMERA_OFFSET_MAX_X 15			//massimo spostamento della camera
 #define CAMERA_OFFSET_MAX_Y 8
 #define CAMERA_SPEED_X 2.				//tempo (secondi) per raggiungere il massimo spostamento
@@ -64,8 +65,8 @@ class Level {
 		int tb_border;
 		//camera
 		Coordinate offset_max;		//massimo spostamento della camera
-		float speed;					//tempo (secondi) per raggiungere il massimo spostamento
-		float damping_speed;			//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+		float speed;				//tempo (secondi) per raggiungere il massimo spostamento
+		float damping_speed;		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
 		float damping_timeout;		//tempo di attesa prima di tornare alla posizione di riposo
 		float opposite_speed;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
 		float change_pivot_speed;	//tempo per spostarsi su un nuovo pivot

@@ -5,12 +5,12 @@
 
 
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)
-#define DIR_SIZE 4
+#define DIR_TOT 4
 //define DIR_COORD 2
-const Coordinate DIRECTIONS[DIR_SIZE] = {{0,-1},{1,0},{0,1},{-1,0}};
+const Coordinate DIRECTIONS[DIR_TOT] = {{0,-1},{1,0},{0,1},{-1,0}};
 //per ogni indice i, DIR_CHANCES[i] è la probabilità di generare i percorsi a partire da un punto (nella generazione della stanza);
 //la prima posizione indica la probabilità di generare in 0 nuove direzioni (cioè di fermarsi)
-const int DIR_CHANCES[DIR_SIZE + 1] = {5, 20, 10, 3, 1};
+const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
 
 
 #include "definitions.hpp"

@@ -60,7 +60,7 @@ class Level {
 		float damping_timeout;		//tempo di attesa prima di tornare alla posizione di riposo
 		float opposite_speed;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
 		float change_pivot_speed;	//tempo per spostarsi su un nuovo pivot
-		/*float camera_offset_max_x;			//massimo spostamento della camera
+		/*float camera_offset_max_x;		//massimo spostamento della camera
 		float camera_offset_max_y;
 		float camera_speed_x;				//tempo (secondi) per raggiungere il massimo spostamento
 		float camera_speed_y;

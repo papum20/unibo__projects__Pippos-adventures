@@ -9,7 +9,8 @@
 //// COSTANTI DI INIZIALIZZAZIONE ATTRIBUTI DI LEVEL
 #define LR_BORDER 1
 #define TB_BORDER 1
-#define N_ROOMS 10			//numero di stanze (normali) generate per livello
+#define N_ROOMS 10						//numero di stanze (normali) generate per livello
+#define LEVEL_AREA (N_ROOMS * N_ROOMS)	//dimensioni matrice livello
 
 // COSTANTI PER IL MOVIMENTO DELLA CAMERA
 const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
@@ -53,6 +54,9 @@ class Level {
 		//spessore bordi laterali (lr) e sopra e sotto (tb)
 		int lr_border;
 		int tb_border;
+		//livello
+		pConnectedRoom map[LEVEL_AREA];
+
 		//camera
 		Coordinate offset_max;		//massimo spostamento della camera
 		float speed;				//tempo (secondi) per raggiungere il massimo spostamento
@@ -60,35 +64,23 @@ class Level {
 		float damping_timeout;		//tempo di attesa prima di tornare alla posizione di riposo
 		float opposite_speed;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
 		float change_pivot_speed;	//tempo per spostarsi su un nuovo pivot
-		/*float camera_offset_max_x;		//massimo spostamento della camera
-		float camera_offset_max_y;
-		float camera_speed_x;				//tempo (secondi) per raggiungere il massimo spostamento
-		float camera_speed_y;
-		float camera_damping_speed_x;		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
-		float camera_damping_speed_y;
-		float camera_damping_time_x;		//tempo di attesa prima di tornare alla posizione di riposo
-		float camera_damping_time_y;
-		float camera_opposite_speed_x;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
-		float camera_opposite_speed_y;
-		float camera_change_pivot_speed_x;	//tempo per spostarsi su un nuovo pivot
-		float camera_change_pivot_speed_y;*/
-
 		Coordinate position;
 		Coordinate lastMovement;
 		pPhysical pivot;			//la camera segue un oggetto physical
-		bool pivotChanged;		//se è cambiato il pivot
+		bool pivotChanged;			//se è cambiato il pivot
 		Coordinate pivotDistance;	//(se è cambiato il pivot) distanza dal vecchio pivot
+
 		//schermo
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
 		//oggetti
-		//int n_rooms;			//numero di stanze (normali) generate per livello
-		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
+		//int n_rooms;				//numero di stanze (normali) generate per livello
+		pConnectedRoom curRoom;		//stanza attuale, inquadrata e in cui si trova il giocatore
 		pPlayer player;
 		Timer timer;
 		
 		// FUNZIONI
-		void generateMap();		//genera lo schema della disposizione delle stanze del livello
+		void generateMap();			//genera lo schema della disposizione delle stanze del livello
 		void changeRoom();
 		void nextLevel();	
 		
@@ -107,9 +99,13 @@ class Level {
 
 		void update();								//da richiamare a ogni frame
 
+		// GET
+		void getLevelMap(pConnectedRoom map[]);
+		void getRoomMap(pInanimate map[], Coordinate &size, pPlayer &player);	//modifica mappa, ritorna dimensioni
+
 		// SET
 		void setPivot(pPhysical pivot);
-		void setDefaultCameraSpecs();				//reimposta le caratteristiche di default della camera
+		void setDefaultCameraSpecs();											//reimposta le caratteristiche di default della camera
 
 		//genera una stanza (come array bidimensionale)
 		//generateAll();

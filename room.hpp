@@ -2,6 +2,7 @@
 #define ROOM_HPP
 
 #include "coordinate.hpp"
+#include "definitions.hpp"
 
 
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)
@@ -13,7 +14,7 @@ const Coordinate DIRECTIONS[DIR_TOT] = {{0,-1},{1,0},{0,1},{-1,0}};
 const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
 
 
-#include "definitions.hpp"
+#include "character.hpp"
 #include "floor.hpp"
 #include "maths.hpp"
 #include "physical.hpp"
@@ -26,8 +27,8 @@ class Room {
 	private:
 		Coordinate pos;											//coordinate rispetto alla prima stanza del livello
 		//istanze di muro e pavimento, riutilizzate sempre uguali
-		pPhysical floorInstance;
-		pPhysical wallInstance;
+		pInanimate floorInstance;
+		pInanimate wallInstance;
 
 		// FUNZIONI
 		// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
@@ -37,11 +38,12 @@ class Room {
 					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
 					//e directions con le rispettive direzioni, ne ritorna il numero
 		// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E RICORRENTI)
-		void swapPositions(Coordinate a, Coordinate b);
 
 	protected:
-		Coordinate size;	
-		pPhysical grid[ROOM_HEIGHT][ROOM_WIDTH];	//array bidimensionale di oggetti fisici (presenti nelle loro posizioni)
+		Coordinate size;
+		int scale_x;
+		pInanimate map[ROOM_AREA];
+		pCharacter characters[ROOM_AREA];
 		// FUNZIONI AUSILIARIE PRINCIPALI
 		void generateSidesWalls();
 		void generateInnerRoom();
@@ -52,23 +54,20 @@ class Room {
 	public:
 		Room(Coordinate pos);
 		void recursiveDestroy();
+		void update();											//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
 		
 		// GENERAZIONE
-		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array grid
+		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array map
 //		void addNthDoor(int n);	//aggiunge una porta nell'n-esima posizione disponibile
 		// DISEGNO
 		void draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
 																									//inquadra solo un rettangolo con le dimensioni dei parametri intorno al giocatore
-		// MOVIMENTO
-		bool moveObject(Physical ob, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 
-		// SET
-		void makeConnection(Room *room, int dir);
 		// GET
 		Coordinate getPos();
 		Coordinate getSize();
-		pPhysical checkPosition(Coordinate pos);		//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
-		Room *getConnectedRoom(Coordinate pos);			//ritorna il puntatore alla stanza collegata da una porta
+		void getMap(pInanimate map[], Coordinate &size);	//modifica mappa, ritorna dimensioni
+		pPhysical checkPosition(Coordinate pos);			//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 };
 
 

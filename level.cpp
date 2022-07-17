@@ -27,6 +27,7 @@
 
 	void Level::generateMap()
 	{
+		for(int i = 0; i < ROOM_AREA; i++) map[i] = NULL;
 		//posizioni disponibili (allo stesso tempo) per la generazione di una nuova stanza, quindi adiacenti a una già presente
 		//implementato come min-heap; il terzo campo sono le stanze adiacenti, usate per confronto
 		RoomPriorityQueue available(-1);
@@ -35,6 +36,7 @@
 		for(int i = 1; i < N_ROOMS; i++) rooms[i] = NULL;
 		rooms[0] = new ConnectedRoom(Coordinate(0, 0));
 		this->curRoom = rooms[0];
+		map[curRoom->getPos().single()] = curRoom;
 		//aggiungi ad available le posizioni adiacenti alla prima stanza
 		int r = rand() % DIR_TOT;
 		for(int i = 0; i < DIR_TOT; i++) available.insert(RoomPosition(DIRECTIONS[(r+i)%4], 1));
@@ -47,6 +49,7 @@
 			//crea la stanza
 			rooms[room] = new ConnectedRoom(new_pos.getPos());
 			available.remove(new_pos);
+			map[new_pos.getPos().single()] = rooms[room];
 
 			//aggiorna stanze adiacenti e celle disponibili
 			r = rand() % DIR_TOT;
@@ -77,7 +80,7 @@
 		//inizializza array
 		Cell t_scr[CAMERA_HEIGHT][CAMERA_WIDTH];	//matrice temporanea per il nuovo schermo da stampare
 		//fai riempire l'array alla stanza corrente
-		curRoom->draw(t_scr, {width, height}, center);
+		curRoom->draw(t_scr, Coordinate(width, height), center);
 
 		//stampa e aggiorna array corrente
 		for(int y = tb_border; y < height - tb_border; y++) {
@@ -92,6 +95,7 @@
 	}
 
 	void Level::update() {
+		curRoom->update();
 		changeRoom();
 	}
 
@@ -110,6 +114,14 @@
 	}
 
 #pragma region SET_GET
+	void Level::getLevelMap(pConnectedRoom map[]) {
+		for(int i = 0; i < LEVEL_AREA; i++) map[i] = this->map[i];
+	}
+	void Level::getRoomMap(pInanimate map[], Coordinate &size, pPlayer &player) {
+		curRoom->getMap(map, size);
+		player = this->player;
+
+	}
 	void Level::setPivot(pPhysical pivot) {
 		pivotDistance = Coordinate(pivot->getPosition(), pivot->getPosition().negative());		//nuovo pivot - vecchio pivot
 		pivot = pivot;

@@ -17,6 +17,7 @@ class ConnectedRoom : public Room {
 		pDoor doors[MAX_CONNECTED_R];				//array di puntatori a porte (che portano a stanze collegate;
 													//disposte in direzioni 0..3=su..sinistra, da 4+ stanze interne
 		Coordinate door_positions[MAX_SIDES_R];
+		ConnectedRoom *connected[MAX_CONNECTED_R];	//stanze collegate nella rispettiva direzione con una porta
 
 		// FUNZIONI
 		// FUNZIONI AUSILIARIE PRINCIPALI
@@ -28,13 +29,13 @@ class ConnectedRoom : public Room {
 		ConnectedRoom(Coordinate pos);
 		void recursiveDestroy();
 		
-		void generate(); 							//genera uno schema randomico per i muri, inserendoli nell'array grid
+		void generate(); 									//genera uno schema randomico per i muri, inserendoli nell'array grid
 
 		// SET
 		void makeConnection(ConnectedRoom *room, int dir);	//connects this room to "room" in direction dir (relative to this)
 		// GET
-		pRoom getConnectedRoom(Coordinate pos);				//ritorna il puntatore alla stanza collegata da una porta
-		pRoom getRoomInDirection(int dir);					//ritorna il puntatore alla stanza collegata nella direzione
+		ConnectedRoom *getConnectedRoom(Coordinate pos);	//ritorna il puntatore alla stanza collegata da una porta
+		ConnectedRoom *getRoomInDirection(int dir);			//ritorna il puntatore alla stanza collegata nella direzione
 															//0=su, 1=destra, 2=giu, 3=sinistra, 4=segreta,all'interno
 //		int getSideDoors();				//ritorna il numero di lati occupati da una porta (attualmente)
 };

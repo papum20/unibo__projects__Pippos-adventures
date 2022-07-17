@@ -5,7 +5,10 @@
 	ConnectedRoom::ConnectedRoom(Coordinate pos) : Room(pos) {
 		//inizializza porte/stanze collegate
 		n_doors_max = MAX_CONNECTED_R;
-		for(int i = 0; i < n_doors_max; i++) doors[i] = NULL;
+		for(int i = 0; i < n_doors_max; i++) {
+			doors[i] = NULL;
+			connected[i] = NULL;
+		}
 
 		door_positions[0] = Coordinate(size.x / 2, 0);
 		door_positions[1] = Coordinate(0, size.y / 2);
@@ -14,11 +17,11 @@
 	}
 	void ConnectedRoom::recursiveDestroy() {
 		for(int i = 0; i < MAX_CONNECTED_R; i++) {
-			if(doors[i] != NULL && doors[i]->getConnected() != NULL) {
-				if(i < DIR_TOT) doors[i]->getConnected()->makeConnection(NULL, (i + 2) % DIR_TOT);
-				else doors[i]->getConnected()->makeConnection(NULL, i);					//scollega la stanza adiacente da questa
-				doors[i]->getConnected()->recursiveDestroy();							//distruggi in ricorsione la stanza adiacente
-				doors[i]->destroy();													//distruggi la porta
+			if(doors[i] != NULL && connected[i] != NULL) {
+				if(i < DIR_TOT) connected[i]->makeConnection(NULL, (i + 2) % DIR_TOT);
+				else connected[i]->makeConnection(NULL, i);				//scollega la stanza adiacente da questa
+				connected[i]->recursiveDestroy();						//distruggi in ricorsione la stanza adiacente
+				doors[i]->destroy();									//distruggi la porta
 			}
 		}
 		Room::recursiveDestroy();														//distruggi tutto il resto della stanza
@@ -47,7 +50,7 @@
 		for(int door = 0; door < n_doors_sides; door++) {
 			Coordinate door_p = doors[door]->getPosition();
 			door_p.setMatrix(size);
-			grid[door_p.inty()][door_p.intx()] = doors[door];
+			map[door_p.single()] = doors[door];
 			sets->makeSet(door_p.single());
 		}
 	}
@@ -66,17 +69,26 @@
 #pragma region SET_GET
 //// SET
 	void ConnectedRoom::makeConnection(pConnectedRoom room, int dir) {
-		this->doors[dir] = new Door(door_positions[dir], room);
+		this->doors[dir] = new Door(door_positions[dir]);
+		connected[dir] = room;
 		int dir2 = (dir + 2) % DIR_TOT;
-		room->doors[dir2] = new Door(door_positions[dir2], this);
+		room->doors[dir2] = new Door(door_positions[dir2]);
+		room->connected[dir2] = this;
 	}
 //// GET
-	pRoom ConnectedRoom::getConnectedRoom(Coordinate pos) {
-			return findDoor(pos)->getConnected();
+	pConnectedRoom ConnectedRoom::getConnectedRoom(Coordinate pos) {
+		if(!pos.inBounds(Coordinate(0, 0), size)) return NULL;
+		else {
+			pConnectedRoom res = NULL;
+			for(int i = 0; i < MAX_CONNECTED_R; i++) {
+				if(connected[i] != NULL && doors[i]->getPosition().equals(pos)) res = connected[i];
+			}
+			return res;
+		}
 	}
-	pRoom ConnectedRoom::getRoomInDirection(int dir) {
+	pConnectedRoom ConnectedRoom::getRoomInDirection(int dir) {
 		if(dir < 0 || dir >= MAX_SIDES_R || doors[dir] == NULL) return NULL;
-		else return doors[dir]->getConnected();
+		else return connected[dir];
 	}
 /*	int Room::getSideDoors() {
 		return n_doors_sides;

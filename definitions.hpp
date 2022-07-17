@@ -9,9 +9,9 @@
 
 
 #pragma region ROOM_DEFINITIONS
-#define X_SCALE 9									//coefficiente di "allargamento orizzontale" della stanza
+#define SCALE_X 9									//coefficiente di "allargamento orizzontale" della stanza
 #define ROOM_WIDTH_T 30								//larghezza (senza scala) stanza
-#define ROOM_WIDTH (ROOM_WIDTH_T * X_SCALE)//320	//larghezza (reale) stanza
+#define ROOM_WIDTH (ROOM_WIDTH_T * SCALE_X)//320	//larghezza (reale) stanza
 #define ROOM_HEIGHT 40//180							//altezza stanza
 #define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT)
 #define ROOM_AREA (ROOM_WIDTH * ROOM_HEIGHT)

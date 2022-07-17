@@ -2,9 +2,12 @@
 
 
 Timer::Timer() {
-	int maxs[n_timers];
-	for(int i = 0; i < n_timers; i++) maxs[i] = -1;
-	Timer(maxs);
+	last_frame_time = clock();
+	for(int i=0; i<n_timers; i++){
+		this->Total_Pauses[i]=0;
+		this->max_time[i]=-1;
+		this->State_pause[i]=false;
+	}
 }
 Timer::Timer(double max_time[]){	
 	last_frame_time = clock();
@@ -12,14 +15,14 @@ Timer::Timer(double max_time[]){
 		this->Total_Pauses[i]=0;
 		this->max_time[i]=max_time[i];
 		this->State_pause[i]=false;
-	}	
+	}
 };
 
 double Timer::current_time() {
 	return (double)clock() / CLOCKS_PER_SEC;
 }
 
-int Timer::get_time_passed(int timer){
+double Timer::get_time_passed(int timer){
 	double curr_time = (double)clock() / CLOCKS_PER_SEC;
 return(curr_time - timers[timer] - Total_Pauses[timer]);
 }

@@ -60,7 +60,7 @@
 
 
 #pragma region HEAP_AUSILIARIE
-	int RoomPriorityQueue::find(RoomPosition x, int i = 0) {
+	int RoomPriorityQueue::find(RoomPosition x, int i) {
 		if(i >= size) return -1;
 		else {
 			if(heap[i].compareTo(x) == 0) return i;

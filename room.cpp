@@ -5,24 +5,34 @@
 	Room::Room(Coordinate pos) {
 		//inzializza stanza
 		this->pos = pos;
+		scale_x = SCALE_X;
 		size = Coordinate(ROOM_WIDTH, ROOM_HEIGHT);
 
 		floorInstance = new Floor();
 		wallInstance = new Wall();
 
-		for(int y = 0; y < size.y; y++)
-			for(int x = 0; x < size.x; x++) grid[y][x] = NULL;
+		for(int i = 0; i < size.x * size.y; i++) {
+			map[i] = NULL;
+			characters[i] = NULL;
+		}
 	}
 	void Room::recursiveDestroy() {
 		Coordinate i(0, 0, size);
 		do {
-			pPhysical t = grid[i.inty()][i.intx()];
-			if(!t->isInanimate() && t->getId() != ID_DOOR) t->destroy();
+			characters[i.single()]->destroy();
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 		wallInstance->destroy();
 		floorInstance->destroy();
 		delete this;
+	}
+
+	void Room::update() {
+		Coordinate i(0, 0, size);
+		do {
+			if(characters[i.single()] != NULL) characters[i.single()]->update();
+			i.next();
+		} while(!i.equals(Coordinate(0, 0)));
 	}
 
 	void Room::generate()
@@ -43,26 +53,17 @@
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
-		for(int y = center.y - win_size.y / 2; y < center.y + ceil(win_size.y / 2.); y++) {
-			for(int x = center.x - win_size.x / 2; x < center.x + ceil(win_size.x / 2.); x++) {
-				//wall e floor hanno una singola istanza e sono un caso a parte
-				if(grid[y][x]->isInanimate()) grid[y][x]->drawAtPosition(scr, win_size, {y, x});
-				else {
-					grid[y][x]->drawAtOwnPosition(scr, win_size);
-					floorInstance->drawAtPosition(scr, win_size, Coordinate(x, y));
-				}
+		Coordinate wstart = Coordinate(center.x - win_size.x / 2, center.y - win_size.y / 2), wend = Coordinate(center.x + ceil(win_size.x / 2.), center.y + ceil(win_size.y / 2.));
+		Coordinate i = Coordinate(wstart.x, wstart.y, wstart.x, wstart.y, wend.x, wend.y);
+		do {
+			//wall e floor hanno una singola istanza e sono un caso a parte
+			if(map[i.single()]->getId() == ID_WALL) map[i.single()]->drawAtPosition(scr, win_size, i);
+			else {
+				characters[i.single()]->drawAtOwnPosition(scr, win_size);
+				floorInstance->drawAtPosition(scr, win_size, i);
 			}
-		}
-	}
-
-	bool Room::moveObject(Physical ob, Coordinate move) {
-		Coordinate newPos = Coordinate(ob.getPosition(), move);
-		if(newPos.inBounds(Coordinate(0, 0), size) || grid[newPos.inty()][newPos.intx()]->getId() != ID_FLOOR || ob.isInanimate() || ob.getId() == ID_DOOR)
-			return false;
-		else {
-			swapPositions(newPos, ob.getPosition());
-			return true;
-		}
+			i.next();
+		} while(!i.equals(wstart));
 	}
 #pragma endregion MAIN
 
@@ -73,14 +74,16 @@
 		for(int y = 0; y < size.y; y++) {
 			int delta_x = 1;
 			if(y != 0 && y != size.y - 1) delta_x = ROOM_WIDTH_T - 1;
-			for(int x = 0; x < ROOM_WIDTH_T; x += delta_x) grid[y][x] = wallInstance;
+			for(int x = 0; x < ROOM_WIDTH_T; x += delta_x) map[Coordinate(x, y).single()] = wallInstance;
 		}
 	}
 	void Room::generateInnerRoom() {
-		for(int y = (ROOM_HEIGHT - CENTRAL_ROOM_SIZE) / 2; y < (ROOM_HEIGHT + CENTRAL_ROOM_SIZE) / 2; y++) {
-			for(int x = (ROOM_WIDTH_T - CENTRAL_ROOM_SIZE) / 2; x < (ROOM_WIDTH_T + CENTRAL_ROOM_SIZE) / 2; x++)
-				grid[y][x] = floorInstance;
-		}
+		Coordinate rstart((ROOM_WIDTH_T - CENTRAL_ROOM_SIZE) / 2, (ROOM_HEIGHT - CENTRAL_ROOM_SIZE) / 2), rend((ROOM_HEIGHT + CENTRAL_ROOM_SIZE) / 2., (ROOM_WIDTH_T + CENTRAL_ROOM_SIZE) / 2);
+		Coordinate i(rstart.x, rstart.y, rstart.x, rstart.y, rend.x, rend.y);
+		do {
+			map[i.single()] = floorInstance;
+			i.next();
+		} while(!i.equals(rstart));
 	}
 	void Room::generateAllPaths(pUnionFind sets) {
 		Coordinate rand_p = Coordinate();
@@ -88,7 +91,7 @@
 		rand_p.randomize(0, size.x, 0, size.y);
 		for(int i = 0; i < size.y * size.x; i++) {
 			rand_p.next();
-			if(grid[rand_p.inty()][rand_p.intx()] == NULL) {
+			if(map[rand_p.single()] == NULL) {
 				sets->makeSet(rand_p.single());
 				generatePath(rand_p, sets);
 			}
@@ -124,36 +127,11 @@
 					}
 					Coordinate bw = borderWalls[brokenWall];
 					
-					/*
-					//CERCA LA GIUSTA DIREZIONE IN CUI ROMPERE
-					int rand_dir = rand() % DIR_TOT;
-					int self_x, self_y;
-					int adjacent_x, adjacent_y;
-					do {
-						int dx = DIRECTIONS[rand_dir].x, dy = DIRECTIONS[rand_dir].y;
-						self_x = bx + dx, self_y = by + dy;
-						adjacent_x = bx + dx * distance, adjacent_y = by + dy * distance;
-						rand_dir = (rand_dir + 1) % DIR_TOT;
-					} while(!validCoordinates(self_x, self_y, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) || 
-							!validCoordinates(adjacent_x, adjacent_y, 0, ROOM_WIDTH_T, 0, ROOM_HEIGHT) || 
-							sets->find(toSingleCoordinate(self_x, self_y)) != currentSet ||
-							grid[adjacent_y][adjacent_x] == wallInstance || 
-							sets->find(toSingleCoordinate(adjacent_x, adjacent_y)) == currentSet);					
-					//non servono altri controlli perché si ha la certezza che il ciclo termini
-
-					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
-					for(int i = 0; i <= distance; i++) {
-						int diff_x = bx - self_x, diff_y = by - self_y;
-						int tx = bx + diff_x * i, ty = by + diff_y * i;
-						grid[ty][tx] = floorInstance;
-						sets->merge(currentSet, toSingleCoordinate(tx, ty));
-					}*/
-
 					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
 					for(int dist = 0; dist <= distance; dist++) {
 						Coordinate dir = DIRECTIONS[breakDirections[brokenWall]];
 						Coordinate tw = Coordinate(bw, dir.getTimes(dist, dist));
-						grid[tw.inty()][tw.intx()] = floorInstance;
+						map[tw.single()] = floorInstance;
 						sets->merge(currentSet, tw.single());
 					}
 
@@ -168,9 +146,9 @@
 
 	void Room::resizeMap() {
 		for(int y = 0; y < ROOM_HEIGHT; y++) {
-			for(int x = ROOM_WIDTH_T; x >= 0; x++) {
-				for(int s = 0; s < X_SCALE; s++)
-					grid[y][x * X_SCALE + s] = grid[y][x];
+			for(int x = ROOM_WIDTH_T - 1; x >= 0; x++) {
+				for(int s = 0; s < SCALE_X; s++)
+					map[Coordinate(x * scale_x + s, y).single()] = map[Coordinate(x, y).single()];
 			}
 		}
 	}
@@ -182,9 +160,9 @@
 	{
 		if(!s.inOwnBounds()) return;
 		else {
-			grid[s.inty()][s.intx()] = floorInstance;
+			map[s.single()] = floorInstance;
 
-			bool used_dirs[DIR_TOT];		//direzioni usate
+			bool used_dirs[DIR_TOT];	//direzioni usate
 			int used_dirs_n;
 			bool new_dirs[DIR_TOT];		//nuove direzioni da generare
 			int new_dirs_n;
@@ -194,7 +172,7 @@
 			int unused_dirs_n = 0;
 			for(int d = 0; d < DIR_TOT; d++) {
 				Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
-				if(grid[nxt.inty()][nxt.intx()] == NULL) {
+				if(map[nxt.single()] == NULL) {
 					if(nxt.inOwnBounds()) {
 						used_dirs[d] = false;
 						unused_dirs_n++;
@@ -203,7 +181,7 @@
 				}
 				else {
 					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
-					if(grid[nxt.inty()][nxt.intx()]->getId() == ID_FLOOR)
+					if(map[nxt.single()]->getId() == ID_FLOOR)
 						sets->merge(s.single(), nxt.single());
 					used_dirs[d] = true;
 				}
@@ -234,8 +212,8 @@
 
 				// PRIMA GENERA MURI E CASELLE ADIACENTI,
 				for(int d = 0; d < DIR_TOT; d++) {
-					if(new_dirs[d]) grid[s.inty() + (int)DIRECTIONS[d].y][s.intx() + (int)DIRECTIONS[d].x] = floorInstance;
-					else if(!used_dirs[d]) grid[s.inty() + (int)DIRECTIONS[d].y][s.intx() + (int)DIRECTIONS[d].x] = wallInstance;
+					if(new_dirs[d]) map[Coordinate(s, DIRECTIONS[d]).single()] = floorInstance;
+					else if(!used_dirs[d]) map[Coordinate(s, DIRECTIONS[d]).single()] = wallInstance;
 				}
 				//POI VA IN RICORSIONE SULLE DIREZIONI
 				for(int d = 0; d < DIR_TOT; d++) {
@@ -257,7 +235,7 @@
 			for(int d = 0; d < DIR_TOT; d++) {
 				Coordinate p = Coordinate(square, size);
 				Coordinate nxt = Coordinate(p, DIRECTIONS[d]);
-				if(nxt.inOwnBounds() && grid[nxt.inty()][nxt.intx()]->getId() == ID_WALL) {
+				if(nxt.inOwnBounds() && map[nxt.single()]->getId() == ID_WALL) {
 					out[walls] = nxt;
 					walls++;
 				}
@@ -288,21 +266,9 @@
 	}
 #pragma endregion AUSILIARIE_SECONDARIE
 
-#pragma region AUSILIARIE_GENERICHE
-	void Room::swapPositions(Coordinate a, Coordinate b) {
-		pPhysical tmp = grid[a.inty()][a.intx()];
-		grid[a.inty()][a.intx()] = grid[b.inty()][b.intx()];
-		grid[b.inty()][b.intx()] = tmp;
-	}
-#pragma endregion AUSILIARIE_GENERICHE
-
 #pragma endregion AUSILIARE
 
 #pragma region SET_GET
-//// SET
-	void Room::makeConnection(Room *room, int dir) {
-
-	}
 //// GET
 	Coordinate Room::getPos() {
 		return pos;
@@ -310,12 +276,13 @@
 	Coordinate Room::getSize() {
 		return size;
 	}
-	pRoom Room::getConnectedRoom(Coordinate pos) {
-		return NULL;
+	void Room::getMap(pInanimate map[], Coordinate &size) {
+		for(int i = 0; i < size.x / scale_x * size.y; i++) map[i] = this->map[i * scale_x];
+		size = this->size.getTimes(1. / scale_x, 1);
 	}
 	pPhysical Room::checkPosition(Coordinate pos) {
 		if(!pos.inBounds(Coordinate(0, 0), size))
-			return grid[pos.inty()][pos.intx()];
+			return map[pos.single()];
 		else return NULL;
 	}
 #pragma endregion SET_GET

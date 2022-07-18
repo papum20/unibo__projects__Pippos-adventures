@@ -17,6 +17,8 @@ player.o: player.cpp player.hpp
 	g++ -c player.cpp
 enemy.o: enemy.cpp enemy.hpp
 	g++ -c enemy.cpp
+bat.o: bat.cpp bat.hpp
+	g++ -c bat.cpp
 
 #HUD/INPUT
 hud.o: hud.cpp hud.hpp

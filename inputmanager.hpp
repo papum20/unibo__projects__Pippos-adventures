@@ -10,8 +10,8 @@ class InputManager {
 
 		void getInput();
 
-		int movementInput();
-		//0=no input, 1=freccia su, 2=freccia dx, 3=freccia giu, 4=freccia sx
+		int returnInput();
+		//0=no input, 1=freccia su, 2=freccia dx, 3=freccia giu, 4r=feccia sx
 
 };
 

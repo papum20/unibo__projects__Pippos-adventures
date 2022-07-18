@@ -1,6 +1,6 @@
 #ifndef BAT_HPP
 #define BAT_HPP
-#include "enemy.hpp"
+#include "../enemy.hpp"
 #include "hands.hpp"
 
 #define Max_Health_Bat 15

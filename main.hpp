@@ -6,22 +6,18 @@
 #include <curses.h>
 #include <ctime>
 #include "level.hpp"
+#include "hud.hpp"
 #include "inputmanager.hpp"
 #include "player.hpp"
 
 
+
 //// INIT
-
-void cursesInit();
-
-void gameInit();
-
+	void cursesInit();
+	void gameInit();
 
 //// END
-
-
-void cursesEnd();
-
+	void cursesEnd();
 
 
 #endif

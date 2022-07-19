@@ -4,6 +4,9 @@
 
 #include <iostream>
 
+#define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
+										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
+
 
 #pragma region PHYSICAL_CONSTANTS
 #pragma region PHYSICAL_ANIMATIONS

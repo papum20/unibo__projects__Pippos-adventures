@@ -27,6 +27,8 @@ class Character : public Physical {
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce
+
+		void setPosition(Coordinate pos);
 };
 
 typedef Character *pCharacter;

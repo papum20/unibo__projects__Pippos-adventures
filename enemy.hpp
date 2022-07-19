@@ -16,6 +16,8 @@ class Enemy : public Character {
 };
 
 
+typedef Enemy *pEnemy
+
 
 
 #endif

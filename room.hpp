@@ -1,6 +1,7 @@
 #ifndef ROOM_HPP
 #define ROOM_HPP
 
+
 #include "coordinate.hpp"
 #include "definitions.hpp"
 
@@ -15,11 +16,13 @@ const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
 
 
 #include "character.hpp"
+#include "enemy.hpp"
 #include "floor.hpp"
 #include "maths.hpp"
 #include "physical.hpp"
 #include "union_find.hpp"
 #include "wall.hpp"
+
 
 
 
@@ -32,11 +35,13 @@ class Room {
 
 		// FUNZIONI
 		// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
-		void generatePath(Coordinate s, pUnionFind sets);		//genera un percorso casuale a partire da x,y
+		void generatePath(Coordinate s, pUnionFind sets);			//genera un percorso casuale a partire da x,y
 		int getAdjacentWalls(Coordinate out[], s_coord currentSet);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero
 		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
 					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
 					//e directions con le rispettive direzioni, ne ritorna il numero
+		bool isSpawnAllowed(s_coord pos, Coordinate size);		//bool se può essere generato qualcosa di dimensioni size in posizione pos, cioè se non c'è altro nel mezzo
+		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E RICORRENTI)
 
 	protected:
@@ -44,6 +49,7 @@ class Room {
 		int scale_x;
 		pInanimate map[ROOM_AREA];
 		pCharacter characters[ROOM_AREA];
+
 		// FUNZIONI AUSILIARIE PRINCIPALI
 		void generateSidesWalls();
 		void generateInnerRoom();
@@ -59,6 +65,7 @@ class Room {
 		// GENERAZIONE
 		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array map
 //		void addNthDoor(int n);	//aggiunge una porta nell'n-esima posizione disponibile
+		void spawnEnemy(pEnemy enemy);							//spawna un nemico
 		// DISEGNO
 		void draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
 																									//inquadra solo un rettangolo con le dimensioni dei parametri intorno al giocatore

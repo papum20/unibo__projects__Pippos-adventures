@@ -51,6 +51,12 @@
 		resizeMap();
 	}
 
+	void Room::spawnEnemy(pEnemy enemy) {
+		s_coord available[ROOM_AREA];
+		int av_size = getFreeCells(available, enemy->getSize());
+		if(av_size > 0) characters[available[rand() % av_size]] = enemy;
+	}
+
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
 		Coordinate wstart = Coordinate(center.x - win_size.x / 2, center.y - win_size.y / 2), wend = Coordinate(center.x + ceil(win_size.x / 2.), center.y + ceil(win_size.y / 2.));
@@ -264,6 +270,26 @@
 		}
 		return border_n;
 	}
+
+	bool Room::isSpawnAllowed(s_coord pos, Coordinate size) {
+		Coordinate i(pos, size);
+		bool isObstacle = false;
+		do {
+			if(!map[i.single()]->getId() == ID_FLOOR || characters[i.single()] != NULL) isObstacle = true;
+			else i.next();
+		} while(!isObstacle && !i.single() != pos);
+		return !isObstacle;
+	}
+	int Room::getFreeCells(s_coord available[], Coordinate size) {
+		int length = 0;
+		for(s_coord i = 0; i < size.x * size.y; i++) {
+			if(isSpawnAllowed(i, size)) {
+				available[length] = i;
+				length++;
+			}
+		}
+		return length;
+	}
 #pragma endregion AUSILIARIE_SECONDARIE
 
 #pragma endregion AUSILIARE
@@ -281,8 +307,10 @@
 		size = this->size.getTimes(1. / scale_x, 1);
 	}
 	pPhysical Room::checkPosition(Coordinate pos) {
-		if(!pos.inBounds(Coordinate(0, 0), size))
-			return map[pos.single()];
+		if(pos.inBounds(Coordinate(0, 0), size)) {
+			if(map[pos.single()]->getId() == ID_FLOOR) return characters[pos.single()];
+			else return map[pos.single()];
+		}
 		else return NULL;
 	}
 #pragma endregion SET_GET

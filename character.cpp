@@ -25,6 +25,10 @@ void Character::changeCurrentHealth(int delta) {
 	curHealth += delta;
 }
 
+void Character::setPosition(Coordinate pos) {
+	this->pos = pos;
+}
+
 #pragma region AUSILIARIE_GENERICHE
 	void Character::swapPositions(pCharacter characters[], Coordinate a, Coordinate b) {
 		pCharacter tmp = characters[a.single()];

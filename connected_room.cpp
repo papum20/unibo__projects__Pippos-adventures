@@ -43,6 +43,17 @@
 		//RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
 		resizeMap();
 	}
+
+	void ConnectedRoom::update() {
+		Room::update();
+		//imposta il player non sulla porta per ogni porta
+		for(int d = 0; d < MAX_CONNECTED_R; d++) {
+			if(doors[d] != NULL) {
+				doors[d]->setPlayerOn(false);
+				doors[d]->update();
+			}
+		}
+	}
 #pragma endregion MAIN
 
 #pragma region AUSILIARIE
@@ -76,7 +87,7 @@
 		room->connected[dir2] = this;
 	}
 //// GET
-	pConnectedRoom ConnectedRoom::getConnectedRoom(Coordinate pos) {
+	pConnectedRoom ConnectedRoom::getRoomInPosition(Coordinate pos) {
 		if(!pos.inBounds(Coordinate(0, 0), size)) return NULL;
 		else {
 			pConnectedRoom res = NULL;
@@ -89,6 +100,29 @@
 	pConnectedRoom ConnectedRoom::getRoomInDirection(int dir) {
 		if(dir < 0 || dir >= MAX_SIDES_R || doors[dir] == NULL) return NULL;
 		else return connected[dir];
+	}
+	pDoor ConnectedRoom::getDoorInPosition(Coordinate pos) {
+		bool found = false;
+		int d = 0;
+		while(!found && d < MAX_CONNECTED_R) {
+			if(doors[d]->getPosition().equals(pos)) found = true;
+			else d++;
+		}
+		if(!found) return NULL;
+		else return doors[d];
+	}
+	pDoor ConnectedRoom::getDoorToRoom(pConnectedRoom room) {
+		if(room != NULL) {
+			bool found = false;
+			int d = 0;
+			while(d < MAX_CONNECTED_R && found == false) {
+				if(connected[d] == room) found = true;
+				else d++;
+			}
+			if(!found) return NULL;
+			else return doors[d];
+		}
+		else return NULL;
 	}
 /*	int Room::getSideDoors() {
 		return n_doors_sides;

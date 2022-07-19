@@ -11,6 +11,7 @@
 #define TB_BORDER 1
 #define N_ROOMS 10						//numero di stanze (normali) generate per livello
 #define LEVEL_AREA (N_ROOMS * N_ROOMS)	//dimensioni matrice livello
+#define LEVELS_N 5
 
 // COSTANTI PER IL MOVIMENTO DELLA CAMERA
 const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
@@ -36,10 +37,22 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 //TIMER
 #define CAMERA_DAMPING_TIMER 0
 
+//SPAWN
+const int ENEMIES_N[LEVELS_N] {10};
+#define ENEMIES_N_MAX 10
+const Enemy ENEMIES_INSTANCES[LEVELS_N][ENEMIES_N_MAX] = 	{
+															{Bat()}
+															};
+const int ENEMIES_CHANCHES[LEVELS_N][ENEMIES_N_MAX]		= 	{
+															{1}
+															};
+const int ENEMIES_CHANCE_TOT[LEVELS_N] = {1};
+
 
 #include "cell.hpp"
 #include "connected_room.hpp"
 #include "definitions.hpp"
+#include "enemies/enemies.hpp"
 #include "player.hpp"
 #include "room_priority_queue.hpp"
 #include "timer.hpp"
@@ -56,6 +69,8 @@ class Level {
 		int tb_border;
 		//livello
 		pConnectedRoom map[LEVEL_AREA];
+
+		int level;
 
 		//camera
 		Coordinate offset_max;		//massimo spostamento della camera
@@ -80,7 +95,8 @@ class Level {
 		Timer timer;
 		
 		// FUNZIONI
-		void generateMap();			//genera lo schema della disposizione delle stanze del livello
+		void generateMap();						//genera lo schema della disposizione delle stanze del livello
+		void spawnInRoom(pConnectedRoom room);	//spawn iniziale di nemici
 		void changeRoom();
 		void nextLevel();	
 		
@@ -89,6 +105,7 @@ class Level {
 		void cameraUpdate();																	//calcola il centro della camera
 		Coordinate cameraStart();																//prima casella inquadrata
 		Coordinate cameraEnd();																	//ultima inquadrata
+		pEnemy randEnemy();						//ritorna un nemico casuale
 
 	public:
 		Level(int win_y, int win_x, pPlayer player);

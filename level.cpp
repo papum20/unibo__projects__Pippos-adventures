@@ -6,6 +6,7 @@
 		height = CAMERA_HEIGHT;
 		lr_border = LR_BORDER;
 		tb_border = TB_BORDER;
+		level = 0;
 
 		//n_rooms = N_ROOMS;
 		levelWindow = newwin(win_y, win_x, win_h, win_w);
@@ -67,8 +68,15 @@
 		}
 		//avvia generazione di tutte le stanze
 		for(int i = 0; i < N_ROOMS; i++) {
-			if(rooms[i] != NULL) rooms[i]->generate();
+			if(rooms[i] != NULL) {
+				rooms[i]->generate();
+				spawnInRoom(rooms[i]);
+			}
 		}
+	}
+	void Level::spawnInRoom(pConnectedRoom room) {
+		for(int i = 0; i < ENEMIES_N[level]; i++)
+			curRoom->spawnEnemy(randEnemy());
 	}
 
 	void Level::display() {
@@ -97,20 +105,27 @@
 	void Level::update() {
 		curRoom->update();
 		changeRoom();
+		//controlla se il player è su una porta
+		pPhysical location = curRoom->checkPosition(player->getPosition());
+		if(location->getId() == ID_DOOR) curRoom->getDoorInPosition(location->getPosition())->setPlayerOn(true);
 	}
 
 	void Level::changeRoom() {
 		pPhysical location = curRoom->checkPosition(player->getPosition());
 		if(location->getId() == ID_DOOR) {
-			curRoom = curRoom->getConnectedRoom(player->getPosition());
-		
-			//spawna cose da spawnare, riposiziona player
+			pConnectedRoom next_room = curRoom->getRoomInPosition(player->getPosition());
+			pDoor next_door = next_room->getDoorToRoom(curRoom);
+			if(next_door->canUse()) {
+				player->setPosition(next_door->getPosition());			//riposiziona player
+				curRoom = next_room;
+				next_door->setPlayerOn(true);
+			}
 		}
 	}
 	void Level::nextLevel() {
 		curRoom->recursiveDestroy();
 		generateMap();
-		//spawn
+		level++;
 	}
 
 #pragma region SET_GET
@@ -220,6 +235,15 @@
 	}
 	Coordinate Level::cameraEnd() {
 		return Coordinate(position, Coordinate(curRoom->getSize().x / 2, curRoom->getSize().y / 2));
+	}
+
+	pEnemy Level::randEnemy() {
+		int r = rand() % ENEMIES_CHANCE_TOT[level];
+		int i = 0;
+		while(r >= ENEMIES_CHANCHES[level][i]) i++;
+		pEnemy res = new Enemy();
+		res = ENEMIES_INSTANCES[level][i];
+		return res;
 	}
 	
 #pragma endregion AUSILIARIE

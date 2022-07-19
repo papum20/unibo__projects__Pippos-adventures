@@ -66,6 +66,7 @@ const int MAX_ANIMATION = 6;
 class Physical {
 	protected:
 		Coordinate pos;
+		Coordinate size;
 		int id;		//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animation[MAX_ANIMATION]; //array di liste di array bidimensionali
@@ -85,6 +86,7 @@ class Physical {
 		// GET
 		int getId();
 		Coordinate getPosition();
+		Coordinate getSize();
 		Coordinate getSpeed();				//velocità in caselle/secondo (float)
 		Coordinate lastFrameMovement();
 };

@@ -24,19 +24,21 @@ class ConnectedRoom : public Room {
 		void generateDoors(pUnionFind sets);
 		pDoor findDoor(Coordinate pos);
 
-
 	public:
 		ConnectedRoom(Coordinate pos);
 		void recursiveDestroy();
 		
 		void generate(); 									//genera uno schema randomico per i muri, inserendoli nell'array grid
+		void update();										//overridden
 
 		// SET
 		void makeConnection(ConnectedRoom *room, int dir);	//connects this room to "room" in direction dir (relative to this)
 		// GET
-		ConnectedRoom *getConnectedRoom(Coordinate pos);	//ritorna il puntatore alla stanza collegata da una porta
+		ConnectedRoom *getRoomInPosition(Coordinate pos);	//ritorna il puntatore alla stanza collegata da una porta
 		ConnectedRoom *getRoomInDirection(int dir);			//ritorna il puntatore alla stanza collegata nella direzione
 															//0=su, 1=destra, 2=giu, 3=sinistra, 4=segreta,all'interno
+		pDoor getDoorInPosition(Coordinate pos);
+		pDoor getDoorToRoom(ConnectedRoom *room);			//ritorna il puntatore alla porta che collega alla stanza, se esistea
 //		int getSideDoors();				//ritorna il numero di lati occupati da una porta (attualmente)
 };
 

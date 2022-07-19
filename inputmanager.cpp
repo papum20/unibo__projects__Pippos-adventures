@@ -1,8 +1,8 @@
 #include "inputmanager.hpp"
 
 
-InputManager::InputManager(WINDOW* win) {
-    input_window=win;
+InputManager::InputManager(int x_win, int y_win) {
+    input_window=newwin (y_win, x_win, input_h, input_l);
 }
 
 InputManager::calculate_input(){

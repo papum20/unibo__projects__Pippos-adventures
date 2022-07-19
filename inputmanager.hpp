@@ -4,7 +4,8 @@
 #include "timer.hpp"
 #include <ncurses.h>
 
-const double refresh_rate=
+const int input_h=1;
+const int input_l=2;
 
 class InputManager {
 	private:
@@ -12,7 +13,7 @@ class InputManager {
 		char* curr_input;
 		WINDOW* input_window;
 	public:
-		InputManager(WINDOW* win);
+		InputManager(int x_win, int y_win);
 
 		void calculate_input (); //calcola l'input
 

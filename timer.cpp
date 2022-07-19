@@ -27,7 +27,7 @@ double Timer::get_time_passed(int timer){
 return(curr_time - timers[timer] - Total_Pauses[timer]);
 }
 
-bool Timer::check(int timer){//spegne se ha superato il tempo limite,  ritorna vero se hai superato il limite
+bool Timer::check(int timer){ //ritorna vero se hai superato il limite
 	
 		double curr_time = (double)clock() / CLOCKS_PER_SEC;
 		if(curr_time-timers[timer] - Total_Pauses[timer]>max_time[timer]){
@@ -80,12 +80,12 @@ void Timer::finish_pause(int timer){
 }
 
 
-void Timer::set_max(int timer, int val) {
+void Timer::set_max(int timer, double val) {
 	if(val > 0)	max_time[timer] = val;
 }
-float Timer::deltaTime() {
-	float current = current_time();
-	float delta = current - last_frame_time;
+double Timer::deltaTime() {
+	double current = current_time();
+	double delta = current - last_frame_time;
 	last_frame_time = current;
 	return delta;
 }

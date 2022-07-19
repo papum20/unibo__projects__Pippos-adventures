@@ -1,17 +1,22 @@
 #ifndef INPUT_MANAGER_HPP
 #define INPUT_MANAGER_HPP
 
+#include "timer.hpp"
+#include <ncurses.h>
+
+const double refresh_rate=
 
 class InputManager {
 	private:
-
+		Timer timer;
+		char* curr_input;
+		WINDOW* input_window;
 	public:
-		InputManager();
+		InputManager(WINDOW* win);
 
-		void getInput();
+		void calculate_input (); //calcola l'input
 
-		int returnInput();
-		//0=no input, 1=freccia su, 2=freccia dx, 3=freccia giu, 4r=feccia sx
+		char* get_input();		//ritorna un puntatore all'input corrente
 
 };
 

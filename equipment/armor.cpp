@@ -1,12 +1,7 @@
-#ifndef ARMOR_HPP
-#define ARMOR_HPP
-#include <cstring> 
+#include "armor.hpp"
+#include <cstring>
 
-class Armatura: public item_difensivi{
-    protected:
-
-    public:
-        Armatura (int dif, int d_mag, char rar[]):item_difensivi (dif, d_mag){
+Armatura::Armatura (int dif, int d_mag, char rar[]):item_difensivi (dif, d_mag){
             if (strcmp(rar, "raro")==0){
                 difesa=difesa+5;
             }
@@ -19,7 +14,4 @@ class Armatura: public item_difensivi{
                 difesa_magica=difesa_magica+10;
                 //funzione che da un potere oggetti difensivi
             }
-        }
-
-
-};
+}

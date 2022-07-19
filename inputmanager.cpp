@@ -10,6 +10,6 @@ InputManager::calculate_input(){
 }
 
 InputManager::get_input(){
-    InputManager::calculate_input();
+    calculate_input();
     return (curr_input);
 }

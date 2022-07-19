@@ -1,12 +1,7 @@
-#ifndef SHIELD_HPP
-#define SHIELD_HPP
+#include "shield.hpp"
 #include <cstring> 
 
-class Scudo: public item_difensivi{
-    protected:
-
-    public:
-        Scudo (int dif, int d_mag, char rar[]):item_difensivi (dif, d_mag){
+Scudo::Scudo (int dif, int d_mag, char rar[]):item_difensivi (dif, d_mag){
             if (strcmp(rar, "raro")==0){
                 difesa=difesa+5;
             }
@@ -19,6 +14,4 @@ class Scudo: public item_difensivi{
                 difesa_magica=difesa_magica+5;
                 //funzione che da un potere oggetti difensivi
             }
-        }
-
-};
+}

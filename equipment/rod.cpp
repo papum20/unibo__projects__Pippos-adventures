@@ -1,7 +1,7 @@
 #include "rod.hpp"
 #include <cstring>
 
-Bastone_magico::Bastone_Magico (int d_f, int d_m, float v_a, char rar[]):Weapon (d_f, d_m, v_a){
+Bastone_magico::Bastone_Magico (int d_f, int d_m, float v_a, char rar[], Character own):Weapon (d_f, d_m, v_a, own){
             if (strcmp(rar, "raro")==0){
                 danno_magico=danno_magico+5;
             }

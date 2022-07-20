@@ -1,7 +1,7 @@
 #include "shield.hpp"
 #include <cstring> 
 
-Scudo::Scudo (int dif, int d_mag, char rar[]):item_difensivi (dif, d_mag){
+Scudo::Scudo (int dif, int d_mag, char rar[], Character own):item_difensivi (dif, d_mag, own){
             if (strcmp(rar, "raro")==0){
                 difesa=difesa+5;
             }

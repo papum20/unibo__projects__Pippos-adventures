@@ -10,14 +10,14 @@ const int input_l=2;
 class InputManager {
 	private:
 		Timer timer;
-		char* curr_input;
+		char curr_input;
 		WINDOW* input_window;
 	public:
 		InputManager(int x_win, int y_win);
 
 		void calculate_input (); //calcola l'input
 
-		char* get_input();		//ritorna un puntatore all'input corrente
+		char get_input();		//ritorna un puntatore all'input corrente
 
 };
 

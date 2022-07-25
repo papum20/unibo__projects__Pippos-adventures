@@ -2,7 +2,7 @@
 #define PIXEL_ART_HPP
 
 
-const int N_ALPHABET = 28;
+const int N_ALPHABET = 33;
 const int ALPHABET_LENGHT = 5;
 const int ALPHABET_HIGHT = 5;
 int ALPHABET[N_ALPHABET][ALPHABET_LENGHT][ALPHABET_HIGHT]={
@@ -173,12 +173,39 @@ int ALPHABET[N_ALPHABET][ALPHABET_LENGHT][ALPHABET_HIGHT]={
         {0, 0, 1, 0, 0},
         {0, 0, 0, 0, 0},
         {0, 0, 1, 0, 0}
+    },
+    {   {0, 0, 1, 1, 0},//1       29
+        {0, 1, 1, 1, 0},
+        {1, 0, 1, 1, 0},
+        {0, 0, 1, 1, 0},
+        {1, 1, 1, 1, 1}
+    },
+    {   {1, 1, 1, 1, 0},//2         30
+        {0, 0, 0, 1, 0},
+        {1, 1, 1, 1, 0},
+        {1, 0, 0, 0, 0},
+        {1, 1, 1, 1, 0}
+    },
+    {   {1, 1, 1, 1, 1},//3         31
+        {0, 0, 0, 0, 1},
+        {0, 0, 1, 1, 1},
+        {0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1}
+    },
+    {   {0, 0, 1, 1, 1},//4         32
+        {0, 1, 1, 1, 1},
+        {1, 1, 0, 0, 1},
+        {1, 1, 1, 1, 1},
+        {0, 0, 0, 1, 1}
+        },
+
+    {   {1, 1, 1, 1, 1},//5         33
+        {1, 0, 0, 0, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1}
     }
 };
-
-
-#include <curses.h>
-
 
 class Pixel_art {
 	private:

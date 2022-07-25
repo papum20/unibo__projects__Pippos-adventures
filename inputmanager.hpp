@@ -1,17 +1,23 @@
 #ifndef INPUT_MANAGER_HPP
 #define INPUT_MANAGER_HPP
 
+#include "timer.hpp"
+#include <ncurses.h>
+
+const int input_h=1;
+const int input_l=2;
 
 class InputManager {
 	private:
-
+		Timer timer;
+		char curr_input;
+		WINDOW* input_window;
 	public:
-		InputManager();
+		InputManager(int x_win, int y_win);
 
-		void getInput();
+		void calculate_input (); //calcola l'input
 
-		int movementInput();
-		//0=no input, 1=freccia su, 2=freccia dx, 3=freccia giu, 4=freccia sx
+		char get_input();		//ritorna un puntatore all'input corrente
 
 };
 

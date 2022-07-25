@@ -3,26 +3,25 @@
 
 #include <cstdlib>
 #include <curses.h>
+#include "coordinate.hpp"
 
 
 //// COSTANTI DI INIZIALIZZAZIONE ATTRIBUTI DI LEVEL
 #define LR_BORDER 1
 #define TB_BORDER 1
-#define N_ROOMS 10			//numero di stanze (normali) generate per livello
-
-// COSTANTI PER L'IMPLEMENTAZIONE DELLA GENERAZIONE
-//dimensioni della matrice available (per generateMap)
-#define MAX_AVAILABLE (N_ROOMS * 2 + 2)
-#define DIM_AVAILABLE 3
-//indice di x,y,n nella matrice
-#define AV_X 0
-#define AV_Y 1
-#define AV_N 2
-#define MAX_RAND_EXEC 3		//massimo numero di esecuzione di cicli che terminano solo in base a un numero random
-#define GENERATION_CHANCE 2	//usato come probabilità in generateMap()
+#define N_ROOMS 10						//numero di stanze (normali) generate per livello
+#define LEVEL_AREA (N_ROOMS * N_ROOMS)	//dimensioni matrice livello
+#define LEVELS_N 5
 
 // COSTANTI PER IL MOVIMENTO DELLA CAMERA
-#define CAMERA_OFFSET_MAX_X 15			//massimo spostamento della camera
+const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
+#define CAMERA_SPEED 2.						//tempo (secondi) per raggiungere il massimo spostamento
+#define CAMERA_DAMPING_SPEED 1.				//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+#define CAMERA_DAMPING_TIMEOUT 1.2			//tempo di attesa prima di tornare alla posizione di riposo
+#define CAMERA_OPPOSITE_SPEED .6			//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
+#define CAMERA_CHANGE_PIVOT_SPEED 2.		//tempo per spostarsi su un nuovo pivot
+
+/*#define CAMERA_OFFSET_MAX_X 15			//massimo spostamento della camera
 #define CAMERA_OFFSET_MAX_Y 8
 #define CAMERA_SPEED_X 2.				//tempo (secondi) per raggiungere il massimo spostamento
 #define CAMERA_SPEED_Y 2.
@@ -33,13 +32,29 @@
 #define CAMERA_OPPOSITE_SPEED_X .6		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
 #define CAMERA_OPPOSITE_SPEED_Y .6
 #define CAMERA_CHANGE_PIVOT_SPEED_X 2.	//tempo per spostarsi su un nuovo pivot
-#define CAMERA_CHANGE_PIVOT_SPEED_Y 2.
+#define CAMERA_CHANGE_PIVOT_SPEED_Y 2.*/
+
+//TIMER
+#define CAMERA_DAMPING_TIMER 0
+
+//SPAWN
+const int ENEMIES_N[LEVELS_N] {10};
+#define ENEMIES_N_MAX 10
+const Enemy ENEMIES_INSTANCES[LEVELS_N][ENEMIES_N_MAX] = 	{
+															{Bat()}
+															};
+const int ENEMIES_CHANCHES[LEVELS_N][ENEMIES_N_MAX]		= 	{
+															{1}
+															};
+const int ENEMIES_CHANCE_TOT[LEVELS_N] = {1};
 
 
 #include "cell.hpp"
 #include "connected_room.hpp"
 #include "definitions.hpp"
+#include "enemies/enemies.hpp"
 #include "player.hpp"
+#include "room_priority_queue.hpp"
 #include "timer.hpp"
 
 
@@ -52,44 +67,45 @@ class Level {
 		//spessore bordi laterali (lr) e sopra e sotto (tb)
 		int lr_border;
 		int tb_border;
-		//camera
-		float camera_offset_max_x;			//massimo spostamento della camera
-		float camera_offset_max_y;
-		float camera_speed_x;				//tempo (secondi) per raggiungere il massimo spostamento
-		float camera_speed_y;
-		float camera_damping_speed_x;		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
-		float camera_damping_speed_y;
-		float camera_damping_time_x;		//tempo di attesa prima di tornare alla posizione di riposo
-		float camera_damping_time_y;
-		float camera_opposite_speed_x;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
-		float camera_opposite_speed_y;
-		float camera_change_pivot_speed_x;	//tempo per spostarsi su un nuovo pivot
-		float camera_change_pivot_speed_y;
+		//livello
+		pConnectedRoom map[LEVEL_AREA];
 
-		Coordinate cameraPosition;
-		Coordinate cameraLastMovement;
-		pPhysical cameraPivot;			//la camera segue un oggetto physical
+		int level;
+
+		//camera
+		Coordinate offset_max;		//massimo spostamento della camera
+		float speed;				//tempo (secondi) per raggiungere il massimo spostamento
+		float damping_speed;		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
+		float damping_timeout;		//tempo di attesa prima di tornare alla posizione di riposo
+		float opposite_speed;		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
+		float change_pivot_speed;	//tempo per spostarsi su un nuovo pivot
+		Coordinate position;
+		Coordinate lastMovement;
+		pPhysical pivot;			//la camera segue un oggetto physical
+		bool pivotChanged;			//se è cambiato il pivot
+		Coordinate pivotDistance;	//(se è cambiato il pivot) distanza dal vecchio pivot
+
 		//schermo
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
 		//oggetti
-		//int n_rooms;			//numero di stanze (normali) generate per livello
-		pRoom curRoom;			//stanza attuale, inquadrata e in cui si trova il giocatore
+		//int n_rooms;				//numero di stanze (normali) generate per livello
+		pConnectedRoom curRoom;		//stanza attuale, inquadrata e in cui si trova il giocatore
 		pPlayer player;
 		Timer timer;
 		
 		// FUNZIONI
-		void generateMap();		//genera lo schema della disposizione delle stanze del livello
-
+		void generateMap();						//genera lo schema della disposizione delle stanze del livello
+		void spawnInRoom(pConnectedRoom room);	//spawn iniziale di nemici
 		void changeRoom();
 		void nextLevel();	
 		
-		pCRoom findRoomAtCoordinates(pCRoom rooms[], int len, int x, int y);			//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		// FUNZIONI AUSILIARIE
-		int findCellAtCoordinates(int A[MAX_AVAILABLE][DIM_AVAILABLE], int x, int y);	//ritorna l'indice della posizione dell'array con tali coordinate (-1 se non presenteS)
-		void switchQueue(int A[MAX_AVAILABLE][DIM_AVAILABLE], int a, int b);			//scambia due elementi di A
-		void checkMinHeap(int H[MAX_AVAILABLE][DIM_AVAILABLE], int len, int i);			//aggiusta una posizione del min-heap (mantenendone le proprietà)
-		Coordinate cameraCenter();														//calcola il centro della camera
+		pConnectedRoom findRoomAtCoordinates(pConnectedRoom rooms[], int len, Coordinate c);	//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
+		void cameraUpdate();																	//calcola il centro della camera
+		Coordinate cameraStart();																//prima casella inquadrata
+		Coordinate cameraEnd();																	//ultima inquadrata
+		pEnemy randEnemy();						//ritorna un nemico casuale
 
 	public:
 		Level(int win_y, int win_x, pPlayer player);
@@ -100,9 +116,13 @@ class Level {
 
 		void update();								//da richiamare a ogni frame
 
+		// GET
+		void getLevelMap(pConnectedRoom map[]);
+		void getRoomMap(pInanimate map[], Coordinate &size, pPlayer &player);	//modifica mappa, ritorna dimensioni
+
 		// SET
 		void setPivot(pPhysical pivot);
-		void setDefaultCameraSpecs();				//reimposta le caratteristiche di default della camera
+		void setDefaultCameraSpecs();											//reimposta le caratteristiche di default della camera
 
 		//genera una stanza (come array bidimensionale)
 		//generateAll();

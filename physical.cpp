@@ -66,4 +66,7 @@ p_Animation Physical::tail_insert(p_Animation head, const char state[ANIMATION_H
     Coordinate Physical::getPosition() {
         return pos;
     }
+    Coordinate Physical::getSize() {
+        return size;
+    }
 #pragma endregion BOOL_GET_SET

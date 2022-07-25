@@ -2,18 +2,24 @@
 
 
 
-Door::Door(Coordinate pos, pRoom room) {
+Door::Door(Coordinate pos) {
 	id = ID_DOOR;
 	this->pos = pos;
-	this->room = room;
+	useable = true;
+	player_on = false;
 };
 
-
-//// SET
-void Door::unconnect() {
-	room = NULL;
+void Door::update() {
+	if(!player_on) useable = true;
 }
-//// GET
-pRoom Door::getConnected() {
-	return room;
+
+
+//// BOOL
+bool Door::canUse() {
+	return useable;
+}
+
+//// SET / GET
+void Door::setPlayerOn(bool p) {
+	player_on = p;
 }

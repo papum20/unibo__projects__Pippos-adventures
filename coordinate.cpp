@@ -7,24 +7,24 @@
 	Coordinate::Coordinate() {
 		x = DFLT_COORDINATE_X;
 		y = DFLT_COORDINATE_Y;
-		setMatrix(DFLT_COORDINATE_W, DFLT_COORDINATE_H);
+		setMatrix(Coordinate(DFLT_COORDINATE_W, DFLT_COORDINATE_H));
 	}
-	Coordinate::Coordinate(int x, int y) {
+	Coordinate::Coordinate(float x, float y) {
 		this->x = x;
 		this->y = y;
 	}
-	Coordinate::Coordinate(int x, int y, int width, int height) {
+	Coordinate::Coordinate(float x, float y, Coordinate size) {
 		Coordinate(x, y);
-		setMatrix(width, height);
+		setMatrix(size);
 	}
-	Coordinate::Coordinate(int x, int y, int sx, int sy, int ex, int ey) {
+	Coordinate::Coordinate(float x, float y, float sx, float sy, float ex, float ey) {
 		Coordinate(x, y);
 		setFullMatrix(sx, sy, ex, ey);
 	}
-	Coordinate::Coordinate(s_coord xy, int width, int height) {
-		setMatrix(width, height);
-		y = xy / width;
-		x = xy - y * width;
+	Coordinate::Coordinate(s_coord xy, Coordinate size) {
+		setMatrix(size);
+		y = xy / size.x;
+		x = xy - y * size.x;
 	}
 	Coordinate::Coordinate(const Coordinate a, const Coordinate b) {
 		Coordinate(a.x + b.x, a.y + b.y, a.startx, a.starty, a.endx, a.endy);
@@ -41,19 +41,44 @@
 	bool Coordinate::inOwnBounds() {
 		return (x >= startx && x < endx && y >= starty && y < endy);
 	}
+	/*bool Coordinate::inBoundsX(float xmin, float xmax) {
+		return (x >= xmin && x <= xmax); 
+	}
+	bool Coordinate::inBoundsY(float ymin, float ymax) {
+		return (y >= ymin && y <= ymax);
+	}*/
 	bool Coordinate::equals(Coordinate B) {
 		return x == B.x && y == B.y;
 	}
+	//bool Coordinate::equalsDirection(Coordinate B) {
+	//	float proportion_b_y = B.x * y / x;
+	//	return proportion_b_y == B.y;
+	//}
 	#pragma endregion BOOL
 
 //// EDIT
 #pragma region EDIT
-	Coordinate Coordinate::times(int px, int py) {
+	Coordinate Coordinate::negative() {
+		x = -x;
+		y = -y;
+		return *this;
+	}
+	Coordinate Coordinate::getNegative() {
+		Coordinate copy = *this;
+		copy.x = -x;
+		copy.y = -y;
+		return copy;
+	}
+	void Coordinate::sum(Coordinate B) {
+		x += B.x;
+		y += B.y;
+	}
+	Coordinate Coordinate::times(float px, float py) {
 		x *= px;
 		y *= py;
 		return *this;
 	}
-	Coordinate Coordinate::getTimes(int px, int py) {
+	Coordinate Coordinate::getTimes(float px, float py) {
 		return Coordinate(x * px, y * py, startx, starty, endx, endy);
 	}
 	void Coordinate::next() {
@@ -74,11 +99,11 @@
 //// SET GET
 #pragma region SET_GET
 // SET
-	void Coordinate::setMatrix(int width, int height) {
-		if(width > 0) this->endx = width;
-		if(height > 0) this->endy = height;
+	void Coordinate::setMatrix(Coordinate size) {
+		if(size.x > 0) this->endx = size.x;
+		if(size.y > 0) this->endy = size.y;
 	}
-	void Coordinate::setFullMatrix(int sx, int ex, int sy, int ey) {
+	void Coordinate::setFullMatrix(float sx, float ex, float sy, float ey) {
 		if(sx <= 0) sx = startx;
 		if(ex <= 0) ex = endx;
 		if(sy <= 0) sy = starty;
@@ -94,10 +119,16 @@
 	}
 
 //GET
-	int Coordinate::relative_x() {
+	int Coordinate::intx() {
+		return x;
+	}
+	int Coordinate::inty() {
+		return y;
+	}
+	float Coordinate::relative_x() {
 		return x - startx;
 	}
-	int Coordinate::relative_y() {
+	float Coordinate::relative_y() {
 		return y - starty;
 	}
 	s_coord Coordinate::single() {

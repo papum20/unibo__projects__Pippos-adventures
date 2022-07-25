@@ -12,9 +12,11 @@ class Enemy : public Character {
 	private:
 
 	public:
-		Enemy();
+		Enemy(int max_health);
 };
 
+
+typedef Enemy *pEnemy
 
 
 

@@ -22,29 +22,25 @@ int main() {
 	Player player = Player();
 	Level level = Level(level_x, level_y, &player);
 	Hud hud = Hud();
-	InputManager inputManager = InputManager();
+	InputManager inputManager = InputManager(input_x, input_y);
+
+	//funzioni per la gestione input
+	keypad (input_window, true);
+	timeout(30); //millisecondi tra ogni input richiesto dalla tastiera
 
 
 
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while(isRunning)
 	{
-		//inputManager.getInput();
-
-		// SE NON IN PAUSA
-		if(!isPaused) {
-			//player.move(inputManager.movementInput());
-
-			level.update();
-			level.display();
+		if (menu.is_open())
+			menu.actions(inputManager.get_input());			//se il menu è aperto il player non si muove
+		else{
+			player.update(Room.map, Room.characters, inputManager.get_input()); 		//actions perchè può essere sia movimento che combattimento, poi differenzierei nella funzione
 			//hud.drawHud();
 		}
-		// SE IN PAUSA
-		else {
-			//hud.drawHud();
-		}
-
-		// IN OGNI CASO
+		level.update();
+		level.display();
 	}
 
 

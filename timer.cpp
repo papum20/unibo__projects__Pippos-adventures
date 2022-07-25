@@ -2,9 +2,12 @@
 
 
 Timer::Timer() {
-	int maxs[n_timers];
-	for(int i = 0; i < n_timers; i++) maxs[i] = -1;
-	Timer(maxs);
+	last_frame_time = clock();
+	for(int i=0; i<n_timers; i++){
+		this->Total_Pauses[i]=0;
+		this->max_time[i]=-1;
+		this->State_pause[i]=false;
+	}
 }
 Timer::Timer(double max_time[]){	
 	last_frame_time = clock();
@@ -12,37 +15,36 @@ Timer::Timer(double max_time[]){
 		this->Total_Pauses[i]=0;
 		this->max_time[i]=max_time[i];
 		this->State_pause[i]=false;
-	}	
+	}
 };
 
 double Timer::current_time() {
 	return (double)clock() / CLOCKS_PER_SEC;
 }
 
-int Timer::get_time_passed(int timer){
+double Timer::get_time_passed(int timer){
 	double curr_time = (double)clock() / CLOCKS_PER_SEC;
 return(curr_time - timers[timer] - Total_Pauses[timer]);
 }
 
-bool Timer::check(int timer){//spegne se ha superato il tempo limite,  ritorna vero se hai superato il limite
+bool Timer::check(int timer){ //ritorna vero se hai superato il limite
 	
 		double curr_time = (double)clock() / CLOCKS_PER_SEC;
 		if(curr_time-timers[timer] - Total_Pauses[timer]>max_time[timer]){
-			active_timers[timer]=false;
 			return true;}
 		else
 			return false;
 }
 void Timer::start(int timer){//puoi riattivare un timer già attivo per resettare il suo valore
 	active_timers[timer]=true;
+	Total_Pauses[timer]=0;
 	timers[timer]=(double)clock() / CLOCKS_PER_SEC;
 }
 
 
 void Timer::start_all(){
 	for(int i=0; i<n_timers; i++){
-		active_timers[i]=true;
-		timers[i]=(double)clock() / CLOCKS_PER_SEC;
+		start(i);
 	}
 }
 
@@ -78,12 +80,12 @@ void Timer::finish_pause(int timer){
 }
 
 
-void Timer::set_max(int timer, int val) {
+void Timer::set_max(int timer, double val) {
 	if(val > 0)	max_time[timer] = val;
 }
-float Timer::deltaTime() {
-	float current = current_time();
-	float delta = current - last_frame_time;
+double Timer::deltaTime() {
+	double current = current_time();
+	double delta = current - last_frame_time;
 	last_frame_time = current;
 	return delta;
 }

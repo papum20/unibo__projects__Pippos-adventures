@@ -1,18 +1,20 @@
-main: Bat.o cell.o character.o connected_room.o coordinate.o door.o enemy.o floor.o hud.o inanimate.o inputmanager.o item.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o powerup.o health_potion.o room.o timer.o union_find.o wall.o
-	g++ Bat.o cell.o character.o connected_room.o coordinate.o door.o enemy.o floor.o hud.o inanimate.o inputmanager.o item.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o powerup.o health_potion.o room.o timer.o union_find.o wall.o -lncurses -o main
+main: cell.o character.o comparable.o connected_room.o coordinate.o door.o bat.o enemy.o floor.o hud.o inanimate.o inputmanager.o item.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o powerup.o health_potion.o room.o room_position.o room_priority_queue.o timer.o union_find.o wall.o
+	g++ cell.o character.o comparable.o connected_room.o coordinate.o door.o bat.o enemy.o floor.o hud.o inanimate.o inputmanager.o item.o level.o main.o maths.o physical.o pixel_art.o placeholder.o player.o powerup.o health_potion.o room.o room_position.o room_priority_queue.o timer.o union_find.o wall.o -lncurses -o main
 
-Bat.o: Bat.cpp Bat.hpp
-	g++ -c Bat.cpp
 cell.o: cell.cpp cell.hpp
 	g++ -c cell.cpp
 character.o: character.cpp character.hpp
 	g++ -c character.cpp
+comparable.o: comparable.cpp comparable.hpp
+	g++ -c comparable.cpp
 connected_room.o: connected_room.cpp connected_room.hpp
 	g++ -c connected_room.cpp
 coordinate.o: coordinate.cpp coordinate.hpp
 	g++ -c coordinate.cpp
 door.o: door.cpp door.hpp
 	g++ -c door.cpp
+bat.o: enemies/bat.cpp enemies/bat.hpp
+	g++ -c enemies/bat.cpp
 enemy.o: enemy.cpp enemy.hpp
 	g++ -c enemy.cpp
 floor.o: floor.cpp floor.hpp
@@ -45,6 +47,10 @@ health_potion.o: powerups/health_potion.cpp powerups/health_potion.hpp
 	g++ -c powerups/health_potion.cpp
 room.o: room.cpp room.hpp
 	g++ -c room.cpp
+room_position.o: room_position.cpp room_position.hpp
+	g++ -c room_position.cpp
+room_priority_queue.o: room_priority_queue.cpp room_priority_queue.hpp
+	g++ -c room_priority_queue.cpp
 timer.o: timer.cpp timer.hpp
 	g++ -c timer.cpp
 union_find.o: union_find.cpp union_find.hpp

@@ -4,6 +4,9 @@
 
 #include <iostream>
 
+#define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
+										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
+
 
 #pragma region PHYSICAL_CONSTANTS
 #pragma region PHYSICAL_ANIMATIONS
@@ -29,6 +32,7 @@ const int MAX_ANIMATION = 6;
 
 #define ID_DEFAULT 0
 #define ID_PLACEHOLDER 1
+#define ID_PLAYER 2
 #define ID_WALL 10
 #define ID_FLOOR 11
 #define ID_DOOR 20
@@ -49,6 +53,10 @@ const int MAX_ANIMATION = 6;
 //const int floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
 #pragma endregion GRAPHICS
 
+#pragma region PHYSICAL_STATS
+#define PHYSICAL_MAX_SPEED 5.
+#pragma endregion PHYSICAL_STATS
+
 #pragma endregion PHYSICAL_CONSTANTS
 
 
@@ -61,6 +69,7 @@ const int MAX_ANIMATION = 6;
 class Physical {
 	protected:
 		Coordinate pos;
+		Coordinate size;
 		int id;		//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animation[MAX_ANIMATION]; //array di liste di array bidimensionali
@@ -80,6 +89,8 @@ class Physical {
 		// GET
 		int getId();
 		Coordinate getPosition();
+		Coordinate getSize();
+		Coordinate getSpeed();				//velocità in caselle/secondo (float)
 		Coordinate lastFrameMovement();
 };
 

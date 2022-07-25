@@ -3,24 +3,24 @@
 
 
 #include "coordinate.hpp"
-#include "physical.hpp"
-#include "room.hpp"
+#include "inanimate.hpp"
 
 
-class Door : public Physical {
+class Door : public Inanimate {
 	private:
-		Room *room;				//puntatore a stanza a cui collega
-	public:
-		Door(Coordinate pos, Room *room);
+		bool useable;
+		bool player_on;
+		
 
-		// SET
-		void unconnect();		//room = NULL
-		// GET
-		Room *getConnected();	//ritorna il puntatore alla stanza collegata
+	public:
+		Door(Coordinate pos);
+		void update();
+
+		bool canUse();			//se si può cambiare stanza usandola
+		void setPlayerOn(bool p);
 };
 
 typedef Door *pDoor;
-
 
 
 

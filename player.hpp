@@ -93,7 +93,8 @@ const char dash_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 
 
-const int p_max_health = 10;
+const int p_max_health = 100;
+const int p_max_stamina=50;
 //il suo attacco dipende dall'arma
 
 //timer
@@ -113,7 +114,8 @@ const int mv_right=KEY_RIGHT;
 
 class Player : public Character {
 	private:
-	
+	protected:
+		int n_hearts;
 	public:
 		Player();
 	

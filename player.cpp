@@ -1,7 +1,7 @@
 #include "player.hpp"
 
-Player::Player():Character(p_max_health) {
-
+Player::Player():Character(p_max_health, p_max_stamina) {
+	n_hearts=3;
 	id=ID_PLAYER;
 	animation[idle_index] = tail_insert(animation[idle_index], idle[0], p_height, p_width);
 	

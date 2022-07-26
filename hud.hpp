@@ -3,6 +3,7 @@
 
 #include <ncurses.h>
 #include "main.hpp"
+#include "pixel_art.hpp"
 
 using namespace std;
 
@@ -49,6 +50,7 @@ class Hud {
 		int y_win;
 		int max_health;
 		int max_stamina;
+		Pixel_art pix;
 	public:
 		Hud(WINDOW* win, int max_h, int max_s);
 		//costruttore

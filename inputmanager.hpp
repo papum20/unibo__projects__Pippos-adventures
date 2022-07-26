@@ -10,7 +10,7 @@ const int input_l=2;
 class InputManager {
 	private:
 		Timer timer;
-		char curr_input;
+		int curr_input;
 		WINDOW* input_window;
 	public:
 		InputManager(int x_win, int y_win);

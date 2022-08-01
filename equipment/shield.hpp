@@ -7,7 +7,7 @@ class Scudo: public item_difensivi{
     protected:
 
     public:
-        Scudo (int dif, int d_mag, char rar[]);
+        Scudo (int dif, int d_mag, char rar[], Character own);
 };
 
 #endif

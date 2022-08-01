@@ -1,2 +1,0 @@
-questo file serve solo a salvare la cartella su git;
-da cancellare quando si aggiunge un file in questa cartella

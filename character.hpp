@@ -22,8 +22,8 @@ class Character : public Physical {
 		bool moveObject(pInanimate map[], Character *characters[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 	public:
 		Character();
-		Character(int maxHealth);
-		void update();
+		Character(int maxH, int curH);
+		void update(pInanimate map[], Character *characters[], char input);
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce

@@ -35,18 +35,12 @@ int main() {
 	{
 		if (menu.is_open())
 			menu.actions(inputManager.get_input());			//se il menu è aperto il player non si muove
-		else
-			player.actions(inputManager.get_input()); 		//actions perchè può essere sia movimento che combattimento, poi differenzierei nella funzione
-		level.update();
-		level.display();
-			//hud.drawHud();
-		
-		// SE IN PAUSA
-		else {
+		else{
+			player.update(Room.map, Room.characters, inputManager.get_input()); 		//actions perchè può essere sia movimento che combattimento, poi differenzierei nella funzione
 			//hud.drawHud();
 		}
-
-		// IN OGNI CASO
+		level.update();
+		level.display();
 	}
 
 

@@ -1,3 +1,8 @@
+//// GESTISCE TUTTO CIÒ CHE RIGUARDA LO SCHERMO IN GIOCO : CONTIENE UN PUNTATORE ALLA STANZA CORRENTE, LA QUALE MEMORIZZA TUTTE LE ENTITÀ PRESENTI IN ESSA,
+//// E SI OCCUPA DI DISEGNARLA A SCHERMO, GESTENDO ANCHE UNA TELECAMERA CHE NE INQUADRA ADEGUATAMENTE UNA PORZIONE
+
+
+
 #ifndef LEVEL_HPP
 #define LEVEL_HPP
 
@@ -67,12 +72,12 @@ class Level {
 		//spessore bordi laterali (lr) e sopra e sotto (tb)
 		int lr_border;
 		int tb_border;
-		//livello
+		//stanze nel livello
 		pConnectedRoom map[LEVEL_AREA];
 
-		int level;
+		int level;					//livello corrente
 
-		//camera
+		//camera: caratteristiche
 		Coordinate offset_max;		//massimo spostamento della camera
 		float speed;				//tempo (secondi) per raggiungere il massimo spostamento
 		float damping_speed;		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
@@ -85,10 +90,10 @@ class Level {
 		bool pivotChanged;			//se è cambiato il pivot
 		Coordinate pivotDistance;	//(se è cambiato il pivot) distanza dal vecchio pivot
 
-		//schermo
+		//schermo:
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
-		//oggetti
+		//oggetti:
 		//int n_rooms;				//numero di stanze (normali) generate per livello
 		pConnectedRoom curRoom;		//stanza attuale, inquadrata e in cui si trova il giocatore
 		pPlayer player;
@@ -97,15 +102,15 @@ class Level {
 		// FUNZIONI
 		void generateMap();						//genera lo schema della disposizione delle stanze del livello
 		void spawnInRoom(pConnectedRoom room);	//spawn iniziale di nemici
-		void changeRoom();
-		void nextLevel();	
+		void changeRoom();						//controlla se si deve cambiare stanza, ed eventualmente la cambia
+		void nextLevel();						//passa al livello successivo
 		
 		// FUNZIONI AUSILIARIE
 		pConnectedRoom findRoomAtCoordinates(pConnectedRoom rooms[], int len, Coordinate c);	//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		void cameraUpdate();																	//calcola il centro della camera
 		Coordinate cameraStart();																//prima casella inquadrata
-		Coordinate cameraEnd();																	//ultima inquadrata
-		pEnemy randEnemy();						//ritorna un nemico casuale
+		Coordinate cameraEnd();																	//ultima casella inquadrata
+		pEnemy randEnemy();																		//ritorna un nemico casuale
 
 	public:
 		Level(int win_y, int win_x, pPlayer player);
@@ -114,14 +119,14 @@ class Level {
 		void display();								//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa), con camera che segue il personaggio
 		void displayAtPosition(Coordinate center);
 
-		void update();								//da richiamare a ogni frame
+		void update(char input);					//da richiamare a ogni frame
 
 		// GET
 		void getLevelMap(pConnectedRoom map[]);
-		void getRoomMap(pInanimate map[], Coordinate &size, pPlayer &player);	//modifica mappa, ritorna dimensioni
+		void getRoomMap(pInanimate map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), playerr
 
 		// SET
-		void setPivot(pPhysical pivot);
+		void setPivot(pPhysical pivot);											//imposta l'oggetto che la telecamera seguirà
 		void setDefaultCameraSpecs();											//reimposta le caratteristiche di default della camera
 
 		//genera una stanza (come array bidimensionale)

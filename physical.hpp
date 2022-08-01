@@ -1,29 +1,22 @@
+//// OGGETTO "FISICO", OVVERO CHE VIENE DISEGNATO NEL LIVELLO E CHE OCCUPA UNA DETERMINATA POSIZIONE
+//// COMPRENDE PERSONAGGI (CHARACTER, INCLUSI NEMICI E PLAYER), ARMI E PROIETTILI, OGGETTI INANIMATI (FLOOR, WALL, DOOR) E ITEM
+
+
+
 #ifndef PHYSICAL_HPP
 #define PHYSICAL_HPP
 
 
 #include <iostream>
+#include "animation.hpp"
 
 #define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
 										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
 
 
 #pragma region PHYSICAL_CONSTANTS
-#pragma region PHYSICAL_ANIMATIONS
-const int ANIMATION_WIDTH = 6;
-const int ANIMATION_HEIGHT = 5;
-//struttura della lista degli array dell'animazione del player
-struct Animation{
-	char state[ANIMATION_HEIGHT][ANIMATION_WIDTH];
-	Animation *next;
-	int height;
-	int width;
-};
-typedef Animation *p_Animation;
 
-const int MAX_ANIMATION = 6;
-
-#pragma endregion PHYSICAL_ANIMATIONS
+#define MAX_ANIMATION 6		//numero di animazioni
 
 // ID
 #pragma region PHYSICAL_IDS
@@ -31,7 +24,7 @@ const int MAX_ANIMATION = 6;
 #define ID_INANIMATE_E 19
 
 #define ID_DEFAULT 0
-#define ID_PLACEHOLDER 1
+//#define ID_PLACEHOLDER 1
 #define ID_PLAYER 2
 #define ID_WALL 10
 #define ID_FLOOR 11
@@ -68,13 +61,11 @@ const int MAX_ANIMATION = 6;
 
 class Physical {
 	protected:
-		Coordinate pos;
-		Coordinate size;
-		int id;		//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
+		Coordinate pos;		//posizione nella stanza (considerando la cella più in basso a sinistra dell'oggetto)
+		Coordinate size;	//dimensioni "proiettate sul pavimeto" (larghezza * profondità)
+		int id;				//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
-		p_Animation animation[MAX_ANIMATION]; //array di liste di array bidimensionali
-
-		p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
+		p_Animation animation[MAX_ANIMATION]; //array di liste di animazioni: ogni elemento dell'array è una lista (circolare) con tutti i frame di una determinata animazione
 
 	public:
 		Physical();
@@ -84,14 +75,14 @@ class Physical {
 
 		// BOOL
 		bool isInanimate();
-		bool isPlaceholder();
+		//bool isPlaceholder();
 
 		// GET
 		int getId();
 		Coordinate getPosition();
 		Coordinate getSize();
 		Coordinate getSpeed();				//velocità in caselle/secondo (float)
-		Coordinate lastFrameMovement();
+		Coordinate lastFrameMovement();		//movimento avvenuto dall'ultimo frame
 };
 
 typedef Physical *pPhysical;

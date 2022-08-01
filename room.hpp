@@ -40,7 +40,7 @@ class Room {
 		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
 					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
 					//e directions con le rispettive direzioni, ne ritorna il numero
-		bool isSpawnAllowed(s_coord pos, Coordinate size);		//bool se può essere generato qualcosa di dimensioni size in posizione pos, cioè se non c'è altro nel mezzo
+		bool isSpawnAllowed(s_coord pos, Coordinate size);			//bool se può essere generato qualcosa di dimensioni size in posizione pos, cioè se non c'è altro nel mezzo
 		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E RICORRENTI)
 
@@ -59,8 +59,8 @@ class Room {
 
 	public:
 		Room(Coordinate pos);
-		void recursiveDestroy();
-		void update();											//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
+		void recursiveDestroy();								//elimina tutti i puntatori contenuti nella stanza, agendo poi ricorsivamente sulle stanze collegate
+		void update(char input);								//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
 		
 		// GENERAZIONE
 		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array map

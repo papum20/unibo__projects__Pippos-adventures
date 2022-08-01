@@ -5,9 +5,9 @@ Character::Character() : Physical() {
 	
 }
 
-Character::Character(int maxH, int curH) : Physical() {
+Character::Character(int maxH) : Physical() {
 	maxHealth=maxH;
-	curHealth=curH;
+	curHealth=maxH;
 }
 
 

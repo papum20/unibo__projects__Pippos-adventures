@@ -1,3 +1,6 @@
+//// STANZA CON PORTE
+
+
 #ifndef CONNECTED_ROOM_HPP
 #define CONNECTED_ROOM_HPP
 
@@ -14,31 +17,31 @@ class ConnectedRoom : public Room {
 	private:
 		int n_doors_max;							//massimo numero porte (dimensione array)
 		int n_doors_sides;							//numero di lati occupati da una porta (attualmente)
-		pDoor doors[MAX_CONNECTED_R];				//array di puntatori a porte (che portano a stanze collegate;
-													//disposte in direzioni 0..3=su..sinistra, da 4+ stanze interne
+		pDoor doors[MAX_CONNECTED_R];				//array di puntatori a porte (verso stanze collegate)
+													//disposte in direzioni: 0=su, 1=destra, 2=giu, 3=sinistra, 4=segreta,all'interno
 		Coordinate door_positions[MAX_SIDES_R];
 		ConnectedRoom *connected[MAX_CONNECTED_R];	//stanze collegate nella rispettiva direzione con una porta
 
 		// FUNZIONI
 		// FUNZIONI AUSILIARIE PRINCIPALI
-		void generateDoors(pUnionFind sets);
-		pDoor findDoor(Coordinate pos);
+		void generateDoors(pUnionFind sets);		//genera le porte (generazione stanza)
+		pDoor findDoor(Coordinate pos);				//ritorna il puntatore a una porta in una posizione, se presente
 
 	public:
 		ConnectedRoom(Coordinate pos);
 		void recursiveDestroy();
 		
 		void generate(); 									//genera uno schema randomico per i muri, inserendoli nell'array grid
-		void update();										//overridden
+		void update(char input);							//overridden
 
 		// SET
-		void makeConnection(ConnectedRoom *room, int dir);	//connects this room to "room" in direction dir (relative to this)
+		void makeConnection(ConnectedRoom *room, int dir);	//connette questa stanza a room, creando una porta in direzione dir (e la relativa porta in room)
 		// GET
-		ConnectedRoom *getRoomInPosition(Coordinate pos);	//ritorna il puntatore alla stanza collegata da una porta
+		ConnectedRoom *getRoomInPosition(Coordinate pos);	//ritorna il puntatore alla stanza collegata da una porta in posizione pos
 		ConnectedRoom *getRoomInDirection(int dir);			//ritorna il puntatore alla stanza collegata nella direzione
-															//0=su, 1=destra, 2=giu, 3=sinistra, 4=segreta,all'interno
+
 		pDoor getDoorInPosition(Coordinate pos);
-		pDoor getDoorToRoom(ConnectedRoom *room);			//ritorna il puntatore alla porta che collega alla stanza, se esistea
+		pDoor getDoorToRoom(ConnectedRoom *room);			//ritorna il puntatore alla porta che collega alla stanza, se esiste
 //		int getSideDoors();				//ritorna il numero di lati occupati da una porta (attualmente)
 };
 

@@ -3,23 +3,16 @@
 Player::Player():Character(p_max_health) {
 
 	id=ID_PLAYER;
-	animation[idle_index] = tail_insert(animation[idle_index], idle[0], p_height, p_width);
+	animation[idle_index] = new Animation(idle, p_height, p_width, idle_states);
 	
-	for(int i=0; i<2; i++){
-		animation[move_right_index] = tail_insert(animation[move_right_index], move_right[i], p_height, p_width);
-	}
-	for(int i=0; i<2; i++){
-		animation[move_left_index] = tail_insert(animation[move_left_index], move_left[i], p_height, p_width);
-	}
-	for(int i=0; i<2; i++){
-		animation[move_up_index] = tail_insert(animation[move_up_index], move_up[i], p_height, p_width);
-	}
-	for(int i=0; i<2; i++){
-		animation[move_down_index] = tail_insert(animation[move_down_index], move_down[i], p_height, p_width);
-	}
-	animation[dash_up_index] = tail_insert(animation[dash_up_index], dash_up[0], p_height, p_width);
-	animation[dash_down_index] = tail_insert(animation[dash_down_index], dash_down[0], p_height, p_width);
-	animation[dash_left_index] = tail_insert(animation[dash_left_index], dash_left[0], p_height, p_width);
-	animation[dash_right_index] = tail_insert(animation[dash_right_index], dash_right[0], p_height, p_width);
+	animation[move_right_index] = new Animation(move_right, p_height, p_width, move_right_states);
+	animation[move_left_index] = new Animation(move_left, p_height, p_width, move_left_states);
+	animation[move_up_index] = new Animation(move_up, p_height, p_width, move_up_states);
+	animation[move_down_index] = new Animation(move_down, p_height, p_width, move_down_states);
+
+	animation[dash_up_index] = new Animation(dash_up, p_height, p_width, dash_up_states);
+	animation[dash_down_index] = new Animation(dash_down, p_height, p_width, dash_down_states);
+	animation[dash_left_index] = new Animation(dash_left, p_height, p_width, dash_left_states);
+	animation[dash_right_index] = new Animation(dash_right, p_height, p_width, dash_right_states);
 	
 }

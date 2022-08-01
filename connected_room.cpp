@@ -44,8 +44,8 @@
 		resizeMap();
 	}
 
-	void ConnectedRoom::update() {
-		Room::update();
+	void ConnectedRoom::update(char input) {
+		Room::update(input);
 		//imposta il player non sulla porta per ogni porta
 		for(int d = 0; d < MAX_CONNECTED_R; d++) {
 			if(doors[d] != NULL) {

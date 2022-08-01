@@ -3,7 +3,7 @@
 #ifndef CELL_HPP
 #define CELL_HPP
 
-#include <ncurses.h>
+#include <curses.h>
 
 
 #define COLORS_TOT 8

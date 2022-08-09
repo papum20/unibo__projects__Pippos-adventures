@@ -27,10 +27,10 @@
 		delete this;
 	}
 
-	void Room::update() {
+	void Room::update(char input) {
 		Coordinate i(0, 0, size);
 		do {
-			if(characters[i.single()] != NULL) characters[i.single()]->update();
+			if(characters[i.single()] != NULL) characters[i.single()]->update(map, characters, input);
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 	}

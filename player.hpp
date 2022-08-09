@@ -13,10 +13,15 @@ const int dash_down_index = 6;
 const int dash_left_index = 7;
 const int dash_right_index = 8;
 
+const int idle_states = 1;
 const int move_right_states = 2;
 const int move_up_states = 2;
 const int move_down_states = 2;
 const int move_left_states = 2;
+const int dash_up_states = 1;
+const int dash_down_states = 1;
+const int dash_left_states = 1;
+const int dash_right_states = 1;
 const int p_width = 3;
 const int p_height = 3;
 

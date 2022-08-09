@@ -2,7 +2,7 @@
 #define INPUT_MANAGER_HPP
 
 #include "timer.hpp"
-#include <ncurses.h>
+#include <curses.h>
 
 const int input_h=1;
 const int input_l=2;

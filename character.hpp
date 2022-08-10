@@ -19,7 +19,7 @@ class Character : public Physical {
 		int curHealth;
 		int maxStamina;
 		int curStamina;
-
+		bool is_attacking;
 		// ROOM
 		bool moveObject(pInanimate map[], Character *characters[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 	public:

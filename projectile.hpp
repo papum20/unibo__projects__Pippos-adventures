@@ -9,6 +9,7 @@ Class Projectile: public Physical{
         int height;
         bool enemy;
         bool player;
+        
     public:
         Projectile (int d, int w, int h, p_Animation animazioni[], bool e, bool p);
 };

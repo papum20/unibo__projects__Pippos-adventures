@@ -10,6 +10,7 @@ Character::Character(int maxH, int maxS) : Physical() {
 	curHealth=maxH;
 	maxStamina=maxS;
 	curStamina=maxS;
+	is_attacking=false;
 }
 
 

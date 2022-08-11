@@ -22,6 +22,7 @@ const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
 #include "physical.hpp"
 #include "union_find.hpp"
 #include "wall.hpp"
+#include "projectile.hpp"
 
 
 
@@ -49,6 +50,7 @@ class Room {
 		int scale_x;
 		pInanimate map[ROOM_AREA];
 		pCharacter characters[ROOM_AREA];
+		pProjectiles projectiles[ROOM_AREA];
 
 		// FUNZIONI AUSILIARIE PRINCIPALI
 		void generateSidesWalls();

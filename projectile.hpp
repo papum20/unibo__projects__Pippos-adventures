@@ -2,18 +2,31 @@
 #define PROJECTILE_HPP
 
 #include "physical.hpp"
+#include "weapon.hpp"
+#include "animation.hpp"
 
-Class Projectile: public Physical{
+class Projectile: public Physical{
     protected:
-        int danno;
-        int width;
-        int height;
-        int id;
-        char direction;
-    public:
-        Projectile (int d, int w, int h, p_Animation animazioni[], bool e, bool p);
+        int danno_fisico;
+        int danno_magico;
 
-        void cast_direction_id (Character c, int d);
+        char direction;
+
+        int up_width;
+        int up_height;
+
+        int down_width;
+        int down_height;
+        
+        int right_width;
+        int right_height;
+
+        int left_width;
+        int left_height;
+    public:
+        Projectile (Weapon w, p_Animation animazioni[]);
+
+        void cast_direction (Character c, int d);
 };
 
 typedef Projectile *pProjectile;

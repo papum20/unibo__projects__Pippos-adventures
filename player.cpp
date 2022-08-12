@@ -1,7 +1,7 @@
 #include "player.hpp"
 
 Player::Player():Character(p_max_health, p_max_stamina) {
-	n_hearts=3;
+	n_hearts=start_lifes;
 	id=ID_PLAYER;
 	animation[idle_index] = new Animation(idle, p_height, p_width, idle_states);
 	
@@ -14,5 +14,9 @@ Player::Player():Character(p_max_health, p_max_stamina) {
 	animation[dash_down_index] = new Animation(dash_down, p_height, p_width, dash_down_states);
 	animation[dash_left_index] = new Animation(dash_left, p_height, p_width, dash_left_states);
 	animation[dash_right_index] = new Animation(dash_right, p_height, p_width, dash_right_states);
+	
+}
+
+void Player::update (char input){
 	
 }

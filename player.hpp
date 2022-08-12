@@ -97,7 +97,8 @@ const char dash_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 
 
-
+const int max_lifes=5;
+const int start_lifes=3;
 const int p_max_health = 100;
 const int p_max_stamina=50;
 //il suo attacco dipende dall'arma
@@ -124,7 +125,7 @@ class Player : public Character {
 	public:
 		Player();
 	
-		void move(int input);
+		void update(char input);
 
 };
 

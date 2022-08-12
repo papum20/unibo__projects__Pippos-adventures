@@ -33,35 +33,63 @@ void Character::setPosition(Coordinate pos) {
 	this->pos = pos;
 }
 
+/*void Character::update (pInanimate map[], pCharacter characters[], char input){
+	
+	update_movement(map, characters, input);
+
+}*/
 void Character::update(pInanimate map[], pCharacter characters[], char input){
 	Coordinate newpos= pos;
 	switch (input)
 	{
-	case KEY_UP:{
+	case 'w':{
 		newpos.y--;
 		moveObject (map, characters, newpos);
+		break;
 	}
-	case KEY_DOWN:{
+	case 's':{
 		newpos.y++;
 		moveObject (map, characters, newpos);
+		break;
 	}	
-	case KEY_LEFT:{
+	case 'a':{
 		newpos.x--;
 		moveObject (map, characters, newpos);
+		break;
 	}
-	case KEY_RIGHT:{
+	case 'd':{
 		newpos.x++;
 		moveObject (map, characters, newpos);
+		break;
 	}
-	
-	case {//tasto per aprire il menu:
-		menu.open();
+	case 'm' {
+		open_menu();
+		break;
 	}
-	case {//tasto per colpire
-		//funzioni combat system
-	}	
+	case 'n' {
+		open_inventary();
+		break;
+	}
+	case ctrl(a){
+		//iter animazione attacco a sinistra
+	}
+	case ctrl(s){
+		//iter animazione attacco in basso
+	}
+	case ctrl(d){
+		//iter animazione attacco a destra
+	}
+	case ctrl(w){
+		//iter animazione attaco in alto
+	}
 	}
 
+}
+
+void Character::mvup(){
+	Coordinate newpos=pos;
+	newpos.y--;
+	moveObject (map, characters, newpos);
 }
 
 #pragma region AUSILIARIE_GENERICHE

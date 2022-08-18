@@ -19,6 +19,10 @@ class Character : public Physical {
 	protected:
 		int maxHealth;
 		int curHealth;
+		int physical_attack;
+		int magical_attack;
+		int physical_defense;
+		int magical_defense;
 
 		bool is_attacking;
 		// ROOM

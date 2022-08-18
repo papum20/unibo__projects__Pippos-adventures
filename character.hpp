@@ -32,7 +32,7 @@ class Character : public Physical {
 		Weapon weapons[W_NUMBER];
 	public:
 		Character();
-		Character(int maxH, int curH);
+		Character(int maxH, int curH, int physical_attack, int magical_attack, int physical_defense, int magical_defense);
 		void update(pInanimate map[], Character *characters[], char input);
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE

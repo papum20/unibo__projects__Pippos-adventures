@@ -100,8 +100,8 @@
 #pragma region SET_GET
 // SET
 	void Coordinate::setMatrix(Coordinate size) {
-		if(size.x > 0) this->endx = size.x;
-		if(size.y > 0) this->endy = size.y;
+		if(size.x > 0) this->endx = startx + size.x;
+		if(size.y > 0) this->endy = starty + size.y;
 	}
 	void Coordinate::setFullMatrix(float sx, float ex, float sy, float ey) {
 		if(sx <= 0) sx = startx;

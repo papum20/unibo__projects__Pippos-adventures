@@ -13,10 +13,15 @@ const int dash_down_index = 6;
 const int dash_left_index = 7;
 const int dash_right_index = 8;
 
+const int idle_states = 1;
 const int move_right_states = 2;
 const int move_up_states = 2;
 const int move_down_states = 2;
 const int move_left_states = 2;
+const int dash_up_states = 1;
+const int dash_down_states = 1;
+const int dash_left_states = 1;
+const int dash_right_states = 1;
 const int p_width = 3;
 const int p_height = 3;
 
@@ -92,8 +97,10 @@ const char dash_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 
 
-
-const int p_max_health = 10;
+const int max_lifes=5;
+const int start_lifes=3;
+const int p_max_health = 100;
+const int p_max_stamina=50;
 //il suo attacco dipende dall'arma
 
 //timer
@@ -113,11 +120,12 @@ const int mv_right=KEY_RIGHT;
 
 class Player : public Character {
 	private:
-	
+	protected:
+		int n_hearts;
 	public:
 		Player();
 	
-		void move(int input);
+		void update(char input);
 
 };
 

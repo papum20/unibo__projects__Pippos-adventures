@@ -2,7 +2,7 @@
 #define INPUT_MANAGER_HPP
 
 #include "timer.hpp"
-#include <ncurses.h>
+#include <curses.h>
 
 const int input_h=1;
 const int input_l=2;
@@ -10,7 +10,7 @@ const int input_l=2;
 class InputManager {
 	private:
 		Timer timer;
-		char curr_input;
+		int curr_input;
 		WINDOW* input_window;
 	public:
 		InputManager(int x_win, int y_win);

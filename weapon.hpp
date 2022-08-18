@@ -6,6 +6,8 @@
 #include "item.hpp"
 #include "character.hpp"
 
+const int ANIMATION_WIDTH = 10;
+const int ANIMATION_HEIGHT = 10;
 
 class Weapon : public Item {
 	private:

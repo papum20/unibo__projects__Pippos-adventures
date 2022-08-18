@@ -29,7 +29,7 @@ class Bat: public Enemy {
     
   public:
     Bat ();
-}
+};
 
 
 #endif

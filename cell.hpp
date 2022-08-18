@@ -1,9 +1,10 @@
 //// RAPPRESENTA UNA CELLA DA STAMPARE
+// contiene le informazioni di carattere, colori testo/sfondo e attributi, e permette di ottenere il relativo chtype, stampabile con ncurses, con la funzione toChtype()
 
 #ifndef CELL_HPP
 #define CELL_HPP
 
-#include <ncurses.h>
+#include <curses.h>
 
 
 #define COLORS_TOT 8
@@ -22,15 +23,21 @@ class Cell {
 		attr_t att;	//attributi
 
 	public:
-		Cell();
+		Cell();											//inizializza con gli attributi di default
 		Cell(char ch, int fg, int bg, attr_t att);		//valori minori di 0 inizializzano di default
 
 		void edit(char ch, int fg, int bg, attr_t att);	//valori minori di 0 non modificano
 		// GET
-		char getCh();
+		char getCh();									//ritorna il carattere memorizzato
 		chtype toChtype();								//converte in unico valore chtype
-		int colorPairNumber();
-		int colorPair();
+		int colorPairNumber();							//ritorna il numero con cui è memorizzato il color_pair associato ai colori testo/sfondo dell'oggetto
+		int colorPair();								//ritorna il color_pair associato ai colori testo/sfondo dell'oggetto
+		/*
+		essendoci solo 8 colori, le loro possibili combinazioni sono 8*8=64: dunque i numeri che identificano i color_pair possono essere inizializzati
+		una volta per tutte secondo un certo ordine, e venire restituiti autonomamente dalla classe cell.
+		**metodo di inizializzazione color_pair: nel caso specifico, per associare gli identificatori ai color_pair, utilizzo i numeri associati ad ogni colore
+		(che vanno da 0 a 7) per memorizzarli in ordine, associando il colore 0 ai colori 0,1,..7, il colore 1 ai colori 0,1,..7 e così via.
+		*/
 };
 
 

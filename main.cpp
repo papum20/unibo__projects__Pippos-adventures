@@ -21,7 +21,7 @@ int main() {
 	//costruttori
 	Player player = Player();
 	Level level = Level(level_x, level_y, &player);
-	Hud hud = Hud();
+	Hud hud = Hud(hud_window, p_max_health, p_max_stamina);
 	InputManager inputManager = InputManager(input_x, input_y);
 
 	//funzioni per la gestione input
@@ -37,7 +37,7 @@ int main() {
 			menu.actions(inputManager.get_input());			//se il menu è aperto il player non si muove
 		else{
 			player.update(Room.map, Room.characters, inputManager.get_input()); 		//actions perchè può essere sia movimento che combattimento, poi differenzierei nella funzione
-			//hud.drawHud();
+			hud.drawHud(player.curHealth, player.curStamina, player.n_hearts);
 		}
 		level.update();
 		level.display();

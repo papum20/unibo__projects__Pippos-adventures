@@ -22,6 +22,7 @@ const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
 #include "physical.hpp"
 #include "union_find.hpp"
 #include "wall.hpp"
+#include "projectile.hpp"
 
 
 
@@ -40,7 +41,7 @@ class Room {
 		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
 					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
 					//e directions con le rispettive direzioni, ne ritorna il numero
-		bool isSpawnAllowed(s_coord pos, Coordinate size);		//bool se può essere generato qualcosa di dimensioni size in posizione pos, cioè se non c'è altro nel mezzo
+		bool isSpawnAllowed(s_coord pos, Coordinate size);			//bool se può essere generato qualcosa di dimensioni size in posizione pos, cioè se non c'è altro nel mezzo
 		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E RICORRENTI)
 
@@ -49,6 +50,7 @@ class Room {
 		int scale_x;
 		pInanimate map[ROOM_AREA];
 		pCharacter characters[ROOM_AREA];
+		pProjectiles projectiles[ROOM_AREA];
 
 		// FUNZIONI AUSILIARIE PRINCIPALI
 		void generateSidesWalls();
@@ -59,8 +61,8 @@ class Room {
 
 	public:
 		Room(Coordinate pos);
-		void recursiveDestroy();
-		void update();											//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
+		void recursiveDestroy();								//elimina tutti i puntatori contenuti nella stanza, agendo poi ricorsivamente sulle stanze collegate
+		void update(char input);								//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
 		
 		// GENERAZIONE
 		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array map
@@ -75,6 +77,7 @@ class Room {
 		Coordinate getSize();
 		void getMap(pInanimate map[], Coordinate &size);	//modifica mappa, ritorna dimensioni
 		pPhysical checkPosition(Coordinate pos);			//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		pCharacter checkLine (Coordinate start, Coordinate end); 
 };
 
 

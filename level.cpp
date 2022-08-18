@@ -102,8 +102,8 @@
 		}
 	}
 
-	void Level::update() {
-		curRoom->update();
+	void Level::update(char input) {
+		curRoom->update(input);
 		changeRoom();
 		//controlla se il player è su una porta
 		pPhysical location = curRoom->checkPosition(player->getPosition());

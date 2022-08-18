@@ -5,13 +5,9 @@ Character::Character() : Physical() {
 	
 }
 
-Character::Character(int maxH, int curH, int physical_attack, int magical_attack, int physical_defense, int magical_defense) : Physical() {
+Character::Character(int maxH, int curH) : Physical() {
 	maxHealth=maxH;
 	curHealth=curH;
-	this->physical_attack = physical_attack;
-	this->magical_attack = magical_attack;
-	this->physical_defense = physical_defense;
-	this->magical_defense = magical_defense;
 }
 
 
@@ -34,23 +30,31 @@ void Character::setPosition(Coordinate pos) {
 	this->pos = pos;
 }
 
+/*void Character::update (pInanimate map[], pCharacter characters[], char input){
+	
+	update_movement(map, characters, input);
+
+}*/
 void Character::update(pInanimate map[], pCharacter characters[], char input){
 	Coordinate newpos= pos;
 	switch (input)
 	{
-	case KEY_UP:{
+	case 'w':{
 		newpos.y--;
 		moveObject (map, characters, newpos);
+		break;
 	}
-	case KEY_DOWN:{
+	case 's':{
 		newpos.y++;
 		moveObject (map, characters, newpos);
+		break;
 	}	
-	case KEY_LEFT:{
+	case 'a':{
 		newpos.x--;
 		moveObject (map, characters, newpos);
+		break;
 	}
-	case KEY_RIGHT:{
+	case 'd':{
 		newpos.x++;
 		moveObject (map, characters, newpos);
 	}
@@ -58,11 +62,14 @@ void Character::update(pInanimate map[], pCharacter characters[], char input){
 	case {//tasto per aprire il menu:
 		menu.open();
 	}
-	case {//tasto per colpire
-		//funzioni combat system
-	}	
 	}
 
+}
+
+void Character::mvup(){
+	Coordinate newpos=pos;
+	newpos.y--;
+	moveObject (map, characters, newpos);
 }
 
 #pragma region AUSILIARIE_GENERICHE

@@ -92,6 +92,7 @@ class Physical {
 		Coordinate getSize();
 		Coordinate getSpeed();				//velocità in caselle/secondo (float)
 		Coordinate lastFrameMovement();
+		void conflicts();
 };
 
 typedef Physical *pPhysical;

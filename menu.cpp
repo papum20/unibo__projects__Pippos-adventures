@@ -33,6 +33,10 @@ void Menu::open_options(WINDOW * w_options){
     }
 }
 
+bool Menu::is_active(){
+    return(menu_is_active);
+}
+
 void Menu::start_close_game(){
     menu_is_active=false;
     werase(wface);

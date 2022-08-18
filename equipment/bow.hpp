@@ -59,7 +59,7 @@ class Arco: public Weapon{
     protected:
         Projectile freccia;
     public:
-        Arco (int d_f, int d_m, float v_a, char rar[], Character own);
+        Arco (int d_f, int d_m, char rar[]);
 };
 
 #endif

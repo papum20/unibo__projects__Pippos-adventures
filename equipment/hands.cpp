@@ -1,5 +1,5 @@
 #include "hands.hpp"
 
-Hands::Hands(int base_dmg_hands, float attack_speed_hands):Weapon(base_dmg_hands, attack_speed_hands){
-
+Hands::Hands(int d_f, float d_m, char rar[]):Weapon(d_f, d_m, rar){
+    Weapon::apply_rarity();
 }

@@ -17,6 +17,91 @@ Player::Player():Character(p_max_health, p_max_stamina) {
 	
 }
 
-void Player::update (char input){
-	
+void Player::update(pInanimate map[], pCharacter characters[]){
+	int input=Input_manager::get_input(); 
+	switch (input)
+	{
+	case KEY_UP:{
+		moveUp(map, characters);
+		break;
+	}
+	case KEY_DOWN:{
+		moveDown(map, characters);
+		break;
+	}	
+	case KEY_LEFT:{
+		moveLeft(map, characters);
+		break;
+	}
+	case KEY_RIGHT:{
+		moveRight(map, characters);
+		break;
+	}
+	case 'n':{
+		open_inventary();
+		break;
+	}
+	case ctrl(w):{
+		//iter animazione attacco alto
+	}
+	case ctrl(a):{
+		//iter animazione attacco in sinistra
+	}
+	case ctrl(d):{
+		//iter animazione attacco a destra
+	}
+	case ctrl(s):{
+		//iter animazione attaco in basso
+	}
+	}
+	case 'c':{
+		collect_item();
+	}
+
+}
+
+void Player::collect_item(){
+	Coordinate newcoord;
+	newcoord=pos;
+	if (direction=='u'){
+		newcoord.y--;
+		add_item(Room::checkItem(newcoord));
+	}
+	if (direction=='d'){
+		newcoord.y++;
+		add_item(Room::checkItem(newcoord));
+	}
+	if (direction=='l'){
+		newcoord.x--;
+		add_item(Room::checkItem(newcoord));
+	}
+	if (direction=='r'){
+		newcoord.x++;
+		add_item(Room::checkItem(newcoord));
+	}
+}
+
+void Player::add_item(pWeapon w){
+	if (curr_weapon<(W_NUMBER-1)){
+		curr_weapon++;
+		weapons[curr_weapon]=w;
+	}
+}
+
+void Player::add_item (pItem_def i){
+	if (last_def<(DEF_NUMBER-1)){
+		last_def++;
+		defensive_items[last_def]=i;
+	}
+}
+
+void Player::add_item (pArtifact a){
+	if (curr_artifact<(MAX_ARTIFACTS-1)){
+		curr_artifact++;
+		artifacts[curr_artifact]=a;
+	}
+}
+
+void Player::modify_lifes (int delta){
+	n_hearts=n_hearts+delta;
 }

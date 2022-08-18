@@ -5,12 +5,14 @@
 #include "inanimate.hpp"
 #include "physical.hpp"
 #include "timer.hpp"
-
+#include "weapon.hpp"
+#include "artifact.hpp"
+#include "item_difensivi.hpp"
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 
 const int W_NUMBER=10;
-
+const int DEF_NUMBER=10;
 
 class Character : public Physical {
 	private:
@@ -31,16 +33,28 @@ class Character : public Physical {
 		int left_attack_index;
 		int right_attack_index;
 
-		Weapon weapons[W_NUMBER];
+		char direction;					// u sopra, d sotto, l sinistra, r destra
+
+		pWeapon weapons[W_NUMBER];
+		int curr_weapon;
+
+		pItem_def defensive_items[DEF_NUMBER];
+		int last_def;
 	public:
 		Character();
 		Character(int maxH, int maxS);
-		void update(pInanimate map[], Character *characters[], char input);
+		
+		virtual void update(pInanimate map[], Character *characters[]);
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce
 
 		void setPosition(Coordinate pos);
+
+		void moveUp(pInanimate map[], pCharacter characters[]);
+		void moveDown(pInanimate map[], pCharacter characters[]);
+		void moveLeft(pInanimate map[], pCharacter characters[]);
+		void moveRight(pInanimate map[], pCharacter characters[]);
 };
 
 typedef Character *pCharacter;

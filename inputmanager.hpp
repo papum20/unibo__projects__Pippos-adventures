@@ -17,7 +17,7 @@ class InputManager {
 
 		void calculate_input (); //calcola l'input
 
-		char get_input();		//ritorna un puntatore all'input corrente
+		int get_input();		//ritorna l'input corrente
 
 };
 

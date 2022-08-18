@@ -33,63 +33,32 @@ void Character::setPosition(Coordinate pos) {
 	this->pos = pos;
 }
 
-/*void Character::update (pInanimate map[], pCharacter characters[], char input){
-	
-	update_movement(map, characters, input);
-
-}*/
-void Character::update(pInanimate map[], pCharacter characters[], char input){
-	Coordinate newpos= pos;
-	switch (input)
-	{
-	case 'w':{
-		newpos.y--;
-		moveObject (map, characters, newpos);
-		break;
-	}
-	case 's':{
-		newpos.y++;
-		moveObject (map, characters, newpos);
-		break;
-	}	
-	case 'a':{
-		newpos.x--;
-		moveObject (map, characters, newpos);
-		break;
-	}
-	case 'd':{
-		newpos.x++;
-		moveObject (map, characters, newpos);
-		break;
-	}
-	case 'm' {
-		open_menu();
-		break;
-	}
-	case 'n' {
-		open_inventary();
-		break;
-	}
-	case ctrl(a){
-		//iter animazione attacco a sinistra
-	}
-	case ctrl(s){
-		//iter animazione attacco in basso
-	}
-	case ctrl(d){
-		//iter animazione attacco a destra
-	}
-	case ctrl(w){
-		//iter animazione attaco in alto
-	}
-	}
-
-}
-
-void Character::mvup(){
+void Character::moveUp(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.y--;
 	moveObject (map, characters, newpos);
+	direction='u';
+}
+
+void Character::moveDown(pInanimate map[], pCharacter characters[]){
+	Coordinate newpos=pos;
+	newpos.y++;
+	moveObject (map, characters, newpos);
+	direction='d';
+}
+
+void Character::moveLeft(pInanimate map[], pCharacter characters[]){
+	Coordinate newpos=pos;
+	newpos.x--;
+	moveObject (map, characters, newpos);
+	direction='l';
+}
+
+void Character::moveRight(pInanimate map[], pCharacter characters[]){
+	Coordinate newpos=pos;
+	newpos.x++;
+	moveObject (map, characters, newpos);
+	direction='r';
 }
 
 #pragma region AUSILIARIE_GENERICHE

@@ -10,6 +10,8 @@ class Spada: public Weapon{
 
     public:
         Spada (int d_f, int d_m, float v_a, char rar[], Character own);
+
+        void apply_rune();
 };
 
 #endif

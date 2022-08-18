@@ -1,6 +1,7 @@
 #ifndef WEAPON_HPP
 #define WEAPON_HPP
 
+using namespace std;
 
 #include "coordinate.hpp"
 #include "item.hpp"
@@ -13,16 +14,18 @@ class Weapon : public Item {
 	private:
 
 	protected:
+		int danno_fisico_iniziale;
+		int danno_magico_iniziale;
 		int danno_fisico;
 		int danno_magico;
-		float velocita_a;							//ogni quanto un'arma attacca
-		Coordinate pos;
-		Character owner;
 	public:
-		Weapon(int danno_f, int danno_m, float velcoita_a, Character own);
+		Weapon(int danno_f, int danno_m, char rar[]);
+
+		void apply_rune();
+		void apply_rarity();
 };
 
-
+typedef Weapon* pWeapon;
 
 
 #endif

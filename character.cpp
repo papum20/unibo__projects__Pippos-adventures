@@ -5,12 +5,13 @@ Character::Character() : Physical() {
 	
 }
 
-Character::Character(int maxH, int maxS) : Physical() {
+Character::Character(int maxH, int curH,int physical_attack, int magical_attack, int physical_defense, int magical_defense) : Physical() {
 	maxHealth=maxH;
-	curHealth=maxH;
-	maxStamina=maxS;
-	curStamina=maxS;
-	is_attacking=false;
+	curHealth=curH;
+	this->physical_attack=physical_attack;
+	this->magical_attack=magical_attack;
+	this->physical_defense=physical_defense;
+	this->magical_defense=magical_defense;
 }
 
 

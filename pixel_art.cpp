@@ -157,3 +157,37 @@ j=j+6;
 }
 }
 
+
+void Pixel_art::clean_window(WINDOW* window, int w_hight, int w_lenght){
+init_pair(4, COLOR_BLACK, COLOR_BLACK);
+for(int i=1; i<w_hight; i++){
+    for(int j=1; j<w_lenght; j++){
+        mvwaddch(window, i, j, ' ');
+    }
+}   
+}
+
+void Pixel_art::print_face(WINDOW* facewin, bool face[][face_lenght], int face_lenght, int face_hight){ 
+int r;
+init_pair(3, COLOR_WHITE, COLOR_BLACK);
+init_pair(4, COLOR_BLACK, COLOR_BLACK);
+box(facewin, 0, 0);    
+ for(int i=1; i<face_hight; i++){
+        for(int j=1; j<face_lenght; j++){
+            if(face[i][j]==0){
+                wattron(facewin, COLOR_PAIR(3));
+            }
+            else if(face[i][j]==1){
+                wattron(facewin, COLOR_PAIR(4));
+            } 
+            r=rand()%(2);  
+            if(r==0) 
+                mvwaddch(facewin, i, j, (char)(48));
+            else 
+                mvwaddch(facewin, i, j, (char)(49));
+        }
+    }
+wattroff(facewin, COLOR_PAIR(3));
+wattroff(facewin, COLOR_PAIR(4));
+wrefresh(facewin);
+}

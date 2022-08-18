@@ -3,11 +3,15 @@
 #include <cstring> 
 #include "item_difensivi.hpp"
 
-class Stivali: public item_difensivi{
+class boots: public item_difensivi{
     protected:
 
     public:
-        Stivali (int dif, int d_mag, char rar[]);
+        boots (int dif, int d_mag, char rar[]);
+
+        char get_type();
 };
+
+typedef boots* pBoots;
 
 #endif

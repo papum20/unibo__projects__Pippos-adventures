@@ -3,12 +3,15 @@
 #include <cstring>
 #include "item_difensivi.hpp" 
 
-class Armatura: public item_difensivi{
+class armor: public item_difensivi{
     protected:
 
     public:
-        Armatura (int dif, int d_mag, char rar[]);
+        armor (int dif, int d_mag, char rar[]);
     
+        char get_type ();
 };
+
+typedef armor* pArmor;
 
 #endif

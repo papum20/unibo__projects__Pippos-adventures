@@ -21,10 +21,10 @@ class Character : public Physical {
 	protected:
 		int maxHealth;
 		int curHealth;
-		int physical_attack;
-		int magical_attack;
-		int physical_defense;
-		int magical_defense;
+		int danno_fisico;
+		int danno_magico;
+		int difesa_fisica;
+		int difesa_magica;
 
 		bool is_attacking;
 		// ROOM
@@ -44,14 +44,11 @@ class Character : public Physical {
 		int last_def;
 	public:
 		Character();
-<<<<<<< HEAD
 		Character(int maxH, int maxS);
 		
 		virtual void update(pInanimate map[], Character *characters[]);
-=======
 		Character(int maxH, int curH, int physical_attack, int magical_attack, int physical_defense, int magical_defense);
-		void update(pInanimate map[], Character *characters[], char input);
->>>>>>> fb4f651e184bfd16672f61564053bb3afbd27a25
+
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce

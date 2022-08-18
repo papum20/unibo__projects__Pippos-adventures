@@ -120,6 +120,14 @@ const int mv_right=KEY_RIGHT;
 
 const int MAX_ARTIFACTS=10;
 
+struct equipment {
+	pWeapon arma;
+	shield scudo;
+	necklace collana;
+	boots stivali;
+	armor armatura;
+};
+
 class Player : public Character {
 	private:
 	protected:
@@ -127,6 +135,8 @@ class Player : public Character {
 
 		pArtifact artifacts[MAX_ARTIFACTS];
 		int curr_artifact;
+		
+		equipment equipaggiamento;
 
 	public:
 		Player();

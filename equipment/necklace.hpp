@@ -3,11 +3,15 @@
 #include <cstring> 
 #include "item_difensivi.hpp"
 
-class Collana: public item_difensivi{
+class necklace: public item_difensivi{
     protected:
 
     public:
-        Collana (int dif, int d_mag, char rar[]);
+        necklace (int dif, int d_mag, char rar[]);
+
+        char get_type();
 };
+
+typedef necklace* pNecklace;
 
 #endif

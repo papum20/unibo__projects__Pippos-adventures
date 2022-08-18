@@ -17,6 +17,40 @@ Player::Player():Character(p_max_health, p_max_stamina) {
 	
 }
 
+void Player::apply_equipment (){
+	player.danno_fisico=(equipaggiamento->arma)->danno_fisico;
+	player.danno_magico=(equipaggiamento->arma)->danno_magico;
+
+	player.difesa_fisica=(equipaggiamento->scudo)->difesa_fisica+(equipaggiamento->armatura).difesa_fisica+(equipaggiamento->stivali).difesa_fisica;
+	player.difesa_magica=(equipaggiamento->scudo)->difesa_magica+(equipaggiamento->armatura).difesa_magica+(equipaggiamento->collana).difesa_magica;
+}
+
+void Player::change_weapon(pWeapon w){
+	(equipaggiamento->arma)=w;
+	apply_equipment();
+}
+
+void Player::change_necklace(pNeckalce n){
+	(equipaggiamento->collana)=n;
+	apply_equipment();
+}
+
+void Player::change_shield (pShield s){
+	(equipaggiamento->scudo)=s;
+	apply_equipment();
+}
+
+void Player::change_armor (pArmatura a){
+	(equipaggiamento->armatura)=a;
+	apply_equipment();
+}
+
+void Player::change_boots (pBoots b){
+	(equipaggiamento->stivali)=b;
+	apply_equipment();
+}
+
+
 void Player::update(pInanimate map[], pCharacter characters[]){
 	int input=Input_manager::get_input(); 
 	switch (input)
@@ -41,6 +75,9 @@ void Player::update(pInanimate map[], pCharacter characters[]){
 		open_inventary();
 		break;
 	}
+	case 'c':{
+		collect_item();
+	}
 	case ctrl(w):{
 		//iter animazione attacco alto
 	}
@@ -53,9 +90,6 @@ void Player::update(pInanimate map[], pCharacter characters[]){
 	case ctrl(s):{
 		//iter animazione attaco in basso
 	}
-	}
-	case 'c':{
-		collect_item();
 	}
 
 }

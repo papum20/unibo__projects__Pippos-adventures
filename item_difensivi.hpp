@@ -14,7 +14,7 @@ class item_difensivo: public item{
 
         void apply_rune();
         void apply_rarity();
-
+        virtual char get_type();
 };
 
 typedef item_difensivo* pItem_def;

@@ -12,8 +12,9 @@ class Enemy : public Character {
 	private:
 
 	public:
-		Enemy();
-		Enemy(int max_health);
+		Enemy(int max_health, int max_stamina);
+
+		void update(pInanimate map[], pCharacter characters[]);
 };
 
 

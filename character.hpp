@@ -13,6 +13,15 @@
 
 const int W_NUMBER=10;
 const int DEF_NUMBER=10;
+const int PATH_LENGTH;
+
+struct equipment {
+	pWeapon arma;
+	shield scudo;
+	necklace collana;
+	boots stivali;
+	armor armatura;
+};
 
 class Character : public Physical {
 	private:
@@ -29,13 +38,10 @@ class Character : public Physical {
 		bool is_attacking;
 		// ROOM
 		bool moveObject(pInanimate map[], Character *characters[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
-		//indici utili per calcoli collisioni e direzionalità
-		int up_attack_index;
-		int down_attack_index;
-		int left_attack_index;
-		int right_attack_index;
 
 		char direction;					// u sopra, d sotto, l sinistra, r destra
+
+		equipment equipaggiamento;
 
 		pWeapon weapons[W_NUMBER];
 		int curr_weapon;
@@ -47,11 +53,12 @@ class Character : public Physical {
 		Character(int maxH, int maxS);
 		
 		virtual void update(pInanimate map[], Character *characters[]);
-		Character(int maxH, int curH, int physical_attack, int magical_attack, int physical_defense, int magical_defense);
 
+		int findPath (Inanimate map[], Coordinate steps[], Coordinate start, Coordinate end);
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce
+		void apply_equipment ();
 
 		void setPosition(Coordinate pos);
 

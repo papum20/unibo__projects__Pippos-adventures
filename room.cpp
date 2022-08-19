@@ -33,7 +33,31 @@
 			if(characters[i.single()] != NULL) characters[i.single()]->update(map, characters, input);
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
+
+
 	}
+
+	/*pCharacter check_enemy_ranged (Projectile p){
+		Coordinate start;
+		Coordinate end;
+		switch (p.direction){
+			case 'u':
+				start=new Coordinate ((p.pos).x, (p.pos).y-p.up_height);
+				end =new Coordinate ((p.pos).x+p.up_width-1, (p.pos).y-p.up_height);
+			case 'd':
+				start=new Coordinate ((p.pos).x, (p.pos).y+1);
+				end =new Coordinate ((p.pos).x+p.down_width-1, (p.pos).y+1);
+			case 'r':
+				start=new Coordinate ((p.pos).x+p.right_width, (p.pos).y-p.right_height+1);
+				end =new Coordinate ((p.pos).x+p.right_width, (p.pos).y);
+			case 'l':                           
+				start=new Coordinate ((p.pos).x-1, (p.pos).y-p.left_height+1);
+				end =new Coordinate ((p.pos).x-1, (p.pos).y);
+			default:
+				break;    
+		}
+		return (checkLine(start, end));
+	}*/
 
 	void Room::generate()
 	{

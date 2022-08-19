@@ -5,13 +5,15 @@
 
 // weapon (int danno fisico, danno magico, velocità d'attacco, )
 
-class Spada: public Weapon{
+class sword: public Weapon{
     protected:
 
     public:
-        Spada (int d_f, int d_m, float v_a, char rar[], Character own);
+        sword (int d_f, int d_m, float v_a, char rar[], Character own);
 
         void apply_rune();
 };
+
+typedef sword* pSword;
 
 #endif

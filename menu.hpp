@@ -5,7 +5,7 @@
 #include <curses.h>
 #include <cstring>
 #include <ctime>
-#include "pixel_art.cpp"
+#include "pixel_art.hpp"
 
 
 const int scroll_up = 'w';

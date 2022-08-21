@@ -9,7 +9,7 @@ void InputManager::calculate_input(){
     curr_input=wgetch(input_window);
 }
 
-char InputManager::get_input(){
+int InputManager::get_input(){
     calculate_input();
     return (curr_input);
 }

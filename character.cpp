@@ -2,16 +2,13 @@
 
 
 Character::Character() : Physical() {
-	
+	is_attacking=false;
 }
 
-Character::Character(int maxH, int curH,int physical_attack, int magical_attack, int physical_defense, int magical_defense) : Physical() {
+Character::Character(int maxH, int curH) : Physical() {
 	maxHealth=maxH;
 	curHealth=curH;
-	this->physical_attack=physical_attack;
-	this->magical_attack=magical_attack;
-	this->physical_defense=physical_defense;
-	this->magical_defense=magical_defense;
+	is_attacking=false;
 }
 
 
@@ -25,56 +22,80 @@ bool Character::moveObject(pInanimate map[], pCharacter characters[], Coordinate
 	}
 }
 
+void Character::apply_equipment (){
+	danno_fisico=(equipaggiamento->arma)->danno_fisico;
+	danno_magico=(equipaggiamento->arma)->danno_magico;
 
-void Character::changeCurrentHealth(int delta) {
-	curHealth += delta;
+	difesa_fisica=(equipaggiamento->scudo)->difesa_fisica+(equipaggiamento->armatura).difesa_fisica+(equipaggiamento->stivali).difesa_fisica;
+	difesa_magica=(equipaggiamento->scudo)->difesa_magica+(equipaggiamento->armatura).difesa_magica+(equipaggiamento->collana).difesa_magica;
 }
+
+//FUNZIONI MOVIMENTO
 
 void Character::setPosition(Coordinate pos) {
 	this->pos = pos;
 }
 
-/*void Character::update (pInanimate map[], pCharacter characters[], char input){
-	
-	update_movement(map, characters, input);
-
-}*/
-void Character::update(pInanimate map[], pCharacter characters[], char input){
-	Coordinate newpos= pos;
-	switch (input)
-	{
-	case 'w':{
-		newpos.y--;
-		moveObject (map, characters, newpos);
-		break;
-	}
-	case 's':{
-		newpos.y++;
-		moveObject (map, characters, newpos);
-		break;
-	}	
-	case 'a':{
-		newpos.x--;
-		moveObject (map, characters, newpos);
-		break;
-	}
-	case 'd':{
-		newpos.x++;
-		moveObject (map, characters, newpos);
-		break;
-	}
-	
-	case {//tasto per aprire il menu:
-		menu.open();
-	}
-	}
-
-}
-
-void Character::mvup(){
+void Character::moveUp(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.y--;
 	moveObject (map, characters, newpos);
+	direction='u';
+}
+
+void Character::moveDown(pInanimate map[], pCharacter characters[]){
+	Coordinate newpos=pos;
+	newpos.y++;
+	moveObject (map, characters, newpos);
+	direction='d';
+}
+
+void Character::moveLeft(pInanimate map[], pCharacter characters[]){
+	Coordinate newpos=pos;
+	newpos.x--;
+	moveObject (map, characters, newpos);
+	direction='l';
+}
+
+void Character::moveRight(pInanimate map[], pCharacter characters[]){
+	Coordinate newpos=pos;
+	newpos.x++;
+	moveObject (map, characters, newpos);
+	direction='r';
+}
+
+//FUNZIONI COMBATTIMENTO
+
+void calculate_damage(){
+	pCharacter defender;
+	defender=check_enemy_melee();
+	if (defender!=NULL && defender.id!=id){
+		defender->changeCurrentHealth(calculate_loss(defender));
+	}
+}
+
+pCharacter Character::check_enemy_melee(){
+	Coordinate start, end;
+	switch (direction){
+		case 'u':
+			break;
+		case 'd':
+			break;
+		case 'l':
+			break;
+		case 'r':
+			break;
+	}
+	
+	return (Room::checkLine(start, end));
+}
+
+void Character::calculate_loss(pCharacter c){
+	return ( -(danno_fisico-(c->difesa_fisica/2)) + (danno_magico-(c->difesa_magica/2)));
+}
+
+void Character::changeCurrentHealth(int delta) {
+	curHealth += delta;
 }
 
 #pragma region AUSILIARIE_GENERICHE

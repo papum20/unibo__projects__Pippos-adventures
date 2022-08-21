@@ -1,17 +1,26 @@
 #include "sword.hpp"
 #include <cstring> 
 
-Spada::Spada (int d_f, int d_m, float v_a, char rar[], Character own):Weapon (d_f, d_m, v_a, own){
-            if (strcmp(rar, "raro")==0){
-                danno_fisico=danno_fisico+5;
-            }
-            if (strcmp (rar, "epico")==0){
-                danno_fisico=danno_fisico+5;
-                danno_magico=danno_magico+5;
-            }
-            if (strcmp (rar, "leggendario")==0){
-                danno_fisico=danno_fisico+10;
-                danno_magico=danno_magico+10;
-                //funzione che da un potere alle armi
-            }
+sword::sword (int d_f, int d_m, float v_a, char rar[], Character own):Weapon (d_f, d_m, v_a, own){
+    calculate_coordinate();
+}
+
+void sword::calculalte_coordinate(){
+    Coordinate newcoord;
+    newcoord=owner->pos;
+    if (owner->direction='r'){
+        newcoord.x=newcoord.x-sword_right_width;
+        newcoord.y--;
+    }
+    if (owner->direction='l'){
+        newcoord.x=newcoord.x+owner->width;                     //da cambiare se pg hanno width diverse con animazioni diverse   
+        newcoord.y--;
+
+    }
+    if (owner->direction='u'){
+        newcoord.x=newcoord.x-sword_right_width;
+        newcoord.y--;
+    }
+    
+    this->pos=newcoord;
 }

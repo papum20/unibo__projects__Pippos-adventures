@@ -36,6 +36,7 @@ const int MAX_ANIMATION = 6;
 #define ID_WALL 10
 #define ID_FLOOR 11
 #define ID_DOOR 20
+#define ID_ARTEFACT 30
 #pragma endregion PHYSICAL_IDS
 
 //// COSTANTI PER LA RAPPRESENTAZIONE GRAFICA

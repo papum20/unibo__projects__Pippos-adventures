@@ -118,15 +118,39 @@ const int mv_down=KEY_DOWN;
 const int mv_left=KEY_LEFT;
 const int mv_right=KEY_RIGHT;
 
+const int MAX_ARTIFACTS=10;
+
+struct equipment {
+	pWeapon arma;
+	shield scudo;
+	necklace collana;
+	boots stivali;
+	armor armatura;
+};
+
 class Player : public Character {
 	private:
 	protected:
-		int n_hearts;
+		int n_hearts;		
+
+		pArtifact artifacts[MAX_ARTIFACTS];
+		int curr_artifact;
+		
+		equipment equipaggiamento;
+
 	public:
 		Player();
 	
-		void update(char input);
+		void update(pInanimate map[], pCharacter characters[]);
 
+		void modify_lifes (int delta);
+
+		void collect_item();
+
+		void add_item(pWeapon w);
+		void add_item(pItem_def w);
+		void add_item(pArtifact w);
+		
 };
 
 typedef Player *pPlayer;

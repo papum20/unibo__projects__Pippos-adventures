@@ -10,7 +10,7 @@ class Hands: public Weapon {
     protected:
 
     public:
-        Hands(int base_dmg_hands, float attack_speed_hands);
+        Hands(int d_f, float d_m, char rar[]);
 
 };
 

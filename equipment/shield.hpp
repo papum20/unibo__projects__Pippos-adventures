@@ -3,11 +3,15 @@
 #include <cstring>
 #include "item_difensivi" 
 
-class Scudo: public item_difensivi{
+class shield: public item_difensivi{
     protected:
 
     public:
-        Scudo (int dif, int d_mag, char rar[], Character own);
+        Scudo (int dif, int d_mag, char rar[]);
+
+        char get_type();
 };
+
+typedef shield* pShield;
 
 #endif

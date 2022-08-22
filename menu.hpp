@@ -68,7 +68,6 @@ class Menu : public Pixel_art {
         int * p_input;
        
 	public:
-    
         Menu(int *input);
         void menu_choices(WINDOW* menuwin);
         void set_menu_color();

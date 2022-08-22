@@ -3,6 +3,7 @@
 item_difensivi::item_difensivi(int dif_f, int dif_m, char rar[]):item(rar){
     difesa_fisica_iniziale=dif_f;
     difesa_fisica_iniziale=dif_m;
+    is_equipped=false;
 }
 
 void item_difensivi::apply_rune(){

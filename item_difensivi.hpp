@@ -9,6 +9,7 @@ class item_difensivo: public item{
         int difesa_fisica;
         int difesa_magica_iniziale;
         int difesa_magica;
+        bool is_equipped;
     public:
         item_difensivo(int dif_f, int dif_m, char rar[]);
 

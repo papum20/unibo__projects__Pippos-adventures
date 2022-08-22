@@ -18,6 +18,7 @@ class Weapon : public Item {
 		int danno_magico_iniziale;
 		int danno_fisico;
 		int danno_magico;
+		bool is_equipped;
 	public:
 		Weapon(int danno_f, int danno_m, char rar[]);
 

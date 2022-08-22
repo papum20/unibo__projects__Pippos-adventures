@@ -3,6 +3,7 @@
 Weapon::Weapon (int danno_f, int danno_m, char rar[]):item(rar){
     danno_fisico_iniziale=danno_f;
     danno_magico_iniziale=danno_m;
+    is_equipped=false;
 }
 
 

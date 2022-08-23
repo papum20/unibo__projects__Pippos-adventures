@@ -7,7 +7,7 @@ class necklace: public item_difensivo{
     protected:
 
     public:
-        necklace (int dif, int d_mag, const char rar[]);
+        necklace (int dif, int d_mag, const char rar[], const char n[], const char desc[]);
 
         char get_type();
 };

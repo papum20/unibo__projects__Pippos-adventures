@@ -72,7 +72,7 @@ class Ascia: public Weapon{
     protected:
 
     public:
-        Ascia (int d_f, int d_m, const char rar[]);
+        Ascia (int d_f, int d_m, const char rar[], const char n[], const char desc[]);
 
 };
 

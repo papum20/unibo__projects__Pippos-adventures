@@ -1,7 +1,8 @@
 #ifndef ITEM_HPP
 #define ITEM_HPP
 
-
+const int description_length=50;
+const int name_length=20;
 const int chest_width=3;
 const int chest_height=5;
 
@@ -20,9 +21,10 @@ class item: public Physical{
     protected:
         bool rune_applied;
         char rarity[15];
+        char description[description_length];
     public:
         item ();
-        item(const char rar[]);
+        item(const char rar[], const char desc[]);
 
         bool check_rarity();
 

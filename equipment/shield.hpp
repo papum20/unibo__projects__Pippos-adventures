@@ -7,7 +7,7 @@ class shield: public item_difensivo{
     protected:
 
     public:
-        Scudo (int dif, int d_mag, const char rar[]);
+        Scudo (int dif, int d_mag, const char rar[], const char n[], const char desc[]);
 
         char get_type();
 };

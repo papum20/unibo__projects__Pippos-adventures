@@ -4,9 +4,10 @@ item::item (){
     
 }
 
-item::item(const char rar[]){
+item::item(const char rar[], const char desc[]){
     rune_applied=false;
     strcpy (rarity, rar);
+    strcpy(description, desc);
 }
 
 bool item::check_rarity(){

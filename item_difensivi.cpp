@@ -1,6 +1,6 @@
 #include "item_difensivi.hpp"
 
-item_difensivo::item_difensivo(int dif_f, int dif_m, const char rar[]):item(rar){
+item_difensivo::item_difensivo(int dif_f, int dif_m, const char rar[], const char n[], const char desc[]):item(rar, n, desc){
     difesa_fisica=dif_f;
     difesa_magica=dif_m;
     if (strcmp(rar, common)==0){
@@ -20,6 +20,8 @@ item_difensivo::item_difensivo(int dif_f, int dif_m, const char rar[]):item(rar)
         difesa_magica_iniziale=difesa_magica/4;
     }
     is_equipped=false;
+
+    strcpy (name, n);
 }
 
 void item_difensivo::apply_rune(){

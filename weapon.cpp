@@ -1,6 +1,6 @@
 #include "weapon.hpp"
 
-Weapon::Weapon (int danno_f, int danno_m, const char rar[]):item(rar){
+Weapon::Weapon (int danno_f, int danno_m, const char rar[], const char n[], const char desc[]):item(rar, n, desc){
     danno_fisico=danno_f;
     danno_magico=danno_m;
     
@@ -22,6 +22,8 @@ Weapon::Weapon (int danno_f, int danno_m, const char rar[]):item(rar){
     }
 
     is_equipped=false;
+
+    strcpy (name, n);
 }
 
 

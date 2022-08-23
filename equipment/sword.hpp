@@ -9,7 +9,7 @@ class sword: public Weapon{
     protected:
 
     public:
-        sword (int d_f, int d_m, float v_a, char rar[], Character own);
+        sword (int d_f, int d_m, float v_a, const char rar[]);
 
         void apply_rune();
 };

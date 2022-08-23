@@ -11,7 +11,7 @@ class item_difensivo: public item{
         int difesa_magica;
         bool is_equipped;
     public:
-        item_difensivo(int dif_f, int dif_m, char rar[]);
+        item_difensivo(int dif_f, int dif_m, const char rar[]);
 
         void apply_rune();
         void apply_rarity();

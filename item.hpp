@@ -22,7 +22,7 @@ class item: public Physical{
         char rarity[15];
     public:
         item ();
-        item(char rar[]);
+        item(const char rar[]);
 
         bool check_rarity();
 

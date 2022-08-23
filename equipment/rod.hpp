@@ -7,7 +7,7 @@ class Bastone_magico: public Weapon{
     protected:
 
     public:
-        Bastone_Magico (int d_f, int d_m, char rar[]);
+        Bastone_Magico (int d_f, int d_m, const char rar[]);
 };
 
 #endif

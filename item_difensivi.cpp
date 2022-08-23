@@ -1,13 +1,29 @@
 #include "item_difensivi.hpp"
 
-item_difensivo::item_difensivo(int dif_f, int dif_m, char rar[]):item(rar){
-    difesa_fisica_iniziale=dif_f;
-    difesa_fisica_iniziale=dif_m;
+item_difensivo::item_difensivo(int dif_f, int dif_m, const char rar[]):item(rar){
+    difesa_fisica=dif_f;
+    difesa_magica=dif_m;
+    if (strcmp(rar, common)==0){
+        difesa_fisica_iniziale=difesa_fisica;
+        difesa_magica_iniziale=difesa_magica;
+    }
+    if (strcmp(rar, rare)==0){
+        difesa_fisica_iniziale=difesa_fisica/2;
+        difesa_magica_iniziale=difesa_magica/2;
+    }
+    if (strcmp(rar, epic)==0){
+        difesa_fisica_iniziale=difesa_fisica/3;
+        difesa_magica_iniziale=difesa_magica/3;
+    }
+    if (strcmp(rar, legendary)==0){
+        difesa_fisica_iniziale=difesa_fisica/4;
+        difesa_magica_iniziale=difesa_magica/4;
+    }
     is_equipped=false;
 }
 
 void item_difensivo::apply_rune(){
-    if (item::check_rarity)
+    if (this->check_rarity())
         apply_rarity();
 }
 

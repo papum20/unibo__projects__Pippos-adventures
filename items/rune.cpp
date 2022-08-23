@@ -4,10 +4,14 @@ Rune::Rune():Artifact(){
 
 }
 
-void Rune::use_item(Weapon w){
+void Rune::use_rune(Weapon w){
     w.apply_rune();
 }
 
-void Rune::use_item (Item_difensivo i_d){
+void Rune::use_rune (Item_difensivo i_d){
     i_d.apply_rune();
+}
+
+void Rune::use_item (pPlayer p){
+    
 }

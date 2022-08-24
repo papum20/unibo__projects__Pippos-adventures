@@ -6,13 +6,13 @@
 #define HEALTH_GAINED 10
 
 
-class HealthPotion : public PowerUp {
+class HealthPotion : public Artifact {
 	private:
 		int healthGained;				//valore di quanto incrementare la vita del player 
 	public:
 		HealthPotion();
 
-		void use_item(Player p);		//metodo che usa la pozione
+		void use_item(pPlayer p);		//metodo che usa la pozione
 };
 
 

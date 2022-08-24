@@ -5,6 +5,6 @@ HealthPotion::HealthPotion() : Artifact() {
 	healthGained = HEALTH_GAINED;
 }
 
-void HealthPotion::use_item(Player p) {
-	player.changeCurrentHealth(healthGained);
+void HealthPotion::use_item(pPlayer p) {
+	player->changeCurrentHealth(healthGained);
 }

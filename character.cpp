@@ -40,7 +40,12 @@ void Character::moveUp(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.y--;
 	moveObject (map, characters, newpos);
-	direction='u';
+	/*if (direction=='u')
+		animation[move_up_index]=animation[move_up_index]->next; 
+	else
+		direction='u';
+		animation[move_up_index]
+	*/
 }
 
 void Character::moveDown(pInanimate map[], pCharacter characters[]){

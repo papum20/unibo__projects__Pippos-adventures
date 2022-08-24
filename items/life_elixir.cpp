@@ -5,5 +5,5 @@ Life_elixir::Life_elixir():Artifact(){
 }
 
 void Life_elixir::use_item (pPlayer p){
-    p.modify_lifes(life_added);
+    p->modify_lifes(life_added);
 }

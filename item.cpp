@@ -4,9 +4,10 @@ item::item (){
     
 }
 
-item::item(char rar[]){
+item::item(const char rar[], const char desc[]){
     rune_applied=false;
     strcpy (rarity, rar);
+    strcpy(description, desc);
 }
 
 bool item::check_rarity(){
@@ -14,10 +15,10 @@ bool item::check_rarity(){
         if (strcmp(rarity, common)==0){
             strcpy (rarity, rare);
         }
-        if (strcmp(rarity, rare)==0){
+        else if (strcmp(rarity, rare)==0){
             strcpy (rarity, epic);
         }
-        if (strcmp(rarity, epic)==0){
+        else if (strcmp(rarity, epic)==0){
             strcpy (rarity, legendary);
         }
         return true;

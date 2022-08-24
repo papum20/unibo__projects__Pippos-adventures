@@ -15,32 +15,48 @@ Player::Player():Character(p_max_health, p_max_stamina) {
 	animation[dash_left_index] = new Animation(dash_left, p_height, p_width, dash_left_states);
 	animation[dash_right_index] = new Animation(dash_right, p_height, p_width, dash_right_states);
 
+	/*animation[attack_up_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_up_states); 
+	animation[attack_down_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_down_states);
+	animation[attack_left_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_left_states);
+	animation[attack_right_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_right_states);
+	*/
+
 	apply_equipment();
 	
 }
 
 void Player::change_weapon(pWeapon w){
+	(equipaggiamento->arma).is_equipped=false;
 	(equipaggiamento->arma)=w;
+	(equipaggiamento->arma).is_equipped=true;
 	apply_equipment();
 }
 
 void Player::change_necklace(pNeckalce n){
+	(equipaggiamento->collana).is_equipped=false;
 	(equipaggiamento->collana)=n;
+	(equipaggiamento->collana).is_equipped=true;
 	apply_equipment();
 }
 
 void Player::change_shield (pShield s){
+	(equipaggiamento->scudo).is_equipped=false;
 	(equipaggiamento->scudo)=s;
+	(equipaggiamento->scudo).is_equipped=true;
 	apply_equipment();
 }
 
 void Player::change_armor (pArmatura a){
+	(equipaggiamento->armatura).is_equipped=false;
 	(equipaggiamento->armatura)=a;
+	(equipaggiamento->armatura).is_equipped=true;
 	apply_equipment();
 }
 
 void Player::change_boots (pBoots b){
+	(equipaggiamento->stivali).is_equipped=false;
 	(equipaggiamento->stivali)=b;
+	(equipaggiamento->stivali).is_equipped=true;
 	apply_equipment();
 }
 

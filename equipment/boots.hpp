@@ -7,7 +7,7 @@ class boots: public item_difensivi{
     protected:
 
     public:
-        boots (int dif, int d_mag, char rar[]);
+        boots (int dif, int d_mag, const char rar[], const char n[], const char desc[]);
 
         char get_type();
 };

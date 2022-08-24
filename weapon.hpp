@@ -10,17 +10,18 @@ using namespace std;
 const int ANIMATION_WIDTH = 10;
 const int ANIMATION_HEIGHT = 10;
 
-class Weapon : public Item {
+class Weapon : public item {
 	private:
 
-	protected:
+	public:
 		int danno_fisico_iniziale;
 		int danno_magico_iniziale;
 		int danno_fisico;
 		int danno_magico;
 		bool is_equipped;
+		char name[name_length];
 	public:
-		Weapon(int danno_f, int danno_m, char rar[]);
+		Weapon(int danno_f, int danno_m, const char rar[], const char n[], const char desc[]);
 
 		void apply_rune();
 		void apply_rarity();

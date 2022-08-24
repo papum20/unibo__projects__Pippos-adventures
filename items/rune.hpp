@@ -9,8 +9,9 @@ class Rune: public Artifact{
     public:
         Rune();
 
-        void use_item (Weapon w);
-        void use_item (Item_difensivo i_d);
+        void use_rune (Weapon w);
+        void use_rune (Item_difensivo i_d);
+        void use_item (pPlayer);
 };
 
 typedef Rune* pRune;

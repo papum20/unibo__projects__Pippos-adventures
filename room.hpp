@@ -20,9 +20,9 @@ const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
 #include "floor.hpp"
 #include "maths.hpp"
 #include "physical.hpp"
+#include "projectile.hpp"
 #include "union_find.hpp"
 #include "wall.hpp"
-#include "projectile.hpp"
 
 
 
@@ -50,7 +50,7 @@ class Room {
 		int scale_x;
 		pInanimate map[ROOM_AREA];
 		pCharacter characters[ROOM_AREA];
-		pProjectiles projectiles[ROOM_AREA];
+		pProjectile projectiles[ROOM_AREA];
 
 		// FUNZIONI AUSILIARIE PRINCIPALI
 		void generateSidesWalls();
@@ -75,9 +75,9 @@ class Room {
 		// GET
 		Coordinate getPos();
 		Coordinate getSize();
-		void getMap(pInanimate map[], Coordinate &size);	//modifica mappa, ritorna dimensioni
-		pPhysical checkPosition(Coordinate pos);			//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
-		pCharacter checkLine (Coordinate start, Coordinate end); 
+		void getMap(pInanimate map[], Coordinate &size);		//modifica mappa, ritorna dimensioni
+		pPhysical checkPosition(Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		pCharacter checkLine(Coordinate start, Coordinate end);	//checkPosition per una linea da start a end
 };
 
 

@@ -53,12 +53,12 @@ void Character::moveDown(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.y++;
 	moveObject (map, characters, newpos);
-	if (current_animation==move_up_index){
+	if (current_animation==move_down_index){
 		animation[current_animation]=animation[current_animation]->next;
 	}
 	else{
-		current_animation=move_up_index;
-		direction='u';
+		current_animation=move_down_index;
+		direction='d';
 	}
 }
 
@@ -66,12 +66,12 @@ void Character::moveLeft(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.x--;
 	moveObject (map, characters, newpos);
-	if (current_animation==move_up_index){
+	if (current_animation==move_left_index){
 		animation[current_animation]=animation[current_animation]->next;
 	}
 	else{
-		current_animation=move_up_index;
-		direction='u';
+		current_animation=move_left_index;
+		direction='l';
 	}
 }
 
@@ -79,18 +79,46 @@ void Character::moveRight(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.x++;
 	moveObject (map, characters, newpos);
-	if (current_animation==move_up_index){
+	if (current_animation==move_right_index){
 		animation[current_animation]=animation[current_animation]->next;
 	}
 	else{
-		current_animation=move_up_index;
-		direction='u';
+		current_animation=move_right_index;
+		direction='r';
 	}
 }
 
+
+
 //FUNZIONI COMBATTIMENTO
 
-void calculate_damage(){
+void Character::initiate_attack (){
+	is_attacking=true;
+	switch (direction){
+		case 'u':
+			current_animation=attack_up_index;
+			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_up_index;
+			attack_counter=attack_up_states;
+			break;
+		case 'd':
+			current_animation=attack_down_index;
+			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_down_index;
+			attack_counter=attack_down_states;
+			break;
+		case 'r':
+			current_animation=attack_right_index;
+			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_right_index;
+			attack_counter=attack_right_states;
+			break;
+		case 'l':
+			current_animation=attack_left_index;
+			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_left_index;
+			attack_counter=attack_left_states;
+			break;
+	}
+}
+
+void Character::calculate_damage(){
 	pCharacter defender;
 	defender=check_enemy_melee();
 	if (defender!=NULL && defender.id!=id){
@@ -111,7 +139,7 @@ pCharacter Character::check_enemy_melee(){
 			break;
 	}
 	
-	return (Room::checkLine(start, end));
+	return (checkLine(start, end));
 }
 
 void Character::calculate_loss(pCharacter c){

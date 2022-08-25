@@ -22,6 +22,17 @@ class item: public Physical{
         bool rune_applied;
         char rarity[15];
         char description[description_length];
+
+        //variabili di movimento
+        int move_up_index;
+		int move_down_index;
+		int move_left_index;
+		int move_right_index;
+		
+		int attack_up_index;
+		int attack_down_index;
+		int attack_left_index;
+		int attack_right_index;
     public:
         item ();
         item(const char rar[], const char desc[]);

@@ -3,10 +3,10 @@
 
 
 #include <iostream>
-
+/*
 #define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
 										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
-
+*/
 
 #pragma region PHYSICAL_CONSTANTS
 #pragma region PHYSICAL_ANIMATIONS
@@ -73,13 +73,15 @@ class Physical {
 		Coordinate size;
 		int id;		//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
-		p_Animation animation[MAX_ANIMATION]; //array di liste di array bidimensionali
+		p_Animation animations[MAX_ANIMATION]; //array di liste di array bidimensionali
 
 		p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
 
 	public:
 		Physical();
-		void destroy();
+		virtual void update(pPhysical map[], char input);
+		virtual void destroy();
+
 		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
 		void drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start);				//disegna l'oggetto nella finestra, nella sua posizione, secondo la sua animazione, entro i limiti della finestra
 

@@ -15,14 +15,12 @@ const Coordinate DIRECTIONS[DIR_TOT] = {{0,-1},{1,0},{0,1},{-1,0}};
 const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
 
 
-#include "character.hpp"
 #include "enemy.hpp"
 #include "floor.hpp"
 #include "maths.hpp"
 #include "physical.hpp"
 #include "union_find.hpp"
 #include "wall.hpp"
-#include "projectile.hpp"
 
 
 
@@ -48,9 +46,7 @@ class Room {
 	protected:
 		Coordinate size;
 		int scale_x;
-		pInanimate map[ROOM_AREA];
-		pCharacter characters[ROOM_AREA];
-		pProjectiles projectiles[ROOM_AREA];
+		pPhysical map[ROOM_AREA];
 
 		// FUNZIONI AUSILIARIE PRINCIPALI
 		void generateSidesWalls();
@@ -75,9 +71,9 @@ class Room {
 		// GET
 		Coordinate getPos();
 		Coordinate getSize();
-		void getMap(pInanimate map[], Coordinate &size);	//modifica mappa, ritorna dimensioni
-		pPhysical checkPosition(Coordinate pos);			//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
-		pCharacter checkLine (Coordinate start, Coordinate end); 
+		void getMap(pPhysical map[], Coordinate &size);		//modifica mappa, ritorna dimensioni
+		pPhysical checkPosition(Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		pPhysical checkLine(Coordinate start, Coordinate end);	//checkPosition per una linea da start a end
 };
 
 

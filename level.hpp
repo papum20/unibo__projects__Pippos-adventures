@@ -123,7 +123,7 @@ class Level {
 
 		// GET
 		void getLevelMap(pConnectedRoom map[]);
-		void getRoomMap(pInanimate map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), playerr
+		void getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), playerr
 
 		// SET
 		void setPivot(pPhysical pivot);											//imposta l'oggetto che la telecamera seguirà

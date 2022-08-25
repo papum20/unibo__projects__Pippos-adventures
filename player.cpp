@@ -3,17 +3,17 @@
 Player::Player():Character(p_max_health, p_max_stamina) {
 	n_hearts=start_lifes;
 	id=ID_PLAYER;
-	animation[idle_index] = new Animation(idle, p_height, p_width, idle_states);
+	animations[idle_index] = new Animation(idle, p_height, p_width, idle_states);
 	
-	animation[move_right_index] = new Animation(move_right, p_height, p_width, move_right_states);
-	animation[move_left_index] = new Animation(move_left, p_height, p_width, move_left_states);
-	animation[move_up_index] = new Animation(move_up, p_height, p_width, move_up_states);
-	animation[move_down_index] = new Animation(move_down, p_height, p_width, move_down_states);
+	animations[move_right_index] = new Animation(move_right, p_height, p_width, move_right_states);
+	animations[move_left_index] = new Animation(move_left, p_height, p_width, move_left_states);
+	animations[move_up_index] = new Animation(move_up, p_height, p_width, move_up_states);
+	animations[move_down_index] = new Animation(move_down, p_height, p_width, move_down_states);
 
-	animation[dash_up_index] = new Animation(dash_up, p_height, p_width, dash_up_states);
-	animation[dash_down_index] = new Animation(dash_down, p_height, p_width, dash_down_states);
-	animation[dash_left_index] = new Animation(dash_left, p_height, p_width, dash_left_states);
-	animation[dash_right_index] = new Animation(dash_right, p_height, p_width, dash_right_states);
+	animations[dash_up_index] = new Animation(dash_up, p_height, p_width, dash_up_states);
+	animations[dash_down_index] = new Animation(dash_down, p_height, p_width, dash_down_states);
+	animations[dash_left_index] = new Animation(dash_left, p_height, p_width, dash_left_states);
+	animations[dash_right_index] = new Animation(dash_right, p_height, p_width, dash_right_states);
 
 	/*animation[attack_up_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_up_states); 
 	animation[attack_down_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_down_states);

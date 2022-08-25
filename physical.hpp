@@ -90,6 +90,8 @@ class Physical {
 		bool isPlaceholder();
 
 		// GET
+		pPhysical checkPosition(Physical *map[], Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		pPhysical checkLine(Physical *map[], Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso)
 		int getId();
 		Coordinate getPosition();
 		Coordinate getSize();

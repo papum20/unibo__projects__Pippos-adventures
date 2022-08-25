@@ -71,9 +71,7 @@ class Room {
 		// GET
 		Coordinate getPos();
 		Coordinate getSize();
-		void getMap(pPhysical map[], Coordinate &size);		//modifica mappa, ritorna dimensioni
-		pPhysical checkPosition(Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
-		pPhysical checkLine(Coordinate start, Coordinate end);	//checkPosition per una linea da start a end
+		void getMap(pPhysical map[], Coordinate &size);			//modifica mappa, ritorna dimensioni
 };
 
 

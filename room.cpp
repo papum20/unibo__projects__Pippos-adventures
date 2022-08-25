@@ -335,11 +335,4 @@
 		for(s_coord i = 0; i < size.x / scale_x * size.y; i++) map[i] = this->map[i * scale_x];
 		size = this->size.getTimes(1. / scale_x, 1);
 	}
-	pPhysical Room::checkPosition(Coordinate pos) {
-		if(pos.inBounds(Coordinate(0, 0), size)) {
-			if(map[pos.single()]->getId() == ID_FLOOR) return map[pos.single()];
-			else return map[pos.single()];
-		}
-		else return NULL;
-	}
 #pragma endregion SET_GET

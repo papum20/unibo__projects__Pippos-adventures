@@ -69,10 +69,6 @@
 		copy.y = -y;
 		return copy;
 	}
-	void Coordinate::sum(Coordinate B) {
-		x += B.x;
-		y += B.y;
-	}
 	Coordinate Coordinate::times(float px, float py) {
 		x *= px;
 		y *= py;

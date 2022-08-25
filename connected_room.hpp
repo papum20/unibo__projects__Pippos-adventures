@@ -20,7 +20,7 @@ class ConnectedRoom : public Room {
 		pDoor doors[MAX_CONNECTED_R];				//array di puntatori a porte (verso stanze collegate)
 													//disposte in direzioni: 0=su, 1=destra, 2=giu, 3=sinistra, 4=segreta,all'interno
 		Coordinate door_positions[MAX_SIDES_R];
-		ConnectedRoom *connected[MAX_CONNECTED_R];	//stanze collegate nella rispettiva direzione con una porta
+		//ConnectedRoom *connected[MAX_CONNECTED_R];	//stanze collegate nella rispettiva direzione con una porta
 
 		// FUNZIONI
 		// FUNZIONI AUSILIARIE PRINCIPALI

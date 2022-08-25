@@ -80,7 +80,7 @@ class Physical {
 
 	public:
 		Physical();
-		virtual void update(pPhysical map[], char input, int &points);
+		virtual void update(pPhysical map[], char input);
 		virtual void destroy();
 
 		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra

@@ -73,7 +73,7 @@ class Level {
 		int lr_border;
 		int tb_border;
 		//stanze nel livello
-		pConnectedRoom map[LEVEL_AREA];
+		pRoom map[LEVEL_AREA];
 
 		int level;					//livello corrente
 
@@ -95,7 +95,7 @@ class Level {
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
 		//oggetti:
 		//int n_rooms;				//numero di stanze (normali) generate per livello
-		pConnectedRoom curRoom;		//stanza attuale, inquadrata e in cui si trova il giocatore
+		pRoom curRoom;		//stanza attuale, inquadrata e in cui si trova il giocatore
 		pPlayer player;
 		Timer timer;
 		
@@ -122,7 +122,7 @@ class Level {
 		void update(char input);					//da richiamare a ogni frame
 
 		// GET
-		void getLevelMap(pConnectedRoom map[]);
+		void getLevelMap(pRoom map[]);
 		void getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), playerr
 
 		// SET

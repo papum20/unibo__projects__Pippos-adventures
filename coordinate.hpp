@@ -45,7 +45,7 @@ class Coordinate {
 		//bool equalsDirection(Coordinate B);							//se hanno la stessa direzione
 		//EDIT
 		Coordinate negative();											//modifica e ritorna l'opposto (-x, -y)
-		Coordinate getNegative();										//ritorna l'opposto (-x, -y)
+		Coordinate getNegative() const;									//ritorna l'opposto (-x, -y)
 		Coordinate times(float px, float py);							//x*px, y*py, modifica e ritorna
 		Coordinate getTimes(float px, float py);						//ritorna solo il risultato
 		void next();													//trasforma in coordinata successiva rispetto a matrice

@@ -24,21 +24,22 @@ class ConnectedRoom : public Room {
 
 		// FUNZIONI
 		// FUNZIONI AUSILIARIE PRINCIPALI
-		void generateDoors(pUnionFind sets);		//genera le porte (generazione stanza)
-		pDoor findDoor(Coordinate pos);				//ritorna il puntatore a una porta in una posizione, se presente
+		void generateDoors(pUnionFind sets);				//genera le porte (generazione stanza)
+		pDoor findDoor(Coordinate pos);						//ritorna il puntatore a una porta in una posizione, se presente
+		Coordinate getDoorEntrance(Coordinate doorCenter);	//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
 
 	public:
 		ConnectedRoom(Coordinate pos);
 		void recursiveDestroy();
 		
 		void generate(); 									//genera uno schema randomico per i muri, inserendoli nell'array grid
-		void update(char input);							//overridden
+		//void update(char input);							//overridden
 
 		// SET
-		void makeConnection(ConnectedRoom *room, int dir);	//connette questa stanza a room, creando una porta in direzione dir (e la relativa porta in room)
+		void makeConnection(pRoom room, int dir);			//(overridden) connette questa stanza a room, creando una porta in direzione dir (e la relativa porta in room)
 		// GET
-		ConnectedRoom *getRoomInPosition(Coordinate pos);	//ritorna il puntatore alla stanza collegata da una porta in posizione pos
-		ConnectedRoom *getRoomInDirection(int dir);			//ritorna il puntatore alla stanza collegata nella direzione
+		pRoom getRoomInPosition(Coordinate pos);			//ritorna il puntatore alla stanza collegata da una porta in posizione pos
+		pRoom getRoomInDirection(int dir);					//ritorna il puntatore alla stanza collegata nella direzione
 
 		pDoor getDoorInPosition(Coordinate pos);
 		pDoor getDoorToRoom(ConnectedRoom *room);			//ritorna il puntatore alla porta che collega alla stanza, se esiste

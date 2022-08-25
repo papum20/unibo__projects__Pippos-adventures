@@ -50,7 +50,7 @@
 		resizeMap();
 	}
 
-	void ConnectedRoom::update(char input) {
+	/*void ConnectedRoom::update(char input) {
 		Room::update(input);
 		//imposta il player non sulla porta per ogni porta
 		for(int d = 0; d < MAX_CONNECTED_R; d++) {
@@ -59,7 +59,7 @@
 				doors[d]->update();
 			}
 		}
-	}
+	}*/
 #pragma endregion MAIN
 
 #pragma region AUSILIARIE
@@ -81,6 +81,16 @@
 			return res;
 		}
 	}
+	Coordinate ConnectedRoom::getDoorEntrance(Coordinate doorCenter) {
+		Coordinate res;
+		int d = 0;
+		while(d < DIR_TOT) {
+			if(!Coordinate(doorCenter, DIRECTIONS[d]).inBounds(Coordinate(0, 0), size))
+				res = Coordinate(doorCenter, DIRECTIONS[d].getNegative());
+			else d++;
+		}
+		return res;
+	}
 #pragma endregion AUSILIARIE
 
 #pragma region SET_GET
@@ -92,10 +102,11 @@
 		room->doors[dir2] = new Door(door_positions[dir2]);
 		room->connected[dir2] = this;
 	}*/
-	void ConnectedRoom::makeConnection(pConnectedRoom room, int dir) {
-		this->doors[dir] = new Door(door_positions[dir], room);
-		int dir2 = (dir + 2) % DIR_TOT;
-		room->doors[dir2] = new Door(door_positions[dir2], this);
+	void ConnectedRoom::makeConnection(pRoom room, int dir) {
+		if(doors[dir] == NULL) {
+			doors[dir] = new Door(door_positions[dir], room, getDoorEntrance(door_positions[dir]));
+			Room::makeConnection(room, dir);
+		}
 	}
 //// GET
 	/*pConnectedRoom ConnectedRoom::getRoomInPosition(Coordinate pos) {
@@ -134,7 +145,8 @@
 			bool found = false;
 			int d = 0;
 			while(d < MAX_CONNECTED_R && found == false) {
-				if(connected[d] == room) found = true;
+				//if(connected[d] == room) found = true;
+				if(doors[d]->getConnected() == room) found = true;
 				else d++;
 			}
 			if(!found) return NULL;

@@ -106,12 +106,12 @@
 		curRoom->update(input);
 		changeRoom();
 		//controlla se il player è su una porta
-		pPhysical location = curRoom->checkPosition(player->getPosition());
-		if(location->getId() == ID_DOOR) curRoom->getDoorInPosition(location->getPosition())->setPlayerOn(true);
+		//pPhysical location = curRoom->checkPosition(player->getPosition());
+		//if(location->getId() == ID_DOOR) curRoom->getDoorInPosition(location->getPosition())->setPlayerOn(true);
 	}
 
 	void Level::changeRoom() {
-		pPhysical location = curRoom->checkPosition(player->getPosition());
+		/*pPhysical location = curRoom->checkPosition(player->getPosition());
 		if(location->getId() == ID_DOOR) {
 			pConnectedRoom next_room = curRoom->getRoomInPosition(player->getPosition());
 			pDoor next_door = next_room->getDoorToRoom(curRoom);
@@ -120,6 +120,11 @@
 				curRoom = next_room;
 				next_door->setPlayerOn(true);
 			}
+		}*/
+		pDoor new_door = player->usedDoor();
+		if(new_door != NULL) {
+				player->setPosition(new_door->getPosition());			//riposiziona player
+				curRoom = new_door->getConnected();
 		}
 	}
 	void Level::nextLevel() {
@@ -129,7 +134,7 @@
 	}
 
 #pragma region SET_GET
-	void Level::getLevelMap(pConnectedRoom map[]) {
+	void Level::getLevelMap(pRoom map[]) {
 		for(int i = 0; i < LEVEL_AREA; i++) map[i] = this->map[i];
 	}
 	void Level::getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player) {

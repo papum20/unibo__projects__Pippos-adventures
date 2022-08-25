@@ -63,7 +63,7 @@
 		y = -y;
 		return *this;
 	}
-	Coordinate Coordinate::getNegative() {
+	Coordinate Coordinate::getNegative() const {
 		Coordinate copy = *this;
 		copy.x = -x;
 		copy.y = -y;

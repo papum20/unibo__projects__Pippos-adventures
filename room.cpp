@@ -28,8 +28,7 @@
 		Coordinate i(0, 0, size);
 		do {
 			int points = 0;
-			map[i.single()]->update(map, input, points);
-			player->change_points(points);
+			map[i.single()]->update(map, input);
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 	}
@@ -334,5 +333,9 @@
 	void Room::getMap(pPhysical map[], Coordinate &size) {
 		for(s_coord i = 0; i < size.x / scale_x * size.y; i++) map[i] = this->map[i * scale_x];
 		size = this->size.getTimes(1. / scale_x, 1);
+	}
+	void Room::makeConnection(pRoom room, int dir) {
+		int dir2 = (dir + 2) % DIR_TOT;
+		room->makeConnection(this, dir2);
 	}
 #pragma endregion SET_GET

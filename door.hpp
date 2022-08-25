@@ -9,21 +9,23 @@
 
 class Door : public Inanimate {
 	private:
-		Room *room;				//puntatore a stanza a cui collega
+		Room *room;						//puntatore a stanza a cui collega
+		Coordinate entrancePosition;	//posizione in cui arriva il giocatore dopo aver attraversato la porta
 
 		//bool useable;
 		//bool player_on;
 		
 
 	public:
-		Door(Coordinate pos, Room *room);
+		Door(Coordinate pos, Room *room, Coordinate entrancePosition);
 		//Door(Coordinate pos);
 		//void update();
 
 		// SET
-		void unconnect();		//room = NULL
+		void unconnect();					//room = NULL
 		// GET
-		Room *getConnected();	//ritorna il puntatore alla stanza collegata
+		Room *getConnected();				//ritorna il puntatore alla stanza collegata
+		Coordinate getEntrancePosition();	//ritorna la posizione in cui arriva il giocatore dopo aver attraversato la porta
 
 		//bool canUse();			//se si può cambiare stanza usandola
 		//void setPlayerOn(bool p);

@@ -71,7 +71,9 @@ class Room {
 		// GET
 		Coordinate getPos();
 		Coordinate getSize();
-		void getMap(pPhysical map[], Coordinate &size);			//modifica mappa, ritorna dimensioni
+		void getMap(pPhysical map[], Coordinate &size);				//modifica mappa, ritorna dimensioni
+		// SET
+		virtual void makeConnection(Room *room, int dir);			//collega l'altra stanza a questa
 };
 
 

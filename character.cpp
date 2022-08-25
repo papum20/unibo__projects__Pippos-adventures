@@ -40,33 +40,52 @@ void Character::moveUp(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.y--;
 	moveObject (map, characters, newpos);
-	/*if (direction=='u')
-		animation[move_up_index]=animation[move_up_index]->next; 
-	else
+	if (current_animation==move_up_index){
+		animation[current_animation]=animation[current_animation]->next;
+	}
+	else{
+		current_animation=move_up_index;
 		direction='u';
-		animation[move_up_index]
-	*/
+	}
 }
 
 void Character::moveDown(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.y++;
 	moveObject (map, characters, newpos);
-	direction='d';
+	if (current_animation==move_up_index){
+		animation[current_animation]=animation[current_animation]->next;
+	}
+	else{
+		current_animation=move_up_index;
+		direction='u';
+	}
 }
 
 void Character::moveLeft(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.x--;
 	moveObject (map, characters, newpos);
-	direction='l';
+	if (current_animation==move_up_index){
+		animation[current_animation]=animation[current_animation]->next;
+	}
+	else{
+		current_animation=move_up_index;
+		direction='u';
+	}
 }
 
 void Character::moveRight(pInanimate map[], pCharacter characters[]){
 	Coordinate newpos=pos;
 	newpos.x++;
 	moveObject (map, characters, newpos);
-	direction='r';
+	if (current_animation==move_up_index){
+		animation[current_animation]=animation[current_animation]->next;
+	}
+	else{
+		current_animation=move_up_index;
+		direction='u';
+	}
 }
 
 //FUNZIONI COMBATTIMENTO

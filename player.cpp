@@ -22,6 +22,11 @@ Player::Player():Character(p_max_health, p_max_stamina) {
 	*/
 
 	apply_equipment();
+
+	//animation[indice che mi serve]
+
+	//animation[move_right_index]=animation[move_right_index]->next
+	//
 	
 }
 
@@ -61,7 +66,7 @@ void Player::change_boots (pBoots b){
 }
 
 
-void Player::update(pInanimate map[], pCharacter characters[]){
+void Player::update(pInanimate map[], pCharacter characters[], Room room){
 	if (is_attacking)
 		if (animazione corrente è l ultima){
 			calculate_damage();
@@ -119,19 +124,19 @@ void Player::collect_item(){
 	newcoord=pos;
 	if (direction=='u'){
 		newcoord.y--;
-		add_item(Room::checkItem(newcoord));
+		add_item(room.checkPosition(newcoord));
 	}
 	if (direction=='d'){
 		newcoord.y++;
-		add_item(Room::checkItem(newcoord));
+		add_item(room.checkPosition(newcoord));
 	}
 	if (direction=='l'){
 		newcoord.x--;
-		add_item(Room::checkItem(newcoord));
+		add_item(room.checkPosition(newcoord));
 	}
 	if (direction=='r'){
 		newcoord.x++;
-		add_item(Room::checkItem(newcoord));
+		add_item(room.checkPosition(newcoord));
 	}
 }
 

@@ -7,8 +7,9 @@ using namespace std;
 #include "item.hpp"
 #include "character.hpp"
 
-const int ANIMATION_WIDTH = 10;
-const int ANIMATION_HEIGHT = 10;
+
+const int WEAPON_ANIMATION_WIDTH = 10;
+const int WEAPON_ANIMATION_HEIGHT = 10;
 
 class Weapon : public item {
 	private:

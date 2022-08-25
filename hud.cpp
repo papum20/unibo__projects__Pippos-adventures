@@ -1,11 +1,12 @@
 #include "hud.hpp"
 
 
-Hud::Hud(WINDOW* win, int max_h, int max_s){
+Hud::Hud(WINDOW* win, int max_h, int max_s, int p){
     hud_win=win;
     getmaxyx(hud_win, y_win, x_win);
     max_health=max_h;
     max_stamina=max_s;	
+    points=p;
 }
 
 Hud::drawHud (int curr_health, int curr_st, int hearts){
@@ -94,28 +95,8 @@ Hud::drawHud (int curr_health, int curr_st, int hearts){
         x_cursor=x_cursor-inventary_columns;
     }
 
+}
 
-    //disegno lettera per il menu pausa
-    x_cursor=x_cursor+inventary_columns+distance
-    y_cursor=2;
-    pix.convert_char_to_pixel(hud_win, x_cursor, y_cursor, 'M');
-
-    //disegno le barre pausa
-    x_cursor=x_cursor+2+5;
-    y_cursor=4;
-    wattron(game_window, COLOR_PAIR(2));                        //sfondo bianco scritta nera
-    for (int k=0; k<2; k++){
-        for (int i=0; i<3; i++){
-            for (int j=0; j<2; j++){
-                mvwaddch(hud_win, y_cursor, x_cursor, ' ');
-                x_cursor++;
-            }
-            y_cursor++;
-            x_cursor=x_cursor-2;
-        }
-        x_cursor=x_cursor+5;
-        y_cursor=y_cursor-3;
-    }
-    wattroff(game_window, COLOR_PAIR(2));
-
+void Hud::change_points(int delta){
+    points+=delta;
 }

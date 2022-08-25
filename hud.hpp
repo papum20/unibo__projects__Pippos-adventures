@@ -51,12 +51,15 @@ class Hud {
 		int max_health;
 		int max_stamina;
 		Pixel_art pix;
+
+		int points;
 	public:
-		Hud(WINDOW* win, int max_h, int max_s);
+		Hud(WINDOW* win, int max_h, int max_s, int p);
 		//costruttore
 		void drawHud(int curr_health, int curr_st, int hearts);		//disegna hud (in gioco)
 		//void startMenu();	//inizializza il menu (quando si preme il tasto pausa)
 		//void updateMenu();	//disegna menu (solo se in pausa)
+		void change_points(int delta);
 };
 
 

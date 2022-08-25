@@ -11,15 +11,12 @@
 		floorInstance = new Floor();
 		wallInstance = new Wall();
 
-		for(int i = 0; i < size.x * size.y; i++) {
-			map[i] = NULL;
-			characters[i] = NULL;
-		}
+		for(int i = 0; i < size.x * size.y; i++) map[i] = NULL;
 	}
 	void Room::recursiveDestroy() {
 		Coordinate i(0, 0, size);
 		do {
-			characters[i.single()]->destroy();
+			map[i.single()]->destroy();
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 		wallInstance->destroy();
@@ -30,7 +27,7 @@
 	void Room::update(char input) {
 		Coordinate i(0, 0, size);
 		do {
-			if(characters[i.single()] != NULL) characters[i.single()]->update(map, characters, input);
+			map[i.single()]->update(map, input);
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 
@@ -78,7 +75,15 @@
 	void Room::spawnEnemy(pEnemy enemy) {
 		s_coord available[ROOM_AREA];
 		int av_size = getFreeCells(available, enemy->getSize());
-		if(av_size > 0) characters[available[rand() % av_size]] = enemy;
+		if(av_size > 0) {
+			Coordinate start(rand() % av_size, size);
+			Coordinate end(size, enemy->getSize());
+			Coordinate i(start.x, start.y, start.x, start.y, end.x, end.y);
+			do {
+				map[i.single()] = enemy;
+				i.next();
+			} while(!i.equals(start));
+		}
 	}
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
@@ -89,7 +94,7 @@
 			//wall e floor hanno una singola istanza e sono un caso a parte
 			if(map[i.single()]->getId() == ID_WALL) map[i.single()]->drawAtPosition(scr, win_size, i);
 			else {
-				characters[i.single()]->drawAtOwnPosition(scr, win_size);
+				map[i.single()]->drawAtOwnPosition(scr, win_size);
 				floorInstance->drawAtPosition(scr, win_size, i);
 			}
 			i.next();
@@ -299,7 +304,7 @@
 		Coordinate i(pos, size);
 		bool isObstacle = false;
 		do {
-			if(!map[i.single()]->getId() == ID_FLOOR || characters[i.single()] != NULL) isObstacle = true;
+			if(!map[i.single()]->getId() == ID_FLOOR) isObstacle = true;
 			else i.next();
 		} while(!isObstacle && !i.single() != pos);
 		return !isObstacle;
@@ -326,13 +331,13 @@
 	Coordinate Room::getSize() {
 		return size;
 	}
-	void Room::getMap(pInanimate map[], Coordinate &size) {
-		for(int i = 0; i < size.x / scale_x * size.y; i++) map[i] = this->map[i * scale_x];
+	void Room::getMap(pPhysical map[], Coordinate &size) {
+		for(s_coord i = 0; i < size.x / scale_x * size.y; i++) map[i] = this->map[i * scale_x];
 		size = this->size.getTimes(1. / scale_x, 1);
 	}
 	pPhysical Room::checkPosition(Coordinate pos) {
 		if(pos.inBounds(Coordinate(0, 0), size)) {
-			if(map[pos.single()]->getId() == ID_FLOOR) return characters[pos.single()];
+			if(map[pos.single()]->getId() == ID_FLOOR) return map[pos.single()];
 			else return map[pos.single()];
 		}
 		else return NULL;

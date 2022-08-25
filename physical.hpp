@@ -73,7 +73,7 @@ class Physical {
 		Coordinate size;
 		int id;		//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
-		p_Animation animation[MAX_ANIMATION]; //array di liste di array bidimensionali
+		p_Animation animations[MAX_ANIMATION]; //array di liste di array bidimensionali
 
 		p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
 

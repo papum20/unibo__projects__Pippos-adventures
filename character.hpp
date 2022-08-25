@@ -36,6 +36,19 @@ class Character : public Physical {
 		int difesa_magica;
 
 		bool is_attacking;
+		int attack_counter;
+
+		//variabili di movimento
+
+		int move_up_index;
+		int move_down_index;
+		int move_left_index;
+		int move_right_index;
+		
+		int attack_up_index;
+		int attack_down_index;
+		int attack_left_index;
+		int attack_right_index;
 		// ROOM
 		bool moveObject(pInanimate map[], Character *characters[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 
@@ -66,6 +79,13 @@ class Character : public Physical {
 		void moveDown(pInanimate map[], pCharacter characters[]);
 		void moveLeft(pInanimate map[], pCharacter characters[]);
 		void moveRight(pInanimate map[], pCharacter characters[]);
+
+		//FUNZIONI COMBATTIMENTO
+
+		void initiate_attack();
+		void calculate_damage();
+		void calculate_loss(pCharacter c);
+		
 };
 
 typedef Character *pCharacter;

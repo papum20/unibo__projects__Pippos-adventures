@@ -22,11 +22,6 @@ Player::Player():Character(p_max_health, p_max_stamina) {
 	*/
 
 	apply_equipment();
-
-	//animation[indice che mi serve]
-
-	//animation[move_right_index]=animation[move_right_index]->next
-	//
 	
 }
 
@@ -68,52 +63,77 @@ void Player::change_boots (pBoots b){
 
 void Player::update(pInanimate map[], pCharacter characters[], Room room){
 	if (is_attacking)
-		if (animazione corrente è l ultima){
-			calculate_damage();
+		if (attack_counter==1){
+			if ((equipaggiamento.arma).is_melee)
+				calculate_damage();
 			is_attacking=false;
+			switch (direction){
+				case 'u':
+					current_animation=move_up_index;
+					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
+					break;
+				case 'd':
+					current_animation=move_down_index;
+					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
+					break;
+				case 'l':
+					current_animation=move_left_index;
+					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
+					break;
+				case 'r':
+					current_animation=move_right_index;
+					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
+					break;	
+			}
 		}
 		else{
-			//avanti con l'animazione di attacco
+			animation[current_animation]=animation[current_animation]->next;
+			equipaggiamento.arma->animation[equipaggiamento.arma->current_animation]=(equipaggiamento.arma->animation[equipaggiamento.arma->current_animation])->next;
+			attack_counter--;
 		}
 	else{
 		int input=Input_manager::get_input(); 
-		switch (input)
-		{
-		case KEY_UP:{
-			moveUp(map, characters);
-			break;
-		}
-		case KEY_DOWN:{
-			moveDown(map, characters);
-			break;
-		}	
-		case KEY_LEFT:{
-			moveLeft(map, characters);
-			break;
-		}
-		case KEY_RIGHT:{
-			moveRight(map, characters);
-			break;
-		}
-		case 'n':{
-			open_inventary();
-			break;
-		}
-		case 'c':{
-			collect_item();
-		}
-		case ctrl(w):{
-			//iter animazione attacco alto
-		}
-		case ctrl(a):{
-			//iter animazione attacco in sinistra
-		}
-		case ctrl(d):{
-			//iter animazione attacco a destra
-		}
-		case ctrl(s):{
-			//iter animazione attaco in basso
-		}
+		switch (input){
+			case KEY_UP:{
+				moveUp(map, characters);
+				break;
+			}
+			case KEY_DOWN:{
+				moveDown(map, characters);
+				break;
+			}	
+			case KEY_LEFT:{
+				moveLeft(map, characters);
+				break;
+			}
+			case KEY_RIGHT:{
+				moveRight(map, characters);
+				break;
+			}
+			case 'n':{
+				open_inventary();
+				break;
+			}
+			case 'c':{
+				collect_item();
+			}
+			case ctrl(w):{
+				direction='u';
+				initiate_attack();
+			}
+			case ctrl(a):{
+				direction='l';
+				initiate_attack();
+				
+			}
+			case ctrl(d):{
+				direction='r';
+				initiate_attack();
+			}
+			case ctrl(s):{
+				direction='d';
+				initiate_attack();
+			}
 		}
 	}
 

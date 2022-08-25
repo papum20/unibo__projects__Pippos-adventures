@@ -27,11 +27,11 @@
 	void Room::update(char input) {
 		Coordinate i(0, 0, size);
 		do {
-			map[i.single()]->update(map, input);
+			int points = 0;
+			map[i.single()]->update(map, input, points);
+			player->change_points(points);
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
-
-
 	}
 
 	/*pCharacter check_enemy_ranged (Projectile p){

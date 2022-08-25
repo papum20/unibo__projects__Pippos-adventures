@@ -4,12 +4,13 @@
 
 #include "coordinate.hpp"
 #include "inanimate.hpp"
+#include "room.hpp"
 
 
 class Door : public Inanimate {
 	private:
 		bool useable;
-		bool player_on;
+		//bool player_on;
 		
 
 	public:
@@ -17,7 +18,7 @@ class Door : public Inanimate {
 		void update();
 
 		bool canUse();			//se si può cambiare stanza usandola
-		void setPlayerOn(bool p);
+		//void setPlayerOn(bool p);
 };
 
 typedef Door *pDoor;

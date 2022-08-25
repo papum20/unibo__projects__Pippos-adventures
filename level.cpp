@@ -193,7 +193,7 @@
 					pivotChanged = false;
 				else {
 					ratio /= change_pivot_speed;
-					position.sum(pivotDistance.getTimes(ratio, ratio));
+					position = Coordinate(position, pivotDistance.getTimes(ratio, ratio));
 				}
 			}
 			//se il pivot non si è mosso
@@ -204,7 +204,7 @@
 					timer.start(CAMERA_DAMPING_TIMER);
 				else if(timer.check(CAMERA_DAMPING_TIMER)) {						//se passato tempo di attesa: muoviti
 					ratio /= damping_speed;
-					position.sum((Coordinate(position, pivot->getPosition().getNegative())).getTimes(ratio, ratio));		//camera - (pivot - camera) * ratio = camera + (camera - pivot) * ratio
+					position = Coordinate(position, (Coordinate(position, pivot->getPosition().getNegative())).getTimes(ratio, ratio));		//camera - (pivot - camera) * ratio = camera + (camera - pivot) * ratio
 				}
 			}
 			//se si è mosso
@@ -214,7 +214,7 @@
 					position = target;
 				else {
 					ratio /= speed;
-					position.sum((Coordinate(target, position.getNegative())).getTimes(ratio, ratio));		//camera + (target - camera) * ratio
+					position = Coordinate(position, (Coordinate(target, position.getNegative())).getTimes(ratio, ratio));		//camera + (target - camera) * ratio
 				}
 			}
 

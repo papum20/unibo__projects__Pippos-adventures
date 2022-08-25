@@ -2,6 +2,7 @@
 #define PLAYER_HPP
 
 #include "character.hpp"
+#include "door.hpp"
 
 const int idle_index = 0;
 const int move_right_index = 1;
@@ -136,6 +137,7 @@ class Player : public Character {
 	private:
 	protected:
 		int n_hearts;		
+		int points;
 
 		pArtifact artifacts[MAX_ARTIFACTS];
 		int curr_artifact;
@@ -154,6 +156,9 @@ class Player : public Character {
 		void add_item(pWeapon w);
 		void add_item(pItem_def w);
 		void add_item(pArtifact w);
+
+		void change_points(int delta);
+		pDoor usedDoor();				//porta usata, NULL se non sta usando una porta
 		
 };
 

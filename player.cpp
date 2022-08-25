@@ -164,3 +164,8 @@ void Player::add_item (pArtifact a){
 void Player::modify_lifes (int delta){
 	n_hearts=n_hearts+delta;
 }
+
+
+void Player::change_points(int delta){
+    points+=delta;
+}

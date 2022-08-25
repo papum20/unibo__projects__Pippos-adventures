@@ -20,6 +20,6 @@ bool Door::canUse() {
 }
 
 //// SET / GET
-void Door::setPlayerOn(bool p) {
+/*void Door::setPlayerOn(bool p) {
 	player_on = p;
-}
+}*/

@@ -96,7 +96,3 @@ Hud::drawHud (int curr_health, int curr_st, int hearts){
     }
 
 }
-
-void Hud::change_points(int delta){
-    points+=delta;
-}

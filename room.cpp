@@ -11,7 +11,10 @@
 		floorInstance = new Floor();
 		wallInstance = new Wall();
 
-		for(int i = 0; i < size.x * size.y; i++) map[i] = NULL;
+		for(int i = 0; i < size.x * size.y; i++) {
+			map[i] = NULL;
+			characters[i] = NULL;
+		}
 	}
 	void Room::recursiveDestroy() {
 		Coordinate i(0, 0, size);
@@ -32,6 +35,7 @@
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 	}
+
 
 	/*pCharacter check_enemy_ranged (Projectile p){
 		Coordinate start;

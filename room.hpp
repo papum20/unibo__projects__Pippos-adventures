@@ -39,8 +39,8 @@ class Room {
 	private:
 		Coordinate pos;											//coordinate rispetto alla prima stanza del livello
 		//istanze di muro e pavimento, riutilizzate sempre uguali
-		//pInanimate floorInstance;
-		//pInanimate wallInstance;
+		pInanimate floorInstance;
+		pInanimate wallInstance;
 
 		// FUNZIONI
 		// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
@@ -49,12 +49,12 @@ class Room {
 		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
 					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
 */					//e directions con le rispettive direzioni, ne ritorna il numero
-		bool isSpawnAllowed(s_coord pos, Coordinate size);			//bool se può essere generato qualcosa di dimensioni size in posizione pos, cioè se non c'è altro nel mezzo
+		//bool isSpawnAllowed(s_coord pos, Coordinate size);			//bool se può essere generato qualcosa di dimensioni size in posizione pos, cioè se non c'è altro nel mezzo
 		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E RICORRENTI)
 
 	protected:
-		//int scale_x;
+		int scale_x;
 		pMap map;
 
 		// FUNZIONI AUSILIARIE PRINCIPALI

@@ -1,14 +1,14 @@
 #include "map.hpp"
 
 
-Map::Map() {
+Map::Map(int scale_x, pInanimate floorInstance, pInanimate wallInstance) {
 	//variabili
-	scale_x = SCALE_X;
+	this->scale_x = scale_x;
 	size = Coordinate(ROOM_WIDTH, ROOM_HEIGHT);
 	n_doors_max = MAX_CONNECTED_R;
 
-	floorInstance = new Floor();
-	wallInstance = new Wall();
+	this->floorInstance = floorInstance;
+	this->wallInstance = wallInstance;
 
 	//mappe
 	for(int i = 0; i < size.x * size.y; i++) {
@@ -98,7 +98,7 @@ void Map::update_all(char input) {
 	}
 	void Map::generateInnerRoom() {
 		Coordinate rstart((ROOM_WIDTH_T - CENTRAL_ROOM_SIZE) / 2, (ROOM_HEIGHT - CENTRAL_ROOM_SIZE) / 2), rend((ROOM_HEIGHT + CENTRAL_ROOM_SIZE) / 2., (ROOM_WIDTH_T + CENTRAL_ROOM_SIZE) / 2);
-		Coordinate i(rstart.x, rstart.y, rstart.x, rstart.y, rend.x, rend.y);
+		Coordinate i(rstart, rstart, rend);
 		do {
 			physical[i.single()] = floorInstance;
 			i.next();
@@ -235,6 +235,26 @@ void Map::update_all(char input) {
 		else return NULL;
 	}
 
+//// BOOL
+	bool Map::isFreeSpace(Coordinate start, Coordinate end) {
+		Coordinate i = Coordinate(start, start, Coordinate(start, end));
+		bool allowed = true;
+		do {
+			if(physical[i.single()]->getId() != ID_FLOOR) allowed = false;
+			else i.next();
+		} while(allowed && !i.equals(start));
+		return allowed;
+	}
+	bool Map::isLegalMove(pPhysical obj, Coordinate target) {
+		Coordinate i = Coordinate(target, target, Coordinate(target, obj->getSize()));
+		bool allowed = true;
+		do {
+			if(physical[i.single()]->getId() != ID_FLOOR && physical[i.single()] != obj) allowed = false;
+			else i.next();
+		} while(allowed && !i.equals(target));
+		return allowed;
+	}
+
 //// GET
 	Coordinate Map::getSize() {
 		return size;
@@ -257,7 +277,41 @@ void Map::update_all(char input) {
 	void Map::addDoor(int dir, lock_type lt) {
 		if(doors[dir] == NULL) doors[dir] = new Door(door_positions[dir], getDoorEntrance(door_positions[dir]), lt);
 	}
-	void Map::remove(Coordinate pos) {
+	void Map::addCharacter(pCharacter character) {
 
+	}
+	bool Map::move(pPhysical obj, Coordinate target) {
+		if(!obj->isInanimate() && obj->getPosition().inBounds(Coordinate(0, 0), size) && isLegalMove(obj, target)) {
+			//SPOSTA
+			Coordinate i = Coordinate(target, target, Coordinate(target, obj->getSize()));
+			do {
+				physical[i.single()] = physical[obj->getPosition().single()];
+				characters[i.single()] = characters[obj->getPosition().single()];
+				chests[i.single()] = chests[obj->getPosition().single()];
+				i.next();
+			} while(!i.equals(target));
+			//RIMUOVI CASELLE VECCHIE (NON PIÙ OCCUPATE)
+			i = Coordinate(obj->getPosition(), obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
+			do {
+				if(!i.inBounds(target, Coordinate(target, obj->getSize()))) {
+					physical[i.single()] = floorInstance;
+					characters[i.single()] = NULL;
+					chests[i.single()] = NULL;
+				}
+				i.next();
+			} while (!i.equals(obj->getPosition()));
+			return true;
+		} else return false;
+	}
+	void Map::remove(pPhysical obj) {
+		if(!obj->isInanimate()) {
+			Coordinate i = Coordinate(obj->getPosition(), obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
+			do {
+				physical[i.single()] = floorInstance;
+				characters[i.single()] = NULL;
+				chests[i.single()] = NULL;
+				i.next();
+			} while(!i.equals(obj->getPosition()));
+		}
 	}
 #pragma endregion CHECK_SET_GET

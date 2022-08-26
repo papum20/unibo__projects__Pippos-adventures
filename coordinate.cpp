@@ -17,9 +17,9 @@
 		Coordinate(x, y);
 		setMatrix(size);
 	}
-	Coordinate::Coordinate(float x, float y, float sx, float sy, float ex, float ey) {
-		Coordinate(x, y);
-		setFullMatrix(sx, sy, ex, ey);
+	Coordinate::Coordinate(Coordinate pos, Coordinate start, Coordinate end) {
+		Coordinate(pos.x, pos.y);
+		setFullMatrix(start, end);
 	}
 	Coordinate::Coordinate(s_coord xy, Coordinate size) {
 		setMatrix(size);
@@ -27,7 +27,7 @@
 		x = xy - y * size.x;
 	}
 	Coordinate::Coordinate(const Coordinate a, const Coordinate b) {
-		Coordinate(a.x + b.x, a.y + b.y, a.startx, a.starty, a.endx, a.endy);
+		Coordinate(Coordinate(a.x + b.x, a.y + b.y), Coordinate(a.startx, a.starty), Coordinate(a.endx, a.endy));
 	}
 #pragma endregion COSTRUTTORI
 
@@ -75,7 +75,7 @@
 		return *this;
 	}
 	Coordinate Coordinate::getTimes(float px, float py) {
-		return Coordinate(x * px, y * py, startx, starty, endx, endy);
+		return Coordinate(Coordinate(x * px, y * py), Coordinate(startx, starty), Coordinate(endx, endy));
 	}
 	void Coordinate::next() {
 		if(x >= endx - 1) {
@@ -99,18 +99,18 @@
 		if(size.x > 0) this->endx = startx + size.x;
 		if(size.y > 0) this->endy = starty + size.y;
 	}
-	void Coordinate::setFullMatrix(float sx, float ex, float sy, float ey) {
-		if(sx <= 0) sx = startx;
-		if(ex <= 0) ex = endx;
-		if(sy <= 0) sy = starty;
-		if(ey <= 0) ey = endy;
-		if(sx < ex) {
-			startx = sx;
-			endx = ex;
+	void Coordinate::setFullMatrix(Coordinate start, Coordinate end) {
+		if(start.x <= 0) start.x = startx;
+		if(end.x <= 0) end.x = endx;
+		if(start.y <= 0) start.y = starty;
+		if(end.y <= 0) end.y = endy;
+		if(start.x < end.x) {
+			startx = start.x;
+			endx = end.x;
 		}
-		if(sy < ey) {
-			starty = sy;
-			endy = ey;
+		if(start.y < end.y) {
+			starty = start.y;
+			endy = end.y;
 		}
 	}
 

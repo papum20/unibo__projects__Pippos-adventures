@@ -5,16 +5,17 @@
 	Room::Room(Coordinate pos) {
 		//inzializza stanza
 		this->pos = pos;
-		//scale_x = SCALE_X;
+		scale_x = SCALE_X;
 		//size = Coordinate(ROOM_WIDTH, ROOM_HEIGHT);
 
-		//floorInstance = new Floor();
-		//wallInstance = new Wall();
+		floorInstance = new Floor();
+		wallInstance = new Wall();
 
 /*		for(int i = 0; i < size.x * size.y; i++) {
 			map[i] = NULL;
 			characters[i] = NULL;
 		}*/
+		map = new Map(scale_x, floorInstance, wallInstance);
 	}
 	void Room::recursiveDestroy() {
 		map->destroy();
@@ -71,25 +72,20 @@
 		s_coord available[ROOM_AREA];
 		int av_size = getFreeCells(available, enemy->getSize());
 		if(av_size > 0) {
-			Coordinate start(rand() % av_size, size);
-			Coordinate end(size, enemy->getSize());
-			Coordinate i(start.x, start.y, start.x, start.y, end.x, end.y);
-			do {
-				map[i.single()] = enemy;
-				i.next();
-			} while(!i.equals(start));
+			enemy->setPosition(Coordinate(available[rand() % av_size], map->getSize()));
+			map->addCharacter(enemy);
 		}
 	}
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
 		Coordinate wstart = Coordinate(center.x - win_size.x / 2, center.y - win_size.y / 2), wend = Coordinate(center.x + Math::ceil(win_size.x / 2.), center.y + Math::ceil(win_size.y / 2.));
-		Coordinate i = Coordinate(wstart.x, wstart.y, wstart.x, wstart.y, wend.x, wend.y);
+		Coordinate i = Coordinate(wstart, wstart, wend);
 		do {
-			//wall e floor hanno una singola istanza e sono un caso a parte
-			if(map[i.single()]->getId() == ID_WALL) map[i.single()]->drawAtPosition(scr, win_size, i);
+			pPhysical obj = map->checkPosition(i);
+			if(obj->isInanimate()) obj->drawAtPosition(scr, win_size, i);
 			else {
-				map[i.single()]->drawAtOwnPosition(scr, win_size);
+				obj->drawAtOwnPosition(scr, win_size);
 				floorInstance->drawAtPosition(scr, win_size, i);
 			}
 			i.next();
@@ -100,7 +96,7 @@
 #pragma region AUSILIARIE
 #pragma region AUSILIARIE_PRINCIPALI
 //// FUNZIONI AUSILIARIE PRINCIPALI
-	void Room::generateSidesWalls() {
+	/*void Room::generateSidesWalls() {
 		for(int y = 0; y < size.y; y++) {
 			int delta_x = 1;
 			if(y != 0 && y != size.y - 1) delta_x = ROOM_WIDTH_T - 1;
@@ -181,12 +177,12 @@
 					map[Coordinate(x * scale_x + s, y).single()] = map[Coordinate(x, y).single()];
 			}
 		}
-	}
+	}*/
 #pragma endregion AUSILIARIE_PRINCIPALI
 
 #pragma region AUSILIARIE_SECONDARIE
 //// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
-	void Room::generatePath(Coordinate s, pUnionFind sets)
+/*	void Room::generatePath(Coordinate s, pUnionFind sets)
 	{
 		if(!s.inOwnBounds()) return;
 		else {
@@ -293,9 +289,9 @@
 			if(!found) border[i] = Coordinate(-1, -1);
 		}
 		return border_n;
-	}
+	}*/
 
-	bool Room::isSpawnAllowed(s_coord pos, Coordinate size) {
+	/*bool Room::isSpawnAllowed(s_coord pos, Coordinate size) {
 		Coordinate i(pos, size);
 		bool isObstacle = false;
 		do {
@@ -303,15 +299,24 @@
 			else i.next();
 		} while(!isObstacle && !i.single() != pos);
 		return !isObstacle;
-	}
+	}*/
 	int Room::getFreeCells(s_coord available[], Coordinate size) {
 		int length = 0;
-		for(s_coord i = 0; i < size.x * size.y; i++) {
-			if(isSpawnAllowed(i, size)) {
+		Coordinate i = Coordinate(Coordinate(0, 0), map->getSize());
+		do {
+			if(map->isFreeSpace(i, Coordinate(i, size))) {
+				available[length] = i.single();
+				length++;
+			}
+
+		} while(!i.equals(Coordinate(0, 0)));
+		/*for(s_coord i = 0; i < size.x * size.y; i++) {
+			//if(isSpawnAllowed(i, size)) {
+			if(map->isFreeSpace(Coordinate(i, map->getSize()), Coordinate()))
 				available[length] = i;
 				length++;
 			}
-		}
+		}*/
 		return length;
 	}
 #pragma endregion AUSILIARIE_SECONDARIE
@@ -324,11 +329,11 @@
 		return pos;
 	}
 	Coordinate Room::getSize() {
-		return size;
+		return map->getSize();
 	}
 	void Room::getMap(pPhysical map[], Coordinate &size) {
-		for(s_coord i = 0; i < size.x / scale_x * size.y; i++) map[i] = this->map[i * scale_x];
-		size = this->size.getTimes(1. / scale_x, 1);
+		for(s_coord i = 0; i < this->map->getSize().x / scale_x * this->map->getSize().y; i++) map[i] = this->map->checkPosition(Coordinate(i * scale_x, this->map->getSize()));
+		size = this->map->getSize().getTimes(1. / scale_x, 1);
 	}
 	void Room::makeConnection(pRoom room, int dir, lock_type lt, bool first = true) {
 		if(room != NULL && first) {

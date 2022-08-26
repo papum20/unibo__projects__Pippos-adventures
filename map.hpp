@@ -5,6 +5,7 @@
 
 
 #include "character.hpp"
+#include "chest.hpp"
 #include "definitions.hpp"
 #include "door.hpp"
 #include "floor.hpp"
@@ -24,7 +25,7 @@ class Map {
 		pCharacter characters[ROOM_AREA];
 		pDoor doors[MAX_CONNECTED_R];			//array di puntatori a porte (verso stanze collegate)
 												//disposte in direzioni: 0=su, 1=destra, 2=giu, 3=sinistra, 4=segreta,all'interno
-		//pItem chest[ROOM_AREA];
+		pChest chests[ROOM_AREA];
 
 		pInanimate floorInstance;
 		pInanimate wallInstance;
@@ -47,7 +48,7 @@ class Map {
 	
 
 	public:
-		Map();
+		Map(int scale_x, pInanimate floorInstance, pInanimate wallInstance);
 		void destroy();
 		void update_all(char input);
 		void generate(); 										//genera uno schema randomico per i muri, inserendoli nella map
@@ -60,6 +61,10 @@ class Map {
 		pPhysical checkLine(Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso)
 		pCharacter checkLineCharacter(Coordinate start, Coordinate end);
 
+		// BOOL
+		bool isFreeSpace(Coordinate start, Coordinate end);		//ritona true se il rettangolo è vuoto
+		bool isLegalMove(pPhysical obj, Coordinate target);		//ritorna true se obj può occupare, con le sue dimensioni, la cella target
+
 		// GET
 		Coordinate getSize();
 		int get_n_doors_max();
@@ -68,7 +73,9 @@ class Map {
 
 		// EDIT
 		void addDoor(int dir, lock_type lt);
-		void remove(Coordinate pos);							//rimuove un oggetto (character, item... non inanimate)
+		void addCharacter(pCharacter obj);						//aggiunge un character nella sua posizione
+		bool move(pPhysical obj, Coordinate target);			//muove un oggetto qualsiasi (non inanimate); ritorna true se ha successo
+		void remove(pPhysical obj);								//rimuove un oggetto qualsiasi (non inanimate)
 };
 
 typedef Map *pMap;

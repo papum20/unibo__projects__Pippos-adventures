@@ -29,6 +29,8 @@ const int MAX_ANIMATION = 6;
 #pragma region PHYSICAL_IDS
 #define ID_INANIMATE_S 10
 #define ID_INANIMATE_E 19
+#define ID_ENEMY_S 100
+#define ID_ENEMY_E 199
 
 #define ID_DEFAULT 0
 #define ID_PLACEHOLDER 1
@@ -88,11 +90,12 @@ class Physical {
 
 		// BOOL
 		bool isInanimate();
-		bool isPlaceholder();
+		bool isCharacter();
+		//bool isPlaceholder();
 
 		// GET
-		pPhysical checkPosition(Physical *map[], Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
-		pPhysical checkLine(Physical *map[], Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso)
+		//pPhysical checkPosition(Physical *map[], Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		//pPhysical checkLine(Physical *map[], Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso)
 		int getId();
 		Coordinate getPosition();
 		Coordinate getSize();

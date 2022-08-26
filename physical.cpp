@@ -31,11 +31,14 @@ void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordina
     bool Physical::isInanimate() {
         return id >= ID_INANIMATE_S && id <= ID_INANIMATE_E;
     }
+    bool Physical::isCharacter() {
+        return id == ID_PLAYER || (id >= ID_ENEMY_S && id <= ID_ENEMY_E);
+    }
     /*bool Physical::isPlaceholder() {
         return id == ID_PLACEHOLDER;
     }*/
 
-    pPhysical Physical::checkPosition(pPhysical map[], Coordinate pos) {
+/*    pPhysical Physical::checkPosition(pPhysical map[], Coordinate pos) {
 		if(pos.inBounds(Coordinate(0, 0), size) && map[pos.single()]->getId() != ID_FLOOR)
 			return map[pos.single()];
 		else return NULL;
@@ -54,7 +57,7 @@ void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordina
         }
         if(target == NULL) return checkPosition(map, end);
         else return NULL;
-    }
+    }*/
 
     int Physical::getId() {
         return id;

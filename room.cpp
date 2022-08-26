@@ -5,16 +5,16 @@
 	Room::Room(Coordinate pos) {
 		//inzializza stanza
 		this->pos = pos;
-		scale_x = SCALE_X;
-		size = Coordinate(ROOM_WIDTH, ROOM_HEIGHT);
+		//scale_x = SCALE_X;
+		//size = Coordinate(ROOM_WIDTH, ROOM_HEIGHT);
 
-		floorInstance = new Floor();
-		wallInstance = new Wall();
+		//floorInstance = new Floor();
+		//wallInstance = new Wall();
 
-		for(int i = 0; i < size.x * size.y; i++) {
+/*		for(int i = 0; i < size.x * size.y; i++) {
 			map[i] = NULL;
 			characters[i] = NULL;
-		}
+		}*/
 	}
 	void Room::recursiveDestroy() {
 		Coordinate i(0, 0, size);
@@ -59,7 +59,10 @@
 		return (checkLine(start, end));
 	}*/
 
-	void Room::generate()
+	void Room::generate() {
+		map->generate();
+	}
+/*	void Room::generate()
 	{
 		pUnionFind sets = new UnionFind();
 		//GENERA MURI LATERALI
@@ -73,7 +76,7 @@
 		connectPaths(sets);
 		//RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
 		resizeMap();
-	}
+	}*/
 
 	void Room::spawnEnemy(pEnemy enemy) {
 		s_coord available[ROOM_AREA];

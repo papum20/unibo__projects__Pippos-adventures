@@ -26,6 +26,7 @@ typedef char lock_type;
 #include "enemy.hpp"
 #include "floor.hpp"
 //#include "item.hpp"
+#include "map.hpp"
 #include "math.hpp"
 #include "physical.hpp"
 #include "map.hpp"
@@ -38,32 +39,31 @@ class Room {
 	private:
 		Coordinate pos;											//coordinate rispetto alla prima stanza del livello
 		//istanze di muro e pavimento, riutilizzate sempre uguali
-		pInanimate floorInstance;
-		pInanimate wallInstance;
+		//pInanimate floorInstance;
+		//pInanimate wallInstance;
 
 		// FUNZIONI
 		// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
-		void generatePath(Coordinate s, pUnionFind sets);			//genera un percorso casuale a partire da x,y
+/*		void generatePath(Coordinate s, pUnionFind sets);			//genera un percorso casuale a partire da x,y
 		int getAdjacentWalls(Coordinate out[], s_coord currentSet);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero
 		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
 					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
-					//e directions con le rispettive direzioni, ne ritorna il numero
+*/					//e directions con le rispettive direzioni, ne ritorna il numero
 		bool isSpawnAllowed(s_coord pos, Coordinate size);			//bool se può essere generato qualcosa di dimensioni size in posizione pos, cioè se non c'è altro nel mezzo
 		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E RICORRENTI)
 
 	protected:
-		Coordinate size;
-		int scale_x;
-		Tile map[ROOM_AREA];
+		//int scale_x;
+		pMap map;
 
 		// FUNZIONI AUSILIARIE PRINCIPALI
-		void generateSidesWalls();
+		/*void generateSidesWalls();
 		void generateInnerRoom();
 		void generateAllPaths(pUnionFind sets);
 		void connectPaths(pUnionFind sets);						//fa in modo che ogni punto sia raggiungibile da ogni altro
 		void resizeMap();										//ridimensiona la mappa, allargando quella temporanea generata di X_SCALE
-
+*/
 	public:
 		Room(Coordinate pos);
 		void recursiveDestroy();								//elimina tutti i puntatori contenuti nella stanza, agendo poi ricorsivamente sulle stanze collegate
@@ -80,7 +80,9 @@ class Room {
 		// GET
 		Coordinate getPos();
 		Coordinate getSize();
-		void getMap(pPhysical map[], Coordinate &size);										//modifica mappa, ritorna dimensioni
+		void getMap(pPhysical map[], Coordinate &size);			//modifica mappa, ritorna dimensioni
+		virtual pRoom getRoomInPosition(Coordinate pos);		//ritorna il puntatore alla stanza collegata da una porta in posizione pos
+
 		// SET
 		virtual void makeConnection(Room *room, int dir, lock_type lt, bool first = true);	//collega l'altra stanza a questa (se è connectedRoom), con stato bloccato lt; first inizializzato da solo
 };

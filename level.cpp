@@ -123,8 +123,8 @@
 		}*/
 		pDoor new_door = player->usedDoor();
 		if(new_door != NULL) {
-				player->setPosition(new_door->getPosition());			//riposiziona player
-				curRoom = new_door->getConnected();
+				player->setPosition(new_door->getEntrancePosition());	//riposiziona player
+				curRoom = curRoom->getRoomInPosition(new_door->getPosition());
 		}
 	}
 	void Level::nextLevel() {

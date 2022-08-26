@@ -2,10 +2,17 @@
 
 
 
-	Door::Door(Coordinate pos, pRoom room, Coordinate entrancePosition, bool locked) {
+	/*Door::Door(Coordinate pos, pRoom room, Coordinate entrancePosition, bool locked) {
 		id = ID_DOOR;
 		this->pos = pos;
 		this->room = room;
+		this->entrancePosition = entrancePosition;
+		this->locked = locked;
+	};*/
+	Door::Door(Coordinate pos, Coordinate entrancePosition, bool locked) {
+		id = ID_DOOR;
+		this->pos = pos;
+		//this->room = room;
 		this->entrancePosition = entrancePosition;
 		this->locked = locked;
 	};
@@ -15,16 +22,16 @@
 }*/
 
 //// SET
-	void Door::unconnect() {
+	/*void Door::unconnect() {
 		room = NULL;
-	}
+	}*/
 	void Door::unlock() {
 		locked = false;
 	}
 //// GET
-	pRoom Door::getConnected() {
+	/*pRoom Door::getConnected() {
 		return room;
-	}
+	}*/
 	Coordinate Door::getEntrancePosition() {
 		return entrancePosition;
 	}

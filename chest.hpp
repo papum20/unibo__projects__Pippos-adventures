@@ -1,0 +1,30 @@
+#ifndef CHEST_HPP
+#define CHEST_HPP
+
+#include "weapon.hpp"
+#include "artifact.hpp"
+#include "item_difensivi.hpp"
+
+const int chest_width=3;
+const int chest_height=5;
+
+const char chest [chest_width][chest_height]=
+{ {' ', '_', '_', '_', ' '},
+  {'|', '-', 'o', '-', '|'},
+  {' ', '*', '*', '*', ' '}
+};
+
+class Chest: public Physical{
+    protected:
+    public:
+        pWeapon arma;
+        pArtifact artefatto;
+        pItem_def item_def;
+        char type;
+        
+        Chest(pWeapon w);
+        Chest (pArtifact a);
+        Chest (pItem_def d);
+};
+
+typedef Chest* pChest;

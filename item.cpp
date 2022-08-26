@@ -1,6 +1,7 @@
 #include "item.hpp"
+#include <cstring>
 
-item::item (){
+item::item():Physical(){
     
 }
 

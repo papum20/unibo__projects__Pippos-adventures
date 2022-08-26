@@ -25,6 +25,7 @@ typedef char lock_type;
 
 #include "enemy.hpp"
 #include "floor.hpp"
+//#include "item.hpp"
 #include "math.hpp"
 #include "physical.hpp"
 #include "union_find.hpp"
@@ -55,6 +56,8 @@ class Room {
 		Coordinate size;
 		int scale_x;
 		pPhysical map[ROOM_AREA];
+		pCharacter characters[ROOM_AREA];
+		//pItem chest[ROOM_AREA];
 
 		// FUNZIONI AUSILIARIE PRINCIPALI
 		void generateSidesWalls();

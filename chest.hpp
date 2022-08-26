@@ -32,3 +32,5 @@ class Chest: public Physical{
 };
 
 typedef Chest* pChest;
+
+#endif

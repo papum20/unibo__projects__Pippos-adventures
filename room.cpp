@@ -17,23 +17,12 @@
 		}*/
 	}
 	void Room::recursiveDestroy() {
-		Coordinate i(0, 0, size);
-		do {
-			map[i.single()]->destroy();
-			i.next();
-		} while(!i.equals(Coordinate(0, 0)));
-		wallInstance->destroy();
-		floorInstance->destroy();
+		map->destroy();
 		delete this;
 	}
 
 	void Room::update(char input) {
-		Coordinate i(0, 0, size);
-		do {
-			int points = 0;
-			map[i.single()]->update(map, input);
-			i.next();
-		} while(!i.equals(Coordinate(0, 0)));
+		map->update_all(input);
 	}
 
 

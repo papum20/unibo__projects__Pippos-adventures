@@ -65,7 +65,7 @@ class Character : public Physical {
 		Character();
 		Character(int maxH, int maxS);
 		
-		virtual void update(pInanimate map[], Character *characters[]);
+		virtual void update(pMap map, Character *characters[]);
 
 		int findPath (Inanimate map[], Coordinate steps[], Coordinate start, Coordinate end);
 

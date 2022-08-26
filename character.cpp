@@ -41,7 +41,7 @@ void Character::moveUp(pInanimate map[], pCharacter characters[]){
 	newpos.y--;
 	moveObject (map, characters, newpos);
 	if (current_animation==move_up_index){
-		animation[current_animation]=animation[current_animation]->next;
+		animations[current_animation]=animation[current_animation]->next;
 	}
 	else{
 		current_animation=move_up_index;
@@ -54,7 +54,7 @@ void Character::moveDown(pInanimate map[], pCharacter characters[]){
 	newpos.y++;
 	moveObject (map, characters, newpos);
 	if (current_animation==move_down_index){
-		animation[current_animation]=animation[current_animation]->next;
+		animations[current_animation]=animation[current_animation]->next;
 	}
 	else{
 		current_animation=move_down_index;
@@ -67,7 +67,7 @@ void Character::moveLeft(pInanimate map[], pCharacter characters[]){
 	newpos.x--;
 	moveObject (map, characters, newpos);
 	if (current_animation==move_left_index){
-		animation[current_animation]=animation[current_animation]->next;
+		animations[current_animation]=animation[current_animation]->next;
 	}
 	else{
 		current_animation=move_left_index;
@@ -80,7 +80,7 @@ void Character::moveRight(pInanimate map[], pCharacter characters[]){
 	newpos.x++;
 	moveObject (map, characters, newpos);
 	if (current_animation==move_right_index){
-		animation[current_animation]=animation[current_animation]->next;
+		animations[current_animation]=animation[current_animation]->next;
 	}
 	else{
 		current_animation=move_right_index;

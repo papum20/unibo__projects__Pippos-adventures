@@ -48,6 +48,8 @@ class Map {
 
 	public:
 		Map();
+		void destroy();
+		void update_all(char input);
 		void generate(); 										//genera uno schema randomico per i muri, inserendoli nella map
 		void generate_with_doors();
 

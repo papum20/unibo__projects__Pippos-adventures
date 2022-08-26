@@ -25,6 +25,24 @@ Map::Map() {
 	door_positions[2] = Coordinate(size.x / 2, size.y - 1);
 	door_positions[3] = Coordinate(size.x - 1, size.y / 2);
 }
+void Map::destroy() {
+	Coordinate i(0, 0, size);
+	do {
+		physical[i.single()]->destroy();
+		i.next();
+	} while(!i.equals(Coordinate(0, 0)));
+	wallInstance->destroy();
+	floorInstance->destroy();
+	delete this;
+}
+void Map::update_all(char input) {
+	Coordinate i(0, 0, size);
+	do {
+		int points = 0;
+		physical[i.single()]->update(this, input);
+		i.next();
+	} while(!i.equals(Coordinate(0, 0)));
+}
 
 #pragma region AUSILIARIE
 	Coordinate Map::getDoorEntrance(Coordinate doorCenter) {

@@ -161,28 +161,3 @@ menu_choices(menu);
 }
 
 
-int main(){
-    //NCURSES START
-   initscr();
-   noecho();
-   cbreak();
-    
-
-   //get screen sizeS
-   
- 
-    start_color();
-
-    Menu * m = new Menu();
-    m->open();
-    
- 
-  srand(time(0));
-   //make sure program waits before exiting
-   getch();
-   endwin();
-   //ncurses end
-
-
-    return 0;
-};

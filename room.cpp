@@ -87,7 +87,7 @@
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
-		Coordinate wstart = Coordinate(center.x - win_size.x / 2, center.y - win_size.y / 2), wend = Coordinate(center.x + ceil(win_size.x / 2.), center.y + ceil(win_size.y / 2.));
+		Coordinate wstart = Coordinate(center.x - win_size.x / 2, center.y - win_size.y / 2), wend = Coordinate(center.x + Math::ceil(win_size.x / 2.), center.y + Math::ceil(win_size.y / 2.));
 		Coordinate i = Coordinate(wstart.x, wstart.y, wstart.x, wstart.y, wend.x, wend.y);
 		do {
 			//wall e floor hanno una singola istanza e sono un caso a parte

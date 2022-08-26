@@ -25,7 +25,7 @@ typedef char lock_type;
 
 #include "enemy.hpp"
 #include "floor.hpp"
-#include "maths.hpp"
+#include "math.hpp"
 #include "physical.hpp"
 #include "union_find.hpp"
 #include "wall.hpp"

@@ -8,6 +8,7 @@
 #include "level.hpp"
 #include "hud.hpp"
 #include "inputmanager.hpp"
+#include "menu.hpp"
 #include "player.hpp"
 
 

@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <curses.h>
 #include "coordinate.hpp"
+#include "math.hpp"
 
 
 //// COSTANTI DI INIZIALIZZAZIONE ATTRIBUTI DI LEVEL
@@ -46,7 +47,7 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 const int ENEMIES_N[LEVELS_N] {10};
 #define ENEMIES_N_MAX 10
 const Enemy ENEMIES_INSTANCES[LEVELS_N][ENEMIES_N_MAX] = 	{
-															{Bat()}
+															{}
 															};
 const int ENEMIES_CHANCHES[LEVELS_N][ENEMIES_N_MAX]		= 	{
 															{1}

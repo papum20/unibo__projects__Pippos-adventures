@@ -228,18 +228,18 @@
 
 				//DEVE RIENTRARE NEL LIVELLO
 				if(width >= curRoom->getSize().x) position.x = curRoom->getSize().x / 2;
-				else if(cameraStart().x < 0) position.x = ceil(width / 2.) - 1;
+				else if(cameraStart().x < 0) position.x = Math::ceil(width / 2.) - 1;
 				else if(cameraEnd().x >= curRoom->getSize().x) position.x = curRoom->getSize().x - 1 -  width / 2;
 
 				if(height >= curRoom->getSize().y) position.y = curRoom->getSize().y / 2;
-				else if(cameraStart().y < 0) position.y = ceil(height / 2.) - 1;
+				else if(cameraStart().y < 0) position.y = Math::ceil(height / 2.) - 1;
 				else if(cameraEnd().y >= curRoom->getSize().y) position.y = curRoom->getSize().y - 1 - height / 2;
 		}
 
 	}
 
 	Coordinate Level::cameraStart() {
-		return Coordinate(position, Coordinate(ceil(curRoom->getSize().x / 2.) - 1, ceil(curRoom->getSize().y / 2.) - 1).getNegative());
+		return Coordinate(position, Coordinate(Math::ceil(curRoom->getSize().x / 2.) - 1, Math::ceil(curRoom->getSize().y / 2.) - 1).getNegative());
 	}
 	Coordinate Level::cameraEnd() {
 		return Coordinate(position, Coordinate(curRoom->getSize().x / 2, curRoom->getSize().y / 2));

@@ -1,16 +1,11 @@
 #ifndef ITEM_HPP
 #define ITEM_HPP
 
+#include "physical.hpp"
+#include <cstring>
+
 const int description_length=50;
 const int name_length=20;
-const int chest_width=3;
-const int chest_height=5;
-
-const char chest [chest_width][chest_height]=
-{ {' ', '_', '_', '_', ' '},
-  {'|', '-', 'o', '-', '|'},
-  {' ', '*', '*', '*', ' '}
-};
 
 const char common[]="Common";  
 const char rare[]="Rare";

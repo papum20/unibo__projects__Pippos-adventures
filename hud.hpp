@@ -1,9 +1,8 @@
 #ifndef HUD_HPP
 #define HUD_HPP
 
-#include <ncurses.h>
-#include "main.hpp"
 #include "pixel_art.hpp"
+#include <curses.h>
 
 using namespace std;
 

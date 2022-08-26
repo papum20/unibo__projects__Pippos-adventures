@@ -1,5 +1,4 @@
 #include "item.hpp"
-#include <cstring>
 
 item::item():Physical(){
     

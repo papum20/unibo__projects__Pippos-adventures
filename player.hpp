@@ -3,6 +3,7 @@
 
 #include "character.hpp"
 #include "door.hpp"
+#include "chest.hpp"
 
 const int idle_index = 0;
 const int move_right_index = 1;

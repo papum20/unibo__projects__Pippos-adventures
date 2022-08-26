@@ -21,10 +21,14 @@ class Chest: public Physical{
         pArtifact artefatto;
         pItem_def item_def;
         char type;
-        
+
         Chest(pWeapon w);
         Chest (pArtifact a);
         Chest (pItem_def d);
+
+        pWeapon open_w();
+        pArtifact open_a();
+        pItem_def open_d();
 };
 
 typedef Chest* pChest;

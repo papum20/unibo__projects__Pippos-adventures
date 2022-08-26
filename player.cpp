@@ -142,21 +142,30 @@ void Player::update(pInanimate map[], pCharacter characters[], Room room){
 void Player::collect_item(){
 	Coordinate newcoord;
 	newcoord=pos;
-	if (direction=='u'){
-		newcoord.y--;
-		add_item(room.checkPosition(newcoord));
+	Chest chest;
+	if (direction=='u'){			//calcolo la coordinata in cui cercare la chest in base all'orientamento del pg
+		newcoord.y=newcoord.y-p_height;
 	}
 	if (direction=='d'){
 		newcoord.y++;
-		add_item(room.checkPosition(newcoord));
 	}
 	if (direction=='l'){
 		newcoord.x--;
-		add_item(room.checkPosition(newcoord));
 	}
 	if (direction=='r'){
-		newcoord.x++;
-		add_item(room.checkPosition(newcoord));
+		newcoord.x=newcoord.x+p_width;
+	}
+	chest=map.checkChest(newcoord);				//cerco la chest
+	switch (chest.type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
+		case 'w':
+			add_item(chest.open_w());			//aggiungo l'arma all'inventario
+			break;
+		case 'a':
+			add_item(chest.open_a());			//aggiungo l'artefatto all'inventario
+			break;
+		case 'd'
+			add_item(chest.open_d());			//aggiungo l'item difensivo all'inventario
+			break;
 	}
 }
 

@@ -1,15 +1,14 @@
 #include "hud.hpp"
 
 
-Hud::Hud(WINDOW* win, int max_h, int max_s, int p){
+Hud::Hud(WINDOW* win, int max_h, int max_s){
     hud_win=win;
     getmaxyx(hud_win, y_win, x_win);
     max_health=max_h;
-    max_stamina=max_s;	
-    points=p;
+    max_stamina=max_s;
 }
 
-Hud::drawHud (int curr_health, int curr_st, int hearts){
+void Hud::drawHud (int curr_health, int curr_st, int hearts){
     int health_counter;             //serve a contare quanto della barra della vita colorare
     int stamina_counter;            //serve a contare quanto della barra della stamina colorare
     health_counter=(larghezza_blocchetto*n_blocchetti*curr_health)/max_health;       //formula per calcolare quanta vita "percentuale" ha il personaggio

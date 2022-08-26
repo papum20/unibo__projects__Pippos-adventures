@@ -334,8 +334,10 @@
 		for(s_coord i = 0; i < size.x / scale_x * size.y; i++) map[i] = this->map[i * scale_x];
 		size = this->size.getTimes(1. / scale_x, 1);
 	}
-	void Room::makeConnection(pRoom room, int dir) {
-		int dir2 = (dir + 2) % DIR_TOT;
-		room->makeConnection(this, dir2);
+	void Room::makeConnection(pRoom room, int dir, lock_type lt, bool first = true) {
+		if(room != NULL && first) {
+			int dir2 = (dir + 2) % DIR_TOT;
+			room->makeConnection(this, dir2, lt, false);
+		}
 	}
 #pragma endregion SET_GET

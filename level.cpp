@@ -61,9 +61,9 @@
 				pConnectedRoom adjacent_room = findRoomAtCoordinates(rooms, 1, nxt.getPos());
 				int adjacent_cell = available.find(nxt);
 				
-				if(adjacent_room != NULL) rooms[room]->makeConnection(adjacent_room, dir);					//se è una stanza, collegala a quella appena generata
-				else if(adjacent_cell != -1) available.increaseKey(nxt, RoomPosition(Coordinate(), 1));		//se era già presente come cella disponibile, aumentane il numero di stanze adiacenti
-				else available.insert(nxt);																	//altrimenti aggiungi la cella come disponibile
+				if(adjacent_room != NULL) rooms[room]->makeConnection(adjacent_room, dir, randLockedDoor(*rooms[room], *adjacent_room));	//se è una stanza, collegala a quella appena generata
+				else if(adjacent_cell != -1) available.increaseKey(nxt, RoomPosition(Coordinate(), 1));										//se era già presente come cella disponibile, aumentane il numero di stanze adiacenti
+				else available.insert(nxt);																									//altrimenti aggiungi la cella come disponibile
 			}
 		}
 		//avvia generazione di tutte le stanze
@@ -175,6 +175,9 @@
 
 #pragma region AUSILIARIE
 //// AUSILIARIE
+	lock_type Level::randLockedDoor(Room A, Room B) {
+		return rand() % LOCK_TYPES_N;
+	}
 	pConnectedRoom Level::findRoomAtCoordinates(pConnectedRoom rooms[], int len, Coordinate c) {
 		int i = 0;
 		pConnectedRoom res = NULL;

@@ -13,6 +13,14 @@ const Coordinate DIRECTIONS[DIR_TOT] = {{0,-1},{1,0},{0,1},{-1,0}};
 //per ogni indice i, DIR_CHANCES[i] è la probabilità di generare i percorsi a partire da un punto (nella generazione della stanza);
 //la prima posizione indica la probabilità di generare in 0 nuove direzioni (cioè di fermarsi)
 const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
+//COSTANTI PER MAKECONNECTION(): PER QUALI PORTE BLOCCARE CON CHIAVE
+#define LOCKED_DOORS_MAX 1		//massimo numero di porte bloccate da chiave in una stanza
+typedef char lock_type;
+#define LOCK_TYPES_N 4			//numero di stati
+#define LOCK_NONE	(lock_type)0
+#define LOCK_OWN	(lock_type)1
+#define LOCK_OTHER	(lock_type)2
+#define LOCK_BOTH	(lock_type)3
 
 
 #include "enemy.hpp"
@@ -71,9 +79,9 @@ class Room {
 		// GET
 		Coordinate getPos();
 		Coordinate getSize();
-		void getMap(pPhysical map[], Coordinate &size);				//modifica mappa, ritorna dimensioni
+		void getMap(pPhysical map[], Coordinate &size);										//modifica mappa, ritorna dimensioni
 		// SET
-		virtual void makeConnection(Room *room, int dir);			//collega l'altra stanza a questa
+		virtual void makeConnection(Room *room, int dir, lock_type lt, bool first = true);	//collega l'altra stanza a questa (se è connectedRoom), con stato bloccato lt; first inizializzato da solo
 };
 
 

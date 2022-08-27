@@ -8,7 +8,7 @@
 #include "weapon.hpp"
 #include "artifact.hpp"
 #include "item_difensivi.hpp"
-#include "equipment.hpp"
+#include "equipment/equipment.hpp"
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 

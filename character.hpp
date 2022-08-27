@@ -8,6 +8,7 @@
 #include "weapon.hpp"
 #include "artifact.hpp"
 #include "item_difensivi.hpp"
+#include "equipment.hpp"
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 
@@ -17,10 +18,10 @@ const int PATH_LENGTH;
 
 struct equipment {
 	pWeapon arma;
-	shield scudo;
-	necklace collana;
-	boots stivali;
-	armor armatura;
+	pShield scudo;
+	pNecklace collana;
+	pBoots stivali;
+	pArmor armatura;
 };
 
 class Character : public Physical {
@@ -39,16 +40,16 @@ class Character : public Physical {
 		int attack_counter;
 
 		//variabili di movimento
-
+		int idle_index;
 		int move_up_index;
 		int move_down_index;
 		int move_left_index;
 		int move_right_index;
-		
-		int attack_up_index;
-		int attack_down_index;
-		int attack_left_index;
-		int attack_right_index;
+
+		int attack_up_states;
+		int attack_down_states;
+		int attack_left_states;
+		int attack_right_states;
 		// ROOM
 		bool moveObject(pInanimate map[], Character *characters[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 

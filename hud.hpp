@@ -52,7 +52,7 @@ class Hud {
 		Pixel_art pix;
 
 	public:
-		Hud(WINDOW* win, int max_h, int max_s, int p);
+		Hud(WINDOW* win, int max_h, int max_s);
 		//costruttore
 		void drawHud(int curr_health, int curr_st, int hearts);		//disegna hud (in gioco)
 		//void startMenu();	//inizializza il menu (quando si preme il tasto pausa)

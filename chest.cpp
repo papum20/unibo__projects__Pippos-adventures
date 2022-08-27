@@ -1,5 +1,9 @@
 #include "chest.hpp"
 
+Chest::Chest(){
+    
+}
+
 Chest::Chest(pWeapon w){
     arma=w;
     type='w';

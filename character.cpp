@@ -23,11 +23,11 @@ bool Character::moveObject(pInanimate map[], pCharacter characters[], Coordinate
 }
 
 void Character::apply_equipment (){
-	danno_fisico=(equipaggiamento->arma)->danno_fisico;
-	danno_magico=(equipaggiamento->arma)->danno_magico;
+	danno_fisico=(equipaggiamento.arma)->danno_fisico;
+	danno_magico=(equipaggiamento.arma)->danno_magico;
 
-	difesa_fisica=(equipaggiamento->scudo)->difesa_fisica+(equipaggiamento->armatura).difesa_fisica+(equipaggiamento->stivali).difesa_fisica;
-	difesa_magica=(equipaggiamento->scudo)->difesa_magica+(equipaggiamento->armatura).difesa_magica+(equipaggiamento->collana).difesa_magica;
+	difesa_fisica=(equipaggiamento.scudo)->difesa_fisica+(equipaggiamento.armatura)->difesa_fisica+(equipaggiamento.stivali)->difesa_fisica;
+	difesa_magica=(equipaggiamento.scudo)->difesa_magica+(equipaggiamento.armatura)->difesa_magica+(equipaggiamento.collana)->difesa_magica;
 }
 
 //FUNZIONI MOVIMENTO
@@ -41,7 +41,7 @@ void Character::moveUp(pInanimate map[], pCharacter characters[]){
 	newpos.y--;
 	moveObject (map, characters, newpos);
 	if (current_animation==move_up_index){
-		animations[current_animation]=animation[current_animation]->next;
+		animations[current_animation]=animations[current_animation]->next;
 	}
 	else{
 		current_animation=move_up_index;
@@ -54,7 +54,7 @@ void Character::moveDown(pInanimate map[], pCharacter characters[]){
 	newpos.y++;
 	moveObject (map, characters, newpos);
 	if (current_animation==move_down_index){
-		animations[current_animation]=animation[current_animation]->next;
+		animations[current_animation]=animations[current_animation]->next;
 	}
 	else{
 		current_animation=move_down_index;
@@ -67,7 +67,7 @@ void Character::moveLeft(pInanimate map[], pCharacter characters[]){
 	newpos.x--;
 	moveObject (map, characters, newpos);
 	if (current_animation==move_left_index){
-		animations[current_animation]=animation[current_animation]->next;
+		animations[current_animation]=animations[current_animation]->next;
 	}
 	else{
 		current_animation=move_left_index;
@@ -80,7 +80,7 @@ void Character::moveRight(pInanimate map[], pCharacter characters[]){
 	newpos.x++;
 	moveObject (map, characters, newpos);
 	if (current_animation==move_right_index){
-		animations[current_animation]=animation[current_animation]->next;
+		animations[current_animation]=animations[current_animation]->next;
 	}
 	else{
 		current_animation=move_right_index;
@@ -96,22 +96,22 @@ void Character::initiate_attack (){
 	is_attacking=true;
 	switch (direction){
 		case 'u':
-			current_animation=attack_up_index;
+			current_animation=move_up_index;
 			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_up_index;
 			attack_counter=attack_up_states;
 			break;
 		case 'd':
-			current_animation=attack_down_index;
+			current_animation=move_down_index;
 			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_down_index;
 			attack_counter=attack_down_states;
 			break;
 		case 'r':
-			current_animation=attack_right_index;
+			current_animation=move_right_index;
 			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_right_index;
 			attack_counter=attack_right_states;
 			break;
 		case 'l':
-			current_animation=attack_left_index;
+			current_animation=move_left_index;
 			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_left_index;
 			attack_counter=attack_left_states;
 			break;

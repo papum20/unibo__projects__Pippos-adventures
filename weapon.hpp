@@ -5,7 +5,7 @@ using namespace std;
 
 #include "coordinate.hpp"
 #include "item.hpp"
-#include "character.hpp"
+//#include "character.hpp"
 
 
 const int WEAPON_ANIMATION_WIDTH = 10;
@@ -21,6 +21,7 @@ class Weapon : public item {
 		int danno_magico;
 		bool is_equipped;
 		char name[name_length];
+		bool is_melee;
 	public:
 		Weapon(int danno_f, int danno_m, const char rar[], const char n[], const char desc[]);
 

@@ -4,10 +4,10 @@
 
 #include <iostream>
 #include "animation.hpp"
-/*
+
 #define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
 										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
-*/
+
 
 #pragma region PHYSICAL_CONSTANTS
 #pragma region PHYSICAL_ANIMATIONS
@@ -76,12 +76,12 @@ class Physical {
 		Coordinate size;
 		int id;		//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
-		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
-		int current_animation;
+		p_Animation animations[MAX_ANIMATION]; //array di liste di array bidimensionali
 
 		//p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
 
 	public:
+		int current_animation;
 		Physical();
 		virtual void update(pMap map, char input);
 		virtual void destroy();
@@ -103,6 +103,7 @@ class Physical {
 		Coordinate getSpeed();				//velocità in caselle/secondo (float)
 		Coordinate lastFrameMovement();
 		void conflicts();
+		void next_animation();
 };
 
 typedef Physical *pPhysical;

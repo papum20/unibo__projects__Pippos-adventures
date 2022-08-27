@@ -3,60 +3,61 @@
 Player::Player():Character(p_max_health, p_max_stamina) {
 	n_hearts=start_lifes;
 	id=ID_PLAYER;
-	animations[idle_index] = new Animation(idle, p_height, p_width, idle_states);
+	animations[player_idle_index] = new Animation(idle, p_height, p_width, player_idle_states);
 	
-	animations[move_right_index] = new Animation(move_right, p_height, p_width, move_right_states);
-	animations[move_left_index] = new Animation(move_left, p_height, p_width, move_left_states);
-	animations[move_up_index] = new Animation(move_up, p_height, p_width, move_up_states);
-	animations[move_down_index] = new Animation(move_down, p_height, p_width, move_down_states);
+	animations[player_move_right_index] = new Animation(move_right, p_height, p_width, player_move_right_states);
+	animations[player_move_left_index] = new Animation(move_left, p_height, p_width, player_move_left_states);
+	animations[player_move_up_index] = new Animation(move_up, p_height, p_width, player_move_up_states);
+	animations[player_move_down_index] = new Animation(move_down, p_height, p_width, player_move_down_states);
 
-	animations[dash_up_index] = new Animation(dash_up, p_height, p_width, dash_up_states);
-	animations[dash_down_index] = new Animation(dash_down, p_height, p_width, dash_down_states);
-	animations[dash_left_index] = new Animation(dash_left, p_height, p_width, dash_left_states);
-	animations[dash_right_index] = new Animation(dash_right, p_height, p_width, dash_right_states);
+	animations[player_dash_up_index] = new Animation(dash_up, p_height, p_width, player_dash_up_states);
+	animations[player_dash_down_index] = new Animation(dash_down, p_height, p_width, player_dash_down_states);
+	animations[player_dash_left_index] = new Animation(dash_left, p_height, p_width, player_dash_left_states);
+	animations[player_dash_right_index] = new Animation(dash_right, p_height, p_width, player_dash_right_states);
 
-	/*animation[attack_up_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_up_states); 
-	animation[attack_down_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_down_states);
-	animation[attack_left_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_left_states);
-	animation[attack_right_index] = new Animation (attak_up, w_attack_height, w_attack_width, attack_right_states);
-	*/
+
+	idle_index=player_idle_index;
+	move_right_index=player_move_right_index;
+	move_left_index=player_move_left_index;
+	move_up_index=player_move_up_index;
+	move_down_index=player_move_down_index;
 
 	apply_equipment();
 	
 }
 
 void Player::change_weapon(pWeapon w){
-	(equipaggiamento->arma).is_equipped=false;
-	(equipaggiamento->arma)=w;
-	(equipaggiamento->arma).is_equipped=true;
+	(equipaggiamento.arma)->is_equipped=false;
+	(equipaggiamento.arma)=w;
+	(equipaggiamento.arma)->is_equipped=true;
 	apply_equipment();
 }
 
 void Player::change_necklace(pNeckalce n){
-	(equipaggiamento->collana).is_equipped=false;
-	(equipaggiamento->collana)=n;
-	(equipaggiamento->collana).is_equipped=true;
+	(equipaggiamento.collana).is_equipped=false;
+	(equipaggiamento.collana)=n;
+	(equipaggiamento.collana).is_equipped=true;
 	apply_equipment();
 }
 
 void Player::change_shield (pShield s){
-	(equipaggiamento->scudo).is_equipped=false;
-	(equipaggiamento->scudo)=s;
-	(equipaggiamento->scudo).is_equipped=true;
+	(equipaggiamento.scudo).is_equipped=false;
+	(equipaggiamento.scudo)=s;
+	(equipaggiamento.scudo).is_equipped=true;
 	apply_equipment();
 }
 
 void Player::change_armor (pArmatura a){
-	(equipaggiamento->armatura).is_equipped=false;
-	(equipaggiamento->armatura)=a;
-	(equipaggiamento->armatura).is_equipped=true;
+	(equipaggiamento.armatura)->is_equipped=false;
+	(equipaggiamento.armatura)=a;
+	(equipaggiamento.armatura)->is_equipped=true;
 	apply_equipment();
 }
 
 void Player::change_boots (pBoots b){
-	(equipaggiamento->stivali).is_equipped=false;
-	(equipaggiamento->stivali)=b;
-	(equipaggiamento->stivali).is_equipped=true;
+	(equipaggiamento.stivali)->is_equipped=false;
+	(equipaggiamento.stivali)=b;
+	(equipaggiamento.stivali)->is_equipped=true;
 	apply_equipment();
 }
 
@@ -87,8 +88,8 @@ void Player::update(pInanimate map[], pCharacter characters[], Room room){
 			}
 		}
 		else{
-			animation[current_animation]=animation[current_animation]->next;
-			equipaggiamento.arma->animation[equipaggiamento.arma->current_animation]=(equipaggiamento.arma->animation[equipaggiamento.arma->current_animation])->next;
+			next_animation();
+			equipaggiamento.arma->next_animation();
 			attack_counter--;
 		}
 	else{
@@ -117,20 +118,20 @@ void Player::update(pInanimate map[], pCharacter characters[], Room room){
 			case 'c':{
 				collect_item();
 			}
-			case ctrl(w):{
+			case ctrl('w'):{
 				direction='u';
 				initiate_attack();
 			}
-			case ctrl(a):{
+			case ctrl('a'):{
 				direction='l';
 				initiate_attack();
 				
 			}
-			case ctrl(d):{
+			case ctrl('d'):{
 				direction='r';
 				initiate_attack();
 			}
-			case ctrl(s):{
+			case ctrl('s'):{
 				direction='d';
 				initiate_attack();
 			}
@@ -163,7 +164,7 @@ void Player::collect_item(){
 		case 'a':
 			add_item(chest.open_a());			//aggiungo l'artefatto all'inventario
 			break;
-		case 'd'
+		case 'd':
 			add_item(chest.open_d());			//aggiungo l'item difensivo all'inventario
 			break;
 	}

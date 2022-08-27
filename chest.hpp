@@ -21,7 +21,7 @@ class Chest: public Physical{
         pArtifact artefatto;
         pItem_def item_def;
         char type;
-
+        Chest();
         Chest(pWeapon w);
         Chest (pArtifact a);
         Chest (pItem_def d);

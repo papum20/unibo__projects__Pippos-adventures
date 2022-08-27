@@ -5,25 +5,25 @@
 #include "door.hpp"
 #include "chest.hpp"
 
-const int idle_index = 0;
-const int move_right_index = 1;
-const int move_left_index = 2;
-const int move_up_index = 3;
-const int move_down_index = 4;
-const int dash_up_index = 5;
-const int dash_down_index = 6;
-const int dash_left_index = 7;
-const int dash_right_index = 8;
+const int player_idle_index = 0;
+const int player_move_right_index = 1;
+const int player_move_left_index = 2;
+const int player_move_up_index = 3;
+const int player_move_down_index = 4;
+const int player_dash_up_index = 5;
+const int player_dash_down_index = 6;
+const int player_dash_left_index = 7;
+const int player_dash_right_index = 8;
 
-const int idle_states = 1;
-const int move_right_states = 2;
-const int move_up_states = 2;
-const int move_down_states = 2;
-const int move_left_states = 2;
-const int dash_up_states = 1;
-const int dash_down_states = 1;
-const int dash_left_states = 1;
-const int dash_right_states = 1;
+const int player_idle_states = 1;
+const int player_move_right_states = 2;
+const int player_move_up_states = 2;
+const int player_move_down_states = 2;
+const int player_move_left_states = 2;
+const int player_dash_up_states = 1;
+const int player_dash_down_states = 1;
+const int player_dash_left_states = 1;
+const int player_dash_right_states = 1;
 
 const int p_width = 3;
 const int p_height = 3;
@@ -36,7 +36,7 @@ const char idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{'-', 'O', '-' },
 	{'/', ' ', '\\'}} //se sono di più si mette qua la virgola e poi si rifà {}
 };
-const char move_right[move_right_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char move_right[player_move_right_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'A' , ' '},
 	{'-', 'O', '-' },
 	{'/', '|', ' '}
@@ -47,7 +47,7 @@ const char move_right[move_right_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{'/', '|', ' '}
 	}
 };
-const char move_left[move_left_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char move_left[player_move_left_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'A' , ' ' },
 	{'-', 'O',  '-' },
 	{' ', '|',  '\\'}
@@ -58,7 +58,7 @@ const char move_left[move_left_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{' ',  '|', '\\'}
 	}
 };
-const char move_up[move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char move_up[player_move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'A' , ' ' },
 	{'-', 'O',  '-' },
 	{'/', ' ',  '\\'}
@@ -69,7 +69,7 @@ const char move_up[move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{'/',  '|', '\\'}
 	}
 };	
-const char move_down[move_down_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char move_down[player_move_down_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'A' , ' ' },
 	{'-', 'O',  '-' },
 	{'/',' ',  '\\'}
@@ -126,14 +126,6 @@ const int mv_right=KEY_RIGHT;
 
 const int MAX_ARTIFACTS=10;
 
-struct equipment {
-	pWeapon arma;
-	shield scudo;
-	necklace collana;
-	boots stivali;
-	armor armatura;
-};
-
 class Player : public Character {
 	private:
 	protected:
@@ -142,8 +134,6 @@ class Player : public Character {
 
 		pArtifact artifacts[MAX_ARTIFACTS];
 		int curr_artifact;
-		
-		equipment equipaggiamento;
 
 	public:
 		Player();
@@ -157,6 +147,13 @@ class Player : public Character {
 		void add_item(pWeapon w);
 		void add_item(pItem_def w);
 		void add_item(pArtifact w);
+
+		void change_weapon(pWeapon w);
+		void change_necklace (pNeckalce n);
+		void change_armor (pArmor a);
+		void change_boots (pBoots b);
+		void change_shield (pShield s);
+
 
 		void change_points(int delta);
 		pDoor usedDoor();				//porta usata, NULL se non sta usando una porta

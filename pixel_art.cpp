@@ -130,6 +130,26 @@ void Pixel_art::convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, ch
             if(ALPHABET[27][i][j]==1)
                 mvwprintw(menu, i + start_y, j + start_x, " ");
         }
+        else if((int)c==49){
+            if(ALPHABET[28][i][j]==1)
+                mvwprintw(menu, i + start_y, j + start_x, " ");
+        }
+        else if((int)c==50){
+            if(ALPHABET[29][i][j]==1)
+                mvwprintw(menu, i + start_y, j + start_x, " ");
+        }
+        else if((int)c==51){
+            if(ALPHABET[30][i][j]==1)
+                mvwprintw(menu, i + start_y, j + start_x, " ");
+        }
+        else if((int)c==52){
+            if(ALPHABET[31][i][j]==1)
+                mvwprintw(menu, i + start_y, j + start_x, " ");
+        }
+        else if((int)c==53){
+            if(ALPHABET[32][i][j]==1)
+                mvwprintw(menu, i + start_y, j + start_x, " ");
+        }
     }
     }
     wattroff(menu, COLOR_PAIR(1));

@@ -7,7 +7,7 @@ Physical::Physical() {
         id = ID_DEFAULT;
 
         //inizializza animation
-        for(int i = 0; i < MAX_ANIMATION; i++) 
+        for(int i = 0; i < MAX_ANIMATIONS; i++) 
             animations[i] = NULL;
     }
 

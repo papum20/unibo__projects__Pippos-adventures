@@ -16,6 +16,9 @@
 #define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT)
 #define ROOM_AREA (ROOM_WIDTH * ROOM_HEIGHT)
 #define CENTRAL_ROOM_SIZE 8							//dimensioni dello spazio vuoto quadrato al centro
+//CONNECTED ROOM
+#define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
+#define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
 #pragma endregion ROOM_DEFINITIONS
 
 #endif

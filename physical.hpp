@@ -3,6 +3,7 @@
 
 
 #include <iostream>
+#include "animation.hpp"
 
 #define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
 										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
@@ -10,7 +11,7 @@
 
 #pragma region PHYSICAL_CONSTANTS
 #pragma region PHYSICAL_ANIMATIONS
-const int ANIMATION_WIDTH = 6;
+/*const int ANIMATION_WIDTH = 6;
 const int ANIMATION_HEIGHT = 5;
 //struttura della lista degli array dell'animazione del player
 struct Animation{
@@ -20,9 +21,8 @@ struct Animation{
 	int width;
 };
 typedef Animation *p_Animation;
-
-const int MAX_ANIMATION = 6;
-
+*/
+const int MAX_ANIMATIONS = 6;
 #pragma endregion PHYSICAL_ANIMATIONS
 
 // ID
@@ -66,6 +66,7 @@ const int MAX_ANIMATION = 6;
 #include "cell.hpp"
 #include "coordinate.hpp"
 #include "definitions.hpp"
+#include "map.hpp"
 
 
 
@@ -77,12 +78,12 @@ class Physical {
 
 		p_Animation animations[MAX_ANIMATION]; //array di liste di array bidimensionali
 
-		p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
+		//p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
 
 	public:
 		int current_animation;
 		Physical();
-		//virtual void update(pPhysical map[], char input);
+		virtual void update(pMap map, char input);
 		virtual void destroy();
 
 		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra

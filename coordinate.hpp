@@ -29,12 +29,12 @@ class Coordinate {
 	public:
 		float x, y;
 
-		Coordinate();															//x,y = 0,0
-		Coordinate(float x, float y);											//estremi: 0,0; 1,1
-		Coordinate(float x, float y, Coordinate size);							//estremi: 0,0; size
-		Coordinate(float x, float y, float sx, float sy, float ex, float ey);	//dichiarazione completa, con tutti gli estremi
-		Coordinate(s_coord xy, Coordinate size);								//crea a partire da singola coordinata						
-		Coordinate(const Coordinate a, const Coordinate b);						//crea come somma e con estremi del primo
+		Coordinate();													//x,y = 0,0
+		Coordinate(float x, float y);									//estremi: 0,0; 1,1
+		Coordinate(float x, float y, Coordinate size);					//estremi: 0,0; size
+		Coordinate(Coordinate pos, Coordinate start, Coordinate end);	//dichiarazione completa, con tutti gli estremi
+		Coordinate(s_coord xy, Coordinate size);						//crea a partire da singola coordinata						
+		Coordinate(const Coordinate a, const Coordinate b);				//crea come somma e con estremi del primo
 
 		//BOOL
 		bool inBounds(Coordinate mn, Coordinate mx);					//ritorna true se xmin<=x<xmax && ymin<=y<ymax
@@ -54,7 +54,7 @@ class Coordinate {
 
 		//SET
 		void setMatrix(Coordinate size);								//imposta l'estremo finale come estremo iniziale + size; non imposta una coordinata se <=0 (può anche impostarne solo una)
-		void setFullMatrix(float sx, float sy, float ex, float ey);		//non imposta se <0 o start >= end (imposta solo i valori validi)
+		void setFullMatrix(Coordinate start, Coordinate end);			//non imposta se <0 o start >= end (imposta solo i valori validi)
 		//GET
 		int intx();										//coordinate intere
 		int inty();

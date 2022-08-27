@@ -5,10 +5,6 @@
 #define CONNECTED_ROOM_HPP
 
 
-#define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
-#define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
-
-
 #include "door.hpp"
 #include "room.hpp"
 

@@ -3,13 +3,14 @@
 
 
 #include <iostream>
+#include "animation.hpp"
 /*
 #define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
 										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
 */
 
 #pragma region PHYSICAL_CONSTANTS
-#pragma region PHYSICAL_ANIMATIONS
+/*#pragma region PHYSICAL_ANIMATIONS
 const int ANIMATION_WIDTH = 6;
 const int ANIMATION_HEIGHT = 5;
 //struttura della lista degli array dell'animazione del player
@@ -23,7 +24,7 @@ typedef Animation *p_Animation;
 
 const int MAX_ANIMATION = 6;
 
-#pragma endregion PHYSICAL_ANIMATIONS
+#pragma endregion PHYSICAL_ANIMATIONS*/
 
 // ID
 #pragma region PHYSICAL_IDS
@@ -79,7 +80,7 @@ class Physical {
 		p_Animation animations[MAX_ANIMATION]; //array di liste di array bidimensionali
 		int current_animation;
 
-		p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
+		//p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
 
 	public:
 		Physical();

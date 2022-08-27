@@ -193,8 +193,13 @@ void Map::update_all(char input) {
 		else return NULL;
 	}
 	pCharacter Map::checkCharacter(Coordinate pos) {
-		if(pos.inBounds(Coordinate(0, 0), size) && characters[pos.single()]->isCharacter())
+		if(pos.inBounds(Coordinate(0, 0), size) && characters[pos.single()] != NULL)
 			return characters[pos.single()];
+		else return NULL;
+	}
+	pChest Map::checkChest(Coordinate pos) {
+		if(pos.inBounds(Coordinate(0, 0), size) && chests[pos.single()] != NULL)
+			return chests[pos.single()];
 		else return NULL;
 	}
 	pDoor Map::checkDoor(Coordinate pos) {

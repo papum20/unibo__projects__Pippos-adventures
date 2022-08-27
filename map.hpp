@@ -57,6 +57,7 @@ class Map {
 		// CHECK
 		pPhysical checkPosition(Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 		pCharacter checkCharacter(Coordinate pos);				//ritorna l'oggetto (puntatore) character
+		pChest checkChest(Coordinate pos);						//ritorna l'oggetto (puntatore) chest
 		pDoor checkDoor(Coordinate pos);						//ritorna l'oggetto (puntatore) door
 		pPhysical checkLine(Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso)
 		pCharacter checkLineCharacter(Coordinate start, Coordinate end);

@@ -5,8 +5,8 @@
 #include "character.hpp"
 #include "weapon.hpp"
 
-const int ANIMATION_WIDTH = 20;
-const int ANIMATION_HEIGHT = 20;
+const int ENEMY_ANIMATION_WIDTH = 20;
+const int ENEMY_ANIMATION_HEIGHT = 20;
 
 //ha una sottoclasse per ogni tipo di nemico
 

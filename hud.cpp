@@ -61,7 +61,7 @@ void Hud::drawHud (int curr_health, int curr_st, int hearts){
     //disegno il numero di cuori
     x_cursor=x_cursor+barra_colonne+10;
     y_cursor=2;
-    pix.convert_char_to_pixel(hud_win, x_cursor, y_cursor, char(hearts+48));
+    pix.convert_char_to_pixel(hud_win, x_cursor, y_cursor, char(hearts+48), false);
 
     //disegno il cuore
     x_cursor=x_cursor+2+5;                                          //5 larghezza lettera                                               
@@ -69,7 +69,7 @@ void Hud::drawHud (int curr_health, int curr_st, int hearts){
     wattron(hud_win, COLOR_PAIR(4));                                //nota per me, scritte rosse sfondo nero
     for (int i=0; i<heart_rows; i++){
         for (int j=0; j<heart_columns; j++){
-            mvwaddch(game_window, y_cursor, x_cursor, cuore[i][j]);
+            mvwaddch(hud_win, y_cursor, x_cursor, cuore[i][j]);
             x_cursor++;
         }
         x_cursor=x_cursor-heart_columns;
@@ -80,7 +80,7 @@ void Hud::drawHud (int curr_health, int curr_st, int hearts){
     //disegno lettera per l'inventario
     x_cursor=x_cursor+heart_columns+distance;
     y_cursor=2;
-    pix.convert_char_to_pixel (hud_win, x_cursor, y_cursor, 'N');
+    pix.convert_char_to_pixel (hud_win, x_cursor, y_cursor, 'N', false);
 
     //disegno l'inventario
     x_cursor=x_cursor+2+5;

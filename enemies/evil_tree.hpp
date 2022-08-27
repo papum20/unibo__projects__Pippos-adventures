@@ -1,7 +1,21 @@
 #ifndef EVIL_TREE_HPP
 #define EVIL_TREE_HPP
 
-const char tree_idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+#include "enemy.hpp"
+
+const int tree_idle_index=0;
+const int tree_move_up_index=1;
+const int tree_move_down_index=2;
+const int tree_move_right_index=3;
+const int tree_move_left_index=4;
+
+const int tree_idle_states=1;
+const int tree_move_left_states=2;
+const int tree_move_up_states=2;
+const int tree_move_right_states=2;
+const int tree_move_down_states=2;
+
+const char tree_idle[tree_idle_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\','o','|','o','/',char(39),' '},
@@ -13,7 +27,7 @@ const char tree_idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 };
 
-const char tree_mv_left[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char tree_move_left[tree_move_left_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\','o','|',' ','/',char(39),' '},
@@ -33,7 +47,7 @@ const char tree_mv_left[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 };
 
-const char tree_mv_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char tree_move_right[tree_move_right_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\',' ','|','o','/',char(39),' '},
@@ -54,7 +68,7 @@ const char tree_mv_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 };
 
 
-const char tree_mv_up[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char tree_move_up[tree_move_up_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\',' ',' ',' ','/',char(39),' '},
@@ -74,7 +88,7 @@ const char tree_mv_up[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 };
 
-const char tree_mv_down[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char tree_move_down[tree_move_down_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\','o','|','o','/',char(39),' '},

@@ -18,6 +18,7 @@ class item: public Physical{
         char rarity[15];
         char description[description_length];
 
+    public:
         //variabili di movimento
         int move_up_index;
 		int move_down_index;
@@ -28,7 +29,6 @@ class item: public Physical{
 		int attack_down_index;
 		int attack_left_index;
 		int attack_right_index;
-    public:
         item ();
         item(const char rar[], const char desc[]);
 

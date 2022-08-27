@@ -25,6 +25,10 @@ void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordina
     drawAtPosition(scr, win_start, pos);
 }
 
+void Physical::next_animation(){
+    animations[current_animation]=animations[current_animation]->next;
+}
+
 
 
 #pragma region BOOL_GET_SET

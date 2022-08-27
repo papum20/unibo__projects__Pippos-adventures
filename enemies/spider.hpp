@@ -1,7 +1,21 @@
 #ifndef SPIDER_HPP
 #define SPIDER_HPP
 
-const char spider_idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+#include "enemy.hpp"
+
+const int spider_idle_index=0;
+const int spider_move_up_index=1;
+const int spider_move_down_index=2;
+const int spider_move_left_index=3;
+const int spider_move_right_index=4;
+
+const int spider_idle_states=1;
+const int spider_move_up_states=3;
+const int spider_move_down_states=3;
+const int spider_move_left_states=3;
+const int spider_move_right_states=3;
+
+const char spider_idle[1][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{'/','/',' ',' ',' ','\\','\\'},
 	{'\\','\\','(',' ',')','/','/'},
@@ -11,7 +25,7 @@ const char spider_idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 };
 
-const char spider_mv_left[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char spider_move_left[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{' ',' ',' ',' ','_',' ',' '},
 	{' ',' ',' ','(','_',')',' '},
@@ -33,7 +47,7 @@ const char spider_mv_left[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 };
 
-const char spider_mv_right[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char spider_move_right[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{' ',' ','_',' ',' ',' ',' '},
 	{' ','(','_',')',' ',' ',' '},
@@ -55,7 +69,7 @@ const char spider_mv_right[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	}
 
 };
-const char spider_mv_up[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char spider_move_up[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{'/','/',' ',' ',' ','\\','\\'},
 	{'\\','\\','(',' ',')','/','/'},
@@ -76,7 +90,7 @@ const char spider_mv_up[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	}
 
 };
-const char spider_mv_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
+const char spider_move_down[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 {
 	{'/','/','-','-','-','\\','\\'},
 	{'\\','\\',' ',' ',' ','/','/'},

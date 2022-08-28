@@ -4,9 +4,79 @@
 #include "weapon.hpp"
 #include "projectile.hpp"
 
-const int bow_states = 3;
+const int bow_movement_states=1;
+const int bow_attack_states=3;
 
-const char bow_attack_right[bow_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=6
+const int bow_up_index=0;
+const int bow_down_index=1;
+const int bow_left_index=2;
+const int bow_right_index=3;
+const int bow_attack_up_index=4;
+const int bow_attack_down_index=5;
+const int bow_attack_left_index=6;
+const int bow_attack_right_index=7;
+
+const int bow_height=8;
+const int bow_width=9;
+
+const int bow_horizontal_attack_height=3;
+const int bow_horizontal_attack_width=6;
+
+const char bow_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+
+{   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+	{' ','/', '|', 'm', ' ', ' ', ' ', ' ', ' '},
+    {' ',')', '|', '-', ' ', ' ', ' ', ' ', ' '},
+	{' ','\\', '|', ' ', ' ', ' ', ' ', ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	}
+};
+
+const char bow_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+
+{   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', ' ', ' ', 'm', '|', '\\', ' '},
+    {' ',' ', ' ', ' ', ' ', '-', '|', '(', ' '},
+	{' ',' ', ' ', ' ', ' ', ' ', '|', '/', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	}
+};
+
+
+const char bow_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+
+{   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', '/', 'V', '\\', ' ', ' ', ' '},
+	{' ',' ', ' ', '-', ' ', '-', ' ', ' ', ' '},
+    {' ',' ', ' ', '<', '|', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	}
+};
+
+const char bow_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+
+{   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', ' ', ' ', 'm', ' ', ' ', ' '},
+    {' ',' ', ' ', ' ', ' ', '>', ' ', ' ', ' '},
+	{' ',' ', ' ', '-', '-', '-', ' ', ' ', ' '},
+	{' ', ' ' , ' ','\\','A','/', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	}
+};
+
+
+const char bow_attack_right[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=6
 
 {   {'\\', ' ', ' ', ' ', '/', '\\'},
 	{' ', '(', ' ', '-', '(', ' ' },
@@ -24,7 +94,7 @@ const char bow_attack_right[bow_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//he
 	}
 };
 
-const char bow_attack_left[bow_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=6
+const char bow_attack_left[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=6
 
 {   {'/', '\\', ' ', ' ', ' ', '/'},
 	{' ', ')', '-', ' ', ')', ' ' },
@@ -42,18 +112,71 @@ const char bow_attack_left[bow_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//hei
 	}
 };
 
-const char bow_idle_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=3
-{   {'/', '|', ' '},
-	{')', '|', '-'},
-	{'\\', '|', ' '}
+const char bow_attack_up[bow_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+
+{   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ',' ','/', ' ', '\\', ' ', ' ', ' '},
+    {' ',' ',' ','\\',' ', '/', '/', ' ', ' '},
+	{' ',' ',' ','<', ' ', ')', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	},
+
+{   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', 'A', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', '/', '|', '\\', ' ', ' ', ' '},
+	{' ',' ', ' ', '\\', ' ', '/', ' ', ' ', ' '},
+    {' ',' ', ' ', '<', ' ','>', ' ', ' ', ' '},
+	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	},
+{   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ',' ','/', 'V', '\\', ' ', ' ', ' '},
+    {' ',' ',' ','-',' ', '-', ' ', ' ', ' '},
+	{' ',' ',' ','<', ' ', '>', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	}
+
+};
+
+const char bow_attack_down[bow_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+
+{   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ','\\',' ', ' ', ' ', ' ', ' ', ' '},
+    {' ',' ',' ','(',' ', 'm', ' ', ' ', ' '},
+	{' ',' ',' ','m', ' ', '>', ' ', ' ', ' '},
+	{' ',' ',' ','/', 'A', '\\', ' ', ' ', ' '},
+	{' ',' ' ,' ','\\',' ','/',' ' ,' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	},
+
+{   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ',' ', ' ', 'm', ' ', ' ', ' '},
+    {' ',' ', ' ', ' ', ' ', '>', ' ', ' ', ' '},
+	{' ',' ',' ', '/', ' ','\\',' ', ' ', ' '},
+	{' ', ' ' , ' ','\\','|','/', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ','V',' ', ' ' , ' ', ' '}
+	},
+{   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+    {' ',' ',' ',' ',' ', 'm', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', '>', ' ', ' ', ' '},
+	{' ',' ',' ','-', '-', '-', ' ', ' ', ' '},
+	{' ', ' ' , ' ','\\','A','/', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
 	}
 };
-const char bow_idle_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=3
-{   {' ', '|', '\\'},
-	{' ', '|', '('},
-	{' ', '|', '/'}
-	}
-};
+
 
 class Arco: public Weapon{
     protected:

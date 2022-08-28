@@ -1,5 +1,7 @@
-#ifndef ROOM_PRIORITY_QUEUE_HPP
-#define ROOM_PRIORITY_QUEUE_HPP
+//// DA USARE COME PUNTATORE
+
+#ifndef PRIORITY_QUEUE_ROOM_HPP
+#define PRIORITY_QUEUE_ROOM_HPP
 
 
 #include <iostream>
@@ -15,23 +17,28 @@
 
 
 
-class RoomPriorityQueue : public PriorityQueue {
+class PriorityQueueRoom : public PriorityQueue {
 	private:
-		RoomPosition data[HEAP_SIZE_MAX];
+		pRoomPosition data[HEAP_SIZE_MAX];
+
+		void swap(int a, int b);
 
 	public:
-		RoomPriorityQueue();
-		RoomPriorityQueue(int compareSign);
+		PriorityQueueRoom();
+		PriorityQueueRoom(int compareSign);
+		void destroy();
 
 		void insert(RoomPosition x);
+		void remove(RoomPosition x);
+
 		RoomPosition random();
 		RoomPosition unevenRandom();
 
 		// EREDITATI
-		//void remove(RoomPosition x);
 		//int find(RoomPosition x, int i = 0);
 		//void increaseKey(RoomPosition x, RoomPosition incr);
 };
+typedef PriorityQueue *pPriorityQueue;
 
 
 #endif

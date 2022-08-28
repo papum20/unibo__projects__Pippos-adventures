@@ -8,6 +8,10 @@
 		this->pos = pos;
 		this->connected = connected;
 	}
+	void RoomPosition::copy(RoomPosition rp) {
+		pos = rp.pos;
+		connected = rp.connected;
+	}
 		
 	int RoomPosition::compareTo(RoomPosition B) {
 		if(connected > B.connected) return 1;

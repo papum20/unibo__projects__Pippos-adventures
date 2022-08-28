@@ -1,7 +1,6 @@
 /*
-	LE SOTTOCLASSI POSSONO MEMORIZZARE DATI AGGIUNTIVI DI ALTRO TIPO (CLASSE) USANDO UN ARRAY AGGIUNTIVO data[];
-	GLI OGGETTI DELL'HEAP GLI RIMANGONO ASSOCIATI ATTRAVERSO L'ARRRAY linked[], CHE SI AGGIORNA INSIEME a heap[]
-	E MANTIENE L'INDICE A CUI È COLLEGATO IN data[].
+	LE SOTTOCLASSI POSSONO MEMORIZZARE DATI AGGIUNTIVI DI ALTRO TIPO (CLASSE) USANDO UN ARRAY AGGIUNTIVO data[]
+	CHE MEMORIZZA PUNTATORI AD ESSI
 */
 
 #ifndef PRIORITY_QUEUE_HPP
@@ -11,7 +10,7 @@
 #include <iostream>
 #include "comparable.hpp"
 #include "definitions.hpp"
-#include "structure.hpp"
+//#include "structure.hpp"
 
 
 #define HEAP_SIZE_MAX ROOM_AREA			//deve contenere un "quadrato" di N_ROOMS e uno di ROOM_AREA
@@ -20,17 +19,15 @@
 #define UNEVEN_RAND_CHANCE 2			//usato come probabilità in generateMap()
 
 
-class PriorityQueue : public Structure {
+class PriorityQueue {
 	private:
 		pComparable heap[HEAP_SIZE_MAX];
-		int linked[HEAP_SIZE_MAX];
-		//class data[HEAP_SIZE_MAX];		//array da definire nelle sottoclassi con eventuali dati aggiuntivi
+		//p_class data[HEAP_SIZE_MAX];		//array da definire nelle sottoclassi con eventuali dati aggiuntivi
 		int size;
 		int compareSign;					//risultato di compareTo, se applicato tra padre e figlio
 
 		void fix(int i);
 
-		void swap(int a, int b);
 		int left(int i);					//figlio sinistro
 		int right(int i);
 		int parent(int i);
@@ -39,9 +36,11 @@ class PriorityQueue : public Structure {
 	protected:
 		int unevenRandom_index();			//ritorna l'indice ottenuto con unevenRandom
 
+		void removeAt(int ind);				//rimuove da un certo indice 
+		virtual void swap(int a, int b);
+
 		bool isFull();
 		int getSize();
-		int getLinked(int index);			//ritorna linked[index]
 
 	public:
 		PriorityQueue();

@@ -60,7 +60,7 @@ const int ENEMIES_CHANCE_TOT[LEVELS_N] = {1};
 #include "definitions.hpp"
 #include "enemies/enemies.hpp"
 #include "player.hpp"
-#include "room_priority_queue.hpp"
+#include "priority_queue_room.hpp"
 #include "timer.hpp"
 
 

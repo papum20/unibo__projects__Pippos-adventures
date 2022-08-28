@@ -2,13 +2,15 @@
 
 
 
-	PriorityQueue::PriorityQueue() : Structure() {
+	PriorityQueue::PriorityQueue() {
 		PriorityQueue(COMPARE_SIGN_DFLT);
 	}
-	PriorityQueue::PriorityQueue(int compareSign) : Structure() {
-		for(int i = 0; i < HEAP_SIZE_MAX; i++) heap[i] = NULL;
+	PriorityQueue::PriorityQueue(int compareSign) {
 		size = 0;
 		this->compareSign = compareSign;
+	}
+	void PriorityQueue::destroy() {
+		for(int i = 0; i < size; i++) delete heap[i];
 	}
 
 
@@ -17,14 +19,16 @@
 	void PriorityQueue::insert(pComparable x) {
 		if(size < HEAP_SIZE_MAX) {
 			heap[size] = x;
-			linked[size] = size;
 			fix(size);
 			size++;
 		}
 	}
 	void PriorityQueue::remove(Comparable x) {
 		int ind = find(x);
-		if(ind != -1) {
+		removeAt(ind);
+	}
+	void PriorityQueue::removeAt(int ind) {
+		if(ind >= 0 && ind < size) {
 			swap(ind, size - 1);
 			delete heap[size];
 			size--;
@@ -61,9 +65,6 @@
 	Comparable PriorityQueue::unevenRandom() {
 		return *heap[unevenRandom_index()];
 	}
-	void PriorityQueue::destroy() {
-		for(int i = 0; i < size; i++) delete heap[i];
-	}
 #pragma endregion HEAP_PRINCIPALI
 
 
@@ -95,12 +96,9 @@
 		}
 	}
 	void PriorityQueue::swap(int a, int b) {
-		pComparable t1 = heap[a];
+		pComparable tmp = heap[a];
 		heap[a] = heap[b];
-		heap[b] = t1;
-		int t2 = linked[a];
-		linked[a] = linked[b];
-		linked[b] = t2;
+		heap[b] = tmp;
 	}
 	int PriorityQueue::left(int i) {
 		return i * 2 + 1;
@@ -117,8 +115,5 @@
 	}
 	int PriorityQueue::getSize() {
 		return size;
-	}
-	int PriorityQueue::getLinked(int index) {
-		return linked[index];
 	}
 #pragma endregion HEAP_AUSILIARIE

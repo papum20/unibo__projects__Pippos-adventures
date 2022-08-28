@@ -1,12 +1,12 @@
 #include "queue_coordinate.hpp"
 
 
-Queue::Queue() {
+QueueCoordinate::QueueCoordinate() {
 	head = NULL;
 	tail = NULL;
 	size = 0;
 }
-void Queue::destroy() {
+void QueueCoordinate::destroy() {
 	while(head != NULL) {
 		coord_pointer tmp = head;
 		head = head->next;
@@ -14,7 +14,7 @@ void Queue::destroy() {
 	}
 }
 
-void Queue::push(Coordinate c) {
+void QueueCoordinate::push(Coordinate c) {
 	if(head == NULL) {
 		head = new coord_pointer_t;
 		tail = head;
@@ -26,7 +26,7 @@ void Queue::push(Coordinate c) {
 	tail->next = NULL;
 	size++;
 }
-Coordinate Queue::pop() {
+Coordinate QueueCoordinate::pop() {
 	coord_pointer tmp = head->next;
 	Coordinate res = head->c;
 	delete head;
@@ -36,9 +36,9 @@ Coordinate Queue::pop() {
 	return res;
 }
 
-int Queue::getSize() {
+int QueueCoordinate::getSize() {
 	return size;
 }
-bool Queue::isEmpty() {
+bool QueueCoordinate::isEmpty() {
 	return (size == 0);
 }

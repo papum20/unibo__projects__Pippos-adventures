@@ -44,11 +44,48 @@ void Map::update_all(char input) {
 	} while(!i.equals(Coordinate(0, 0)));
 }
 
+int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B) {
+	if(A.equals(B) || !A.inBounds(Coordinate(0, 0), size)) return 0;
+	else {
+		Coordinate prev[ROOM_AREA];	//ogni cella contiene quella da cui si proviene (per il percorso più breve)
+		int dist[ROOM_AREA];		//distanza (più breve) di ogni cella da A
+		for(int i = 0; i < ROOM_AREA; i++) dist[i] = -1;
+		dist[A.single()] = 0;
+
+		int length = 0;
+		QueueCoordinate Q = QueueCoordinate();
+		Q.push(A);
+		bool reached = false;
+		do {
+			Coordinate cur = Q.pop();
+			if(cur.equals(B)) reached = true;
+			else {
+				for(int d = 0; d < DIRECTIONS_N; d++) {
+					Coordinate nxt = Coordinate(cur, DIRECTIONS[d]);
+					if(dist[nxt.single()] == -1 && physical[nxt.single()]->getId() == ID_FLOOR) {
+						prev[nxt.single()] = cur;
+						dist[nxt.single()] = dist[cur.single()] + 1;
+						Q.push(nxt);
+						length = dist[nxt.single()];
+					}
+				}
+			}
+		} while(!reached && !Q.isEmpty());
+
+		if(dist[B.single()] != -1) {
+			path[length - 1] = B;
+			for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single()];
+			Q.destroy();
+			return length;
+		} else return -1;
+	}
+}
+
 #pragma region AUSILIARIE
 	Coordinate Map::getDoorEntrance(Coordinate doorCenter) {
 		Coordinate res;
 		int d = 0;
-		while(d < DIR_TOT) {
+		while(d < DIRECTIONS_N) {
 			if(!Coordinate(doorCenter, DIRECTIONS[d]).inBounds(Coordinate(0, 0), size))
 				res = Coordinate(doorCenter, DIRECTIONS[d].getNegative());
 			else d++;
@@ -180,7 +217,6 @@ void Map::update_all(char input) {
 	}
 #pragma endregion AUSILIARIE_PRINCIPALI
 #pragma endregion AUSILIARIE
-
 
 #pragma endregion GENERATION
 

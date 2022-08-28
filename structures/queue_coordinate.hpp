@@ -14,14 +14,14 @@ struct coord_pointer_t {
 typedef coord_pointer_t *coord_pointer;
 
 
-class Queue {
+class QueueCoordinate {
 	private:
 		coord_pointer head;
 		coord_pointer tail;
 		int size;
 
 	public:
-		Queue();
+		QueueCoordinate();
 		void destroy();				//fa il delete di tutti i puntatori
 
 		void push(Coordinate c);	//inserisce

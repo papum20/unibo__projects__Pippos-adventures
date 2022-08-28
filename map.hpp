@@ -9,6 +9,7 @@
 #include "definitions.hpp"
 #include "door.hpp"
 #include "floor.hpp"
+#include "structures/queue_coordinate.hpp"
 #include "wall.hpp"
 
 
@@ -51,8 +52,10 @@ class Map {
 		Map(int scale_x, pInanimate floorInstance, pInanimate wallInstance);
 		void destroy();
 		void update_all(char input);
-		void generate(); 										//genera uno schema randomico per i muri, inserendoli nella map
+		void generate(); 													//genera uno schema randomico per i muri, inserendoli nella map
 		void generate_with_doors();
+		int shortestPath(Coordinate path[], Coordinate A, Coordinate B);
+		//ritorna il percorso più breve da A a B, modificando path con i passi da seguire e ritornandone la lunghezza (B incluso, A escluso); ritorna -1 se impossibile
 
 		// CHECK
 		pPhysical checkPosition(Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)

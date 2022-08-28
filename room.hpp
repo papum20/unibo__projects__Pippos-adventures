@@ -7,12 +7,12 @@
 
 
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)
-#define DIR_TOT 4
+#define DIRECTIONS_N 4
 //define DIR_COORD 2
-const Coordinate DIRECTIONS[DIR_TOT] = {{0,-1},{1,0},{0,1},{-1,0}};
+const Coordinate DIRECTIONS[DIRECTIONS_N] = {{0,-1},{1,0},{0,1},{-1,0}};
 //per ogni indice i, DIR_CHANCES[i] è la probabilità di generare i percorsi a partire da un punto (nella generazione della stanza);
 //la prima posizione indica la probabilità di generare in 0 nuove direzioni (cioè di fermarsi)
-const int DIR_CHANCES[DIR_TOT + 1] = {5, 20, 10, 3, 1};
+const int DIR_CHANCES[DIRECTIONS_N + 1] = {5, 20, 10, 3, 1};
 //COSTANTI PER MAKECONNECTION(): PER QUALI PORTE BLOCCARE CON CHIAVE
 #define LOCKED_DOORS_MAX 1		//massimo numero di porte bloccate da chiave in una stanza
 typedef char lock_type;

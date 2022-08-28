@@ -1,7 +1,7 @@
+//// CLASSE PADRE CHE AMMETTE CONFRONTI
+
 #ifndef COMPARABLE_HPP
 #define COMPARABLE_HPP
-
-
 
 
 class Comparable {

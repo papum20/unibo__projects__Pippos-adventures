@@ -1,9 +1,10 @@
-#ifndef PRIORITY_QUEUE_HPP
-#define PRIORITY_QUEUE_HPP
+#ifndef ROOM_PRIORITY_QUEUE_HPP
+#define ROOM_PRIORITY_QUEUE_HPP
 
 
+#include <iostream>
 #include "definitions.hpp"
-#include "iostream"
+#include "priority_queue.hpp"
 #include "room_position.hpp"
 
 
@@ -14,29 +15,22 @@
 
 
 
-class RoomPriorityQueue {
+class RoomPriorityQueue : public PriorityQueue {
 	private:
-		RoomPosition heap[HEAP_SIZE_MAX];
-		int size;
-		int compareSign;					//risultato di compareTo, se applicato tra padre e figlio
-
-		void fix(int i);
-		void swap(int a, int b);
-		int left(int i);					//figlio sinistro
-		int right(int i);
-		int parent(int i);
+		RoomPosition data[HEAP_SIZE_MAX];
 
 	public:
 		RoomPriorityQueue();
 		RoomPriorityQueue(int compareSign);
 
 		void insert(RoomPosition x);
-		void remove(RoomPosition x);			//se ce ne sono di più uguali, rimuove il primo che trova
-		int find(RoomPosition x, int i = 0);	//ritorna l'indice in heap, -1 se non trovato, il primo che trova se ce ne sono diversi
-		void increaseKey(RoomPosition x, RoomPosition incr);
+		RoomPosition random();
+		RoomPosition unevenRandom();
 
-		RoomPosition random();					//ritorna un elemento random con uguali probabilità
-		RoomPosition unevenRandom();			//random con probabilità diverse
+		// EREDITATI
+		//void remove(RoomPosition x);
+		//int find(RoomPosition x, int i = 0);
+		//void increaseKey(RoomPosition x, RoomPosition incr);
 };
 
 

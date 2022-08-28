@@ -1,5 +1,6 @@
 #include "level.hpp"
 
+
 #pragma region MAIN
 	Level::Level(int win_y, int win_x, int win_h, int win_w, pPlayer player) {
 		width = CAMERA_WIDTH;
@@ -73,6 +74,8 @@
 				spawnInRoom(rooms[i]);
 			}
 		}
+
+		available.destroy();
 	}
 	void Level::spawnInRoom(pConnectedRoom room) {
 		for(int i = 0; i < ENEMIES_N[level]; i++)

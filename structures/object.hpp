@@ -4,7 +4,17 @@
 #define OBJECT_HPP
 
 
-class Object;
+#define DFLT_UNIQUE_ID 0
+
+
+class Object {
+	private:
+		int unique_id;
+	public:
+		Object();
+		Object(int unique_id);
+		int getUniqueId();
+};
 
 
 #endif

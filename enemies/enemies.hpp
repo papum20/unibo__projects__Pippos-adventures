@@ -7,7 +7,6 @@
 #define N_ENEMIES 1
 
 
-#include "bat.hpp"
 
 
 #endif

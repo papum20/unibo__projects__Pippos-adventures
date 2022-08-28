@@ -1,5 +1,6 @@
 #include "level.hpp"
 
+
 #pragma region MAIN
 	Level::Level(int win_y, int win_x, int win_h, int win_w, pPlayer player) {
 		width = CAMERA_WIDTH;
@@ -31,7 +32,7 @@
 		for(int i = 0; i < ROOM_AREA; i++) map[i] = NULL;
 		//posizioni disponibili (allo stesso tempo) per la generazione di una nuova stanza, quindi adiacenti a una già presente
 		//implementato come min-heap; il terzo campo sono le stanze adiacenti, usate per confronto
-		RoomPriorityQueue available(-1);
+		PriorityQueueRoom available(-1);
 		//stanze generate
 		pConnectedRoom rooms[N_ROOMS];
 		for(int i = 1; i < N_ROOMS; i++) rooms[i] = NULL;
@@ -73,6 +74,8 @@
 				spawnInRoom(rooms[i]);
 			}
 		}
+
+		available.destroy();
 	}
 	void Level::spawnInRoom(pConnectedRoom room) {
 		for(int i = 0; i < ENEMIES_N[level]; i++)

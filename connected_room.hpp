@@ -37,10 +37,10 @@ class ConnectedRoom : public Room {
 		bool addLockedDoor();														//aggiunge una porta bloccata, se non superano il massimo (costante); ritorna true se ha successo
 		// GET
 		pRoom getRoomInPosition(Coordinate pos);				//ritorna il puntatore alla stanza collegata da una porta in posizione pos
-		pRoom getRoomInDirection(int dir);						//ritorna il puntatore alla stanza collegata nella direzione
+		//pRoom getRoomInDirection(int dir);						//ritorna il puntatore alla stanza collegata nella direzione
 
 		//pDoor getDoorInPosition(Coordinate pos);
-		pDoor getDoorToRoom(ConnectedRoom *room);				//ritorna il puntatore alla porta che collega alla stanza, se esiste
+		//pDoor getDoorToRoom(ConnectedRoom *room);				//ritorna il puntatore alla porta che collega alla stanza, se esiste
 //		int getSideDoors();				//ritorna il numero di lati occupati da una porta (attualmente)
 		int getLockedDoors();									//ritorna il numero di porte che richiedono chiave (anche se sbloccate)
 };

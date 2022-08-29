@@ -175,10 +175,10 @@
 			return res;
 		}
 	}
-	pRoom ConnectedRoom::getRoomInDirection(int dir) {
+	/*pRoom ConnectedRoom::getRoomInDirection(int dir) {
 		if(dir < 0 || dir >= MAX_SIDES_R || map->getDoorInIndex(dir) == NULL) return NULL;
 		else return connected[dir];
-	}
+	}*/
 	/*pRoom ConnectedRoom::getRoomInPosition(Coordinate pos) {
 			return findDoor(pos)->getConnected();
 	}
@@ -196,7 +196,7 @@
 		if(!found) return NULL;
 		else return doors[d];
 	}*/
-	pDoor ConnectedRoom::getDoorToRoom(pConnectedRoom room) {
+	/*pDoor ConnectedRoom::getDoorToRoom(pConnectedRoom room) {
 		if(room != NULL) {
 			bool found = false;
 			int d = 0;
@@ -209,7 +209,7 @@
 			else return map->getDoorInIndex(d);
 		}
 		else return NULL;
-	}
+	}*/
 /*	int Room::getSideDoors() {
 		return n_doors_sides;
 	}*/

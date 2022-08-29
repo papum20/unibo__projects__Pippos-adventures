@@ -40,8 +40,8 @@
 		this->curRoom = rooms[0];
 		map[curRoom->getPos().single()] = curRoom;
 		//aggiungi ad available le posizioni adiacenti alla prima stanza
-		int r = rand() % DIR_TOT;
-		for(int i = 0; i < DIR_TOT; i++) available.insert(RoomPosition(DIRECTIONS[(r+i)%4], 1));
+		int r = rand() % DIRECTIONS_N;
+		for(int i = 0; i < DIRECTIONS_N; i++) available.insert(RoomPosition(DIRECTIONS[(r+i)%4], 1));
 
 		//genera le altre stanze
 		for(int room = 1; room < N_ROOMS; room++)
@@ -54,10 +54,10 @@
 			map[new_pos.getPos().single()] = rooms[room];
 
 			//aggiorna stanze adiacenti e celle disponibili
-			r = rand() % DIR_TOT;
-			for(int j = 0; j < DIR_TOT; j++)
+			r = rand() % DIRECTIONS_N;
+			for(int j = 0; j < DIRECTIONS_N; j++)
 			{
-				int dir = (r+j) % DIR_TOT;															//direzione corrente (indice)
+				int dir = (r+j) % DIRECTIONS_N;															//direzione corrente (indice)
 				RoomPosition nxt = RoomPosition(Coordinate(DIRECTIONS[dir], new_pos.getPos()), 1);	//posizione da controllare
 				pConnectedRoom adjacent_room = findRoomAtCoordinates(rooms, 1, nxt.getPos());
 				int adjacent_cell = available.find(nxt);

@@ -54,8 +54,9 @@ class Map {
 		void update_all(char input);
 		void generate(); 													//genera uno schema randomico per i muri, inserendoli nella map
 		void generate_with_doors();
-		int shortestPath(Coordinate path[], Coordinate A, Coordinate B);
-		//ritorna il percorso più breve da A a B, modificando path con i passi da seguire e ritornandone la lunghezza (B incluso, A escluso); ritorna -1 se impossibile
+		int shortestPath(Coordinate path[], Coordinate A, Coordinate B, pPhysical obj = NULL);
+		//ritorna il percorso più breve da A a B, modificando path con i passi da seguire e ritornandone la lunghezza (B incluso, A escluso); ritorna -1 se impossibile;
+		//se si vuole il percorso per un oggetto physical, usare il campo obj (altrimenti non serve): permette di calcolare anche il percorso che passi attraverso l'oggetto
 
 		// CHECK
 		pPhysical checkPosition(Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)

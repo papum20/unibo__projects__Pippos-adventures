@@ -44,7 +44,7 @@ void Map::update_all(char input) {
 	} while(!i.equals(Coordinate(0, 0)));
 }
 
-int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B) {
+int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pPhysical obj = NULL) {
 	if(A.equals(B) || !A.inBounds(Coordinate(0, 0), size)) return 0;
 	else {
 		Coordinate prev[ROOM_AREA];	//ogni cella contiene quella da cui si proviene (per il percorso più breve)
@@ -62,7 +62,7 @@ int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B) {
 			else {
 				for(int d = 0; d < DIRECTIONS_N; d++) {
 					Coordinate nxt = Coordinate(cur, DIRECTIONS[d]);
-					if(dist[nxt.single()] == -1 && physical[nxt.single()]->getId() == ID_FLOOR) {
+					if(dist[nxt.single()] == -1 && (physical[nxt.single()]->getId() == ID_FLOOR || physical[nxt.single()] == obj)) {
 						prev[nxt.single()] = cur;
 						dist[nxt.single()] = dist[cur.single()] + 1;
 						Q.push(nxt);

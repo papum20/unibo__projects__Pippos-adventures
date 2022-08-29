@@ -32,7 +32,8 @@ class Map {
 		pInanimate wallInstance;
 
 		// FUNZIONI AUSILIARIE
-		Coordinate getDoorEntrance(Coordinate doorCenter);		//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
+		Coordinate getDoorEntrance(Coordinate doorCenter);						//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
+		bool inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj);	//se obj si trova in A
 		// FUNZIONI AUSILIARIE PRINCIPALI (GENERAZIONE)
 		void generateSidesWalls();
 		void generateInnerRoom();
@@ -54,12 +55,12 @@ class Map {
 		void update_all(char input);
 		void generate(); 													//genera uno schema randomico per i muri, inserendoli nella map
 		void generate_with_doors();
-		int shortestPath(Coordinate path[], Coordinate A, Coordinate B, int max_dist = -1, pPhysical obj = NULL);
+		int shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, int max_dist = -1, pPhysical obj[ROOM_AREA] = {}, int obj_n = 0);
 		//ritorna il percorso più breve da A a B, modificando path con i passi da seguire e ritornandone la lunghezza (B incluso, A escluso); ritorna -1 se impossibile;
-		//se si vuole il percorso per un oggetto physical, usare il campo obj (altrimenti non serve): permette di calcolare anche il percorso che passi attraverso l'oggetto;
+		//se si vuole il percorso per un oggetto physical, o che passi per un oggetto, usare il campo obj (altrimenti non serve): permette di calcolare anche il percorso che passi attraverso essi; obj_n sono le dimensioni di obj;
 		//il parametro max_dist, se usato, permette di trovare solo percorsi non lunghi più di max_dist (se max_dist<0 si considera lunghezza infinita)
-		int shortestPathToPhysical(Coordinate path[], Coordinate A, pPhysical target, int dist = 1, pPhysical obj = NULL);
-		//shortestPath per arrivare a distanza dist da un oggetto (minimo 1); obj è l'oggetto che si muove, se c'è
+		int shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysical B, int dist = 1, pPhysical obj[ROOM_AREA] = {}, int obj_n = 0);
+		//shortestPath per far arrivare un oggetto A a distanza dist da un oggetto B (minimo 1); usare obj per gli oggetti attraverso cui si può passare
 
 		// CHECK
 		pPhysical checkPosition(Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)

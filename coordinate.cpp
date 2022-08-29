@@ -107,10 +107,16 @@
 		if(start.x < end.x) {
 			startx = start.x;
 			endx = end.x;
+		} else {
+			startx = end.x;
+			endx = start.x;
 		}
 		if(start.y < end.y) {
 			starty = start.y;
 			endy = end.y;
+		} else {
+			starty = end.y;
+			endy = start.y;
 		}
 	}
 

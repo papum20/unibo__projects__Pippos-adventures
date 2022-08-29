@@ -9,6 +9,10 @@
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)
 #define DIRECTIONS_N 4
 //define DIR_COORD 2
+#define DIRECTION_UP 0
+#define DIRECTION_RIGHT 1
+#define DIRECTION_DOWN 2
+#define DIRECTION_LEFT 3
 const Coordinate DIRECTIONS[DIRECTIONS_N] = {{0,-1},{1,0},{0,1},{-1,0}};
 //per ogni indice i, DIR_CHANCES[i] è la probabilità di generare i percorsi a partire da un punto (nella generazione della stanza);
 //la prima posizione indica la probabilità di generare in 0 nuove direzioni (cioè di fermarsi)

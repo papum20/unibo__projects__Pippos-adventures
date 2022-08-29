@@ -42,6 +42,7 @@ class Coordinate {
 		//bool inBoundsX(float xmin, float xmax);						//se x compreso, estremi inclusi
 		//bool inBoundsY(float ymin, float ymax);
 		bool equals(Coordinate B);										//se hanno stessi x e y
+		bool lessEqual(Coordinate B);									//se x e y < B.x e B.y
 		//bool equalsDirection(Coordinate B);							//se hanno la stessa direzione
 		//EDIT
 		Coordinate negative();											//modifica e ritorna l'opposto (-x, -y)
@@ -54,7 +55,7 @@ class Coordinate {
 
 		//SET
 		void setMatrix(Coordinate size);								//imposta l'estremo finale come estremo iniziale + size; non imposta una coordinata se <=0 (può anche impostarne solo una)
-		void setFullMatrix(Coordinate start, Coordinate end);			//non imposta se <0 o start >= end (imposta solo i valori validi)
+		void setFullMatrix(Coordinate start, Coordinate end);			//si può usare un qualsiasi rettangolo, con vertici qualsiasi; non imposta se <0(imposta solo i valori validi)
 		//GET
 		int intx();										//coordinate intere
 		int inty();

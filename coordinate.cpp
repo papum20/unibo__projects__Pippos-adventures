@@ -50,6 +50,9 @@
 	bool Coordinate::equals(Coordinate B) {
 		return x == B.x && y == B.y;
 	}
+	bool Coordinate::lessEqual(Coordinate B) {
+		return x <= B.x && y <= B.y;
+	}
 	//bool Coordinate::equalsDirection(Coordinate B) {
 	//	float proportion_b_y = B.x * y / x;
 	//	return proportion_b_y == B.y;

@@ -3,7 +3,7 @@
 #include <cstring> 
 #include "item_difensivi.hpp"
 
-class boots: public item_difensivi{
+class boots: public item_difensivo{
     protected:
 
     public:

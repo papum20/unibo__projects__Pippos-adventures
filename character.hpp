@@ -53,8 +53,6 @@ class Character : public Physical {
 		// ROOM
 		bool moveObject(pInanimate map[], Character *characters[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 
-		char direction;					// u sopra, d sotto, l sinistra, r destra
-
 		equipment equipaggiamento;
 
 		pWeapon weapons[W_NUMBER];
@@ -63,6 +61,8 @@ class Character : public Physical {
 		pItem_def defensive_items[DEF_NUMBER];
 		int last_def;
 	public:
+		char direction;					// u sopra, d sotto, l sinistra, r destra
+
 		Character();
 		Character(int maxH, int maxS);
 		
@@ -85,7 +85,7 @@ class Character : public Physical {
 
 		void initiate_attack();
 		void calculate_damage();
-		void calculate_loss(pCharacter c);
+		int calculate_loss(pCharacter c);
 		
 };
 

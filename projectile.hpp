@@ -26,7 +26,7 @@ class Projectile: public Physical{
     public:
         Projectile (Weapon w, p_Animation animazioni[]);
 
-        void cast_direction (Character c, int d);
+        void cast_direction (Character c);
 };
 
 typedef Projectile *pProjectile;

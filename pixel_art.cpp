@@ -8,7 +8,6 @@ Pixel_art::Pixel_art() {
 }
 
 void Pixel_art::convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, char c, bool highlight){
-
     for(int i=0; i < 5; i++){
         for(int j = 0; j < 5; j++){
             if(highlight==false){

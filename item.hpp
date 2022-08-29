@@ -17,7 +17,7 @@ class item: public Physical{
         bool rune_applied;
         char rarity[15];
         char description[description_length];
-
+        char name[20];
     public:
         //variabili di movimento
         int move_up_index;
@@ -30,7 +30,8 @@ class item: public Physical{
 		int attack_left_index;
 		int attack_right_index;
         item ();
-        item(const char rar[], const char desc[]);
+        item (const char n[], const char desc[]);
+        item(const char rar[], const char n[], const char desc[]);
 
         bool check_rarity();
 

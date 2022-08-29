@@ -20,8 +20,6 @@ item_difensivo::item_difensivo(int dif_f, int dif_m, const char rar[], const cha
         difesa_magica_iniziale=difesa_magica/4;
     }
     is_equipped=false;
-
-    strcpy (name, n);
 }
 
 void item_difensivo::apply_rune(){

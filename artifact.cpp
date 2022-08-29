@@ -1,5 +1,5 @@
 #include "artifact.hpp"
 
-Artifact::Artifact():item(){
+Artifact::Artifact(const char n[], const char desc[]):item(n, desc){
 
 }

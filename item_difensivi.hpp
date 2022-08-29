@@ -5,13 +5,12 @@
 
 class item_difensivo: public item{
     protected:
+    public:
         int difesa_fisica_iniziale;
         int difesa_fisica;
         int difesa_magica_iniziale;
         int difesa_magica;
         bool is_equipped;
-        char name[name_length];
-    public:
         item_difensivo(int dif_f, int dif_m, const char rar[], const char n[], const char desc[]);
 
         void apply_rune();

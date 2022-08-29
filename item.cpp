@@ -4,10 +4,16 @@ item::item():Physical(){
     
 }
 
-item::item(const char rar[], const char desc[]){
+item::item(const char n[], const char desc[]){
+    strcpy (name, n);
+    strcpy (description, desc);
+}
+
+item::item(const char rar[], const char n[], const char desc[]){
     rune_applied=false;
     strcpy (rarity, rar);
     strcpy(description, desc);
+    strcpy (name, n);
 }
 
 bool item::check_rarity(){

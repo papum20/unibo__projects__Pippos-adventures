@@ -22,8 +22,6 @@ Weapon::Weapon (int danno_f, int danno_m, const char rar[], const char n[], cons
     }
 
     is_equipped=false;
-
-    strcpy (name, n);
 }
 
 

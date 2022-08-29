@@ -19,10 +19,9 @@ class Weapon : public item {
 		int danno_magico_iniziale;
 		int danno_fisico;
 		int danno_magico;
-		bool is_equipped;
-		char name[name_length];
-		bool is_melee;
 	public:
+		bool is_melee;
+		bool is_equipped;
 		Weapon(int danno_f, int danno_m, const char rar[], const char n[], const char desc[]);
 
 		void apply_rune();

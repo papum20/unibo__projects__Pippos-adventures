@@ -79,5 +79,6 @@ class Menu : public Pixel_art {
       
 };      
 
+typedef Menu* pMenu;
 
 #endif

@@ -9,7 +9,7 @@ class Life_elixir:public Artifact {
     protected:
         int life_added;                     //numero di vite che si aggiungono al player
     public:
-        Life_elixir();
+        Life_elixir(const char n[], const char desc[]);
         
         void use_item (pPlayer p);         //metodo che aggiunge una vita al player
 };

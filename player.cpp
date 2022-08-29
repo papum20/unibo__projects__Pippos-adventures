@@ -1,8 +1,12 @@
 #include "player.hpp"
 
-Player::Player():Character(p_max_health, p_max_stamina) {
+Player::Player(InputManager in, Menu m):Character(p_max_health, p_max_stamina) {
+	in_manager=in;
+	menu=m;
+
 	n_hearts=start_lifes;
 	id=ID_PLAYER;
+
 	animations[player_idle_index] = new Animation(idle, p_height, p_width, player_idle_states);
 	
 	animations[player_move_right_index] = new Animation(move_right, p_height, p_width, player_move_right_states);
@@ -33,21 +37,21 @@ void Player::change_weapon(pWeapon w){
 	apply_equipment();
 }
 
-void Player::change_necklace(pNeckalce n){
-	(equipaggiamento.collana).is_equipped=false;
+void Player::change_necklace(pNecklace n){
+	(equipaggiamento.collana)->is_equipped=false;
 	(equipaggiamento.collana)=n;
-	(equipaggiamento.collana).is_equipped=true;
+	(equipaggiamento.collana)->is_equipped=true;
 	apply_equipment();
 }
 
 void Player::change_shield (pShield s){
-	(equipaggiamento.scudo).is_equipped=false;
+	(equipaggiamento.scudo)->is_equipped=false;
 	(equipaggiamento.scudo)=s;
-	(equipaggiamento.scudo).is_equipped=true;
+	(equipaggiamento.scudo)->is_equipped=true;
 	apply_equipment();
 }
 
-void Player::change_armor (pArmatura a){
+void Player::change_armor(pArmor a){
 	(equipaggiamento.armatura)->is_equipped=false;
 	(equipaggiamento.armatura)=a;
 	(equipaggiamento.armatura)->is_equipped=true;
@@ -62,10 +66,10 @@ void Player::change_boots (pBoots b){
 }
 
 
-void Player::update(pInanimate map[], pCharacter characters[], Room room){
+void Player::update(pInanimate map[], pCharacter characters[], pMap mappa){
 	if (is_attacking)
 		if (attack_counter==1){
-			if ((equipaggiamento.arma).is_melee)
+			if ((equipaggiamento.arma)->is_melee)
 				calculate_damage();
 			is_attacking=false;
 			switch (direction){
@@ -93,7 +97,8 @@ void Player::update(pInanimate map[], pCharacter characters[], Room room){
 			attack_counter--;
 		}
 	else{
-		int input=Input_manager::get_input(); 
+		int input;
+		input=in_manager.get_input();
 		switch (input){
 			case KEY_UP:{
 				moveUp(map, characters);
@@ -112,11 +117,11 @@ void Player::update(pInanimate map[], pCharacter characters[], Room room){
 				break;
 			}
 			case 'n':{
-				open_inventary();
+				menu.open();
 				break;
 			}
 			case 'c':{
-				collect_item();
+				collect_item(mappa);
 			}
 			case ctrl('w'):{
 				direction='u';
@@ -140,10 +145,10 @@ void Player::update(pInanimate map[], pCharacter characters[], Room room){
 
 }
 
-void Player::collect_item(){
+void Player::collect_item(pMap mappa){
 	Coordinate newcoord;
 	newcoord=pos;
-	Chest chest;
+	pChest chest;
 	if (direction=='u'){			//calcolo la coordinata in cui cercare la chest in base all'orientamento del pg
 		newcoord.y=newcoord.y-p_height;
 	}
@@ -156,16 +161,16 @@ void Player::collect_item(){
 	if (direction=='r'){
 		newcoord.x=newcoord.x+p_width;
 	}
-	chest=map.checkChest(newcoord);				//cerco la chest
-	switch (chest.type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
+	chest=mappa->checkChest(newcoord);				//cerco la chest
+	switch (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
 		case 'w':
-			add_item(chest.open_w());			//aggiungo l'arma all'inventario
+			add_item(chest->open_w());			//aggiungo l'arma all'inventario
 			break;
 		case 'a':
-			add_item(chest.open_a());			//aggiungo l'artefatto all'inventario
+			add_item(chest->open_a());			//aggiungo l'artefatto all'inventario
 			break;
 		case 'd':
-			add_item(chest.open_d());			//aggiungo l'item difensivo all'inventario
+			add_item(chest->open_d());			//aggiungo l'item difensivo all'inventario
 			break;
 	}
 }

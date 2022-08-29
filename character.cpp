@@ -118,15 +118,16 @@ void Character::initiate_attack (){
 	}
 }
 
-void Character::calculate_damage(){
+/*void Character::calculate_damage(){
 	pCharacter defender;
 	defender=check_enemy_melee();
 	if (defender!=NULL && defender.id!=id){
 		defender->changeCurrentHealth(calculate_loss(defender));
 	}
 }
+*/
 
-pCharacter Character::check_enemy_melee(){
+/*pCharacter Character::check_enemy_melee(){
 	Coordinate start, end;
 	switch (direction){
 		case 'u':
@@ -141,8 +142,9 @@ pCharacter Character::check_enemy_melee(){
 	
 	return (checkLine(start, end));
 }
+*/
 
-void Character::calculate_loss(pCharacter c){
+int Character::calculate_loss(pCharacter c){
 	return ( -(danno_fisico-(c->difesa_fisica/2)) + (danno_magico-(c->difesa_magica/2)));
 }
 

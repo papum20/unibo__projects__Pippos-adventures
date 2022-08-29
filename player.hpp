@@ -4,6 +4,8 @@
 #include "character.hpp"
 #include "door.hpp"
 #include "chest.hpp"
+#include "inputmanager.hpp"
+#include "menu.hpp"
 
 const int player_idle_index = 0;
 const int player_move_right_index = 1;
@@ -134,22 +136,23 @@ class Player : public Character {
 
 		pArtifact artifacts[MAX_ARTIFACTS];
 		int curr_artifact;
-
+		InputManager in_manager;
+		Menu menu;
 	public:
-		Player();
+		Player(InputManager in, Menu m);
 	
 		void update(pInanimate map[], pCharacter characters[]);
 
 		void modify_lifes (int delta);
 
-		void collect_item();
+		void collect_item(pMap mappa);
 
 		void add_item(pWeapon w);
 		void add_item(pItem_def w);
 		void add_item(pArtifact w);
 
 		void change_weapon(pWeapon w);
-		void change_necklace (pNeckalce n);
+		void change_necklace (pNecklace n);
 		void change_armor (pArmor a);
 		void change_boots (pBoots b);
 		void change_shield (pShield s);

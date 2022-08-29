@@ -44,7 +44,7 @@ void Map::update_all(char input) {
 	} while(!i.equals(Coordinate(0, 0)));
 }
 
-int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pPhysical obj = NULL) {
+int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, int max_dist = -1, pPhysical obj = NULL) {
 	if(A.equals(B) || !A.inBounds(Coordinate(0, 0), size)) return 0;
 	else {
 		Coordinate prev[ROOM_AREA];	//ogni cella contiene quella da cui si proviene (per il percorso più breve)
@@ -70,7 +70,7 @@ int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pP
 					}
 				}
 			}
-		} while(!reached && !Q.isEmpty());
+		} while(!reached && (max_dist < 0 || length <= max_dist) && !Q.isEmpty());
 
 		if(dist[B.single()] != -1) {
 			path[length - 1] = B;
@@ -80,6 +80,10 @@ int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pP
 		} else return -1;
 	}
 }
+int shortestPathToPhysical(Coordinate path[], Coordinate A, pPhysical target, int dist = 1, pPhysical obj = NULL) {
+	
+}
+
 
 #pragma region AUSILIARIE
 	Coordinate Map::getDoorEntrance(Coordinate doorCenter) {

@@ -33,7 +33,7 @@ void Player::change_weapon(pWeapon w){
 	apply_equipment();
 }
 
-void Player::change_necklace(pNeckalce n){
+void Player::change_necklace(pNecklace n){
 	(equipaggiamento.collana).is_equipped=false;
 	(equipaggiamento.collana)=n;
 	(equipaggiamento.collana).is_equipped=true;

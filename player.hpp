@@ -149,7 +149,7 @@ class Player : public Character {
 		void add_item(pArtifact w);
 
 		void change_weapon(pWeapon w);
-		void change_necklace (pNeckalce n);
+		void change_necklace (pNecklace n);
 		void change_armor (pArmor a);
 		void change_boots (pBoots b);
 		void change_shield (pShield s);

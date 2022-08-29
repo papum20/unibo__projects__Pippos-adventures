@@ -44,17 +44,18 @@ void Map::update_all(char input) {
 	} while(!i.equals(Coordinate(0, 0)));
 }
 
-int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B) {
+int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pPhysical obj = NULL) {
 	if(A.equals(B) || !A.inBounds(Coordinate(0, 0), size)) return 0;
 	else {
-		Coordinate prev[ROOM_AREA];	//ogni cella contiene quella da cui si proviene (per il percorso più breve)
-		int dist[ROOM_AREA];		//distanza (più breve) di ogni cella da A
+		int length = 0;
+		Coordinate prev[ROOM_AREA];				//ogni cella contiene quella da cui si proviene (per il percorso più breve)
+		int dist[ROOM_AREA];					//distanza (più breve) di ogni cella da A
+		QueueCoordinate Q = QueueCoordinate();	//posizioni da cui visitare quelle adiacenti
+
 		for(int i = 0; i < ROOM_AREA; i++) dist[i] = -1;
 		dist[A.single()] = 0;
-
-		int length = 0;
-		QueueCoordinate Q = QueueCoordinate();
 		Q.push(A);
+
 		bool reached = false;
 		do {
 			Coordinate cur = Q.pop();
@@ -62,7 +63,7 @@ int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B) {
 			else {
 				for(int d = 0; d < DIRECTIONS_N; d++) {
 					Coordinate nxt = Coordinate(cur, DIRECTIONS[d]);
-					if(dist[nxt.single()] == -1 && physical[nxt.single()]->getId() == ID_FLOOR) {
+					if(dist[nxt.single()] == -1 && ((obj == NULL && physical[nxt.single()]->getId() == ID_FLOOR) || isLegalMove(obj, nxt)) ) {
 						prev[nxt.single()] = cur;
 						dist[nxt.single()] = dist[cur.single()] + 1;
 						Q.push(nxt);
@@ -80,6 +81,57 @@ int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B) {
 		} else return -1;
 	}
 }
+int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysical B, int dist_min = 1, int dist_max = 1) {
+	if(A == NULL || B == NULL) return 0;
+	else {
+		if(dist_min < 1) dist_min = 1;
+		if(dist_max < dist_min) dist_max = dist_min;
+
+		int length = 0;
+		Coordinate prev[ROOM_AREA];				//ogni cella contiene quella da cui si proviene (per il percorso più breve)
+		int dist[ROOM_AREA];					//distanza (più breve) di ogni cella da A
+		QueueCoordinate Q = QueueCoordinate();	//posizioni da cui visitare quelle adiacenti
+		
+		for(int i = 0; i < ROOM_AREA; i++) dist[i] = -1;
+		dist[A->getPosition().single()] = 0;
+		Q.push(A->getPosition());
+
+		bool reached = false;
+		Coordinate res;
+		do {
+			Coordinate start = Q.pop();							//vertice in basso a sinistra occupato dall'oggetto
+			Coordinate end = Coordinate(start, A->getSize());	//vertice in alto a destra
+			if(	//controlla i rettangoli in tutte le direzioni (cioè controlla di trovare B nel rettangolo lungo dist_max e non in quello lungo dist_min)
+				(findRectangle(B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x, start.y + dist_max)) && !findRectangle(B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x, start.y + dist_min - 1))) ||	//basso
+				(findRectangle(B, Coordinate(start.x - 1, end.y), Coordinate(start.x - dist_max, start.y)) 				&& !findRectangle(B, Coordinate(start.x - 1, end.y), Coordinate(start.x - dist_min + 1, start.y))) 				||	//sinistra
+				(findRectangle(B, Coordinate(end, DIRECTIONS[DIRECTION_UP]), Coordinate(start.x, end.y - dist_max) )	&& !findRectangle(B, Coordinate(end, DIRECTIONS[DIRECTION_UP]), Coordinate(start.x, end.y - dist_min + 1)))		||	//alto
+				(findRectangle(B, Coordinate(end.x + 1, start.y), Coordinate(end.x + dist_max, end.y)) 					&& !findRectangle(B, Coordinate(end.x + 1, start.y), Coordinate(end.x + dist_min - 1, end.y)))						//destra
+			) {
+				reached = true;
+				res = start;
+			}
+			else {
+				for(int d = 0; d < DIRECTIONS_N; d++) {
+					Coordinate nxt = Coordinate(start, DIRECTIONS[d]);
+					if(dist[nxt.single()] == -1 && isLegalMove(A, nxt)) {
+						prev[nxt.single()] = start;
+						dist[nxt.single()] = dist[start.single()] + 1;
+						Q.push(nxt);
+						length = dist[nxt.single()];
+					}
+				}
+			}
+		} while(!reached && !Q.isEmpty());
+
+		if(reached) {
+			path[length - 1] = res;
+			for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single()];
+			Q.destroy();
+			return length;
+		} else return -1;
+	}
+}
+
 
 #pragma region AUSILIARIE
 	Coordinate Map::getDoorEntrance(Coordinate doorCenter) {
@@ -92,6 +144,15 @@ int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B) {
 		}
 		return res;
 	}
+/*	bool Map::inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj) {
+		bool found = false;
+		int i = 0;
+		while(!found && i < len) {
+			if(A[i] == obj) found = true;
+			else i++;
+		}
+		return found;
+	}*/
 #pragma region GENERATION
 	void Map::generate()
 	{
@@ -275,6 +336,91 @@ int Map::shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B) {
 		if(target == NULL) return checkCharacter(end);
 		else return NULL;
 	}
+
+//// CHECK RECTANGLE
+	pPhysical Map::checkRectangle(Coordinate start, Coordinate end) {
+		pPhysical res = NULL;
+		if(start.lessEqual(end) || end.lessEqual(start)) {
+			//riga per riga
+			Coordinate A = start;
+			if(start.lessEqual(end)) {	//basso
+				while(res == NULL && A.y <= end.y) {
+					res = checkLine(A, Coordinate(end.x, A.y));
+					A.y++;
+				}
+			} else {					//alto
+				while(res == NULL && A.y >= end.y) {
+					res = checkLine(A, Coordinate(end.x, A.y));
+					A.y--;
+				}
+			}
+		} else {
+			//colonna per colonna
+			Coordinate A = start;
+			if(start.x <= end.x) {		//destra
+				while(res == NULL && A.x <= end.x) {
+					res = checkLine(A, Coordinate(A.x, end.y));
+					A.x++;
+				}
+			} else {					//sinistra
+				while(res == NULL && A.x >= end.x) {
+					res = checkLine(A, Coordinate(A.x, end.y));
+					A.x--;
+				}
+			}
+		}
+		return res;
+	}
+
+//// FIND
+	bool Map::findLine(pPhysical obj, Coordinate start, Coordinate end) {
+		Coordinate delta = Coordinate(end, start.getNegative());
+		int deltaMax = delta.x;
+		if(delta.y > delta.x) deltaMax = delta.y;
+		delta.times(1. / deltaMax, 1. / deltaMax);
+
+		Coordinate i = start;
+		bool found = false;
+		while(!i.equals(end) && !found) {
+			if(checkPosition(i) == obj) found = true;
+			i = Coordinate(i, delta);
+		}
+		return found;
+	}
+	bool Map::findRectangle(pPhysical obj, Coordinate start, Coordinate end) {
+		bool found = false;
+		if(start.lessEqual(end) || end.lessEqual(start)) {
+			//riga per riga
+			Coordinate A = start;
+			if(start.lessEqual(end)) {	//basso
+				while(!found && A.y <= end.y) {
+					found = findLine(obj, A, Coordinate(end.x, A.y));
+					A.y++;
+				}
+			} else {					//alto
+				while(!found && A.y >= end.y) {
+					found = findLine(obj, A, Coordinate(end.x, A.y));
+					A.y--;
+				}
+			}
+		} else {
+			//colonna per colonna
+			Coordinate A = start;
+			if(start.x <= end.x) {		//destra
+				while(!found && A.x <= end.x) {
+					found = findLine(obj, A, Coordinate(A.x, end.y));
+					A.x++;
+				}
+			} else {					//sinistra
+				while(!found && A.x >= end.x) {
+					found = findLine(obj, A, Coordinate(A.x, end.y));
+					A.x--;
+				}
+			}
+		}
+		return found;
+	}
+
 
 //// BOOL
 	bool Map::isFreeSpace(Coordinate start, Coordinate end) {

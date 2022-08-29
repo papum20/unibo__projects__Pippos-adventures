@@ -32,7 +32,8 @@ class Map {
 		pInanimate wallInstance;
 
 		// FUNZIONI AUSILIARIE
-		Coordinate getDoorEntrance(Coordinate doorCenter);		//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
+		Coordinate getDoorEntrance(Coordinate doorCenter);						//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
+		//bool inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj);	//se obj si trova in A
 		// FUNZIONI AUSILIARIE PRINCIPALI (GENERAZIONE)
 		void generateSidesWalls();
 		void generateInnerRoom();
@@ -54,8 +55,11 @@ class Map {
 		void update_all(char input);
 		void generate(); 													//genera uno schema randomico per i muri, inserendoli nella map
 		void generate_with_doors();
-		int shortestPath(Coordinate path[], Coordinate A, Coordinate B);
-		//ritorna il percorso più breve da A a B, modificando path con i passi da seguire e ritornandone la lunghezza (B incluso, A escluso); ritorna -1 se impossibile
+		int shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pPhysical obj = NULL);
+		//ritorna il percorso più breve da A a B, modificando path con i passi da seguire e ritornandone la lunghezza (B incluso, A escluso); ritorna -1 se impossibile;
+		//se si vuole il percorso per un oggetto physical, usare il campo obj (altrimenti non serve): permette di calcolare anche il percorso che passi attraverso esso
+		int shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysical B, int dist_min = 1, int dist_max = 1);
+		//shortestPath per far arrivare un oggetto A a distanza compresa tra dist_min = dist_max (inclusi) da un oggetto B (minimo 1), in linea retta (cioè solo se A e B sono allineati);
 
 		// CHECK
 		pPhysical checkPosition(Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
@@ -64,6 +68,16 @@ class Map {
 		pDoor checkDoor(Coordinate pos);						//ritorna l'oggetto (puntatore) door
 		pPhysical checkLine(Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso)
 		pCharacter checkLineCharacter(Coordinate start, Coordinate end);
+		pPhysical checkRectangle(Coordinate start, Coordinate end);
+		/*
+			controlla un rettangolo; i vertici inseriti del rettangolo cambiano l'ordine di ricerca: 1. si cerca sempre da start a end; 2.:
+			start.x<=end.x, start.y<=end.y:	verso il basso (riga per riga, da sinistra a destra)
+			start.x>end.x, start.y<=end.y:	verso sinistra (colonna per colonna, dall'alto al basso)
+			start.x<=end.x, start.y>end.y:	verso destra (colonna per colonna, dal basso all'alto)
+			start.x>end.x, start.y>end.y:	verso l'alto (riga per riga, da sinistra a destra)
+		*/
+		bool findLine(pPhysical obj, Coordinate start, Coordinate end);			//cerca obj, funziona come checkLine
+		bool findRectangle(pPhysical obj, Coordinate start, Coordinate end);	//cerca obj, funziona come checkRectangle
 
 		// BOOL
 		bool isFreeSpace(Coordinate start, Coordinate end);		//ritona true se il rettangolo è vuoto

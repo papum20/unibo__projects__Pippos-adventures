@@ -337,7 +337,7 @@
 	}
 	void Room::makeConnection(pRoom room, int dir, lock_type lt, bool first = true) {
 		if(room != NULL && first) {
-			int dir2 = (dir + 2) % DIR_TOT;
+			int dir2 = (dir + 2) % DIRECTIONS_N;
 			room->makeConnection(this, dir2, lt, false);
 		}
 	}

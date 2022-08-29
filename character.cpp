@@ -12,15 +12,15 @@ Character::Character(int maxH, int curH) : Physical() {
 }
 
 
-bool Character::moveObject(pInanimate map[], pCharacter characters[], Coordinate move) {
+/*bool Character::map->move(pMap  Coordinate move) {
 	Coordinate newPos = Coordinate(pos, move);
 	if(newPos.inBounds(Coordinate(0, 0), size) || map[newPos.single()]->getId() != ID_FLOOR)
 		return false;
 	else {
-		swapPositions(characters, newPos, pos);
+		swapPositions(this, newPos, pos);
 		return true;
 	}
-}
+}*/
 
 void Character::apply_equipment (){
 	danno_fisico=(equipaggiamento.arma)->danno_fisico;
@@ -36,10 +36,10 @@ void Character::setPosition(Coordinate pos) {
 	this->pos = pos;
 }
 
-void Character::moveUp(pInanimate map[], pCharacter characters[]){
+void Character::moveUp(pMap map){
 	Coordinate newpos=pos;
 	newpos.y--;
-	moveObject (map, characters, newpos);
+	map->move ( this, newpos);
 	if (current_animation==move_up_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -49,10 +49,10 @@ void Character::moveUp(pInanimate map[], pCharacter characters[]){
 	}
 }
 
-void Character::moveDown(pInanimate map[], pCharacter characters[]){
+void Character::moveDown(pMap map){
 	Coordinate newpos=pos;
 	newpos.y++;
-	moveObject (map, characters, newpos);
+	map->move ( this, newpos);
 	if (current_animation==move_down_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -62,10 +62,10 @@ void Character::moveDown(pInanimate map[], pCharacter characters[]){
 	}
 }
 
-void Character::moveLeft(pInanimate map[], pCharacter characters[]){
+void Character::moveLeft(pMap map){
 	Coordinate newpos=pos;
 	newpos.x--;
-	moveObject (map, characters, newpos);
+	map->move ( this, newpos);
 	if (current_animation==move_left_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -75,10 +75,10 @@ void Character::moveLeft(pInanimate map[], pCharacter characters[]){
 	}
 }
 
-void Character::moveRight(pInanimate map[], pCharacter characters[]){
+void Character::moveRight(pMap map){
 	Coordinate newpos=pos;
 	newpos.x++;
-	moveObject (map, characters, newpos);
+	map->move ( this, newpos);
 	if (current_animation==move_right_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -151,11 +151,13 @@ int Character::calculate_loss(pCharacter c){
 void Character::changeCurrentHealth(int delta) {
 	curHealth += delta;
 }
-
+/*
 #pragma region AUSILIARIE_GENERICHE
-	void Character::swapPositions(pCharacter characters[], Coordinate a, Coordinate b) {
-		pCharacter tmp = characters[a.single()];
-		characters[a.single()] = characters[b.single()];
-		characters[b.single()] = tmp;
+	void Character::swapPositions(pCharacter this[], Coordinate a, Coordinate b) {
+		pCharacter tmp = this[a.single()];
+		this[a.single()] = this[b.single()];
+		this[b.single()] = tmp;
 	}
 #pragma endregion AUSILIARIE_GENERICHE
+
+*/

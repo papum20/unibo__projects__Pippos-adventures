@@ -141,7 +141,7 @@ class Player : public Character {
 	public:
 		Player(InputManager in, Menu m);
 	
-		void update(pInanimate map[], pCharacter characters[]);
+		void update(pMap map);
 
 		void modify_lifes (int delta);
 

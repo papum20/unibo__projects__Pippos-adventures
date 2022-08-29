@@ -2,13 +2,14 @@
 #define CHARACTER_HPP
 
 
+#include "artifact.hpp"
+#include "equipment/equipment.hpp"
 #include "inanimate.hpp"
+#include "item_difensivi.hpp"
+#include "map.hpp"
 #include "physical.hpp"
 #include "timer.hpp"
 #include "weapon.hpp"
-#include "artifact.hpp"
-#include "item_difensivi.hpp"
-#include "equipment/equipment.hpp"
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 
@@ -26,7 +27,7 @@ struct equipment {
 
 class Character : public Physical {
 	private:
-		void swapPositions(Character *characters[], Coordinate a, Coordinate b);
+		//void swapPositions(Character *characters[], Coordinate a, Coordinate b);
 		
 	protected:
 		int maxHealth;
@@ -51,7 +52,7 @@ class Character : public Physical {
 		int attack_left_states;
 		int attack_right_states;
 		// ROOM
-		bool moveObject(pInanimate map[], Character *characters[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
+		//bool moveObject(pMap map[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 
 		equipment equipaggiamento;
 
@@ -66,9 +67,7 @@ class Character : public Physical {
 		Character();
 		Character(int maxH, int maxS);
 		
-		virtual void update(pMap map, Character *characters[]);
-
-		int findPath (Inanimate map[], Coordinate steps[], Coordinate start, Coordinate end);
+		virtual void update(pMap map);
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce
@@ -76,10 +75,10 @@ class Character : public Physical {
 
 		void setPosition(Coordinate pos);
 
-		void moveUp(pInanimate map[], pCharacter characters[]);
-		void moveDown(pInanimate map[], pCharacter characters[]);
-		void moveLeft(pInanimate map[], pCharacter characters[]);
-		void moveRight(pInanimate map[], pCharacter characters[]);
+		void moveUp(pMap map);
+		void moveDown(pMap map);
+		void moveLeft(pMap map);
+		void moveRight(pMap map);
 
 		//FUNZIONI COMBATTIMENTO
 

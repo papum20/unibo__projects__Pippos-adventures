@@ -66,7 +66,7 @@ void Player::change_boots (pBoots b){
 }
 
 
-void Player::update(pInanimate map[], pCharacter characters[], pMap mappa){
+void Player::update(pMap map){
 	if (is_attacking)
 		if (attack_counter==1){
 			if ((equipaggiamento.arma)->is_melee)
@@ -101,19 +101,19 @@ void Player::update(pInanimate map[], pCharacter characters[], pMap mappa){
 		input=in_manager.get_input();
 		switch (input){
 			case KEY_UP:{
-				moveUp(map, characters);
+				moveUp(map);
 				break;
 			}
 			case KEY_DOWN:{
-				moveDown(map, characters);
+				moveDown(map);
 				break;
 			}	
 			case KEY_LEFT:{
-				moveLeft(map, characters);
+				moveLeft(map);
 				break;
 			}
 			case KEY_RIGHT:{
-				moveRight(map, characters);
+				moveRight(map);
 				break;
 			}
 			case 'n':{
@@ -121,7 +121,7 @@ void Player::update(pInanimate map[], pCharacter characters[], pMap mappa){
 				break;
 			}
 			case 'c':{
-				collect_item(mappa);
+				collect_item(map);
 			}
 			case ctrl('w'):{
 				direction='u';

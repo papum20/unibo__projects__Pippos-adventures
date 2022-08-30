@@ -320,19 +320,11 @@ if(choice==invio){
             //gli item non li metto mai a true nel is_equipped
             if(check_class_name(array_index)==1){
                 if(((array_index!=i) && (static_cast< Weapon *>(objects[i])->is_equipped)) || ((strcmp(objects[array_index]->type, objects[i]->type) == 0) && (array_index!=i) && (static_cast< Weapon *>(objects[i])->is_equipped))){
-                    static_cast< Weapon *>(objects[i])->is_equipped=false;
-                    p->update_equip();
-                    static_cast< Weapon *>(objects[array_index])->is_equipped=true;
                     p->change_weapon(objects[array_index]);
             }
-            else
-                static_cast< Weapon *>(objects[array_index])->is_equipped = true;
             }
             if(check_class_name(array_index)==2){
                  if(((array_index!=i) && (static_cast< item_difensivo *>(objects[i])->is_equipped)) && (strcmp(objects[array_index]->type, objects[i]->type) == 0) /*&& (array_index!=i) && (static_cast< item_difensivo *>(objects[i])->is_equipped)*/){
-                static_cast< item_difensivo *>(objects[i])->is_equipped=false;
-                p->update_equip();
-                static_cast< item_difensivo *>(objects[array_index])->is_equipped=true;
                 if(strcmp(objects[i]->type, type[2]) == 0){
                     p->change_armor (objects[array_index]);
                 }
@@ -349,8 +341,6 @@ if(choice==invio){
                     p->change_boots (objects[array_index]);
                 }}
             }
-            else
-                static_cast< item_difensivo *>(objects[array_index])->is_equipped = true;
                   
         }
         }

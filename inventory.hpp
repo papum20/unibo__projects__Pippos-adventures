@@ -397,6 +397,7 @@ class Inventory : public Pixel_art, public Weapon, public item_difensivo, public
         void equip_menu(Player * p);
         void inventory_menu(Player * p);
         int check_class_name(int array_index);
+        bool is_active();
 
         
 };      

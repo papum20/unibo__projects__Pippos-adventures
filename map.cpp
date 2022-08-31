@@ -134,6 +134,12 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 
 
 #pragma region AUSILIARIE
+	Coordinate Map::unitVector(Coordinate A, Coordinate B) {
+		Coordinate diff = Coordinate(B, A.getNegative());
+		int diffMax = Math::abs(diff.x);
+		if(Math::abs(diff.y) > diffMax) diffMax = Math::abs(diff.y);
+		return diff.getTimes(1. / diffMax, 1. / diffMax);
+	}
 	Coordinate Map::getDoorEntrance(Coordinate doorCenter) {
 		Coordinate res;
 		int d = 0;
@@ -320,10 +326,7 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 //// CHECK LINE
 	int Map::checkLine(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
-		Coordinate delta = Coordinate(end, start.getNegative());
-		int deltaMax = delta.x;
-		if(delta.y > delta.x) deltaMax = delta.y;
-		delta.times(1. / deltaMax, 1. / deltaMax);
+		Coordinate delta = unitVector(start, end);
 
 		Coordinate i = start;
 		while(!i.equals(end)) {
@@ -341,10 +344,7 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 	int Map::checkLine_character(pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		//funzione identica a checkline, cambia solo il tipo di ritorno
 		int found = 0;
-		Coordinate delta = Coordinate(end, start.getNegative());
-		int deltaMax = delta.x;
-		if(delta.y > delta.x) deltaMax = delta.y;
-		delta.times(1. / deltaMax, 1. / deltaMax);
+		Coordinate delta = unitVector(start, end);
 
 		Coordinate i = start;
 		while(!i.equals(end)) {
@@ -403,10 +403,7 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 //// FIND
 	bool Map::findLine(pPhysical obj, Coordinate start, Coordinate end) {
 		//si potrebbe implementare semplicemente chiamando checkline e cercando nell'array, ma almeno così se trova l'oggetto si può fermare subito
-		Coordinate delta = Coordinate(end, start.getNegative());
-		int deltaMax = delta.x;
-		if(delta.y > delta.x) deltaMax = delta.y;
-		delta.times(1. / deltaMax, 1. / deltaMax);
+		Coordinate delta = unitVector(start, end);
 
 		Coordinate i = start;
 		bool found = false;

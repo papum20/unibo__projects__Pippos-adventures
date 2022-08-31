@@ -1,5 +1,9 @@
 #include "sword.hpp"
 
+sword::sword():Weapon(){
+    
+}
+
 sword::sword (int d_f, int d_m, const char rar[], const char n[], const char desc[]):Weapon (d_f, d_m, rar, n, desc){
     move_up_index=sword_up_index;
 	move_up_index=sword_down_index;

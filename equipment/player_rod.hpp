@@ -209,6 +209,7 @@ const char player_rod_attack_down[player_rod_attack_states][WEAPON_ANIMATION_HEI
 
 class Player_Rod: public Rod{
     public:
+		Player_Rod();
         Player_Rod(int d_f, int d_m, const char rar[], const char n[], const char desc[]);
 
 };

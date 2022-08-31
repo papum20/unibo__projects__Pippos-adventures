@@ -1,5 +1,9 @@
 #include "weapon.hpp"
 
+Weapon::Weapon():item(){
+    
+}
+
 Weapon::Weapon (int danno_f, int danno_m, const char rar[], const char n[], const char desc[]):item(rar, n, desc){
     danno_fisico=danno_f;
     danno_magico=danno_m;

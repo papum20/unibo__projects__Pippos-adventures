@@ -1,5 +1,9 @@
 #include "player_rod.hpp"
 
+Player_Rod::Player_Rod():Rod(){
+
+}
+
 Player_Rod::Player_Rod(int d_f, int d_m, const char rar[], const char n[], const char desc[]):Rod(d_f, d_m, rar, n, desc){
     move_up_index=player_rod_up_index;
 	move_up_index=player_rod_down_index;

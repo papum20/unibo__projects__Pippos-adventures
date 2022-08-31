@@ -1,5 +1,9 @@
 #include "item_difensivi.hpp"
 
+item_difensivo::item_difensivo():item(){
+
+}
+
 item_difensivo::item_difensivo(int dif_f, int dif_m, const char rar[], const char n[], const char desc[]):item(rar, n, desc){
     difesa_fisica=dif_f;
     difesa_magica=dif_m;

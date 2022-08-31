@@ -4,9 +4,9 @@
 #define ITEMS_HPP
 
 
-#define N_ITEMS 1
-
-
+#include "health_potion.hpp"
+#include "life_elixir.hpp"
+#include "rune.hpp"
 
 
 #endif

@@ -73,8 +73,6 @@ class Character : public Physical {
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce
 		void apply_equipment ();
 
-		void setPosition(Coordinate pos);
-
 		void moveUp(pMap map);
 		void moveDown(pMap map);
 		void moveLeft(pMap map);

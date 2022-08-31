@@ -43,17 +43,6 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 //TIMER
 #define CAMERA_DAMPING_TIMER 0
 
-//SPAWN
-const int ENEMIES_N[LEVELS_N] {10};
-#define ENEMIES_N_MAX 10
-const Enemy ENEMIES_INSTANCES[LEVELS_N][ENEMIES_N_MAX] = 	{
-															{}
-															};
-const int ENEMIES_CHANCHES[LEVELS_N][ENEMIES_N_MAX]		= 	{
-															{1}
-															};
-const int ENEMIES_CHANCE_TOT[LEVELS_N] = {1};
-
 
 #include "cell.hpp"
 #include "connected_room.hpp"
@@ -62,6 +51,25 @@ const int ENEMIES_CHANCE_TOT[LEVELS_N] = {1};
 #include "player.hpp"
 #include "priority_queue_room.hpp"
 #include "timer.hpp"
+
+
+//SPAWN
+const int ENEMIES_N[LEVELS_N] {10};
+const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
+															{}
+															};
+const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]		= 	{
+															{1}
+															};
+const int ENEMIES_CHANCE_TOT[LEVELS_N] = {1};
+
+const int CHESTS_N_MIN[LEVELS_N] {0};
+const int CHESTS_N_MAX[LEVELS_N] {2};
+const Artifact ARTIFACT_INSTANCES[N_ARTIFACTS] = {HealthPotion(), Life_elixir(), Rune()};
+const item_difensivo ITEM_DIFENSIVO_INSTANCES[N_ITEM_DIFENSIVO] = {armor(), boots(), necklace(), shield()};
+const Weapon WEAPON_INSTANCES[N_WEAPONS] = {Ascia(), Arco(), Hands(), Rod(), sword()};
+
+
 
 
 
@@ -113,6 +121,8 @@ class Level {
 		Coordinate cameraStart();																//prima casella inquadrata
 		Coordinate cameraEnd();																	//ultima casella inquadrata
 		pEnemy randEnemy();																		//ritorna un nemico casuale
+		pChest randChest();																		//ritorna una chest con oggetto casuale
+		int chestsNumber();																		//numero di chest da spawnare in una stanza
 
 	public:
 		Level(int win_y, int win_x, pPlayer player);

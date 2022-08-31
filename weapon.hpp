@@ -22,7 +22,9 @@ class Weapon : public item {
 	public:
 		bool is_melee;
 		bool is_equipped;
+		Weapon();
 		Weapon(int danno_f, int danno_m, const char rar[], const char n[], const char desc[]);
+		void copy(Weapon B);		//copia gli attributi di B
 
 		void apply_rune();
 		void apply_rarity();

@@ -10,6 +10,7 @@ class Hands: public Weapon {
     protected:
 
     public:
+        Hands();
         Hands(int d_f, float d_m, const char rar[], const char n[], const char desc[]);
 
 };

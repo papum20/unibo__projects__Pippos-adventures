@@ -7,6 +7,7 @@ class Rune: public Artifact{
     protected:
 
     public:
+        Rune();
         Rune(const char n[], const char desc[]);
 
         void use_rune (Weapon w);

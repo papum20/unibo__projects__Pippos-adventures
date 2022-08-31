@@ -27,15 +27,18 @@ typedef char lock_type;
 #define LOCK_BOTH	(lock_type)3
 
 
-#include "enemy.hpp"
+#include "enemies/enemies.hpp"
+#include "items/items.hpp"
+#include "equipment/equipment.hpp"
 #include "floor.hpp"
-//#include "item.hpp"
+#include "wall.hpp"
+
+#include "enemy.hpp"
 #include "map.hpp"
 #include "math.hpp"
 #include "physical.hpp"
 #include "map.hpp"
 #include "union_find.hpp"
-#include "wall.hpp"
 
 
 
@@ -77,6 +80,7 @@ class Room {
 		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array map
 //		void addNthDoor(int n);	//aggiunge una porta nell'n-esima posizione disponibile
 		void spawnEnemy(pEnemy enemy);							//spawna un nemico
+		void spawnChest(pChest chest);							//spawna una chest
 		// DISEGNO
 		void draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
 																									//inquadra solo un rettangolo con le dimensioni dei parametri intorno al giocatore
@@ -89,6 +93,7 @@ class Room {
 
 		// SET
 		virtual void makeConnection(Room *room, int dir, lock_type lt, bool first = true);	//collega l'altra stanza a questa (se è connectedRoom), con stato bloccato lt; first inizializzato da solo
+		bool setPosition_strong(pPhysical obj, Coordinate pos);								//posiziona obj in pos e, se lo spazio risulta occupato, sposta ciò che lo occupa (esclusi muri)
 };
 
 

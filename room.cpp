@@ -76,6 +76,14 @@
 			map->addCharacter(enemy);
 		}
 	}
+	void Room::spawnChest(pChest chest) {
+		s_coord available[ROOM_AREA];
+		int av_size = getFreeCells(available, chest->getSize());
+		if(av_size > 0) {
+			chest->setPosition(Coordinate(available[rand() % av_size], map->getSize()));
+			map->addChest(chest);
+		}
+	}
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
@@ -340,5 +348,18 @@
 			int dir2 = (dir + 2) % DIRECTIONS_N;
 			room->makeConnection(this, dir2, lt, false);
 		}
+	}
+	bool Room::setPosition_strong(pPhysical obj, Coordinate pos) {
+		Coordinate pos_end = Coordinate(pos, obj->getSize());	//vertice del rettangolo opposto a pos
+		pPhysical physical[ROOM_AREA];
+		int found = map->checkRectangle(physical, pos, pos_end);
+		bool valid = false;
+		int i = 0;
+		while(valid && i < found) {
+			if(physical[i]->isInanimate() || physical[i]->getId() == ID_CHEST) valid = false;
+			else physical[i]->destroy();	//distruggi oggetto se è character o projectile
+			i++;
+		}
+		return valid;
 	}
 #pragma endregion SET_GET

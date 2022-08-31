@@ -38,6 +38,21 @@ void Physical::next_animation(){
     bool Physical::isCharacter() {
         return id == ID_PLAYER || (id >= ID_ENEMY_S && id <= ID_ENEMY_E);
     }
+    bool Physical::isProjectile() {
+        return id >= ID_PROJECTILE_S && id <= ID_PROJECTILE_E;
+    }
+    /*bool Physical::isItem() {
+        return id >= ID_ITEM_S && id <= ID_ITEM_E;
+    }*/
+    bool Physical::findInArray(pPhysical A[ROOM_AREA], int len) {
+        bool found = false;
+        int i = 0;
+        while(!found && i < len) {
+            if(A[i] == this) found = true;
+            else i++;
+        }
+        return found;
+    }
     /*bool Physical::isPlaceholder() {
         return id == ID_PLACEHOLDER;
     }*/
@@ -72,4 +87,8 @@ void Physical::next_animation(){
     Coordinate Physical::getSize() {
         return size;
     }
+
+    void Physical::setPosition(Coordinate pos) {
+	this->pos = pos;
+}
 #pragma endregion BOOL_GET_SET

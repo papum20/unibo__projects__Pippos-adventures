@@ -144,6 +144,18 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 		}
 		return res;
 	}
+	void Map::addLineToCheck(pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end) {
+		int added = 0;
+		pPhysical line[ROOM_AREA];
+		int len = checkLine(line, start, end);
+		for(int i = 0; i < len; i++) {
+			if(!line[i]->findInArray(obj, found)) {
+				obj[found + i] = line[i];
+				added++;
+			}
+		}
+		found += added;
+	}
 /*	bool Map::inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj) {
 		bool found = false;
 		int i = 0;
@@ -306,51 +318,67 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 	}
 
 //// CHECK LINE
-	pPhysical Map::checkLine(Coordinate start, Coordinate end) {
+	int Map::checkLine(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
+		int found = 0;
 		Coordinate delta = Coordinate(end, start.getNegative());
 		int deltaMax = delta.x;
 		if(delta.y > delta.x) deltaMax = delta.y;
 		delta.times(1. / deltaMax, 1. / deltaMax);
 
 		Coordinate i = start;
-		pPhysical target = NULL;
-		while(!i.equals(end) && target == NULL) {
-			target = checkPosition(i);
+		while(!i.equals(end)) {
+			obj[found] = checkPosition(i);
+			//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
+			//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
+			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
 			i = Coordinate(i, delta);
 		}
-		if(target == NULL) return checkPosition(end);
-		else return NULL;
+		obj[found] = checkPosition(end);
+		if(obj[found] != NULL) found++;
+
+		return found;
 	}
-	pCharacter Map::checkLineCharacter(Coordinate start, Coordinate end) {
+	int Map::checkLine_character(pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end) {
+		//funzione identica a checkline, cambia solo il tipo di ritorno
+		int found = 0;
 		Coordinate delta = Coordinate(end, start.getNegative());
 		int deltaMax = delta.x;
 		if(delta.y > delta.x) deltaMax = delta.y;
 		delta.times(1. / deltaMax, 1. / deltaMax);
 
 		Coordinate i = start;
-		pCharacter target = NULL;
-		while(!i.equals(end) && target == NULL) {
-			target = checkCharacter(i);
+		while(!i.equals(end)) {
+			obj[found] = checkCharacter(i);
+			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
 			i = Coordinate(i, delta);
 		}
-		if(target == NULL) return checkCharacter(end);
-		else return NULL;
+		obj[found] = checkCharacter(end);
+		if(obj[found] != NULL) found++;
+
+		return found;
 	}
 
 //// CHECK RECTANGLE
-	pPhysical Map::checkRectangle(Coordinate start, Coordinate end) {
-		pPhysical res = NULL;
+	int Map::checkRectangle(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
+		int found = 0;
+		Coordinate A = start;
+		while(A.y <= end.y) {
+			addLineToCheck(obj, found, A, Coordinate(end.x, A.y));
+			A.y++;
+		}
+		return found;
+		/*int found = 0;
 		if(start.lessEqual(end) || end.lessEqual(start)) {
 			//riga per riga
 			Coordinate A = start;
 			if(start.lessEqual(end)) {	//basso
-				while(res == NULL && A.y <= end.y) {
-					res = checkLine(A, Coordinate(end.x, A.y));
+				while(A.y <= end.y) {
+					addLineToCheck(obj, found, A, Coordinate(end.x, A.y));
 					A.y++;
 				}
 			} else {					//alto
-				while(res == NULL && A.y >= end.y) {
-					res = checkLine(A, Coordinate(end.x, A.y));
+				while(A.y >= end.y) {
+					addLineToCheck(obj, found, A, Coordinate(end.x, A.y));
 					A.y--;
 				}
 			}
@@ -358,22 +386,23 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 			//colonna per colonna
 			Coordinate A = start;
 			if(start.x <= end.x) {		//destra
-				while(res == NULL && A.x <= end.x) {
-					res = checkLine(A, Coordinate(A.x, end.y));
+				while(A.x <= end.x) {
+					addLineToCheck(obj, found, A, Coordinate(A.x, end.y));
 					A.x++;
 				}
 			} else {					//sinistra
-				while(res == NULL && A.x >= end.x) {
-					res = checkLine(A, Coordinate(A.x, end.y));
+				while(A.x >= end.x) {
+					addLineToCheck(obj, found, A, Coordinate(A.x, end.y));
 					A.x--;
 				}
 			}
 		}
-		return res;
+		return found;*/
 	}
 
 //// FIND
 	bool Map::findLine(pPhysical obj, Coordinate start, Coordinate end) {
+		//si potrebbe implementare semplicemente chiamando checkline e cercando nell'array, ma almeno così se trova l'oggetto si può fermare subito
 		Coordinate delta = Coordinate(end, start.getNegative());
 		int deltaMax = delta.x;
 		if(delta.y > delta.x) deltaMax = delta.y;
@@ -388,6 +417,7 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 		return found;
 	}
 	bool Map::findRectangle(pPhysical obj, Coordinate start, Coordinate end) {
+		//si potrebbe implementare semplicemente chiamando checkrectangle e cercando nell'array, ma almeno così se trova l'oggetto si può fermare subito
 		bool found = false;
 		if(start.lessEqual(end) || end.lessEqual(start)) {
 			//riga per riga

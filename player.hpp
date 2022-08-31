@@ -136,10 +136,10 @@ class Player : public Character {
 
 		pArtifact artifacts[MAX_ARTIFACTS];
 		int curr_artifact;
-		InputManager in_manager;
+		pInputManager in_manager;
 		Menu menu;
 	public:
-		Player(InputManager in, Menu m);
+		Player(pInputManager in, Menu m);
 	
 		void update(pMap map);
 

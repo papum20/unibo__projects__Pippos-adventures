@@ -1,6 +1,6 @@
 #include "player.hpp"
 
-Player::Player(InputManager in, Menu m):Character(p_max_health, p_max_stamina) {
+Player::Player(pInputManager in, Menu m):Character(p_max_health, p_max_stamina) {
 	in_manager=in;
 	menu=m;
 
@@ -98,7 +98,7 @@ void Player::update(pMap map){
 		}
 	else{
 		int input;
-		input=in_manager.get_input();
+		input=in_manager->get_input();
 		switch (input){
 			case KEY_UP:{
 				moveUp(map);

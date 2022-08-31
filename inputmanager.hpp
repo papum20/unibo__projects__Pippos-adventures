@@ -21,6 +21,8 @@ class InputManager {
 
 };
 
+typedef InputManager* pInputManager;
+
 
 
 

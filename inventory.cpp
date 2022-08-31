@@ -42,6 +42,11 @@ curr_inventory_space++;
 }
 }
 
+
+bool Inventory::is_active(){
+    return(is_open);
+}
+
 void Inventory::open_options(){
     keypad(w_inventory,false);
     box(w_options, 0, 0);

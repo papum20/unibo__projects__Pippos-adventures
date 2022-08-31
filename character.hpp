@@ -42,10 +42,6 @@ class Character : public Physical {
 
 		//variabili di movimento
 		int idle_index;
-		int move_up_index;
-		int move_down_index;
-		int move_left_index;
-		int move_right_index;
 
 		int attack_up_states;
 		int attack_down_states;

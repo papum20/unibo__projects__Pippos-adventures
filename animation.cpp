@@ -7,7 +7,7 @@ Animation::Animation() {
     next = NULL;
 }
 
-Animation::Animation(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height) {
+Animation::Animation(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const int width, const int height) {
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
             this->state[i][j] = state[i][j];
@@ -18,7 +18,7 @@ Animation::Animation(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int wi
     this->next = this;
 }
 
-Animation::Animation(const char animation[][ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height, int len) {
+Animation::Animation(const char animation[][ANIMATION_HEIGHT][ANIMATION_WIDTH], const int width, const int height, const int len) {
     if(len > 0) {
         Animation(animation[0], width, height);
         int i = 1;

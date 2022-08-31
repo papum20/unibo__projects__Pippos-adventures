@@ -24,7 +24,7 @@ class Projectile: public Physical{
         int left_width;
         int left_height;
     public:
-        Projectile (Weapon w, p_Animation animazioni[]);
+        Projectile (Weapon w);
 
         void cast_direction (Character c);
 };

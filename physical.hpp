@@ -94,6 +94,10 @@ class Physical {
 
 		//p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
 
+		int move_up_index;
+		int move_down_index;
+		int move_left_index;
+		int move_right_index;
 	public:
 		int current_animation;
 		Physical();

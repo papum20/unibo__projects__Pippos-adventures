@@ -1,6 +1,6 @@
 #include "projectile.hpp"
 
-Projectile::Projectile(Weapon w, p_Animation animazioni[]):Physical(){
+Projectile::Projectile(Weapon w):Physical(){
     danno_fisico=w.danno_fisico;
     danno_magico=w.danno_magico;
 }

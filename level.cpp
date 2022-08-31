@@ -80,7 +80,7 @@
 	void Level::spawnInRoom(pConnectedRoom room) {
 		for(int i = 0; i < ENEMIES_N[level]; i++) curRoom->spawnEnemy(randEnemy());
 		int chests_n = chestsNumber();
-		for(int i = 0; i < chests_n; i++) curRoom->spawnChest(new Chest());
+		for(int i = 0; i < chests_n; i++) curRoom->spawnChest(randChest());
 	}
 
 	void Level::display() {
@@ -255,7 +255,26 @@
 		int i = 0;
 		while(r >= ENEMIES_CHANCHES[level][i]) i++;
 		pEnemy res = new Enemy();
-		res = ENEMIES_INSTANCES[level][i];
+		res = new Enemy();
+		res->copy(ENEMIES_INSTANCES[level][i]);
+		return res;
+	}
+	pChest Level::randChest() {
+		int r = rand() % N_ITEMS;
+		pChest res;
+		if(r < N_ARTIFACTS) {
+			pArtifact item = new Artifact();
+			item->copy(ARTIFACT_INSTANCES[r]);
+			res = new Chest(item);
+		} else if(r < N_ARTIFACTS + N_ITEM_DIFENSIVO) {
+			pItem_def item = new item_difensivo();
+			item->copy(ITEM_DIFENSIVO_INSTANCES[r - N_ARTIFACTS]);
+			res = new Chest(item);
+		} else {
+			pWeapon item = new Weapon();
+			item->copy(WEAPON_INSTANCES[r - (N_ARTIFACTS + N_ITEM_DIFENSIVO)]);
+			res = new Chest(item);
+		}
 		return res;
 	}
 	int Level::chestsNumber() {

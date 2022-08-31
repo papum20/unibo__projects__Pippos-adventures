@@ -25,6 +25,13 @@ typedef Animation *p_Animation;
 const int MAX_ANIMATIONS = 6;
 #pragma endregion PHYSICAL_ANIMATIONS
 
+// NUMERI
+#define N_CHEST_TYPES 3
+#define N_ITEM_DIFENSIVO 10
+#define N_ARTIFACTS 10
+#define N_WEAPONS 10
+#define N_ITEMS (N_ITEM_DIFENSIVO + N_ARTIFACTS)
+
 // ID
 #pragma region PHYSICAL_IDS
 #define ID_INANIMATE_S 10
@@ -88,6 +95,7 @@ class Physical {
 	public:
 		int current_animation;
 		Physical();
+		virtual void copy(Physical B);			//copia i parametri di B
 		virtual void update(pMap map, char input);
 		virtual void destroy();
 
@@ -98,7 +106,7 @@ class Physical {
 		bool isInanimate();
 		bool isCharacter();
 		bool isProjectile();
-		bool isItem();			//se è item/artefatto...
+		//bool isItem();			//se è item/artefatto...
 		//bool isPlaceholder();
 		bool findInArray(Physical *A[ROOM_AREA], int len);
 

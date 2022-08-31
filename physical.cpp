@@ -41,9 +41,9 @@ void Physical::next_animation(){
     bool Physical::isProjectile() {
         return id >= ID_PROJECTILE_S && id <= ID_PROJECTILE_E;
     }
-    bool Physical::isItem() {
+    /*bool Physical::isItem() {
         return id >= ID_ITEM_S && id <= ID_ITEM_E;
-    }
+    }*/
     bool Physical::findInArray(pPhysical A[ROOM_AREA], int len) {
         bool found = false;
         int i = 0;

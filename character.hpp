@@ -63,7 +63,7 @@ class Character : public Physical {
 		Character();
 		Character(int maxH, int maxS);
 		
-		virtual void update(pMap map);
+		virtual void update(pMap map){};
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce

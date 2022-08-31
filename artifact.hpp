@@ -12,7 +12,7 @@ class Artifact: public item{
         Artifact(const char n[], const char desc[]);
 		void copy(Artifact B);			//copia i parametri di B
 
-        virtual void use_item (pPlayer p);
+        virtual void use_item (pPlayer p){};
 
 };
 

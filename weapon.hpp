@@ -29,6 +29,7 @@ class Weapon : public item {
 
 		void apply_rune();
 		void apply_rarity();
+		virtual void shoot(){};
 };
 
 typedef Weapon* pWeapon;

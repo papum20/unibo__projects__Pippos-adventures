@@ -45,6 +45,8 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 
 //SPAWN
 const int ENEMIES_N[LEVELS_N] {10};
+const int CHESTS_N_MIN[LEVELS_N] {0};
+const int CHESTS_N_MAX[LEVELS_N] {2};
 #define ENEMIES_N_MAX 10
 const Enemy ENEMIES_INSTANCES[LEVELS_N][ENEMIES_N_MAX] = 	{
 															{}
@@ -113,6 +115,7 @@ class Level {
 		Coordinate cameraStart();																//prima casella inquadrata
 		Coordinate cameraEnd();																	//ultima casella inquadrata
 		pEnemy randEnemy();																		//ritorna un nemico casuale
+		int chestsNumber();																		//numero di chest da spawnare in una stanza
 
 	public:
 		Level(int win_y, int win_x, pPlayer player);

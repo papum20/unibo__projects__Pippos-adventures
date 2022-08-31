@@ -78,8 +78,9 @@
 		available.destroy();
 	}
 	void Level::spawnInRoom(pConnectedRoom room) {
-		for(int i = 0; i < ENEMIES_N[level]; i++)
-			curRoom->spawnEnemy(randEnemy());
+		for(int i = 0; i < ENEMIES_N[level]; i++) curRoom->spawnEnemy(randEnemy());
+		int chests_n = chestsNumber();
+		for(int i = 0; i < chests_n; i++) curRoom->spawnChest(new Chest());
 	}
 
 	void Level::display() {
@@ -126,8 +127,9 @@
 		}*/
 		pDoor new_door = player->usedDoor();
 		if(new_door != NULL) {
-				player->setPosition(new_door->getEntrancePosition());	//riposiziona player
-				curRoom = curRoom->getRoomInPosition(new_door->getPosition());
+			curRoom->setPosition_strong(player, new_door->getEntrancePosition());	//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
+			//player->setPosition(new_door->getEntrancePosition());	//riposiziona player
+			curRoom = curRoom->getRoomInPosition(new_door->getPosition());
 		}
 	}
 	void Level::nextLevel() {
@@ -255,6 +257,9 @@
 		pEnemy res = new Enemy();
 		res = ENEMIES_INSTANCES[level][i];
 		return res;
+	}
+	int Level::chestsNumber() {
+		return rand() % (CHESTS_N_MAX[level] - CHESTS_N_MIN[level]) + CHESTS_N_MIN[level];
 	}
 	
 #pragma endregion AUSILIARIE

@@ -30,11 +30,16 @@ const int MAX_ANIMATIONS = 6;
 #define ID_INANIMATE_S 10
 #define ID_INANIMATE_E 19
 #define ID_ENEMY_S 100
-#define ID_ENEMY_E 199
+#define ID_ENEMY_E 149
+#define ID_PROJECTILE_S 150
+#define ID_PROJECTILE_E 174
+#define ID_ITEM_S 175
+#define ID_ITEM_E 199
 
 #define ID_DEFAULT 0
 #define ID_PLACEHOLDER 1
 #define ID_PLAYER 2
+#define ID_CHEST 3
 #define ID_WALL 10
 #define ID_FLOOR 11
 #define ID_DOOR 20
@@ -92,7 +97,10 @@ class Physical {
 		// BOOL
 		bool isInanimate();
 		bool isCharacter();
+		bool isProjectile();
+		bool isItem();			//se è item/artefatto...
 		//bool isPlaceholder();
+		bool findInArray(Physical *A[ROOM_AREA], int len);
 
 		// GET
 		//pPhysical checkPosition(Physical *map[], Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
@@ -104,6 +112,8 @@ class Physical {
 		Coordinate lastFrameMovement();
 		void conflicts();
 		void next_animation();
+		// SET
+		void setPosition(Coordinate pos);
 };
 
 typedef Physical *pPhysical;

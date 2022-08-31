@@ -32,10 +32,6 @@ void Character::apply_equipment (){
 
 //FUNZIONI MOVIMENTO
 
-void Character::setPosition(Coordinate pos) {
-	this->pos = pos;
-}
-
 void Character::moveUp(pMap map){
 	Coordinate newpos=pos;
 	newpos.y--;

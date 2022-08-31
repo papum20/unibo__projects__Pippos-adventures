@@ -33,6 +33,7 @@ class Map {
 
 		// FUNZIONI AUSILIARIE
 		Coordinate getDoorEntrance(Coordinate doorCenter);						//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
+		void addLineToCheck(pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end);								//funzione ausiliaria per checkRectangle: controlla una linea
 		//bool inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj);	//se obj si trova in A
 		// FUNZIONI AUSILIARIE PRINCIPALI (GENERAZIONE)
 		void generateSidesWalls();
@@ -62,13 +63,17 @@ class Map {
 		//shortestPath per far arrivare un oggetto A a distanza compresa tra dist_min = dist_max (inclusi) da un oggetto B (minimo 1), in linea retta (cioè solo se A e B sono allineati);
 
 		// CHECK
-		pPhysical checkPosition(Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
-		pCharacter checkCharacter(Coordinate pos);				//ritorna l'oggetto (puntatore) character
-		pChest checkChest(Coordinate pos);						//ritorna l'oggetto (puntatore) chest
-		pDoor checkDoor(Coordinate pos);						//ritorna l'oggetto (puntatore) door
-		pPhysical checkLine(Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso)
-		pCharacter checkLineCharacter(Coordinate start, Coordinate end);
-		pPhysical checkRectangle(Coordinate start, Coordinate end);
+		pPhysical checkPosition(Coordinate pos);					//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
+		pCharacter checkCharacter(Coordinate pos);					//ritorna l'oggetto (puntatore) character
+		pChest checkChest(Coordinate pos);							//ritorna l'oggetto (puntatore) chest
+		pDoor checkDoor(Coordinate pos);							//ritorna l'oggetto (puntatore) door
+		
+		int checkLine(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);			//checkPosition per una linea da start a end (incluso): ritorna tutti gli oggetti trovati in obj e il rispettivo numero
+		int checkLine_character(pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end);
+		int checkRectangle(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);
+		
+		bool findLine(pPhysical obj, Coordinate start, Coordinate end);			//cerca obj (puntatore), funziona come checkLine
+		bool findRectangle(pPhysical obj, Coordinate start, Coordinate end);	//cerca obj (puntatore), funziona come checkRectangle
 		/*
 			controlla un rettangolo; i vertici inseriti del rettangolo cambiano l'ordine di ricerca: 1. si cerca sempre da start a end; 2.:
 			start.x<=end.x, start.y<=end.y:	verso il basso (riga per riga, da sinistra a destra)
@@ -76,8 +81,6 @@ class Map {
 			start.x<=end.x, start.y>end.y:	verso destra (colonna per colonna, dal basso all'alto)
 			start.x>end.x, start.y>end.y:	verso l'alto (riga per riga, da sinistra a destra)
 		*/
-		bool findLine(pPhysical obj, Coordinate start, Coordinate end);			//cerca obj, funziona come checkLine
-		bool findRectangle(pPhysical obj, Coordinate start, Coordinate end);	//cerca obj, funziona come checkRectangle
 
 		// BOOL
 		bool isFreeSpace(Coordinate start, Coordinate end);		//ritona true se il rettangolo è vuoto
@@ -92,6 +95,7 @@ class Map {
 		// EDIT
 		void addDoor(int dir, lock_type lt);
 		void addCharacter(pCharacter obj);						//aggiunge un character nella sua posizione
+		void addChest(pChest obj);								//aggiunge una chest nella sua posizione
 		bool move(pPhysical obj, Coordinate target);			//muove un oggetto qualsiasi (non inanimate); ritorna true se ha successo
 		void remove(pPhysical obj);								//rimuove un oggetto qualsiasi (non inanimate)
 };

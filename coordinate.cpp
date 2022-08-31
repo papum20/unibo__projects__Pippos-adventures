@@ -14,20 +14,24 @@
 		this->y = y;
 	}
 	Coordinate::Coordinate(float x, float y, Coordinate size) {
-		Coordinate(x, y);
+		this->x = x;
+		this->y = y;
 		setMatrix(size);
 	}
 	Coordinate::Coordinate(Coordinate pos, Coordinate start, Coordinate end) {
-		Coordinate(pos.x, pos.y);
+		x = pos.x;
+		y = pos.y;
 		setFullMatrix(start, end);
 	}
 	Coordinate::Coordinate(s_coord xy, Coordinate size) {
 		setMatrix(size);
-		y = xy / size.x;
+		y = (int)(xy / size.x);
 		x = xy - y * size.x;
 	}
 	Coordinate::Coordinate(const Coordinate a, const Coordinate b) {
-		Coordinate(Coordinate(a.x + b.x, a.y + b.y), Coordinate(a.startx, a.starty), Coordinate(a.endx, a.endy));
+		x = a.x + b.x;
+		y = a.y + b.y;
+		setFullMatrix(Coordinate(a.startx, a.starty), Coordinate(a.endx, a.endy));
 	}
 #pragma endregion COSTRUTTORI
 
@@ -67,10 +71,7 @@
 		return *this;
 	}
 	Coordinate Coordinate::getNegative() const {
-		Coordinate copy = *this;
-		copy.x = -x;
-		copy.y = -y;
-		return copy;
+		return Coordinate(Coordinate(-x, -y), Coordinate(startx, starty), Coordinate(endx, endy));
 	}
 	Coordinate Coordinate::times(float px, float py) {
 		x *= px;

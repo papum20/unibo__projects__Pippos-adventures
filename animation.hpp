@@ -9,8 +9,8 @@
 #include <iostream>
 
 
-#define ANIMATION_WIDTH 6
-#define ANIMATION_HEIGHT 5
+#define ANIMATION_WIDTH 15
+#define ANIMATION_HEIGHT 15
 
 
 

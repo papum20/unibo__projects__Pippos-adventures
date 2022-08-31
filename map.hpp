@@ -32,8 +32,9 @@ class Map {
 		pInanimate wallInstance;
 
 		// FUNZIONI AUSILIARIE
-		Coordinate getDoorEntrance(Coordinate doorCenter);						//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
-		void addLineToCheck(pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end);								//funzione ausiliaria per checkRectangle: controlla una linea
+		Coordinate getDoorEntrance(Coordinate doorCenter);	//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
+		Coordinate unitVector(Coordinate A, Coordinate B);	//ritorna il vettore da A a B con coordinata maggiore=1 (in valore assoluto) (e minore tra -1 e 1)
+		void addLineToCheck(pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end);	//funzione ausiliaria per checkRectangle: controlla una linea
 		//bool inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj);	//se obj si trova in A
 		// FUNZIONI AUSILIARIE PRINCIPALI (GENERAZIONE)
 		void generateSidesWalls();

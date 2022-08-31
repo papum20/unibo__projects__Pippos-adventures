@@ -7,6 +7,7 @@ class armor: public item_difensivo{
     protected:
 
     public:
+        armor ();
         armor (int dif, int d_mag, const char rar[], const char n[], const char desc[]);
     
         char get_type ();

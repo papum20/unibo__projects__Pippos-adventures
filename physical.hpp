@@ -26,11 +26,13 @@ const int MAX_ANIMATIONS = 6;
 #pragma endregion PHYSICAL_ANIMATIONS
 
 // NUMERI
+#define N_ENEMIES 6
+
 #define N_CHEST_TYPES 3
-#define N_ITEM_DIFENSIVO 10
-#define N_ARTIFACTS 10
-#define N_WEAPONS 10
-#define N_ITEMS (N_ITEM_DIFENSIVO + N_ARTIFACTS)
+#define N_ITEM_DIFENSIVO 4
+#define N_ARTIFACTS 4
+#define N_WEAPONS 5
+#define N_ITEMS (N_ITEM_DIFENSIVO + N_ARTIFACTS + N_WEAPONS)
 
 // ID
 #pragma region PHYSICAL_IDS
@@ -38,10 +40,10 @@ const int MAX_ANIMATIONS = 6;
 #define ID_INANIMATE_E 19
 #define ID_ENEMY_S 100
 #define ID_ENEMY_E 149
-#define ID_PROJECTILE_S 150
-#define ID_PROJECTILE_E 174
-#define ID_ITEM_S 175
-#define ID_ITEM_E 199
+#define ID_ITEM_S 150
+#define ID_ITEM_E 179
+#define ID_PROJECTILE_S 180
+#define ID_PROJECTILE_E 199
 
 #define ID_DEFAULT 0
 #define ID_PLACEHOLDER 1

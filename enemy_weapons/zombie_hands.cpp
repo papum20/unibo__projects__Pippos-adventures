@@ -20,4 +20,6 @@ Zombie_hands::Zombie_hands(int d_f, int d_m, const char rar[], const char n[], c
     animations[attack_down_index]= new Animation (zombie_hands_attack_down, zombie_hands_width, zombie_hands_height, zombie_hands_attack_states);
     animations[attack_left_index]= new Animation (zombie_hands_attack_left, zombie_hands_width, zombie_hands_height, zombie_hands_attack_states);
     animations[attack_right_index]= new Animation (zombie_hands_attack_right, zombie_hands_width, zombie_hands_height, zombie_hands_attack_states);
+
+    is_melee=true;
 }

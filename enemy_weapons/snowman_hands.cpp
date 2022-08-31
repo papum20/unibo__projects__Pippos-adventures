@@ -20,4 +20,7 @@ Snowman_hands::Snowman_hands(int d_f, int d_m, const char rar[], const char n[],
     animations[attack_down_index]= new Animation (snowman_hands_attack_down, snowman_hands_width, snowman_hands_height, snowman_hands_attack_states);
     animations[attack_left_index]= new Animation (snowman_hands_attack_left, snowman_hands_width, snowman_hands_height, snowman_hands_attack_states);
     animations[attack_right_index]= new Animation (snowman_hands_attack_right, snowman_hands_width, snowman_hands_height, snowman_hands_attack_states);
+
+    is_melee=false;
+
 }

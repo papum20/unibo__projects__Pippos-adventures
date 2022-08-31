@@ -21,6 +21,8 @@ sword::sword (int d_f, int d_m, const char rar[], const char n[], const char des
     animations[attack_left_index]= new Animation (sword_attack_left, sword_width, sword_height, sword_horizontal_attack_states);
     animations[attack_right_index]= new Animation (sword_attack_right, sword_width, sword_height, sword_horizontal_attack_states);
     
+    is_melee=true;
+    
     calculate_coordinate();
 }
 

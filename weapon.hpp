@@ -6,6 +6,7 @@ using namespace std;
 #include "coordinate.hpp"
 #include "item.hpp"
 //#include "character.hpp"
+#include "projectile.hpp"
 
 
 const int WEAPON_ANIMATION_WIDTH = 10;

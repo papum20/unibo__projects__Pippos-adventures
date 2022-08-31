@@ -20,4 +20,6 @@ Spider_legs::Spider_legs():Hands(){
     animations[attack_down_index]= new Animation (spider_legs_attack_down, spider_legs_width, spider_legs_height, spider_legs_vertical_attack_states);
     animations[attack_left_index]= new Animation (spider_legs_attack_left, spider_legs_width, spider_legs_height, spider_legs_horizontal_attack_states);
     animations[attack_right_index]= new Animation (spider_legs_attack_right, spider_legs_width, spider_legs_height, spider_legs_horizontal_attack_states);
+
+    is_melee=true;
 }

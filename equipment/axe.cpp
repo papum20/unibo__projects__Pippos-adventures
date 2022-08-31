@@ -22,6 +22,7 @@ Ascia::Ascia (int d_f, int d_m, const char rar[], const char n[], const char des
     animations[attack_left_index]= new Animation (axe_attack_left, axe_width, axe_height, axe_horizontal_attack_states);
     animations[attack_right_index]= new Animation (axe_attack_right, axe_width, axe_height, axe_horizontal_attack_states);
     
-    
+    is_melee=true;
+
     apply_rarity();
 }

@@ -71,6 +71,8 @@ void Player::update(pMap map){
 		if (attack_counter==1){
 			if ((equipaggiamento.arma)->is_melee)
 				calculate_damage();
+			else
+				(equipaggiamento.arma)->shoot();
 			is_attacking=false;
 			switch (direction){
 				case 'u':

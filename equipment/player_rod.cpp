@@ -21,5 +21,6 @@ Player_Rod::Player_Rod(int d_f, int d_m, const char rar[], const char n[], const
     animations[attack_left_index]= new Animation (player_rod_attack_left, player_rod_width, player_rod_height, player_rod_attack_states);
     animations[attack_right_index]= new Animation (player_rod_attack_right, player_rod_width, player_rod_height, player_rod_attack_states);
 
+    is_melee=true;
 
 }

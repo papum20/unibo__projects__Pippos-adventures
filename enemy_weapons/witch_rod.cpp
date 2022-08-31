@@ -21,5 +21,5 @@ Witch_Rod::Witch_Rod(int d_f, int d_m, const char rar[], const char n[], const c
     animations[attack_left_index]= new Animation (witch_rod_attack_left, witch_rod_width, witch_rod_height, witch_rod_attack_states);
     animations[attack_right_index]= new Animation (witch_rod_attack_right, witch_rod_width, witch_rod_height, witch_rod_attack_states);
 
-
+    is_melee=false;
 }

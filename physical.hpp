@@ -16,7 +16,7 @@ const int MAX_ANIMATIONS = 6;
 #define N_ENEMIES 6
 
 #define N_CHEST_TYPES 3
-#define N_ITEM_DIFENSIVO 4
+#define N_ITEM_DIFENSIVO 5
 #define N_ARTIFACTS 4
 #define N_WEAPONS 5
 #define N_ITEMS (N_ITEM_DIFENSIVO + N_ARTIFACTS + N_WEAPONS)
@@ -60,17 +60,13 @@ class Physical {
 	protected:
 		Coordinate pos;
 		Coordinate size;
-		int id;		//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
+		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
-
-		int move_up_index;
-		int move_down_index;
-		int move_left_index;
-		int move_right_index;
-	public:
-		char direction;					// u sopra, d sotto, l sinistra, r destra
+		char direction;							// u sopra, d sotto, l sinistra, r destra
 		int current_animation;
+
+	public:
 		Physical();
 		virtual void copy(Physical B);			//copia i parametri di B
 		virtual void update(pMap map, char input);
@@ -92,10 +88,13 @@ class Physical {
 		Coordinate getSize();
 		Coordinate getSpeed();				//velocità in caselle/secondo (float)
 		Coordinate lastFrameMovement();
-		void conflicts();
-		void next_animation();
 		// SET
+		void next_animation();
 		void setPosition(Coordinate pos);
+		
+		
+		
+		void conflicts();
 };
 
 typedef Physical *pPhysical;

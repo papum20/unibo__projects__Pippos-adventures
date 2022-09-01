@@ -50,10 +50,10 @@ class Room {
 		pInanimate wallInstance;
 
 		// FUNZIONI AUSILIARIE
-		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
+		int getFreeCells(s_coord available[], Coordinate size);	//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 
 	protected:
-		int scale_x;
+		int scale_x;											//ridimensionamento orizzontale (in generazione)
 		pMap map;
 
 	public:

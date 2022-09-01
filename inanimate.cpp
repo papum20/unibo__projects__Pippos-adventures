@@ -5,10 +5,6 @@ Inanimate::Inanimate() : Physical() {
 
 }
 
-void Inanimate::init_colors() {
-
-}
-
 void Inanimate::drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos, attr_t color) {
 	pos.setFullMatrix(win_start, COORDINATE_ERROR);
 	if(pos.inOwnBounds())

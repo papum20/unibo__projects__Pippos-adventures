@@ -8,9 +8,6 @@
 #define WALL_HEIGHT 4
 
 
-//viene creato un solo muro e usato un puntatore allo stesso muro per disegnarlo (nelle classi level/room)
-
-
 class Wall : public Inanimate {
 	private:
 		int top_color;

@@ -1,8 +1,7 @@
-//// CLASSE CHE MEMORIZZA UNA COORDINATA, COME COPPIA X,Y, ED EVENTUALI "CONFINI" DI UNA MATRICE
+//// CLASSE CHE MEMORIZZA UNA COORDINATA, COME COPPIA X,Y (float), ED EVENTUALI "CONFINI" DI UNA MATRICE
 //// PERMETTE DI VERIFICARE SE LE COORDINATE SI TROVINO IN TALI BORDI CON inBounds() e inOwnBounds(),
 //// E DI OTTENERE UNA COORDINATA "SINGOLA", RELATIVA AI BORDI, UTILIZZABILE COME INDICE, CON single()
-
-
+//// IMPLEMENTA SVARIATE SEMPLICI OPERAZIONI
 
 #ifndef COORDINATE_HPP
 #define COORDINATE_HPP
@@ -37,16 +36,18 @@ class Coordinate {
 		Coordinate(s_coord xy, Coordinate size);						//crea a partire da singola coordinata						
 		Coordinate(const Coordinate a, const Coordinate b);				//crea come somma e con estremi del primo
 
+		static Coordinate unitVector(Coordinate A, Coordinate B);		//ritorna il vettore da A a B con coordinata maggiore=1 (in valore assoluto) (e minore tra -1 e 1)
+
 		//BOOL
 		bool inBounds(Coordinate mn, Coordinate mx);					//ritorna true se xmin<=x<xmax && ymin<=y<ymax
 		bool inOwnBounds();
 		bool equals(Coordinate B);										//se hanno stessi x e y
 		bool equals_int(Coordinate B);									//equals, ma confronta la parte intera
-		bool lessEqual(Coordinate B);									//se x e y < B.x e B.y
+		bool lessEqual(Coordinate B);									//x<B.x && yB.y
 		//EDIT
 		Coordinate negative() const;									//=(-x, -y)
 		Coordinate times(float px, float py);							//=(x*px, y*py)
-		void next();													//trasforma in coordinata successiva rispetto a matrice
+		void next();													//trasforma in coordinata successiva rispetto a matrice (incrementata di 1, non esce fuori dai bordi, se arrivato alla fine diventa l'inizio della matrice)
 		void randomize(int xmin, int xmax, int ymin, int ymax);			//trasforma x e y in random (min inclusi, max esclusi) (solo interi)
 																		//se estremi uguali, non cambia il valore
 		//SET
@@ -62,8 +63,6 @@ class Coordinate {
 		s_coord single();								//converte in una singola coordinata, rispetto a una matrice finita (=y*width + x) (usa parte intera delle coordinate)
 		s_coord single_ceil();							//single (usa arrotondamenti per eccesso delle coordinate)
 };
-
-
 
 const Coordinate COORDINATE_ERROR = Coordinate(-1, -1);		//COORDINATA DI RITORNO "DI ERRORE"
 

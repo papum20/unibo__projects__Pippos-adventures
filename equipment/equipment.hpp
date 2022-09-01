@@ -9,6 +9,7 @@
 #include "armor.hpp"
 #include "axe.hpp"
 #include "boots.hpp"
+#include "helm.hpp"
 #include "necklace.hpp"
 #include "shield.hpp"
 #include "bow.hpp"

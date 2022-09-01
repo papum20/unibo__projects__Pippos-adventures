@@ -1,4 +1,4 @@
-//// //// MAPPA DI CASELLE CONTENENTI INFORMAZIONI, OGGETTI...
+//// MAPPA DI CASELLE CONTENENTI INFORMAZIONI, OGGETTI...
 
 #ifndef MAP_HPP
 #define MAP_HPP
@@ -17,7 +17,7 @@
 class Map {
 	private:
 		Coordinate size;
-		int scale_x;
+		int scale_x;							//allargamento orizzontale (in generazione)
 		int n_doors_max;						//massimo numero porte (dimensione array)
 		int n_doors_sides;						//numero di lati occupati da una porta (attualmente)
 		Coordinate door_positions[MAX_SIDES_R];
@@ -37,17 +37,16 @@ class Map {
 		Coordinate checkLine_floor_next(Coordinate i, Coordinate delta);								//funzione ausiliaria per checkLine: ritorna la prossima casella in una linea (implementato con arrotondamento per difetto), o COORDINATE_ERROR se finisce la linea (incontrando un muro)
 		Coordinate checkLine_ceil_next(Coordinate i, Coordinate delta);									//funzione ausiliaria per checkLine: ritorna la prossima casella in una linea (implementato con arrotondamento per eccesso), o COORDINATE_ERROR se finisce la linea (incontrando un muro)
 
-		Coordinate getDoorEntrance(Coordinate doorCenter);	//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
-		Coordinate unitVector(Coordinate A, Coordinate B);	//ritorna il vettore da A a B con coordinata maggiore=1 (in valore assoluto) (e minore tra -1 e 1)
+		Coordinate getDoorEntrance(Coordinate door_pos);	//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
 
-		// FUNZIONI AUSILIARIE PRINCIPALI (GENERAZIONE)
+		// FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
 		void generateSidesWalls();
 		void generateInnerRoom();
 		void generateAllPaths(pUnionFind sets);
 		void connectPaths(pUnionFind sets);		//fa in modo che ogni punto sia raggiungibile da ogni altro
 		void resizeMap();						//ridimensiona la mappa, allargando quella temporanea generata di X_SCALE
 		void generateDoors(pUnionFind sets);					//genera le porte (generazione stanza)
-		// FUNZIONI AUSILIARIE SECONDARIE (GENERAZIONE)
+		// FUNZIONI AUSILIARIE DI GENERAZIONE - SECONDARIE
 		void generatePath(Coordinate s, pUnionFind sets);			//genera un percorso casuale a partire da x,y
 		int getAdjacentWalls(Coordinate out[], s_coord currentSet);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero
 		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
@@ -58,9 +57,10 @@ class Map {
 	public:
 		Map(int scale_x, pInanimate floorInstance, pInanimate wallInstance);
 		void destroy();
-		void update_all(char input);
-		void generate(); 													//genera uno schema randomico per i muri, inserendoli nella map
-		void generate_with_doors();
+		void update_all(char input);								//chiama l'update di tutti gli oggetti memorizzati		
+
+		void generate(); 											//genera uno schema randomico per i muri, inserendoli nella map
+		void generate_with_doors();									//genera anche le porte
 		int shortestPath(Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pPhysical obj = NULL);
 		//ritorna il percorso più breve da A a B, modificando path con i passi da seguire e ritornandone la lunghezza (B incluso, A escluso); ritorna -1 se impossibile;
 		//se si vuole il percorso per un oggetto physical, usare il campo obj (altrimenti non serve): permette di calcolare anche il percorso che passi attraverso esso
@@ -75,7 +75,7 @@ class Map {
 		pChest checkChest(Coordinate pos);							//ritorna l'oggetto (puntatore) chest
 		pDoor checkDoor(Coordinate pos);							//ritorna l'oggetto (puntatore) door
 		
-		int checkLine(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);			//checkPosition per una linea da start a end (incluso): ritorna tutti gli oggetti trovati in obj e il rispettivo numero
+		int checkLine(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso): ritorna tutti gli oggetti trovati in obj e il rispettivo numero
 		int checkLine_character(pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end);
 		int checkRectangle(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);
 		

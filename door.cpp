@@ -4,11 +4,9 @@
 	Door::Door(Coordinate pos, Coordinate entrancePosition, bool locked) {
 		id = ID_DOOR;
 		this->pos = pos;
-		//this->room = room;
 		this->entrancePosition = entrancePosition;
 		this->locked = locked;
 	};
-
 
 //// SET
 	void Door::unlock() {

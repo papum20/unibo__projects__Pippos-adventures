@@ -200,23 +200,16 @@ int Map::vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
 		if(physical[t1.single_ceil()]->getId() == ID_WALL && physical[t2.single_ceil()]->getId() == ID_WALL) return COORDINATE_ERROR;
 		else return j;
 	}
-	Coordinate Map::getDoorEntrance(Coordinate doorCenter) {
+	Coordinate Map::getDoorEntrance(Coordinate door_pos) {
 		Coordinate res;
 		int d = 0;
 		while(d < DIRECTIONS_N) {
-			if(!Coordinate(doorCenter, DIRECTIONS[d]).inBounds(Coordinate(0, 0), size))
-				res = Coordinate(doorCenter, DIRECTIONS[d].negative());
+			if(!Coordinate(door_pos, DIRECTIONS[d]).inBounds(Coordinate(0, 0), size))
+				res = Coordinate(door_pos, DIRECTIONS[d].negative());
 			else d++;
 		}
 		return res;
 	}
-	Coordinate Map::unitVector(Coordinate A, Coordinate B) {
-		Coordinate diff = Coordinate(B, A.negative());
-		int diffMax = Math::abs(diff.x);
-		if(Math::abs(diff.y) > diffMax) diffMax = Math::abs(diff.y);
-		return diff.times(1. / diffMax, 1. / diffMax);
-	}
-
 
 #pragma region GENERATION
 	void Map::generate()
@@ -373,7 +366,7 @@ int Map::vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
 //// CHECK LINE
 	int Map::checkLine(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
-		Coordinate delta = unitVector(start, end);
+		Coordinate delta = Coordinate::unitVector(start, end);
 
 		Coordinate i = start;
 		bool ended = false;
@@ -393,7 +386,7 @@ int Map::vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
 	//IMPLEMENTATO COME CHECKLINE, CAMBIA ARROTONDAMENTO
 	int Map::checkLine_ceil(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
-		Coordinate delta = unitVector(start, end);
+		Coordinate delta = Coordinate::unitVector(start, end);
 
 		Coordinate i = start;
 		bool ended = false;
@@ -413,7 +406,7 @@ int Map::vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
 	//IMPLEMENTATO COME CHECKLINE, CAMBIA TIPO DI RIORNO
 	int Map::checkLine_character(pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
-		Coordinate delta = unitVector(start, end);
+		Coordinate delta = Coordinate::unitVector(start, end);
 
 		Coordinate i = start;
 		bool ended = false;
@@ -443,7 +436,7 @@ int Map::vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
 //// FIND
 	bool Map::findLine(pPhysical obj, Coordinate start, Coordinate end) {
 		//si potrebbe implementare semplicemente chiamando checkline e cercando nell'array, ma almeno così se trova l'oggetto si può fermare subito
-		Coordinate delta = unitVector(start, end);
+		Coordinate delta = Coordinate::unitVector(start, end);
 
 		Coordinate i = start;
 		bool ended = false;

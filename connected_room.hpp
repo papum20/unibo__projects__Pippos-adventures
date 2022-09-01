@@ -12,7 +12,7 @@
 class ConnectedRoom : public Room {
 	private:
 		pRoom connected[MAX_CONNECTED_R];	//stanze collegate nella rispettiva direzione con una porta
-		int locked_doors;							//numero di porte che richiedono chiave
+		int locked_doors;					//numero di porte che richiedono chiave
 
 	public:
 		ConnectedRoom(Coordinate pos);

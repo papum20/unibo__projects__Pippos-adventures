@@ -1,4 +1,4 @@
-//classe parent di oggetti inanimati: wall, floor
+////CLASSE PARENT DI OGGETTI INANIMATI : wall, floor, door
 
 
 
@@ -19,7 +19,6 @@ class Inanimate : public Physical {
 		
 	public:
 		Inanimate();
-		void init_colors();
 
 		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);			//overridden
 };

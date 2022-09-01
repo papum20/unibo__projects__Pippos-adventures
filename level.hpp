@@ -35,6 +35,7 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 #include "connected_room.hpp"
 #include "definitions.hpp"
 #include "enemies/enemies.hpp"
+#include "equipment/equipment.hpp"
 #include "player.hpp"
 #include "priority_queue_room.hpp"
 #include "timer.hpp"
@@ -45,20 +46,20 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 const int ENEMIES_N[LEVELS_N] {10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
 														{Zombie(), Spider()},
-														{Zombie(), Spider(), Snowman(), Witch()},
-														{Zombie(), Spider(), Snowman(), Witch(), Fire_spirit()}
+														{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
+														{Spider(), Fire_spirit(), Snowman(), Witch()}
 														};
 const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]		= 	{
 														{3, 1},
-														{2, 2, 2, 2},
-														{1, 1, 3, 3, 4}
+														{2, 3, 4, 1, 1},
+														{1, 2, 4, 4}
 														};
 const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 100, 100};
 //item
 const int CHESTS_N_MIN[LEVELS_N] {0};
 const int CHESTS_N_MAX[LEVELS_N] {2};
 const Artifact ARTIFACT_INSTANCES[N_ARTIFACTS] = {HealthPotion(), Life_elixir(), Rune()};
-const item_difensivo ITEM_DIFENSIVO_INSTANCES[N_ITEM_DIFENSIVO] = {armor(), boots(), necklace(), shield()};
+const item_difensivo ITEM_DIFENSIVO_INSTANCES[N_ITEM_DIFENSIVO] = {armor(), boots(), helm(), necklace(), shield()};
 const Weapon WEAPON_INSTANCES[N_WEAPONS] = {Ascia(), Arco(), Hands(), Rod(), sword()};
 
 

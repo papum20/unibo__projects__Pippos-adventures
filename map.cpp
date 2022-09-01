@@ -132,24 +132,48 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 	}
 }
 
+int Map::vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
+	//IMPLEMENTAZIONE: "spara" raggi da source verso tutti i punti del muro di perimetro, con entrambe le implementazioni checkLine_floor e checkLine_ceil; ritorna l'intersezione dei risultati
+	int length = 0;
+	pPhysical obj_floor[ROOM_AREA], obj_ceil[ROOM_AREA];
+	int len_floor = 0, len_ceil = 0;
+	//"spara" raggi
+	Coordinate target = Coordinate(0, 0, size);
+	do {
+		//cerca physical
+		pPhysical tmp_floor[ROOM_AREA], tmp_ceil[ROOM_AREA];
+		int len_floor_t = checkLine(tmp_floor, source, target);
+		int len_ceil_t = checkLine_ceil(tmp_ceil, source, target);
+		//aggiungi quelli che non erano già stati trovati
+		for(int i = 0; i < len_floor_t; i++) {
+			if(!tmp_floor[i]->findInArray(obj_floor, len_floor)) {
+				obj_floor[len_floor] = tmp_floor[i];
+				len_floor++;
+			}
+		}
+		for(int i = 0; i < len_ceil_t; i++) {
+			if(!tmp_ceil[i]->findInArray(obj_ceil, len_ceil)) {
+				obj_ceil[len_ceil] = tmp_ceil[i];
+				len_ceil++;
+			}
+		}
+		//next
+		if(target.x == 0 && target.y != 0 && target.y != size.y - 1) target.x = size.x - 1;
+		else target.next();
+	} while(!target.equals(Coordinate(0, 0)));
+	//intersezione
+	for(int i = 0; i < len_floor; i++) {
+		if(obj_floor[i]->findInArray(obj_ceil, len_ceil)) {
+			obj[length] = obj_floor[i];
+			length++;
+		}
+	}
+	return length;
+}
+
+
 
 #pragma region AUSILIARIE
-	Coordinate Map::unitVector(Coordinate A, Coordinate B) {
-		Coordinate diff = Coordinate(B, A.getNegative());
-		int diffMax = Math::abs(diff.x);
-		if(Math::abs(diff.y) > diffMax) diffMax = Math::abs(diff.y);
-		return diff.getTimes(1. / diffMax, 1. / diffMax);
-	}
-	Coordinate Map::getDoorEntrance(Coordinate doorCenter) {
-		Coordinate res;
-		int d = 0;
-		while(d < DIRECTIONS_N) {
-			if(!Coordinate(doorCenter, DIRECTIONS[d]).inBounds(Coordinate(0, 0), size))
-				res = Coordinate(doorCenter, DIRECTIONS[d].getNegative());
-			else d++;
-		}
-		return res;
-	}
 	void Map::addLineToCheck(pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end) {
 		int added = 0;
 		pPhysical line[ROOM_AREA];
@@ -161,6 +185,36 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 			}
 		}
 		found += added;
+	}
+	Coordinate Map::checkLine_floor_next(Coordinate i, Coordinate delta) {
+		Coordinate j = Coordinate(i, delta);
+		Coordinate t1 = Coordinate(i.x, j.y);
+		Coordinate t2 = Coordinate(j.x, i.y);
+		if(physical[t1.single()]->getId() == ID_WALL && physical[t2.single()]->getId() == ID_WALL) return COORDINATE_ERROR;
+		else return j;
+	}
+	Coordinate Map::checkLine_ceil_next(Coordinate i, Coordinate delta) {
+		Coordinate j = Coordinate(i, delta);
+		Coordinate t1 = Coordinate(i.x, j.y);
+		Coordinate t2 = Coordinate(j.x, i.y);
+		if(physical[t1.single_ceil()]->getId() == ID_WALL && physical[t2.single_ceil()]->getId() == ID_WALL) return COORDINATE_ERROR;
+		else return j;
+	}
+	Coordinate Map::getDoorEntrance(Coordinate doorCenter) {
+		Coordinate res;
+		int d = 0;
+		while(d < DIRECTIONS_N) {
+			if(!Coordinate(doorCenter, DIRECTIONS[d]).inBounds(Coordinate(0, 0), size))
+				res = Coordinate(doorCenter, DIRECTIONS[d].getNegative());
+			else d++;
+		}
+		return res;
+	}
+	Coordinate Map::unitVector(Coordinate A, Coordinate B) {
+		Coordinate diff = Coordinate(B, A.getNegative());
+		int diffMax = Math::abs(diff.x);
+		if(Math::abs(diff.y) > diffMax) diffMax = Math::abs(diff.y);
+		return diff.getTimes(1. / diffMax, 1. / diffMax);
 	}
 /*	bool Map::inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj) {
 		bool found = false;
@@ -329,32 +383,56 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 		Coordinate delta = unitVector(start, end);
 
 		Coordinate i = start;
-		while(!i.equals(end)) {
+		bool ended = false;
+		while(!ended) {
 			obj[found] = checkPosition(i);
 			//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
 			//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
 			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
-			i = Coordinate(i, delta);
+			if(i.equals_int(end)) ended = true;
+			else {
+				i = checkLine_floor_next(i, delta);
+				if(i.equals(COORDINATE_ERROR)) ended = true;
+			}
 		}
-		obj[found] = checkPosition(end);
-		if(obj[found] != NULL) found++;
-
 		return found;
 	}
-	int Map::checkLine_character(pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end) {
-		//funzione identica a checkline, cambia solo il tipo di ritorno
+	//IMPLEMENTATO COME CHECKLINE, CAMBIA ARROTONDAMENTO
+	int Map::checkLine_ceil(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
 		Coordinate delta = unitVector(start, end);
 
 		Coordinate i = start;
-		while(!i.equals(end)) {
+		bool ended = false;
+		while(!ended) {
+			obj[found] = checkPosition(i);
+			//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
+			//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
+			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
+			if(i.equals_int(end)) ended = true;
+			else {
+				i = checkLine_ceil_next(i, delta);
+				if(i.equals(COORDINATE_ERROR)) ended = true;
+			}
+		}
+		return found;
+	}
+	//IMPLEMENTATO COME CHECKLINE, CAMBIA TIPO DI RIORNO
+	int Map::checkLine_character(pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end) {
+		int found = 0;
+		Coordinate delta = unitVector(start, end);
+
+		Coordinate i = start;
+		bool ended = false;
+		while(!ended) {
 			obj[found] = checkCharacter(i);
 			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
-			i = Coordinate(i, delta);
+			if(i.equals(end)) ended = true;
+			else {
+				i = checkLine_floor_next(i, delta);
+				if(i.equals(COORDINATE_ERROR)) ended = true;
+			}
 		}
-		obj[found] = checkCharacter(end);
-		if(obj[found] != NULL) found++;
-
 		return found;
 	}
 
@@ -406,12 +484,16 @@ int Map::shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysica
 		Coordinate delta = unitVector(start, end);
 
 		Coordinate i = start;
-		bool found = false;
-		while(!i.equals(end) && !found) {
-			if(checkPosition(i) == obj) found = true;
-			i = Coordinate(i, delta);
+		bool ended = false;
+		while(!ended) {
+			if(checkPosition(i) == obj) ended = true;
+			if(i.equals(end)) ended = true;
+			else {
+				i = checkLine_floor_next(i, delta);
+				if(i.equals(COORDINATE_ERROR)) ended = true;
+			}
 		}
-		return found;
+		return checkPosition(i) == obj;
 	}
 	bool Map::findRectangle(pPhysical obj, Coordinate start, Coordinate end) {
 		//si potrebbe implementare semplicemente chiamando checkrectangle e cercando nell'array, ma almeno così se trova l'oggetto si può fermare subito

@@ -9,6 +9,7 @@
 
 
 #include <iostream>
+#include "math.hpp"
 
 
 #define DFLT_COORDINATE_X 0
@@ -42,6 +43,7 @@ class Coordinate {
 		//bool inBoundsX(float xmin, float xmax);						//se x compreso, estremi inclusi
 		//bool inBoundsY(float ymin, float ymax);
 		bool equals(Coordinate B);										//se hanno stessi x e y
+		bool equals_int(Coordinate B);									//equals, ma confronta la parte intera
 		bool lessEqual(Coordinate B);									//se x e y < B.x e B.y
 		//bool equalsDirection(Coordinate B);							//se hanno la stessa direzione
 		//EDIT
@@ -59,15 +61,17 @@ class Coordinate {
 		//GET
 		int intx();										//coordinate intere
 		int inty();
+		int ceilx();									//coordinate intere (arrotondate per eccesso)
+		int ceily();
 		float relative_x();								//relativi alla matrice
 		float relative_y();
-		s_coord single();								//converte in una singola coordinata, rispetto a una matrice finita (=y*width + x)
+		s_coord single();								//converte in una singola coordinata, rispetto a una matrice finita (=y*width + x) (usa parte intera delle coordinate)
+		s_coord single_ceil();							//single (usa arrotondamenti per eccesso delle coordinate)
 };
 
 
 
-
-
+const Coordinate COORDINATE_ERROR = Coordinate(-1, -1);		//COORDINATA DI RITORNO "DI ERRORE"
 
 
 #endif

@@ -8,6 +8,8 @@ int main() {
 
 	bool isRunning = true;
 	//bool isPaused = false;
+	Timer refresh_timer = Timer();
+	refresh_timer.set_max(REFRESH_TIMER_INDEX, REFRESH_RATE);
 
 	//// START: ESEGUITO UNA VOLTA ALL'AVVIO
 	cursesInit();
@@ -37,11 +39,19 @@ int main() {
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while(isRunning)
 	{
-		inputManager->calculate_input();
+		//// GESTIONE TEMPO FRAME: si eseguono tutte le operazioni, poi nel prossimo update il tempo rimasto nel tempo di aggiornamento (refresh_rate)
+		// il gioco rimane "inattivo", continuando solo a ricevere l'input (comunque almeno una volta)
+		do {
+			inputManager->calculate_input();
+		} while(!refresh_timer.check(REFRESH_TIMER_INDEX));
+		refresh_timer.start(REFRESH_TIMER_INDEX);
+
+		//// IN PAUSA
 		if (menu.is_active()) {
 			if(inputManager->get_input() == KEY_PAUSE) menu.
 			menu.actions(inputManager->get_input());			//se il menu è aperto il player non si muove
 		}
+		//// IN GIOCO
 		else {
 			if(inputManager->get_input() == KEY_PAUSE) menu.open();
 			//player.update(Room.map, Room.characters, inputManager.get_input()); 		//actions perchè può essere sia movimento che combattimento, poi differenzierei nella funzione

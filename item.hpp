@@ -13,12 +13,13 @@ const char epic[]="Epic";
 const char legendary[]="Legendary";
 
 class item: public Physical{
-    protected:
+    public:
         bool rune_applied;
         char rarity[15];
         char description[description_length];
         char name[20];
-    public:
+        char type[20];
+        
         //variabili di movimento
         int move_up_index;
 		int move_down_index;

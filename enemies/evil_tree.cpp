@@ -12,4 +12,6 @@ Evil_tree::Evil_tree():Enemy(){
     animations[move_left_index]=new Animation (tree_move_left, ENEMY_ANIMATION_WIDTH, ENEMY_ANIMATION_HEIGHT, tree_move_left_states);
     animations[move_right_index]=new Animation (tree_move_right, ENEMY_ANIMATION_WIDTH, ENEMY_ANIMATION_HEIGHT, tree_move_right_states);
     animations[move_down_index]=new Animation (tree_move_down, ENEMY_ANIMATION_WIDTH, ENEMY_ANIMATION_HEIGHT, tree_move_down_states);
+
+    points_given=tree_points;
 }

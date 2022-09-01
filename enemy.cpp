@@ -4,8 +4,8 @@ Enemy::Enemy() {
     
 }
 
-Enemy::Enemy(int max_health, int max_stamina, int p_g):Character (max_health, max_stamina){
-    points_given=p_g;
+Enemy::Enemy(int max_health, int max_stamina):Character (max_health, max_stamina){
+    
 }
 
 /*void Enemy::update(pInanimate map[], pCharacter characters[]){

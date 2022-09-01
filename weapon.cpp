@@ -1,7 +1,7 @@
 #include "weapon.hpp"
 
 Weapon::Weapon():item(){
-    
+    id=WEAPON_ID;
 }
 
 Weapon::Weapon (int danno_f, int danno_m, const char rar[], const char n[], const char desc[]):item(rar, n, desc){
@@ -26,6 +26,8 @@ Weapon::Weapon (int danno_f, int danno_m, const char rar[], const char n[], cons
     }
 
     is_equipped=false;
+
+    id=WEAPON_ID;
 }
 
 

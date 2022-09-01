@@ -3,6 +3,8 @@
 
 #include "enemy.hpp"
 
+const int witch_points=50;
+
 const int witch_idle_index=0;
 const int witch_move_up_index=1;
 const int witch_move_down_index=2;

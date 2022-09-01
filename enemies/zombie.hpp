@@ -3,6 +3,8 @@
 
 #include "enemy.hpp"
 
+const int zombie_points=20;
+
 const int zombie_idle_index=0;
 const int zombie_move_up_index=1;
 const int zombie_move_down_index=2;

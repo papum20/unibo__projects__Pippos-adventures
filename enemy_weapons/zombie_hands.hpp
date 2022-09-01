@@ -18,6 +18,21 @@ const int zombie_hands_attack_right_index=7;
 const int zombie_hands_height=5;
 const int zombie_hands_width=6;
 
+const int zombie_horizontal_attack_height=1;
+const int zombie_vertical_attack_width=2;
+
+const int zombie_delta_x_right=5;
+const int zombie_delta_y_right=-2;
+
+const int zombie_delta_x_left=0;
+const int zombie_delta_y_left=-2;
+
+const int zombie_delta_x_up=2;
+const int zombie_delta_y_up=-4;
+
+const int zombie_delta_x_down=2;
+const int zombie_delta_y_down=0;
+
 const char zombie_hands_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
 {
 	{' ', ' ', ' ', ' ', ' ', ' '},

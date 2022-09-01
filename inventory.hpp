@@ -356,7 +356,7 @@ const char rarity[4][12] = {"comune", "raro", "epico", "leggendario"};
 const char type[n_graphic_types_items][10] = {"spada", "arco", "armatura", "scudo", "elmo","ascia","pozione","stivali","collana","bastone"};
 
 
-class Inventory : public Pixel_art, public Weapon, public item_difensivo, public Artifact {
+class Inventory : public Pixel_art{
 	private:
         WINDOW * w_inventory;
         WINDOW * w_zaino;
@@ -380,9 +380,7 @@ class Inventory : public Pixel_art, public Weapon, public item_difensivo, public
         void init_inventory_color();
         int calculate_my_weight();
         void insert(const char nome[], const char rarity[], const char description[], const char type[], int stats_attack, int stats_defense, int magic_defense, int attack_magic);
-        void insert_weapon(pWeapon w);
-        void insert_item_difensive(item_difensivo * s);
-        void insert_artifact(Artifact * a);
+        void insert (pItem item);
         void fix_array(int array_index, Player * p);
         void int_to_string(int number, char string[]);
         void reverse_string(char string[]);

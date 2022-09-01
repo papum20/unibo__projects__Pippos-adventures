@@ -10,8 +10,6 @@ class Projectile: public Physical{
         int danno_fisico;
         int danno_magico;
 
-        char direction;
-
         int up_width;
         int up_height;
 
@@ -24,7 +22,8 @@ class Projectile: public Physical{
         int left_width;
         int left_height;
     public:
-        Projectile (Weapon w);
+        Projectile();
+        Projectile (pWeapon w);
 
         void cast_direction (Character c);
 };

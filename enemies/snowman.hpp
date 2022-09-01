@@ -3,6 +3,8 @@
 
 #include "enemy.hpp"
 
+const int snowman_points=50;
+
 const int snowman_idle_index=0;
 const int snowman_move_up_index=1;
 const int snowman_move_down_index=2;

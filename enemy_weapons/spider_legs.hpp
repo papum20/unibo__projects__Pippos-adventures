@@ -19,6 +19,21 @@ const int spider_legs_attack_right_index=7;
 const int spider_legs_height=7;
 const int spider_legs_width=11;
 
+const int spider_horizontal_attack_height=1;
+const int spider_vertical_attack_width=5;
+
+const int spider_delta_x_right=;
+const int spider_delta_y_right=-;
+
+const int spider_delta_x_left=;
+const int spider_delta_y_left=;
+
+const int spider_delta_x_up=3;
+const int spider_delta_y_up=-6;
+
+const int spider_delta_x_down=3;
+const int spider_delta_y_down=0;
+
 const char spider_legs_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
 {	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -118,11 +133,12 @@ const char spider_legs_attack_left[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{' ', ' ', 'm',' ',char(39),'m',')',')',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	},
+
 	{	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ',','.',' ',' ',' ',' ',' ',' ',' '},
 	{' ', '/', '/',' ',' ',' ',' ',' ',' ',' ',' '},
-	{'(', ' ', char(39),'m','m',' ',' ',' ',' ',' ',' '},
+	{'(', ' ', char(39),'m','m',' ',' ',' ',' ',' ',' '},   //ooooo
 	{' ', '\\', '.','m','m','m','m','|','\\',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	}

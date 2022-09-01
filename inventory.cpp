@@ -2,7 +2,7 @@
 
 #include <cstring>
 
-Inventory::Inventory(Player * p, int * input):Pixel_art(), Weapon (d_f, d_m, rar, description), item_difensivo(dif, d_mag, rar, description), Artifact(description) {
+Inventory::Inventory(Player * p, int * input):Pixel_art(){
 p_input=input;
 is_open=false;
 int yMax, xMax;
@@ -20,26 +20,11 @@ int Weapons_array_index=0;
 curr_inventory_space = 0;
 }
 
-void Inventory::insert_weapon(pWeapon w){
-if(curr_inventory_space<= n_max_inventory_objects){
-objects[curr_inventory_space]=w;
-curr_inventory_space++;
-}
-
-
-}
-void Inventory::insert_item_difensive(item_difensivo * s){
-if(curr_inventory_space<= n_max_inventory_objects){
-objects[curr_inventory_space]=s;
-curr_inventory_space++;
+void Inventory::insert(pItem item){
+    if(curr_inventory_space<= n_max_inventory_objects){
+        objects[curr_inventory_space]=item;
+        curr_inventory_space++;
     }
-}
-
-void Inventory::insert_artifact(Artifact * a){
-if(curr_inventory_space<= n_max_inventory_objects){    
-objects[curr_inventory_space]=a;
-curr_inventory_space++;
-}
 }
 
 
@@ -65,11 +50,11 @@ void Inventory::open_options(){
 }
 
 int Inventory::check_class_name(int array_index){
-    if(strcmp(objects[array_index]->class_name, "weapon") == 0)
+    if(objects[array_index]->getId()==WEAPON_ID)
         return 1;
-    else if(strcmp(objects[array_index]->class_name, "item_difensivo") == 0)
+    else if(objects[array_index]->getId()==DEFENSIVE_ITEM_ID)
         return 2;
-    else if(strcmp(objects[array_index]->class_name, "artefatto") == 0)
+    else if(objects[array_index]->getId()==ARTIFACT_ID)
         return 3;
     else return 0;
 }
@@ -126,7 +111,6 @@ void Inventory::fix_array(int array_index, Player * p){
            static_cast< Weapon *>(objects[array_index])->danno_fisico=0;
            static_cast< Weapon *>(objects[array_index])->danno_magico=0;
            static_cast< Weapon *>(objects[array_index])->is_equipped=false;
-           p->update_equip();
 
            
         }
@@ -135,7 +119,6 @@ void Inventory::fix_array(int array_index, Player * p){
            static_cast< item_difensivo *>(objects[array_index])->difesa_fisica=0;
            static_cast< item_difensivo *>(objects[array_index])->difesa_magica=0;
            static_cast< item_difensivo *>(objects[array_index])->is_equipped=false;
-           p->update_equip();
            
         }
     }  
@@ -325,25 +308,25 @@ if(choice==invio){
             //gli item non li metto mai a true nel is_equipped
             if(check_class_name(array_index)==1){
                 if(((array_index!=i) && (static_cast< Weapon *>(objects[i])->is_equipped)) || ((strcmp(objects[array_index]->type, objects[i]->type) == 0) && (array_index!=i) && (static_cast< Weapon *>(objects[i])->is_equipped))){
-                    p->change_weapon(objects[array_index]);
+                    p->change_weapon(static_cast< pWeapon> (objects[array_index]));
             }
             }
             if(check_class_name(array_index)==2){
                  if(((array_index!=i) && (static_cast< item_difensivo *>(objects[i])->is_equipped)) && (strcmp(objects[array_index]->type, objects[i]->type) == 0) /*&& (array_index!=i) && (static_cast< item_difensivo *>(objects[i])->is_equipped)*/){
                 if(strcmp(objects[i]->type, type[2]) == 0){
-                    p->change_armor (objects[array_index]);
+                    p->change_armor (static_cast< pArmor>(objects[array_index]));
                 }
                 if(strcmp(objects[i]->type, type[3]) == 0){
-                   p->change_shield (objects[array_index]); 
+                   p->change_shield (static_cast< pShield>(objects[array_index])); 
                 }
                 if(strcmp(objects[i]->type, type[4]) == 0){
-                    p->change_helm (objects[array_index]); 
+                    p->change_helm (static_cast< pHelm>(objects[array_index])); 
                 }
                 if(strcmp(objects[i]->type, type[8]) == 0){
-                    p->change_necklace (objects[array_index]);
+                    p->change_necklace (static_cast< pNecklace>(objects[array_index]));
                 }
                 if(strcmp(objects[i]->type, type[7]) == 0){
-                    p->change_boots (objects[array_index]);
+                    p->change_boots (static_cast< pBoots>(objects[array_index]));
                 }}
             }
                   
@@ -376,7 +359,7 @@ if(choice==invio){
     
 }
 }
-}
+
 
 void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){
     if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)

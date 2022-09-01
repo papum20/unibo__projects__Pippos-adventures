@@ -19,6 +19,20 @@ const int axe_attack_right_index=7;
 const int axe_height=8;
 const int axe_width=9;
 
+const int axe_horizontal_attack_height=1;
+
+const int axe_delta_x_right=7;
+const int axe_delta_y_right=-4;
+
+const int axe_delta_x_left=1;
+const int axe_delta_y_left=-4;
+
+const int axe_delta_x_up=
+const int axe_delta_y_up=
+
+const int axe_delta_x_down=
+const int axe_delta_y_down=
+
 const char axe_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -172,7 +186,7 @@ const char axe_attack_up[axe_vertical_attack_states][WEAPON_ANIMATION_HEIGHT][WE
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
-	{' ',' ', ' ', '(', '<', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ', '(', '<', ' ', ' ', ' ', ' '}, //ooooo
 	{' ',' ', ' ', ' ', ' ', 'm', ' ', ' ', ' '},
     {' ',' ', ' ', ' ', ' ', '>', ' ', ' ', ' '},
 	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -211,7 +225,7 @@ const char axe_attack_down[axe_vertical_attack_states][WEAPON_ANIMATION_HEIGHT][
     {' ',' ', ' ', '<', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ', ' ', '_', ' ', ' ', ' ', ' '},
 	{' ', ' ' , ' ',' ','|',' ', ' ' , ' ', ' '},
-	{' ', ' ' , ' ',' ','<',')', ' ' , ' ', ' '}
+	{' ', ' ' , ' ',' ','<',')', ' ' , ' ', ' '}     //ooooo
 	},
 
 

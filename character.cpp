@@ -26,7 +26,7 @@ void Character::apply_equipment (){
 	danno_fisico=(equipaggiamento.arma)->danno_fisico;
 	danno_magico=(equipaggiamento.arma)->danno_magico;
 
-	difesa_fisica=(equipaggiamento.scudo)->difesa_fisica+(equipaggiamento.armatura)->difesa_fisica+(equipaggiamento.stivali)->difesa_fisica;
+	difesa_fisica=(equipaggiamento.scudo)->difesa_fisica+(equipaggiamento.armatura)->difesa_fisica+(equipaggiamento.stivali)->difesa_fisica+(equipaggiamento.elmo)->difesa_fisica;
 	difesa_magica=(equipaggiamento.scudo)->difesa_magica+(equipaggiamento.armatura)->difesa_magica+(equipaggiamento.collana)->difesa_magica;
 }
 
@@ -123,7 +123,7 @@ void Character::initiate_attack (){
 }
 */
 
-/*pCharacter Character::check_enemy_melee(){
+pCharacter Character::check_enemy_melee(){
 	Coordinate start, end;
 	switch (direction){
 		case 'u':
@@ -138,7 +138,7 @@ void Character::initiate_attack (){
 	
 	return (checkLine(start, end));
 }
-*/
+
 
 int Character::calculate_loss(pCharacter c){
 	return ( -(danno_fisico-(c->difesa_fisica/2)) + (danno_magico-(c->difesa_magica/2)));

@@ -37,10 +37,12 @@ int main() {
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while(isRunning)
 	{
-		if (menu.is_active())
+		inputManager->calculate_input();
+		if (menu.is_active()) {
+			if(inputManager->get_input() == KEY_PAUSE) menu.
 			menu.actions(inputManager->get_input());			//se il menu è aperto il player non si muove
-		else{
-			inputManager->calculate_input();
+		}
+		else {
 			if(inputManager->get_input() == KEY_PAUSE) menu.open();
 			//player.update(Room.map, Room.characters, inputManager.get_input()); 		//actions perchè può essere sia movimento che combattimento, poi differenzierei nella funzione
 			hud.drawHud(player.curHealth, player.curStamina, player.n_hearts);

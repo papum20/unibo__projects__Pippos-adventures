@@ -2,8 +2,8 @@
 #define ZOMBIE_HPP
 
 #include "enemy.hpp"
-#include "zombie_hands.hpp"
-#include "armor.hpp"
+#include "../enemy_weapons/zombie_hands.hpp"
+#include "../equipment/armor.hpp"
 
 const int zombie_points=20;
 

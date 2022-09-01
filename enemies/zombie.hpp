@@ -17,7 +17,7 @@ const int zombie_move_down_states=2;
 const int zombie_move_left_states=2;
 const int zombie_move_right_states=2;
 
-const char zombie_idle[1][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char zombie_idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', '(', ')', ' '},
 	{'/', '|', '|', '\\'},
@@ -26,7 +26,7 @@ const char zombie_idle[1][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char zombie_move_up[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char zombie_move_up[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', '(', ')', ' '},
 	{'<', '|', '|', '>'},
@@ -42,7 +42,7 @@ const char zombie_move_up[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char zombie_move_down[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char zombie_move_down[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', '(', ')', ' '},
 	{'<', '|', '|', '>'},
@@ -58,7 +58,7 @@ const char zombie_move_down[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char zombie_move_left[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char zombie_move_left[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', '(', ')', ' '},
 	{'=', '|', '|', ' '},
@@ -75,7 +75,7 @@ const char zombie_move_left[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 };
 
 
-const char zombie_move_right[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char zombie_move_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', '(', ')', ' '},
 	{' ', '|', '|', '='},

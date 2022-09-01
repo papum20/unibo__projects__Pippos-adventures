@@ -1,11 +1,7 @@
 #include "comparable.hpp"
 
 
-Comparable::Comparable() : Object() {
-
-}
-
-Comparable::Comparable(int unique_id) : Object(unique_id) {
+Comparable::Comparable() {
 
 }
 

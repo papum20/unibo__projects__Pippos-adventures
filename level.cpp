@@ -106,29 +106,15 @@
 		}
 	}
 
-	void Level::update(char input) {
+	void Level::update(int input) {
 		curRoom->update(input);
 		changeRoom();
-		//controlla se il player è su una porta
-		//pPhysical location = curRoom->checkPosition(player->getPosition());
-		//if(location->getId() == ID_DOOR) curRoom->getDoorInPosition(location->getPosition())->setPlayerOn(true);
 	}
 
 	void Level::changeRoom() {
-		/*pPhysical location = curRoom->checkPosition(player->getPosition());
-		if(location->getId() == ID_DOOR) {
-			pConnectedRoom next_room = curRoom->getRoomInPosition(player->getPosition());
-			pDoor next_door = next_room->getDoorToRoom(curRoom);
-			if(next_door->canUse()) {
-				player->setPosition(next_door->getPosition());			//riposiziona player
-				curRoom = next_room;
-				next_door->setPlayerOn(true);
-			}
-		}*/
 		pDoor new_door = player->usedDoor();
 		if(new_door != NULL) {
 			curRoom->setPosition_strong(player, new_door->getEntrancePosition());	//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
-			//player->setPosition(new_door->getEntrancePosition());	//riposiziona player
 			curRoom = curRoom->getRoomInPosition(new_door->getPosition());
 		}
 	}
@@ -148,8 +134,8 @@
 
 	}
 	void Level::setPivot(pPhysical pivot) {
-		pivotDistance = Coordinate(pivot->getPosition(), pivot->getPosition().negative());		//nuovo pivot - vecchio pivot
-		pivot = pivot;
+		pivotDistance = Coordinate(pivot->getPosition(), this->pivot->getPosition().negative());		//nuovo pivot - vecchio pivot
+		this->pivot = pivot;
 		pivotChanged = true;
 	}
 	void Level::setDefaultCameraSpecs() {
@@ -159,18 +145,6 @@
 		damping_timeout = CAMERA_DAMPING_TIMEOUT;
 		opposite_speed = CAMERA_OPPOSITE_SPEED;
 		change_pivot_speed = CAMERA_CHANGE_PIVOT_SPEED;
-		/*camera_offset_max_x = CAMERA_OFFSET_MAX_X;
-		camera_offset_max_y = CAMERA_OFFSET_MAX_Y;
-		camera_speed_x = CAMERA_SPEED_X;
-		camera_speed_y = CAMERA_SPEED_Y;
-		camera_damping_speed_x = CAMERA_DAMPING_SPEED_X;
-		camera_damping_speed_y = CAMERA_DAMPING_SPEED_Y;
-		camera_damping_time_x = CAMERA_DAMPING_TIME_X;
-		camera_damping_time_y = CAMERA_DAMPING_TIME_Y;
-		camera_opposite_speed_x = CAMERA_OPPOSITE_SPEED_X;
-		camera_opposite_speed_y = CAMERA_OPPOSITE_SPEED_Y;
-		camera_change_pivot_speed_x = CAMERA_CHANGE_PIVOT_SPEED_X;
-		camera_change_pivot_speed_y = CAMERA_CHANGE_PIVOT_SPEED_Y;*/
 		timer.set_max(CAMERA_DAMPING_TIMER, damping_timeout);
 	}
 #pragma endregion SET_GET
@@ -202,32 +176,32 @@
 			float ratio = timer.deltaTime();
 			//se il pivot è cambiato
 			if(pivotChanged) {
-				if(position.inBounds(Coordinate(pivot->getPosition(), offset_max.getNegative()), Coordinate(pivot->getPosition(), offset_max)))	//se camera nel rettangolo con dimensioni offset_max e centro pivot
+				if(position.inBounds(Coordinate(pivot->getPosition(), offset_max.negative()), Coordinate(pivot->getPosition(), offset_max)))	//se camera nel rettangolo con dimensioni offset_max e centro pivot
 					pivotChanged = false;
 				else {
 					ratio /= change_pivot_speed;
-					position = Coordinate(position, pivotDistance.getTimes(ratio, ratio));
+					position = Coordinate(position, pivotDistance.times(ratio, ratio));
 				}
 			}
 			//se il pivot non si è mosso
 			else if(pivot->lastFrameMovement().equals(Coordinate(0, 0))) {
-				if(Coordinate(position, pivot->getPosition().getNegative()).inBounds(tolerance.getNegative(), tolerance))	//se camera - pivot nel rettangolo di incertezza (di dimensioni piccole)
+				if(Coordinate(position, pivot->getPosition().negative()).inBounds(tolerance.negative(), tolerance))	//se camera - pivot nel rettangolo di incertezza (di dimensioni piccole)
 					position = pivot->getPosition();
 				else if(!timer.is_active(CAMERA_DAMPING_TIMER))							//se si è appena fermato: avvia timer
 					timer.start(CAMERA_DAMPING_TIMER);
 				else if(timer.check(CAMERA_DAMPING_TIMER)) {						//se passato tempo di attesa: muoviti
 					ratio /= damping_speed;
-					position = Coordinate(position, (Coordinate(position, pivot->getPosition().getNegative())).getTimes(ratio, ratio));		//camera - (pivot - camera) * ratio = camera + (camera - pivot) * ratio
+					position = Coordinate(position, (Coordinate(position, pivot->getPosition().negative())).times(ratio, ratio));		//camera - (pivot - camera) * ratio = camera + (camera - pivot) * ratio
 				}
 			}
 			//se si è mosso
 			else {
-				Coordinate target = Coordinate(pivot->getPosition(), pivot->getSpeed().getTimes(1 / PHYSICAL_MAX_SPEED, 1 / PHYSICAL_MAX_SPEED));	//pivot + pivot.speed / max_speed
-				if(Coordinate(position, target.getNegative()).inBounds(tolerance.getNegative(), tolerance))		//se camera - target nel rettangolo di incertezza
+				Coordinate target = Coordinate(pivot->getPosition(), pivot->getSpeed().times(1 / PHYSICAL_MAX_SPEED, 1 / PHYSICAL_MAX_SPEED));	//pivot + pivot.speed / max_speed
+				if(Coordinate(position, target.negative()).inBounds(tolerance.negative(), tolerance))		//se camera - target nel rettangolo di incertezza
 					position = target;
 				else {
 					ratio /= speed;
-					position = Coordinate(position, (Coordinate(target, position.getNegative())).getTimes(ratio, ratio));		//camera + (target - camera) * ratio
+					position = Coordinate(position, (Coordinate(target, position.negative())).times(ratio, ratio));		//camera + (target - camera) * ratio
 				}
 			}
 
@@ -244,7 +218,7 @@
 	}
 
 	Coordinate Level::cameraStart() {
-		return Coordinate(position, Coordinate(Math::ceil(curRoom->getSize().x / 2.) - 1, Math::ceil(curRoom->getSize().y / 2.) - 1).getNegative());
+		return Coordinate(position, Coordinate(Math::ceil(curRoom->getSize().x / 2.) - 1, Math::ceil(curRoom->getSize().y / 2.) - 1).negative());
 	}
 	Coordinate Level::cameraEnd() {
 		return Coordinate(position, Coordinate(curRoom->getSize().x / 2, curRoom->getSize().y / 2));

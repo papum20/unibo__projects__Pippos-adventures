@@ -26,7 +26,7 @@ class Timer {
 		double get_time_passed(int timer);	//ritorna il tempo passato da quando hai fatto lo start del timer/cronometro
 		bool check(int timer);				//ritorna true se ha superato il limite
 		void start(int timer);				//starta un singolo timer(si salva il valore del clock in quel momento in timers[timer])
-		void start_all();					//starta tutti i timer //consiglio di nome:	start_all
+		void start_all();					//starta tutti i timer
 		void stop(int timer);				//stoppa un timer e quindi non è più attivo
 		void stop_all();
 		void start_pause(int timer);		//mette in pausa un timer(rimane comunque attivo)//--:pause

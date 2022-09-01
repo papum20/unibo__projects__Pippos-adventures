@@ -54,6 +54,9 @@
 	bool Coordinate::equals(Coordinate B) {
 		return x == B.x && y == B.y;
 	}
+	bool Coordinate::equals_int(Coordinate B) {
+		return intx() == B.intx() && inty() == B.inty();
+	}
 	bool Coordinate::lessEqual(Coordinate B) {
 		return x <= B.x && y <= B.y;
 	}
@@ -65,20 +68,10 @@
 
 //// EDIT
 #pragma region EDIT
-	Coordinate Coordinate::negative() {
-		x = -x;
-		y = -y;
-		return *this;
-	}
-	Coordinate Coordinate::getNegative() const {
+	Coordinate Coordinate::negative() const {
 		return Coordinate(Coordinate(-x, -y), Coordinate(startx, starty), Coordinate(endx, endy));
 	}
 	Coordinate Coordinate::times(float px, float py) {
-		x *= px;
-		y *= py;
-		return *this;
-	}
-	Coordinate Coordinate::getTimes(float px, float py) {
 		return Coordinate(Coordinate(x * px, y * py), Coordinate(startx, starty), Coordinate(endx, endy));
 	}
 	void Coordinate::next() {
@@ -131,6 +124,12 @@
 	int Coordinate::inty() {
 		return y;
 	}
+	int Coordinate::ceilx() {
+		return Math::ceil(x);
+	}
+	int Coordinate::ceily() {
+		return Math::ceil(y);
+	}
 	float Coordinate::relative_x() {
 		return x - startx;
 	}
@@ -138,6 +137,9 @@
 		return y - starty;
 	}
 	s_coord Coordinate::single() {
-		return y * (endx - startx) + x;
+		return inty() * (endx - startx) + intx();
+	}
+	s_coord Coordinate::single_ceil() {
+		return ceily() * (endx - startx) + ceilx();
 	}
 #pragma endregion SET_GET

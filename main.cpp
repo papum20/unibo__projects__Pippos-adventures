@@ -8,22 +8,27 @@ int main() {
 
 	bool isRunning = true;
 	//bool isPaused = false;
+	Timer refresh_timer = Timer();
+	refresh_timer.set_max(REFRESH_TIMER_INDEX, REFRESH_RATE);
 
 	//// START: ESEGUITO UNA VOLTA ALL'AVVIO
 	cursesInit();
 	gameInit();
 	
-	//calcolo per posizionare la finestra al centro
+	//FINESTRE
+	//calcolo per posizionare la finestra di gioco al centro
 	int stdscr_x, stdscr_y;
 	getmaxyx(stdscr, stdscr_y, stdscr_x);
 	int level_x = (stdscr_x - CAMERA_WIDTH) / 2, level_y = (stdscr_y - CAMERA_HEIGHT) / 2;
+	//finestra di input (in basso a destra, sotto level)
+	int input_x = level_x + CAMERA_WIDTH - input_l, input_y = level_y + CAMERA_HEIGHT;
 
 	//costruttori
-	Player player = Player();
+	pInputManager inputManager = new InputManager(input_x, input_y);
+	Player player = Player(inputManager);
 	Level level = Level(level_x, level_y, &player);
-	Menu menu = Menu();
+	Menu menu = Menu(inputManager);
 	Hud hud = Hud(hud_window, p_max_health, p_max_stamina);
-	InputManager inputManager = InputManager(input_x, input_y);
 
 	//funzioni per la gestione input
 	//keypad (input_window, true);
@@ -34,12 +39,24 @@ int main() {
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while(isRunning)
 	{
-		if (menu.is_open())
-			menu.actions(inputManager.get_input());			//se il menu è aperto il player non si muove
-		else{
+		//// GESTIONE TEMPO FRAME: si eseguono tutte le operazioni, poi nel prossimo update il tempo rimasto nel tempo di aggiornamento (refresh_rate)
+		// il gioco rimane "inattivo", continuando solo a ricevere l'input (comunque almeno una volta)
+		do {
+			inputManager->calculate_input();
+		} while(!refresh_timer.check(REFRESH_TIMER_INDEX));
+		refresh_timer.start(REFRESH_TIMER_INDEX);
+
+		//// IN PAUSA
+		if (menu.is_active()) {
+			if(inputManager->get_input() == KEY_PAUSE) menu.
+			menu.actions(inputManager->get_input());			//se il menu è aperto il player non si muove
+		}
+		//// IN GIOCO
+		else {
+			if(inputManager->get_input() == KEY_PAUSE) menu.open();
 			//player.update(Room.map, Room.characters, inputManager.get_input()); 		//actions perchè può essere sia movimento che combattimento, poi differenzierei nella funzione
 			hud.drawHud(player.curHealth, player.curStamina, player.n_hearts);
-			level.update(inputManager.get_input());
+			level.update(inputManager->get_input());
 			level.display();
 		}
 	}
@@ -61,9 +78,12 @@ void cursesInit() {
 	curs_set(0);		//cursore invisibile
 	cbreak();			//Ctrl+C esce dal gioco
 }
-
 void gameInit() {
 	srand(time(NULL));
+	colorsInit();
+}
+void colorsInit() {
+	
 }
 
 void cursesEnd() {

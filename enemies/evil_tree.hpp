@@ -17,7 +17,7 @@ const int tree_move_up_states=2;
 const int tree_move_right_states=2;
 const int tree_move_down_states=2;
 
-const char tree_idle[tree_idle_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char tree_idle[tree_idle_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\','o','|','o','/',char(39),' '},
@@ -29,7 +29,7 @@ const char tree_idle[tree_idle_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_W
 
 };
 
-const char tree_move_left[tree_move_left_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char tree_move_left[tree_move_left_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\','o','|',' ','/',char(39),' '},
@@ -49,7 +49,7 @@ const char tree_move_left[tree_move_left_states][ENEMY_ANIMATION_HEIGHT][ENEMY_A
 
 };
 
-const char tree_move_right[tree_move_right_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char tree_move_right[tree_move_right_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\',' ','|','o','/',char(39),' '},
@@ -70,7 +70,7 @@ const char tree_move_right[tree_move_right_states][ENEMY_ANIMATION_HEIGHT][ENEMY
 };
 
 
-const char tree_move_up[tree_move_up_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char tree_move_up[tree_move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\',' ',' ',' ','/',char(39),' '},
@@ -90,7 +90,7 @@ const char tree_move_up[tree_move_up_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMA
 
 };
 
-const char tree_move_down[tree_move_down_states][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char tree_move_down[tree_move_down_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ','\\','|',' ',' ',' ','|','/','-'},
 	{',','-','\\','o','|','o','/',char(39),' '},

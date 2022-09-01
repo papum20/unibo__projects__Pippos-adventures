@@ -1,7 +1,7 @@
 #include "menu.hpp"
 
 
-Menu::Menu(int * input):Pixel_art() {
+Menu::Menu(pInputManager input):Pixel_art() {
 this->p_input=input;
 this->menu_is_active=false;
 getmaxyx(stdscr, yMax, xMax);
@@ -9,6 +9,7 @@ this->menu = newwin(25, 60, yMax/2 - 10, xMax/2-25);
 this->wface = newwin(33, 66, 11, 10);
 this->caverna = newwin(50, 210, 0, 0);
 this->w_options = newwin(30, 75, yMax/2 - 12, xMax/2-35);
+highlight=0;
 }
 
 
@@ -25,8 +26,8 @@ void Menu::open_options(WINDOW * w_options){
     mvwprintw(w_options, 6, 2, "i tasti w a s d servono a muoversi nelle 4 direzioni");
     int choice;
     while(true){
-        choice=(*p_input);
-        //choice=wgetch(w_options);
+        choice=p_input->get_input();
+        
         if(choice==esc){
             keypad(menu,true);
             werase(w_options);
@@ -39,33 +40,18 @@ bool Menu::is_active(){
     return(menu_is_active);
 }
 
-void Menu::start_close_game(){
+void Menu::close_menu(){
     menu_is_active=false;
     werase(wface);
     werase(menu);
     werase(caverna);
 }
 
-void Menu::menu_choices(WINDOW* menuwin){
-box(menuwin, 0, 0);
-char choices[3][20]={"start", "comandi", "chiudi"};
-keypad(menuwin, true);   
-int choice;
-int highlight=0;
-   while(1){
-       int high_letter=3;
-       for(int i=0; i<3; i++){
-           if(i==highlight){
-                pixel_phrase(menuwin, 10, high_letter, choices[i], true);
-                high_letter=high_letter+6;
-           }
-            else{
-                pixel_phrase(menuwin, 10, high_letter, choices[i], false);
-                high_letter=high_letter+6;
-            }
-       }
-       //choice = wgetch(menuwin);
-       choice=(*p_input);
+void Menu::update(){
+
+       
+       int choice;
+       choice=p_input->get_input();
        switch (choice){
            case scroll_up:
             highlight--;
@@ -85,11 +71,11 @@ int highlight=0;
         open();
        }
        if(((highlight==0) || (highlight==2)) &&(choice==invio)){
-        start_close_game();
-        break;
+        close_menu();
+        
        }
-   }
-   wrefresh(menuwin);
+   
+   wrefresh(menu);
    }
 
 
@@ -157,7 +143,20 @@ void Menu::open(){
 menu_is_active=true;
 print_cave(caverna);
 print_face(wface, face, 65, 32);
-menu_choices(menu);
+box(menu, 0, 0);
+keypad(menu, true);   
+
+int high_letter=3;
+       for(int i=0; i<3; i++){
+           if(i==highlight){
+                pixel_phrase(menu, 10, high_letter, choices[i], true);
+                high_letter=high_letter+6;
+           }
+            else{
+                pixel_phrase(menu, 10, high_letter, choices[i], false);
+                high_letter=high_letter+6;
+            }
+       }
 }
 
 

@@ -16,13 +16,13 @@
 
 class Animation {
 	public:
-		char state[ANIMATION_HEIGHT][ANIMATION_WIDTH];
+		char state[ANIMATION_HEIGHT][ANIMATION_WIDTH];	//un frame dell'animazione
 		int width;
 		int height;
 		Animation *next;
 
 		Animation();
-		Animation(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const int width, const int height);					//inizializza singolo frame
+		Animation(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const int width, const int height);						//inizializza singolo frame
 		Animation(const char animation[][ANIMATION_HEIGHT][ANIMATION_WIDTH], const int width, const int height, const int len);	//inizializza intera lista (lunghezza len)
 		Animation *tail_insert(Animation *head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
 		void delete_list();

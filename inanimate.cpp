@@ -10,7 +10,7 @@ void Inanimate::init_colors() {
 }
 
 void Inanimate::drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos, attr_t color) {
-	pos.setFullMatrix(win_start.x, win_start.y, -1, -1);
+	pos.setFullMatrix(win_start, COORDINATE_ERROR);
 	if(pos.inOwnBounds())
 		scr[(int)pos.relative_x()][(int)pos.relative_y()].edit(-1, -1, color, -1);
 }

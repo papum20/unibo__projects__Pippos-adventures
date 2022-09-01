@@ -6,6 +6,7 @@
 
 const int input_h=1;
 const int input_l=2;
+#define KEY_PAUSE 'm'
 
 class InputManager {
 	private:

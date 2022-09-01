@@ -32,10 +32,14 @@ class Map {
 		pInanimate wallInstance;
 
 		// FUNZIONI AUSILIARIE
+		void addLineToCheck(pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end);	//funzione ausiliaria per checkRectangle: controlla una linea
+		int checkLine_ceil(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);					//funzione ausiliaria per vision: checkLine, implementato con arrotondamento per eccesso
+		Coordinate checkLine_floor_next(Coordinate i, Coordinate delta);								//funzione ausiliaria per checkLine: ritorna la prossima casella in una linea (implementato con arrotondamento per difetto), o COORDINATE_ERROR se finisce la linea (incontrando un muro)
+		Coordinate checkLine_ceil_next(Coordinate i, Coordinate delta);									//funzione ausiliaria per checkLine: ritorna la prossima casella in una linea (implementato con arrotondamento per eccesso), o COORDINATE_ERROR se finisce la linea (incontrando un muro)
+
 		Coordinate getDoorEntrance(Coordinate doorCenter);	//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
 		Coordinate unitVector(Coordinate A, Coordinate B);	//ritorna il vettore da A a B con coordinata maggiore=1 (in valore assoluto) (e minore tra -1 e 1)
-		void addLineToCheck(pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end);	//funzione ausiliaria per checkRectangle: controlla una linea
-		//bool inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj);	//se obj si trova in A
+
 		// FUNZIONI AUSILIARIE PRINCIPALI (GENERAZIONE)
 		void generateSidesWalls();
 		void generateInnerRoom();
@@ -62,6 +66,8 @@ class Map {
 		//se si vuole il percorso per un oggetto physical, usare il campo obj (altrimenti non serve): permette di calcolare anche il percorso che passi attraverso esso
 		int shortestPath_physical(Coordinate path[ROOM_AREA], pPhysical A, pPhysical B, int dist_min = 1, int dist_max = 1);
 		//shortestPath per far arrivare un oggetto A a distanza compresa tra dist_min = dist_max (inclusi) da un oggetto B (minimo 1), in linea retta (cioè solo se A e B sono allineati);
+		int vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1);
+		//"visione" a 360 gradi: ritorna tutti gli oggetti visibili (anche passando attraverso physical diversi da wall) in tutte le direzioni a partire da una sorgente source; se <0, il range massimo si considera infinito
 
 		// CHECK
 		pPhysical checkPosition(Coordinate pos);					//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
@@ -73,8 +79,8 @@ class Map {
 		int checkLine_character(pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end);
 		int checkRectangle(pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);
 		
-		bool findLine(pPhysical obj, Coordinate start, Coordinate end);			//cerca obj (puntatore), funziona come checkLine
-		bool findRectangle(pPhysical obj, Coordinate start, Coordinate end);	//cerca obj (puntatore), funziona come checkRectangle
+		bool findLine(pPhysical obj, Coordinate start, Coordinate end);				//cerca obj (puntatore), funziona come checkLine
+		bool findRectangle(pPhysical obj, Coordinate start, Coordinate end);		//cerca obj (puntatore), funziona come checkRectangle
 		/*
 			controlla un rettangolo; i vertici inseriti del rettangolo cambiano l'ordine di ricerca: 1. si cerca sempre da start a end; 2.:
 			start.x<=end.x, start.y<=end.y:	verso il basso (riga per riga, da sinistra a destra)

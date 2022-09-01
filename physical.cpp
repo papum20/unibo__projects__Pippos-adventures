@@ -53,31 +53,7 @@ void Physical::next_animation(){
         }
         return found;
     }
-    /*bool Physical::isPlaceholder() {
-        return id == ID_PLACEHOLDER;
-    }*/
-
-/*    pPhysical Physical::checkPosition(pPhysical map[], Coordinate pos) {
-		if(pos.inBounds(Coordinate(0, 0), size) && map[pos.single()]->getId() != ID_FLOOR)
-			return map[pos.single()];
-		else return NULL;
-	}
-    pPhysical Physical::checkLine(pPhysical map[], Coordinate start, Coordinate end) {
-        Coordinate delta = Coordinate(end, start.getNegative());
-        int deltaMax = delta.x;
-        if(delta.y > delta.x) deltaMax = delta.y;
-        delta.times(1. / deltaMax, 1. / deltaMax);
-
-        Coordinate i = start;
-        pPhysical target = NULL;
-        while(!i.equals(end) && target == NULL) {
-            target = checkPosition(map, i);
-            i = Coordinate(i, delta);
-        }
-        if(target == NULL) return checkPosition(map, end);
-        else return NULL;
-    }*/
-
+    
     int Physical::getId() {
         return id;
     }

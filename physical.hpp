@@ -10,21 +10,8 @@
 
 
 #pragma region PHYSICAL_CONSTANTS
-#pragma region PHYSICAL_ANIMATIONS
-/*const int ANIMATION_WIDTH = 6;
-const int ANIMATION_HEIGHT = 5;
-//struttura della lista degli array dell'animazione del player
-struct Animation{
-	char state[ANIMATION_HEIGHT][ANIMATION_WIDTH];
-	Animation *next;
-	int height;
-	int width;
-};
-typedef Animation *p_Animation;
-*/
-const int MAX_ANIMATIONS = 6;
-#pragma endregion PHYSICAL_ANIMATIONS
 
+const int MAX_ANIMATIONS = 6;
 // NUMERI
 #define N_ENEMIES 6
 
@@ -55,21 +42,6 @@ const int MAX_ANIMATIONS = 6;
 #define ID_ARTEFACT 30
 #pragma endregion PHYSICAL_IDS
 
-//// COSTANTI PER LA RAPPRESENTAZIONE GRAFICA
-#pragma region GRAPHICS
-// COLORI
-#define COLOR_WALL COLOR_RED
-#define COLOR_TRANSPARENT COLOR_YELLOW	//per il muro quando diventa più chiaro se c'è qualcosa dietro
-#define COLOR_UPPER_WALL COLOR_BLACK	//bordo superiore muro
-#define COLOR_FLOOR COLOR_GREEN
-#define COLOR_SHADOW COLOR_CYAN			//per il pavimento con l'ombra di un oggetto
-// CARATTERI
-#define CHAR_EMPTY ' '
-
-//const int wallColors[5] = {COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA};
-//const int floorColors[5] = {COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, COLOR_BLACK};
-#pragma endregion GRAPHICS
-
 #pragma region PHYSICAL_STATS
 #define PHYSICAL_MAX_SPEED 5.
 #pragma endregion PHYSICAL_STATS
@@ -92,8 +64,6 @@ class Physical {
 
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
 
-		//p_Animation tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height);
-
 		int move_up_index;
 		int move_down_index;
 		int move_left_index;
@@ -114,12 +84,9 @@ class Physical {
 		bool isCharacter();
 		bool isProjectile();
 		//bool isItem();			//se è item/artefatto...
-		//bool isPlaceholder();
 		bool findInArray(Physical *A[ROOM_AREA], int len);
 
 		// GET
-		//pPhysical checkPosition(Physical *map[], Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
-		//pPhysical checkLine(Physical *map[], Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso)
 		int getId();
 		Coordinate getPosition();
 		Coordinate getSize();

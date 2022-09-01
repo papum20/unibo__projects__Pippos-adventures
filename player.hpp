@@ -5,7 +5,7 @@
 #include "door.hpp"
 #include "chest.hpp"
 #include "inputmanager.hpp"
-#include "menu.hpp"
+//#include "menu.hpp"
 
 const int player_idle_index = 0;
 const int player_move_right_index = 1;
@@ -137,9 +137,9 @@ class Player : public Character {
 		pArtifact artifacts[MAX_ARTIFACTS];
 		int curr_artifact;
 		pInputManager in_manager;
-		Menu menu;
+		//Menu menu;
 	public:
-		Player(pInputManager in, Menu m);
+		Player(pInputManager in);
 	
 		void update(pMap map);
 

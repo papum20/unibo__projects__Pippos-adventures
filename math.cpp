@@ -12,5 +12,5 @@ int Math::ceil(double n) {
 }
 
 int Math::randomStep(int min, int max, int step){
-	return ( (rand()%((max-min)/step))*step+min ); 
+	return ( (rand()%((max-min)/step+1))*step+min ); 
 }

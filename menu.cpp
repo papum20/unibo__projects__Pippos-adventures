@@ -13,7 +13,8 @@ highlight=0;
 }
 
 
-void Menu::open_options(WINDOW * w_options){
+void Menu::open_options(){
+    menu_is_active=false;
     keypad(menu,false);
     werase(wface);
     werase(menu);
@@ -24,16 +25,20 @@ void Menu::open_options(WINDOW * w_options){
     mvwprintw(w_options, 2, 2, "m = apri menu");
     mvwprintw(w_options, 4, 2, "n = apri inventario");
     mvwprintw(w_options, 6, 2, "i tasti w a s d servono a muoversi nelle 4 direzioni");
-    int choice;
-    while(true){
-        choice=p_input->get_input();
+    
+    
+}
+
+void Menu::update_options(){
+int choice;
+choice=p_input->get_input();
         
         if(choice==esc){
             keypad(menu,true);
             werase(w_options);
-            break;
+            menu_is_active=true;
+        
         }
-    }
 }
 
 bool Menu::is_active(){
@@ -48,8 +53,10 @@ void Menu::close_menu(){
 }
 
 void Menu::update(){
-
-       
+if(menu_is_active==false){
+  update_options();
+  return;
+       }
        int choice;
        choice=p_input->get_input();
        switch (choice){
@@ -68,6 +75,7 @@ void Menu::update(){
        }
        if((highlight==1) &&(choice==invio)){
         open_options(w_options);
+        
         open();
        }
        if(((highlight==0) || (highlight==2)) &&(choice==invio)){

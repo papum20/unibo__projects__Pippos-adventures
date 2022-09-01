@@ -15,7 +15,7 @@ const int scroll_left = KEY_LEFT;
 const int scroll_right = KEY_RIGHT;
 const int esc = 27; //tasto per uscire dall'inventario
 const int invio = 10;
-
+const char choices[3][20]={"start", "comandi", "chiudi"};
 
 const int c_hight = 25;
 const int c_lenght = 105; 
@@ -51,15 +51,10 @@ int cave[c_hight][c_lenght]={
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
-/*
-int * p;
-	int c= 5;
-	p=&c;
-	c=7;
-	cout<<*p;*/
+
 
 class Menu : public Pixel_art {
-	private:
+	protected:
         WINDOW * menu;
         WINDOW * wface;
         WINDOW * caverna;
@@ -67,10 +62,10 @@ class Menu : public Pixel_art {
         int yMax, xMax;
         bool menu_is_active;
         pInputManager p_input;
+        int highlight;
        
 	public:
         Menu(pInputManager input);
-        void menu_choices(WINDOW* menuwin);
         void set_menu_color();
         void print_cave(WINDOW * caverna);
         void open_options(WINDOW * w_options);
@@ -78,6 +73,7 @@ class Menu : public Pixel_art {
         void update();
         bool is_active();
         void close_menu();
+        void open();
       
 };      
 

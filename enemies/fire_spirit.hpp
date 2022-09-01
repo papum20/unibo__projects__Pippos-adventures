@@ -26,7 +26,7 @@ const char fire_spirit_idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	}
 };
 
-const char fire_spirit_move_right[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char fire_spirit_move_right[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', ' ', ' ', char(39)},
 	{char(39), ' ', ' ', ','},
@@ -58,7 +58,7 @@ const char fire_spirit_move_right[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WID
 
 
 
-const char fire_spirit_move_left[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char fire_spirit_move_left[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', ' ', ' ', char(39)},
 	{char(39), ' ', ' ', ' '},
@@ -87,7 +87,7 @@ const char fire_spirit_move_left[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDT
 	}
 };
 
-const char fire_spirit_move_up[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char fire_spirit_move_up[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', ' ', ' ', char(39)},
 	{char(39), ' ', ' ', ','},
@@ -117,7 +117,7 @@ const char fire_spirit_move_up[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]
 };
 
 
-const char fire_spirit_move_down[3][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char fire_spirit_move_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', ' ', ' ', char(39)},
 	{char(39), ' ', ' ', ','},

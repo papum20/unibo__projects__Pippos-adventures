@@ -15,7 +15,7 @@ const int snowman_move_down_states=2;
 const int snowman_move_left_states=2;
 const int snowman_move_right_states=2;
 
-const char snowman_idle[1][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char snowman_idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ',' ', '_' ,'[', '_', ']', '_', ' ', ' '},
 	{' ',' ', ' ' ,'(', '"', ')', ' ', ' ', ' '},
@@ -25,7 +25,7 @@ const char snowman_idle[1][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char snowman_move_up[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char snowman_move_up[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {
 	{' ',' ', '_' ,'[', '_', ']', '_', ' ', ' '},
@@ -43,7 +43,7 @@ const char snowman_move_up[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char snowman_move_down[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char snowman_move_down[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {
 	{' ',' ', '_' ,'[', '_', ']', '_', ' ', ' '},
@@ -61,7 +61,7 @@ const char snowman_move_down[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char snowman_move_left[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char snowman_move_left[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {
 	{' ',' ', '_' ,'[', '_', ']', '_', ' ', ' '},
@@ -79,7 +79,7 @@ const char snowman_move_left[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char snowman_move_right[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char snowman_move_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {
 	{' ',' ', '_' ,'[', '_', ']', '_', ' ', ' '},

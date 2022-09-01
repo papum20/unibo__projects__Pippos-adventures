@@ -78,9 +78,12 @@ void cursesInit() {
 	curs_set(0);		//cursore invisibile
 	cbreak();			//Ctrl+C esce dal gioco
 }
-
 void gameInit() {
 	srand(time(NULL));
+	colorsInit();
+}
+void colorsInit() {
+	
 }
 
 void cursesEnd() {

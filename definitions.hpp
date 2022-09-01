@@ -21,4 +21,25 @@
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
 #pragma endregion ROOM_DEFINITIONS
 
+//// COSTANTI PER LA RAPPRESENTAZIONE GRAFICA
+#pragma region GRAPHICS
+// COLORI RIDEFINITI:
+//COLOR_BLACK
+//COLOR_WHITE
+//COLOR_RED
+//COLOR_GREEN
+#define COLOR_BROWN COLOR_RED
+#define COLOR_BROWN_LIGHT COLOR_YELLOW
+#define COLOR_GREY COLOR_CYAN
+#define COLOR_BLUE COLOR_MAGENTA
+// COLORI ASSOCIATI:
+#define COLOR_WALL COLOR_BROWN
+#define COLOR_TRANSPARENT COLOR_BROWN_LIGHT	//per il muro quando diventa più chiaro se c'è qualcosa dietro
+#define COLOR_UPPER_WALL COLOR_BLACK		//bordo superiore muro
+#define COLOR_FLOOR COLOR_GREEN
+#define COLOR_SHADOW COLOR_GREY				//per il pavimento con l'ombra di un oggetto
+// CARATTERI:
+#define CHAR_EMPTY ' '
+#pragma endregion GRAPHICS
+
 #endif

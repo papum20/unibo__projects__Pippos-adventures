@@ -15,7 +15,7 @@ const int witch_move_down_states=2;
 const int witch_move_left_states=2;
 const int witch_move_right_states=2;
 
-const char witch_idle[1][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char witch_idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{'_', ')', '\\', '_'},
 	{' ', '/', ' ', '\\'},
@@ -25,7 +25,7 @@ const char witch_idle[1][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char witch_move_left[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char witch_move_left[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {
 	{'_', '/', '(',' '},
@@ -44,7 +44,7 @@ const char witch_move_left[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char witch_move_right[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char witch_move_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {
 	{'_', ')', '\\', '_'},
@@ -63,7 +63,7 @@ const char witch_move_right[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char witch_move_up[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char witch_move_up[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{'_', ')', '\\', '_'},
 	{' ', '/', ' ', '\\'},
@@ -81,7 +81,7 @@ const char witch_move_up[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
 	}
 };
 
-const char witch_move_down[2][ENEMY_ANIMATION_HEIGHT][ENEMY_ANIMATION_WIDTH]={
+const char witch_move_down[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {
 	{'_', ')', '\\', '_'},

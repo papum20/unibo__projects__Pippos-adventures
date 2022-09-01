@@ -42,19 +42,6 @@ const int MAX_ANIMATIONS = 6;
 #define ID_ARTEFACT 30
 #pragma endregion PHYSICAL_IDS
 
-//// COSTANTI PER LA RAPPRESENTAZIONE GRAFICA
-#pragma region GRAPHICS
-// COLORI
-#define COLOR_WALL COLOR_RED
-#define COLOR_TRANSPARENT COLOR_YELLOW	//per il muro quando diventa più chiaro se c'è qualcosa dietro
-#define COLOR_UPPER_WALL COLOR_BLACK	//bordo superiore muro
-#define COLOR_FLOOR COLOR_GREEN
-#define COLOR_SHADOW COLOR_CYAN			//per il pavimento con l'ombra di un oggetto
-// CARATTERI
-#define CHAR_EMPTY ' '
-
-#pragma endregion GRAPHICS
-
 #pragma region PHYSICAL_STATS
 #define PHYSICAL_MAX_SPEED 5.
 #pragma endregion PHYSICAL_STATS

@@ -19,8 +19,9 @@
 
 
 //// INIT
-	void cursesInit();
-	void gameInit();
+	void cursesInit();	//inizializza funzioni di ncurses
+	void gameInit();	//inizializzazioni di gioco
+	void colorsInit();	//inizializza/modifica i colori
 
 //// END
 	void cursesEnd();

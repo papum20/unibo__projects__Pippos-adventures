@@ -17,7 +17,7 @@
 #define TB_BORDER 1
 #define N_ROOMS 10						//numero di stanze (normali) generate per livello
 #define LEVEL_AREA (N_ROOMS * N_ROOMS)	//dimensioni matrice livello
-#define LEVELS_N 5
+#define LEVELS_N 3
 
 // COSTANTI PER IL MOVIMENTO DELLA CAMERA
 const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
@@ -40,16 +40,21 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 #include "timer.hpp"
 
 
-//SPAWN
+//SPAWN: istanze e probabilità
+//enemy
 const int ENEMIES_N[LEVELS_N] {10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
-															{}
-															};
+														{Zombie(), Spider()},
+														{Zombie(), Spider(), Snowman(), Witch()},
+														{Zombie(), Spider(), Snowman(), Witch(), Fire_spirit()}
+														};
 const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]		= 	{
-															{1}
-															};
-const int ENEMIES_CHANCE_TOT[LEVELS_N] = {1};
-
+														{3, 1},
+														{2, 2, 2, 2},
+														{1, 1, 3, 3, 4}
+														};
+const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 100, 100};
+//item
 const int CHESTS_N_MIN[LEVELS_N] {0};
 const int CHESTS_N_MAX[LEVELS_N] {2};
 const Artifact ARTIFACT_INSTANCES[N_ARTIFACTS] = {HealthPotion(), Life_elixir(), Rune()};
@@ -90,7 +95,7 @@ class Level {
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
 		//oggetti:
-		pRoom curRoom;		//stanza attuale, inquadrata e in cui si trova il giocatore
+		pRoom curRoom;				//stanza attuale, inquadrata e in cui si trova il giocatore
 		pPlayer player;
 		Timer timer;
 		
@@ -121,7 +126,7 @@ class Level {
 
 		// GET
 		void getLevelMap(pRoom map[]);
-		void getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), playerr
+		void getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), player
 
 		// SET
 		void setPivot(pPhysical pivot);											//imposta l'oggetto che la telecamera seguirà

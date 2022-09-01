@@ -61,6 +61,7 @@ class Menu : public Pixel_art {
         WINDOW * w_options;
         int yMax, xMax;
         bool menu_is_active;
+        bool options_is_active;
         pInputManager p_input;
         int highlight;
        
@@ -69,11 +70,11 @@ class Menu : public Pixel_art {
         void set_menu_color();
         void print_cave(WINDOW * caverna);
         void open_options(WINDOW * w_options);
-        void start_close_game();
         void update();
         bool is_active();
         void close_menu();
         void open();
+        void update_options();
       
 };      
 

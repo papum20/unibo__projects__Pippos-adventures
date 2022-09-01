@@ -75,8 +75,9 @@ class Menu : public Pixel_art {
         void print_cave(WINDOW * caverna);
         void open_options(WINDOW * w_options);
         void start_close_game();
-        void open();
+        void update();
         bool is_active();
+        void close_menu();
       
 };      
 

@@ -9,7 +9,7 @@ int yMax, xMax;
 getmaxyx(stdscr, yMax, xMax);
 this->w_inventory = newwin(8, 113, 1, 45);
 this->w_zaino = newwin(38, 45, 11, 40);
-this->w_item = newwin(35, 70, 12, 95);
+this->w_item = newwin(39, 70, 12, 95);
 this->w_weapon = newwin(32, 31, 14, 96);
 this->w_equip = newwin(35, 100, 12, 50);
 this->w_options = newwin(30, 75, yMax/2 - 12, xMax/2-35);
@@ -239,7 +239,8 @@ if(((check_class_name(array_index))==3)){
 else
     mvwprintw(w_use, 1, 2, "equipaggia");
 wattroff(w_use, COLOR_PAIR(3));
-mvwprintw(w_use, 2, 3, "scarta");
+if((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped))) || (!(static_cast<Weapon *>(objects[i])->is_equipped))))
+   mvwprintw(w_use, 2, 3, "scarta");
 int choice;
 keypad(w_use, true);
 wrefresh(w_use); 
@@ -256,14 +257,24 @@ if(choice==esc){
 if(choice==scroll_up){
         highlight--;
         if(highlight<=0){
-            highlight=2;
+           if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped))) || (!(static_cast<Weapon *>(objects[i])->is_equipped)))))
+              highlight=1;
+            else
+               highlight=2;
         }
 }
 if(choice==scroll_down){
         highlight++;
-        if(highlight>=3){
+    if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped))) || (!(static_cast<Weapon *>(objects[i])->is_equipped))))){
+        if(highlight>=2){
             highlight=1;
-        }    
+        }
+     } 
+     else{
+      if(highlight>=3){
+            highlight=1;
+        }
+    }   
 }
 if(highlight==1){
     wattron(w_use, COLOR_PAIR(3)); 
@@ -305,7 +316,7 @@ if(choice==invio){
     }
     else if(highlight==1){
         for(int i = 0; i<curr_inventory_space; i++){
-            //gli item non li metto mai a true nel is_equipped
+            
             if(check_class_name(array_index)==1){
                 if(((array_index!=i) && (static_cast< Weapon *>(objects[i])->is_equipped)) || ((strcmp(objects[array_index]->type, objects[i]->type) == 0) && (array_index!=i) && (static_cast< Weapon *>(objects[i])->is_equipped))){
                     p->change_weapon(static_cast< pWeapon> (objects[array_index]));

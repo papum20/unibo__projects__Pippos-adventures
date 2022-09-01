@@ -2,6 +2,8 @@
 #define ZOMBIE_HPP
 
 #include "enemy.hpp"
+#include "zombie_hands.hpp"
+#include "armor.hpp"
 
 const int zombie_points=20;
 
@@ -94,6 +96,8 @@ const char zombie_move_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 class Zombie: public Enemy{
     public:
+		pZombie_hands zombie_hands;
+		pArmor armor; 
         Zombie();
 };
 

@@ -1,6 +1,8 @@
 #include "zombie.hpp"
 
 Zombie::Zombie():Enemy(){
+    zombie_hands=new Zombie_hands();
+    armor= new armor();
     idle_index=zombie_idle_index;
     move_up_index=zombie_move_up_index;
     move_down_index=zombie_move_down_index;
@@ -14,4 +16,6 @@ Zombie::Zombie():Enemy(){
     animations[move_down_index]=new Animation (zombie_move_down, ENEMY_ANIMATION_WIDTH, ENEMY_ANIMATION_HEIGHT, zombie_move_down_states);
 
     points_given=zombie_points;
+
+    
 }

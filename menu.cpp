@@ -10,11 +10,12 @@ this->wface = newwin(33, 66, 11, 10);
 this->caverna = newwin(50, 210, 0, 0);
 this->w_options = newwin(30, 75, yMax/2 - 12, xMax/2-35);
 highlight=0;
+options_is_active=false;
 }
 
 
 void Menu::open_options(){
-    menu_is_active=false;
+    options_is_active=true;
     keypad(menu,false);
     werase(wface);
     werase(menu);
@@ -36,7 +37,7 @@ choice=p_input->get_input();
         if(choice==esc){
             keypad(menu,true);
             werase(w_options);
-            menu_is_active=true;
+            options_is_active=false;
         
         }
 }
@@ -53,8 +54,11 @@ void Menu::close_menu(){
 }
 
 void Menu::update(){
-if(menu_is_active==false){
+if(options_is_active==true){
   update_options();
+if(options_is_active==false){
+open();
+}
   return;
        }
        int choice;
@@ -76,7 +80,7 @@ if(menu_is_active==false){
        if((highlight==1) &&(choice==invio)){
         open_options(w_options);
         
-        open();
+        
        }
        if(((highlight==0) || (highlight==2)) &&(choice==invio)){
         close_menu();

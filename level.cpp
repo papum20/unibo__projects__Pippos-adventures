@@ -106,7 +106,7 @@
 		}
 	}
 
-	void Level::update(char input) {
+	void Level::update(int input) {
 		curRoom->update(input);
 		changeRoom();
 		//controlla se il player è su una porta

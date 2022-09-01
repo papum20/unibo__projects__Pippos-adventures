@@ -5,6 +5,7 @@
 #include <curses.h>
 #include <cstring>
 #include <ctime>
+#include "inputmanager.hpp"
 #include "pixel_art.hpp"
 
 
@@ -65,10 +66,10 @@ class Menu : public Pixel_art {
         WINDOW * w_options;
         int yMax, xMax;
         bool menu_is_active;
-        int * p_input;
+        pInputManager p_input;
        
 	public:
-        Menu(int *input);
+        Menu(pInputManager input);
         void menu_choices(WINDOW* menuwin);
         void set_menu_color();
         void print_cave(WINDOW * caverna);

@@ -131,7 +131,7 @@ class Level {
 		void display();								//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa), con camera che segue il personaggio
 		void displayAtPosition(Coordinate center);
 
-		void update(char input);					//da richiamare a ogni frame
+		void update(int input);						//da richiamare a ogni frame
 
 		// GET
 		void getLevelMap(pRoom map[]);

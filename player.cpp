@@ -1,8 +1,8 @@
 #include "player.hpp"
 
-Player::Player(pInputManager in, Menu m):Character(p_max_health, p_max_stamina) {
+Player::Player(pInputManager in):Character(p_max_health, p_max_stamina) {
 	in_manager=in;
-	menu=m;
+	//menu=m;
 
 	n_hearts=start_lifes;
 	id=ID_PLAYER;
@@ -118,10 +118,10 @@ void Player::update(pMap map){
 				moveRight(map);
 				break;
 			}
-			case 'n':{
+			/*case 'n':{
 				menu.open();
 				break;
-			}
+			}*/
 			case 'c':{
 				collect_item(map);
 			}

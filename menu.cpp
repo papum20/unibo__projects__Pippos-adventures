@@ -1,7 +1,7 @@
 #include "menu.hpp"
 
 
-Menu::Menu(int * input):Pixel_art() {
+Menu::Menu(pInputManager input):Pixel_art() {
 this->p_input=input;
 this->menu_is_active=false;
 getmaxyx(stdscr, yMax, xMax);
@@ -25,7 +25,7 @@ void Menu::open_options(WINDOW * w_options){
     mvwprintw(w_options, 6, 2, "i tasti w a s d servono a muoversi nelle 4 direzioni");
     int choice;
     while(true){
-        choice=(*p_input);
+        choice=p_input->get_input();
         //choice=wgetch(w_options);
         if(choice==esc){
             keypad(menu,true);
@@ -65,7 +65,7 @@ int highlight=0;
             }
        }
        //choice = wgetch(menuwin);
-       choice=(*p_input);
+       choice=p_input->get_input();
        switch (choice){
            case scroll_up:
             highlight--;

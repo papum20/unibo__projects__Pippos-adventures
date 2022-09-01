@@ -3,6 +3,8 @@
 
 #include "enemy.hpp"
 
+const int fire_spirit_points=20;
+
 const int fire_spirit_idle_index=0;
 const int fire_spirit_move_up_index=1;
 const int fire_spirit_move_down_index=2;

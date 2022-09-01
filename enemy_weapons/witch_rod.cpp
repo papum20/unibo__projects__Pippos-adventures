@@ -23,3 +23,8 @@ Witch_Rod::Witch_Rod(int d_f, int d_m, const char rar[], const char n[], const c
 
     is_melee=false;
 }
+
+void Witch_Rod::shoot(){
+    spell(this);
+
+}

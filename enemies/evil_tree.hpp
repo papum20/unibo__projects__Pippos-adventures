@@ -3,6 +3,8 @@
 
 #include "enemy.hpp"
 
+const int tree_points=100;
+
 const int tree_idle_index=0;
 const int tree_move_up_index=1;
 const int tree_move_down_index=2;

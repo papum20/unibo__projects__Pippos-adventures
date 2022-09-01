@@ -19,6 +19,21 @@ const int sword_attack_right_index=7;
 const int sword_height=8;
 const int sword_width=9;
 
+const int sword_horizontal_attack_height=1;
+const int sword_vertical_attack_width=;
+
+const int sword_delta_x_right=8;
+const int sword_delta_y_right=-3;
+
+const int sword_delta_x_left=0;
+const int sword_delta_y_left=-3;
+
+const int sword_delta_x_up=
+const int sword_delta_y_up=
+
+const int sword_delta_x_down=
+const int sword_delta_y_down=
+
 const char sword_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -173,12 +188,13 @@ const char sword_attack_up[sword_vertical_attack_states][WEAPON_ANIMATION_HEIGHT
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', '|', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ', ' ', '|', ' ', ' ', ' ', ' '},
-	{' ',' ', ' ', '-', ' ', '-', ' ', ' ', ' '},
+	{' ',' ', ' ', '-', ' ', '-', ' ', ' ', ' '}, //oooo
     {' ',' ', ' ', '<', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
 	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '},
 	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
 	},
+
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{'\\',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
 	{' ','\\','/',' ', ' ', ' ', ' ', ' ', ' '},

@@ -5,7 +5,6 @@
 
 #define HEALTH_GAINED 10
 
-
 class HealthPotion : public Artifact {
 	private:
 		int healthGained;				//valore di quanto incrementare la vita del player 

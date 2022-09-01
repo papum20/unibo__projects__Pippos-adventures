@@ -2,6 +2,7 @@
 #define WITCH_ROD_HPP
 
 #include "rod.hpp"
+#include "spell.hpp"
 
 const int witch_rod_up_index=0;
 const int witch_rod_down_index=1;
@@ -210,8 +211,12 @@ const char witch_rod_attack_up[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDT
 };
 
 class Witch_Rod: public Rod{
+	protected:
+		Spell spell;
     public:
         Witch_Rod(int d_f, int d_m, const char rar[], const char n[], const char desc[]);
+
+		void shoot();
 
 };
 

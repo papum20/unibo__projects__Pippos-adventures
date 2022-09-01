@@ -20,7 +20,7 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
     animations[attack_down_index]= new Animation (fire_spirit_hands_attack_down, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_attack_states);
     animations[attack_left_index]= new Animation (fire_spirit_hands_attack_left, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_attack_states);
     animations[attack_right_index]= new Animation (fire_spirit_hands_attack_right, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_attack_states);
-
+    
     is_melee=false;
 
 }

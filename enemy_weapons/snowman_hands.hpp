@@ -2,6 +2,7 @@
 #define SNOWMAN_HANDS_HPP
 
 #include "hands.hpp"
+#include "snowball.hpp"
 
 const int snowman_hands_movement_states=1;
 const int snowman_hands_attack_states=3;
@@ -169,6 +170,8 @@ const char snowman_hands_attack_left[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATIO
 };
 
 class Snowman_hands: public Hands{
+	protected:
+		Snowball snowball;
     public:
         Snowman_hands();
 };

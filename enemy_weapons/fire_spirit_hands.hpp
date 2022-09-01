@@ -2,6 +2,7 @@
 #define FIRE_SPIRIT_HANDS_HPP
 
 #include "hands.hpp"
+#include "fireball.hpp"
 
 const int fire_spirit_hands_movement_states=1;
 const int fire_spirit_hands_attack_states=3;
@@ -18,7 +19,7 @@ const int fire_spirit_hands_attack_right_index=7;
 const int fire_spirit_hands_height=5;
 const int fire_spirit_hands_width=4;
 
-const char fire_spirit_hands_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char fire_spirit_hands_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' '},
 	{' ',' ', ' ' ,' '},
@@ -28,7 +29,7 @@ const char fire_spirit_hands_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WID
 	}
 };
 
-const char fire_spirit_hands_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char fire_spirit_hands_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' '},
 	{' ',' ', ' ' ,' '},
@@ -38,7 +39,7 @@ const char fire_spirit_hands_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_W
 	}
 };
 
-const char fire_spirit_hands_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char fire_spirit_hands_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' '},
 	{' ',' ', ' ' ,' '},
@@ -49,7 +50,7 @@ const char fire_spirit_hands_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_W
 };
 
 
-const char fire_spirit_hands_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char fire_spirit_hands_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' '},
 	{' ',' ', ' ' ,' '},
@@ -59,7 +60,7 @@ const char fire_spirit_hands_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_
 	}
 };
 
-const char fire_spirit_hands_attack_right[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char fire_spirit_hands_attack_right[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', ' ', ' ', ' '},
 	{' ', ' ', ' ', ' '},
@@ -88,7 +89,7 @@ const char fire_spirit_hands_attack_right[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANI
 	}
 };
 
-const char fire_spirit_hands_attack_left[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char fire_spirit_hands_attack_left[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', ' ', ' ', ' '},
 	{' ', ' ', ' ', ' '},
@@ -117,7 +118,7 @@ const char fire_spirit_hands_attack_left[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIM
 	}
 };
 
-const char fire_spirit_hands_attack_up[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char fire_spirit_hands_attack_up[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', ' ', ' ', ' '},
 	{' ', ' ', ' ', ' '},
@@ -146,7 +147,7 @@ const char fire_spirit_hands_attack_up[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMAT
 	}
 };
 
-const char fire_spirit_hands_attack_down[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char fire_spirit_hands_attack_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ', ' ', ' ', ' '},
 	{' ', ' ', ' ', ' '},
@@ -176,6 +177,8 @@ const char fire_spirit_hands_attack_down[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIM
 };
 
 class Fire_spirit_hands: public Hands{
+	protected:
+		Fireball fireball;
     public:
         Fire_spirit_hands();
 

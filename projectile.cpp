@@ -1,8 +1,12 @@
 #include "projectile.hpp"
+Projectile::Projectile(){
 
-Projectile::Projectile(Weapon w):Physical(){
-    danno_fisico=w.danno_fisico;
-    danno_magico=w.danno_magico;
+}
+
+Projectile::Projectile(pWeapon w):Physical(){
+    danno_fisico=w->danno_fisico;
+    danno_magico=w->danno_magico;
+    direction=w->direction;
 }
 
 void Projectile::cast_direction (Character c){

@@ -23,6 +23,7 @@ struct equipment {
 	pNecklace collana;
 	pBoots stivali;
 	pArmor armatura;
+	pHelm elmo;
 };
 
 class Character : public Physical {
@@ -30,12 +31,6 @@ class Character : public Physical {
 		//void swapPositions(Character *characters[], Coordinate a, Coordinate b);
 		
 	protected:
-		int maxHealth;
-		int curHealth;
-		int danno_fisico;
-		int danno_magico;
-		int difesa_fisica;
-		int difesa_magica;
 
 		bool is_attacking;
 		int attack_counter;
@@ -58,8 +53,13 @@ class Character : public Physical {
 		pItem_def defensive_items[DEF_NUMBER];
 		int last_def;
 	public:
-		char direction;					// u sopra, d sotto, l sinistra, r destra
-
+		int maxHealth;
+		int curHealth;
+		int danno_fisico;
+		int danno_magico;
+		int difesa_fisica;
+		int difesa_magica;
+		
 		Character();
 		Character(int maxH, int maxS);
 		
@@ -76,6 +76,7 @@ class Character : public Physical {
 
 		//FUNZIONI COMBATTIMENTO
 
+		pCharacter check_enemy_melee();
 		void initiate_attack();
 		void calculate_damage();
 		int calculate_loss(pCharacter c);

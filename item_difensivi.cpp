@@ -1,7 +1,7 @@
 #include "item_difensivi.hpp"
 
 item_difensivo::item_difensivo():item(){
-
+    id=DEFENSIVE_ITEM_ID;
 }
 
 item_difensivo::item_difensivo(int dif_f, int dif_m, const char rar[], const char n[], const char desc[]):item(rar, n, desc){

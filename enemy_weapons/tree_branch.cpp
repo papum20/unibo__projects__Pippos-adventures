@@ -1,6 +1,10 @@
 #include "tree_branch.hpp"
 
 Tree_branch::Tree_branch():Hands(){
+    danno_fisico_iniziale=Math::randomStep(30, 50, 5);
+    danno_magico_iniziale=Math::randomStep(30, 50, 5);
+    strcpy (rarity, common);
+
     move_up_index=tree_branch_up_index;
 	move_up_index=tree_branch_down_index;
 	move_left_index=tree_branch_left_index;

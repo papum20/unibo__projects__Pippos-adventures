@@ -1,6 +1,10 @@
 #include "witch_rod.hpp"
 
 Witch_Rod::Witch_Rod(int d_f, int d_m, const char rar[], const char n[], const char desc[]):Rod(d_f, d_m, rar, n, desc){
+    danno_fisico_iniziale=0;
+    danno_magico_iniziale=Math::randomStep(30, 60, 5);
+    strcpy (rarity, common);
+
     move_up_index=witch_rod_up_index;
 	move_up_index=witch_rod_down_index;
 	move_left_index=witch_rod_left_index;

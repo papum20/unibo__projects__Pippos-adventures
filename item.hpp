@@ -3,6 +3,7 @@
 
 #include "physical.hpp"
 #include <cstring>
+#include "math.hpp"
 
 const int description_length=50;
 const int name_length=20;

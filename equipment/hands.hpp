@@ -11,7 +11,7 @@ class Hands: public Weapon {
 
     public:
         Hands();
-        Hands(int d_f, float d_m, const char rar[], const char n[], const char desc[]);
+        Hands(int d_f, float d_m, const char rar[]);
 
 };
 

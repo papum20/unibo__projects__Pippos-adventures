@@ -1,6 +1,10 @@
 #include "zombie_hands.hpp"
 
-Zombie_hands::Zombie_hands(int d_f, int d_m, const char rar[], const char n[], const char desc[]):Hands(d_f, d_m, rar, n, desc){
+Zombie_hands::Zombie_hands():Hands(){
+    danno_fisico_iniziale=Math::randomStep(20, 40, 5);
+    danno_magico_iniziale=0;
+    strcpy (rarity, common);
+    
     move_up_index=zombie_hands_up_index;
 	move_up_index=zombie_hands_down_index;
 	move_left_index=zombie_hands_left_index;

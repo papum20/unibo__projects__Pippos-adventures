@@ -68,20 +68,10 @@
 
 //// EDIT
 #pragma region EDIT
-	Coordinate Coordinate::negative() {
-		x = -x;
-		y = -y;
-		return *this;
-	}
-	Coordinate Coordinate::getNegative() const {
+	Coordinate Coordinate::negative() const {
 		return Coordinate(Coordinate(-x, -y), Coordinate(startx, starty), Coordinate(endx, endy));
 	}
 	Coordinate Coordinate::times(float px, float py) {
-		x *= px;
-		y *= py;
-		return *this;
-	}
-	Coordinate Coordinate::getTimes(float px, float py) {
 		return Coordinate(Coordinate(x * px, y * py), Coordinate(startx, starty), Coordinate(endx, endy));
 	}
 	void Coordinate::next() {

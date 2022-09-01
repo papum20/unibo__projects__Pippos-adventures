@@ -27,19 +27,6 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 #define CAMERA_OPPOSITE_SPEED .6			//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
 #define CAMERA_CHANGE_PIVOT_SPEED 2.		//tempo per spostarsi su un nuovo pivot
 
-/*#define CAMERA_OFFSET_MAX_X 15			//massimo spostamento della camera
-#define CAMERA_OFFSET_MAX_Y 8
-#define CAMERA_SPEED_X 2.				//tempo (secondi) per raggiungere il massimo spostamento
-#define CAMERA_SPEED_Y 2.
-#define CAMERA_DAMPING_SPEED_X 1.		//tempo (secondi) per tornare da massimo spostamento a posizione di riposo
-#define CAMERA_DAMPING_SPEED_Y 1.
-#define CAMERA_DAMPING_TIME_X 1.2		//tempo di attesa prima di tornare alla posizione di riposo
-#define CAMERA_DAMPING_TIME_Y 1.2
-#define CAMERA_OPPOSITE_SPEED_X .6		//tempo per tornare da massimo spostamento a posizione di riposo quando ci si inizia a muovere nella posizione opposta
-#define CAMERA_OPPOSITE_SPEED_Y .6
-#define CAMERA_CHANGE_PIVOT_SPEED_X 2.	//tempo per spostarsi su un nuovo pivot
-#define CAMERA_CHANGE_PIVOT_SPEED_Y 2.*/
-
 //TIMER
 #define CAMERA_DAMPING_TIMER 0
 
@@ -103,7 +90,6 @@ class Level {
 		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
 		//oggetti:
-		//int n_rooms;				//numero di stanze (normali) generate per livello
 		pRoom curRoom;		//stanza attuale, inquadrata e in cui si trova il giocatore
 		pPlayer player;
 		Timer timer;
@@ -140,10 +126,6 @@ class Level {
 		// SET
 		void setPivot(pPhysical pivot);											//imposta l'oggetto che la telecamera seguirà
 		void setDefaultCameraSpecs();											//reimposta le caratteristiche di default della camera
-
-		//genera una stanza (come array bidimensionale)
-		//generateAll();
-		//genera tutte le stanze
 };
 
 

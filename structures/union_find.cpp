@@ -11,7 +11,6 @@ void UnionFind::makeSet(s_coord s) {
 		sets[s]->weight = 1;
 		sets[s]->parent = sets[s];
 		sets[s]->next = sets[s];
-		//UFforest.insert(sets[s])
 	}
 }
 s_coord UnionFind::find(s_coord s) {
@@ -54,16 +53,3 @@ s_coord UnionFind::firstSet() {
 		return sets[i]->parent->val;
 	}
 }
-
-/*s_coord UnionFind::getNth(int n) {
-	if(n > number || n < 1) return -1;
-	else {
-		while(n > 1) {
-			if()
-			p = p->next;
-			n--;
-		}
-		return p->tree->val;
-	}
-}
-*/

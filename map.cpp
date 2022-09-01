@@ -205,26 +205,19 @@ int Map::vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
 		int d = 0;
 		while(d < DIRECTIONS_N) {
 			if(!Coordinate(doorCenter, DIRECTIONS[d]).inBounds(Coordinate(0, 0), size))
-				res = Coordinate(doorCenter, DIRECTIONS[d].getNegative());
+				res = Coordinate(doorCenter, DIRECTIONS[d].negative());
 			else d++;
 		}
 		return res;
 	}
 	Coordinate Map::unitVector(Coordinate A, Coordinate B) {
-		Coordinate diff = Coordinate(B, A.getNegative());
+		Coordinate diff = Coordinate(B, A.negative());
 		int diffMax = Math::abs(diff.x);
 		if(Math::abs(diff.y) > diffMax) diffMax = Math::abs(diff.y);
-		return diff.getTimes(1. / diffMax, 1. / diffMax);
+		return diff.times(1. / diffMax, 1. / diffMax);
 	}
-/*	bool Map::inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj) {
-		bool found = false;
-		int i = 0;
-		while(!found && i < len) {
-			if(A[i] == obj) found = true;
-			else i++;
-		}
-		return found;
-	}*/
+
+
 #pragma region GENERATION
 	void Map::generate()
 	{
@@ -319,7 +312,7 @@ int Map::vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
 					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
 					for(int dist = 0; dist <= distance; dist++) {
 						Coordinate dir = DIRECTIONS[breakDirections[brokenWall]];
-						Coordinate tw = Coordinate(bw, dir.getTimes(dist, dist));
+						Coordinate tw = Coordinate(bw, dir.times(dist, dist));
 						physical[tw.single()] = floorInstance;
 						sets->merge(currentSet, tw.single());
 					}
@@ -445,37 +438,6 @@ int Map::vision(pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
 			A.y++;
 		}
 		return found;
-		/*int found = 0;
-		if(start.lessEqual(end) || end.lessEqual(start)) {
-			//riga per riga
-			Coordinate A = start;
-			if(start.lessEqual(end)) {	//basso
-				while(A.y <= end.y) {
-					addLineToCheck(obj, found, A, Coordinate(end.x, A.y));
-					A.y++;
-				}
-			} else {					//alto
-				while(A.y >= end.y) {
-					addLineToCheck(obj, found, A, Coordinate(end.x, A.y));
-					A.y--;
-				}
-			}
-		} else {
-			//colonna per colonna
-			Coordinate A = start;
-			if(start.x <= end.x) {		//destra
-				while(A.x <= end.x) {
-					addLineToCheck(obj, found, A, Coordinate(A.x, end.y));
-					A.x++;
-				}
-			} else {					//sinistra
-				while(A.x >= end.x) {
-					addLineToCheck(obj, found, A, Coordinate(A.x, end.y));
-					A.x--;
-				}
-			}
-		}
-		return found;*/
 	}
 
 //// FIND

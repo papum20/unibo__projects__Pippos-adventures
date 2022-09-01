@@ -39,7 +39,7 @@ class Map {
 
 		Coordinate getDoorEntrance(Coordinate doorCenter);	//ritorna door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
 		Coordinate unitVector(Coordinate A, Coordinate B);	//ritorna il vettore da A a B con coordinata maggiore=1 (in valore assoluto) (e minore tra -1 e 1)
-		//bool inArray_physical(pPhysical A[ROOM_AREA], int len, pPhysical obj);	//se obj si trova in A
+
 		// FUNZIONI AUSILIARIE PRINCIPALI (GENERAZIONE)
 		void generateSidesWalls();
 		void generateInnerRoom();

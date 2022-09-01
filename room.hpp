@@ -49,28 +49,13 @@ class Room {
 		pInanimate floorInstance;
 		pInanimate wallInstance;
 
-		// FUNZIONI
-		// FUNZIONI AUSILIARIE SECONDARIE (USATE DALLE PRINCIPALI)
-/*		void generatePath(Coordinate s, pUnionFind sets);			//genera un percorso casuale a partire da x,y
-		int getAdjacentWalls(Coordinate out[], s_coord currentSet);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero
-		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
-					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
-*/					//e directions con le rispettive direzioni, ne ritorna il numero
-		//bool isSpawnAllowed(s_coord pos, Coordinate size);			//bool se può essere generato qualcosa di dimensioni size in posizione pos, cioè se non c'è altro nel mezzo
+		// FUNZIONI AUSILIARIE
 		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
-		// FUNZIONI AUSILIARIE GENERICHE (SEMPLICI E RICORRENTI)
 
 	protected:
 		int scale_x;
 		pMap map;
 
-		// FUNZIONI AUSILIARIE PRINCIPALI
-		/*void generateSidesWalls();
-		void generateInnerRoom();
-		void generateAllPaths(pUnionFind sets);
-		void connectPaths(pUnionFind sets);						//fa in modo che ogni punto sia raggiungibile da ogni altro
-		void resizeMap();										//ridimensiona la mappa, allargando quella temporanea generata di X_SCALE
-*/
 	public:
 		Room(Coordinate pos);
 		void recursiveDestroy();								//elimina tutti i puntatori contenuti nella stanza, agendo poi ricorsivamente sulle stanze collegate
@@ -78,7 +63,7 @@ class Room {
 		
 		// GENERAZIONE
 		void generate(); 										//genera uno schema randomico per i muri, inserendoli nell'array map
-//		void addNthDoor(int n);	//aggiunge una porta nell'n-esima posizione disponibile
+		
 		void spawnEnemy(pEnemy enemy);							//spawna un nemico
 		void spawnChest(pChest chest);							//spawna una chest
 		// DISEGNO

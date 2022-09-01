@@ -10,7 +10,6 @@
 #include <iostream>
 #include "comparable.hpp"
 #include "definitions.hpp"
-//#include "structure.hpp"
 
 
 #define HEAP_SIZE_MAX ROOM_AREA			//deve contenere un "quadrato" di N_ROOMS e uno di ROOM_AREA

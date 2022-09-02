@@ -19,6 +19,9 @@ const int fire_spirit_hands_attack_right_index=7;
 const int fire_spirit_hands_height=5;
 const int fire_spirit_hands_width=4;
 
+const int fire_spirit_x_coordinate=0;
+const int fire_spirit_y_coordinate=0;
+
 const char fire_spirit_hands_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' '},

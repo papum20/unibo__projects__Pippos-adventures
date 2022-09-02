@@ -3,7 +3,6 @@
 Spider_legs::Spider_legs():Hands(){
     danno_fisico_iniziale=Math::randomStep(30, 50, 5);
     danno_magico_iniziale=0;
-    strcpy (rarity, common);
 
     move_up_index=spider_legs_up_index;
 	move_up_index=spider_legs_down_index;

@@ -3,7 +3,6 @@
 Fire_spirit_hands::Fire_spirit_hands():Hands(){
     danno_fisico_iniziale=0;
     danno_magico_iniziale=Math::randomStep(20, 40, 5);
-    strcpy (rarity, common);
 
     move_up_index=fire_spirit_hands_up_index;
 	move_up_index=fire_spirit_hands_down_index;

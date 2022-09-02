@@ -2,8 +2,12 @@
 #define SPIDER_HPP
 
 #include "enemy.hpp"
+#include "spider_legs.hpp"
 
 const int spider_points=40;
+
+const int spider_width=7;
+const int spider_height=4;
 
 const int spider_idle_index=0;
 const int spider_move_up_index=1;
@@ -116,6 +120,9 @@ const char spider_move_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 class Spider: public Enemy{
     public: 
+		pSpider_legs spider_legs;
+		pArmor armatura;
+		pBoots stivali;
         Spider();
 };
 

@@ -63,10 +63,10 @@ class Physical {
 		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
-		char direction;							// u sopra, d sotto, l sinistra, r destra
-		int current_animation;
 
 	public:
+		char direction;							// u sopra, d sotto, l sinistra, r destra
+		int current_animation;
 		Physical();
 		virtual void copy(Physical B);			//copia i parametri di B
 		virtual void update(pMap map, char input);

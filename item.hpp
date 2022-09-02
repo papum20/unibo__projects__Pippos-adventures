@@ -5,7 +5,7 @@
 #include <cstring>
 #include "math.hpp"
 
-const int description_length=50;
+const int description_length=200;
 const int name_length=20;
 
 const char common[]="Common";  
@@ -15,7 +15,6 @@ const char legendary[]="Legendary";
 
 class item: public Physical{
     public:
-        bool rune_applied;
         char rarity[15];
         char description[description_length];
         char name[20];

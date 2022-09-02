@@ -1,11 +1,9 @@
 #include "helm.hpp"
 
 helm::helm():item_difensivo(){
-
-}
-
-helm::helm (int dif, int d_mag, const char rar[], const char n[], const char desc[]):item_difensivo (dif, d_mag, rar, n, desc){
-    apply_rarity();
+    difesa_fisica_iniziale=Math::randomStep(5, 10, 5);
+    difesa_magica_iniziale=0;
+    strcpy (description, helm_description);
 }
 
 char helm::get_type(){

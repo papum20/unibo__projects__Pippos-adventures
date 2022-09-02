@@ -19,7 +19,7 @@ const int player_rod_attack_states=3;
 const int player_rod_height=8;
 const int player_rod_width=9;
 
-const char player_rod_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+const char player_rod_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -32,7 +32,7 @@ const char player_rod_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//
 	}
 };
 
-const char player_rod_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+const char player_rod_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -58,7 +58,7 @@ const char player_rod_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 wi
 	}
 };
 
-const char player_rod_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+const char player_rod_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -72,7 +72,7 @@ const char player_rod_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
 };
 
 
-const char player_rod_attack_right[player_rod_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char player_rod_attack_right[player_rod_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ',' ',' ', '-' , ' ', '*', ' ', '-'},
 	{' ',' ',' ',' ', ' ', ' ', '|', ' ', ' '},
@@ -107,7 +107,7 @@ const char player_rod_attack_right[player_rod_attack_states][WEAPON_ANIMATION_HE
 
 
 
-const char player_rod_attack_left[player_rod_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char player_rod_attack_left[player_rod_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {'-',' ','*',' ', '-' , ' ', ' ', ' ', ' '},
 	{' ',' ','|',' ', ' ', ' ', ' ', ' ', ' '},
@@ -140,7 +140,7 @@ const char player_rod_attack_left[player_rod_attack_states][WEAPON_ANIMATION_HEI
 	}
 };
 
-const char player_rod_attack_up[player_rod_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char player_rod_attack_up[player_rod_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {'-',' ','*',' ', '-' , ' ', ' ', ' ', ' '},
 	{' ',' ','|',' ', ' ', ' ', ' ', ' ', ' '},
@@ -173,7 +173,7 @@ const char player_rod_attack_up[player_rod_attack_states][WEAPON_ANIMATION_HEIGH
 	}
 };
 
-const char player_rod_attack_down[player_rod_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char player_rod_attack_down[player_rod_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},

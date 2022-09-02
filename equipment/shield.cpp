@@ -2,11 +2,9 @@
 #include <cstring> 
 
 shield::shield():item_difensivo(){
-
-}
-
-shield::shield (int dif, int d_mag, const char rar[], const char n[], const char desc[]):item_difensivo (dif, d_mag, rar, n, desc){
-    apply_rarity();
+    difesa_fisica_iniziale=Math::randomStep(10, 20, 5);
+    difesa_magica_iniziale=Math::randomStep(10, 20, 5);
+    strcpy (description, shield_description);
 }
 
 char shield::get_type(){

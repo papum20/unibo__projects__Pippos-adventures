@@ -1,9 +1,5 @@
 #include "weapon.hpp"
 
-Weapon::Weapon():item(){
-    id=WEAPON_ID;
-}
-
 Weapon::Weapon ():item(){
     apply_rarity();
     is_equipped=false;

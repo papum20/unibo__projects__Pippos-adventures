@@ -1,10 +1,9 @@
 #include "player_rod.hpp"
 
 Player_Rod::Player_Rod():Rod(){
+    danno_fisico_iniziale=0;
+    danno_magico_iniziale=Math::randomStep(20, 50, 5);
 
-}
-
-Player_Rod::Player_Rod(int d_f, int d_m, const char rar[], const char n[], const char desc[]):Rod(d_f, d_m, rar, n, desc){
     move_up_index=player_rod_up_index;
 	move_up_index=player_rod_down_index;
 	move_left_index=player_rod_left_index;
@@ -26,5 +25,4 @@ Player_Rod::Player_Rod(int d_f, int d_m, const char rar[], const char n[], const
     animations[attack_right_index]= new Animation (player_rod_attack_right, player_rod_width, player_rod_height, player_rod_attack_states);
 
     is_melee=true;
-
 }

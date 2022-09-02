@@ -2,8 +2,12 @@
 #define FIRE_SPIRIT_HPP
 
 #include "enemy.hpp"
+#include "fire_spirit_hands.hpp"
 
 const int fire_spirit_points=20;
+
+const int fire_spirit_width=4;
+const int fire_spirit_height=5;
 
 const int fire_spirit_idle_index=0;
 const int fire_spirit_move_up_index=1;
@@ -151,6 +155,8 @@ const char fire_spirit_move_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 class Fire_spirit: public Enemy{
     public:
+		pFS_Hands fire_spirit_hands;
+		pNecklace collana;
         Fire_spirit();
 };
 

@@ -20,7 +20,10 @@ const int witch_rod_attack_states=3;
 const int witch_rod_height=8;
 const int witch_rod_width=12;
 
-const char witch_rod_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=12
+const int witch_x_coordinate=3;
+const int witch_y_coordinate=2;
+
+const char witch_rod_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=12
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -34,7 +37,7 @@ const char witch_rod_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//h
 };
 
 
-const char witch_rod_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=12
+const char witch_rod_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=12
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -47,7 +50,7 @@ const char witch_rod_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={/
 	}
 };
 
-const char witch_rod_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=12
+const char witch_rod_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=12
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -62,7 +65,7 @@ const char witch_rod_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
 
 
 
-const char witch_rod_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=12
+const char witch_rod_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=12
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -75,7 +78,7 @@ const char witch_rod_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={/
 	}
 };
 
-const char witch_rod_attack_right[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=12
+const char witch_rod_attack_right[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=12
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', '*', ' ', '*', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', '*', ' ', 'o', ' ', '*', ' '},
@@ -109,7 +112,7 @@ const char witch_rod_attack_right[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_W
 };
 
 
-const char witch_rod_attack_left[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=12
+const char witch_rod_attack_left[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=12
 
 {   {'*',' ', '*' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
 	{'*','o', ' ' ,'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -143,7 +146,7 @@ const char witch_rod_attack_left[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WI
 };
 
 
-const char witch_rod_attack_down[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=12
+const char witch_rod_attack_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=12
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -177,7 +180,7 @@ const char witch_rod_attack_down[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WI
 };
 
 
-const char witch_rod_attack_up[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=12
+const char witch_rod_attack_up[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=12
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', '*', ' ', '*', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', '*', ' ', 'o', ' ', '*', ' '},
@@ -214,7 +217,7 @@ class Witch_Rod: public Rod{
 	protected:
 		Spell spell;
     public:
-        Witch_Rod(int d_f, int d_m, const char rar[], const char n[], const char desc[]);
+        Witch_Rod();
 
 		void shoot();
 

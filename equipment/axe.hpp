@@ -3,6 +3,8 @@
 #include <cstring> 
 #include "weapon.hpp"
 
+const char axe_description[description_length]="arma rozza usata dal berserker, un guerriero tanto feroce da sembrare una bestia, seppur non elegante, non è seconda a nessun'altra arma in termini puro potere distruttivo.";
+
 const int axe_movement_states=1;
 const int axe_horizontal_attack_states=4;
 const int axe_vertical_attack_states=3;
@@ -27,13 +29,15 @@ const int axe_delta_y_right=-4;
 const int axe_delta_x_left=1;
 const int axe_delta_y_left=-4;
 
-const int axe_delta_x_up=
+/*const int axe_delta_x_up=
 const int axe_delta_y_up=
 
 const int axe_delta_x_down=
 const int axe_delta_y_down=
 
-const char axe_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+*/
+
+const char axe_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -46,7 +50,7 @@ const char axe_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=
 	}
 };
 
-const char axe_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+const char axe_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -59,7 +63,7 @@ const char axe_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//heigh
 	}
 };
 
-const char axe_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+const char axe_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -72,7 +76,7 @@ const char axe_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//heig
 	}
 };
 
-const char axe_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//height=8 width=9
+const char axe_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -85,7 +89,7 @@ const char axe_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={//heigh
 	}
 };
 
-const char axe_attack_right[axe_horizontal_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char axe_attack_right[axe_horizontal_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{' ',' ',' ',' ', '>', ')', ' ', ' ', ' '},
@@ -129,7 +133,7 @@ const char axe_attack_right[axe_horizontal_attack_states][WEAPON_ANIMATION_HEIGH
 	}
 };
 
-const char axe_attack_left[axe_horizontal_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char axe_attack_left[axe_horizontal_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{' ',' ','(','<', ' ', ' ', ' ', ' ', ' '},
@@ -172,7 +176,7 @@ const char axe_attack_left[axe_horizontal_attack_states][WEAPON_ANIMATION_HEIGHT
 	}
 };
 
-const char axe_attack_up[axe_vertical_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char axe_attack_up[axe_vertical_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
@@ -206,7 +210,7 @@ const char axe_attack_up[axe_vertical_attack_states][WEAPON_ANIMATION_HEIGHT][WE
 	}
 };
 
-const char axe_attack_down[axe_vertical_attack_states][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char axe_attack_down[axe_vertical_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},

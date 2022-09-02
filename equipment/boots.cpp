@@ -2,11 +2,9 @@
 #include "boots.hpp"
 
 boots::boots():item_difensivo(){
-    
-}
-
-boots::boots (int dif, int d_mag, const char rar[], const char n[], const char desc[]):item_difensivo(dif, d_mag, rar, n, desc){
-    apply_rarity();
+    difesa_fisica_iniziale=Math::randomStep(5, 10, 5);
+    difesa_magica_iniziale=0; 
+    strcpy (description, boots_description); 
 }
 
 char boots::get_type(){

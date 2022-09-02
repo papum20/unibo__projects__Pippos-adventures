@@ -12,6 +12,8 @@ const int tree_branch_attack_down_index=5;
 const int tree_branch_attack_left_index=6;
 const int tree_branch_attack_right_index=7;
 
+const int tree_x_coordinate=2;
+const int tree_y_coordinate=2;
 
 const int tree_branch_movement_states=1;
 const int tree_branch_attack_states=2;
@@ -34,7 +36,7 @@ const int tree_delta_y_up=-9;
 const int tree_delta_x_down=6;
 const int tree_delta_y_down=0;
 
-const char tree_branch_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char tree_branch_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -49,7 +51,7 @@ const char tree_branch_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
 	}
 };
 
-const char tree_branch_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char tree_branch_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -64,7 +66,7 @@ const char tree_branch_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]=
 	}
 };
 
-const char tree_branch_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char tree_branch_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -79,7 +81,7 @@ const char tree_branch_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]=
 	}
 };
 
-const char tree_branch_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char tree_branch_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -94,7 +96,7 @@ const char tree_branch_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]
 	}
 };
 
-const char tree_branch_attack_left[2][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char tree_branch_attack_left[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -124,7 +126,7 @@ const char tree_branch_attack_left[2][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_
 };
 
 
-const char tree_branch_attack_right[2][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char tree_branch_attack_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -152,7 +154,7 @@ const char tree_branch_attack_right[2][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION
 };
 
 
-const char tree_branch_attack_down[2][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char tree_branch_attack_down[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -180,7 +182,7 @@ const char tree_branch_attack_down[2][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_
 
 };
 
-const char tree_branch_attack_up[2][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char tree_branch_attack_up[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},

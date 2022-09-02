@@ -21,7 +21,7 @@ class Enemy : public Character {
 };
 
 
-typedef Enemy *pEnemy;
+typedef Enemy* pEnemy;
 
 
 

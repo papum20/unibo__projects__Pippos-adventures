@@ -3,12 +3,14 @@
 
 Character::Character() : Physical() {
 	is_attacking=false;
+	apply_equipment();
 }
 
 Character::Character(int maxH, int curH) : Physical() {
 	maxHealth=maxH;
 	curHealth=curH;
 	is_attacking=false;
+	apply_equipment();
 }
 
 
@@ -23,11 +25,32 @@ Character::Character(int maxH, int curH) : Physical() {
 }*/
 
 void Character::apply_equipment (){
-	danno_fisico=(equipaggiamento.arma)->danno_fisico;
-	danno_magico=(equipaggiamento.arma)->danno_magico;
+	if ((equipaggiamento.arma)!=NULL){
+		danno_fisico=(equipaggiamento.arma)->danno_fisico;
+		danno_magico=(equipaggiamento.arma)->danno_magico;	
+	}
 
-	difesa_fisica=(equipaggiamento.scudo)->difesa_fisica+(equipaggiamento.armatura)->difesa_fisica+(equipaggiamento.stivali)->difesa_fisica+(equipaggiamento.elmo)->difesa_fisica;
-	difesa_magica=(equipaggiamento.scudo)->difesa_magica+(equipaggiamento.armatura)->difesa_magica+(equipaggiamento.collana)->difesa_magica;
+	if ((equipaggiamento.armatura)!=NULL){
+		difesa_fisica=difesa_fisica+(equipaggiamento.armatura)->difesa_fisica;
+		difesa_magica=difesa_magica+(equipaggiamento.armatura)->difesa_magica;
+	}
+
+	if ((equipaggiamento.scudo)!=NULL){
+		difesa_fisica=difesa_fisica+(equipaggiamento.scudo)->difesa_fisica;
+		difesa_magica=difesa_magica+(equipaggiamento.scudo)->difesa_magica;
+	}
+
+	if ((equipaggiamento.stivali)!=NULL){
+		difesa_fisica=difesa_fisica+(equipaggiamento.stivali)->difesa_fisica;
+	}
+
+	if ((equipaggiamento.collana)!=NULL){
+		difesa_magica=difesa_magica+(equipaggiamento.collana)->difesa_magica;
+	}
+
+	if ((equipaggiamento.elmo!=NULL)){
+		difesa_fisica=difesa_fisica+(equipaggiamento.elmo)->difesa_fisica;;
+	}
 }
 
 //FUNZIONI MOVIMENTO

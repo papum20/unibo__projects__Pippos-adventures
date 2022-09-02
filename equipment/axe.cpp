@@ -2,10 +2,9 @@
 #include <cstring>
 
 Ascia::Ascia():Weapon(){
+    danno_fisico_iniziale=Math::randomStep(20, 40, 5);
+    danno_magico_iniziale=0;
 
-}
-
-Ascia::Ascia (int d_f, int d_m, const char rar[], const char n[], const char desc[]):Weapon (d_f, d_m, rar, n, desc){
     move_up_index=axe_up_index;
 	move_up_index=axe_down_index;
 	move_left_index=axe_left_index;
@@ -28,5 +27,6 @@ Ascia::Ascia (int d_f, int d_m, const char rar[], const char n[], const char des
     
     is_melee=true;
 
-    apply_rarity();
+    strcpy (description, axe_description);
 }
+

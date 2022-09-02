@@ -3,7 +3,7 @@
 
 #include "../artifact.hpp"
 
-#define HEALTH_GAINED 10
+#define HEALTH_GAINED 20
 
 class HealthPotion : public Artifact {
 	private:

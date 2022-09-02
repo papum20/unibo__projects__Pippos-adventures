@@ -19,6 +19,9 @@ const int spider_legs_attack_right_index=7;
 const int spider_legs_height=7;
 const int spider_legs_width=11;
 
+const int spider_x_coordinate=0;
+const int spider_y_coordinate=0;
+
 const int spider_horizontal_attack_height=1;
 const int spider_vertical_attack_width=5;
 
@@ -34,7 +37,9 @@ const int spider_delta_y_up=-6;
 const int spider_delta_x_down=3;
 const int spider_delta_y_down=0;
 
-const char spider_legs_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+
+
+const char spider_legs_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -45,7 +50,7 @@ const char spider_legs_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
 	}
 };
 
-const char spider_legs_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char spider_legs_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -56,7 +61,7 @@ const char spider_legs_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]=
 	}
 };
 
-const char spider_legs_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char spider_legs_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -67,7 +72,7 @@ const char spider_legs_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]=
 	}
 };
 
-const char spider_legs_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char spider_legs_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},

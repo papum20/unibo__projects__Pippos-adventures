@@ -2,10 +2,10 @@
 #include <cstring> 
 
 Arco::Arco():Weapon(){
-    
-}
+    danno_fisico_iniziale=Math::randomStep(20, 50, 5);
+    danno_magico_iniziale=0;
+    strcpy (description, bow_description);
 
-Arco::Arco (int d_f, int d_m, const char rar[], const char n[], const char desc[]):Weapon (d_f, d_m, rar, n, desc){
     move_up_index=bow_up_index;
 	move_up_index=bow_down_index;
 	move_left_index=bow_left_index;
@@ -27,6 +27,4 @@ Arco::Arco (int d_f, int d_m, const char rar[], const char n[], const char desc[
     animations[attack_right_index]= new Animation (bow_attack_right, bow_horizontal_attack_width, bow_horizontal_attack_height, bow_attack_states);
     
     is_melee=false;
-
-    apply_rarity();
 }

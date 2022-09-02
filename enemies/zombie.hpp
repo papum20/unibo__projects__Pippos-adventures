@@ -7,6 +7,9 @@
 
 const int zombie_points=20;
 
+const int zombie_width=4;
+const int zombie_height=3;
+
 const int zombie_idle_index=0;
 const int zombie_move_up_index=1;
 const int zombie_move_down_index=2;
@@ -97,7 +100,7 @@ const char zombie_move_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 class Zombie: public Enemy{
     public:
 		pZombie_hands zombie_hands;
-		pArmor armor; 
+		pArmor armatura; 
         Zombie();
 };
 

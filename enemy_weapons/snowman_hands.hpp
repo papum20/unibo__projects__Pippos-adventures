@@ -19,7 +19,10 @@ const int snowman_hands_attack_right_index=7;
 const int snowman_hands_height=6;
 const int snowman_hands_width=9;
 
-const char snowman_hands_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const int snowman_x_coordinate=0;
+const int snowman_y_coordinate=1;
+
+const char snowman_hands_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -30,7 +33,7 @@ const char snowman_hands_up[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]=
 	}
 };
 
-const char snowman_hands_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char snowman_hands_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -41,19 +44,7 @@ const char snowman_hands_down[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH
 	}
 };
 
-const char snowman_hands_left[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
-
-{   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
-	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
-	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
-	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
-    {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
-	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '}
-	}
-};
-
-
-const char snowman_hands_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char snowman_hands_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -65,8 +56,20 @@ const char snowman_hands_right[1][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDT
 };
 
 
+const char snowman_hands_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
-const char snowman_hands_attack_up[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+{   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+    {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '}
+	}
+};
+
+
+
+const char snowman_hands_attack_up[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' ', 'o', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -91,7 +94,7 @@ const char snowman_hands_attack_up[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_
 	}
 };
 
-const char snowman_hands_attack_down[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char snowman_hands_attack_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -117,7 +120,7 @@ const char snowman_hands_attack_down[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATIO
 	}
 };
 
-const char snowman_hands_attack_right[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char snowman_hands_attack_right[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
@@ -143,7 +146,7 @@ const char snowman_hands_attack_right[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATI
 };
 
 
-const char snowman_hands_attack_left[3][WEAPON_ANIMATION_HEIGHT][WEAPON_ANIMATION_WIDTH]={
+const char snowman_hands_attack_left[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},

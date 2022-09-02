@@ -1,10 +1,9 @@
 #include "../sword.hpp"
 
 sword::sword():Weapon(){
-    
-}
+    danno_fisico_iniziale=Math::randomStep(20, 40, 5);
+    danno_magico_iniziale=0;
 
-sword::sword (int d_f, int d_m, const char rar[], const char n[], const char desc[]):Weapon (d_f, d_m, rar, n, desc){
     move_up_index=sword_up_index;
 	move_up_index=sword_down_index;
 	move_left_index=sword_left_index;
@@ -26,10 +25,5 @@ sword::sword (int d_f, int d_m, const char rar[], const char n[], const char des
     animations[attack_right_index]= new Animation (sword_attack_right, sword_width, sword_height, sword_horizontal_attack_states);
     
     is_melee=true;
-    
-    calculate_coordinate();
 }
 
-void sword::calculalte_coordinate(){
-    
-}

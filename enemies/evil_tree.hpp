@@ -2,8 +2,12 @@
 #define EVIL_TREE_HPP
 
 #include "../enemy.hpp"
+#include "tree_branch.hpp"
 
 const int tree_points=100;
+
+const int tree_width=9;
+const int tree_height=6;
 
 const int tree_idle_index=0;
 const int tree_move_up_index=1;
@@ -112,6 +116,12 @@ const char tree_move_down[tree_move_down_states][ANIMATION_HEIGHT][ANIMATION_WID
 
 class Evil_tree: public Enemy{
     public:
+		pTree_branch tree_branch;
+		pArmor armatura;
+		pNecklace collana;
+		pBoots stivali;
+		pHelm elmo;
+		
         Evil_tree();
 };
 

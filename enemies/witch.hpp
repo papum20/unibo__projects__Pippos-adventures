@@ -2,8 +2,12 @@
 #define WITCH_HPP
 
 #include "../enemy.hpp"
+#include "witch_rod.hpp"
 
 const int witch_points=50;
+
+const int witch_width=4;
+const int witch_height=4;
 
 const int witch_idle_index=0;
 const int witch_move_up_index=1;
@@ -106,7 +110,9 @@ const char witch_move_down[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 class Witch: public Enemy{
 
     public:
-        Bastone_magico witch_rod;
+        pWitch_rod witch_rod;
+		pArmor armatura;
+		pNecklace collana;
         Witch();
 
 };

@@ -2,6 +2,10 @@
 #define SNOWMAN_HPP
 
 #include "../enemy.hpp"
+#include "snowman_hands.hpp"
+
+const int snowman_height=4;
+const int snowman_width=9;
 
 const int snowman_points=50;
 
@@ -101,6 +105,10 @@ const char snowman_move_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 class Snowman: public Enemy{
     public:
+		pSnowman_hands snowman_hands;
+		pArmor armatura;
+		pNecklace collana;
+		pBoots stivali;
         Snowman();
 };
 

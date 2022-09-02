@@ -1,7 +1,7 @@
 #ifndef WITCH_HPP
 #define WITCH_HPP
 
-#include "enemy.hpp"
+#include "../enemy.hpp"
 
 const int witch_points=50;
 

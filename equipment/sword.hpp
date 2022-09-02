@@ -1,7 +1,7 @@
 #ifndef SWORD_HPP
 #define SWORD_HPP
 #include <cstring>
-#include "weapon.hpp" 
+#include "../weapon.hpp" 
 
 const int sword_movement_states=1;
 const int sword_horizontal_attack_states=4;

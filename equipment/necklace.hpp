@@ -1,7 +1,7 @@
 #ifndef NECKLACE_HPP
 #define NECKLACE_HPP
 #include <cstring> 
-#include "item_difensivi.hpp"
+#include "../item_difensivi.hpp"
 
 class necklace: public item_difensivo{
     protected:

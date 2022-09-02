@@ -1,7 +1,7 @@
 #ifndef SHIELD_HPP
 #define SHIELD_HPP
 #include <cstring>
-#include "item_difensivi.hpp"
+#include "../item_difensivi.hpp"
 
 class shield: public item_difensivo{
     protected:

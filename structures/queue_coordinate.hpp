@@ -4,7 +4,7 @@
 #define QUEUE_COORDINATE_HPP
 
 
-#include "coordinate.hpp"
+#include "../coordinate.hpp"
 
 
 struct coord_pointer_t {

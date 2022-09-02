@@ -1,7 +1,7 @@
 #ifndef HEALTH_POTION_HPP
 #define HEALTH_POTION_HPP
 
-#include "artifact.hpp"
+#include "../artifact.hpp"
 
 #define HEALTH_GAINED 10
 

@@ -5,6 +5,7 @@
 #include "door.hpp"
 #include "chest.hpp"
 #include "inputmanager.hpp"
+#include "equipment/shield.hpp"
 //#include "menu.hpp"
 
 const int player_idle_index = 0;

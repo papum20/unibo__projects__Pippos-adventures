@@ -1,4 +1,4 @@
-#include "sword.hpp"
+#include "../sword.hpp"
 
 sword::sword():Weapon(){
     

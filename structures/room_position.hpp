@@ -2,7 +2,7 @@
 #define ROOM_POSITION_HPP
 
 
-#include "coordinate.hpp"
+#include "../coordinate.hpp"
 #include "comparable.hpp"
 
 

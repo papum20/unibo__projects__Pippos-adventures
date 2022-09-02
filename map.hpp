@@ -4,14 +4,8 @@
 #define MAP_HPP
 
 
-#include "character.hpp"
-#include "chest.hpp"
+#include <iostream>
 #include "definitions.hpp"
-#include "door.hpp"
-#include "floor.hpp"
-#include "structures/queue_coordinate.hpp"
-#include "wall.hpp"
-
 
 
 class Map {
@@ -108,6 +102,15 @@ class Map {
 };
 
 typedef Map *pMap;
+
+
+#include "character.hpp"
+#include "chest.hpp"
+#include "door.hpp"
+#include "floor.hpp"
+#include "structures/queue_coordinate.hpp"
+#include "physical.hpp"
+#include "wall.hpp"
 
 
 #endif

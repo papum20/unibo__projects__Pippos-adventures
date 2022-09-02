@@ -38,7 +38,7 @@ typedef char lock_type;
 #include "math.hpp"
 #include "physical.hpp"
 #include "map.hpp"
-#include "union_find.hpp"
+#include "structures/union_find.hpp"
 
 
 
@@ -74,7 +74,7 @@ class Room {
 		Coordinate getPos();
 		Coordinate getSize();
 		void getMap(pPhysical map[], Coordinate &size);			//modifica mappa, ritorna dimensioni
-		virtual pRoom getRoomInPosition(Coordinate pos);		//ritorna il puntatore alla stanza collegata da una porta in posizione pos
+		virtual Room *getRoomInPosition(Coordinate pos);		//ritorna il puntatore alla stanza collegata da una porta in posizione pos
 
 		// SET
 		virtual void makeConnection(Room *room, int dir, lock_type lt, bool first = true);	//collega l'altra stanza a questa (se è connectedRoom), con stato bloccato lt; first inizializzato da solo

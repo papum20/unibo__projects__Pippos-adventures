@@ -1,7 +1,7 @@
 #ifndef BOOTS_HPP
 #define BOOTS_HPP
 #include <cstring> 
-#include "item_difensivi.hpp"
+#include "../item_difensivi.hpp"
 
 class boots: public item_difensivo{
     protected:

@@ -1,7 +1,7 @@
 #ifndef ARMOR_HPP
 #define ARMOR_HPP
 #include <cstring>
-#include "item_difensivi.hpp" 
+#include "../item_difensivi.hpp" 
 
 class armor: public item_difensivo{
     protected:

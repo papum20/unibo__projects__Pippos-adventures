@@ -1,7 +1,7 @@
 #ifndef SNOWBALL_HPP
 #define SNOWBALL_HPP
 
-#include "projectile.hpp"
+#include "../projectile.hpp"
 
 const int snowball_states=1;
 const int snowball_up_index=0;

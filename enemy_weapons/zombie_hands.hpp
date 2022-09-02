@@ -1,7 +1,7 @@
 #ifndef ZOMBIE_HANDS_HPP
 #define ZOMBIE_HANDS_HPP
 
-#include "hands.hpp"
+#include "../equipment/hands.hpp"
 
 const int zombie_hands_movement_states=1;
 const int zombie_hands_attack_states=2;

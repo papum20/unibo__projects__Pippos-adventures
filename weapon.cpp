@@ -1,13 +1,13 @@
 #include "weapon.hpp"
 
 Weapon::Weapon():item(){
-    id=WEAPON_ID;
+    id=ID_WEAPON_S;
 }
 
 Weapon::Weapon ():item(){
     apply_rarity();
     is_equipped=false;
-    id=WEAPON_ID;
+    id=ID_WEAPON_S;
 }
 
 

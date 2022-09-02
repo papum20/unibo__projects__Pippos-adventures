@@ -1,7 +1,7 @@
 #ifndef AXE_HPP
 #define AXE_HPP
 #include <cstring> 
-#include "weapon.hpp"
+#include "../weapon.hpp"
 
 const int axe_movement_states=1;
 const int axe_horizontal_attack_states=4;

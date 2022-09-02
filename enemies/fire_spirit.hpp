@@ -1,7 +1,7 @@
 #ifndef FIRE_SPIRIT_HPP
 #define FIRE_SPIRIT_HPP
 
-#include "enemy.hpp"
+#include "../enemy.hpp"
 
 const int fire_spirit_points=20;
 

@@ -1,7 +1,7 @@
 #ifndef SPELL_HPP
 #define SPELL_HPP
 
-#include "projectile.hpp"
+#include "../projectile.hpp"
 
 const int spell_states=1;
 const int spell_up_index=0;

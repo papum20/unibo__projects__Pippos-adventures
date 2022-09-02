@@ -5,7 +5,7 @@
 
 
 #include <iostream>
-#include "definitions.hpp"
+#include "../definitions.hpp"
 #include "priority_queue.hpp"
 #include "room_position.hpp"
 

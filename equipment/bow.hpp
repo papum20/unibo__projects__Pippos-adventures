@@ -1,8 +1,8 @@
 #ifndef BOW_HPP
 #define BOW_HPP
 #include <cstring> 
-#include "weapon.hpp"
-#include "projectile.hpp"
+#include "../weapon.hpp"
+#include "../projectile.hpp"
 
 const int bow_movement_states=1;
 const int bow_attack_states=3;

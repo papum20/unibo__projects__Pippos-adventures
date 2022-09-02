@@ -8,7 +8,6 @@ using namespace std;
 //#include "character.hpp"
 #include "projectile.hpp"
 
-const int WEAPON_ID=100;
 
 class Weapon : public item {
 	private:

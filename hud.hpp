@@ -3,8 +3,11 @@
 
 #include "pixel_art.hpp"
 #include <curses.h>
+#include "player.hpp"
 
 using namespace std;
+
+const int hud_altezza = 6;
 
 const int barra_righe=2;
 const int barra_colonne=46;
@@ -134,9 +137,11 @@ class Hud {
 		Pixel_art pix;
 
 	public:
-		Hud(WINDOW* win, int max_h, int max_s);
+    Hud(int x, int y, pPlayer player);
+		//Hud(WINDOW* win, int max_h, int max_s);
 		//costruttore
-		void drawHud(int curr_health, int curr_st, int hearts);		//disegna hud (in gioco)
+		void drawHud();		//disegna hud (in gioco)
+		//void drawHud(int curr_health, int curr_st, int hearts);		//disegna hud (in gioco)
 		//void startMenu();	//inizializza il menu (quando si preme il tasto pausa)
 		//void updateMenu();	//disegna menu (solo se in pausa)
 };

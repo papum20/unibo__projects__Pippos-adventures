@@ -1,12 +1,15 @@
 #include "hud.hpp"
 
 
-Hud::Hud(WINDOW* win, int max_h, int max_s){
+Hud::Hud(int x, int y, pPlayer player){
+
+}
+/*Hud::Hud(WINDOW* win, int max_h, int max_s){
     hud_win=win;
     getmaxyx(hud_win, y_win, x_win);
     max_health=max_h;
     max_stamina=max_s;
-}
+}*/
 
 void Hud::drawHud (int curr_health, int curr_st, int hearts){
     int health_counter;             //serve a contare quanto della barra della vita colorare

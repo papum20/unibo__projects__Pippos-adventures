@@ -72,6 +72,7 @@ class Physical {
 	public:
 		char direction;							// u sopra, d sotto, l sinistra, r destra
 		int current_animation;
+		
 		Physical();
 		virtual void copy(Physical B);			//copia i parametri di B
 		virtual void update(pMap map, char input);

@@ -2,7 +2,7 @@
 #define WITCH_HPP
 
 #include "../enemy.hpp"
-#include "witch_rod.hpp"
+#include "../enemy_weapons/witch_rod.hpp"
 
 const int witch_points=50;
 

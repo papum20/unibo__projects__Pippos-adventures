@@ -1,7 +1,7 @@
 #ifndef TREE_BRANCH_HPP
 #define TREE_BRANCH_HPP
 
-#include "hands.hpp"
+#include "../equipment/hands.hpp"
 
 const int tree_branch_up_index=0;
 const int tree_branch_down_index=1;

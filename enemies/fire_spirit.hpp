@@ -2,7 +2,7 @@
 #define FIRE_SPIRIT_HPP
 
 #include "../enemy.hpp"
-#include "fire_spirit_hands.hpp"
+#include "../enemy_weapons/fire_spirit_hands.hpp"
 
 const int fire_spirit_points=20;
 

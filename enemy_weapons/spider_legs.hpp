@@ -1,7 +1,7 @@
 #ifndef SPIDER_LEGS_HPP
 #define SPIDER_LEGS_HPP
 
-#include "hands.hpp"
+#include "../equipment/hands.hpp"
 
 const int spider_legs_movement_states=1;
 const int spider_legs_horizontal_attack_states=3;

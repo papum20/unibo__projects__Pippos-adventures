@@ -2,7 +2,7 @@
 #define SNOWMAN_HPP
 
 #include "../enemy.hpp"
-#include "snowman_hands.hpp"
+#include "../enemy_weapons/snowman_hands.hpp"
 
 const int snowman_height=4;
 const int snowman_width=9;

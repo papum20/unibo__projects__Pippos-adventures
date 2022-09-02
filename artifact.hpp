@@ -4,7 +4,6 @@
 #include "physical.hpp"
 #include "player.hpp"
 
-const int ARTIFACT_ID=500;
 
 class Artifact: public item{
     protected:

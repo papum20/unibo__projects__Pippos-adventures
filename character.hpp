@@ -4,7 +4,6 @@
 
 #include "artifact.hpp"
 #include "equipment/equipment.hpp"
-#include "inanimate.hpp"
 #include "item_difensivi.hpp"
 #include "map.hpp"
 #include "physical.hpp"

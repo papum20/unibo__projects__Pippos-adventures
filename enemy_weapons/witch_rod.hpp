@@ -2,7 +2,7 @@
 #define WITCH_ROD_HPP
 
 #include "../equipment/rod.hpp"
-#include "../equipment/spell.hpp"
+#include "../projectiles/spell.hpp"
 
 const int witch_rod_up_index=0;
 const int witch_rod_down_index=1;

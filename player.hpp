@@ -42,23 +42,23 @@ const char idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 const char move_right[player_move_right_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'o' , ' '},
 	{'/', '|', '-' },
-	{'/', ' ', ' '}
+	{'/', '|', ' '}
 	},
 
 {   {' ', 'o' , '/'},
 	{'/', '|', ' '},
-	{'/', ' ', ' '}
+	{'/', '|', ' '}
 	}
 };
 const char move_left[player_move_left_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {   {' ', 'o' , ' ' },
 	{'-', '|',  '\\' },
-	{' ', ' ',  '\\'}
+	{' ', '|',  '\\'}
 	},
 
 {   {'\\', 'o' , ' '},
 	{' ',  '|',  '\\'},
-	{' ',  ' ', '\\'}
+	{' ',  '|', '\\'}
 	}
 };
 const char move_up[player_move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
@@ -86,12 +86,12 @@ const char move_down[player_move_down_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]
 const char dash_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{{'\\', 'o', '='},
 	{' ', '|', '=' },
-	{' ', ' ', '\\'}} 
+	{' ', '|', '\\'}} 
 };
 const char dash_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{{'=', 'o', '/'},
 	{'=', '|', ' ' },
-	{'/', ' ', ' '}} 
+	{'/', '|', ' '}} 
 };
 const char dash_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{{'\\', 'o', '/'},

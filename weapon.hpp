@@ -12,6 +12,10 @@ using namespace std;
 class Weapon : public item {
 	private:
 
+	protected:
+		//int delta_x;	//up e down	
+		//int delta_y;	//left e right
+
 	public:
 		int danno_fisico_iniziale;
 		int danno_magico_iniziale;

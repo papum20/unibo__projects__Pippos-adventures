@@ -47,9 +47,9 @@ const int MAX_ANIMATIONS = 6;
 #define ID_DOOR 12
 #pragma endregion PHYSICAL_IDS
 
-/*#pragma region PHYSICAL_STATS
+#pragma region PHYSICAL_STATS
 #define PHYSICAL_MAX_SPEED 5.
-#pragma endregion PHYSICAL_STATS*/
+#pragma endregion PHYSICAL_STATS
 
 #pragma endregion PHYSICAL_CONSTANTS
 
@@ -57,7 +57,6 @@ const int MAX_ANIMATIONS = 6;
 #include "cell.hpp"
 #include "coordinate.hpp"
 #include "definitions.hpp"
-#include "map.hpp"
 
 
 
@@ -75,7 +74,6 @@ class Physical {
 		
 		Physical();
 		virtual void copy(Physical B);			//copia i parametri di B
-		virtual void update(pMap map, char input);
 		virtual void destroy();
 
 		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra

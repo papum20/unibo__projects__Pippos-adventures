@@ -61,7 +61,8 @@ int main() {
 
 	//// END
 	cursesEnd();
-
+	gameEnd();
+	
 }
 
 
@@ -86,5 +87,9 @@ void colorsInit() {
 
 void cursesEnd() {
 	endwin();			//dealloca memoria
+}
+void gameEnd() {
+	delete FLOOR_INSTANCE;
+	delete WALL_INSTANCE;
 }
 #pragma endregion FUNZIONI

@@ -25,6 +25,7 @@
 
 //// END
 	void cursesEnd();
+	void gameEnd();
 
 
 #endif

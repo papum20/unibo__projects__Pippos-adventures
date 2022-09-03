@@ -55,4 +55,6 @@ class Spell :public Projectile{
         Spell (int fisico, int magico, char dir, int shooter);
 };
 
+typedef Spell* pSpell;
+
 #endif

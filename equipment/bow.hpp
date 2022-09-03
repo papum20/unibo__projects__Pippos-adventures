@@ -182,11 +182,10 @@ const char bow_attack_down[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]
 
 class Arco: public Weapon{
     protected:
-        //Arrow freccia;
     public:
 		Arco();
 
-		void shoot();
+		pProjectile shoot();
 };
 
 #endif

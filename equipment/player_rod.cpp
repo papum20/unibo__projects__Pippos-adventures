@@ -31,6 +31,6 @@ Player_Rod::Player_Rod():Rod(){
     vertical_attack_states=player_rod_attack_states;
 }
 
-void Player_Rod::shoot(){
-    //magia=Spell(this);
+pProjectile Player_Rod::shoot(){
+    pSpell magia= new Spell(danno_fisico, danno_magico, direction, owner_id);
 }

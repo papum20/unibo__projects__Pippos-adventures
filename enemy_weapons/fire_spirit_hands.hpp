@@ -185,7 +185,7 @@ class Fire_spirit_hands: public Hands{
     public:
         Fire_spirit_hands();
 
-		void shoot();
+		pProjectile shoot();
 
 };
 

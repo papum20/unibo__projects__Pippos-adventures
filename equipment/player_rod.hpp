@@ -213,7 +213,7 @@ class Player_Rod: public Rod{
 		//Spell magia;
 		Player_Rod();
 		
-		void shoot();
+		pProjectile shoot();
 };
 
 typedef Player_Rod* pPlayer_rod;

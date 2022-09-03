@@ -52,4 +52,6 @@ class Snowball :public Projectile{
         Snowball (int fisico, int magico, char dir, int shooter);
 };
 
+typedef Snowball* pSnowball;
+
 #endif

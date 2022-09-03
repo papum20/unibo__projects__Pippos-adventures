@@ -33,6 +33,6 @@ Arco::Arco():Weapon(){
     vertical_attack_states=bow_attack_states;
 }
 
-void Arco::shoot(){
-    //freccia=Arrow(this);
+pProjectile Arco::shoot(){
+    pArrow freccia= new Arrow(danno_fisico, danno_magico, direction, owner_id);
 }

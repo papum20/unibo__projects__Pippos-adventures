@@ -52,4 +52,6 @@ class Fireball :public Projectile{
         Fireball (int fisico, int magico, char dir, int shooter);
 };
 
+typedef Fireball* pFireball;
+
 #endif

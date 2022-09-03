@@ -9,7 +9,7 @@ Projectile::Projectile(pWeapon w):Physical(){
     danno_magico=w->danno_magico;
     direction=w->direction;
     shooter_id=w->owner_id;
-    id=PROJECTILE_ID;
+    id=ID_PROJECTILE_S;
 }
 
 

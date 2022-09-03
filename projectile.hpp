@@ -5,7 +5,6 @@
 #include "weapon.hpp"
 #include "animation.hpp"
 
-const int PROJECTILE_ID=800;
 
 class Projectile: public Animate{
     protected:

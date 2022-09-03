@@ -38,6 +38,9 @@
 #define COLOR_UPPER_WALL COLOR_BLACK		//bordo superiore muro
 #define COLOR_FLOOR COLOR_GREEN
 #define COLOR_SHADOW COLOR_GREY				//per il pavimento con l'ombra di un oggetto
+#define COLOR_PLAYER COLOR_WHITE
+#define COLOR_WEAPON COLOR_BLUE
+#define COLOR_ENEMY COLOR_RED
 // CARATTERI:
 #define CHAR_EMPTY ' '
 #define CHAR_WEAPON_MASK 'm'				//quando si trova questo carattere in un'animazione, in quel punto non verrà rappresentato il personaggio

@@ -3,6 +3,7 @@
 Weapon::Weapon ():item(){
     is_equipped=false;
     id=ID_WEAPON_S;
+    main_color = COLOR_WEAPON;
 }
 
 
@@ -47,4 +48,9 @@ void Weapon::initiate_attack(char d){
             current_animation=attack_left_index;
             break;
     }
+}
+
+
+bool Weapon::animationMask(Coordinate pos) {
+    return getCurrentAnimation().state[pos.single()] == CHAR_EMPTY || getCurrentAnimation().state[pos.single()] == CHAR_WEAPON_MASK;
 }

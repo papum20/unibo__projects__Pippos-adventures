@@ -101,12 +101,7 @@ class Physical {
 		// SET
 		void next_animation();
 		void setPosition(Coordinate pos);
-		
-		//MOVE
-		void moveUp(pMap map);
-		void moveDown(pMap map);
-		void moveLeft(pMap map);
-		void moveRight(pMap map);
+
 };
 
 typedef Physical *pPhysical;

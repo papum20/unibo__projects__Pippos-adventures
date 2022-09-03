@@ -21,8 +21,17 @@ class Animate : public Physical {
 		
 		char direction;							// u sopra, d sotto, l sinistra, r destra
 
+		attr_t main_color;
+
 	public:
 		Animate();
+		attr_t get_MainColor();
+		
+		//MOVE
+		void moveUp(pMap map);
+		void moveDown(pMap map);
+		void moveLeft(pMap map);
+		void moveRight(pMap map);
 };
 
 

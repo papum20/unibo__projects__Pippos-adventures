@@ -5,28 +5,30 @@ Animate::Animate() : Physical() {
 
 }
 
+attr_t Animate::get_MainColor() {
+	return main_color;
+}
 
 
-
-void Physical::moveUp(pMap map){
+void Animate::moveUp(pMap map){
     Coordinate newpos=pos;
 	newpos.y--;
 	MapHandler::move(map, this, newpos);
 }
 
-void Physical::moveDown(pMap map){
+void Animate::moveDown(pMap map){
 	Coordinate newpos=pos;
 	newpos.y++;
 	map->move ( this, newpos);
 }
 
-void Physical::moveLeft(pMap map){
+void Animate::moveLeft(pMap map){
 	Coordinate newpos=pos;
 	newpos.x--;
 	map->move ( this, newpos);
 }
 
-void Physical::moveRight(pMap map){
+void Animate::moveRight(pMap map){
 	Coordinate newpos=pos;
 	newpos.x++;
 	map->move ( this, newpos);

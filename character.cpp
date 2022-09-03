@@ -1,12 +1,12 @@
 #include "character.hpp"
 
 
-Character::Character() : Physical() {
+Character::Character() : Animate() {
 	is_attacking=false;
 	apply_equipment();
 }
 
-Character::Character(int maxH, int curH) : Physical() {
+Character::Character(int maxH, int curH) : Animate() {
 	maxHealth=maxH;
 	curHealth=curH;
 	is_attacking=false;
@@ -18,22 +18,31 @@ void Character::update(pMap map) {
 }
 
 void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
-	Animation a_weapon = weapons[curr_weapon]->getCurrentAnimation();
-	Coordinate draw_start = Coordinate(pos, weapons[curr_weapon]->getOffset().negative());
-	Coordinate draw_end = Coordinate(draw_start, a_weapon.size);
-	Coordinate character_start = pos, character_end = Coordinate(character_start, getCurrentAnimation().size);
-	Coordinate win_end = Coordinate(win_start, win_size);
+	if(!drawn) {
+		Animation a_weapon = equipaggiamento.arma->getCurrentAnimation();
+		Coordinate draw_start = Coordinate(pos, equipaggiamento.arma->getOffset().negative());
+		Coordinate draw_end = Coordinate(draw_start, a_weapon.size);
+		Coordinate character_start = pos, character_end = Coordinate(character_start, getCurrentAnimation().size);
+		Coordinate win_end = Coordinate(win_start, win_size);
 
-	Coordinate relative = Coordinate(0, 0, a_weapon.size);										//coordinata relativa all'animazione, all'interno di essa
-	do {
-		Coordinate global = Coordinate(Coordinate(relative, draw_start), win_start, win_end);	//coordinata globale di relative, sulla mappa
-		if(global.inOwnBounds()) {												//se il punto è interno alla finestra da disegnare
-			if(global.inBounds(character_start, character_end))
-			//se il punto dell'animazione è vuoto o contiene il carattere speciale: disegna personaggio
-			if(a_weapon.state[relative.single()] == CHAR_EMPTY || a_weapon.state[relative.single()] == CHAR_WEAPON_MASK) scr[]
-			//altrimenti: disegna arma
-		}
-	} while(!relative.equals(draw_start));
+		Coordinate local = Coordinate(0, 0, a_weapon.size);										//coordinata relativa all'animazione, all'interno di essa
+		do {
+			Coordinate global = Coordinate(Coordinate(local, draw_start), win_start, win_end);	//coordinata globale di relative, sulla mappa
+			if(global.inOwnBounds()) {															//se il punto è interno alla finestra da disegnare
+				Coordinate relative = Coordinate(global, draw_start.negative());				//coordinate relativa allo schermo da disegnare
+		
+				if(equipaggiamento.arma->animationMask(local))									//se c'è l'arma: copre qualsiasi cosa
+					scr[relative.inty()][relative.intx()] = Cell(a_weapon.state[local.single()], equipaggiamento.arma->get_MainColor(), -1, -1);
+				else if(global.inBounds(character_start, character_end)) {						//altrimenti, se c'è il character, disegna il character
+					Coordinate local_character = Coordinate(relative, character_start.negative());
+					char cell = getCurrentAnimation().state[local_character.single()];
+					if(cell != CHAR_EMPTY) scr[relative.inty()][relative.intx()] = Cell(cell, main_color, -1, -1);
+				}
+			}
+		} while(!local.equals(draw_start));
+
+		drawn = true;
+	}
 }
 
 
@@ -79,7 +88,7 @@ void Character::apply_equipment (){
 //FUNZIONI MOVIMENTO
 
 void Character::moveUp(pMap map){
-	Physical::moveDown(map);
+	Animate::moveDown(map);
 	if (current_animation==move_up_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -90,7 +99,7 @@ void Character::moveUp(pMap map){
 }
 
 void Character::moveDown(pMap map){
-	Physical::moveDown(map);
+	Animate::moveDown(map);
 	if (current_animation==move_down_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -101,7 +110,7 @@ void Character::moveDown(pMap map){
 }
 
 void Character::moveLeft(pMap map){
-	Physical::moveDown(map);
+	Animate::moveDown(map);
 	if (current_animation==move_left_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -112,7 +121,7 @@ void Character::moveLeft(pMap map){
 }
 
 void Character::moveRight(pMap map){
-	Physical::moveDown(map);
+	Animate::moveDown(map);
 	if (current_animation==move_right_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}

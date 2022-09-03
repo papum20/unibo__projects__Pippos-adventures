@@ -11,5 +11,5 @@ void Inanimate::drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, 
 void Inanimate::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
 	if(scr[pos.inty()][pos.intx()].getCh() == CHAR_EMPTY) drawCell(scr, pos, main_color);
 	else drawCell(scr, pos, second_color);
-	Physical::drawAtPosition(scr, win_start, win_size, pos);
+	drawn = true;
 }

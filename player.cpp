@@ -6,6 +6,7 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina) {
 
 	n_hearts=start_lifes;
 	id=ID_PLAYER;
+	main_color = COLOR_PLAYER;
 
 	animations[player_idle_index] = new Animation(idle, Coordinate(p_height, p_width), player_idle_states);
 	

@@ -35,73 +35,73 @@ const int w_attack_height=8;
 const int w_attack_width=9;
 
 const char idle[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
-	{{' ', 'A' , ' '},
-	{'-', 'O', '-' },
+	{{' ', 'o' , ' '},
+	{'/', '|', '\\' },
 	{'/', ' ', '\\'}} //se sono di più si mette qua la virgola e poi si rifà {}
 };
 const char move_right[player_move_right_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
-{   {' ', 'A' , ' '},
-	{'-', 'O', '-' },
-	{'/', '|', ' '}
+{   {' ', 'o' , ' '},
+	{'/', '|', '-' },
+	{'/', ' ', ' '}
 	},
 
-{   {' ', 'A' , '/'},
-	{'-', 'O', ' '},
-	{'/', '|', ' '}
+{   {' ', 'o' , '/'},
+	{'/', '|', ' '},
+	{'/', ' ', ' '}
 	}
 };
 const char move_left[player_move_left_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
-{   {' ', 'A' , ' ' },
-	{'-', 'O',  '-' },
-	{' ', '|',  '\\'}
+{   {' ', 'o' , ' ' },
+	{'-', '|',  '\\' },
+	{' ', ' ',  '\\'}
 	},
 
-{   {'\\', 'A' , ' '},
-	{' ',  'O',  '-'},
-	{' ',  '|', '\\'}
+{   {'\\', 'o' , ' '},
+	{' ',  '|',  '\\'},
+	{' ',  ' ', '\\'}
 	}
 };
 const char move_up[player_move_up_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
-{   {' ', 'A' , ' ' },
-	{'-', 'O',  '-' },
+{   {' ', 'o' , ' ' },
+	{'/', '|',  '\\' },
 	{'/', ' ',  '\\'}
 	},
 
-{   {' ',  'A' , ' '},
-	{' ',  'O',  ' '},
-	{'/',  '|', '\\'}
+{   {'\\',  'o' , '/'},
+	{' ',  '|',  ' '},
+	{'/',  ' ', '\\'}
 	}
 };	
 const char move_down[player_move_down_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
-{   {' ', 'A' , ' ' },
-	{'-', 'O',  '-' },
+{   {' ', 'o' , ' ' },
+	{'/', '|',  '\\' },
 	{'/',' ',  '\\'}
 	},
 
-{   {'\\', 'A' , '/'},
-	{' ',  'O',  ' '},
+{   {'\\', 'o' , '/'},
+	{' ',  '|',  ' '},
 	{'/', ' ', '\\'}
 	}
 };
 const char dash_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
-	{{'\\', 'A', '='},
-	{' ', 'O', '=' },
-	{' ', '|', '\\'}} 
+	{{'\\', 'o', '='},
+	{' ', '|', '=' },
+	{' ', ' ', '\\'}} 
 };
 const char dash_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
-	{{'=', 'A', '/'},
-	{'=', 'O', ' ' },
-	{'/', '|', ' '}} 
+	{{'=', 'o', '/'},
+	{'=', '|', ' ' },
+	{'/', ' ', ' '}} 
 };
 const char dash_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
-	{{'\\', 'A', '/'},
-	{' ', 'O', ' ' },
-	{'|', '|', '|'}} 
+	{{'\\', 'o', '/'},
+	{' ', '|', ' ' },
+	{'|', ' ', '|'}} 
 };
 const char dash_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{{'|', '|', '|'},
-	{' ', 'O', ' ' },
-	{'/', 'A', '\\'}} 
+	{' ', '|', ' ' },
+	{'/', 'o', '\\'}} 
 };
 
 

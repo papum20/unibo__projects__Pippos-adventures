@@ -20,19 +20,9 @@ typedef char lock_type;
 
 
 #include "map_handler.hpp"
-#include "math.hpp"
 #include "structures/union_find.hpp"
 
-#include "physical.hpp"
-#include "character.hpp"
 #include "enemy.hpp"
-
-#include "enemies/enemies.hpp"
-#include "items/items.hpp"
-#include "equipment/equipment.hpp"
-#include "floor.hpp"
-#include "wall.hpp"
-
 
 
 
@@ -95,6 +85,17 @@ class Room {
 typedef Room *pRoom;
 
 
+#include "math.hpp"
+
+#include "physical.hpp"
+#include "character.hpp"
+
+#include "enemies/enemies.hpp"
+#include "items/items.hpp"
+#include "equipment/equipment.hpp"
+#include "floor.hpp"
+#include "wall.hpp"
+#include "chest.hpp"
 
 
 #endif

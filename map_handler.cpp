@@ -6,7 +6,7 @@ MapHandler::MapHandler() {
 }
 
 #pragma region PATH_FINDING
-	int MapHandler::shortestPath(pMap map, Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pPhysical obj = NULL) {
+	int MapHandler::shortestPath(pMap map, Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pPhysical obj) {
 		if(A.equals(B) || !A.inBounds(Coordinate(0, 0), map->size)) return 0;
 		else {
 			int length = 0;
@@ -43,7 +43,7 @@ MapHandler::MapHandler() {
 			} else return -1;
 		}
 	}
-	int MapHandler::shortestPath_physical(pMap map, Coordinate path[ROOM_AREA], pPhysical A, pPhysical B, int dist_min = 1, int dist_max = 1) {
+	int MapHandler::shortestPath_physical(pMap map, Coordinate path[ROOM_AREA], pPhysical A, pPhysical B, int dist_min, int dist_max) {
 		if(A == NULL || B == NULL) return 0;
 		else {
 			if(dist_min < 1) dist_min = 1;
@@ -94,7 +94,7 @@ MapHandler::MapHandler() {
 		}
 	}
 
-	int MapHandler::vision(pMap map, pPhysical obj[ROOM_AREA], Coordinate source, int range = -1) {
+	int MapHandler::vision(pMap map, pPhysical obj[ROOM_AREA], Coordinate source, int range) {
 		//IMPLEMENTAZIONE: "spara" raggi da source verso tutti i punti del muro di perimetro, con entrambe le implementazioni checkLine_floor e checkLine_ceil; ritorna l'intersezione dei risultati
 		int length = 0;
 		pPhysical obj_floor[ROOM_AREA], obj_ceil[ROOM_AREA];

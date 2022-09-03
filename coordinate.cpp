@@ -142,6 +142,12 @@
 	float Coordinate::relative_y() {
 		return y - starty;
 	}
+	int Coordinate::rel_int_x() {
+		return (int)relative_x();
+	}
+	int Coordinate::rel_int_y() {
+		return (int)relative_y();
+	}
 	s_coord Coordinate::single() {
 		return inty() * (endx - startx) + intx();
 	}

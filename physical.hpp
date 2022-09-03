@@ -2,10 +2,6 @@
 #define PHYSICAL_HPP
 
 
-#include <iostream>
-#include "animation.hpp"
-#include "map.hpp"
-
 #define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
 										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
 
@@ -46,6 +42,11 @@ const int MAX_ANIMATIONS = 6;
 #define ID_WALL 10
 #define ID_FLOOR 11
 #define ID_DOOR 12
+
+#define ID_HEALTH_POTION 150
+#define ID_KEY 151
+#define ID_LIFE_ELIXIR 152
+#define ID_RUNE 153
 #pragma endregion PHYSICAL_IDS
 
 #pragma region PHYSICAL_STATS
@@ -55,9 +56,12 @@ const int MAX_ANIMATIONS = 6;
 #pragma endregion PHYSICAL_CONSTANTS
 
 
+#include <iostream>
+#include "animation.hpp"
 #include "cell.hpp"
 #include "coordinate.hpp"
 #include "definitions.hpp"
+#include "map.hpp"
 
 
 
@@ -65,32 +69,25 @@ class Physical {
 	protected:
 		Coordinate pos;
 		Coordinate size;
+		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
+		bool drawn;		//mark se l'oggetto è stato disegnato per il frame corrente
+
+		//// FUNZIONI AUSILIARIE
+		virtual void drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color);	//riempie una cella
+		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata
 
 	public:
-		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
-		//variabili per array di movimento, si trovano qui perchè servono a weapon, character e projectile
-
-		int move_up_index;
-		int move_down_index;
-		int move_left_index;
-		int move_right_index;
-		
-		int attack_up_index;
-		int attack_down_index;
-		int attack_left_index;
-		int attack_right_index;
-		
-		char direction;							// u sopra, d sotto, l sinistra, r destra
 		int current_animation;
 		
 		Physical();
 		virtual void copy(Physical B);			//copia i parametri di B
+		virtual void update(pMap map);			//da richiamare a ogni frame
 		virtual void destroy();
 
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
-		//precondizione: da richiamare con coordinate giuste
+		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata
 		void drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size);						//disegna l'oggetto nella finestra, nella sua posizione, secondo la sua animazione, entro i limiti della finestra
 		//precondizione: da richiamare con coordinate giuste
 
@@ -99,7 +96,11 @@ class Physical {
 		bool isCharacter();
 		bool isProjectile();
 		//bool isItem();			//se è item/artefatto...
+		bool isWeapon();
+		bool isItemDifensivo();
+		bool isArtifact();
 		bool findInArray(Physical *A[ROOM_AREA], int len);
+		virtual bool animationMask(Coordinate pos);		//true se la posizione, relativa all'animazione, copre quello che c'è sotto
 
 		// GET
 		int getId();
@@ -107,15 +108,11 @@ class Physical {
 		Coordinate getSize();
 		Coordinate getSpeed();				//velocità in caselle/secondo (float)
 		Coordinate lastFrameMovement();
+		Animation getCurrentAnimation();
 		// SET
 		void next_animation();
 		void setPosition(Coordinate pos);
-		
-		//MOVE
-		void moveUp(pMap map);
-		void moveDown(pMap map);
-		void moveLeft(pMap map);
-		void moveRight(pMap map);
+
 };
 
 typedef Physical *pPhysical;

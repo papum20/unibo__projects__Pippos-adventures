@@ -2,21 +2,15 @@
 #define CHARACTER_HPP
 
 
-#include "artifact.hpp"
-#include "equipment/equipment.hpp"
-#include "item_difensivi.hpp"
-#include "physical.hpp"
-#include "timer.hpp"
 #include "weapon.hpp"
-#include "door.hpp"
-#include "map_handler.hpp"
-#include "projectile.hpp"
+#include "item_difensivi.hpp"
+#include "equipment/equipment.hpp"
+
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 
 const int W_NUMBER=10;
 const int DEF_NUMBER=10;
-const int PATH_LENGTH;
 
 struct equipment {
 	pWeapon arma;
@@ -27,9 +21,11 @@ struct equipment {
 	pHelm elmo;
 };
 
+#include "animate.hpp"
+#include "artifact.hpp"
 
 
-class Character : public Physical {
+class Character : public Animate {
 	private:
 		//void swapPositions(Character *characters[], Coordinate a, Coordinate b);
 		
@@ -47,8 +43,9 @@ class Character : public Physical {
 
 		int attack_up_states;
 		int attack_down_states;
-		int attack_left_states;
 		int attack_right_states;
+		int attack_left_states;
+
 		// ROOM
 		//bool moveObject(pMap map[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 
@@ -88,10 +85,17 @@ class Character : public Physical {
 		void check_enemy_melee(pMap map);
 		void initiate_attack();
 		int calculate_damage(pCharacter c);
+
+		equipment *getEqipment();
 		
 };
 
 typedef Character *pCharacter;
+
+
+#include "door.hpp"
+#include "projectile.hpp"
+#include "timer.hpp"
 
 
 

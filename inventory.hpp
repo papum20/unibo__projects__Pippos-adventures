@@ -10,20 +10,21 @@
 #include "weapon.hpp"
 #include "artifact.hpp"
 
+#include "definitions.hpp"
+//const int scroll_up = KEY_UP;
+//const int scroll_down = KEY_DOWN;
+//const int scroll_left = KEY_LEFT;
+//const int scroll_right = KEY_RIGHT;
+//const int esc = 27; //tasto per uscire dall'inventario
+//const int invio = 10; //serve nel menu di usa e scarta dell'oggetto per accettare 
 
-const int scroll_up = KEY_UP;
-const int scroll_down = KEY_DOWN;
-const int scroll_left = KEY_LEFT;
-const int scroll_right = KEY_RIGHT;
 const int object_max_name_chars = 30;
 const int object_max_description_chars = 200;
-const int esc = 27; //tasto per uscire dall'inventario
 
 const int max_n_digit_stats=20; //rappresenta il numero massimo di cifre che possono avere le stats tipo attack = 50 ha 2 cifre 
 const int start_written = 32; //punto di inizio delle scritte del w_item quindi descrizione,rarità e così via
 const int w_graphic_high = 29;
 const int w_graphic_lenght = 29;
-const int invio = 10; //serve nel menu di usa e scarta dell'oggetto per accettare 
 const int n_graphic_types_items = 10;
 //space
 const int n_max_inventory_objects = 18;

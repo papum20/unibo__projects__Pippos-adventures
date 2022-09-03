@@ -181,7 +181,7 @@ const char fire_spirit_hands_attack_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 class Fire_spirit_hands: public Hands{
 	protected:
-		Fireball fireball;
+		//Fireball fireball;
     public:
         Fire_spirit_hands();
 

@@ -4,6 +4,7 @@
 #include "weapon.hpp"
 #include "artifact.hpp"
 #include "item_difensivi.hpp"
+#include "inanimate.hpp"
 
 const int chest_width=3;
 const int chest_height=5;
@@ -14,7 +15,7 @@ const char chest [chest_width][chest_height]=
   {' ', '*', '*', '*', ' '}
 };
 
-class Chest: public Physical{
+class Chest: public Inanimate{
     protected:
     public:
         pWeapon arma;
@@ -25,6 +26,7 @@ class Chest: public Physical{
         Chest(pWeapon w);
         Chest (pArtifact a);
         Chest (pItem_def d);
+		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);
 
         pWeapon open_w();
         pArtifact open_a();

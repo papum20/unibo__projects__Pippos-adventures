@@ -6,7 +6,6 @@ using namespace std;
 #include "coordinate.hpp"
 #include "item.hpp"
 //#include "character.hpp"
-#include "projectile.hpp"
 
 
 class Weapon : public item {
@@ -37,13 +36,18 @@ class Weapon : public item {
 
 		void apply_rune();
 		void apply_rarity();
-		virtual void shoot(){};
+		virtual void shoot();
 
 		Coordinate getOffset();
 		void initiate_attack(char d);
+
+		bool animationMask(Coordinate pos);		//true se la posizione, relativa all'animazione dell'arma, copre il personaggio o quello che c'è sotto
 };
 
 typedef Weapon* pWeapon;
+
+
+#include "projectile.hpp"
 
 
 #endif

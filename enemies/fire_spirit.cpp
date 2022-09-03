@@ -10,11 +10,11 @@ Fire_spirit::Fire_spirit():Enemy(){
     move_right_index=fire_spirit_move_right_index;
     move_left_index=fire_spirit_move_left_index;
 
-    animations[idle_index]=new Animation (fire_spirit_idle, fire_spirit_width, fire_spirit_height, fire_spirit_idle_states);
-    animations[move_up_index]=new Animation (fire_spirit_move_up, fire_spirit_width, fire_spirit_height, fire_spirit_move_up_states);
-    animations[move_left_index]=new Animation (fire_spirit_move_left, fire_spirit_width, fire_spirit_height, fire_spirit_move_left_states);
-    animations[move_right_index]=new Animation (fire_spirit_move_right, fire_spirit_width, fire_spirit_height, fire_spirit_move_right_states);
-    animations[move_down_index]=new Animation (fire_spirit_move_down, fire_spirit_width, fire_spirit_height, fire_spirit_move_down_states);
+    animations[idle_index]=new Animation (fire_spirit_idle, Coordinate(fire_spirit_width, fire_spirit_height), fire_spirit_idle_states);
+    animations[move_up_index]=new Animation (fire_spirit_move_up, Coordinate(fire_spirit_width, fire_spirit_height), fire_spirit_move_up_states);
+    animations[move_left_index]=new Animation (fire_spirit_move_left, Coordinate(fire_spirit_width, fire_spirit_height), fire_spirit_move_left_states);
+    animations[move_right_index]=new Animation (fire_spirit_move_right, Coordinate(fire_spirit_width, fire_spirit_height), fire_spirit_move_right_states);
+    animations[move_down_index]=new Animation (fire_spirit_move_down, Coordinate(fire_spirit_width, fire_spirit_height), fire_spirit_move_down_states);
 
     points_given=fire_spirit_points;
 

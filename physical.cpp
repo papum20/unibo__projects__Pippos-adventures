@@ -4,12 +4,17 @@
 
 
 Physical::Physical() {
-        id = ID_DEFAULT;
+    id = ID_DEFAULT;
+    drawn = false;
 
-        //inizializza animation
-        for(int i = 0; i < MAX_ANIMATIONS; i++) 
-            animations[i] = NULL;
-    }
+    //inizializza animation
+    for(int i = 0; i < MAX_ANIMATIONS; i++) 
+        animations[i] = NULL;
+}
+
+void Physical::update(pMap map) {
+    drawn = false;
+}
 
 void Physical::destroy() {
     // ELIMINA PUNTATORI ANIMAZIONI
@@ -20,40 +25,16 @@ void Physical::destroy() {
 }
 
 void Physical::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
-
+    drawn = true;
 }
 void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size) {
     drawAtPosition(scr, win_start, win_size, pos);
 }
 
 void Physical::next_animation(){
-    animations[current_animation]=animations[current_animation]->next;
+    animations[current_animation] = animations[current_animation]->next;
 }
 
-
-void Physical::moveUp(pMap map){
-    Coordinate newpos=pos;
-	newpos.y--;
-	MapHandler::move(map, this, newpos);
-}
-
-void Physical::moveDown(pMap map){
-	Coordinate newpos=pos;
-	newpos.y++;
-	map->move ( this, newpos);
-}
-
-void Physical::moveLeft(pMap map){
-	Coordinate newpos=pos;
-	newpos.x--;
-	map->move ( this, newpos);
-}
-
-void Physical::moveRight(pMap map){
-	Coordinate newpos=pos;
-	newpos.x++;
-	map->move ( this, newpos);
-}
 
 #pragma region BOOL_GET_SET
     bool Physical::isInanimate() {
@@ -68,6 +49,15 @@ void Physical::moveRight(pMap map){
     /*bool Physical::isItem() {
         return id >= ID_ITEM_S && id <= ID_ITEM_E;
     }*/
+    bool Physical::isWeapon() {
+        return id >= ID_WEAPON_S && id <= ID_WEAPON_E;
+    }
+    bool Physical::isArtifact() {
+        return id >= ID_ITEM_DIFENSIVO_S && id <= ID_ITEM_DIFENSIVO_E;
+    }
+    bool Physical::isItemDifensivo() {
+        return id >= ID_ARTIFACT_S && id <= ID_ARTIFACT_E;
+    }
     bool Physical::findInArray(pPhysical A[ROOM_AREA], int len) {
         bool found = false;
         int i = 0;
@@ -76,6 +66,9 @@ void Physical::moveRight(pMap map){
             else i++;
         }
         return found;
+    }
+    bool Physical::animationMask(Coordinate pos) {
+	    return getCurrentAnimation().state[pos.single()] != CHAR_EMPTY;
     }
     
     int Physical::getId() {
@@ -86,6 +79,9 @@ void Physical::moveRight(pMap map){
     }
     Coordinate Physical::getSize() {
         return size;
+    }
+    Animation Physical::getCurrentAnimation() {
+        return *animations[current_animation];
     }
 
     void Physical::setPosition(Coordinate pos) {

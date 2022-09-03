@@ -4,16 +4,7 @@
 #define MAP_HANDLER_HPP
 
 
-#include "character.hpp"
-#include "floor.hpp"
-#include "wall.hpp"
-
-#include "structures/queue_coordinate.hpp"
-
-
-//istanze di muro e pavimento, riutilizzate sempre uguali
-const pInanimate FLOOR_INSTANCE = new Floor();
-const pInanimate WALL_INSTANCE = new Wall();
+#include "map.hpp"
 
 
 class MapHandler {
@@ -63,6 +54,21 @@ class MapHandler {
 			start.x>end.x, start.y>end.y:	verso l'alto (riga per riga, da sinistra a destra)
 		*/
 };
+
+
+//#include "character.hpp"
+//#include "chest.hpp"
+
+#include "structures/queue_coordinate.hpp"
+
+#include "door.hpp"
+#include "floor.hpp"
+#include "wall.hpp"
+
+
+//istanze di muro e pavimento, riutilizzate sempre uguali
+const pInanimate FLOOR_INSTANCE = new Floor();
+const pInanimate WALL_INSTANCE = new Wall();
 
 
 #endif

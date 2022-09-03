@@ -14,15 +14,15 @@ Tree_branch::Tree_branch():Hands(){
 	attack_left_index=tree_branch_attack_left_index;
 	attack_right_index=tree_branch_attack_right_index;
 
-    animations[move_up_index]= new Animation (tree_branch_up, tree_branch_width, tree_branch_height, tree_branch_movement_states);
-    animations[move_down_index]= new Animation (tree_branch_down, tree_branch_width, tree_branch_height, tree_branch_movement_states);
-    animations[move_left_index]= new Animation (tree_branch_left, tree_branch_width, tree_branch_height, tree_branch_movement_states);
-    animations[move_right_index]= new Animation (tree_branch_right, tree_branch_width, tree_branch_height, tree_branch_movement_states);
+    animations[move_up_index]= new Animation (tree_branch_up, Coordinate(tree_branch_width, tree_branch_height), tree_branch_movement_states);
+    animations[move_down_index]= new Animation (tree_branch_down, Coordinate(tree_branch_width, tree_branch_height), tree_branch_movement_states);
+    animations[move_left_index]= new Animation (tree_branch_left, Coordinate(tree_branch_width, tree_branch_height), tree_branch_movement_states);
+    animations[move_right_index]= new Animation (tree_branch_right, Coordinate(tree_branch_width, tree_branch_height), tree_branch_movement_states);
 
-    animations[attack_up_index]= new Animation (tree_branch_attack_up, tree_branch_width, tree_branch_height, tree_branch_attack_states);
-    animations[attack_down_index]= new Animation (tree_branch_attack_down, tree_branch_width, tree_branch_height, tree_branch_attack_states);
-    animations[attack_left_index]= new Animation (tree_branch_attack_left, tree_branch_width, tree_branch_height, tree_branch_attack_states);
-    animations[attack_right_index]= new Animation (tree_branch_attack_right, tree_branch_width, tree_branch_height, tree_branch_attack_states);
+    animations[attack_up_index]= new Animation (tree_branch_attack_up, Coordinate(tree_branch_width, tree_branch_height), tree_branch_attack_states);
+    animations[attack_down_index]= new Animation (tree_branch_attack_down, Coordinate(tree_branch_width, tree_branch_height), tree_branch_attack_states);
+    animations[attack_left_index]= new Animation (tree_branch_attack_left, Coordinate(tree_branch_width, tree_branch_height), tree_branch_attack_states);
+    animations[attack_right_index]= new Animation (tree_branch_attack_right, Coordinate(tree_branch_width, tree_branch_height), tree_branch_attack_states);
 
     is_melee=true;
     owner_id=ID_ENEMY_S;

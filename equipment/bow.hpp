@@ -2,7 +2,7 @@
 #define BOW_HPP
 #include <cstring> 
 #include "../weapon.hpp"
-#include "arrow.hpp"
+#include "../projectiles/arrow.hpp"
 
 const char bow_description[description_length]="arco leggendario consegnato dal dio Apollo in persona, secondo la leggenda il suo possessore non finirà mai le frecce finché lo userà per intenti puri";
 
@@ -182,7 +182,7 @@ const char bow_attack_down[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]
 
 class Arco: public Weapon{
     protected:
-        Arrow freccia;
+        //Arrow freccia;
     public:
 		Arco();
 

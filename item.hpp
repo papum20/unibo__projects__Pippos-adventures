@@ -1,7 +1,7 @@
 #ifndef ITEM_HPP
 #define ITEM_HPP
 
-#include "physical.hpp"
+#include "animate.hpp"
 #include <cstring>
 #include "math.hpp"
 
@@ -13,7 +13,7 @@ const char rare[]="Rare";
 const char epic[]="Epic";
 const char legendary[]="Legendary";
 
-class item: public Physical{
+class item: public Animate{
     public:
         char rarity[15];
         char description[description_length];

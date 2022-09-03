@@ -5,19 +5,21 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina) {
 	//menu=m;
 
 	n_hearts=start_lifes;
+	n_keys = 0;
 	id=ID_PLAYER;
+	main_color = COLOR_PLAYER;
 
-	animations[player_idle_index] = new Animation(idle, p_height, p_width, player_idle_states);
+	animations[player_idle_index] = new Animation(idle, Coordinate(p_height, p_width), player_idle_states);
 	
-	animations[player_move_right_index] = new Animation(move_right, p_height, p_width, player_move_right_states);
-	animations[player_move_left_index] = new Animation(move_left, p_height, p_width, player_move_left_states);
-	animations[player_move_up_index] = new Animation(move_up, p_height, p_width, player_move_up_states);
-	animations[player_move_down_index] = new Animation(move_down, p_height, p_width, player_move_down_states);
+	animations[player_move_right_index] = new Animation(move_right, Coordinate(p_height, p_width), player_move_right_states);
+	animations[player_move_left_index] = new Animation(move_left, Coordinate(p_height, p_width), player_move_left_states);
+	animations[player_move_up_index] = new Animation(move_up, Coordinate(p_height, p_width), player_move_up_states);
+	animations[player_move_down_index] = new Animation(move_down, Coordinate(p_height, p_width), player_move_down_states);
 
-	animations[player_dash_up_index] = new Animation(dash_up, p_height, p_width, player_dash_up_states);
-	animations[player_dash_down_index] = new Animation(dash_down, p_height, p_width, player_dash_down_states);
-	animations[player_dash_left_index] = new Animation(dash_left, p_height, p_width, player_dash_left_states);
-	animations[player_dash_right_index] = new Animation(dash_right, p_height, p_width, player_dash_right_states);
+	animations[player_dash_up_index] = new Animation(dash_up, Coordinate(p_height, p_width), player_dash_up_states);
+	animations[player_dash_down_index] = new Animation(dash_down, Coordinate(p_height, p_width), player_dash_down_states);
+	animations[player_dash_left_index] = new Animation(dash_left, Coordinate(p_height, p_width), player_dash_left_states);
+	animations[player_dash_right_index] = new Animation(dash_right, Coordinate(p_height, p_width), player_dash_right_states);
 
 
 	idle_index=player_idle_index;
@@ -30,6 +32,12 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina) {
 	
 }
 
+void Player::change_helm(pHelm h){
+	(equipaggiamento.elmo)->is_equipped=false;
+	(equipaggiamento.elmo)=h;
+	(equipaggiamento.elmo)->is_equipped=true;
+	apply_equipment();
+}
 void Player::change_weapon(pWeapon w){
 	(equipaggiamento.arma)->is_equipped=false;
 	(equipaggiamento.arma)=w;
@@ -171,6 +179,7 @@ void Player::update(pMap map){
 		}
 	}
 
+	Character::update(map);		//azioni generali
 }
 
 void Player::collect_item(pMap mappa){
@@ -189,7 +198,7 @@ void Player::collect_item(pMap mappa){
 	if (direction=='r'){
 		newcoord.x=newcoord.x+p_width;
 	}
-	chest=MapHandler::checkChest(newcoord);				//cerco la chest
+	chest=MapHandler::checkChest(mappa, newcoord);				//cerco la chest
 	switch (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
 		case 'w':
 			add_item(chest->open_w());			//aggiungo l'arma all'inventario

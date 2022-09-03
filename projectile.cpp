@@ -4,12 +4,19 @@ Projectile::Projectile(){
 
 }
 
-Projectile::Projectile(pWeapon w):Physical(){
+/*Projectile::Projectile(pWeapon w):Physical(){
     danno_fisico=w->danno_fisico;
     danno_magico=w->danno_magico;
     direction=w->direction;
     shooter_id=w->owner_id;
-    id=PROJECTILE_ID;
+    id=ID_PROJECTILE_S;
+}*/
+Projectile::Projectile(int fisico, int magico, char dir, int shooter):Animate(){
+    danno_fisico=fisico;
+    danno_magico=magico;
+    direction=dir;
+    shooter_id=shooter;
+    id=ID_PROJECTILE_S;
 }
 
 
@@ -36,8 +43,8 @@ void Projectile::update(pMap map){
     
     if (dim!=0){                                                            //se è maggiore di zero, calcolo le collisioni
         for (int i=0; i<dim; i++){
-            if (objects[i]->id!=this->shooter_id && objects[i]->isCharacter()){         //se si tratta di un personaggio diverso dalla categoria di colui che ha sparato, 
-                defender=MapHandler::checkCharacter(map, objects[i]->getPosition());       //mi serve un puntatore a character
+            if (objects[i]->getId()!=this->shooter_id && objects[i]->isCharacter()){         //se si tratta di un personaggio diverso dalla categoria di colui che ha sparato, 
+                defender=MapHandler::checkCharacter(map, objects[i]->getPosition());    //mi serve un puntatore a character
                 defender->changeCurrentHealth(calculate_damage(defender));    //cambio la vita in base ai danni subiti
             }
         }

@@ -12,11 +12,11 @@ Snowman::Snowman():Enemy(){
     move_right_index=snowman_move_right_index;
     move_left_index=snowman_move_left_index;
 
-    animations[idle_index]=new Animation (snowman_idle, snowman_width, snowman_height, snowman_idle_states);
-    animations[move_up_index]=new Animation (snowman_move_up, snowman_width, snowman_height, snowman_move_up_states);
-    animations[move_left_index]=new Animation (snowman_move_left, snowman_width, snowman_height, snowman_move_left_states);
-    animations[move_right_index]=new Animation (snowman_move_right, snowman_width, snowman_height, snowman_move_right_states);
-    animations[move_down_index]=new Animation (snowman_move_down, snowman_width, snowman_height, snowman_move_down_states);
+    animations[idle_index]=new Animation (snowman_idle, Coordinate(snowman_width, snowman_height), snowman_idle_states);
+    animations[move_up_index]=new Animation (snowman_move_up, Coordinate(snowman_width, snowman_height), snowman_move_up_states);
+    animations[move_left_index]=new Animation (snowman_move_left, Coordinate(snowman_width, snowman_height), snowman_move_left_states);
+    animations[move_right_index]=new Animation (snowman_move_right, Coordinate(snowman_width, snowman_height), snowman_move_right_states);
+    animations[move_down_index]=new Animation (snowman_move_down, Coordinate(snowman_width, snowman_height), snowman_move_down_states);
 
     points_given=snowman_points;
 

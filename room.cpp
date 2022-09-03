@@ -28,7 +28,7 @@
 		Coordinate i(0, 0, size);
 		do {
 			int points = 0;
-			map->characters[i.single()]->update(map, input);
+			map->characters[i.single()]->update(map);
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 	}
@@ -71,11 +71,12 @@
 		Coordinate wstart = Coordinate(center.x - win_size.x / 2, center.y - win_size.y / 2), wend = Coordinate(center.x + Math::ceil(win_size.x / 2.), center.y + Math::ceil(win_size.y / 2.));
 		Coordinate i = Coordinate(wstart, wstart, wend);
 		do {
-			pPhysical obj = MapHandler::checkPosition(map, i);
-			if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i);
+			Coordinate i_reverse = Coordinate(i.x, wstart.y + (wend.y - i.y));
+			pPhysical obj = MapHandler::checkPosition(map, i_reverse);
+			if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i_reverse);
 			else {
 				obj->drawAtOwnPosition(scr, wstart, win_size);
-				FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i);
+				FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i_reverse);
 			}
 			i.next();
 		} while(!i.equals(wstart));
@@ -219,7 +220,7 @@
 		for(s_coord i = 0; i < this->map->getSize().x / scale_x * this->map->getSize().y; i++) map[i] = this->map->checkPosition(Coordinate(i * scale_x, this->map->getSize()));
 		size = this->map->getSize().times(1. / scale_x, 1);
 	}*/
-	void Room::makeConnection(pRoom room, int dir, lock_type lt, bool first = true) {
+	void Room::makeConnection(pRoom room, int dir, lock_type lt, bool first) {
 		if(room != NULL && first) {
 			int dir2 = (dir + 2) % DIRECTIONS_N;
 			room->makeConnection(this, dir2, lt, false);

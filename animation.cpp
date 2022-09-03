@@ -2,28 +2,26 @@
 
 
 Animation::Animation() {
-    width = 0;
-    height = 0;
+    size = Coordinate(0, 0);
     next = NULL;
 }
 
-Animation::Animation(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const int width, const int height) {
-    for(int i = 0; i < height; i++) {
-        for(int j = 0; j < width; j++) {
-            this->state[i][j] = state[i][j];
-        }
-    }
-    this->width = width;
-    this->height = height;
+Animation::Animation(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const Coordinate size) {
+    Coordinate i = Coordinate(0, 0, size);
+    do {
+        this->state[i.single()] = state[i.inty()][i.intx()];
+        i.next();
+    } while(!i.equals(COORDINATE_ZERO));
+    this->size = size;
     this->next = this;
 }
 
-Animation::Animation(const char animation[][ANIMATION_HEIGHT][ANIMATION_WIDTH], const int width, const int height, const int len) {
+Animation::Animation(const char animation[][ANIMATION_HEIGHT][ANIMATION_WIDTH], const Coordinate size, const int len) {
     if(len > 0) {
-        Animation(animation[0], width, height);
+        Animation(animation[0], size);
         int i = 1;
         while(i < len) {
-            tail_insert(this, animation[i], width, height);
+            tail_insert(this, animation[i], size);
             i++;
         }
     }
@@ -32,9 +30,9 @@ Animation::Animation(const char animation[][ANIMATION_HEIGHT][ANIMATION_WIDTH], 
 
 
 
-p_Animation Animation::tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], int width, int height)
+p_Animation Animation::tail_insert(p_Animation head, const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], Coordinate size)
 {
-    p_Animation new_p = new Animation(state, width, height);
+    p_Animation new_p = new Animation(state, size);
 
     if(head == NULL) head = new_p;
     else{

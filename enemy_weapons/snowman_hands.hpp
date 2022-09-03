@@ -174,7 +174,7 @@ const char snowman_hands_attack_left[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 class Snowman_hands: public Hands{
 	protected:
-		Snowball snowball;
+		//Snowball snowball;
     public:
         Snowman_hands();
 

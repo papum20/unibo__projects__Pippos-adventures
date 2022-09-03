@@ -1,9 +1,9 @@
 #ifndef SPELL_HPP
 #define SPELL_HPP
 
-#include "projectile.hpp"
-#include "player_rod.hpp"
-#include "witch_rod.hpp"
+#include "../projectile.hpp"
+//#include "../equipment/player_rod.hpp"
+//#include "witch_rod.hpp"
 
 const int spell_states=1;
 const int spell_up_index=0;
@@ -51,7 +51,8 @@ class Spell :public Projectile{
     private:
 
     public:
-        Spell (pWeapon w);
+        //Spell (pWeapon w);
+        Spell (int fisico, int magico, char dir, int shooter);
 };
 
 #endif

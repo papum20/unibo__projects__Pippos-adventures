@@ -13,9 +13,12 @@ Wall::Wall() : Inanimate() {
 
 
 void Wall::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
-	for(int i = 0; i < height - 1; i++)	{
-		Inanimate::drawAtPosition(scr, win_start, win_size, pos);
-		pos.y++;
+	Coordinate i = Coordinate(pos, win_start, Coordinate(win_start, win_size));
+	while(i.y - pos.y < height && i.y < win_size.y) {
+		if(i.y < height - 1) {
+			Inanimate::drawAtPosition(scr, win_start, win_size, pos);
+			i.y++;
+		}
+		else Inanimate::drawCell(scr, pos, top_color);
 	}
-	Inanimate::drawCell(scr, pos, top_color);
 }

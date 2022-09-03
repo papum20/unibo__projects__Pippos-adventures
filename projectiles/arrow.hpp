@@ -46,7 +46,7 @@ class Arrow:public Projectile{
     private:
 
     public:
-        Arrow (pWeapon w);
+        Arrow (int fisico, int magico, char dir, int shooter);
 };
 
 #endif

@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <ctime>
+#include "definitions.hpp"
 
-#define REFRESH_RATE 30
 const int n_timers=5;
 
 class Timer {

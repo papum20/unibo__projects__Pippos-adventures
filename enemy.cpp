@@ -1,7 +1,7 @@
 #include "enemy.hpp"
 
-Enemy::Enemy() {
-    
+Enemy::Enemy() : Character() {
+    main_color = COLOR_ENEMY;
 }
 
 Enemy::Enemy(int max_health, int max_stamina):Character (max_health, max_stamina){

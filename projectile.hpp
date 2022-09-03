@@ -1,13 +1,12 @@
 #ifndef PROJECTILE_HPP
 #define PROJECTILE_HPP
 
-#include "physical.hpp"
-#include "weapon.hpp"
+#include "animate.hpp"
+//#include "weapon.hpp"
 #include "animation.hpp"
 
-const int PROJECTILE_ID=800;
 
-class Projectile: public Physical{
+class Projectile: public Animate{
     protected:
         Coordinate horizontal_size;
 		Coordinate vertical_size;
@@ -16,12 +15,16 @@ class Projectile: public Physical{
         int danno_magico;
         int shooter_id;
         Projectile();
-        Projectile (pWeapon w);
+        //Projectile (pWeapon w);
+        Projectile (int fisico, int magico, char dir, int shooter);
 
         void update (pMap map);
         int calculate_damage(pCharacter c);
 };
 
 typedef Projectile *pProjectile;
+
+
+#include "character.hpp"
 
 #endif

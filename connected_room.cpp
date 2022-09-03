@@ -70,7 +70,7 @@
 
 
 #pragma region SET_GET
-	void ConnectedRoom::makeConnection(pRoom room, int dir, lock_type lt, bool first = true) {
+	void ConnectedRoom::makeConnection(pRoom room, int dir, lock_type lt, bool first) {
 		if(connected[dir] == NULL && room != NULL) {
 			connected[dir] = room;
 			if(first) {

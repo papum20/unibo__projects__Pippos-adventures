@@ -8,13 +8,13 @@
 #include "inputmanager.hpp"
 #include "pixel_art.hpp"
 
-
-const int scroll_up = 'w';
-const int scroll_down = 's';
-const int scroll_left = KEY_LEFT;
-const int scroll_right = KEY_RIGHT;
-const int esc = 27; //tasto per uscire dall'inventario
-const int invio = 10;
+#include "definitions.hpp"
+//const int scroll_up = 'w';
+//const int scroll_down = 's';
+//const int scroll_left = KEY_LEFT;
+//const int scroll_right = KEY_RIGHT;
+//const int esc = 27; //tasto per uscire dall'inventario
+//const int invio = 10;
 const char choices[3][20]={"start", "comandi", "chiudi"};
 
 const int c_hight = 25;
@@ -68,8 +68,8 @@ class Menu : public Pixel_art {
 	public:
         Menu(pInputManager input);
         void set_menu_color();
-        void print_cave(WINDOW * caverna);
-        void open_options(WINDOW * w_options);
+        void print_cave();
+        void open_options();
         void update();
         bool is_active();
         void close_menu();

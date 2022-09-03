@@ -12,7 +12,7 @@ class Life_elixir:public Artifact {
         Life_elixir();
         Life_elixir(const char n[], const char desc[]);
         
-        void use_item (pPlayer p);         //metodo che aggiunge una vita al player
+        void use_item (equipment *equip, int &stat);         //metodo che aggiunge una vita al player
 };
 
 typedef Life_elixir* pElixir;

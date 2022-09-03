@@ -12,12 +12,6 @@
 #include "player.hpp"
 
 
-//// REFRESH RATE : durata di un frame
-#define FRAMES_PER_SECOND 30					//aggiornamenti in un secondo
-#define REFRESH_RATE (1. / FRAMES_PER_SECOND)	//durata di un aggiornamento
-#define REFRESH_TIMER_INDEX 0					//indice del timer (implementazione)
-
-
 //// INIT
 	void cursesInit();	//inizializza funzioni di ncurses
 	void gameInit();	//inizializzazioni di gioco

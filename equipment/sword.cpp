@@ -1,4 +1,4 @@
-#include "../sword.hpp"
+#include "sword.hpp"
 
 sword::sword():Weapon(){
     danno_fisico_iniziale=Math::randomStep(20, 40, 5);
@@ -30,5 +30,11 @@ sword::sword():Weapon(){
 
     horizontal_size=Coordinate(sword_horizontal_attack_width, sword_horizontal_attack_height);
     vertical_size=Coordinate(sword_vertical_attack_width, sword_vertical_attack_height);
+
+    horizontal_attack_states=sword_horizontal_attack_states;
+    vertical_attack_states=sword_vertical_attack_states;
+
+    horizontal_attack_animation=sword_horizontal_attack_animation;
+    vertical_attack_animation=sword_vertical_attack_animation;
 }
 

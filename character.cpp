@@ -29,6 +29,42 @@ void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate
 	}
 }*/
 
+void Character::check_enemy_melee(pMap map){
+	pCharacter defender=NULL;
+    pPhysical objects[ROOM_AREA];
+	Coordinate start;
+	Coordinate end;
+	switch (direction){
+		case 'u':
+			start=Coordinate (pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y+size.y);
+			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
+			break;
+		case 'd':
+			start=Coordinate ( pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y-(equipaggiamento.arma)->vertical_size.y );
+			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
+			break;
+		case 'l':
+			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
+			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
+			break;
+		case 'r':
+			start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
+			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
+			break;
+	}
+
+	int dim=MapHandler::checkRectangle(map, objects, start, end);       
+    
+    if (dim!=0){                                                            
+        for (int i=0; i<dim; i++){
+            if (objects[i]->id!=this->id && objects[i]->isCharacter()){         
+                defender=MapHandler::checkCharacter(map, objects[i]->getPosition());       
+                defender->changeCurrentHealth(calculate_damage(defender));    
+            }
+        }
+    }
+
+}
 void Character::apply_equipment (){
 	if ((equipaggiamento.arma)!=NULL){
 		danno_fisico=(equipaggiamento.arma)->danno_fisico;
@@ -114,19 +150,19 @@ void Character::initiate_attack (){
 	switch (direction){
 		case 'u':
 			current_animation=move_up_index;
-			attack_counter=attack_up_states;
+			attacking_states=equipaggiamento.arma->vertical_attack_states;
 			break;
 		case 'd':
 			current_animation=move_down_index;
-			attack_counter=attack_down_states;
+			attacking_states=equipaggiamento.arma->vertical_attack_states;
 			break;
 		case 'r':
 			current_animation=move_right_index;
-			attack_counter=attack_right_states;
+			attacking_states=equipaggiamento.arma->horizontal_attack_states;
 			break;
 		case 'l':
 			current_animation=move_left_index;
-			attack_counter=attack_left_states;
+			attacking_states=equipaggiamento.arma->horizontal_attack_states;
 			break;
 	}
 }

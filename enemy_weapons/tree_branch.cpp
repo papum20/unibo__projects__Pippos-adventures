@@ -29,4 +29,8 @@ Tree_branch::Tree_branch():Hands(){
     
     horizontal_size=Coordinate(tree_horizontal_attack_width, tree_horizontal_attack_height);
     vertical_size=Coordinate(tree_vertical_attack_width, tree_vertical_attack_height);
+
+    horizontal_attack_states=tree_branch_attack_states;
+    vertical_attack_states=tree_branch_attack_states;
+
 }

@@ -23,9 +23,9 @@ const int spider_x_coordinate=0;
 const int spider_y_coordinate=0;
 
 const int spider_horizontal_attack_width=2;
-const int spider_horizontal_attack_height=1;
+const int spider_horizontal_attack_height=2;
 
-const int spider_vertical_attack_width=1;
+const int spider_vertical_attack_width=5;
 const int spider_vertical_attack_height=2;
 
 

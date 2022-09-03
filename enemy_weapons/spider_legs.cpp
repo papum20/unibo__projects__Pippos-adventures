@@ -29,4 +29,7 @@ Spider_legs::Spider_legs():Hands(){
     
     horizontal_size=Coordinate(spider_horizontal_attack_width, spider_horizontal_attack_height);
     vertical_size=Coordinate(spider_vertical_attack_width, spider_vertical_attack_height);
+
+    horizontal_attack_states=spider_legs_horizontal_attack_states;
+    vertical_attack_states=spider_legs_vertical_attack_states;
 }

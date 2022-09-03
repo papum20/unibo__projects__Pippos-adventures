@@ -65,14 +65,44 @@ void Player::change_boots (pBoots b){
 	apply_equipment();
 }
 
+/*switch (direction){
+				case 'u':
+					current_animation=move_up_index;
+					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
+					break;
+				case 'd':
+					current_animation=move_down_index;
+					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
+					break;
+				case 'l':
+					current_animation=move_left_index;
+					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
+					break;
+				case 'r':
+					current_animation=move_right_index;
+					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
+					break;	
+			}
+*/
 
 void Player::update(pMap map){
-	if (is_attacking)
-		if (attack_counter==1){
-			if ((equipaggiamento.arma)->is_melee)
-				calculate_damage();
-			else
-				(equipaggiamento.arma)->shoot();
+	if (is_attacking){
+		if (attacking_states!=0){
+			if (attack_counter==1){
+				if ((equipaggiamento.arma)->is_melee)
+					check_enemy_melee(map);
+				else
+					(equipaggiamento.arma)->shoot();
+			}
+			else{
+				attack_counter--;
+			}
+			next_animation();
+			equipaggiamento.arma->next_animation();
+			attacking_states--;
+			attack_counter--;
+		}
+		else{
 			is_attacking=false;
 			switch (direction){
 				case 'u':
@@ -92,12 +122,8 @@ void Player::update(pMap map){
 					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
 					break;	
 			}
-		}
-		else{
-			next_animation();
-			equipaggiamento.arma->next_animation();
-			attack_counter--;
-		}
+		}	
+	}
 	else{
 		int input;
 		input=in_manager->get_input();
@@ -163,7 +189,7 @@ void Player::collect_item(pMap mappa){
 	if (direction=='r'){
 		newcoord.x=newcoord.x+p_width;
 	}
-	chest=mappa->checkChest(newcoord);				//cerco la chest
+	chest=MapHandler::checkChest(newcoord);				//cerco la chest
 	switch (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
 		case 'w':
 			add_item(chest->open_w());			//aggiungo l'arma all'inventario

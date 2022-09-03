@@ -14,7 +14,7 @@ class Artifact: public item{
 		void copy(Artifact B);			//copia i parametri di B
 
         //virtual void use_item (Player *p);
-        virtual void use_item (equipment equip, int &stat);
+        virtual void use_item (equipment *equip, int &stat);
 
 };
 

@@ -3,7 +3,6 @@
 
 #include "item.hpp"
 
-const int DEFENSIVE_ITEM_ID=300;
 
 class item_difensivo: public item{
     protected:

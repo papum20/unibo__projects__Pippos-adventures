@@ -8,13 +8,13 @@
 #include "inputmanager.hpp"
 #include "pixel_art.hpp"
 
-
-const int scroll_up = 'w';
-const int scroll_down = 's';
-const int scroll_left = KEY_LEFT;
-const int scroll_right = KEY_RIGHT;
-const int esc = 27; //tasto per uscire dall'inventario
-const int invio = 10;
+#include "definitions.hpp"
+//const int scroll_up = 'w';
+//const int scroll_down = 's';
+//const int scroll_left = KEY_LEFT;
+//const int scroll_right = KEY_RIGHT;
+//const int esc = 27; //tasto per uscire dall'inventario
+//const int invio = 10;
 const char choices[3][20]={"start", "comandi", "chiudi"};
 
 const int c_hight = 25;

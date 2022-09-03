@@ -1,6 +1,6 @@
 #include "snowball.hpp"
 
-Snowball::Snowball(pWeapon w):Projectile(w){
+Snowball::Snowball(int fisico, int magico, char dir, int shooter):Projectile( fisico,  magico,  dir,  shooter){
     move_up_index=snowball_up_index;
     move_down_index=snowball_down_index;
     move_left_index=snowball_left_index;

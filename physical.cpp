@@ -49,6 +49,15 @@ void Physical::next_animation(){
     /*bool Physical::isItem() {
         return id >= ID_ITEM_S && id <= ID_ITEM_E;
     }*/
+    bool Physical::isWeapon() {
+        return id >= ID_WEAPON_S && id <= ID_WEAPON_E;
+    }
+    bool Physical::isArtifact() {
+        return id >= ID_ITEM_DIFENSIVO_S && id <= ID_ITEM_DIFENSIVO_E;
+    }
+    bool Physical::isItemDifensivo() {
+        return id >= ID_ARTIFACT_S && id <= ID_ARTIFACT_E;
+    }
     bool Physical::findInArray(pPhysical A[ROOM_AREA], int len) {
         bool found = false;
         int i = 0;

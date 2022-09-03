@@ -84,6 +84,8 @@ class Character : public Animate {
 		pCharacter check_enemy_melee();
 		void initiate_attack();
 		int calculate_damage(pCharacter c);
+
+		equipment *getEqipment();
 		
 };
 

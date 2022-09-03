@@ -29,7 +29,7 @@ Snowman_hands::Snowman_hands():Hands(){
 
 }
 
-void Snowman_hands::shoot(){
-    snowball=Snowball(this);
-
-}
+//void Snowman_hands::shoot(){
+//    snowball=Snowball(this);
+//
+//}

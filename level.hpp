@@ -37,7 +37,7 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 #include "enemies/enemies.hpp"
 #include "equipment/equipment.hpp"
 #include "player.hpp"
-#include "priority_queue_room.hpp"
+#include "structures/priority_queue_room.hpp"
 #include "timer.hpp"
 
 

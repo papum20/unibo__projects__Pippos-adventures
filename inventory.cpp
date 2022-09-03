@@ -50,11 +50,11 @@ void Inventory::open_options(){
 }
 
 int Inventory::check_class_name(int array_index){
-    if(objects[array_index]->getId()==WEAPON_ID)
+    if(objects[array_index]->isWeapon())
         return 1;
-    else if(objects[array_index]->getId()==DEFENSIVE_ITEM_ID)
+    else if(objects[array_index]->isItemDifensivo())
         return 2;
-    else if(objects[array_index]->getId()==ARTIFACT_ID)
+    else if(objects[array_index]->isArtifact())
         return 3;
     else return 0;
 }
@@ -239,7 +239,7 @@ if(((check_class_name(array_index))==3)){
 else
     mvwprintw(w_use, 1, 2, "equipaggia");
 wattroff(w_use, COLOR_PAIR(3));
-if((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped))) || (!(static_cast<Weapon *>(objects[i])->is_equipped))))
+if((check_class_name(array_index))==3 || (!(static_cast< item_difensivo *>(objects[i])->is_equipped)) || (!(static_cast<Weapon *>(objects[i])->is_equipped)))
    mvwprintw(w_use, 2, 3, "scarta");
 int choice;
 keypad(w_use, true);
@@ -257,7 +257,7 @@ if(choice==esc){
 if(choice==scroll_up){
         highlight--;
         if(highlight<=0){
-           if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped))) || (!(static_cast<Weapon *>(objects[i])->is_equipped)))))
+           if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped)) || (!(static_cast<Weapon *>(objects[i])->is_equipped)))
               highlight=1;
             else
                highlight=2;
@@ -265,7 +265,7 @@ if(choice==scroll_up){
 }
 if(choice==scroll_down){
         highlight++;
-    if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped))) || (!(static_cast<Weapon *>(objects[i])->is_equipped))))){
+    if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped)) || (!(static_cast<Weapon *>(objects[i])->is_equipped))){
         if(highlight>=2){
             highlight=1;
         }
@@ -301,7 +301,11 @@ if(highlight==2){
 }
 if(choice==invio){
     if(is_item){
-        static_cast< Artifact *>(objects[array_index])->use_item(p);
+        pArtifact tmp =  static_cast< Artifact *>(objects[array_index]);
+        if(tmp->getId() == ID_HEALTH_POTION) tmp->use_item(p->getEqipment(), p->curHealth);
+        else if(tmp->getId() == ID_KEY) tmp->use_item(p->getEqipment(), p->n_keys);
+        else if(tmp->getId() == ID_LIFE_ELIXIR) tmp->use_item(p->getEqipment(), p->n_hearts);
+        else if(tmp->getId() == ID_RUNE) tmp->use_item(p->getEqipment(), p->n_hearts);
         fix_array(array_index, p);
         clean_window(w_zaino, 24, 44);
         keypad(w_use, false); 

@@ -18,6 +18,8 @@ class Weapon : public item {
 	public:
 		int danno_fisico_iniziale;
 		int danno_magico_iniziale;
+		int danno_fisico;
+		int danno_magico;
 		bool is_melee;
 		bool is_equipped;
 		int owner_id;

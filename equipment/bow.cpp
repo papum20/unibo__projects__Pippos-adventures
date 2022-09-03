@@ -31,5 +31,5 @@ Arco::Arco():Weapon(){
 }
 
 void Arco::shoot(){
-    freccia=Arrow(this);
+    //freccia=Arrow(this);
 }

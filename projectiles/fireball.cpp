@@ -1,6 +1,6 @@
 #include "fireball.hpp"
 
-Fireball::Fireball(pWeapon w):Projectile(w){
+Fireball::Fireball(int fisico, int magico, char dir, int shooter):Projectile( fisico,  magico,  dir,  shooter){
     move_up_index=fireball_up_index;
     move_down_index=fireball_down_index;
     move_left_index=fireball_left_index;

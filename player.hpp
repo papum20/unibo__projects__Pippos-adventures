@@ -129,7 +129,6 @@ const int MAX_ARTIFACTS=10;
 class Player : public Character {
 	private:
 	protected:
-		int n_hearts;		
 		int points;
 
 		pArtifact artifacts[MAX_ARTIFACTS];
@@ -137,6 +136,9 @@ class Player : public Character {
 		pInputManager in_manager;
 		//Menu menu;
 	public:
+		int n_hearts;		
+		int n_keys;
+		
 		Player(pInputManager in);
 	
 		void update(pMap map);
@@ -149,6 +151,7 @@ class Player : public Character {
 		void add_item(pItem_def w);
 		void add_item(pArtifact w);
 
+		void change_helm(pHelm h);
 		void change_weapon(pWeapon w);
 		void change_necklace (pNecklace n);
 		void change_armor (pArmor a);

@@ -1,6 +1,6 @@
 #include "spell.hpp"
 
-Spell::Spell(int fisico, int magico, char dir, int shooter):Projectile(int fisico, int magico, char dir, int shooter){
+Spell::Spell(int fisico, int magico, char dir, int shooter):Projectile(fisico, magico, dir, shooter){
     move_up_index=spell_up_index;
     move_down_index=spell_down_index;
     move_left_index=spell_left_index;

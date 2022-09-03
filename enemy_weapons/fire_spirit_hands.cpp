@@ -28,6 +28,6 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
     owner_id=ID_ENEMY_S;
 }
 
-void Fire_spirit_hands::shoot(){
-    fireball=Fireball(this);
-}
+//void Fire_spirit_hands::shoot(){
+//    fireball=Fireball(1,1,1,1);
+//}

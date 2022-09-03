@@ -4,7 +4,6 @@
 #include <iostream>
 #include <ctime>
 
-#define REFRESH_RATE 30
 const int n_timers=5;
 
 class Timer {

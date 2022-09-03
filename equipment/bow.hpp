@@ -182,7 +182,7 @@ const char bow_attack_down[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]
 
 class Arco: public Weapon{
     protected:
-        Arrow freccia;
+        //Arrow freccia;
     public:
 		Arco();
 

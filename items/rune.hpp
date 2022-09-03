@@ -10,9 +10,9 @@ class Rune: public Artifact{
         Rune();
         Rune(const char n[], const char desc[]);
 
-        void use_rune (Weapon w);
-        void use_rune (item_difensivo i_d);
-        void use_item (pPlayer);
+        //void use_rune (Weapon w);
+        //void use_rune (item_difensivo i_d);
+        void use_item (equipment *equip, int &stat);
 };
 
 typedef Rune* pRune;

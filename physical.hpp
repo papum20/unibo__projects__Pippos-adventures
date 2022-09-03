@@ -42,6 +42,11 @@ const int MAX_ANIMATIONS = 6;
 #define ID_WALL 10
 #define ID_FLOOR 11
 #define ID_DOOR 12
+
+#define ID_HEALTH_POTION 150
+#define ID_KEY 151
+#define ID_LIFE_ELIXIR 152
+#define ID_RUNE 153
 #pragma endregion PHYSICAL_IDS
 
 #pragma region PHYSICAL_STATS
@@ -91,6 +96,9 @@ class Physical {
 		bool isCharacter();
 		bool isProjectile();
 		//bool isItem();			//se è item/artefatto...
+		bool isWeapon();
+		bool isItemDifensivo();
+		bool isArtifact();
 		bool findInArray(Physical *A[ROOM_AREA], int len);
 		virtual bool animationMask(Coordinate pos);		//true se la posizione, relativa all'animazione, copre quello che c'è sotto
 

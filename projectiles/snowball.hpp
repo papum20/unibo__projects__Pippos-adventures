@@ -49,7 +49,7 @@ class Snowball :public Projectile{
     private:
 
     public:
-        Snowball (pWeapon w);
+        Snowball (int fisico, int magico, char dir, int shooter);
 };
 
 #endif

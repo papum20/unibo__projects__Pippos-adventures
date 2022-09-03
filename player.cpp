@@ -5,6 +5,7 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina) {
 	//menu=m;
 
 	n_hearts=start_lifes;
+	n_keys = 0;
 	id=ID_PLAYER;
 	main_color = COLOR_PLAYER;
 
@@ -31,6 +32,12 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina) {
 	
 }
 
+void Player::change_helm(pHelm h){
+	(equipaggiamento.elmo)->is_equipped=false;
+	(equipaggiamento.elmo)=h;
+	(equipaggiamento.elmo)->is_equipped=true;
+	apply_equipment();
+}
 void Player::change_weapon(pWeapon w){
 	(equipaggiamento.arma)->is_equipped=false;
 	(equipaggiamento.arma)=w;

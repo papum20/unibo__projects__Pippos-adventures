@@ -167,6 +167,11 @@ int Character::calculate_damage(pCharacter c){
 void Character::changeCurrentHealth(int delta) {
 	curHealth += delta;
 }
+
+
+equipment *Character::getEqipment() {
+	return &equipaggiamento;
+}
 /*
 #pragma region AUSILIARIE_GENERICHE
 	void Character::swapPositions(pCharacter this[], Coordinate a, Coordinate b) {

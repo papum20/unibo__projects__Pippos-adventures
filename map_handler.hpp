@@ -21,6 +21,7 @@ class MapHandler {
 
 	public:
 		MapHandler();
+		static void addProjectile(pMap map, pProjectile projectile);	//aggiunge un proiettile nella sua posizione
 		static bool move(pMap map, pPhysical obj, Coordinate target);	//muove un oggetto qualsiasi (non inanimate); ritorna true se ha successo
 		static void remove(pMap map, pPhysical obj);					//rimuove un oggetto qualsiasi (non inanimate)
 

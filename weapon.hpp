@@ -11,6 +11,8 @@ using namespace std;
 
 class Weapon : public item {
 	protected:
+		Coordinate offset;	//punto in cui "attaccare" l'animazione del character su quella della weapon, rispetto all'angolo in basso a sinistra
+		
 		Coordinate horizontal_size;
 		Coordinate vertical_size;
 	public:
@@ -29,6 +31,8 @@ class Weapon : public item {
 		void apply_rune();
 		void apply_rarity();
 		virtual void shoot(){};
+
+		Coordinate getOffset();
 		void initiate_attack(char d);
 };
 

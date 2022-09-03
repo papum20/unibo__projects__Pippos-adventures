@@ -99,7 +99,7 @@
 			for(int x = lr_border; x < width - lr_border; x++) {
 				chtype cellValue = t_scr[y][x].toChtype();
 				if(screen[y][x] != cellValue) {
-					mvwaddch(levelWindow, y, lr_border, cellValue);
+					mvwaddch(levelWindow, y, x, cellValue);
 					screen[y][x] = cellValue;
 				}
 			}

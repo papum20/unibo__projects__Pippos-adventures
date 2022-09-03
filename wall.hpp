@@ -16,7 +16,8 @@ class Wall : public Inanimate {
 	public:
 		Wall();
 
-		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);	//overridden
+		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);
+		//precondizione: da richiamare con coordinate giuste
 
 };
 

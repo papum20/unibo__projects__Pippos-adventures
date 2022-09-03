@@ -72,10 +72,10 @@
 		Coordinate i = Coordinate(wstart, wstart, wend);
 		do {
 			pPhysical obj = MapHandler::checkPosition(map, i);
-			if(obj->isInanimate()) obj->drawAtPosition(scr, win_size, i);
+			if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i);
 			else {
-				obj->drawAtOwnPosition(scr, win_size);
-				FLOOR_INSTANCE->drawAtPosition(scr, win_size, i);
+				obj->drawAtOwnPosition(scr, wstart, win_size);
+				FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i);
 			}
 			i.next();
 		} while(!i.equals(wstart));

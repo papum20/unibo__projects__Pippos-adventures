@@ -26,6 +26,11 @@ void Weapon::apply_rarity (){
     }
 }
 
+
+
+Coordinate Weapon::getOffset() {
+    return offset;
+}
 void Weapon::initiate_attack(char d){
     direction=d;
     switch (direction){

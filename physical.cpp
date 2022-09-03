@@ -13,16 +13,17 @@ Physical::Physical() {
 
 void Physical::destroy() {
     // ELIMINA PUNTATORI ANIMAZIONI
-
+    for(int i = 0; i < MAX_ANIMATIONS; i++)
+        if(animations[i] != NULL) animations[i]->delete_list();
     // ELIMINA OGGETTO
     delete this;
 }
 
-void Physical::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos) {
+void Physical::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
 
 }
-void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start) {
-    drawAtPosition(scr, win_start, pos);
+void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size) {
+    drawAtPosition(scr, win_start, win_size, pos);
 }
 
 void Physical::next_animation(){

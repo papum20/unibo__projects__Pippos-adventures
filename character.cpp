@@ -13,6 +13,11 @@ Character::Character(int maxH, int curH) : Physical() {
 	apply_equipment();
 }
 
+void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
+	Coordinate draw_start = Coordinate(pos, Coordinate(weapons[curr_weapon]->getOffset().x, weapons[curr_weapon]->getOffset().y));
+	Coordinate draw_end = Coordinate(draw_start, 
+}
+
 
 /*bool Character::map->move(pMap  Coordinate move) {
 	Coordinate newPos = Coordinate(pos, move);

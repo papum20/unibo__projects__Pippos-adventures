@@ -110,10 +110,10 @@ void Character::moveRight(pMap map){
 
 void Character::initiate_attack (){
 	is_attacking=true;
+	(equipaggiamento.arma)->initiate_attack(direction);
 	switch (direction){
 		case 'u':
 			current_animation=move_up_index;
-			(equipaggiamento.arma)->initiate_attack(direction);
 			attack_counter=attack_up_states;
 			break;
 		case 'd':

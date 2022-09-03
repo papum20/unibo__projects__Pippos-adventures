@@ -35,16 +35,16 @@ void Weapon::initiate_attack(char d){
     direction=d;
     switch (direction){
         case 'u':
-            (equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_up_index;
+            current_animation=attack_up_index;
             break;
         case 'd':
-            (equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_down_index;
+            current_animation=attack_down_index;
             break;
         case 'l':
-            (equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_right_index;
+            current_animation=attack_right_index;
             break;
         case 'r':
-            (equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_left_index;
+            current_animation=attack_left_index;
             break;
     }
 }

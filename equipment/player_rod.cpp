@@ -27,3 +27,7 @@ Player_Rod::Player_Rod():Rod(){
     is_melee=true;
     owner_id=ID_PLAYER;
 }
+
+void Player_Rod::shoot(){
+    magia=Spell(this);
+}

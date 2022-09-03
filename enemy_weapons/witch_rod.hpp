@@ -215,7 +215,7 @@ const char witch_rod_attack_up[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8
 
 class Witch_Rod: public Rod{
 	protected:
-		Spell spell;
+		Spell magia;
     public:
         Witch_Rod();
 

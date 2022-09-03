@@ -5,6 +5,8 @@
 #include "weapon.hpp"
 #include "animation.hpp"
 
+const int PROJECTILE_ID=800;
+
 class Projectile: public Physical{
     protected:
         Coordinate horizontal_size;
@@ -12,10 +14,12 @@ class Projectile: public Physical{
     public:
         int danno_fisico;
         int danno_magico;
+        int shooter_id;
         Projectile();
         Projectile (pWeapon w);
 
-        void cast_direction (Character c);
+        void update (pMap map);
+        int calculate_damage(pCharacter c);
 };
 
 typedef Projectile *pProjectile;

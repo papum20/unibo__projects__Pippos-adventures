@@ -29,3 +29,7 @@ Arco::Arco():Weapon(){
     is_melee=false;
     owner_id=ID_PLAYER;
 }
+
+void Arco::shoot(){
+    freccia=Arrow(this);
+}

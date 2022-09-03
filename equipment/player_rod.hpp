@@ -2,6 +2,7 @@
 #define PLAYER_ROD_HPP
 
 #include "rod.hpp"
+#include "spell.hpp"
 
 const int player_rod_up_index=0;
 const int player_rod_down_index=1;
@@ -209,9 +210,10 @@ const char player_rod_attack_down[player_rod_attack_states][ANIMATION_HEIGHT][AN
 
 class Player_Rod: public Rod{
     public:
+		Spell magia;
 		Player_Rod();
-        Player_Rod(int d_f, int d_m, const char rar[], const char n[], const char desc[]);
-
+		
+		void shoot();
 };
 
 typedef Player_Rod* pPlayer_rod;

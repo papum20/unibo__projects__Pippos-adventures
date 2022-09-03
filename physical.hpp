@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "animation.hpp"
+#include "map.hpp"
 
 #define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
 										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
@@ -64,11 +65,11 @@ class Physical {
 	protected:
 		Coordinate pos;
 		Coordinate size;
-		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
 
 	public:
+		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 		//variabili per array di movimento, si trovano qui perchè servono a weapon, character e projectile
 
 		int move_up_index;
@@ -108,9 +109,11 @@ class Physical {
 		void next_animation();
 		void setPosition(Coordinate pos);
 		
-		
-		
-		void conflicts();
+		//MOVE
+		void moveUp(pMap map);
+		void moveDown(pMap map);
+		void moveLeft(pMap map);
+		void moveRight(pMap map);
 };
 
 typedef Physical *pPhysical;

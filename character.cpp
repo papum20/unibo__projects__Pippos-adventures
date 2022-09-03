@@ -56,9 +56,7 @@ void Character::apply_equipment (){
 //FUNZIONI MOVIMENTO
 
 void Character::moveUp(pMap map){
-	Coordinate newpos=pos;
-	newpos.y--;
-	map->move ( this, newpos);
+	Physical::moveDown(map);
 	if (current_animation==move_up_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -69,9 +67,7 @@ void Character::moveUp(pMap map){
 }
 
 void Character::moveDown(pMap map){
-	Coordinate newpos=pos;
-	newpos.y++;
-	map->move ( this, newpos);
+	Physical::moveDown(map);
 	if (current_animation==move_down_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -82,9 +78,7 @@ void Character::moveDown(pMap map){
 }
 
 void Character::moveLeft(pMap map){
-	Coordinate newpos=pos;
-	newpos.x--;
-	map->move ( this, newpos);
+	Physical::moveDown(map);
 	if (current_animation==move_left_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -95,9 +89,7 @@ void Character::moveLeft(pMap map){
 }
 
 void Character::moveRight(pMap map){
-	Coordinate newpos=pos;
-	newpos.x++;
-	map->move ( this, newpos);
+	Physical::moveDown(map);
 	if (current_animation==move_right_index){
 		animations[current_animation]=animations[current_animation]->next;
 	}
@@ -116,55 +108,32 @@ void Character::initiate_attack (){
 	switch (direction){
 		case 'u':
 			current_animation=move_up_index;
-			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_up_index;
+			(equipaggiamento.arma)->initiate_attack(direction);
 			attack_counter=attack_up_states;
 			break;
 		case 'd':
 			current_animation=move_down_index;
-			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_down_index;
 			attack_counter=attack_down_states;
 			break;
 		case 'r':
 			current_animation=move_right_index;
-			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_right_index;
 			attack_counter=attack_right_states;
 			break;
 		case 'l':
 			current_animation=move_left_index;
-			(equipaggiamento.arma)->current_animation=(equipaggiamento.arma)->attack_left_index;
 			attack_counter=attack_left_states;
 			break;
 	}
 }
 
-/*void Character::calculate_damage(){
-	pCharacter defender;
-	defender=check_enemy_melee();
-	if (defender!=NULL && defender.id!=id){
-		defender->changeCurrentHealth(calculate_loss(defender));
-	}
-}
-*/
 
-pCharacter Character::check_enemy_melee(){
-	Coordinate start, end;
-	switch (direction){
-		case 'u':
-			break;
-		case 'd':
-			break;
-		case 'l':
-			break;
-		case 'r':
-			break;
-	}
-	
-	return (checkLine(start, end));
-}
-
-
-int Character::calculate_loss(pCharacter c){
-	return ( -(danno_fisico-(c->difesa_fisica/2)) + (danno_magico-(c->difesa_magica/2)));
+int Character::calculate_damage(pCharacter c){
+    int damage;
+    damage=danno_fisico-(c->difesa_fisica/2)+danno_magico-(c->difesa_magica/2);
+    if (damage>0)
+        return (-(damage));
+    else
+        return 0;
 }
 
 void Character::changeCurrentHealth(int delta) {

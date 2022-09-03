@@ -25,5 +25,11 @@ Snowman_hands::Snowman_hands():Hands(d_f, d_m, rar, n, desc){
     animations[attack_right_index]= new Animation (snowman_hands_attack_right, snowman_hands_width, snowman_hands_height, snowman_hands_attack_states);
 
     is_melee=false;
+    owner_id=ID_ENEMY_S;
+
+}
+
+void Snowman_hands::shoot(){
+    snowball=Snowball(this);
 
 }

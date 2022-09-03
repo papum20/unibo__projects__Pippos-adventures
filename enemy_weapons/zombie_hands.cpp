@@ -25,4 +25,7 @@ Zombie_hands::Zombie_hands():Hands(){
     animations[attack_right_index]= new Animation (zombie_hands_attack_right, zombie_hands_width, zombie_hands_height, zombie_hands_attack_states);
 
     is_melee=true;
+    owner_id=ID_ENEMY_S;
+    horizontal_size=Coordinate(zombie_horizontal_attack_width, zombie_horizontal_attack_height);
+    vertical_size=Coordinate(zombie_vertical_attack_width, zombie_vertical_attack_height);
 }

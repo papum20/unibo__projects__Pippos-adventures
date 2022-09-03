@@ -20,16 +20,6 @@ class item: public Physical{
         char name[20];
         char type[20];
         
-        //variabili di movimento
-        int move_up_index;
-		int move_down_index;
-		int move_left_index;
-		int move_right_index;
-		
-		int attack_up_index;
-		int attack_down_index;
-		int attack_left_index;
-		int attack_right_index;
         item ();
         item (const char n[], const char desc[]);
         item(const char rar[], const char n[], const char desc[]);

@@ -14,32 +14,30 @@ const int arrow_horizontal_width=3;
 const int arrow_vertical_height=3;
 const int arrow_vertical_width=1;
 
-const char arrow_right[arrow_horizontal_height][arrow_horizontal_width]=
-{ {
-   {'-', '-', '>'} 
-   }
-};
-
-const char arrow_left[arrow_horizontal_height][arrow_horizontal_width]=
-{ {
-   {'<', '-', '-'} 
-  }
-};
-
-const char arrow_up[arrow_vertical_height][arrow_vertical_width]=
+const char arrow_right[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 { 
-{  {'^'},
+   {'-', '-', '>'} 
+   
+};
+
+const char arrow_left[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
+{ 
+   {'<', '-', '-'} 
+  
+};
+
+const char arrow_up[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
+{ 
+   {'^'},
    {'|'},
    {'|'}
-}
 };
 
-const char arrow_down[arrow_vertical_height][arrow_vertical_width]=
-{ 
-{  {'|'},
+const char arrow_down[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
+{   
+   {'|'},
    {'|'},
    {'v'}
-}
 };
 
 class Arrow:public Projectile{
@@ -48,7 +46,7 @@ class Arrow:public Projectile{
     private:
 
     public:
-        Arrow (Weapon w);
+        Arrow (pWeapon w);
 };
 
 #endif

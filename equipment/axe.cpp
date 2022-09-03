@@ -26,7 +26,10 @@ Ascia::Ascia():Weapon(){
     animations[attack_right_index]= new Animation (axe_attack_right, axe_width, axe_height, axe_horizontal_attack_states);
     
     is_melee=true;
-
+    owner_id=ID_PLAYER;
     strcpy (description, axe_description);
+
+    horizontal_size=Coordinate(axe_horizontal_attack_width, axe_horizontal_attack_height);
+    vertical_size=Coordinate(axe_vertical_attack_width, axe_vertical_attack_height);
 }
 

@@ -21,20 +21,11 @@ const int zombie_hands_width=6;
 const int zombie_x_coordinate=1;
 const int zombie_y_coordinate=1;
 
+const int zombie_horizontal_attack_width=2;
 const int zombie_horizontal_attack_height=1;
-const int zombie_vertical_attack_width=2;
 
-const int zombie_delta_x_right=5;
-const int zombie_delta_y_right=-2;
-
-const int zombie_delta_x_left=0;
-const int zombie_delta_y_left=-2;
-
-const int zombie_delta_x_up=2;
-const int zombie_delta_y_up=-4;
-
-const int zombie_delta_x_down=2;
-const int zombie_delta_y_down=0;
+const int zombie_vertical_attack_width=1;
+const int zombie_vertical_attack_height=2;
 
 const char zombie_hands_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {

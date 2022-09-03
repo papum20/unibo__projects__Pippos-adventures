@@ -9,30 +9,37 @@ const int snowball_down_index=1;
 const int snowball_left_index=2;
 const int snowball_right_index=3;
 
-const int snowball_height=1;
-const int snowball_width=1;
+const int snowball_horizontal_height=2;
+const int snowball_horizontal_width=2;
 
-const char snowball_right[snowball_height][snowball_width]=
+const int snowball_vertical_height=2;
+const int snowball_vertical_width=2;
+
+const char snowball_right[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
-    {'*'}
+    {'*', '*'},
+    {'*', '*'}
   
 };
 
-const char snowball_left[snowball_height][snowball_width]=
+const char snowball_left[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
-    {'*'}
+    {'*', '*'},
+    {'*', '*'}
   
 };
 
-const char snowball_up[snowball_height][snowball_width]=
+const char snowball_up[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
-    {'*'}
+    {'*', '*'},
+    {'*', '*'}
   
 };
 
-const char snowball_down[snowball_height][snowball_width]=
+const char snowball_down[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
-    {'*'}
+    {'*', '*'},
+    {'*', '*'}
   
 };
 
@@ -42,7 +49,7 @@ class Snowball :public Projectile{
     private:
 
     public:
-        Snowball (Weapon w);
+        Snowball (pWeapon w);
 };
 
 #endif

@@ -25,4 +25,5 @@ Player_Rod::Player_Rod():Rod(){
     animations[attack_right_index]= new Animation (player_rod_attack_right, player_rod_width, player_rod_height, player_rod_attack_states);
 
     is_melee=true;
+    owner_id=ID_PLAYER;
 }

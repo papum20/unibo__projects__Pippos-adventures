@@ -25,4 +25,8 @@ Spider_legs::Spider_legs():Hands(){
     animations[attack_right_index]= new Animation (spider_legs_attack_right, spider_legs_width, spider_legs_height, spider_legs_horizontal_attack_states);
 
     is_melee=true;
+    owner_id=ID_ENEMY_S;
+    
+    horizontal_size=Coordinate(spider_horizontal_attack_width, spider_horizontal_attack_height);
+    vertical_size=Coordinate(spider_vertical_attack_width, spider_vertical_attack_height);
 }

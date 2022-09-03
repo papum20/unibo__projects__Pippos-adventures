@@ -3,6 +3,8 @@
 #include <cstring>
 #include "../weapon.hpp" 
 
+const char sword_description[description_length]="forgiata da un artigiano leggendario, si dice che questa spada una volta sfoderata, non possa essere riposta senza aver preso una vita.";
+
 const int sword_movement_states=1;
 const int sword_horizontal_attack_states=4;
 const int sword_vertical_attack_states=3;
@@ -22,20 +24,12 @@ const int sword_width=9;
 const int sword_player_x = 2;
 const int sword_player_y = 1;
 
+const int sword_horizontal_attack_width=2;
 const int sword_horizontal_attack_height=1;
-const int sword_vertical_attack_width=;
 
-const int sword_delta_x_right=8;
-const int sword_delta_y_right=-3;
+const int sword_vertical_attack_width=1;
+const int sword_vertical_attack_height=2;
 
-const int sword_delta_x_left=0;
-const int sword_delta_y_left=-3;
-
-const int sword_delta_x_up=
-const int sword_delta_y_up=
-
-const int sword_delta_x_down=
-const int sword_delta_y_down=
 
 const char sword_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 

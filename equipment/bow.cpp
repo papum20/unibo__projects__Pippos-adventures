@@ -27,4 +27,5 @@ Arco::Arco():Weapon(){
     animations[attack_right_index]= new Animation (bow_attack_right, bow_horizontal_attack_width, bow_horizontal_attack_height, bow_attack_states);
     
     is_melee=false;
+    owner_id=ID_PLAYER;
 }

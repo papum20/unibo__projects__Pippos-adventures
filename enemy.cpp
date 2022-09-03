@@ -1,14 +1,14 @@
 #include "enemy.hpp"
 
-Enemy::Enemy() : Character() {
-    main_color = COLOR_ENEMY;
-}
-
-Enemy::Enemy(int max_health, int max_stamina):Character (max_health, max_stamina){
+Enemy::Enemy() {
     
 }
 
-/*void Enemy::update(pInanimate map[], pCharacter characters[]){
+Enemy::Enemy(int max_health, int max_stamina, int p_g):Character (max_health, max_stamina){
+    points_given=p_g;
+}
+
+void Enemy::update(pInanimate map[], pCharacter characters[]){
     if (is_attacking)
         if (animazione corrente è l ultima){
             calculate_damage();
@@ -21,5 +21,3 @@ Enemy::Enemy(int max_health, int max_stamina):Character (max_health, max_stamina
         enemy_ia();
     }
 }
-
-*/

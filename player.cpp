@@ -78,7 +78,8 @@ void Player::update(pMap map){
 	if (is_attacking)
 		if (attack_counter==1){
 			if ((equipaggiamento.arma)->is_melee)
-				calculate_damage();
+				int a;/////////////////////////////////////
+//				calculate_damage();
 			else
 				(equipaggiamento.arma)->shoot();
 			is_attacking=false;
@@ -172,7 +173,7 @@ void Player::collect_item(pMap mappa){
 	if (direction=='r'){
 		newcoord.x=newcoord.x+p_width;
 	}
-	chest=mappa->checkChest(newcoord);				//cerco la chest
+	chest=MapHandler::checkChest(mappa, newcoord);				//cerco la chest
 	switch (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
 		case 'w':
 			add_item(chest->open_w());			//aggiungo l'arma all'inventario

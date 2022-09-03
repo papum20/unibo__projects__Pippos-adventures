@@ -14,7 +14,7 @@ void UnionFind::makeSet(s_coord s) {
 	}
 }
 s_coord UnionFind::find(s_coord s) {
-	if(sets[s] == NULL) return NULL;
+	if(sets[s] == NULL) return ERROR_INT;
 	else return sets[s]->parent->val;
 }
 void UnionFind::merge(s_coord a, s_coord b) {

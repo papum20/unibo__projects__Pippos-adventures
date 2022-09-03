@@ -2,9 +2,9 @@
 #define CHARACTER_HPP
 
 
-#include "equipment/equipment.hpp"
-#include "item_difensivi.hpp"
 #include "weapon.hpp"
+#include "item_difensivi.hpp"
+#include "equipment/equipment.hpp"
 
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
@@ -34,17 +34,11 @@ class Character : public Animate {
 		bool is_attacking;
 		int attack_counter;
 
-		//variabili di movimento
-		int idle_index;
-		int move_up_index;
-		int move_down_index;
-		int move_left_index;
-		int move_right_index;
-
 		int attack_up_states;
 		int attack_down_states;
-		int attack_left_states;
 		int attack_right_states;
+		int attack_left_states;
+
 		// ROOM
 		//bool moveObject(pMap map[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 

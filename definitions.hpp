@@ -2,6 +2,18 @@
 #define GENERAL_DEFINITIONS
 
 
+
+#include <curses.h>
+
+
+//// REFRESH RATE : durata di un frame
+#pragma region REFRESH_RATE
+#define FRAMES_PER_SECOND 30					//aggiornamenti in un secondo
+#define REFRESH_RATE (1. / FRAMES_PER_SECOND)	//durata di un aggiornamento
+#define REFRESH_TIMER_INDEX 0					//indice del timer (implementazione)
+#pragma endregion REFRESH_RATE
+
+
 #pragma region CAMERA_DEFINITIONS
 #define CAMERA_WIDTH 135	//larghezza (massima) inquadratura livello
 #define CAMERA_HEIGHT 35	//altezza (massima) inquadratura livello
@@ -55,5 +67,9 @@ const int scroll_right = KEY_RIGHT;
 const int esc = 27; //tasto per uscire dall'inventario
 const int invio = 10; //serve nel menu di usa e scarta dell'oggetto per accettare 
 #pragma endregion KEY_BINDINGS
+
+
+#define ERROR_INT -1
+
 
 #endif

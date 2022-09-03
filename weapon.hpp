@@ -5,7 +5,6 @@ using namespace std;
 
 #include "coordinate.hpp"
 #include "item.hpp"
-#include "projectile.hpp"
 //#include "character.hpp"
 
 
@@ -39,6 +38,9 @@ class Weapon : public item {
 };
 
 typedef Weapon* pWeapon;
+
+
+#include "projectile.hpp"
 
 
 #endif

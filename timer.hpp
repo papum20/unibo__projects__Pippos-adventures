@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <ctime>
+#include "definitions.hpp"
 
 const int n_timers=5;
 

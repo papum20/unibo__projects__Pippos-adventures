@@ -1,6 +1,6 @@
 #include "item.hpp"
 
-item::item():Physical(){
+item::item():Animate(){
     strcpy(rarity, common);
 }
 

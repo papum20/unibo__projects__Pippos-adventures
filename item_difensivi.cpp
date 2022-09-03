@@ -1,7 +1,7 @@
 #include "item_difensivi.hpp"
 
 item_difensivo::item_difensivo():item(){
-    id=DEFENSIVE_ITEM_ID;
+    id=ID_ITEM_DIFENSIVO_S;
     is_equipped=false;
     apply_rarity();
 }

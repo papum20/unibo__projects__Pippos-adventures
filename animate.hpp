@@ -7,7 +7,14 @@
 
 class Animate : public Physical {
 	protected:
+		char direction;							// u sopra, d sotto, l sinistra, r destra
+
+		attr_t main_color;
+
+	public:
 		//variabili per array di movimento, si trovano qui perchè servono a weapon, character e projectile
+		int idle_index;
+
 		int move_up_index;
 		int move_down_index;
 		int move_left_index;
@@ -18,11 +25,6 @@ class Animate : public Physical {
 		int attack_left_index;
 		int attack_right_index;
 		
-		char direction;							// u sopra, d sotto, l sinistra, r destra
-
-		attr_t main_color;
-
-	public:
 		Animate();
 
 		attr_t get_MainColor();

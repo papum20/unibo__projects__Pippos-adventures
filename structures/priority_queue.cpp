@@ -69,7 +69,7 @@
 
 
 #pragma region HEAP_AUSILIARIE
-	int PriorityQueue::find(Comparable x, int i = 0) {
+	int PriorityQueue::find(Comparable x, int i) {
 		if(i >= size) return -1;
 		else {
 			if(heap[i]->compareTo(x) == 0) return i;

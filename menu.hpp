@@ -68,8 +68,8 @@ class Menu : public Pixel_art {
 	public:
         Menu(pInputManager input);
         void set_menu_color();
-        void print_cave(WINDOW * caverna);
-        void open_options(WINDOW * w_options);
+        void print_cave();
+        void open_options();
         void update();
         bool is_active();
         void close_menu();

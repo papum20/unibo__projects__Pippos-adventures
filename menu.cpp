@@ -21,7 +21,7 @@ void Menu::open_options(){
     werase(menu);
     wrefresh(wface);
     wrefresh(menu);
-    print_cave(caverna);
+    print_cave();
     box(w_options, 0, 0);
     mvwprintw(w_options, 2, 2, "m = apri menu");
     mvwprintw(w_options, 4, 2, "n = apri inventario");
@@ -78,7 +78,7 @@ open();
             break;
        }
        if((highlight==1) &&(choice==invio)){
-        open_options(w_options);
+        open_options();
         
         
        }
@@ -98,7 +98,7 @@ void Menu::set_menu_color(){
         
 }
 
-void Menu::print_cave(WINDOW * caverna){
+void Menu::print_cave(){
 
 set_menu_color();
 init_pair(5, COLOR_BLACK, COLOR_CYAN);//marrone scuro
@@ -153,7 +153,7 @@ wrefresh(caverna);
 
 void Menu::open(){
 menu_is_active=true;
-print_cave(caverna);
+print_cave();
 print_face(wface, face, 65, 32);
 box(menu, 0, 0);
 keypad(menu, true);   

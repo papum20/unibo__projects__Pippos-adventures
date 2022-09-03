@@ -28,7 +28,7 @@
 		Coordinate i(0, 0, size);
 		do {
 			int points = 0;
-			map->characters[i.single()]->update(map, input);
+			map->characters[i.single()]->update(map);
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 	}
@@ -220,7 +220,7 @@
 		for(s_coord i = 0; i < this->map->getSize().x / scale_x * this->map->getSize().y; i++) map[i] = this->map->checkPosition(Coordinate(i * scale_x, this->map->getSize()));
 		size = this->map->getSize().times(1. / scale_x, 1);
 	}*/
-	void Room::makeConnection(pRoom room, int dir, lock_type lt, bool first = true) {
+	void Room::makeConnection(pRoom room, int dir, lock_type lt, bool first) {
 		if(room != NULL && first) {
 			int dir2 = (dir + 2) % DIRECTIONS_N;
 			room->makeConnection(this, dir2, lt, false);

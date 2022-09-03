@@ -24,4 +24,7 @@ class Projectile: public Animate{
 
 typedef Projectile *pProjectile;
 
+
+#include "character.hpp"
+
 #endif

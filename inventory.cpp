@@ -239,7 +239,7 @@ if(((check_class_name(array_index))==3)){
 else
     mvwprintw(w_use, 1, 2, "equipaggia");
 wattroff(w_use, COLOR_PAIR(3));
-if((check_class_name(array_index))==3 || (!(static_cast< item_difensivo *>(objects[i])->is_equipped)) || (!(static_cast<Weapon *>(objects[i])->is_equipped)))
+if((check_class_name(array_index))==3 || (!(static_cast< item_difensivo *>(objects[array_index])->is_equipped)) || (!(static_cast<Weapon *>(objects[array_index])->is_equipped)))
    mvwprintw(w_use, 2, 3, "scarta");
 int choice;
 keypad(w_use, true);
@@ -257,7 +257,7 @@ if(choice==esc){
 if(choice==scroll_up){
         highlight--;
         if(highlight<=0){
-           if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped)) || (!(static_cast<Weapon *>(objects[i])->is_equipped)))
+           if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[array_index])->is_equipped)) || (!(static_cast<Weapon *>(objects[array_index])->is_equipped)))
               highlight=1;
             else
                highlight=2;
@@ -265,7 +265,7 @@ if(choice==scroll_up){
 }
 if(choice==scroll_down){
         highlight++;
-    if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[i])->is_equipped)) || (!(static_cast<Weapon *>(objects[i])->is_equipped))){
+    if(!((check_class_name(array_index))==3) || (!(static_cast< item_difensivo *>(objects[array_index])->is_equipped)) || (!(static_cast<Weapon *>(objects[array_index])->is_equipped))){
         if(highlight>=2){
             highlight=1;
         }

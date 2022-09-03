@@ -21,20 +21,11 @@ const int tree_branch_attack_states=2;
 const int tree_branch_height=10;
 const int tree_branch_width=13;
 
+const int tree_horizontal_attack_width=2;
 const int tree_horizontal_attack_height=1;
+
 const int tree_vertical_attack_width=1;
-
-const int tree_delta_x_right=12;
-const int tree_delta_y_right=-3;
-
-const int tree_delta_x_left=0;
-const int tree_delta_y_left=-3;
-
-const int tree_delta_x_up=6;
-const int tree_delta_y_up=-9;
-
-const int tree_delta_x_down=6;
-const int tree_delta_y_down=0;
+const int tree_vertical_attack_height=2;
 
 const char tree_branch_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {

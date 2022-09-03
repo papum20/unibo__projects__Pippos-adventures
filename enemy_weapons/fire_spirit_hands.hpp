@@ -185,6 +185,8 @@ class Fire_spirit_hands: public Hands{
     public:
         Fire_spirit_hands();
 
+		void shoot();
+
 };
 
 typedef Fire_spirit_hands* pFS_Hands;

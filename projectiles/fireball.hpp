@@ -15,19 +15,19 @@ const int fireball_horizontal_width=4;
 const int fireball_vertical_height=4;
 const int fireball_vertical_width=1;
 
-const char fireball_right[fireball_horizontal_height][fireball_horizontal_width]=
+const char fireball_right[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
     {'<', 'O', 'O', '>'}
   
 };
 
-const char fireball_left[fireball_horizontal_height][fireball_horizontal_width]=
+const char fireball_left[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
     {'<', 'O', 'O', '>'}
   
 };
 
-const char fireball_up[fireball_vertical_height][fireball_vertical_width]=
+const char fireball_up[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
     {'A'},
     {'O'},
@@ -35,7 +35,7 @@ const char fireball_up[fireball_vertical_height][fireball_vertical_width]=
     {'V'}
 };
 
-const char fireball_down[fireball_vertical_height][fireball_vertical_width]=
+const char fireball_down[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
     {'A'},
     {'O'},
@@ -49,7 +49,7 @@ class Fireball :public Projectile{
     private:
 
     public:
-        Fireball (Weapon w);
+        Fireball (pWeapon w);
 };
 
 #endif

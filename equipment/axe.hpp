@@ -21,21 +21,11 @@ const int axe_attack_right_index=7;
 const int axe_height=8;
 const int axe_width=9;
 
+const int axe_horizontal_attack_width=2;
 const int axe_horizontal_attack_height=1;
 
-const int axe_delta_x_right=7;
-const int axe_delta_y_right=-4;
-
-const int axe_delta_x_left=1;
-const int axe_delta_y_left=-4;
-
-/*const int axe_delta_x_up=
-const int axe_delta_y_up=
-
-const int axe_delta_x_down=
-const int axe_delta_y_down=
-
-*/
+const int axe_vertical_attack_width=1;
+const int axe_vertical_attack_height=2;
 
 const char axe_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 

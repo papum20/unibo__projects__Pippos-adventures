@@ -177,6 +177,8 @@ class Snowman_hands: public Hands{
 		Snowball snowball;
     public:
         Snowman_hands();
+
+		void shoot();
 };
 
 typedef Snowman_hands* pSnowman_hands;

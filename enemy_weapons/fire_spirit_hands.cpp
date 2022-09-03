@@ -25,5 +25,10 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
     animations[attack_right_index]= new Animation (fire_spirit_hands_attack_right, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_attack_states);
     
     is_melee=false;
+    owner_id=ID_ENEMY_S;
+}
+
+void Fire_spirit_hands::shoot(){
+    fireball=Fireball(this);
 
 }

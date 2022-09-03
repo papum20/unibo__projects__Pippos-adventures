@@ -25,5 +25,10 @@ sword::sword():Weapon(){
     animations[attack_right_index]= new Animation (sword_attack_right, sword_width, sword_height, sword_horizontal_attack_states);
     
     is_melee=true;
+    owner_id=ID_PLAYER;
+    strcpy (description, sword_description);
+
+    horizontal_size=Coordinate(sword_horizontal_attack_width, sword_horizontal_attack_height);
+    vertical_size=Coordinate(sword_vertical_attack_width, sword_vertical_attack_height);
 }
 

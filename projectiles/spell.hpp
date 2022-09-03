@@ -2,6 +2,7 @@
 #define SPELL_HPP
 
 #include "projectile.hpp"
+#include "player_rod.hpp"
 
 const int spell_states=1;
 const int spell_up_index=0;
@@ -9,31 +10,34 @@ const int spell_down_index=1;
 const int spell_left_index=2;
 const int spell_right_index=3;
 
-const int spell_height=2;
-const int spell_width=2;
+const int spell_horizontal_height=2;
+const int spell_horizontal_width=2;
 
-const char spell_right[spell_height][spell_width]=
+const int spell_vertical_height=2;
+const int spell_vertical_width=2;
+
+const char spell_right[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
     {'/', '\\'},
     {'\\', '/'}
   
 };
 
-const char spell_left[spell_height][spell_width]=
+const char spell_left[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
     {'/', '\\'},
     {'\\', '/'}
   
 };
 
-const char spell_up[spell_height][spell_width]=
+const char spell_up[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
     {'/', '\\'},
     {'\\', '/'}
   
 };
 
-const char spell_down[spell_height][spell_width]=
+const char spell_down[ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 {
     {'/', '\\'},
     {'\\', '/'}
@@ -46,7 +50,8 @@ class Spell :public Projectile{
     private:
 
     public:
-        Spell (Weapon w);
+        Spell (pWitch_rod w);
+        Spell (pPlayer_rod p);
 };
 
 #endif

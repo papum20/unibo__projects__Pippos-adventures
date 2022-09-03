@@ -23,12 +23,11 @@ Witch_Rod::Witch_Rod():Rod(){
     animations[attack_down_index]= new Animation (witch_rod_attack_down, witch_rod_width, witch_rod_height, witch_rod_attack_states);
     animations[attack_left_index]= new Animation (witch_rod_attack_left, witch_rod_width, witch_rod_height, witch_rod_attack_states);
     animations[attack_right_index]= new Animation (witch_rod_attack_right, witch_rod_width, witch_rod_height, witch_rod_attack_states);
-
+    
+    owner_id=ID_ENEMY_S;
     is_melee=false;
 }
 
-/*void Witch_Rod::shoot(){
-    spell(this);
-
+void Witch_Rod::shoot(){
+    spell=Spell(this);
 }
-*/

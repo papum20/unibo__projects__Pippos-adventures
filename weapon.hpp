@@ -11,8 +11,9 @@ using namespace std;
 const int WEAPON_ID=100;
 
 class Weapon : public item {
-	private:
-
+	protected:
+		Coordinate horizontal_size;
+		Coordinate vertical_size;
 	public:
 		int danno_fisico_iniziale;
 		int danno_magico_iniziale;
@@ -20,8 +21,7 @@ class Weapon : public item {
 		int danno_magico;
 		bool is_melee;
 		bool is_equipped;
-
-		//coordinate per calcolare collisioni
+		int owner_id;
 		
 		Weapon();
 		Weapon(int danno_f, int danno_m, const char rar[], const char n[], const char desc[]);

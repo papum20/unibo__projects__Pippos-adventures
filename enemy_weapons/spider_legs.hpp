@@ -22,20 +22,11 @@ const int spider_legs_width=11;
 const int spider_x_coordinate=0;
 const int spider_y_coordinate=0;
 
+const int spider_horizontal_attack_width=2;
 const int spider_horizontal_attack_height=1;
-const int spider_vertical_attack_width=5;
 
-const int spider_delta_x_right=;
-const int spider_delta_y_right=-;
-
-const int spider_delta_x_left=;
-const int spider_delta_y_left=;
-
-const int spider_delta_x_up=3;
-const int spider_delta_y_up=-6;
-
-const int spider_delta_x_down=3;
-const int spider_delta_y_down=0;
+const int spider_vertical_attack_width=1;
+const int spider_vertical_attack_height=2;
 
 
 

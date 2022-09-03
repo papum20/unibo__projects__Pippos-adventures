@@ -25,4 +25,8 @@ Tree_branch::Tree_branch():Hands(){
     animations[attack_right_index]= new Animation (tree_branch_attack_right, tree_branch_width, tree_branch_height, tree_branch_attack_states);
 
     is_melee=true;
+    owner_id=ID_ENEMY_S;
+    
+    horizontal_size=Coordinate(tree_horizontal_attack_width, tree_horizontal_attack_height);
+    vertical_size=Coordinate(tree_vertical_attack_width, tree_vertical_attack_height);
 }

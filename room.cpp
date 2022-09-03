@@ -89,22 +89,13 @@
 		int length = 0;
 		Coordinate i = Coordinate(Coordinate(0, 0), size);
 		do {
-			if(isFreeSpace(i, Coordinate(i, size))) {
+			if(MapHandler::isFreeSpace(i, Coordinate(i, size))) {
 				available[length] = i.single();
 				length++;
 			}
 
 		} while(!i.equals(Coordinate(0, 0)));
 		return length;
-	}
-	bool Room::isFreeSpace(Coordinate start, Coordinate end) {
-		Coordinate i = Coordinate(start, start, Coordinate(start, end));
-		bool allowed = true;
-		do {
-			if(map->physical[i.single()]->getId() != ID_FLOOR) allowed = false;
-			else i.next();
-		} while(allowed && !i.equals(start));
-		return allowed;
 	}
 //// ADD
 	void Room::addCharacter(pCharacter character) {

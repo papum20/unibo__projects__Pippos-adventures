@@ -34,7 +34,6 @@ class Room {
 
 		//// FUNZIONI AUSILIARIE
 		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
-		bool isFreeSpace(Coordinate start, Coordinate end);			//ritona true se il rettangolo è vuot
 		// ADD
 		void addCharacter(pCharacter obj);							//aggiunge un character nella sua posizione
 		void addChest(pChest obj);									//aggiunge una chest nella sua posizione

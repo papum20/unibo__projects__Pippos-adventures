@@ -40,6 +40,7 @@
 #define COLOR_SHADOW COLOR_GREY				//per il pavimento con l'ombra di un oggetto
 // CARATTERI:
 #define CHAR_EMPTY ' '
+#define CHAR_WEAPON_MASK 'm'				//quando si trova questo carattere in un'animazione, in quel punto non verrà rappresentato il personaggio
 #pragma endregion GRAPHICS
 
 #endif

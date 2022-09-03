@@ -11,11 +11,11 @@ Witch::Witch():Enemy(){
     move_right_index=witch_move_right_index;
     move_left_index=witch_move_left_index;
 
-    animations[idle_index]=new Animation (witch_idle, witch_width, witch_height, witch_idle_states);
-    animations[move_up_index]=new Animation (witch_move_up, witch_width, witch_height, witch_move_up_states);
-    animations[move_left_index]=new Animation (witch_move_left, witch_width, witch_height, witch_move_left_states);
-    animations[move_right_index]=new Animation (witch_move_right, witch_width, witch_height, witch_move_right_states);
-    animations[move_down_index]=new Animation (witch_move_down, witch_width, witch_height, witch_move_down_states);
+    animations[idle_index]=new Animation (witch_idle, Coordinate(witch_width, witch_height), witch_idle_states);
+    animations[move_up_index]=new Animation (witch_move_up, Coordinate(witch_width, witch_height), witch_move_up_states);
+    animations[move_left_index]=new Animation (witch_move_left, Coordinate(witch_width, witch_height), witch_move_left_states);
+    animations[move_right_index]=new Animation (witch_move_right, Coordinate(witch_width, witch_height), witch_move_right_states);
+    animations[move_down_index]=new Animation (witch_move_down, Coordinate(witch_width, witch_height), witch_move_down_states);
 
     points_given=witch_points;
     

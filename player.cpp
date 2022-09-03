@@ -7,17 +7,17 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina) {
 	n_hearts=start_lifes;
 	id=ID_PLAYER;
 
-	animations[player_idle_index] = new Animation(idle, p_height, p_width, player_idle_states);
+	animations[player_idle_index] = new Animation(idle, Coordinate(p_height, p_width), player_idle_states);
 	
-	animations[player_move_right_index] = new Animation(move_right, p_height, p_width, player_move_right_states);
-	animations[player_move_left_index] = new Animation(move_left, p_height, p_width, player_move_left_states);
-	animations[player_move_up_index] = new Animation(move_up, p_height, p_width, player_move_up_states);
-	animations[player_move_down_index] = new Animation(move_down, p_height, p_width, player_move_down_states);
+	animations[player_move_right_index] = new Animation(move_right, Coordinate(p_height, p_width), player_move_right_states);
+	animations[player_move_left_index] = new Animation(move_left, Coordinate(p_height, p_width), player_move_left_states);
+	animations[player_move_up_index] = new Animation(move_up, Coordinate(p_height, p_width), player_move_up_states);
+	animations[player_move_down_index] = new Animation(move_down, Coordinate(p_height, p_width), player_move_down_states);
 
-	animations[player_dash_up_index] = new Animation(dash_up, p_height, p_width, player_dash_up_states);
-	animations[player_dash_down_index] = new Animation(dash_down, p_height, p_width, player_dash_down_states);
-	animations[player_dash_left_index] = new Animation(dash_left, p_height, p_width, player_dash_left_states);
-	animations[player_dash_right_index] = new Animation(dash_right, p_height, p_width, player_dash_right_states);
+	animations[player_dash_up_index] = new Animation(dash_up, Coordinate(p_height, p_width), player_dash_up_states);
+	animations[player_dash_down_index] = new Animation(dash_down, Coordinate(p_height, p_width), player_dash_down_states);
+	animations[player_dash_left_index] = new Animation(dash_left, Coordinate(p_height, p_width), player_dash_left_states);
+	animations[player_dash_right_index] = new Animation(dash_right, Coordinate(p_height, p_width), player_dash_right_states);
 
 
 	idle_index=player_idle_index;
@@ -145,6 +145,7 @@ void Player::update(pMap map){
 		}
 	}
 
+	Character::update(map);		//azioni generali
 }
 
 void Player::collect_item(pMap mappa){

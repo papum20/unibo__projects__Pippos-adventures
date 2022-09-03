@@ -14,15 +14,15 @@ Player_Rod::Player_Rod():Rod(){
 	attack_left_index=player_rod_attack_left_index;
 	attack_right_index=player_rod_attack_right_index;
 
-    animations[move_up_index]= new Animation (player_rod_up, player_rod_width, player_rod_height, player_rod_movement_states);
-    animations[move_down_index]= new Animation (player_rod_down, player_rod_width, player_rod_height, player_rod_movement_states);
-    animations[move_left_index]= new Animation (player_rod_left, player_rod_width, player_rod_height, player_rod_movement_states);
-    animations[move_right_index]= new Animation (player_rod_right, player_rod_width, player_rod_height, player_rod_movement_states);
+    animations[move_up_index]= new Animation (player_rod_up, (player_rod_width, player_rod_height), player_rod_movement_states);
+    animations[move_down_index]= new Animation (player_rod_down, (player_rod_width, player_rod_height), player_rod_movement_states);
+    animations[move_left_index]= new Animation (player_rod_left, (player_rod_width, player_rod_height), player_rod_movement_states);
+    animations[move_right_index]= new Animation (player_rod_right, (player_rod_width, player_rod_height), player_rod_movement_states);
 
-    animations[attack_up_index]= new Animation (player_rod_attack_up, player_rod_width, player_rod_height, player_rod_attack_states);
-    animations[attack_down_index]= new Animation (player_rod_attack_down, player_rod_width, player_rod_height, player_rod_attack_states);
-    animations[attack_left_index]= new Animation (player_rod_attack_left, player_rod_width, player_rod_height, player_rod_attack_states);
-    animations[attack_right_index]= new Animation (player_rod_attack_right, player_rod_width, player_rod_height, player_rod_attack_states);
+    animations[attack_up_index]= new Animation (player_rod_attack_up, (player_rod_width, player_rod_height), player_rod_attack_states);
+    animations[attack_down_index]= new Animation (player_rod_attack_down, (player_rod_width, player_rod_height), player_rod_attack_states);
+    animations[attack_left_index]= new Animation (player_rod_attack_left, (player_rod_width, player_rod_height), player_rod_attack_states);
+    animations[attack_right_index]= new Animation (player_rod_attack_right, (player_rod_width, player_rod_height), player_rod_attack_states);
 
     is_melee=true;
     owner_id=ID_PLAYER;

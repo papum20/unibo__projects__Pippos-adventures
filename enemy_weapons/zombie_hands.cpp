@@ -14,15 +14,15 @@ Zombie_hands::Zombie_hands():Hands(){
 	attack_left_index=zombie_hands_attack_left_index;
 	attack_right_index=zombie_hands_attack_right_index;
 
-    animations[move_up_index]= new Animation (zombie_hands_up, zombie_hands_width, zombie_hands_height, zombie_hands_movement_states);
-    animations[move_down_index]= new Animation (zombie_hands_down, zombie_hands_width, zombie_hands_height, zombie_hands_movement_states);
-    animations[move_left_index]= new Animation (zombie_hands_left, zombie_hands_width, zombie_hands_height, zombie_hands_movement_states);
-    animations[move_right_index]= new Animation (zombie_hands_right, zombie_hands_width, zombie_hands_height, zombie_hands_movement_states);
+    animations[move_up_index]= new Animation (zombie_hands_up, Coordinate(zombie_hands_width, zombie_hands_height), zombie_hands_movement_states);
+    animations[move_down_index]= new Animation (zombie_hands_down, Coordinate(zombie_hands_width, zombie_hands_height), zombie_hands_movement_states);
+    animations[move_left_index]= new Animation (zombie_hands_left, Coordinate(zombie_hands_width, zombie_hands_height), zombie_hands_movement_states);
+    animations[move_right_index]= new Animation (zombie_hands_right, Coordinate(zombie_hands_width, zombie_hands_height), zombie_hands_movement_states);
 
-    animations[attack_up_index]= new Animation (zombie_hands_attack_up, zombie_hands_width, zombie_hands_height, zombie_hands_attack_states);
-    animations[attack_down_index]= new Animation (zombie_hands_attack_down, zombie_hands_width, zombie_hands_height, zombie_hands_attack_states);
-    animations[attack_left_index]= new Animation (zombie_hands_attack_left, zombie_hands_width, zombie_hands_height, zombie_hands_attack_states);
-    animations[attack_right_index]= new Animation (zombie_hands_attack_right, zombie_hands_width, zombie_hands_height, zombie_hands_attack_states);
+    animations[attack_up_index]= new Animation (zombie_hands_attack_up, Coordinate(zombie_hands_width, zombie_hands_height), zombie_hands_attack_states);
+    animations[attack_down_index]= new Animation (zombie_hands_attack_down, Coordinate(zombie_hands_width, zombie_hands_height), zombie_hands_attack_states);
+    animations[attack_left_index]= new Animation (zombie_hands_attack_left, Coordinate(zombie_hands_width, zombie_hands_height), zombie_hands_attack_states);
+    animations[attack_right_index]= new Animation (zombie_hands_attack_right, Coordinate(zombie_hands_width, zombie_hands_height), zombie_hands_attack_states);
 
     is_melee=true;
     owner_id=ID_ENEMY_S;

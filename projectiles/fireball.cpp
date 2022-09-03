@@ -6,10 +6,10 @@ Fireball::Fireball(pWeapon w):Projectile(w){
     move_left_index=fireball_left_index;
     move_right_index=fireball_right_index;
 
-    animations[move_up_index]=new Animation (fireball_up, fireball_vertical_width, fireball_vertical_height);
-    animations[move_down_index]=new Animation (fireball_down, fireball_vertical_width, fireball_vertical_height);
-    animations[move_left_index]=new Animation (fireball_left, fireball_horizontal_width, fireball_horizontal_height);
-    animations[move_right_index]=new Animation (fireball_right, fireball_horizontal_width, fireball_horizontal_height);
+    animations[move_up_index]=new Animation (fireball_up, Coordinate(fireball_vertical_width, fireball_vertical_height));
+    animations[move_down_index]=new Animation (fireball_down, Coordinate(fireball_vertical_width, fireball_vertical_height));
+    animations[move_left_index]=new Animation (fireball_left, Coordinate(fireball_horizontal_width, fireball_horizontal_height));
+    animations[move_right_index]=new Animation (fireball_right, Coordinate(fireball_horizontal_width, fireball_horizontal_height));
 
     horizontal_size=Coordinate (fireball_horizontal_width, fireball_horizontal_height);
     vertical_size=Coordinate (fireball_vertical_width,fireball_vertical_height);

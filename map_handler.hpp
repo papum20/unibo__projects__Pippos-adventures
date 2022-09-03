@@ -4,6 +4,8 @@
 #define MAP_HANDLER_HPP
 
 
+#include "map.hpp"
+
 #include "character.hpp"
 #include "floor.hpp"
 #include "wall.hpp"

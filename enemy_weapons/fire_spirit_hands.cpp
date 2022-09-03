@@ -14,15 +14,15 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
 	attack_left_index=fire_spirit_hands_attack_left_index;
 	attack_right_index=fire_spirit_hands_attack_right_index;
 
-    animations[move_up_index]= new Animation (fire_spirit_hands_up, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_movement_states);
-    animations[move_down_index]= new Animation (fire_spirit_hands_down, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_movement_states);
-    animations[move_left_index]= new Animation (fire_spirit_hands_left, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_movement_states);
-    animations[move_right_index]= new Animation (fire_spirit_hands_right, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_movement_states);
+    animations[move_up_index]= new Animation (fire_spirit_hands_up, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_movement_states);
+    animations[move_down_index]= new Animation (fire_spirit_hands_down, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_movement_states);
+    animations[move_left_index]= new Animation (fire_spirit_hands_left, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_movement_states);
+    animations[move_right_index]= new Animation (fire_spirit_hands_right, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_movement_states);
 
-    animations[attack_up_index]= new Animation (fire_spirit_hands_attack_up, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_attack_states);
-    animations[attack_down_index]= new Animation (fire_spirit_hands_attack_down, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_attack_states);
-    animations[attack_left_index]= new Animation (fire_spirit_hands_attack_left, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_attack_states);
-    animations[attack_right_index]= new Animation (fire_spirit_hands_attack_right, fire_spirit_hands_width, fire_spirit_hands_height, fire_spirit_hands_attack_states);
+    animations[attack_up_index]= new Animation (fire_spirit_hands_attack_up, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_attack_states);
+    animations[attack_down_index]= new Animation (fire_spirit_hands_attack_down, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_attack_states);
+    animations[attack_left_index]= new Animation (fire_spirit_hands_attack_left, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_attack_states);
+    animations[attack_right_index]= new Animation (fire_spirit_hands_attack_right, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_attack_states);
     
     is_melee=false;
     owner_id=ID_ENEMY_S;

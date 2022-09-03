@@ -10,11 +10,11 @@ Spider::Spider():Enemy(){
     move_right_index=spider_move_right_index;
     move_left_index=spider_move_left_index;
 
-    animations[idle_index]=new Animation (spider_idle, spider_width, spider_height, spider_idle_states);
-    animations[move_up_index]=new Animation (spider_move_up, spider_width, spider_height, spider_move_up_states);
-    animations[move_left_index]=new Animation (spider_move_left, spider_width, spider_height, spider_move_left_states);
-    animations[move_right_index]=new Animation (spider_move_right, spider_width, spider_height, spider_move_right_states);
-    animations[move_down_index]=new Animation (spider_move_down, spider_width, spider_height, spider_move_down_states);
+    animations[idle_index]=new Animation (spider_idle, Coordinate(spider_width, spider_height), spider_idle_states);
+    animations[move_up_index]=new Animation (spider_move_up, Coordinate(spider_width, spider_height), spider_move_up_states);
+    animations[move_left_index]=new Animation (spider_move_left, Coordinate(spider_width, spider_height), spider_move_left_states);
+    animations[move_right_index]=new Animation (spider_move_right, Coordinate(spider_width, spider_height), spider_move_right_states);
+    animations[move_down_index]=new Animation (spider_move_down, Coordinate(spider_width, spider_height), spider_move_down_states);
 
     points_given=spider_points;
 

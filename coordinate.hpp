@@ -1,4 +1,4 @@
-//// CLASSE CHE MEMORIZZA UNA COORDINATA, COME COPPIA X,Y (float), ED EVENTUALI "CONFINI" DI UNA MATRICE
+//// CLASSE CHE MEMORIZZA UNA COORDINATA, COME COPPIA X,Y (float), ED EVENTUALI "CONFINI" DI UNA MATRICE (estremo finale escluso)
 //// PERMETTE DI VERIFICARE SE LE COORDINATE SI TROVINO IN TALI BORDI CON inBounds() e inOwnBounds(),
 //// E DI OTTENERE UNA COORDINATA "SINGOLA", RELATIVA AI BORDI, UTILIZZABILE COME INDICE, CON single()
 //// IMPLEMENTA SVARIATE SEMPLICI OPERAZIONI
@@ -65,7 +65,10 @@ class Coordinate {
 };
 
 
-const Coordinate COORDINATE_ERROR = Coordinate(-1, -1);		//COORDINATA DI RITORNO "DI ERRORE"
+const Coordinate COORDINATE_ZERO = Coordinate(0, 0);			//COORDINATA DI RITORNO "DI ERRORE"
+const Coordinate COORDINATE_ONE = Coordinate(1, 1);				//COORDINATA DI RITORNO "DI ERRORE"
+const Coordinate COORDINATE_NEGATIVE = Coordinate(-1, -1);		//COORDINATA DI RITORNO "DI ERRORE"
+const Coordinate COORDINATE_ERROR = COORDINATE_NEGATIVE;		//COORDINATA DI RITORNO "DI ERRORE"
 
 //// DIREZIONI
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)
@@ -75,7 +78,7 @@ const Coordinate COORDINATE_ERROR = Coordinate(-1, -1);		//COORDINATA DI RITORNO
 #define DIRECTION_RIGHT 1
 #define DIRECTION_DOWN 2
 #define DIRECTION_LEFT 3
-const Coordinate DIRECTIONS[DIRECTIONS_N] = {{0,-1},{1,0},{0,1},{-1,0}};
+const Coordinate DIRECTIONS[DIRECTIONS_N] = {{0,1},{1,0},{0,-1},{-1,0}};
 
 
 #endif

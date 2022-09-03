@@ -14,15 +14,15 @@ Snowman_hands::Snowman_hands():Hands(d_f, d_m, rar, n, desc){
 	attack_left_index=snowman_hands_attack_left_index;
 	attack_right_index=snowman_hands_attack_right_index;
 
-    animations[move_up_index]= new Animation (snowman_hands_up, snowman_hands_width, snowman_hands_height, snowman_hands_movement_states);
-    animations[move_down_index]= new Animation (snowman_hands_down, snowman_hands_width, snowman_hands_height, snowman_hands_movement_states);
-    animations[move_left_index]= new Animation (snowman_hands_left, snowman_hands_width, snowman_hands_height, snowman_hands_movement_states);
-    animations[move_right_index]= new Animation (snowman_hands_right, snowman_hands_width, snowman_hands_height, snowman_hands_movement_states);
+    animations[move_up_index]= new Animation (snowman_hands_up, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_movement_states);
+    animations[move_down_index]= new Animation (snowman_hands_down, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_movement_states);
+    animations[move_left_index]= new Animation (snowman_hands_left, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_movement_states);
+    animations[move_right_index]= new Animation (snowman_hands_right, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_movement_states);
 
-    animations[attack_up_index]= new Animation (snowman_hands_attack_up, snowman_hands_width, snowman_hands_height, snowman_hands_attack_states);
-    animations[attack_down_index]= new Animation (snowman_hands_attack_down, snowman_hands_width, snowman_hands_height, snowman_hands_attack_states);
-    animations[attack_left_index]= new Animation (snowman_hands_attack_left, snowman_hands_width, snowman_hands_height, snowman_hands_attack_states);
-    animations[attack_right_index]= new Animation (snowman_hands_attack_right, snowman_hands_width, snowman_hands_height, snowman_hands_attack_states);
+    animations[attack_up_index]= new Animation (snowman_hands_attack_up, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_attack_states);
+    animations[attack_down_index]= new Animation (snowman_hands_attack_down, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_attack_states);
+    animations[attack_left_index]= new Animation (snowman_hands_attack_left, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_attack_states);
+    animations[attack_right_index]= new Animation (snowman_hands_attack_right, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_attack_states);
 
     is_melee=false;
     owner_id=ID_ENEMY_S;

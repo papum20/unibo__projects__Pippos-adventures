@@ -71,11 +71,12 @@
 		Coordinate wstart = Coordinate(center.x - win_size.x / 2, center.y - win_size.y / 2), wend = Coordinate(center.x + Math::ceil(win_size.x / 2.), center.y + Math::ceil(win_size.y / 2.));
 		Coordinate i = Coordinate(wstart, wstart, wend);
 		do {
-			pPhysical obj = MapHandler::checkPosition(map, i);
-			if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i);
+			Coordinate i_reverse = Coordinate(i.x, wstart.y + (wend.y - i.y));
+			pPhysical obj = MapHandler::checkPosition(map, i_reverse);
+			if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i_reverse);
 			else {
 				obj->drawAtOwnPosition(scr, wstart, win_size);
-				FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i);
+				FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i_reverse);
 			}
 			i.next();
 		} while(!i.equals(wstart));

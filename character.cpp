@@ -13,9 +13,27 @@ Character::Character(int maxH, int curH) : Physical() {
 	apply_equipment();
 }
 
+void Character::update(pMap map) {
+	Physical::update(map);
+}
+
 void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
-	Coordinate draw_start = Coordinate(pos, Coordinate(weapons[curr_weapon]->getOffset().x, weapons[curr_weapon]->getOffset().y));
-	Coordinate draw_end = Coordinate(draw_start, 
+	Animation a_weapon = weapons[curr_weapon]->getCurrentAnimation();
+	Coordinate draw_start = Coordinate(pos, weapons[curr_weapon]->getOffset().negative());
+	Coordinate draw_end = Coordinate(draw_start, a_weapon.size);
+	Coordinate character_start = pos, character_end = Coordinate(character_start, getCurrentAnimation().size);
+	Coordinate win_end = Coordinate(win_start, win_size);
+
+	Coordinate relative = Coordinate(0, 0, a_weapon.size);										//coordinata relativa all'animazione, all'interno di essa
+	do {
+		Coordinate global = Coordinate(Coordinate(relative, draw_start), win_start, win_end);	//coordinata globale di relative, sulla mappa
+		if(global.inOwnBounds()) {												//se il punto è interno alla finestra da disegnare
+			if(global.inBounds(character_start, character_end))
+			//se il punto dell'animazione è vuoto o contiene il carattere speciale: disegna personaggio
+			if(a_weapon.state[relative.single()] == CHAR_EMPTY || a_weapon.state[relative.single()] == CHAR_WEAPON_MASK) scr[]
+			//altrimenti: disegna arma
+		}
+	} while(!relative.equals(draw_start));
 }
 
 

@@ -10,11 +10,11 @@ Zombie::Zombie():Enemy(){
     move_right_index=zombie_move_right_index;
     move_left_index=zombie_move_left_index;
 
-    animations[idle_index]=new Animation (zombie_idle, zombie_width, zombie_height, zombie_idle_states);
-    animations[move_up_index]=new Animation (zombie_move_up, zombie_width, zombie_height, zombie_move_up_states);
-    animations[move_left_index]=new Animation (zombie_move_left, zombie_width, zombie_height, zombie_move_left_states);
-    animations[move_right_index]=new Animation (zombie_move_right, zombie_width, zombie_height, zombie_move_right_states);
-    animations[move_down_index]=new Animation (zombie_move_down, zombie_width, zombie_height, zombie_move_down_states);
+    animations[idle_index]=new Animation (zombie_idle, Coordinate(zombie_width, zombie_height), zombie_idle_states);
+    animations[move_up_index]=new Animation (zombie_move_up, Coordinate(zombie_width, zombie_height), zombie_move_up_states);
+    animations[move_left_index]=new Animation (zombie_move_left, Coordinate(zombie_width, zombie_height), zombie_move_left_states);
+    animations[move_right_index]=new Animation (zombie_move_right, Coordinate(zombie_width, zombie_height), zombie_move_right_states);
+    animations[move_down_index]=new Animation (zombie_move_down, Coordinate(zombie_width, zombie_height), zombie_move_down_states);
 
     points_given=zombie_points;
 

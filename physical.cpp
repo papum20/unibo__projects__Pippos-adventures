@@ -4,12 +4,17 @@
 
 
 Physical::Physical() {
-        id = ID_DEFAULT;
+    id = ID_DEFAULT;
+    drawn = false;
 
-        //inizializza animation
-        for(int i = 0; i < MAX_ANIMATIONS; i++) 
-            animations[i] = NULL;
-    }
+    //inizializza animation
+    for(int i = 0; i < MAX_ANIMATIONS; i++) 
+        animations[i] = NULL;
+}
+
+void Physical::update(pMap map) {
+    drawn = false;
+}
 
 void Physical::destroy() {
     // ELIMINA PUNTATORI ANIMAZIONI
@@ -20,14 +25,14 @@ void Physical::destroy() {
 }
 
 void Physical::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
-
+    drawn = true;
 }
 void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size) {
     drawAtPosition(scr, win_start, win_size, pos);
 }
 
 void Physical::next_animation(){
-    animations[current_animation]=animations[current_animation]->next;
+    animations[current_animation] = animations[current_animation]->next;
 }
 
 
@@ -63,6 +68,9 @@ void Physical::next_animation(){
     }
     Coordinate Physical::getSize() {
         return size;
+    }
+    Animation Physical::getCurrentAnimation() {
+        return *animations[current_animation];
     }
 
     void Physical::setPosition(Coordinate pos) {

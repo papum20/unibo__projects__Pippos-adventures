@@ -57,6 +57,7 @@ const int MAX_ANIMATIONS = 6;
 #include "cell.hpp"
 #include "coordinate.hpp"
 #include "definitions.hpp"
+#include "map.hpp"
 
 
 
@@ -67,6 +68,7 @@ class Physical {
 		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
+		bool drawn;		//mark se l'oggetto è stato disegnato per il frame corrente
 
 	public:
 		//variabili per array di movimento, si trovano qui perchè servono a weapon, character e projectile
@@ -86,6 +88,7 @@ class Physical {
 		
 		Physical();
 		virtual void copy(Physical B);			//copia i parametri di B
+		virtual void update(pMap map);			//da richiamare a ogni frame
 		virtual void destroy();
 
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
@@ -106,6 +109,7 @@ class Physical {
 		Coordinate getSize();
 		Coordinate getSpeed();				//velocità in caselle/secondo (float)
 		Coordinate lastFrameMovement();
+		Animation getCurrentAnimation();
 		// SET
 		void next_animation();
 		void setPosition(Coordinate pos);

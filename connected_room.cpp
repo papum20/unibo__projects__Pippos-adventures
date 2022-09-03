@@ -51,7 +51,7 @@
 		Coordinate res;
 		int d = 0;
 		while(d < DIRECTIONS_N) {
-			if(!Coordinate(door_pos, DIRECTIONS[d]).inBounds(Coordinate(0, 0), size))
+			if(Coordinate(door_pos, DIRECTIONS[d]).inBounds(Coordinate(0, 0), size))
 				res = Coordinate(door_pos, DIRECTIONS[d].negative());
 			else d++;
 		}

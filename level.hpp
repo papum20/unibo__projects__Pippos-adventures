@@ -116,9 +116,11 @@ class Level {
 		pChest randChest();																		//ritorna una chest con oggetto casuale
 		int chestsNumber();																		//numero di chest da spawnare in una stanza
 
+
 	public:
 		Level(int win_y, int win_x, pPlayer player);
 		Level(int win_y, int win_x, int win_h, int win_w, pPlayer player);
+		
 
 		void display();								//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa), con camera che segue il personaggio
 		void displayAtPosition(Coordinate center);

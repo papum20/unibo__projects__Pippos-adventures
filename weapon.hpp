@@ -13,6 +13,7 @@ class Weapon : public item {
 	private:
 
 	protected:
+		Coordinate offset;	//punto in cui "attaccare" l'animazione del character su quella della weapon, rispetto all'angolo in basso a sinistra
 		//int delta_x;	//up e down	
 		//int delta_y;	//left e right
 
@@ -33,6 +34,8 @@ class Weapon : public item {
 		void apply_rune();
 		void apply_rarity();
 		virtual void shoot(){};
+
+		Coordinate getOffset();
 };
 
 typedef Weapon* pWeapon;

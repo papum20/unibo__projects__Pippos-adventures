@@ -26,3 +26,9 @@ void Weapon::apply_rarity (){
         danno_magico=danno_magico_iniziale*4;
     }
 }
+
+
+
+Coordinate Weapon::getOffset() {
+    return offset;
+}

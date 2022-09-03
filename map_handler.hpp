@@ -19,17 +19,19 @@ const pInanimate WALL_INSTANCE = new Wall();
 class MapHandler {
 	private:
 		//// FUNZIONI AUSILIARIE
+		static pDoor getDoorInPosition(Coordinate pos);				//door (puntatore) in una posizione
+		static bool isLegalMove(pMap map, pPhysical obj, Coordinate target);	//ritorna true se obj può occupare, con le sue dimensioni, la cella target
+		//per check
 		static void addLineToCheck(pMap map, pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end);	//funzione ausiliaria per checkRectangle: controlla una linea
 		static int checkLine_ceil(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);				//funzione ausiliaria per vision: checkLine, implementato con arrotondamento per eccesso
 		static Coordinate checkLine_floor_next(pMap map, Coordinate i, Coordinate delta);								//funzione ausiliaria per checkLine: ritorna la prossima casella in una linea (implementato con arrotondamento per difetto), o COORDINATE_ERROR se finisce la linea (incontrando un muro)
 		static Coordinate checkLine_ceil_next(pMap map, Coordinate i, Coordinate delta);								//funzione ausiliaria per checkLine: ritorna la prossima casella in una linea (implementato con arrotondamento per eccesso), o COORDINATE_ERROR se finisce la linea (incontrando un muro)
 
-		//// GET
-		static pDoor getDoorInPosition(Coordinate pos);				//door (puntatore) in una posizione
 
 	public:
 		MapHandler();
-		static void set(Map map);	//imposta una (nuova) map
+		static bool move(pMap map, pPhysical obj, Coordinate target);	//muove un oggetto qualsiasi (non inanimate); ritorna true se ha successo
+		static void remove(pMap map, pPhysical obj);					//rimuove un oggetto qualsiasi (non inanimate)
 
 		//// PATH FINDING
 		static int shortestPath(pMap map, Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pPhysical obj = NULL);
@@ -41,15 +43,16 @@ class MapHandler {
 		//"visione" a 360 gradi: ritorna tutti gli oggetti visibili (anche passando attraverso physical diversi da wall) in tutte le direzioni a partire da una sorgente source; se <0, il range massimo si considera infinito
 
 		//// CHECK
+		//singola casella
 		static pPhysical checkPosition(pMap map, Coordinate pos);				//ritorna un puntatore all'oggetto fisico presente nella casella x,y (NULL se non presente niente)
 		static pCharacter checkCharacter(pMap map, Coordinate pos);				//ritorna l'oggetto (puntatore) character
 		static pChest checkChest(pMap map, Coordinate pos);						//ritorna l'oggetto (puntatore) chest
 		static pDoor checkDoor(pMap map, Coordinate pos);						//ritorna l'oggetto (puntatore) door
-		
+		//linea/rettangolo
 		static int checkLine(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);	//checkPosition per una linea da start a end (incluso): ritorna tutti gli oggetti trovati in obj e il rispettivo numero
 		static int checkLine_character(pMap map, pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end);
 		static int checkRectangle(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);
-		
+		//find
 		static bool findLine(pMap map, pPhysical obj, Coordinate start, Coordinate end);			//cerca obj (puntatore), funziona come checkLine
 		static bool findRectangle(pMap map, pPhysical obj, Coordinate start, Coordinate end);		//cerca obj (puntatore), funziona come checkRectangle
 		/*
@@ -59,13 +62,6 @@ class MapHandler {
 			start.x<=end.x, start.y>end.y:	verso destra (colonna per colonna, dal basso all'alto)
 			start.x>end.x, start.y>end.y:	verso l'alto (riga per riga, da sinistra a destra)
 		*/
-
-		//// BOOL
-		static bool isLegalMove(pMap map, pPhysical obj, Coordinate target);	//ritorna true se obj può occupare, con le sue dimensioni, la cella target
-		//// EDIT
-		static bool move(pMap map, pPhysical obj, Coordinate target);			//muove un oggetto qualsiasi (non inanimate); ritorna true se ha successo
-		static void remove(pMap map, pPhysical obj);							//rimuove un oggetto qualsiasi (non inanimate)
-
 };
 
 

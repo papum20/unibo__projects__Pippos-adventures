@@ -1,6 +1,6 @@
 #include "snowman_hands.hpp"
 
-Snowman_hands::Snowman_hands():Hands(d_f, d_m, rar, n, desc){
+Snowman_hands::Snowman_hands():Hands(){
     danno_fisico_iniziale=0;
     danno_magico_iniziale=Math::randomStep(30, 60, 5);
 

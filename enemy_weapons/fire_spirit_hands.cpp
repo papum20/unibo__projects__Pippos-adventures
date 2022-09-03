@@ -30,5 +30,4 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
 
 void Fire_spirit_hands::shoot(){
     fireball=Fireball(this);
-
 }

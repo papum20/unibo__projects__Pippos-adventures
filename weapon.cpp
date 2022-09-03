@@ -1,7 +1,6 @@
 #include "weapon.hpp"
 
 Weapon::Weapon ():item(){
-    apply_rarity();
     is_equipped=false;
     id=ID_WEAPON_S;
 }
@@ -31,4 +30,21 @@ void Weapon::apply_rarity (){
 
 Coordinate Weapon::getOffset() {
     return offset;
+}
+void Weapon::initiate_attack(char d){
+    direction=d;
+    switch (direction){
+        case 'u':
+            current_animation=attack_up_index;
+            break;
+        case 'd':
+            current_animation=attack_down_index;
+            break;
+        case 'l':
+            current_animation=attack_right_index;
+            break;
+        case 'r':
+            current_animation=attack_left_index;
+            break;
+    }
 }

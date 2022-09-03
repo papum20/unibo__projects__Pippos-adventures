@@ -87,8 +87,7 @@ class Character : public Physical {
 
 		pCharacter check_enemy_melee();
 		void initiate_attack();
-		void calculate_damage();
-		int calculate_loss(pCharacter c);
+		int calculate_damage(pCharacter c);
 		
 };
 

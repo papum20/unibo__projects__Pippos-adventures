@@ -33,6 +33,7 @@ class Weapon : public item {
 		virtual void shoot(){};
 
 		Coordinate getOffset();
+		void initiate_attack(char d);
 };
 
 typedef Weapon* pWeapon;

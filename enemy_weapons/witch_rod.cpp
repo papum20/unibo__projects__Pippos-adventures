@@ -3,6 +3,7 @@
 Witch_Rod::Witch_Rod():Rod(){
     danno_fisico_iniziale=0;
     danno_magico_iniziale=Math::randomStep(30, 60, 5);
+    magia=Spell(this);
 
     move_up_index=witch_rod_up_index;
 	move_up_index=witch_rod_down_index;
@@ -28,6 +29,5 @@ Witch_Rod::Witch_Rod():Rod(){
     is_melee=false;
 }
 
-void Witch_Rod::shoot(){
-    spell=Spell(this);
-}
+//void Witch_Rod::shoot(){
+

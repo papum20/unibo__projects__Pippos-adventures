@@ -3,6 +3,7 @@
 
 #include "projectile.hpp"
 #include "player_rod.hpp"
+#include "witch_rod.hpp"
 
 const int spell_states=1;
 const int spell_up_index=0;
@@ -50,8 +51,7 @@ class Spell :public Projectile{
     private:
 
     public:
-        Spell (pWitch_rod w);
-        Spell (pPlayer_rod p);
+        Spell (pWeapon w);
 };
 
 #endif

@@ -4,11 +4,18 @@ Projectile::Projectile(){
 
 }
 
-Projectile::Projectile(pWeapon w):Physical(){
+/*Projectile::Projectile(pWeapon w):Physical(){
     danno_fisico=w->danno_fisico;
     danno_magico=w->danno_magico;
     direction=w->direction;
     shooter_id=w->owner_id;
+    id=ID_PROJECTILE_S;
+}*/
+Projectile::Projectile(int fisico, int magico, char dir, int shooter):Animate(){
+    danno_fisico=fisico;
+    danno_magico=magico;
+    direction=dir;
+    shooter_id=shooter;
     id=ID_PROJECTILE_S;
 }
 

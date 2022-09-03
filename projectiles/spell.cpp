@@ -1,6 +1,6 @@
 #include "spell.hpp"
 
-Spell::Spell(pWeapon w):Projectile(w){
+Spell::Spell(int fisico, int magico, char dir, int shooter):Projectile(int fisico, int magico, char dir, int shooter){
     move_up_index=spell_up_index;
     move_down_index=spell_down_index;
     move_left_index=spell_left_index;
@@ -15,7 +15,7 @@ Spell::Spell(pWeapon w):Projectile(w){
     vertical_size=Coordinate (spell_vertical_width,spell_vertical_height);
 }
 
-Spell::Spell(pPlayer_rod p):Projectile(p){
+/*Spell::Spell(pPlayer_rod p):Projectile(p){
     move_up_index=spell_up_index;
     move_down_index=spell_down_index;
     move_left_index=spell_left_index;
@@ -28,4 +28,4 @@ Spell::Spell(pPlayer_rod p):Projectile(p){
 
     horizontal_size=Coordinate (spell_horizontal_width, spell_horizontal_height);
     vertical_size=Coordinate (spell_vertical_width,spell_vertical_height);
-}
+}*/

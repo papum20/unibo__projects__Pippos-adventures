@@ -2,7 +2,7 @@
 #define PROJECTILE_HPP
 
 #include "animate.hpp"
-#include "weapon.hpp"
+//#include "weapon.hpp"
 #include "animation.hpp"
 
 
@@ -15,7 +15,8 @@ class Projectile: public Animate{
         int danno_magico;
         int shooter_id;
         Projectile();
-        Projectile (pWeapon w);
+        //Projectile (pWeapon w);
+        Projectile (int fisico, int magico, char dir, int shooter);
 
         void update (pMap map);
         int calculate_damage(pCharacter c);

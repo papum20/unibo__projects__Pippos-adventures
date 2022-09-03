@@ -61,6 +61,7 @@ class MapHandler {
 
 #include "structures/queue_coordinate.hpp"
 
+#include "door.hpp"
 #include "floor.hpp"
 #include "wall.hpp"
 

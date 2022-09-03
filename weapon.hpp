@@ -5,6 +5,7 @@ using namespace std;
 
 #include "coordinate.hpp"
 #include "item.hpp"
+#include "projectile.hpp"
 //#include "character.hpp"
 
 
@@ -17,8 +18,6 @@ class Weapon : public item {
 	public:
 		int danno_fisico_iniziale;
 		int danno_magico_iniziale;
-		int danno_fisico;
-		int danno_magico;
 		bool is_melee;
 		bool is_equipped;
 		int owner_id;
@@ -29,7 +28,7 @@ class Weapon : public item {
 
 		void apply_rune();
 		void apply_rarity();
-		virtual void shoot(){};
+		virtual void shoot();
 
 		Coordinate getOffset();
 		void initiate_attack(char d);
@@ -38,7 +37,6 @@ class Weapon : public item {
 };
 
 typedef Weapon* pWeapon;
-#include "projectile.hpp"
 
 
 #endif

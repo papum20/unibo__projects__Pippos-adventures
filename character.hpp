@@ -2,10 +2,8 @@
 #define CHARACTER_HPP
 
 
-#include "artifact.hpp"
 #include "equipment/equipment.hpp"
 #include "item_difensivi.hpp"
-#include "animate.hpp"
 #include "weapon.hpp"
 
 
@@ -23,6 +21,8 @@ struct equipment {
 	pHelm elmo;
 };
 
+#include "animate.hpp"
+#include "artifact.hpp"
 
 
 class Character : public Animate {

@@ -85,11 +85,12 @@
 
 
 #pragma region AUSILIARIE
+
 	int Room::getFreeCells(s_coord available[], Coordinate size) {
 		int length = 0;
 		Coordinate i = Coordinate(Coordinate(0, 0), size);
 		do {
-			if(MapHandler::isFreeSpace(i, Coordinate(i, size))) {
+			if(MapHandler::isFreeSpace(map, i, Coordinate(i, size))) {
 				available[length] = i.single();
 				length++;
 			}
@@ -194,6 +195,114 @@
 					map->physical[Coordinate(x * scale_x + s, y).single()] = map->physical[Coordinate(x, y).single()];
 			}
 		}
+	}
+	void Room::generatePath(Coordinate s, pUnionFind sets)
+	{
+		if(!s.inOwnBounds()) return;
+		else {
+			map->physical[s.single()] = FLOOR_INSTANCE;
+
+			bool used_dirs[DIRECTIONS_N];	//direzioni usate
+			int used_dirs_n;
+			bool new_dirs[DIRECTIONS_N];	//nuove direzioni da generare
+			int new_dirs_n;
+
+			// CONTA DIREZIONI INUTILIZZABILI (PERCHÈ GIÀ USATE O FUORI DALLA MAPPA)
+			int tot_chance = DIR_CHANCES[0];	//somma delle probabilità delle direzioni disponibili
+			int unused_dirs_n = 0;
+			for(int d = 0; d < DIRECTIONS_N; d++) {
+				Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
+				if(map->physical[nxt.single()] == NULL) {
+					if(nxt.inOwnBounds()) {
+						used_dirs[d] = false;
+						unused_dirs_n++;
+						tot_chance += DIR_CHANCES[unused_dirs_n];
+					}
+				}
+				else {
+					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
+					if(map->physical[nxt.single()]->getId() == ID_FLOOR)
+						sets->merge(s.single(), nxt.single());
+					used_dirs[d] = true;
+				}
+			}
+			used_dirs_n = DIRECTIONS_N - unused_dirs_n;
+
+			if(used_dirs_n != DIRECTIONS_N) {
+				// SCEGLI NUMERO DI DIREZIONI DA GENERARE (TRA QUELLE DISPONIBILI)
+				new_dirs_n = 0;
+				int new_dirs_r = rand() % tot_chance;	//indice per generare un numero random di nuove direzioni
+				int chance_counter = 0;
+				while(new_dirs_r >= chance_counter + DIR_CHANCES[new_dirs_n]) {
+					chance_counter += DIR_CHANCES[new_dirs_n];
+					new_dirs_n++;
+				}
+
+				//	SCEGLI DIREZIONI IN CUI GENERARE
+				for(int d = 0; d < DIRECTIONS_N; d++) new_dirs[d] = false;
+				for(int i = 0; i < new_dirs_n; i++) {
+					int r = rand() % (new_dirs_n - i);
+					int d = 0;
+					while(r > 0 || used_dirs[d] || new_dirs[d]) {
+						if(!used_dirs[d] && !new_dirs[d]) r--;
+						d++;
+					}
+					new_dirs[d] = true;
+				}
+
+				// PRIMA GENERA MURI E CASELLE ADIACENTI,
+				for(int d = 0; d < DIRECTIONS_N; d++) {
+					if(new_dirs[d]) map->physical[Coordinate(s, DIRECTIONS[d]).single()] = FLOOR_INSTANCE;
+					else if(!used_dirs[d]) map->physical[Coordinate(s, DIRECTIONS[d]).single()] = WALL_INSTANCE;
+				}
+				//POI VA IN RICORSIONE SULLE DIREZIONI
+				for(int d = 0; d < DIRECTIONS_N; d++) {
+					if(new_dirs[d]) {
+						Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
+						sets->makeSet(nxt.single());
+						sets->merge(s.single(), nxt.single());
+						generatePath(nxt, sets);
+					}
+				}
+			}
+		}
+	}
+
+	int Room::getAdjacentWalls(Coordinate out[], s_coord currentSet) {
+		int walls = 0;
+		s_coord square = currentSet;
+		do {
+			for(int d = 0; d < DIRECTIONS_N; d++) {
+				Coordinate p = Coordinate(square, size);
+				Coordinate nxt = Coordinate(p, DIRECTIONS[d]);
+				if(nxt.inOwnBounds() && map->physical[nxt.single()]->getId() == ID_WALL) {
+					out[walls] = nxt;
+					walls++;
+				}
+			}
+		} while(square != currentSet);
+		return walls;
+	}
+	int Room::getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance) {
+		int border_n = 0;
+		for(int i = 0; i < walls_n; i++) {
+			int rand_d = rand() % DIRECTIONS_N, d = 0;
+			bool found = false;
+			while(!found && d < DIRECTIONS_N) {
+				rand_d = (rand_d + 1) % DIRECTIONS_N;
+				Coordinate dir = DIRECTIONS[rand_d];
+				Coordinate nxt = Coordinate(walls[i], dir.times(distance, distance));
+				if(nxt.inOwnBounds() && sets.find(nxt.single()) != parent) {
+					border[i] = {nxt.x, nxt.y};
+					border_n++;
+					directions[i] = rand_d;
+					found = true;
+				}
+				else d++;
+			}
+			if(!found) border[i] = Coordinate(-1, -1);
+		}
+		return border_n;
 	}
 #pragma endregion GENERATION
 #pragma endregion AUSILIARE

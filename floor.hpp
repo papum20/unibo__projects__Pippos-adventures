@@ -5,10 +5,14 @@
 #include "inanimate.hpp"
 
 
+
 class Floor : public Inanimate {
+	private:
+
 	public:
 		Floor();
 };
+
 
 
 #endif

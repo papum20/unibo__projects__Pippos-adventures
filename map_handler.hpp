@@ -12,7 +12,6 @@ class MapHandler {
 		//// FUNZIONI AUSILIARIE
 		static pDoor getDoorInPosition(Coordinate pos);							//door (puntatore) in una posizione
 		static bool isLegalMove(pMap map, pPhysical obj, Coordinate target);	//ritorna true se obj può occupare, con le sue dimensioni, la cella target
-		static bool isFreeSpace(pMap map, Coordinate start, Coordinate end);	//ritona true se il rettangolo è vuot
 		//per check
 		static void addLineToCheck(pMap map, pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end);	//funzione ausiliaria per checkRectangle: controlla una linea
 		static int checkLine_ceil(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);				//funzione ausiliaria per vision: checkLine, implementato con arrotondamento per eccesso
@@ -55,6 +54,9 @@ class MapHandler {
 			start.x<=end.x, start.y>end.y:	verso destra (colonna per colonna, dal basso all'alto)
 			start.x>end.x, start.y>end.y:	verso l'alto (riga per riga, da sinistra a destra)
 		*/
+
+		//// BOOL
+		static bool isFreeSpace(pMap map, Coordinate start, Coordinate end);	//ritona true se il rettangolo è vuoto
 };
 
 

@@ -80,7 +80,7 @@ void Character::check_enemy_melee(pMap map){
     
     if (dim!=0){                                                            
         for (int i=0; i<dim; i++){
-            if (objects[i]->id!=this->id && objects[i]->isCharacter()){         
+            if (objects[i]->getId()!=this->id && objects[i]->isCharacter()){         
                 defender=MapHandler::checkCharacter(map, objects[i]->getPosition());       
                 defender->changeCurrentHealth(calculate_damage(defender));    
             }

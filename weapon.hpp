@@ -36,7 +36,7 @@ class Weapon : public item {
 
 		void apply_rune();
 		void apply_rarity();
-		virtual pProjectile shoot(){};
+		virtual pProjectile shoot();
 
 		Coordinate getOffset();
 		void initiate_attack(char d);

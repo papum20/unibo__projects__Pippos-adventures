@@ -31,7 +31,6 @@ Snowman_hands::Snowman_hands():Hands(){
     vertical_attack_states=snowman_hands_attack_states;
 }
 
-//void Snowman_hands::shoot(){
-//    snowball=Snowball(this);
-//
-//}
+pProjectile Snowman_hands::shoot(){
+    pSnowball snowball=new Snowball(danno_fisico, danno_magico, direction, owner_id);
+}

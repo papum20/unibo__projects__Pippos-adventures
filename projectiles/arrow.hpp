@@ -49,4 +49,6 @@ class Arrow:public Projectile{
         Arrow (int fisico, int magico, char dir, int shooter);
 };
 
+typedef Arrow* pArrow;
+
 #endif

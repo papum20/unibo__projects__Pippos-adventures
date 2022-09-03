@@ -12,6 +12,12 @@ Physical::Physical() {
         animations[i] = NULL;
 }
 
+void Physical::copy(Physical B) {
+    pos = B.pos;
+    size = B.size;
+    id = B.id;
+}
+
 void Physical::update(pMap map) {
     drawn = false;
 }

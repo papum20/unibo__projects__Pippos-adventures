@@ -3,7 +3,6 @@
 
 
 #include "physical.hpp"
-#include "map_handler.hpp"
 
 
 class Animate : public Physical {
@@ -34,6 +33,9 @@ class Animate : public Physical {
 		void moveLeft(pMap map);
 		void moveRight(pMap map);
 };
+
+
+#include "map_handler.hpp"
 
 
 #endif

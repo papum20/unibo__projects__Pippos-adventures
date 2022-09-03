@@ -2,11 +2,8 @@
 #define PLAYER_HPP
 
 #include "character.hpp"
-#include "door.hpp"
-#include "chest.hpp"
 #include "inputmanager.hpp"
 #include "equipment/shield.hpp"
-//#include "menu.hpp"
 
 const int player_idle_index = 0;
 const int player_move_right_index = 1;
@@ -166,6 +163,9 @@ class Player : public Character {
 
 typedef Player *pPlayer;
 
+
+#include "door.hpp"
+#include "chest.hpp"
 
 
 #endif

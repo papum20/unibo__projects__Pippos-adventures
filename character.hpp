@@ -6,17 +6,13 @@
 #include "equipment/equipment.hpp"
 #include "item_difensivi.hpp"
 #include "animate.hpp"
-#include "timer.hpp"
 #include "weapon.hpp"
-#include "door.hpp"
-#include "map_handler.hpp"
-#include "projectile.hpp"
+
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 
 const int W_NUMBER=10;
 const int DEF_NUMBER=10;
-const int PATH_LENGTH;
 
 struct equipment {
 	pWeapon arma;
@@ -92,6 +88,11 @@ class Character : public Animate {
 };
 
 typedef Character *pCharacter;
+
+
+#include "door.hpp"
+#include "projectile.hpp"
+#include "timer.hpp"
 
 
 

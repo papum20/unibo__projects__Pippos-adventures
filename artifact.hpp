@@ -1,9 +1,8 @@
 #ifndef ARTIFACT_HPP
 #define ARTIFACT_HPP
 
-#include "physical.hpp"
-#include "player.hpp"
-
+#include "item.hpp"
+class Player;
 
 class Artifact: public item{
     protected:
@@ -13,10 +12,13 @@ class Artifact: public item{
         Artifact(const char n[], const char desc[]);
 		void copy(Artifact B);			//copia i parametri di B
 
-        virtual void use_item (pPlayer p){};
+        virtual void use_item (Player *p);
 
 };
 
 typedef Artifact* pArtifact;
+
+
+#include "player.hpp"
 
 #endif

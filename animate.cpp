@@ -19,17 +19,17 @@ void Animate::moveUp(pMap map){
 void Animate::moveDown(pMap map){
 	Coordinate newpos=pos;
 	newpos.y++;
-	map->move ( this, newpos);
+	MapHandler::move(map, this, newpos);
 }
 
 void Animate::moveLeft(pMap map){
 	Coordinate newpos=pos;
 	newpos.x--;
-	map->move ( this, newpos);
+	MapHandler::move(map, this, newpos);
 }
 
 void Animate::moveRight(pMap map){
 	Coordinate newpos=pos;
 	newpos.x++;
-	map->move ( this, newpos);
+	MapHandler::move(map, this, newpos);
 }

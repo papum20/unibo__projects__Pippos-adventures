@@ -9,7 +9,7 @@ class Key: public item {
     public:
         Key();                   //ogni chiave apre solo una porta della stanza
 
-        void use_key();      //metodo a cui si passa l'id di una porta, se corrisponde ritorna true
+        //void use_key();      //metodo a cui si passa l'id di una porta, se corrisponde ritorna true
 };
 
 typedef Key* pKey;

@@ -2,10 +2,6 @@
 #define PHYSICAL_HPP
 
 
-#include <iostream>
-#include "animation.hpp"
-#include "map.hpp"
-
 #define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
 										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
 
@@ -55,6 +51,8 @@ const int MAX_ANIMATIONS = 6;
 #pragma endregion PHYSICAL_CONSTANTS
 
 
+#include <iostream>
+#include "animation.hpp"
 #include "cell.hpp"
 #include "coordinate.hpp"
 #include "definitions.hpp"

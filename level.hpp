@@ -126,8 +126,8 @@ class Level {
 		void update(int input);						//da richiamare a ogni frame
 
 		// GET
-		void getLevelMap(pRoom map[]);
-		void getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), player
+		//void getLevelMap(pRoom map[]);
+		//void getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), player
 
 		// SET
 		void setPivot(pPhysical pivot);											//imposta l'oggetto che la telecamera seguirà

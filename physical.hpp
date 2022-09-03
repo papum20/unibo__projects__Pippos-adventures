@@ -31,6 +31,12 @@ const int MAX_ANIMATIONS = 6;
 #define ID_ITEM_E 179
 #define ID_PROJECTILE_S 180
 #define ID_PROJECTILE_E 199
+#define ID_ARTIFACT_S 150
+#define ID_ARTIFACT_E 159
+#define ID_WEAPON_S 160
+#define ID_WEAPON_E 169
+#define ID_ITEM_DIFENSIVO_S 170
+#define ID_ITEM_DIFENSIVO_E 179
 
 #define ID_DEFAULT 0
 #define ID_PLACEHOLDER 1
@@ -38,8 +44,7 @@ const int MAX_ANIMATIONS = 6;
 #define ID_CHEST 3
 #define ID_WALL 10
 #define ID_FLOOR 11
-#define ID_DOOR 20
-#define ID_ARTEFACT 30
+#define ID_DOOR 12
 #pragma endregion PHYSICAL_IDS
 
 #pragma region PHYSICAL_STATS
@@ -52,7 +57,6 @@ const int MAX_ANIMATIONS = 6;
 #include "cell.hpp"
 #include "coordinate.hpp"
 #include "definitions.hpp"
-#include "map.hpp"
 
 
 
@@ -79,9 +83,9 @@ class Physical {
 		
 		char direction;							// u sopra, d sotto, l sinistra, r destra
 		int current_animation;
+		
 		Physical();
 		virtual void copy(Physical B);			//copia i parametri di B
-		virtual void update(pMap map, char input);
 		virtual void destroy();
 
 		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra

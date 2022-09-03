@@ -4,12 +4,12 @@
 
 #include "artifact.hpp"
 #include "equipment/equipment.hpp"
-#include "inanimate.hpp"
 #include "item_difensivi.hpp"
-#include "map.hpp"
 #include "physical.hpp"
 #include "timer.hpp"
 #include "weapon.hpp"
+#include "door.hpp"
+#include "map_handler.hpp"
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 
@@ -25,6 +25,19 @@ struct equipment {
 	pArmor armatura;
 	pHelm elmo;
 };
+
+//class Character;
+struct Map {
+	Coordinate size;
+	pPhysical physical[ROOM_AREA];
+	pCharacter characters[ROOM_AREA];
+	pDoor doors[MAX_CONNECTED_R];			//array di puntatori a porte (verso stanze collegate)
+											//disposte in direzioni: 0=su, 1=destra, 2=giu, 3=sinistra, 4=segreta,all'interno
+	pChest chests[ROOM_AREA];
+};
+typedef Map *pMap;
+
+
 
 class Character : public Physical {
 	private:
@@ -67,7 +80,7 @@ class Character : public Physical {
 		Character();
 		Character(int maxH, int maxS);
 		
-		virtual void update(pMap map){};
+		virtual void update(pMap map, int input);
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce

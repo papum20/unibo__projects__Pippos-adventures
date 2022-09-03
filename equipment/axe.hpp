@@ -1,7 +1,7 @@
 #ifndef AXE_HPP
 #define AXE_HPP
 #include <cstring> 
-#include "weapon.hpp"
+#include "../weapon.hpp"
 
 const char axe_description[description_length]="arma rozza usata dal berserker, un guerriero tanto feroce da sembrare una bestia, seppur non elegante, non è seconda a nessun'altra arma in termini puro potere distruttivo.";
 

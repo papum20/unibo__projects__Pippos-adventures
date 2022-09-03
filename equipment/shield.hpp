@@ -2,7 +2,7 @@
 #define SHIELD_HPP
 
 #include <cstring>
-#include "item_difensivi.hpp"
+#include "../item_difensivi.hpp"
 
 const char shield_description[description_length]="il possente scudo usato da Aiace, ha la resistenza di un intero castello.";
 

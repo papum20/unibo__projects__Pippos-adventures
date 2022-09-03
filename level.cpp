@@ -125,14 +125,14 @@
 	}
 
 #pragma region SET_GET
-	void Level::getLevelMap(pRoom map[]) {
+	/*void Level::getLevelMap(pRoom map[]) {
 		for(int i = 0; i < LEVEL_AREA; i++) map[i] = this->map[i];
-	}
-	void Level::getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player) {
+	}*/
+	/*void Level::getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player) {
 		curRoom->getMap(map, size);
 		player = this->player;
 
-	}
+	}*/
 	void Level::setPivot(pPhysical pivot) {
 		pivotDistance = Coordinate(pivot->getPosition(), this->pivot->getPosition().negative());		//nuovo pivot - vecchio pivot
 		this->pivot = pivot;

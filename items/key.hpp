@@ -1,7 +1,7 @@
 #ifndef KEY_HPP
 #define KEY_HPP
 
-#include "artifact.hpp"
+#include "../artifact.hpp"
 
 class Key: public item {
     protected:

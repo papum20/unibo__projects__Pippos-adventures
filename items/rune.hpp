@@ -1,7 +1,7 @@
 #ifndef RUNE_HPP
 #define RUNE_HPP
 
-#include "artifact.hpp"
+#include "../artifact.hpp"
 
 class Rune: public Artifact{
     protected:

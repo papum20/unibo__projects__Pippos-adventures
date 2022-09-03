@@ -1,8 +1,8 @@
 #ifndef SNOWMAN_HANDS_HPP
 #define SNOWMAN_HANDS_HPP
 
-#include "hands.hpp"
-#include "snowball.hpp"
+#include "../equipment/hands.hpp"
+#include "../projectiles/snowball.hpp"
 
 const int snowman_hands_movement_states=1;
 const int snowman_hands_attack_states=3;

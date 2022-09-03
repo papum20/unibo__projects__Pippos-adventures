@@ -4,7 +4,6 @@
 
 #include "coordinate.hpp"
 #include "inanimate.hpp"
-#include "room.hpp"
 
 
 class Door : public Inanimate {

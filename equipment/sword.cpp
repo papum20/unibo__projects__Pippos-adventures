@@ -1,4 +1,4 @@
-#include "sword.hpp"
+#include "../sword.hpp"
 
 sword::sword():Weapon(){
     danno_fisico_iniziale=Math::randomStep(20, 40, 5);

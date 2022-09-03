@@ -1,7 +1,7 @@
 #ifndef LIFE_ELIXR_HPP
 #define LIFE_ELIXIR_HPP
 
-#include "artifact.hpp"
+#include "../artifact.hpp"
 
 const int life_increase=1;
 

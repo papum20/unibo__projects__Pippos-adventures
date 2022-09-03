@@ -31,5 +31,8 @@ Ascia::Ascia():Weapon(){
 
     horizontal_size=Coordinate(axe_horizontal_attack_width, axe_horizontal_attack_height);
     vertical_size=Coordinate(axe_vertical_attack_width, axe_vertical_attack_height);
+
+    horizontal_attack_states=axe_horizontal_attack_states;
+    vertical_attack_states=axe_vertical_attack_states;
 }
 

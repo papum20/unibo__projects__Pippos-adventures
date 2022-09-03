@@ -27,6 +27,9 @@ Witch_Rod::Witch_Rod():Rod(){
     
     owner_id=ID_ENEMY_S;
     is_melee=false;
+
+    horizontal_attack_states=witch_rod_attack_states;
+    vertical_attack_states=witch_rod_attack_states;
 }
 
 //void Witch_Rod::shoot(){

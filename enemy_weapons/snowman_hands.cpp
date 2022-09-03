@@ -27,6 +27,8 @@ Snowman_hands::Snowman_hands():Hands(){
     is_melee=false;
     owner_id=ID_ENEMY_S;
 
+    horizontal_attack_states=snowman_hands_attack_states;
+    vertical_attack_states=snowman_hands_attack_states;
 }
 
 //void Snowman_hands::shoot(){

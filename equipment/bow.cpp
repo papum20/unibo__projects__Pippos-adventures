@@ -28,6 +28,9 @@ Arco::Arco():Weapon(){
     
     is_melee=false;
     owner_id=ID_PLAYER;
+
+    horizontal_attack_states=bow_attack_states;
+    vertical_attack_states=bow_attack_states;
 }
 
 void Arco::shoot(){

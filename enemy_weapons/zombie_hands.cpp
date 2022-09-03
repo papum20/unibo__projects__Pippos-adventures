@@ -28,4 +28,7 @@ Zombie_hands::Zombie_hands():Hands(){
     owner_id=ID_ENEMY_S;
     horizontal_size=Coordinate(zombie_horizontal_attack_width, zombie_horizontal_attack_height);
     vertical_size=Coordinate(zombie_vertical_attack_width, zombie_vertical_attack_height);
+
+    horizontal_attack_states=zombie_hands_attack_states;
+    vertical_attack_states=zombie_hands_attack_states;
 }

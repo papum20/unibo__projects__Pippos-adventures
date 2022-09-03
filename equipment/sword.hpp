@@ -9,6 +9,9 @@ const int sword_movement_states=1;
 const int sword_horizontal_attack_states=4;
 const int sword_vertical_attack_states=3;
 
+const int sword_vertical_attack_animation=2;
+const int sword_horizontal_attack_animation=4;
+
 const int sword_up_index=0;
 const int sword_down_index=1;
 const int sword_left_index=2;

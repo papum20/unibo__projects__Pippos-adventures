@@ -32,7 +32,14 @@ class Character : public Animate {
 	protected:
 
 		bool is_attacking;
-		int attack_counter;
+		int attack_counter;				//variabile che contiene il contatore a cui l'animazione fa danno
+		int attacking_states;			//variabiile che contiene il numero di animazioni d'attacco
+		//variabili di movimento
+		int idle_index;
+		int move_up_index;
+		int move_down_index;
+		int move_left_index;
+		int move_right_index;
 
 		int attack_up_states;
 		int attack_down_states;
@@ -60,7 +67,7 @@ class Character : public Animate {
 		Character();
 		Character(int maxH, int maxS);
 		
-		virtual void update(pMap map);
+		virtual void update(pMap map, int input){};
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
 		//precondizione: da richiamare con coordinate giuste
 
@@ -75,7 +82,7 @@ class Character : public Animate {
 
 		//FUNZIONI COMBATTIMENTO
 
-		pCharacter check_enemy_melee();
+		void check_enemy_melee(pMap map);
 		void initiate_attack();
 		int calculate_damage(pCharacter c);
 

@@ -1,13 +1,13 @@
 #ifndef PROJECTILE_HPP
 #define PROJECTILE_HPP
 
-#include "physical.hpp"
+#include "animate.hpp"
 #include "weapon.hpp"
 #include "animation.hpp"
 
 const int PROJECTILE_ID=800;
 
-class Projectile: public Physical{
+class Projectile: public Animate{
     protected:
         Coordinate horizontal_size;
 		Coordinate vertical_size;

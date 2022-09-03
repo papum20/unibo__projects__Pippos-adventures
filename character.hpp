@@ -5,7 +5,7 @@
 #include "artifact.hpp"
 #include "equipment/equipment.hpp"
 #include "item_difensivi.hpp"
-#include "physical.hpp"
+#include "animate.hpp"
 #include "timer.hpp"
 #include "weapon.hpp"
 #include "door.hpp"
@@ -29,7 +29,7 @@ struct equipment {
 
 
 
-class Character : public Physical {
+class Character : public Animate {
 	private:
 		//void swapPositions(Character *characters[], Coordinate a, Coordinate b);
 		

@@ -4,6 +4,7 @@
 #include "weapon.hpp"
 #include "artifact.hpp"
 #include "item_difensivi.hpp"
+#include "inanimate.hpp"
 
 const int chest_width=3;
 const int chest_height=5;
@@ -14,7 +15,7 @@ const char chest [chest_width][chest_height]=
   {' ', '*', '*', '*', ' '}
 };
 
-class Chest: public Physical{
+class Chest: public Inanimate{
     protected:
     public:
         pWeapon arma;

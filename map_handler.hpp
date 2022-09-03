@@ -10,8 +10,9 @@
 class MapHandler {
 	private:
 		//// FUNZIONI AUSILIARIE
-		static pDoor getDoorInPosition(Coordinate pos);				//door (puntatore) in una posizione
+		static pDoor getDoorInPosition(Coordinate pos);							//door (puntatore) in una posizione
 		static bool isLegalMove(pMap map, pPhysical obj, Coordinate target);	//ritorna true se obj può occupare, con le sue dimensioni, la cella target
+		static bool isFreeSpace(pMap map, Coordinate start, Coordinate end);	//ritona true se il rettangolo è vuot
 		//per check
 		static void addLineToCheck(pMap map, pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end);	//funzione ausiliaria per checkRectangle: controlla una linea
 		static int checkLine_ceil(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end);				//funzione ausiliaria per vision: checkLine, implementato con arrotondamento per eccesso
@@ -23,6 +24,7 @@ class MapHandler {
 		MapHandler();
 		static bool move(pMap map, pPhysical obj, Coordinate target);	//muove un oggetto qualsiasi (non inanimate); ritorna true se ha successo
 		static void remove(pMap map, pPhysical obj);					//rimuove un oggetto qualsiasi (non inanimate)
+		static void addProjectile(pMap map, pProjectile projectile);	//aggiunge un proiettile nella sua posizione
 
 		//// PATH FINDING
 		static int shortestPath(pMap map, Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, pPhysical obj = NULL);
@@ -64,6 +66,7 @@ class MapHandler {
 #include "door.hpp"
 #include "floor.hpp"
 #include "wall.hpp"
+#include "projectile.hpp"
 
 
 //istanze di muro e pavimento, riutilizzate sempre uguali

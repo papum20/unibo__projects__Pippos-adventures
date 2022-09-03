@@ -298,6 +298,15 @@ MapHandler::MapHandler() {
 		} while(allowed && !i.equals(target));
 		return allowed;
 	}
+	bool MapHandler::isFreeSpace(pMap map, Coordinate start, Coordinate end) {
+		Coordinate i = Coordinate(start, start, Coordinate(start, end));
+		bool allowed = true;
+		do {
+			if(map->physical[i.single()]->getId() != ID_FLOOR) allowed = false;
+			else i.next();
+		} while(allowed && !i.equals(start));
+		return allowed;
+	}
 
 //// GET
 /*	Coordinate MapHandler::getSize(pMap map) {
@@ -350,6 +359,15 @@ MapHandler::MapHandler() {
 				map->chests[i.single()] = NULL;
 				i.next();
 			} while(!i.equals(obj->getPosition()));
+		}
+	}
+	void MapHandler::addProjectile(pMap map, pProjectile projectile) {
+		if(isFreeSpace(map, projectile->getPosition(), Coordinate(projectile->getPosition(), projectile->getSize()))) {
+			Coordinate i = projectile->getPosition();
+			do {
+				map->physical[i.single()] = projectile;
+				map->projectiles[i.single()] = projectile;
+			} while(!i.equals(projectile->getPosition()));
 		}
 	}
 #pragma endregion SET_GET

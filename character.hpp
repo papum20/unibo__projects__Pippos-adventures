@@ -67,7 +67,7 @@ class Character : public Animate {
 		Character();
 		Character(int maxH, int maxS);
 		
-		virtual void update(pMap map, int input){};
+		virtual void update(pMap map);
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
 		//precondizione: da richiamare con coordinate giuste
 

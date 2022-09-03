@@ -58,8 +58,10 @@ class Coordinate {
 		int inty();
 		int ceilx();									//coordinate intere (arrotondate per eccesso)
 		int ceily();
-		float relative_x();								//relativi alla matrice
+		float relative_x();								//relativi alla matrice (float)
 		float relative_y();
+		int rel_int_x();								//relativi alla matrice (intero)
+		int rel_int_y();
 		s_coord single();								//converte in una singola coordinata, rispetto a una matrice finita (=y*width + x) (usa parte intera delle coordinate)
 		s_coord single_ceil();							//single (usa arrotondamenti per eccesso delle coordinate)
 };

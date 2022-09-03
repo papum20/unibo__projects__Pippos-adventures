@@ -71,6 +71,10 @@ class Physical {
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
 		bool drawn;		//mark se l'oggetto è stato disegnato per il frame corrente
 
+		//// FUNZIONI AUSILIARIE
+		virtual void drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color);	//riempie una cella
+		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata
+
 	public:
 		int current_animation;
 		
@@ -80,7 +84,7 @@ class Physical {
 		virtual void destroy();
 
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
-		//precondizione: da richiamare con coordinate giuste
+		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata
 		void drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size);						//disegna l'oggetto nella finestra, nella sua posizione, secondo la sua animazione, entro i limiti della finestra
 		//precondizione: da richiamare con coordinate giuste
 
@@ -90,6 +94,7 @@ class Physical {
 		bool isProjectile();
 		//bool isItem();			//se è item/artefatto...
 		bool findInArray(Physical *A[ROOM_AREA], int len);
+		virtual bool animationMask(Coordinate pos);		//true se la posizione, relativa all'animazione, copre quello che c'è sotto
 
 		// GET
 		int getId();

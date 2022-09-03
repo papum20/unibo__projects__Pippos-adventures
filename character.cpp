@@ -19,24 +19,21 @@ void Character::update(pMap map) {
 
 void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
 	if(!drawn) {
-		Animation a_weapon = equipaggiamento.arma->getCurrentAnimation();
-		Coordinate draw_start = Coordinate(pos, equipaggiamento.arma->getOffset().negative());
-		Coordinate draw_end = Coordinate(draw_start, a_weapon.size);
-		Coordinate character_start = pos, character_end = Coordinate(character_start, getCurrentAnimation().size);
-		Coordinate win_end = Coordinate(win_start, win_size);
+		Animation a_weapon = equipaggiamento.arma->getCurrentAnimation();											//arma
+		Coordinate draw_start = Coordinate(pos, equipaggiamento.arma->getOffset().negative());						//inizio disegno (con l'arma), sulla mappa
+		Coordinate draw_end = Coordinate(draw_start, a_weapon.size);												//fine il disegno
+		Coordinate character_start = pos, character_end = Coordinate(character_start, getCurrentAnimation().size);	//inizio e fine disegno del character
+		Coordinate win_end = Coordinate(win_start, win_size);														//fine finestra
 
 		Coordinate local = Coordinate(0, 0, a_weapon.size);										//coordinata relativa all'animazione, all'interno di essa
 		do {
-			Coordinate global = Coordinate(Coordinate(local, draw_start), win_start, win_end);	//coordinata globale di relative, sulla mappa
+			Coordinate global = Coordinate(Coordinate(local, draw_start), win_start, win_end);	//coordinata globale di local, sulla mappa
 			if(global.inOwnBounds()) {															//se il punto è interno alla finestra da disegnare
-				Coordinate relative = Coordinate(global, draw_start.negative());				//coordinate relativa allo schermo da disegnare
-		
 				if(equipaggiamento.arma->animationMask(local))									//se c'è l'arma: copre qualsiasi cosa
-					scr[relative.inty()][relative.intx()] = Cell(a_weapon.state[local.single()], equipaggiamento.arma->get_MainColor(), -1, -1);
+					scr[global.rel_int_y()][global.rel_int_x()] = Cell(a_weapon.state[local.single()], equipaggiamento.arma->get_MainColor(), -1, -1);
 				else if(global.inBounds(character_start, character_end)) {						//altrimenti, se c'è il character, disegna il character
-					Coordinate local_character = Coordinate(relative, character_start.negative());
-					char cell = getCurrentAnimation().state[local_character.single()];
-					if(cell != CHAR_EMPTY) scr[relative.inty()][relative.intx()] = Cell(cell, main_color, -1, -1);
+					Coordinate local_character = Coordinate(global, character_start.negative());
+					if(animationMask(local_character)) scr[global.rel_int_y()][global.rel_int_x()] = Cell(getCurrentAnimation().state[local_character.single()], main_color, -1, -1);
 				}
 			}
 		} while(!local.equals(draw_start));
@@ -44,7 +41,6 @@ void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate
 		drawn = true;
 	}
 }
-
 
 /*bool Character::map->move(pMap  Coordinate move) {
 	Coordinate newPos = Coordinate(pos, move);

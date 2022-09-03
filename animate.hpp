@@ -25,6 +25,7 @@ class Animate : public Physical {
 
 	public:
 		Animate();
+
 		attr_t get_MainColor();
 		
 		//MOVE

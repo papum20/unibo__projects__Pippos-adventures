@@ -409,6 +409,7 @@ class Inventory : public Pixel_art{
         bool is_active();
         void close();
         void update_w_use(int array_index);
+        int random_item();
 
         
 };      

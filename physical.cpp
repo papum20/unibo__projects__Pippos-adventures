@@ -10,12 +10,16 @@ Physical::Physical() {
     //inizializza animation
     for(int i = 0; i < MAX_ANIMATIONS; i++) 
         animations[i] = NULL;
+    animations_n = 0;
 }
 
-void Physical::copy(Physical B) {
+void Physical::copyPhysical(Physical B) {
     pos = B.pos;
     size = B.size;
     id = B.id;
+    animations_n = B.animations_n;
+    for(int i = 0; i < animations_n; i++) animations[i] = B.animations[i];
+    current_animation = B.current_animation;
 }
 
 void Physical::update(pMap map) {

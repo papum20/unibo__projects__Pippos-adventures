@@ -31,6 +31,8 @@ Arco::Arco():Weapon(){
 
     horizontal_attack_states=bow_attack_states;
     vertical_attack_states=bow_attack_states;
+
+    projectile= Arrow(danno_fisico, danno_magico, direction, owner_id);
 }
 
 pProjectile Arco::shoot(){

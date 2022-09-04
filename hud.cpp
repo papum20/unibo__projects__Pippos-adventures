@@ -11,6 +11,7 @@ Hud::Hud(int x, int y, pPlayer player){
     max_stamina=max_s;
 }*/
 
+void Hud::drawHud() {}
 /*void Hud::drawHud (int curr_health, int curr_st, int hearts){
     int health_counter;             //serve a contare quanto della barra della vita colorare
     int stamina_counter;            //serve a contare quanto della barra della stamina colorare

@@ -11,7 +11,7 @@ class Artifact: public item{
     public:
         Artifact();
         Artifact(const char n[], const char desc[]);
-		void copy(Artifact B);			//copia i parametri di B
+		//void copy(Artifact B);			//copia i parametri di B
 
         //virtual void use_item (Player *p);
         virtual void use_item (pItem item, int &stat);

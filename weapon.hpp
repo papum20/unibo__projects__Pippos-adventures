@@ -10,6 +10,7 @@ using namespace std;
 
 class Weapon : public item {
 	protected:
+		Projectile projectile;
 		Coordinate offset;	//punto in cui "attaccare" l'animazione del character su quella della weapon, rispetto all'angolo in basso a sinistra
 		
 	public:
@@ -32,7 +33,7 @@ class Weapon : public item {
 
 		Weapon();
 		Weapon(int danno_f, int danno_m, const char rar[], const char n[], const char desc[]);
-		void copy(Weapon B);		//copia gli attributi di B
+		void copyWeapon(Weapon B);		//copia gli attributi di B
 
 		void apply_rune();
 		void apply_rarity();

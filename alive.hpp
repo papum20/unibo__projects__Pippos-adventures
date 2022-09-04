@@ -15,6 +15,7 @@ class Alive : public Animate {
 
 		Alive();
 		Alive(int maxH, int curH);
+		void copyAlive(Alive B);
 
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce
 };

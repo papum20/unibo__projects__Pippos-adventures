@@ -23,6 +23,7 @@ class item: public Animate{
         item ();
         item (const char n[], const char desc[]);
         item(const char rar[], const char n[], const char desc[]);
+        void copyItem(item B);
 
         bool check_rarity();
 

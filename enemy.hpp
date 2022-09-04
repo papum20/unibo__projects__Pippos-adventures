@@ -15,7 +15,7 @@ class Enemy : public Character {
 	public:
 		Enemy();
 		Enemy(int max_health, int max_stamina, int p_g);
-		void copy(Enemy B);			//copia i parametri di B
+		void copyEnemy(Enemy B);			//copia i parametri di B
 
 		void update(pMap map);
 };

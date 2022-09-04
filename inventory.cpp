@@ -17,6 +17,7 @@ this->w_item = newwin(39, 70, 12, 95);
 this->w_weapon = newwin(32, 31, 14, 96);
 this->w_equip = newwin(35, 100, 12, 50);
 this->w_options = newwin(30, 75, yMax/2 - 12, xMax/2-35);
+this->w_use=newwin(4, 13, w_use_high, w_use_width);
 
 highlight=0;
 u_highlight=1;
@@ -241,19 +242,19 @@ for(int i = 0; i<n_graphic_types_items; i++){
 wrefresh(w_weapon);
 }
 
-void Inventory::useOrdiscardItem(int y_position, int x_position, int array_index, Player * p){//c'è il menu solo se premi invio
+void Inventory::useOrdiscardItem(int y_position, int x_position, int array_index){//c'è il menu solo se premi invio
 w_use_is_active=true;
 
-    y_position = y_position + 15;
-    x_position = x_position + 20;
-WINDOW * w_use = newwin(4, 13, y_position, x_position);
+    w_use_high = y_position + 15;
+    w_use_width = x_position + 20;
+
 box(w_use, 0, 0);
 keypad(w_zaino, false);
 wattron(w_use, COLOR_PAIR(3));
 
 if(((check_class_name(array_index))==3)){
     mvwprintw(w_use, 1, 4, "usa");
-    is_item=true;
+    
 }
 else
     mvwprintw(w_use, 1, 2, "equipaggia");
@@ -270,8 +271,11 @@ wrefresh(w_use);
 
 }
 
-void Inventory::update_w_use(int array_index){
+void Inventory::update_w_use(int array_index, Player * p){
 bool is_item = false;
+if((check_class_name(array_index))==3)
+ is_item=true;
+
 int choice;
 choice = (*p_input);
 if(choice==esc){
@@ -332,10 +336,13 @@ if(u_highlight==2){
 if(choice==invio){
     if(is_item){
         pArtifact tmp =  static_cast< Artifact *>(objects[array_index]);
-        if(tmp->getId() == ID_HEALTH_POTION) tmp->use_item(p->getEqipment(), p->curHealth);
-        else if(tmp->getId() == ID_KEY) tmp->use_item(p->getEqipment(), p->n_keys);
-        else if(tmp->getId() == ID_LIFE_ELIXIR) tmp->use_item(p->getEqipment(), p->n_hearts);
-        else if(tmp->getId() == ID_RUNE) tmp->use_item(p->getEqipment(), p->n_hearts);
+        if(tmp->getId() == ID_HEALTH_POTION) tmp->use_item(objects[array_index], p->curHealth);
+        else if(tmp->getId() == ID_KEY) tmp->use_item(objects[array_index], p->n_keys);
+        else if(tmp->getId() == ID_LIFE_ELIXIR) tmp->use_item(objects[array_index], p->n_hearts);
+        else if(tmp->getId() == ID_RUNE) {
+          int item_index=random_item();
+          if(item_index!=(-1))
+            tmp->use_item(objects[item_index], p->n_hearts);}
         fix_array(array_index, p);
         clean_window(w_zaino, 24, 44);
         keypad(w_use, false); 
@@ -455,7 +462,7 @@ wrefresh(win);
 void Inventory::zaino_menu(int array_index, Player * p){
 zaino_is_active=true;
 if(w_use_is_active==true){
-  update_w_use(array_index);
+  update_w_use(array_index, p);
   return;
 }
     box(w_zaino, 0, 0);
@@ -502,7 +509,7 @@ choice=(*p_input);
     return;
     }
     if(choice==invio){
-        useOrdiscardItem(high-1, xMax - 8, z_highlight, p);
+        useOrdiscardItem(high-1, xMax - 8, z_highlight);
     }
     if(choice==scroll_up){
         werase(w_item);
@@ -602,7 +609,7 @@ void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index,
 }
 
 void Inventory::equip_menu(Player * p){
-w_equip_is_actice=true;
+w_equip_is_active=true;
 int yMax, xMax;
 getmaxyx(w_equip, yMax, xMax);
 box(w_equip, 0, 0);

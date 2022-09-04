@@ -185,7 +185,7 @@ class Arco: public Weapon{
     public:
 		Arco();
 
-		pProjectile shoot();
+		//pProjectile shoot();
 };
 
 #endif

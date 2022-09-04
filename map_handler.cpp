@@ -151,11 +151,6 @@ MapHandler::MapHandler() {
 	pAlive MapHandler::checkAlive(pMap map, Coordinate pos) {
 		return checkCharacter(map, pos);
 	}
-	pCharacter MapHandler::checkCharacter(pMap map, Coordinate pos) {
-		if(pos.inBounds(Coordinate(0, 0),map->size) && map->characters[pos.single()] != NULL)
-			return map->characters[pos.single()];
-		else return NULL;
-	}
 	pChest MapHandler::checkChest(pMap map, Coordinate pos) {
 		if(pos.inBounds(Coordinate(0, 0),map->size) && map->chests[pos.single()] != NULL)
 			return map->chests[pos.single()];
@@ -163,7 +158,7 @@ MapHandler::MapHandler() {
 	}
 	pDoor MapHandler::checkDoor(pMap map, Coordinate pos) {
 		if(pos.inBounds(Coordinate(0, 0),map->size) && map->physical[pos.single()]->getId() == ID_DOOR)
-			return getDoorInPosition(pos);
+			return getDoorInPosition(map, pos);
 		else return NULL;
 	}
 
@@ -317,12 +312,6 @@ MapHandler::MapHandler() {
 	}
 
 //// GET
-/*	Coordinate MapHandler::getSize(pMap map) {
-		returnmap->size;
-	}
-	int MapHandler::get_n_doors_max(pMap map) {
-		return n_doors_max;
-	}
 	pDoor MapHandler::getDoorInPosition(pMap map, Coordinate pos) {
 		bool found = false;
 		int d = 0;
@@ -332,6 +321,12 @@ MapHandler::MapHandler() {
 		}
 		if(!found) return NULL;
 		else return map->doors[d];
+	}
+/*	Coordinate MapHandler::getSize(pMap map) {
+		returnmap->size;
+	}
+	int MapHandler::get_n_doors_max(pMap map) {
+		return n_doors_max;
 	}*/
 
 //// EDIT

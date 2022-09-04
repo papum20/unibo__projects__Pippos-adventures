@@ -26,6 +26,7 @@ class Animate : public Physical {
 		int attack_right_index;
 		
 		Animate();
+		void copyAnimate(Animate B);
 
 		attr_t get_MainColor();
 		

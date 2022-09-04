@@ -212,6 +212,9 @@ void Player::modify_lifes (int delta){
 		n_hearts=n_hearts+delta;
 }
 
+int Player::get_points(){
+	return points;
+}
 
 void Player::change_points(int delta){
     points+=delta;

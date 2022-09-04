@@ -10,6 +10,8 @@ class Alive : public Animate {
 	public:
 		int maxHealth;
 		int curHealth;
+		int maxStamina;
+		int curStamina;
 		int difesa_fisica;
 		int difesa_magica;
 

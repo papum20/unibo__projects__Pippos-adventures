@@ -7,6 +7,21 @@
 
 using namespace std;
 
+struct list{
+    int val;
+    list* next;
+};
+
+typedef list* p_list;
+
+#define HUD_HEIGHT 8
+
+const int n_rows=4;
+const int n_columns=6;
+
+const int p_rows=5;
+const int p_columns=6;
+
 const int hud_altezza = 6;
 
 const int barra_righe=2;
@@ -47,6 +62,21 @@ const char inventary[inventary_rows][inventary_columns]=
   {'|', '_', '_', '_', '_', '_', '_', '|'}
 };
 
+const char n[n_rows][n_columns]=
+{ {'|', '\\', ' ', ' ', ' ', '|'},
+  {'|', ' ', '\\', ' ', ' ', '|'},
+  {'|', ' ', ' ', '\\', ' ', '|'},
+  {'|', ' ', ' ', ' ', '\\', '|'},
+};
+
+const char p[p_rows][p_columns]=
+{ {' ', '_', '_', '_', '_', ' '},
+  {'|', ' ', ' ', ' ', ' ', '|'},
+  {'|', '_', '_', '_', '_', '|'},
+  {'|', ' ', ' ', ' ', ' ', ' '},
+  {'|', ' ', ' ', ' ', ' ', ' '}
+};
+
 const char zero[number_rows][number_columns]=
 { {' ', '_', '_', '_', ' '},
   {'|', ' ', ' ', ' ', '|'},
@@ -56,11 +86,11 @@ const char zero[number_rows][number_columns]=
 };
 
 const char one[number_rows][number_columns]=
-{ {' ', ' ', ' ', '/', '|'},
-  {' ', ' ', '/', ' ', '|'},
-  {' ', '/', ' ', ' ', '|'},
-  {'/', ' ', ' ', ' ', '|'},
-  {' ', ' ', ' ', ' ', '|'}	
+{ {' ', ' ', ' ', ' ', ' '},
+  {' ', ' ', '/', '|', ' '},
+  {' ', '/', ' ', '|', ' '},
+  {' ', ' ', ' ', '|', ' '},
+  {' ', ' ', ' ', '|', ' '}	
 };
 
 const char two[number_rows][number_columns]=
@@ -72,15 +102,15 @@ const char two[number_rows][number_columns]=
 };
 
 const char three[number_rows][number_columns]=
-{ {'_', '_', '_', '_', ' '},
+{ {' ', '_', '_', '_', ' '},
   {' ', ' ', ' ', ' ', '|'},
-  {'_', '_', '_', '_', '|'},
+  {' ', '_', '_', '_', '|'},
   {' ', ' ', ' ', ' ', '|'},
-  {'_', '_', '_', '_', '|'}	
+  {' ', '_', '_', '_', '|'}	
 };
 
 const char four[number_rows][number_columns]=
-{ {' ', ' ', ' ', '/', ' '},
+{ {' ', ' ', ' ', ' ', ' '},
   {' ', ' ', '/', ' ', ' '},
   {' ', '/', ' ', ' ', ' '},
   {'/', '_', '_', '_', '|'},
@@ -127,6 +157,7 @@ const char nine[number_rows][number_columns]=
   {' ', '_', '_', '_', '|'}	
 };
 
+
 class Hud {
 	private:
 		WINDOW* hud_win;
@@ -134,19 +165,21 @@ class Hud {
 		int y_win;
 		int max_health;
 		int max_stamina;
-		Pixel_art pix;
-
+    pPlayer player;
 	public:
-    Hud(int x, int y, pPlayer player);
-		//Hud(WINDOW* win, int max_h, int max_s);
-		//costruttore
+    Hud(int x, int y, pPlayer p);
+
 		void drawHud();		//disegna hud (in gioco)
+    void draw_number(int x, int y, int number);
+    void draw_points(int x, int y);
+    void draw_n(int x, int y);
+    void draw_p(int x, int y);
 		//void drawHud(int curr_health, int curr_st, int hearts);		//disegna hud (in gioco)
 		//void startMenu();	//inizializza il menu (quando si preme il tasto pausa)
 		//void updateMenu();	//disegna menu (solo se in pausa)
+
+    p_list head_insert (p_list head, int x);
 };
-
-
 
 
 

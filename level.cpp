@@ -3,6 +3,12 @@
 
 #pragma region MAIN
 	Level::Level(int win_y, int win_x, int win_h, int win_w, pPlayer player) {
+		setUp(win_y, win_x, win_h, win_w, player);
+	}
+	Level::Level(int win_y, int win_x, pPlayer player) {
+		setUp(win_y, win_x, CAMERA_HEIGHT, CAMERA_WIDTH, player);
+	}
+	void Level::setUp(int win_y, int win_x, int win_h, int win_w, pPlayer player) {
 		width = CAMERA_WIDTH;
 		height = CAMERA_HEIGHT;
 		lr_border = LR_BORDER;
@@ -22,9 +28,6 @@
 		lastMovement = Coordinate(0, 0);
 		pivot = player;
 		pivotChanged = true;
-	}
-	Level::Level(int win_y, int win_x, pPlayer player) {
-		Level(win_y, win_x, CAMERA_HEIGHT, CAMERA_WIDTH, player);
 	}
 
 	void Level::generateMap()

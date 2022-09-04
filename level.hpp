@@ -107,6 +107,7 @@ class Level {
 		void nextLevel();						//passa al livello successivo
 		
 		// FUNZIONI AUSILIARIE
+		void setUp(int win_y, int win_x, int win_h, int win_w, pPlayer player);				//setup per costruttore
 		lock_type randLockedDoor(Room A, Room B);												//(per generate) ritorna casualmente se la/le porta/e tra la stanza da generare e room devono essere bloccate
 		pConnectedRoom findRoomAtCoordinates(pConnectedRoom rooms[], int len, Coordinate c);	//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		void cameraUpdate();																	//calcola il centro della camera

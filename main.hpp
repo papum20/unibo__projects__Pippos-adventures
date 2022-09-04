@@ -9,6 +9,7 @@
 
 #include "hud.hpp"
 #include "inputmanager.hpp"
+#include "inventory.hpp"
 #include "menu.hpp"
 
 #include "level.hpp"

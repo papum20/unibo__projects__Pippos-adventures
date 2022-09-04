@@ -10,7 +10,6 @@ class boots: public item_difensivo{
 
     public:
         boots();
-        boots (int dif, int d_mag, const char rar[], const char n[], const char desc[]);
 
         char get_type();
 };

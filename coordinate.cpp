@@ -16,7 +16,7 @@
 	Coordinate::Coordinate(float x, float y, Coordinate size) {
 		this->x = x;
 		this->y = y;
-		setMatrix(size);
+		setFullMatrix(COORDINATE_ZERO, size);
 	}
 	Coordinate::Coordinate(Coordinate pos, Coordinate start, Coordinate end) {
 		x = pos.x;
@@ -57,10 +57,10 @@
 	bool Coordinate::inBoundsY(float ymin, float ymax) {
 		return (y >= ymin && y <= ymax);
 	}*/
-	bool Coordinate::equals(Coordinate B) {
+	bool Coordinate::equals(Coordinate B) const {
 		return x == B.x && y == B.y;
 	}
-	bool Coordinate::equals_int(Coordinate B) {
+	bool Coordinate::equals_int(Coordinate B) const {
 		return intx() == B.intx() && inty() == B.inty();
 	}
 	bool Coordinate::lessEqual(Coordinate B) {
@@ -81,6 +81,7 @@
 		return Coordinate(Coordinate(x * px, y * py), Coordinate(startx, starty), Coordinate(endx, endy));
 	}
 	void Coordinate::next() {
+		x = intx(), y = inty();
 		if(x >= endx - 1) {
 			x = startx;
 			if(y >= endy - 1) y = starty;
@@ -103,9 +104,9 @@
 		if(size.y > 0) this->endy = starty + size.y;
 	}
 	void Coordinate::setFullMatrix(Coordinate start, Coordinate end) {
-		if(start.x <= 0) start.x = startx;
+		if(start.x < 0) start.x = startx;
 		if(end.x <= 0) end.x = endx;
-		if(start.y <= 0) start.y = starty;
+		if(start.y < 0) start.y = starty;
 		if(end.y <= 0) end.y = endy;
 		if(start.x < end.x) {
 			startx = start.x;
@@ -124,10 +125,10 @@
 	}
 
 //GET
-	int Coordinate::intx() {
+	int Coordinate::intx() const {
 		return x;
 	}
-	int Coordinate::inty() {
+	int Coordinate::inty() const {
 		return y;
 	}
 	int Coordinate::ceilx() {

@@ -3,7 +3,6 @@
 item_difensivo::item_difensivo():item(){
     id=ID_ITEM_DIFENSIVO_S;
     is_equipped=false;
-    apply_rarity();
 }
 
 
@@ -35,4 +34,8 @@ void item_difensivo::apply_rarity(){
         difesa_fisica=difesa_fisica_iniziale*4;
         difesa_magica=difesa_magica_iniziale*4;
     }
+}
+
+char item_difensivo::get_type() {
+    return -1;
 }

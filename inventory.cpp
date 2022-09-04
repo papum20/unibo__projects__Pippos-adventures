@@ -1,6 +1,5 @@
 #include "inventory.hpp"
 
-#include <cstring>
 
 Inventory::Inventory(Player * p, int * input):Pixel_art(){
 p_input=input;

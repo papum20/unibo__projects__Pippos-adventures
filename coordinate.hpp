@@ -41,8 +41,8 @@ class Coordinate {
 		//BOOL
 		bool inBounds(Coordinate mn, Coordinate mx);					//ritorna true se xmin<=x<xmax && ymin<=y<ymax
 		bool inOwnBounds();
-		bool equals(Coordinate B);										//se hanno stessi x e y
-		bool equals_int(Coordinate B);									//equals, ma confronta la parte intera
+		bool equals(Coordinate B) const;								//se hanno stessi x e y
+		bool equals_int(Coordinate B) const;							//equals, ma confronta la parte intera
 		bool lessEqual(Coordinate B);									//x<B.x && yB.y
 		//EDIT
 		Coordinate negative() const;									//=(-x, -y)
@@ -54,8 +54,8 @@ class Coordinate {
 		void setMatrix(Coordinate size);								//imposta l'estremo finale come estremo iniziale + size; non imposta una coordinata se <=0 (può anche impostarne solo una)
 		void setFullMatrix(Coordinate start, Coordinate end);			//si può usare un qualsiasi rettangolo, con vertici qualsiasi; non imposta se <0(imposta solo i valori validi)
 		//GET
-		int intx();										//coordinate intere
-		int inty();
+		int intx() const;								//coordinate intere
+		int inty() const;
 		int ceilx();									//coordinate intere (arrotondate per eccesso)
 		int ceily();
 		float relative_x();								//relativi alla matrice (float)
@@ -67,9 +67,9 @@ class Coordinate {
 };
 
 
-const Coordinate COORDINATE_ZERO = Coordinate(0, 0);			//COORDINATA DI RITORNO "DI ERRORE"
-const Coordinate COORDINATE_ONE = Coordinate(1, 1);				//COORDINATA DI RITORNO "DI ERRORE"
-const Coordinate COORDINATE_NEGATIVE = Coordinate(-1, -1);		//COORDINATA DI RITORNO "DI ERRORE"
+const Coordinate COORDINATE_ZERO = Coordinate(0, 0);
+const Coordinate COORDINATE_ONE = Coordinate(1, 1);
+const Coordinate COORDINATE_NEGATIVE = Coordinate(-1, -1);
 const Coordinate COORDINATE_ERROR = COORDINATE_NEGATIVE;		//COORDINATA DI RITORNO "DI ERRORE"
 
 //// DIREZIONI
@@ -80,7 +80,7 @@ const Coordinate COORDINATE_ERROR = COORDINATE_NEGATIVE;		//COORDINATA DI RITORN
 #define DIRECTION_RIGHT 1
 #define DIRECTION_DOWN 2
 #define DIRECTION_LEFT 3
-const Coordinate DIRECTIONS[DIRECTIONS_N] = {{0,1},{1,0},{0,-1},{-1,0}};
+const Coordinate DIRECTIONS[DIRECTIONS_N] = {Coordinate(0,1), Coordinate(1,0), Coordinate(0,-1), Coordinate(-1,0)};	//up, right, down, left
 
 
 #endif

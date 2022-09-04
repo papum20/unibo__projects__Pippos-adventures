@@ -4,7 +4,7 @@
 //face
 const int face_hight= 32; 
 const int face_lenght=65;
-bool face[face_hight][face_lenght]={
+const bool face[face_hight][face_lenght]={
 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},//1
 {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},//2
 {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},//3
@@ -44,7 +44,7 @@ bool face[face_hight][face_lenght]={
 const int N_ALPHABET = 33;
 const int ALPHABET_LENGHT = 5;
 const int ALPHABET_HIGHT = 5;
-int ALPHABET[N_ALPHABET][ALPHABET_LENGHT][ALPHABET_HIGHT]={
+const int ALPHABET[N_ALPHABET][ALPHABET_LENGHT][ALPHABET_HIGHT]={
      {   {1, 1, 1, 1, 1}, //a   1 
         {1, 0, 0, 0, 1},
         {1, 1, 1, 1, 1},
@@ -257,7 +257,7 @@ class Pixel_art {
     void convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, char c, bool highlight);
     void pixel_phrase(WINDOW* menu, int start_x, int start_y, const char string[], bool highlight);
     void clean_window(WINDOW* window, int w_hight, int w_lenght);//questa funzione mi serve per l'inventario
-    void print_face(WINDOW* facewin, bool face[][face_lenght], int face_lenght, int face_hight);
+    void print_face(WINDOW* facewin, const bool face[][face_lenght], int face_lenght, int face_hight);
 };
 
 

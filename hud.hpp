@@ -1,7 +1,6 @@
 #ifndef HUD_HPP
 #define HUD_HPP
 
-#include "pixel_art.hpp"
 #include <curses.h>
 #include "player.hpp"
 
@@ -21,8 +20,6 @@ const int n_columns=6;
 
 const int p_rows=5;
 const int p_columns=6;
-
-const int hud_altezza = 6;
 
 const int barra_righe=2;
 const int barra_colonne=46;

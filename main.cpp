@@ -5,7 +5,7 @@ using namespace std;
 
 
 int main() {
-
+return 0;
 	bool isRunning = true;
 	bool isPaused = false;
 	Timer refresh_timer = Timer();
@@ -23,17 +23,17 @@ int main() {
 	//finestra di input (in basso a destra, sotto level)
 	int input_x = level_x + CAMERA_WIDTH - input_l, input_y = level_y + CAMERA_HEIGHT;
 	//finestra hud (in alto)
-	int hud_x = level_x, hud_y = level_y - hud_altezza;
+	int hud_x = level_x, hud_y = level_y - HUD_HEIGHT;
 
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
 	pPlayer player = new Player(inputManager);
-	Level level = Level(level_x, level_y, player);
-	Menu menu = Menu(inputManager);
+	//Level level = Level(level_x, level_y, player);
+	//Menu menu = Menu(inputManager);
 	Hud hud = Hud(hud_x, hud_y, player);
 
 
-
+/*
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while(isRunning)
 	{
@@ -57,7 +57,7 @@ int main() {
 			hud.drawHud();
 		}
 	}
-
+*/
 
 	//// END
 	cursesEnd();

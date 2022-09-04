@@ -4,7 +4,7 @@
 #include <iostream>
 #include <curses.h>
 #include <cstring>
-#include "pixel_art.cpp"
+#include "pixel_art.hpp"
 
 #include "item_difensivi.hpp"
 #include "weapon.hpp"
@@ -35,7 +35,7 @@ const int n_max_inventory_objects = 18;
 
 
 
-char graphic_items[n_graphic_types_items][w_graphic_high][w_graphic_lenght]={
+const char graphic_items[n_graphic_types_items][w_graphic_high][w_graphic_lenght]={
  
  {  {' ',' ',' ',' ',' ',' ',' ',' ',' ','^',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
     {' ',' ',' ',' ',' ',' ',' ',' ','/',' ','\\',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},

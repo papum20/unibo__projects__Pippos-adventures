@@ -1,4 +1,4 @@
-#include "pixel_Art.hpp"
+#include "pixel_art.hpp"
 
 
 
@@ -185,7 +185,7 @@ for(int i=1; i<w_hight; i++){
 }   
 }
 
-void Pixel_art::print_face(WINDOW* facewin, bool face[][face_lenght], int face_lenght, int face_hight){ 
+void Pixel_art::print_face(WINDOW* facewin, const bool face[][face_lenght], int face_lenght, int face_hight){ 
 int r;
 init_pair(3, COLOR_WHITE, COLOR_BLACK);
 init_pair(4, COLOR_BLACK, COLOR_BLACK);

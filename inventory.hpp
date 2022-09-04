@@ -404,6 +404,7 @@ class Inventory : public Pixel_art{
         void update(Player * p);
         int check_class_name(int array_index);
         bool is_active();
+        void close();
 
         
 };      

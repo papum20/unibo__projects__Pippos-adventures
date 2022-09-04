@@ -242,3 +242,6 @@ void Player::modify_lifes (int delta){
 void Player::change_points(int delta){
     points+=delta;
 }
+pDoor Player::usedDoor() {
+	return used_door;
+}

@@ -5,6 +5,10 @@ item_difensivo::item_difensivo():item(){
     is_equipped=false;
     apply_rarity();
 }
+item_difensivo::item_difensivo(int dif_f, int dif_m, const char rar[], const char n[], const char desc[]):item() {
+    
+}
+
 
 void item_difensivo::copyItemDifensivo(item_difensivo B) {
     difesa_fisica_iniziale=B.difesa_fisica_iniziale;

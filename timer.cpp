@@ -83,6 +83,9 @@ void Timer::finish_pause(int timer){
 void Timer::set_max(int timer, double val) {
 	if(val > 0)	max_time[timer] = val;
 }
+bool Timer::is_active(int timer) {
+	return active_timers[timer];
+}
 double Timer::deltaTime() {
 	double current = current_time();
 	double delta = current - last_frame_time;

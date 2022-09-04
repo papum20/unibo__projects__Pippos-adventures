@@ -69,6 +69,8 @@ class Physical {
 	protected:
 		Coordinate pos;
 		Coordinate size;
+		Coordinate speed;
+		Coordinate lastMove;
 		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali

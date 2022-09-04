@@ -128,6 +128,7 @@ const int MAX_ARTIFACTS=10;
 
 class Player : public Character {
 	private:
+		pDoor used_door;		//porta che sta usando
 	protected:
 		int points;
 

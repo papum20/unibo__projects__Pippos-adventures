@@ -15,6 +15,9 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	n_keys = 0;
 	id=ID_PLAYER;
 	main_color = COLOR_PLAYER;
+	points = 0;
+
+	used_door = NULL;
 
 	animations[player_idle_index] = new Animation(idle, Coordinate(p_height, p_width), player_idle_states);
 	

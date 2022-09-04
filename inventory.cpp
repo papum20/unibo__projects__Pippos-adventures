@@ -528,7 +528,7 @@ choice=(*p_input);
             high = tmp;
         }
         if(curr_inventory_space==0){
-            z_highlight=1;
+            z_highlight=0;
             zaino_menu(1, p);
         }
         item_menu(z_highlight);
@@ -678,7 +678,7 @@ if(options_is_active==true){
   return;
        }  
 if(zaino_is_active==true){
-  z_highlight=1;
+  z_highlight=0;
   zaino_menu(1, p);
   return;
        }  
@@ -724,7 +724,7 @@ if(w_equip_is_active==true){
     }
     if(choice==10){
         if(highlight==1){
-            z_highlight=1;
+            z_highlight=0;
             zaino_menu(1, p);
             wrefresh(w_inventory);
         }

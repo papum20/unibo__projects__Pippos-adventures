@@ -10,6 +10,7 @@ using namespace std;
 
 class Weapon : public item {
 	protected:
+		Projectile projectile;
 		Coordinate offset;	//punto in cui "attaccare" l'animazione del character su quella della weapon, rispetto all'angolo in basso a sinistra
 		
 	public:
@@ -36,7 +37,7 @@ class Weapon : public item {
 
 		void apply_rune();
 		void apply_rarity();
-		virtual pProjectile shoot();
+		pProjectile shoot();
 
 		Coordinate getOffset();
 		void initiate_attack(char d);

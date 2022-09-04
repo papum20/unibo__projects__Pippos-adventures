@@ -6,6 +6,9 @@ Weapon::Weapon ():item(){
     main_color = COLOR_WEAPON;
 }
 
+void Weapon::copy(Weapon B) {
+    
+}
 
 void Weapon::apply_rune(){
     if (this->check_rarity())
@@ -53,4 +56,10 @@ void Weapon::initiate_attack(char d){
 
 bool Weapon::animationMask(Coordinate pos) {
     return getCurrentAnimation().state[pos.single()] != CHAR_EMPTY && getCurrentAnimation().state[pos.single()] != CHAR_WEAPON_MASK;
+}
+
+pProjectile Weapon::shoot() {
+    pProjectile res = new Projectile;
+    res->copy(projectile);
+    return res;
 }

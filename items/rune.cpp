@@ -1,5 +1,9 @@
 #include "rune.hpp"
 
+Rune::Rune() : Artifact() {
+
+}
+
 Rune::Rune(const char n[], const char desc[]):Artifact(n, desc){
 
 }

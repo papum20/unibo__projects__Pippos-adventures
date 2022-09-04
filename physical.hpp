@@ -72,10 +72,11 @@ class Physical {
 		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
+		int animations_n;
 		bool drawn;		//mark se l'oggetto è stato disegnato per il frame corrente
 
 		//// FUNZIONI AUSILIARIE
-		virtual void drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color);	//riempie una cella
+		//virtual void drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color);	//riempie una cella
 		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata
 
 	public:

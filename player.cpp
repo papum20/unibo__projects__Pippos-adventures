@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include "map_handler.hpp"
 
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina) {
 	in_manager=in;

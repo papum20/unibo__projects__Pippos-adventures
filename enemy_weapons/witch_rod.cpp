@@ -30,9 +30,11 @@ Witch_Rod::Witch_Rod():Rod(){
 
     horizontal_attack_states=witch_rod_attack_states;
     vertical_attack_states=witch_rod_attack_states;
+
+    projectile= Spell(danno_fisico, danno_magico, direction, owner_id);
 }
 
-pProjectile Witch_Rod::shoot(){
-    pSpell magia= new Spell(danno_fisico, danno_magico, direction, owner_id);
-}
+//pProjectile Witch_Rod::shoot(){
+//    pSpell magia= new Spell(danno_fisico, danno_magico, direction, owner_id);
+//}
 

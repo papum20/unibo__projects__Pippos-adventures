@@ -163,6 +163,8 @@ class Hud {
 		int max_health;
 		int max_stamina;
     pPlayer player;
+    int start_x;
+    int start_y;
 	public:
     Hud(int x, int y, pPlayer p);
 

@@ -162,6 +162,7 @@ class Player : public Character {
 
 		void change_points(int delta);
 		pDoor usedDoor();				//porta usata, NULL se non sta usando una porta
+		void useDoor();					//usa la porta (e la setta a usata, cioè NULL)
 		
 };
 

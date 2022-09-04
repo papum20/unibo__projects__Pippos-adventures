@@ -116,6 +116,7 @@
 		if(new_door != NULL) {
 			curRoom->setPosition_strong(player, new_door->getEntrancePosition());	//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
 			curRoom = curRoom->getRoomInPosition(new_door->getPosition());
+			player->useDoor();
 		}
 	}
 	void Level::nextLevel() {

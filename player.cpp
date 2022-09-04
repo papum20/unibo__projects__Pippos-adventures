@@ -219,3 +219,6 @@ void Player::change_points(int delta){
 pDoor Player::usedDoor() {
 	return used_door;
 }
+void Player::useDoor() {
+	used_door = NULL;
+}

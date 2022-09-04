@@ -136,6 +136,12 @@ class Player : public Character {
 		int curr_artifact;
 		pInputManager in_manager;
 		//Menu menu;
+		pArmor armatura;
+		pNecklace collana;
+		pHelm elmo;
+		pShield scudo;
+		pBoots stivali;
+		pWeapon arma;
 	public:
 		int n_hearts;		
 		int n_keys;

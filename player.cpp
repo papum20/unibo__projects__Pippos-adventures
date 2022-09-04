@@ -3,6 +3,13 @@
 
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
+	//menu=m;
+	arma= new sword();
+	armatura=new armor();
+	collana=NULL;
+	elmo=NULL;
+	scudo=NULL;
+	stivali=NULL;
 
 	n_hearts=start_lifes;
 	n_keys = 0;
@@ -30,14 +37,13 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	move_left_index=player_move_left_index;
 	move_up_index=player_move_up_index;
 	move_down_index=player_move_down_index;
-
-	equipaggiamento.arma = NULL;
-	equipaggiamento.armatura = NULL;
-	equipaggiamento.collana = NULL;
-	equipaggiamento.elmo = NULL;
-	equipaggiamento.scudo = NULL;
-	equipaggiamento.stivali = NULL;
-
+	points=0;
+	equipaggiamento.arma=arma;
+	equipaggiamento.armatura=armatura;
+	equipaggiamento.collana=collana;
+	equipaggiamento.scudo=scudo;
+	equipaggiamento.elmo=elmo;
+	equipaggiamento.stivali=stivali;
 	apply_equipment();
 	
 }

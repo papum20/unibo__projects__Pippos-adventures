@@ -367,6 +367,10 @@ class Inventory : public Pixel_art{
         WINDOW * w_options;
         int * p_input;
         bool is_open;
+        bool options_is_active;
+        bool zaino_is_active;
+        bool w_use_is_active;
+        bool w_equip_is_active;
         
         int curr_inventory_space;
         pItem objects[n_max_inventory_objects];
@@ -376,7 +380,8 @@ class Inventory : public Pixel_art{
         
 
 	Inventory(Player * p, int * input);
-      void open_options();
+        void open_options();
+        void update_options();
         void wattroff_inventory(WINDOW * win);
         void init_inventory_color();
         int calculate_my_weight();
@@ -394,7 +399,9 @@ class Inventory : public Pixel_art{
         void zaino_menu(int array_index, Player * p);
         void aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high);
         void equip_menu(Player * p);
-        void inventory_menu(Player * p);
+        void update_equip_menu();
+        void open(Player * p);
+        void update(Player * p);
         int check_class_name(int array_index);
         bool is_active();
 

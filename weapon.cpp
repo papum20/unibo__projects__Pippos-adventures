@@ -5,6 +5,9 @@ Weapon::Weapon ():item(){
     id=ID_WEAPON_S;
     main_color = COLOR_WEAPON;
 }
+Weapon::Weapon(int danno_f, int danno_m, const char rar[], const char n[], const char desc[]):item(){
+
+}
 
 void Weapon::copyWeapon(Weapon B) {
     projectile=B.projectile;

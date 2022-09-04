@@ -230,7 +230,7 @@
 		while(r >= ENEMIES_CHANCHES[level][i]) i++;
 		pEnemy res = new Enemy();
 		res = new Enemy();
-		res->copy(ENEMIES_INSTANCES[level][i]);
+		res->copyEnemy(ENEMIES_INSTANCES[level][i]);
 		return res;
 	}
 	pChest Level::randChest() {
@@ -238,15 +238,15 @@
 		pChest res;
 		if(r < N_ARTIFACTS) {
 			pArtifact item = new Artifact();
-			item->copy(ARTIFACT_INSTANCES[r]);
+			item->copyArtifact(ARTIFACT_INSTANCES[r]);
 			res = new Chest(item);
 		} else if(r < N_ARTIFACTS + N_ITEM_DIFENSIVO) {
 			pItem_def item = new item_difensivo();
-			item->copy(ITEM_DIFENSIVO_INSTANCES[r - N_ARTIFACTS]);
+			item->copyItemDifensivo(ITEM_DIFENSIVO_INSTANCES[r - N_ARTIFACTS]);
 			res = new Chest(item);
 		} else {
 			pWeapon item = new Weapon();
-			item->copy(WEAPON_INSTANCES[r - (N_ARTIFACTS + N_ITEM_DIFENSIVO)]);
+			item->copyWeapon(WEAPON_INSTANCES[r - (N_ARTIFACTS + N_ITEM_DIFENSIVO)]);
 			res = new Chest(item);
 		}
 		return res;

@@ -90,8 +90,14 @@ void Physical::next_animation(){
     Coordinate Physical::getSize() {
         return size;
     }
+    Coordinate Physical::getSpeed() {
+        return speed;
+    }
     Animation Physical::getCurrentAnimation() {
         return *animations[current_animation];
+    }
+    Coordinate Physical::lastFrameMovement() {
+        return lastMove;
     }
 
     void Physical::setPosition(Coordinate pos) {

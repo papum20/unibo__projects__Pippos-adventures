@@ -17,6 +17,7 @@ this->w_item = newwin(39, 70, 12, 95);
 this->w_weapon = newwin(32, 31, 14, 96);
 this->w_equip = newwin(35, 100, 12, 50);
 this->w_options = newwin(30, 75, yMax/2 - 12, xMax/2-35);
+this->w_use=newwin(4, 13, w_use_high, w_use_width);
 
 highlight=0;
 u_highlight=1;
@@ -244,16 +245,16 @@ wrefresh(w_weapon);
 void Inventory::useOrdiscardItem(int y_position, int x_position, int array_index, Player * p){//c'è il menu solo se premi invio
 w_use_is_active=true;
 
-    y_position = y_position + 15;
-    x_position = x_position + 20;
-WINDOW * w_use = newwin(4, 13, y_position, x_position);
+    w_use_high = y_position + 15;
+    w_use_width = x_position + 20;
+
 box(w_use, 0, 0);
 keypad(w_zaino, false);
 wattron(w_use, COLOR_PAIR(3));
 
 if(((check_class_name(array_index))==3)){
     mvwprintw(w_use, 1, 4, "usa");
-    is_item=true;
+    
 }
 else
     mvwprintw(w_use, 1, 2, "equipaggia");
@@ -272,6 +273,9 @@ wrefresh(w_use);
 
 void Inventory::update_w_use(int array_index){
 bool is_item = false;
+if((check_class_name(array_index))==3)
+ is_item=true;
+
 int choice;
 choice = (*p_input);
 if(choice==esc){

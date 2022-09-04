@@ -16,7 +16,7 @@ class Alive : public Animate {
 		int difesa_magica;
 
 		Alive();
-		Alive(int maxH, int curH);
+		Alive(int maxH, int maxS);
 		void copyAlive(Alive B);
 
 		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce

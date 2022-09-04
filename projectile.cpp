@@ -19,13 +19,14 @@ Projectile::Projectile(int fisico, int magico, char dir, int shooter):Animate(){
     shooter_id=shooter;
     id=ID_PROJECTILE_S;
 }
-void Projectile::copyProjectile(Projectile B) {
-    horizontal_size = B.horizontal_size;
-    vertical_size=B.vertical_size;
-    danno_fisico = B.danno_fisico;
-    danno_magico=B.danno_magico;
-    shooter_id=B.shooter_id;
-    copyAnimate(B);
+void Projectile::copyProjectile(pProjectile B) {
+    horizontal_size = B->horizontal_size;
+    vertical_size=B->vertical_size;
+    danno_fisico = B->danno_fisico;
+    danno_magico=B->danno_magico;
+    shooter_id=B->shooter_id;
+    animations=B->animations;
+    copyAnimate(animations);
 }
 
 

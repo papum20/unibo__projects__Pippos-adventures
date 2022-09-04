@@ -38,6 +38,17 @@ bool Inventory::is_active(){
     return(is_open);
 }
 
+int Inventory::random_item(){
+int r;
+ for(int i=0;i<100;i++){
+  r = (rand() % curr_inventory_space) + 1;
+  if((check_class_name(r)==1) || (check_class_name(r)==2)){
+    return r;
+   }
+ }
+return (-1);
+}
+
 void Inventory::open_options(){
     options_is_active=true;
     keypad(w_inventory,false);

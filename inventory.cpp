@@ -332,10 +332,13 @@ if(u_highlight==2){
 if(choice==invio){
     if(is_item){
         pArtifact tmp =  static_cast< Artifact *>(objects[array_index]);
-        if(tmp->getId() == ID_HEALTH_POTION) tmp->use_item(p->getEqipment(), p->curHealth);
-        else if(tmp->getId() == ID_KEY) tmp->use_item(p->getEqipment(), p->n_keys);
-        else if(tmp->getId() == ID_LIFE_ELIXIR) tmp->use_item(p->getEqipment(), p->n_hearts);
-        else if(tmp->getId() == ID_RUNE) tmp->use_item(p->getEqipment(), p->n_hearts);
+        if(tmp->getId() == ID_HEALTH_POTION) tmp->use_item(objects[array_index], p->curHealth);
+        else if(tmp->getId() == ID_KEY) tmp->use_item(objects[array_index], p->n_keys);
+        else if(tmp->getId() == ID_LIFE_ELIXIR) tmp->use_item(objects[array_index], p->n_hearts);
+        else if(tmp->getId() == ID_RUNE) {
+          int item_index=random_item();
+          if(item_index!=(-1))
+            tmp->use_item(objects[item_index], p->n_hearts);}
         fix_array(array_index, p);
         clean_window(w_zaino, 24, 44);
         keypad(w_use, false); 

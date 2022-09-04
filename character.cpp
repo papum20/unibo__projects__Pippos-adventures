@@ -7,7 +7,7 @@ Character::Character() : Alive() {
 	apply_equipment();
 }
 
-Character::Character(int maxH, int curH) : Alive(maxH, curH) {
+Character::Character(int maxH, int maxS) : Alive(maxH, maxS) {
 	is_attacking=false;
 	apply_equipment();
 }

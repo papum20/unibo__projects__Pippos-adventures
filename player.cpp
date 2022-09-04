@@ -1,7 +1,7 @@
 #include "player.hpp"
 #include "map_handler.hpp"
 
-Player::Player(pInputManager in):Character(p_max_health, p_max_stamina) {
+Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
 	//menu=m;
 
@@ -212,6 +212,9 @@ void Player::modify_lifes (int delta){
 		n_hearts=n_hearts+delta;
 }
 
+int Player::get_points(){
+	return points;
+}
 
 void Player::change_points(int delta){
     points+=delta;

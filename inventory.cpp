@@ -462,7 +462,7 @@ wrefresh(win);
 void Inventory::zaino_menu(int array_index, Player * p){
 zaino_is_active=true;
 if(w_use_is_active==true){
-  update_w_use(array_index);
+  update_w_use(array_index, p);
   return;
 }
     box(w_zaino, 0, 0);
@@ -609,7 +609,7 @@ void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index,
 }
 
 void Inventory::equip_menu(Player * p){
-w_equip_is_actice=true;
+w_equip_is_active=true;
 int yMax, xMax;
 getmaxyx(w_equip, yMax, xMax);
 box(w_equip, 0, 0);

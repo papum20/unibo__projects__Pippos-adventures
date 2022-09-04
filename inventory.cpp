@@ -18,6 +18,8 @@ this->w_weapon = newwin(32, 31, 14, 96);
 this->w_equip = newwin(35, 100, 12, 50);
 this->w_options = newwin(30, 75, yMax/2 - 12, xMax/2-35);
 
+highlight=0;
+u_highlight=1;
 int Artifact_array_index=0;
 int I_D_array_index=0;
 int Weapons_array_index=0;
@@ -271,29 +273,29 @@ if(choice==esc){
     return;
     }
 if(choice==scroll_up){
-        highlight--;
-        if(highlight<=0){
+        u_highlight--;
+        if(u_highlight<=0){
            if((check_class_name(array_index))==3 || (((check_class_name(array_index))==2)&&(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))) || (((check_class_name(array_index))==1)&&(!(static_cast<Weapon *>(objects[array_index])->is_equipped))))
-              highlight=2;
+              u_highlight=2;
             else
-               highlight=1;
+               u_highlight=1;
         }
 }
 if(choice==scroll_down){
-        highlight++;
+        u_highlight++;
      if((check_class_name(array_index))==3 || (((check_class_name(array_index))==2)&&(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))) || (((check_class_name(array_index))==1)&&(!(static_cast<Weapon *>(objects[array_index])->is_equipped)))){
-        if(highlight>=3){
-            highlight=1;
+        if(u_highlight>=3){
+            u_highlight=1;
         }
      } 
      else{
       
-      if(highlight>=2){
-            highlight=1;
+      if(u_highlight>=2){
+            u_highlight=1;
         }
     }   
 }
-if(highlight==1){
+if(u_highlight==1){
     wattron(w_use, COLOR_PAIR(3)); 
     if(((check_class_name(array_index))==3))
         mvwprintw(w_use, 1, 4, "usa");
@@ -305,7 +307,7 @@ if(highlight==1){
     wattroff(w_use, COLOR_PAIR(7));
 
 }
-if(highlight==2){
+if(u_highlight==2){
     wattron(w_use, COLOR_PAIR(3)); 
     mvwprintw(w_use, 2, 3, "scarta");
     wattroff(w_use, COLOR_PAIR(3));
@@ -333,10 +335,11 @@ if(choice==invio){
         wrefresh(w_use);
         if(array_index<=0)
             array_index = 1;
+        z_highlight=array_index-1;
         zaino_menu(array_index, p);
         return;  
     }
-    else if(highlight==1){
+    else if(u_highlight==1){
         for(int i = 0; i<curr_inventory_space; i++){
             
             if(check_class_name(array_index)==1){
@@ -372,11 +375,12 @@ if(choice==invio){
         wrefresh(w_zaino);
         wrefresh(w_use);
         if(array_index<=0)
-            array_index = 1;    
+            array_index = 1; 
+        z_highlight=array_index-1;   
         zaino_menu(array_index + 1, p);
         return;  
     }
-    else if(highlight ==2){
+    else if(u_highlight ==2){
         
         fix_array(array_index, p);
         clean_window(w_zaino, 24, 44);
@@ -388,6 +392,7 @@ if(choice==invio){
         wrefresh(w_use);
         if(array_index<=0)
             array_index = 1;
+        z_highlight=0;
         zaino_menu(array_index, p);
         return;  
     }
@@ -437,6 +442,7 @@ wattroff(win, COLOR_PAIR(7));
 wrefresh(win);
 }
 void Inventory::zaino_menu(int array_index, Player * p){
+zaino_is_active=true;
 if(w_use_is_active==true){
   update_w_use(array_index);
   return;
@@ -463,17 +469,18 @@ if(w_use_is_active==true){
         }
         high = array_index * 2;
 int choice;
-int highlight = array_index - 1;
 
-strcmp_rarity(w_zaino, highlight, 3);
-print_item_name(w_zaino, high, xMax/2 -15, highlight);
+
+strcmp_rarity(w_zaino, z_highlight, 3);
+print_item_name(w_zaino, high, xMax/2 -15, z_highlight);
 wattroff_inventory(w_zaino);
 
-item_menu(highlight);
+item_menu(z_highlight);
 
-while(true){
+
 choice=(*p_input);
     if(choice==esc){
+    zaino_is_active=false;
     keypad(w_zaino, false); 
     keypad(w_inventory, true); 
     werase(w_zaino);
@@ -484,7 +491,7 @@ choice=(*p_input);
     return;
     }
     if(choice==invio){
-        useOrdiscardItem(high-1, xMax - 8, highlight, p);
+        useOrdiscardItem(high-1, xMax - 8, z_highlight, p);
     }
     if(choice==scroll_up){
         werase(w_item);
@@ -492,20 +499,20 @@ choice=(*p_input);
         wrefresh(w_weapon);
         
         int tmp = high;
-        highlight--;
+        z_highlight--;
         high = high - 2;
-        if(highlight<0){
-            highlight=0;
+        if(z_highlight<0){
+            z_highlight=0;
             high=tmp;
         }
-        item_menu(highlight);
-        strcmp_rarity(w_zaino, highlight, 3);
-    print_item_name(w_zaino, high, xMax/2 -15, highlight);
+        item_menu(z_highlight);
+        strcmp_rarity(w_zaino, z_highlight, 3);
+    print_item_name(w_zaino, high, xMax/2 -15, z_highlight);
     wattroff_inventory(w_zaino);
 
-    if(highlight + 1 < curr_inventory_space){
-        strcmp_rarity(w_zaino, highlight + 1, 7);
-            print_item_name(w_zaino, high + 2, xMax/2 -15, highlight + 1);
+    if(z_highlight + 1 < curr_inventory_space){
+        strcmp_rarity(w_zaino, z_highlight + 1, 7);
+            print_item_name(w_zaino, high + 2, xMax/2 -15, z_highlight + 1);
             wattroff_inventory(w_zaino);
         }}
     if(choice==scroll_down){
@@ -513,30 +520,31 @@ choice=(*p_input);
         wrefresh(w_item);
         wrefresh(w_weapon);
         int tmp = high;
-        highlight++;
+        z_highlight++;
         high = high + 2;
          
-        if(highlight>=curr_inventory_space){
-            highlight=curr_inventory_space-1;
+        if(z_highlight>=curr_inventory_space){
+            z_highlight=curr_inventory_space-1;
             high = tmp;
         }
         if(curr_inventory_space==0){
+            z_highlight=1;
             zaino_menu(1, p);
         }
-        item_menu(highlight);
+        item_menu(z_highlight);
  
-        strcmp_rarity(w_zaino, highlight, 3);
+        strcmp_rarity(w_zaino, z_highlight, 3);
     
-        print_item_name(w_zaino, high, xMax/2 -15, highlight);
+        print_item_name(w_zaino, high, xMax/2 -15, z_highlight);
     wattroff_inventory(w_zaino);
 
-    if(highlight - 1 >= 0){
-        strcmp_rarity(w_zaino, highlight - 1, 7);
+    if(z_highlight - 1 >= 0){
+        strcmp_rarity(w_zaino, z_highlight - 1, 7);
 
-        print_item_name(w_zaino, high - 2, xMax/2 -15, highlight - 1);
+        print_item_name(w_zaino, high - 2, xMax/2 -15, z_highlight - 1);
         wattroff_inventory(w_zaino);
         }} 
-}   
+   
 }
 
 void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high){
@@ -668,11 +676,12 @@ void Inventory::update(Player * p){
 if(options_is_active==true){
   update_options();
   return;
-       }
+       }  
 if(zaino_is_active==true){
-  update_zaino();
+  z_highlight=1;
+  zaino_menu(1, p);
   return;
-       }
+       }  
 if(w_equip_is_active==true){
   update_equip_menu();
   return;
@@ -715,6 +724,7 @@ if(w_equip_is_active==true){
     }
     if(choice==10){
         if(highlight==1){
+            z_highlight=1;
             zaino_menu(1, p);
             wrefresh(w_inventory);
         }

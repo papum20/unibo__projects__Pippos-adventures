@@ -2,8 +2,6 @@
 #define PROJECTILE_HPP
 
 #include "animate.hpp"
-//#include "weapon.hpp"
-#include "animation.hpp"
 #include "alive.hpp"
 
 

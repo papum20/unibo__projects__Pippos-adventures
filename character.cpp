@@ -1,4 +1,5 @@
 #include "character.hpp"
+#include "map_handler.hpp"
 
 
 Character::Character() : Alive() {
@@ -189,7 +190,7 @@ void Character::initiate_attack (){
 }
 
 
-int Character::calculate_damage(pCharacter c){
+int Character::calculate_damage(pAlive c){
     int damage;
     damage=danno_fisico-(c->difesa_fisica/2)+danno_magico-(c->difesa_magica/2);
     if (damage>0)

@@ -37,7 +37,4 @@ class Animate : public Physical {
 };
 
 
-#include "map_handler.hpp"
-
-
 #endif

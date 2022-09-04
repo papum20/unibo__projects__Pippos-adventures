@@ -5,7 +5,7 @@
 #include "coordinate.hpp"
 #include "definitions.hpp"
 
-class Animate;
+class Alive;
 class Character;
 class Chest;
 class Door;
@@ -15,12 +15,12 @@ class Projectile;
 
 struct Map {
 	Coordinate size;
-	pPhysical physical[ROOM_AREA];
-	pCharacter characters[ROOM_AREA];
-	pDoor doors[MAX_CONNECTED_R];			//array di puntatori a porte (verso stanze collegate)
+	Physical *physical[ROOM_AREA];
+	Character *characters[ROOM_AREA];
+	Door *doors[MAX_CONNECTED_R];			//array di puntatori a porte (verso stanze collegate)
 											//disposte in direzioni: 0=su, 1=destra, 2=giu, 3=sinistra, 4=segreta,all'interno
-	pChest chests[ROOM_AREA];
-	pProjectile projectiles[ROOM_AREA];
+	Chest *chests[ROOM_AREA];
+	Projectile *projectiles[ROOM_AREA];
 };
 typedef Map *pMap;
 

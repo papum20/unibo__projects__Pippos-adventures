@@ -4,8 +4,6 @@
 #define EQUIPMENT_HPP
 
 
-#define N_EQUIPMENT 1
-
 #include "armor.hpp"
 #include "axe.hpp"
 #include "boots.hpp"

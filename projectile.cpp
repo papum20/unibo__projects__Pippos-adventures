@@ -1,4 +1,5 @@
 #include "projectile.hpp"
+#include "map_handler.hpp"
 
 Projectile::Projectile(){
 

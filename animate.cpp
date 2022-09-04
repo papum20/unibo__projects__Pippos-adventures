@@ -1,4 +1,5 @@
 #include "animate.hpp"
+#include "map_handler.hpp"
 
 
 Animate::Animate() : Physical() {

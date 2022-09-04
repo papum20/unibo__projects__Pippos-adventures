@@ -90,7 +90,7 @@ typedef Room *pRoom;
 #include "character.hpp"
 
 #include "enemies/enemies.hpp"
-#include "items/items.hpp"
+#include "items/artifacts.hpp"
 #include "equipment/equipment.hpp"
 #include "floor.hpp"
 #include "wall.hpp"

@@ -5,10 +5,13 @@
 //#include <cstdlib>
 #include <curses.h>
 #include <ctime>
-#include "level.hpp"
+#include "definitions.hpp"
+
 #include "hud.hpp"
 #include "inputmanager.hpp"
 #include "menu.hpp"
+
+#include "level.hpp"
 #include "player.hpp"
 
 

@@ -60,12 +60,14 @@
 
 //// COMANDI
 #pragma region KEY_BINDINGS
+const int esc = 27; //tasto per uscire dall'inventario
+const int invio = 10; //serve nel menu di usa e scarta dell'oggetto per accettare 
+
 const int scroll_up = KEY_UP;
 const int scroll_down = KEY_DOWN;
 const int scroll_left = KEY_LEFT;
 const int scroll_right = KEY_RIGHT;
-const int esc = 27; //tasto per uscire dall'inventario
-const int invio = 10; //serve nel menu di usa e scarta dell'oggetto per accettare 
+#define KEY_PAUSE esc
 #pragma endregion KEY_BINDINGS
 
 

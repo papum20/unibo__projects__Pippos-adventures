@@ -12,7 +12,7 @@ class HealthPotion : public Artifact {
 		HealthPotion();
 		HealthPotion(const char n[], const char desc[]);
 
-		void use_item(equipment *equip, int &stat);		//metodo che usa la pozione
+		void use_item(pItem item, int &stat);		//metodo che usa la pozione
 };
 
 

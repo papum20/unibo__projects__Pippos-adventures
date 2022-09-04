@@ -12,6 +12,6 @@ Rune::Rune(const char n[], const char desc[]):Artifact(n, desc){
 //    i_d.apply_rune();
 //}
 
-void Rune::use_item (equipment *equip, int &stat){
+void Rune::use_item (pItem item, int &stat){
     
 }

@@ -8,16 +8,16 @@ Enemy::Enemy(int max_health, int max_stamina, int p_g):Character (max_health, ma
     points_given=p_g;
 }
 
-void Enemy::update(pInanimate map[], pCharacter characters[]){
+void Enemy::update(pMap map){
     if (is_attacking)
-        if (animazione corrente è l ultima){
-            calculate_damage();
+        if (animations[current_animation]->isLastFrame()){
+            //calculate_damage();
             is_attacking=false;
         }
         else{
             //next animation
         }
     else{
-        enemy_ia();
+        //enemy_ia();
     }
 }

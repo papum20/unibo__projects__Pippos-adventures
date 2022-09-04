@@ -14,6 +14,7 @@ Animation::Animation(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const 
     } while(!i.equals(COORDINATE_ZERO));
     this->size = size;
     this->next = this;
+    index = ANIMATION_FIRST_INDEX;
 }
 
 Animation::Animation(const char animation[][ANIMATION_HEIGHT][ANIMATION_WIDTH], const Coordinate size, const int len) {
@@ -39,6 +40,7 @@ p_Animation Animation::tail_insert(p_Animation head, const char state[ANIMATION_
         p_Animation it = head;
         while(it->next != head) it = it->next;
         it->next = new_p;
+        new_p->index = it->index + 1;
     }
     new_p->next = head;       //lista circolare
     
@@ -54,4 +56,8 @@ void Animation::delete_list() {
 		delete tmp;
 	}
 	delete this;
+}
+
+bool Animation::isLastFrame() {
+    return next->index == ANIMATION_FIRST_INDEX;
 }

@@ -509,7 +509,7 @@ choice=(*p_input);
     return;
     }
     if(choice==invio){
-        useOrdiscardItem(high-1, xMax - 8, z_highlight, p);
+        useOrdiscardItem(high-1, xMax - 8, z_highlight);
     }
     if(choice==scroll_up){
         werase(w_item);

@@ -5,7 +5,7 @@ using namespace std;
 
 
 int main() {
-return 0;
+
 	bool isRunning = true;
 	bool isPaused = false;
 	Timer refresh_timer = Timer();

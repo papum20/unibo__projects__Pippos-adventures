@@ -3,12 +3,14 @@
 
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
-	//menu=m;
 
 	n_hearts=start_lifes;
 	n_keys = 0;
 	id=ID_PLAYER;
 	main_color = COLOR_PLAYER;
+	points = 0;
+
+	used_door = NULL;
 
 	animations[player_idle_index] = new Animation(idle, Coordinate(p_height, p_width), player_idle_states);
 	
@@ -28,6 +30,13 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	move_left_index=player_move_left_index;
 	move_up_index=player_move_up_index;
 	move_down_index=player_move_down_index;
+
+	equipaggiamento.arma = NULL;
+	equipaggiamento.armatura = NULL;
+	equipaggiamento.collana = NULL;
+	equipaggiamento.elmo = NULL;
+	equipaggiamento.scudo = NULL;
+	equipaggiamento.stivali = NULL;
 
 	apply_equipment();
 	

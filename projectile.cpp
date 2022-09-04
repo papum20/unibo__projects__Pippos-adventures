@@ -21,7 +21,7 @@ Projectile::Projectile(int fisico, int magico, char dir, int shooter):Animate(){
 
 
 void Projectile::update(pMap map){
-    pCharacter defender=NULL;
+    pAlive defender=NULL;
     pPhysical objects[ROOM_AREA];
     Coordinate end;
     switch (direction){                 //guardo se ci sono oggetti in collisione con il proiettile
@@ -44,7 +44,7 @@ void Projectile::update(pMap map){
     if (dim!=0){                                                            //se è maggiore di zero, calcolo le collisioni
         for (int i=0; i<dim; i++){
             if (objects[i]->getId()!=this->shooter_id && objects[i]->isCharacter()){         //se si tratta di un personaggio diverso dalla categoria di colui che ha sparato, 
-                defender=MapHandler::checkCharacter(map, objects[i]->getPosition());    //mi serve un puntatore a character
+                defender=MapHandler::checkAlive(map, objects[i]->getPosition());    //mi serve un puntatore a character
                 defender->changeCurrentHealth(calculate_damage(defender));    //cambio la vita in base ai danni subiti
             }
         }
@@ -70,7 +70,7 @@ void Projectile::update(pMap map){
 
 
 
-int Projectile::calculate_damage(pCharacter c){
+int Projectile::calculate_damage(pAlive c){
     int damage;
     damage=danno_fisico-(c->difesa_fisica/2)+danno_magico-(c->difesa_magica/2);
     if (damage>0)

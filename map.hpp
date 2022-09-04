@@ -5,16 +5,12 @@
 #include "coordinate.hpp"
 #include "definitions.hpp"
 
+class Animate;
 class Character;
 class Chest;
 class Door;
 class Physical;
 class Projectile;
-typedef Character *pCharacter;
-typedef Chest *pChest;
-typedef Door *pDoor;
-typedef Physical *pPhysical;
-typedef Projectile *pProjectile;
 
 
 struct Map {

@@ -4,6 +4,7 @@
 #include "animate.hpp"
 //#include "weapon.hpp"
 #include "animation.hpp"
+#include "alive.hpp"
 
 
 class Projectile: public Animate{
@@ -19,12 +20,10 @@ class Projectile: public Animate{
         Projectile (int fisico, int magico, char dir, int shooter);
 
         void update (pMap map);
-        int calculate_damage(pCharacter c);
+        int calculate_damage(pAlive c);
 };
 
 typedef Projectile *pProjectile;
 
-
-#include "character.hpp"
 
 #endif

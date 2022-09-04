@@ -1,14 +1,12 @@
 #include "character.hpp"
 
 
-Character::Character() : Animate() {
+Character::Character() : Alive() {
 	is_attacking=false;
 	apply_equipment();
 }
 
-Character::Character(int maxH, int curH) : Animate() {
-	maxHealth=maxH;
-	curHealth=curH;
+Character::Character(int maxH, int curH) : Alive(maxH, curH) {
 	is_attacking=false;
 	apply_equipment();
 }
@@ -199,11 +197,6 @@ int Character::calculate_damage(pCharacter c){
     else
         return 0;
 }
-
-void Character::changeCurrentHealth(int delta) {
-	curHealth += delta;
-}
-
 
 equipment *Character::getEqipment() {
 	return &equipaggiamento;

@@ -21,11 +21,11 @@ struct equipment {
 	pHelm elmo;
 };
 
-#include "animate.hpp"
+#include "alive.hpp"
 #include "artifact.hpp"
 
 
-class Character : public Animate {
+class Character : public Alive {
 	private:
 		//void swapPositions(Character *characters[], Coordinate a, Coordinate b);
 		
@@ -57,13 +57,9 @@ class Character : public Animate {
 		pItem_def defensive_items[DEF_NUMBER];
 		int last_def;
 	public:
-		int maxHealth;
-		int curHealth;
 		int danno_fisico;
 		int danno_magico;
-		int difesa_fisica;
-		int difesa_magica;
-		
+	
 		Character();
 		Character(int maxH, int maxS);
 		
@@ -72,7 +68,6 @@ class Character : public Animate {
 		//precondizione: da richiamare con coordinate giuste
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
-		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce
 		void apply_equipment ();
 
 		void moveUp(pMap map);

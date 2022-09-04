@@ -365,6 +365,9 @@ class Inventory : public Pixel_art{
         WINDOW * w_weapon;
         WINDOW * w_equip;
         WINDOW * w_options;
+        WINDOW * w_use;
+        int w_use_high;
+        int w_use_width;
         int * p_input;
         bool is_open;
         bool options_is_active;

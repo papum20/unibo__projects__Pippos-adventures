@@ -5,6 +5,10 @@
 Inventory::Inventory(Player * p, int * input):Pixel_art(){
 p_input=input;
 is_open=false;
+options_is_active=false;
+zaino_is_active=false;
+w_use_is_active=false;
+w_equip_is_active=false;
 int yMax, xMax;
 getmaxyx(stdscr, yMax, xMax);
 this->w_inventory = newwin(8, 113, 1, 45);
@@ -33,20 +37,21 @@ bool Inventory::is_active(){
 }
 
 void Inventory::open_options(){
+    options_is_active=true;
     keypad(w_inventory,false);
     box(w_options, 0, 0);
     mvwprintw(w_options, 2, 2, "m = apri menu");
     mvwprintw(w_options, 4, 2, "n = apri inventario");
-    mvwprintw(w_options, 6, 2, "i tasti w a s d servono a muoversi nelle 4 direzioni");
-    int choice;
-    while(true){
+    mvwprintw(w_options, 6, 2, "i tasti w a s d servono a muoversi nelle 4 direzioni");   
+}
+
+void Inventory::update_options(){
+int choice;
         choice=(*p_input);
         if(choice==esc){
             keypad(w_inventory,true);
-            werase(w_options);
-            break;
+            werase(w_options);         
         }
-    }
 }
 
 int Inventory::check_class_name(int array_index){
@@ -224,14 +229,15 @@ wrefresh(w_weapon);
 }
 
 void Inventory::useOrdiscardItem(int y_position, int x_position, int array_index, Player * p){//c'è il menu solo se premi invio
-bool is_item = false;
+w_use_is_active=true;
+
     y_position = y_position + 15;
     x_position = x_position + 20;
 WINDOW * w_use = newwin(4, 13, y_position, x_position);
 box(w_use, 0, 0);
 keypad(w_zaino, false);
 wattron(w_use, COLOR_PAIR(3));
-int highlight = 1;
+
 if(((check_class_name(array_index))==3)){
     mvwprintw(w_use, 1, 4, "usa");
     is_item=true;
@@ -241,12 +247,22 @@ else
 wattroff(w_use, COLOR_PAIR(3));
 if((check_class_name(array_index))==3 || (((check_class_name(array_index))==2)&&(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))) || (((check_class_name(array_index))==1)&&(!(static_cast<Weapon *>(objects[array_index])->is_equipped))))
    mvwprintw(w_use, 2, 3, "scarta");
-int choice;
+
 keypad(w_use, true);
 wrefresh(w_use); 
-while(true){
+
+
+        
+    
+
+}
+
+void Inventory::update_w_use(int array_index){
+bool is_item = false;
+int choice;
 choice = (*p_input);
 if(choice==esc){
+    w_use_is_active=false;
     keypad(w_use, false); 
     keypad(w_zaino, true); 
     werase(w_use);
@@ -310,7 +326,8 @@ if(choice==invio){
         fix_array(array_index, p);
         clean_window(w_zaino, 24, 44);
         keypad(w_use, false); 
-        keypad(w_zaino, true); 
+        keypad(w_zaino, true);
+        w_use_is_active=false; 
         werase(w_use);
         wrefresh(w_zaino);
         wrefresh(w_use);
@@ -350,6 +367,7 @@ if(choice==invio){
         }
         keypad(w_use, false); 
         keypad(w_zaino, true); 
+        w_use_is_active=false;
         werase(w_use);
         wrefresh(w_zaino);
         wrefresh(w_use);
@@ -364,6 +382,7 @@ if(choice==invio){
         clean_window(w_zaino, 24, 44);
         keypad(w_use, false); 
         keypad(w_zaino, true); 
+        w_use_is_active=false;
         werase(w_use);
         wrefresh(w_zaino);
         wrefresh(w_use);
@@ -372,10 +391,7 @@ if(choice==invio){
         zaino_menu(array_index, p);
         return;  
     }
-    
 }
-}
-
 
 void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){
     if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
@@ -421,6 +437,10 @@ wattroff(win, COLOR_PAIR(7));
 wrefresh(win);
 }
 void Inventory::zaino_menu(int array_index, Player * p){
+if(w_use_is_active==true){
+  update_w_use(array_index);
+  return;
+}
     box(w_zaino, 0, 0);
     keypad(w_inventory, true);
     clean_window(w_item, 34, 69); //queste due righe servono per quando si richiama zaino_menu dopo aver eliminato un oggetto dall'inventario
@@ -563,6 +583,7 @@ void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index,
 }
 
 void Inventory::equip_menu(Player * p){
+w_equip_is_actice=true;
 int yMax, xMax;
 getmaxyx(w_equip, yMax, xMax);
 box(w_equip, 0, 0);
@@ -617,10 +638,11 @@ if(check_class_name(i)==1){
 if(static_cast< Weapon *>(objects[i])->is_equipped){
     aux_equip_item_menu(w_equip, 2, 2, i, 0);
     }}
-
+}        
 }
-    int choice;
-    while(true){
+
+void Inventory:: update_equip_menu(){
+int choice;    
         choice=(*p_input);
         if(choice==esc){
             keypad(w_inventory, true);
@@ -628,19 +650,35 @@ if(static_cast< Weapon *>(objects[i])->is_equipped){
             wrefresh(w_equip);
             return;
         }
-    }
 }
 
-void Inventory::inventory_menu(Player * p){
+void Inventory::open(){
     is_open=true;
     box(w_inventory, 0, 0);
     pixel_phrase(w_inventory, 2, 2, "zaino", false);
     pixel_phrase(w_inventory, 36, 2, "equip", false);
     pixel_phrase(w_inventory, 70, 2, "opzioni", false);
     keypad(w_inventory, true);   
+       
+}
+
+
+void Inventory::update(Player * p){
+
+if(options_is_active==true){
+  update_options();
+  return;
+       }
+if(zaino_is_active==true){
+  update_zaino();
+  return;
+       }
+if(w_equip_is_active==true){
+  update_equip_menu();
+  return;
+       }
+
     int choice;
-    int highlight=0;
-    while(true){
     choice=(*p_input);
     if(choice==scroll_right){
         highlight++;
@@ -672,8 +710,7 @@ void Inventory::inventory_menu(Player * p){
      wrefresh(w_inventory);
     }
     if(choice==esc){
-        is_open=false;
-        werase(w_inventory);
+        close();
 
     }
     if(choice==10){
@@ -686,9 +723,14 @@ void Inventory::inventory_menu(Player * p){
         }
         if(highlight==3){
             open_options();
-            break;
+            
         }
-    }
     }
 }
 
+void Inventory::close(){
+highlight=0;
+u_highlight = 1;
+is_open=false;
+werase(w_inventory);
+}

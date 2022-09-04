@@ -28,12 +28,12 @@ int main() {
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
 	pPlayer player = new Player(inputManager);
-	//Level level = Level(level_x, level_y, player);
+	Level level = Level(level_x, level_y, player);
 	//Menu menu = Menu(inputManager);
 	Hud hud = Hud(hud_x, hud_y, player);
 
 
-/*
+
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while(isRunning)
 	{
@@ -45,19 +45,19 @@ int main() {
 		refresh_timer.start(REFRESH_TIMER_INDEX);
 
 		//// IN PAUSA
-		if (menu.is_active()) {
-			if(inputManager->get_input() == KEY_PAUSE) menu.open();
-			menu.update();			//se il menu è aperto il player non si muove
-		}
-		//// IN GIOCO
-		else {
-			if(inputManager->get_input() == KEY_PAUSE) menu.open();
-			level.update(inputManager->get_input());
-			level.display();
-			hud.drawHud();
-		}
+		//if (menu.is_active()) {
+		//	if(inputManager->get_input() == KEY_PAUSE) menu.open();
+		//	menu.update();			//se il menu è aperto il player non si muove
+		//}
+		////// IN GIOCO
+		//else {
+		//	if(inputManager->get_input() == KEY_PAUSE) menu.open();
+		//	level.update(inputManager->get_input());
+		//	level.display();
+		//	hud.drawHud();
+		//}
 	}
-*/
+
 
 	//// END
 	cursesEnd();

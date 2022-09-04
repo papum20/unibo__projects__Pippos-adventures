@@ -82,6 +82,6 @@ bool Weapon::animationMask(Coordinate pos) {
 
 pProjectile Weapon::shoot() {
     pProjectile res = new Projectile;
-    res->copyProjectile(projectile);
+    res->copyProjectile(*projectile);
     return res;
 }

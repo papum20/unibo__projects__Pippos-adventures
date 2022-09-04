@@ -9,6 +9,7 @@
 #include "item_difensivi.hpp"
 #include "weapon.hpp"
 #include "artifact.hpp"
+#include "player.hpp"
 
 #include "definitions.hpp"
 //const int scroll_up = KEY_UP;

@@ -16,7 +16,7 @@ class Projectile: public Animate{
         Projectile();
         //Projectile (pWeapon w);
         Projectile (int fisico, int magico, char dir, int shooter);
-        void copyProjectile(pProjectile B);
+        void copyProjectile(Projectile B);
 
         void update (pMap map);
         int calculate_damage(pAlive c);

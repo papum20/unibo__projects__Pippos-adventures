@@ -242,7 +242,7 @@ for(int i = 0; i<n_graphic_types_items; i++){
 wrefresh(w_weapon);
 }
 
-void Inventory::useOrdiscardItem(int y_position, int x_position, int array_index, Player * p){//c'è il menu solo se premi invio
+void Inventory::useOrdiscardItem(int y_position, int x_position, int array_index){//c'è il menu solo se premi invio
 w_use_is_active=true;
 
     w_use_high = y_position + 15;
@@ -271,7 +271,7 @@ wrefresh(w_use);
 
 }
 
-void Inventory::update_w_use(int array_index){
+void Inventory::update_w_use(int array_index, Player * p){
 bool is_item = false;
 if((check_class_name(array_index))==3)
  is_item=true;

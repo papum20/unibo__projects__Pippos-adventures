@@ -371,6 +371,9 @@ class Inventory : public Pixel_art{
         bool zaino_is_active;
         bool w_use_is_active;
         bool w_equip_is_active;
+        int highlight;
+        int u_highlight;
+        int z_highlight;
         
         int curr_inventory_space;
         pItem objects[n_max_inventory_objects];
@@ -400,11 +403,12 @@ class Inventory : public Pixel_art{
         void aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high);
         void equip_menu(Player * p);
         void update_equip_menu();
-        void open(Player * p);
+        void open();
         void update(Player * p);
         int check_class_name(int array_index);
         bool is_active();
         void close();
+        void update_w_use(int array_index);
 
         
 };      

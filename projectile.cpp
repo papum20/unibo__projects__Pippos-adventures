@@ -87,3 +87,24 @@ int Projectile::calculate_damage(pAlive c){
     else
         return 0;
 }
+
+void Projectile::setPosition(Coordinate shooter_pos, Coordinate shooter_size){
+    switch (direction){
+        case 'u':
+            this->pos.x=shooter_pos.x+(shooter_size.x)/2-size.x/2;
+            this->pos.y=shooter_pos.y+shooter_size.y;
+            break;
+        case 'd':
+            this->pos.x=shooter_pos.x+(shooter_size.x)/2-size.x/2;
+            this->pos.y=shooter_pos.y-size.y;
+            break;
+        case 'l':
+            this->pos.x=shooter_pos.x-size.x;
+            this->pos.y=shooter_pos.y+(shooter_size.y)/2-size.y/2;
+            break;
+        case 'r':
+            this->pos.x=shooter_pos.x+shooter_size.x;
+            this->pos.y=shooter_pos.y+(shooter_size.y)/2-size.y/2;
+            break;
+    }
+}

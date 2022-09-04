@@ -219,6 +219,13 @@ void Character::initiate_attack (){
 	}
 }
 
+void Character::ranged_attack(pMap map){
+	pProjectile proiettile;
+	proiettile=(equipaggiamento.arma)->shoot();
+	proiettile->setPosition(pos, size);
+	MapHandler::addProjectile(map, proiettile);
+}
+
 
 int Character::calculate_damage(pAlive c){
     int damage;

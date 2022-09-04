@@ -33,5 +33,7 @@ Snowman_hands::Snowman_hands():Hands(){
     projectile=Snowball(danno_fisico, danno_magico, direction, owner_id);
 }
 
-//pProjectile Snowman_hands::shoot(){
-//}
+pProjectile Snowman_hands::shoot(){
+    pSnowball snowball=new Snowball(danno_fisico, danno_magico, direction, owner_id);
+    return snowball;
+}

@@ -35,5 +35,7 @@ Arco::Arco():Weapon(){
     projectile= Arrow(danno_fisico, danno_magico, direction, owner_id);
 }
 
-//pProjectile Arco::shoot(){
-//}
+pProjectile Arco::shoot(){
+    pArrow freccia= new Arrow(danno_fisico, danno_magico, direction, owner_id);
+    return freccia;
+}

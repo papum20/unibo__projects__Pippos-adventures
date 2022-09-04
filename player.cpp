@@ -74,41 +74,18 @@ void Player::change_boots (pBoots b){
 	apply_equipment();
 }
 
-/*switch (direction){
-				case 'u':
-					current_animation=move_up_index;
-					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
-					break;
-				case 'd':
-					current_animation=move_down_index;
-					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
-					break;
-				case 'l':
-					current_animation=move_left_index;
-					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
-					break;
-				case 'r':
-					current_animation=move_right_index;
-					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
-					break;	
-			}
-*/
-
 void Player::update(pMap map){
 	if (is_attacking){
-		if (attacking_states!=0){
+		if (!animations[current_animation]->isLastFrame()){
 			if (attack_counter==1){
 				if ((equipaggiamento.arma)->is_melee)
 					check_enemy_melee(map);
-				else
-					(equipaggiamento.arma)->shoot();
-			}
-			else{
-				attack_counter--;
+				else{
+					ranged_attack(map);
+				}
 			}
 			next_animation();
 			equipaggiamento.arma->next_animation();
-			attacking_states--;
 			attack_counter--;
 		}
 		else{
@@ -153,10 +130,6 @@ void Player::update(pMap map){
 				moveRight(map);
 				break;
 			}
-			/*case 'n':{
-				menu.open();
-				break;
-			}*/
 			case 'c':{
 				collect_item(map);
 			}
@@ -188,16 +161,16 @@ void Player::collect_item(pMap mappa){
 	newcoord=pos;
 	pChest chest;
 	if (direction=='u'){			//calcolo la coordinata in cui cercare la chest in base all'orientamento del pg
-		newcoord.y=newcoord.y-p_height;
+		newcoord.y=newcoord.y+size.y;
 	}
 	if (direction=='d'){
-		newcoord.y++;
+		newcoord.y--;
 	}
 	if (direction=='l'){
 		newcoord.x--;
 	}
 	if (direction=='r'){
-		newcoord.x=newcoord.x+p_width;
+		newcoord.x=newcoord.x+size.x;
 	}
 	chest=MapHandler::checkChest(mappa, newcoord);				//cerco la chest
 	switch (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
@@ -235,7 +208,8 @@ void Player::add_item (pArtifact a){
 }
 
 void Player::modify_lifes (int delta){
-	n_hearts=n_hearts+delta;
+	if (n_hearts<max_lifes)
+		n_hearts=n_hearts+delta;
 }
 
 

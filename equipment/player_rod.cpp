@@ -33,5 +33,7 @@ Player_Rod::Player_Rod():Rod(){
     projectile=  Spell(danno_fisico, danno_magico, direction, owner_id);
 }
 
-//pProjectile Player_Rod::shoot(){
-//}
+pProjectile Player_Rod::shoot(){
+    pSpell magia= new Spell(danno_fisico, danno_magico, direction, owner_id);
+    return magia;
+}

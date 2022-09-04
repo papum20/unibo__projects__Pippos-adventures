@@ -32,5 +32,7 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
     projectile= Fireball(danno_fisico, danno_magico, direction, owner_id);
 }
 
-//pProjectile Fire_spirit_hands::shoot(){
-//}
+pProjectile Fire_spirit_hands::shoot(){
+    pFireball fireball= new Fireball(danno_fisico, danno_magico, direction, owner_id);
+    return fireball;
+}

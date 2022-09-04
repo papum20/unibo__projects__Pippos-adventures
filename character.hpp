@@ -52,9 +52,11 @@ class Character : public Alive {
 		equipment equipaggiamento;
 
 		pWeapon weapons[W_NUMBER];
+		int weapons_n;
 		int curr_weapon;
 
 		pItem_def defensive_items[DEF_NUMBER];
+		int defensive_items_n;
 		int last_def;
 	public:
 		int danno_fisico;
@@ -62,6 +64,7 @@ class Character : public Alive {
 	
 		Character();
 		Character(int maxH, int maxS);
+		void copyCharacter(Character B);
 		
 		virtual void update(pMap map);
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra

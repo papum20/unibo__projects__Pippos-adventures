@@ -11,6 +11,36 @@ Character::Character(int maxH, int curH) : Alive(maxH, curH) {
 	is_attacking=false;
 	apply_equipment();
 }
+void Character::copyCharacter(Character B) {
+	is_attacking = B.is_attacking;
+	attack_counter=B.attack_counter;
+	attacking_states=B.attacking_states;
+
+	idle_index=B.idle_index;
+	move_up_index=B.move_up_index;
+	move_down_index=B.move_down_index;
+	move_left_index=B.move_left_index;
+	move_right_index=B.move_right_index;
+
+	attack_up_states=B.attack_up_states;
+	attack_down_states=B.attack_down_states;
+	attack_right_states=B.attack_right_states;
+	attack_left_states=B.attack_left_states;
+
+	equipaggiamento=B.equipaggiamento;
+
+	weapons_n=B.weapons_n;
+	for(int i = 0; i < weapons_n;i++) weapons[i]=B.weapons[i];
+	curr_weapon=B.curr_weapon;
+
+	defensive_items_n=B.defensive_items_n;
+	for(int i = 0; i < defensive_items_n;i++) defensive_items[i]=B.defensive_items[i];
+	last_def=B.last_def;
+	danno_fisico=B.danno_fisico;
+	danno_magico=B.danno_magico;
+
+	copyAlive(B);
+}
 
 void Character::update(pMap map) {
 	Physical::update(map);

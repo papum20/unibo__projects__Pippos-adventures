@@ -83,7 +83,7 @@ class Physical {
 		int current_animation;
 		
 		Physical();
-		virtual void copy(Physical B);			//copia i parametri di B
+		void copyPhysical(Physical B);			//copia i parametri di B
 		virtual void update(pMap map);			//da richiamare a ogni frame
 		virtual void destroy();
 

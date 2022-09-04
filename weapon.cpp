@@ -6,8 +6,27 @@ Weapon::Weapon ():item(){
     main_color = COLOR_WEAPON;
 }
 
-void Weapon::copy(Weapon B) {
-    
+void Weapon::copyWeapon(Weapon B) {
+    projectile=B.projectile;
+    offset=B.offset;
+    horizontal_size=B.horizontal_size;
+    vertical_size=B.vertical_size;
+    delta_x_horizontal=B.delta_x_horizontal;
+    delta_y_vertical=B.delta_y_vertical;
+    danno_fisico_iniziale=B.danno_fisico_iniziale;
+    danno_magico_iniziale=B.danno_magico_iniziale;
+    danno_fisico=B.danno_fisico;
+    danno_magico=B.danno_magico;
+    is_melee=B.is_melee;
+    is_equipped=B.is_equipped;
+    owner_id=B.owner_id;
+
+    vertical_attack_states=B.vertical_attack_states;
+    horizontal_attack_states=B.horizontal_attack_states;
+    vertical_attack_animation=B.vertical_attack_animation;
+    horizontal_attack_animation=B.horizontal_attack_animation;
+
+    copyItem(B);
 }
 
 void Weapon::apply_rune(){
@@ -60,6 +79,6 @@ bool Weapon::animationMask(Coordinate pos) {
 
 pProjectile Weapon::shoot() {
     pProjectile res = new Projectile;
-    res->copy(projectile);
+    res->copyProjectile(projectile);
     return res;
 }

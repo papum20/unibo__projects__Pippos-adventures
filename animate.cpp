@@ -6,7 +6,7 @@ Animate::Animate() : Physical() {
 
 }
 
-void Animate::copy(Animate B) {
+void Animate::copyAnimate(Animate B) {
 	direction = B.direction;
 	main_color = B.main_color;
 	idle_index = B.idle_index;
@@ -18,6 +18,7 @@ void Animate::copy(Animate B) {
 	attack_down_index = B.attack_down_index;
 	attack_left_index = B.attack_left_index;
 	attack_right_index = B.attack_right_index;
+	copyPhysical(B);
 }
 
 attr_t Animate::get_MainColor() {

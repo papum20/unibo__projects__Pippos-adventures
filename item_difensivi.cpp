@@ -6,6 +6,15 @@ item_difensivo::item_difensivo():item(){
     apply_rarity();
 }
 
+void item_difensivo::copyItemDifensivo(item_difensivo B) {
+    difesa_fisica_iniziale=B.difesa_fisica_iniziale;
+    difesa_fisica=B.difesa_fisica;
+    difesa_magica_iniziale=B.difesa_magica_iniziale;
+    difesa_magica=B.difesa_magica;
+    is_equipped=B.is_equipped;
+    copyItem(B);
+}
+
 void item_difensivo::apply_rune(){
     if (this->check_rarity())
         apply_rarity();

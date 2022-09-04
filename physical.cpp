@@ -13,7 +13,7 @@ Physical::Physical() {
     animations_n = 0;
 }
 
-void Physical::copy(Physical B) {
+void Physical::copyPhysical(Physical B) {
     pos = B.pos;
     size = B.size;
     id = B.id;

@@ -365,6 +365,9 @@ class Inventory : public Pixel_art{
         WINDOW * w_weapon;
         WINDOW * w_equip;
         WINDOW * w_options;
+        WINDOW * w_use;
+        int w_use_high;
+        int w_use_width;
         int * p_input;
         bool is_open;
         bool options_is_active;
@@ -396,7 +399,7 @@ class Inventory : public Pixel_art{
         int count_char(int start_char,char string[]);
         void print_weapon(int high, int lenght, const char graphic_weapon[][w_graphic_lenght]);
         void item_menu(int array_index);
-        void useOrdiscardItem(int y_position, int x_position, int array_index, Player * p);
+        void useOrdiscardItem(int y_position, int x_position, int array_index);
         void strcmp_rarity(WINDOW * win, int array_index, int number);
         void print_item_name(WINDOW * win, int y, int x, int array_index);
         void zaino_menu(int array_index, Player * p);
@@ -408,7 +411,8 @@ class Inventory : public Pixel_art{
         int check_class_name(int array_index);
         bool is_active();
         void close();
-        void update_w_use(int array_index);
+        void update_w_use(int array_index, Player * p);
+        int random_item();
 
         
 };      

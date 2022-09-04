@@ -79,7 +79,9 @@ class Character : public Alive {
 
 		void check_enemy_melee(pMap map);
 		void initiate_attack();
+		void ranged_attack(pMap map);
 		int calculate_damage(Alive *c);
+
 
 		equipment *getEqipment();
 		

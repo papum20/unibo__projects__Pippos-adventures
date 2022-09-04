@@ -34,5 +34,6 @@ Witch_Rod::Witch_Rod():Rod(){
 
 pProjectile Witch_Rod::shoot(){
     pSpell magia= new Spell(danno_fisico, danno_magico, direction, owner_id);
+    return magia;
 }
 

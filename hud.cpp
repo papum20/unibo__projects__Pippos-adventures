@@ -7,7 +7,7 @@ Hud::Hud(int x, int y, pPlayer p){
     player=p;
     start_x=x;
     start_y=y;
-    hud_win= newwin (CAMERA_WIDTH, HUD_HEIGHT, y, x);
+    hud_win= newwin (HUD_HEIGHT, HUD_WIDTH, y, x);
 }
 
 void Hud::drawHud (){
@@ -26,11 +26,11 @@ void Hud::drawHud (){
     init_pair (5, COLOR_GREEN, COLOR_BLACK);        //scritte marroni sfondo nero
     
     //disegno la barra della vita
-    y_cursor=1+start_y;
+    y_cursor=start_y+1;
     x_cursor=6+start_x;
     for (int i=0; i<barra_righe; i++){
         for (int j=0; j<barra_colonne; j++){
-            if (y_cursor==2  && barra_vita[i][j]!='|' && health_counter>0){           //coloro di rosso se sono all'interno della barra (y_c), non sono alla fine 
+            if (y_cursor==start_y+2  && barra_vita[i][j]!='|' && health_counter>0){           //coloro di rosso se sono all'interno della barra (y_c), non sono alla fine 
                 wattron(hud_win, COLOR_PAIR(1));                                  //di un segmento ('|') e ho ancora della vita da visualizzare (health_counter)
                 mvwaddch(hud_win, y_cursor, x_cursor, barra_vita[i][j]);
                 wattroff(hud_win, COLOR_PAIR(1));
@@ -53,14 +53,15 @@ void Hud::drawHud (){
     x_cursor=6+start_x;
     for (int i=0; i<barra_righe; i++){
         for (int j=0; j<barra_colonne; j++){
-            if (y_cursor==4  && barra_stamina[i][j]!='/' && stamina_counter>0){            
+            if (y_cursor==start_y+4  && barra_stamina[i][j]!='/' && stamina_counter>0){            
                 wattron(hud_win, COLOR_PAIR(2));                                  
                 mvwaddch(hud_win, y_cursor, x_cursor, barra_stamina[i][j]);
                 wattroff(hud_win, COLOR_PAIR(2));
                 stamina_counter--;
             }
-            else
+            else{
                 mvwaddch(hud_win, y_cursor, x_cursor, barra_stamina[i][j]);
+            }
             x_cursor++;
         }
         y_cursor++;

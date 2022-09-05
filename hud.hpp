@@ -13,7 +13,8 @@ struct list{
 
 typedef list* p_list;
 
-#define HUD_HEIGHT 8
+#define HUD_WIDTH 200
+#define HUD_HEIGHT 15
 
 const int n_rows=4;
 const int n_columns=6;
@@ -157,7 +158,6 @@ const char nine[number_rows][number_columns]=
 
 class Hud {
 	private:
-		WINDOW* hud_win;
 		int x_win;
 		int y_win;
 		int max_health;
@@ -166,6 +166,7 @@ class Hud {
     int start_x;
     int start_y;
 	public:
+    WINDOW* hud_win;
     Hud(int x, int y, pPlayer p);
 
 		void drawHud();		//disegna hud (in gioco)

@@ -120,8 +120,10 @@
 				}
 			}
 		}
+		mvwaddch(levelWindow, 0,0, 'A'|COLOR_PAIR(Cell::pairNumber(COLOR_RED,COLOR_GREEN)|A_NORMAL));
+		mvwaddch(levelWindow, 0,3, Cell('A',COLOR_RED,COLOR_GREEN,-1).toChtype());
 		wrefresh(levelWindow);
-		wgetch(levelWindow);
+		mvwgetch(levelWindow,2,2);
 	}
 
 	void Level::update(int input) {
@@ -247,8 +249,7 @@
 		int r = rand() % ENEMIES_CHANCE_TOT[level];
 		int i = 0;
 		while(r >= ENEMIES_CHANCHES[level][i]) i++;
-		pEnemy res = new Enemy();
-		res = new Enemy();
+		pEnemy res = new Enemy(player);
 		res->copyEnemy(ENEMIES_INSTANCES[level][i]);
 		return res;
 	}

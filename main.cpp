@@ -91,10 +91,10 @@ void gameInit() {
 }
 void colorsInit() {
 	Cell::initPairs();
-	init_color(COLOR_BROWN, 668, 273, 164);
-	init_color(COLOR_BROWN_LIGHT, 906, 371, 367);
-	init_color(COLOR_GREY, 156, 129, 137);
-	init_color(COLOR_BLUE, 156, 86, 898);
+	//init_color(COLOR_BROWN, 668, 273, 164);
+	//init_color(COLOR_BROWN_LIGHT, 906, 371, 367);
+	//init_color(COLOR_GREY, 156, 129, 137);
+	//init_color(COLOR_BLUE, 156, 86, 898);
 }
 
 void cursesEnd() {

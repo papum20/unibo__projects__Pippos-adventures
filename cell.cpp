@@ -15,7 +15,7 @@ Cell::Cell(char ch, int fg, int bg, attr_t att) {
 
 void Cell::initPairs() {
 	for(int fg = 0; fg < COLORS_NUMBER; fg++)
-		for(int bg = 0; bg < COLORS_NUMBER; bg++) init_pair(fg * COLORS_NUMBER + bg, fg, bg);
+		for(int bg = 0; bg < COLORS_NUMBER; bg++) init_pair(pairNumber(fg, bg), fg, bg);
 }
 
 void Cell::edit(char ch, int fg, int bg, attr_t att) {
@@ -30,12 +30,15 @@ char Cell::getCh() {
 	return ch;
 }
 chtype Cell::toChtype() {
-	return ch | colorPair() | att;
+	return ((chtype)ch) | colorPair() | att;
 }
 
-int Cell::colorPairNumber() {
-	return (COLOR_WHITE - fg) * COLORS_NUMBER + bg;
+int Cell::pairNumber(int fg, int bg) {
+	return fg * COLORS_NUMBER + bg + 1;
+}
+int Cell::pairNumber_own() {
+	return pairNumber(fg, bg);
 }
 int Cell::colorPair() {
-	return COLOR_PAIR(colorPairNumber());
+	return COLOR_PAIR(pairNumber_own());
 }

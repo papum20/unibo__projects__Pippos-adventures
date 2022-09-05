@@ -14,13 +14,12 @@
 		lr_border = LR_BORDER;
 		tb_border = TB_BORDER;
 		level = 0;
+		this->player = player;
 
 		//n_rooms = N_ROOMS;
-		levelWindow = newwin(win_h, win_w, win_y, win_x);
+		levelWindow = newwin(height, width, win_y, win_x);
 		box(levelWindow, 0, 0);
 		wrefresh(levelWindow);
-
-		this->player = player;
 
 		generateMap();
 
@@ -30,6 +29,9 @@
 		lastMovement = Coordinate(0, 0);
 		pivot = player;
 		pivotChanged = true;
+
+		for(int y = 0; y < height; y++)
+			for(int x = 0; x < width; x++) screen[y][x] = CHAR_EMPTY;
 	}
 
 	void Level::generateMap()
@@ -73,15 +75,18 @@
 			}
 		}
 		//avvia generazione di tutte le stanze
-		for(int i = 0; i < N_ROOMS; i++) {
+		curRoom->generate();
+		player->setPosition(curRoom->getSize().times(.5, .5));
+		curRoom->addCharacter(player);
+		spawnInRoom(curRoom);
+		for(int i = 1; i < N_ROOMS; i++) {
 			if(rooms[i] != NULL) {
-				rooms[i]->generate();
 				spawnInRoom(rooms[i]);
 			}
 		}
 		available.destroy();
 	}
-	void Level::spawnInRoom(pConnectedRoom room) {
+	void Level::spawnInRoom(pRoom room) {
 		for(int i = 0; i < ENEMIES_N[level]; i++) curRoom->spawnEnemy(randEnemy());
 		int chests_n = chestsNumber();
 		for(int i = 0; i < chests_n; i++) curRoom->spawnChest(randChest());
@@ -89,7 +94,8 @@
 
 	void Level::display() {
 		cameraUpdate();
-		displayAtPosition(position);
+		//displayAtPosition(position);
+		displayAtPosition(player->getPosition());
 	}
 
 	void Level::displayAtPosition(Coordinate center) {
@@ -99,15 +105,21 @@
 		curRoom->draw(t_scr, Coordinate(width, height), center);
 
 		//stampa e aggiorna array corrente
-		for(int y = tb_border; y < height - tb_border; y++) {
-			for(int x = lr_border; x < width - lr_border; x++) {
-				chtype cellValue = t_scr[y][x].toChtype();
-				if(screen[y][x] != cellValue) {
-					mvwaddch(levelWindow, y, x, cellValue);
-					screen[y][x] = cellValue;
-				}
-			}
-		}
+		//visto che room disegna dal basso mentre ncurses dall'alto, bisogna "rigirare" t_scr
+		//for(int room_y = tb_border; room_y < height - tb_border; room_y++) {
+		//	for(int x = lr_border; x < width - lr_border; x++) {
+		//		chtype cellValue = t_scr[room_y][x].toChtype();
+		//		chtype cell_char = cellValue & A_CHARTEXT;
+		//		if(cell_char == CHAR_EMPTY) cellValue = (cellValue & (A_ATTRIBUTES | A_COLOR)) | (screen[room_y][x] & A_CHARTEXT);	//se deve disegnare il carattere vuoto, riprende il carattere che era disegnato prima
+		//		
+		//		if(screen[room_y][x] != cellValue) {
+		//			int scr_y = height - room_y - 1;
+		//			mvwaddch(levelWindow, scr_y, x, cellValue);
+		//			screen[room_y][x] = cellValue;
+		//		}
+		//	}
+		//}
+		//wrefresh(levelWindow);
 	}
 
 	void Level::update(int input) {
@@ -189,7 +201,7 @@
 				}
 			}
 			//se il pivot non si è mosso
-			else if(pivot->lastFrameMovement().equals(Coordinate(0, 0))) {
+			else if(pivot->lastFrameMovement().equals(COORDINATE_ZERO)) {
 				if(Coordinate(position, pivot->getPosition().negative()).inBounds(tolerance.negative(), tolerance))	//se camera - pivot nel rettangolo di incertezza (di dimensioni piccole)
 					position = pivot->getPosition();
 				else if(!timer.is_active(CAMERA_DAMPING_TIMER))							//se si è appena fermato: avvia timer

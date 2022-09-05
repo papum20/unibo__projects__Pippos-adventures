@@ -32,12 +32,14 @@ int main() {
 	Hud hud = Hud(hud_x, hud_y, player);
 
 
+	level.display();
+
 	WINDOW *debug = newwin(10,10,0,0);
 	box(debug,0,0);
 	wrefresh(debug);
 	int frame = 0;
 	//// UPDATE: ESEGUITO A OGNI FRAME
-	while(isRunning)
+	/*(isRunning)
 	{
 		mvwprintw(debug,0,0,to_string(frame).c_str());
 		// GESTIONE TEMPO FRAME : si eseguono tutte le operazioni, poi nel prossimo update il tempo rimasto nel tempo di aggiornamento (refresh_rate)
@@ -61,11 +63,11 @@ int main() {
 			else mvwaddch(debug,1,0,'p');// menu.open();
 		//	level.update(inputManager->get_input());
 		//	level.display();
-			hud.drawHud();
+		//	hud.drawHud();
 		}
 		wrefresh(debug);
 		frame++;
-	}
+	}*/
 
 
 	//// END

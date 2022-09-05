@@ -34,7 +34,6 @@ class Room {
 		//// FUNZIONI AUSILIARIE
 		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// ADD
-		void addCharacter(pCharacter obj);							//aggiunge un character nella sua posizione
 		void addChest(pChest obj);									//aggiunge una chest nella sua posizione
 		// FUNZIONI AUSILIARIE DI GENERAZIONE - SECONDARIE
 		void generatePath(Coordinate s, pUnionFind sets);			//genera un percorso casuale a partire da x,y
@@ -63,6 +62,7 @@ class Room {
 		
 		virtual void generate(); 								//genera uno schema randomico per i muri, inserendoli nell'array map
 		
+		void addCharacter(pCharacter obj);							//aggiunge un character nella sua posizione
 		void spawnEnemy(pEnemy enemy);							//spawna un nemico
 		void spawnChest(pChest chest);							//spawna una chest
 		// DISEGNO

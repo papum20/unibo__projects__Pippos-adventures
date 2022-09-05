@@ -6,6 +6,7 @@
 		this->pos = pos;
 		this->entrancePosition = entrancePosition;
 		this->locked = locked;
+		main_color = COLOR_BLUE;
 	};
 
 //// SET

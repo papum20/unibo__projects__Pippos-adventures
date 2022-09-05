@@ -5,8 +5,9 @@
 	Room::Room(Coordinate pos) {
 		//inzializza stanza
 		this->pos = pos;
-		size = Coordinate(ROOM_WIDTH, ROOM_HEIGHT);
 		scale_x = SCALE_X;
+		size_t = Coordinate(ROOM_WIDTH_T, ROOM_HEIGHT);
+		size = size_t.times(scale_x, 1);
 
 		map = new Map;
 		map->size = size;
@@ -19,7 +20,8 @@
 	void Room::recursiveDestroy() {
 		Coordinate i(0, 0, size);
 		do {
-			map->physical[i.single()]->destroy();
+			pPhysical obj = map->physical[i.single()];
+			if(obj != NULL && obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) map->physical[i.single()]->destroy();
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 		delete this;
@@ -94,7 +96,7 @@
 				available[length] = i.single();
 				length++;
 			}
-
+			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
 		return length;
 	}
@@ -117,14 +119,15 @@
 
 #pragma region GENERATION
 	void Room::generateSidesWalls() {
-		for(int y = 0; y < size.y; y++) {
+		for(int y = 0; y < size_t.y; y++) {
 			int delta_x = 1;
-			if(y != 0 && y != size.y - 1) delta_x = ROOM_WIDTH_T - 1;
-			for(int x = 0; x < ROOM_WIDTH_T; x += delta_x) map->physical[Coordinate(x, y).single()] = WALL_INSTANCE;
+			if(y != 0 && y != size_t.y - 1) delta_x = size_t.x - 1;
+			else delta_x = 1;
+			for(int x = 0; x < size_t.x; x += delta_x) map->physical[Coordinate(x, y, size).single()] = WALL_INSTANCE;
 		}
 	}
 	void Room::generateInnerRoom() {
-		Coordinate rstart((ROOM_WIDTH_T - CENTRAL_ROOM_SIZE) / 2, (ROOM_HEIGHT - CENTRAL_ROOM_SIZE) / 2), rend((ROOM_HEIGHT + CENTRAL_ROOM_SIZE) / 2., (ROOM_WIDTH_T + CENTRAL_ROOM_SIZE) / 2);
+		Coordinate rstart((size_t.x - CENTRAL_ROOM_SIZE) / 2, (size_t.y - CENTRAL_ROOM_SIZE) / 2), rend((size_t.y + CENTRAL_ROOM_SIZE) / 2., (size_t.x + CENTRAL_ROOM_SIZE) / 2);
 		Coordinate i(rstart, rstart, rend);
 		do {
 			map->physical[i.single()] = FLOOR_INSTANCE;
@@ -133,14 +136,14 @@
 	}
 	void Room::generateAllPaths(pUnionFind sets) {
 		Coordinate rand_p = Coordinate();
-		rand_p.setMatrix(size);
-		rand_p.randomize(0, size.x, 0, size.y);
-		for(int i = 0; i < size.y * size.x; i++) {
-			rand_p.next();
+		rand_p.setMatrix(size_t);
+		rand_p.randomize(0, size_t.x, 0, size_t.y);
+		for(int i = 0; i < size_t.y * size_t.x; i++) {
 			if(map->physical[rand_p.single()] == NULL) {
 				sets->makeSet(rand_p.single());
 				generatePath(rand_p, sets);
 			}
+			rand_p.next();
 		}
 	}
 	void Room::connectPaths(pUnionFind sets) {
@@ -189,80 +192,75 @@
 		}
 	}
 	void Room::resizeMap() {
-		for(int y = 0; y < ROOM_HEIGHT; y++) {
-			for(int x = ROOM_WIDTH_T - 1; x >= 0; x++) {
-				for(int s = 0; s < SCALE_X; s++)
-					map->physical[Coordinate(x * scale_x + s, y).single()] = map->physical[Coordinate(x, y).single()];
-			}
+		for(int xy = size.x * size.y - 1; xy >= 0; xy--) {
+			Coordinate xy_t = Coordinate(xy, size).times(1. / scale_x, 1);
+			map->physical[xy] = map->physical[xy_t.single()];
 		}
 	}
 	void Room::generatePath(Coordinate s, pUnionFind sets)
 	{
-		if(!s.inOwnBounds()) return;
-		else {
-			map->physical[s.single()] = FLOOR_INSTANCE;
+		map->physical[s.single()] = FLOOR_INSTANCE;
 
-			bool used_dirs[DIRECTIONS_N];	//direzioni usate
-			int used_dirs_n;
-			bool new_dirs[DIRECTIONS_N];	//nuove direzioni da generare
-			int new_dirs_n;
+		bool used_dirs[DIRECTIONS_N];	//direzioni usate
+		int used_dirs_n;
+		bool new_dirs[DIRECTIONS_N];	//nuove direzioni da generare
+		int new_dirs_n;
 
-			// CONTA DIREZIONI INUTILIZZABILI (PERCHÈ GIÀ USATE O FUORI DALLA MAPPA)
-			int tot_chance = DIR_CHANCES[0];	//somma delle probabilità delle direzioni disponibili
-			int unused_dirs_n = 0;
-			for(int d = 0; d < DIRECTIONS_N; d++) {
-				Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
-				if(map->physical[nxt.single()] == NULL) {
-					if(nxt.inOwnBounds()) {
-						used_dirs[d] = false;
-						unused_dirs_n++;
-						tot_chance += DIR_CHANCES[unused_dirs_n];
-					}
-				}
-				else {
-					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
-					if(map->physical[nxt.single()]->getId() == ID_FLOOR)
-						sets->merge(s.single(), nxt.single());
-					used_dirs[d] = true;
+		// CONTA DIREZIONI INUTILIZZABILI (PERCHÈ GIÀ USATE O FUORI DALLA MAPPA)
+		int tot_chance = DIR_CHANCES[0];	//somma delle probabilità delle direzioni disponibili
+		int unused_dirs_n = 0;
+		for(int d = 0; d < DIRECTIONS_N; d++) {
+			Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
+			if(map->physical[nxt.single()] == NULL) {
+				if(nxt.inOwnBounds()) {
+					used_dirs[d] = false;
+					unused_dirs_n++;
+					tot_chance += DIR_CHANCES[unused_dirs_n];
 				}
 			}
-			used_dirs_n = DIRECTIONS_N - unused_dirs_n;
+			else {
+				//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
+				if(map->physical[nxt.single()]->getId() == ID_FLOOR)
+					sets->merge(s.single(), nxt.single());
+				used_dirs[d] = true;
+			}
+		}
+		used_dirs_n = DIRECTIONS_N - unused_dirs_n;
 
-			if(used_dirs_n != DIRECTIONS_N) {
-				// SCEGLI NUMERO DI DIREZIONI DA GENERARE (TRA QUELLE DISPONIBILI)
-				new_dirs_n = 0;
-				int new_dirs_r = rand() % tot_chance;	//indice per generare un numero random di nuove direzioni
-				int chance_counter = 0;
-				while(new_dirs_r >= chance_counter + DIR_CHANCES[new_dirs_n]) {
-					chance_counter += DIR_CHANCES[new_dirs_n];
-					new_dirs_n++;
-				}
+		if(used_dirs_n != DIRECTIONS_N) {
+			// SCEGLI NUMERO DI DIREZIONI DA GENERARE (TRA QUELLE DISPONIBILI)
+			new_dirs_n = 0;
+			int new_dirs_r = rand() % tot_chance;	//indice per generare un numero random di nuove direzioni
+			int chance_counter = 0;
+			while(new_dirs_r >= chance_counter + DIR_CHANCES[new_dirs_n]) {
+				chance_counter += DIR_CHANCES[new_dirs_n];
+				new_dirs_n++;
+			}
 
-				//	SCEGLI DIREZIONI IN CUI GENERARE
-				for(int d = 0; d < DIRECTIONS_N; d++) new_dirs[d] = false;
-				for(int i = 0; i < new_dirs_n; i++) {
-					int r = rand() % (new_dirs_n - i);
-					int d = 0;
-					while(r > 0 || used_dirs[d] || new_dirs[d]) {
-						if(!used_dirs[d] && !new_dirs[d]) r--;
-						d++;
-					}
-					new_dirs[d] = true;
+			//	SCEGLI DIREZIONI IN CUI GENERARE
+			for(int d = 0; d < DIRECTIONS_N; d++) new_dirs[d] = false;
+			for(int i = 0; i < new_dirs_n; i++) {
+				int r = rand() % (new_dirs_n - i);
+				int d = 0;
+				while(r > 0 || used_dirs[d] || new_dirs[d]) {
+					if(!used_dirs[d] && !new_dirs[d]) r--;
+					d++;
 				}
+				new_dirs[d] = true;
+			}
 
-				// PRIMA GENERA MURI E CASELLE ADIACENTI,
-				for(int d = 0; d < DIRECTIONS_N; d++) {
-					if(new_dirs[d]) map->physical[Coordinate(s, DIRECTIONS[d]).single()] = FLOOR_INSTANCE;
-					else if(!used_dirs[d]) map->physical[Coordinate(s, DIRECTIONS[d]).single()] = WALL_INSTANCE;
-				}
-				//POI VA IN RICORSIONE SULLE DIREZIONI
-				for(int d = 0; d < DIRECTIONS_N; d++) {
-					if(new_dirs[d]) {
-						Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
-						sets->makeSet(nxt.single());
-						sets->merge(s.single(), nxt.single());
-						generatePath(nxt, sets);
-					}
+			// PRIMA GENERA MURI E CASELLE ADIACENTI,
+			for(int d = 0; d < DIRECTIONS_N; d++) {
+				if(new_dirs[d]) map->physical[Coordinate(s, DIRECTIONS[d]).single()] = FLOOR_INSTANCE;
+				else if(!used_dirs[d]) map->physical[Coordinate(s, DIRECTIONS[d]).single()] = WALL_INSTANCE;
+			}
+			//POI VA IN RICORSIONE SULLE DIREZIONI
+			for(int d = 0; d < DIRECTIONS_N; d++) {
+				if(new_dirs[d]) {
+					Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
+					sets->makeSet(nxt.single());
+					sets->merge(s.single(), nxt.single());
+					generatePath(nxt, sets);
 				}
 			}
 		}

@@ -3,21 +3,22 @@
 
 
 	PriorityQueue::PriorityQueue() {
-		PriorityQueue(COMPARE_SIGN_DFLT);
+		size = 0;
+		compareSign = COMPARE_SIGN_DFLT;
 	}
 	PriorityQueue::PriorityQueue(int compareSign) {
 		size = 0;
 		this->compareSign = compareSign;
 	}
 	void PriorityQueue::destroy() {
-		for(int i = 0; i < size; i++) delete heap[i];
+		for(int i = 0; i < size; i++) heap[i]->destroy();
 	}
 
 
 //// PRINCIPALI
 #pragma region HEAP_PRINCIPALI
 	void PriorityQueue::insert(pComparable x) {
-		if(size < HEAP_SIZE_MAX) {
+		if(!isFull()) {
 			heap[size] = x;
 			fix(size);
 			size++;
@@ -112,8 +113,5 @@
 
 	bool PriorityQueue::isFull() {
 		return size >= HEAP_SIZE_MAX;
-	}
-	int PriorityQueue::getSize() {
-		return size;
 	}
 #pragma endregion HEAP_AUSILIARIE

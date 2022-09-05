@@ -30,7 +30,6 @@ typedef char lock_type;
 class Room {
 	private:
 		Coordinate pos;											//coordinate rispetto alla prima stanza del livello
-		int scale_x;											//ridimensionamento orizzontale (in generazione)
 
 		//// FUNZIONI AUSILIARIE
 		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
@@ -44,7 +43,9 @@ class Room {
 					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
 					//e directions con le rispettive direzioni, ne ritorna il numero
 	protected:
-		Coordinate size;
+		Coordinate size;		//dimensioni effettive
+		Coordinate size_t;		//dimensioni senza l'allargamento scale_x
+		int scale_x;											//ridimensionamento orizzontale (in generazione)
 		pMap map;
 		
 	// FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI

@@ -2,35 +2,33 @@
 
 
 
-	PriorityQueueRoom::PriorityQueueRoom() : PriorityQueue() {
-		PriorityQueueRoom(COMPARE_SIGN_DFLT);
+	PriorityQueueRoom::PriorityQueueRoom() : PriorityQueue(COMPARE_SIGN_DFLT) {
+		
 	}
 	PriorityQueueRoom::PriorityQueueRoom(int compareSign) : PriorityQueue(compareSign) {
 
 	}
 	void PriorityQueueRoom::destroy() {
 		PriorityQueue::destroy();
-		for(int i = 0; i < getSize(); i++) delete data[i];
 	}
 
 
 	void PriorityQueueRoom::insert(RoomPosition x) {
 		if(!isFull()) {
-			data[getSize()] = new RoomPosition();
-			data[getSize()]->copy(x);
-			PriorityQueue::insert(data[getSize()]);
+			data[size] = new RoomPosition();
+			data[size]->copy(x);
+			PriorityQueue::insert(data[size]);
 		}
 	}
 	void PriorityQueueRoom::remove(RoomPosition x) {
 		int ind = find(x);
 		if(ind != -1) {
 			PriorityQueue::removeAt(ind);
-			delete data[getSize() + 1];
 		}
 	}
 
 	RoomPosition PriorityQueueRoom::random() {
-		return *data[rand() % getSize()];
+		return *data[rand() % size];
 	}
 	RoomPosition PriorityQueueRoom::unevenRandom() {
 		return *data[unevenRandom_index()];

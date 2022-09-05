@@ -1,7 +1,7 @@
 #include "alive.hpp"
 
 
-Alive::Alive() {
+Alive::Alive() : Animate() {
 	maxHealth = 0;
 	curHealth = 0;
 	maxStamina = 0;

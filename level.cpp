@@ -2,21 +2,23 @@
 
 
 #pragma region MAIN
-	Level::Level(int win_y, int win_x, int win_h, int win_w, pPlayer player) {
-		setUp(win_y, win_x, win_h, win_w, player);
+	Level::Level(int win_x, int win_y, int win_w, int win_h, pPlayer player) {
+		setUp(win_x, win_y, win_w, win_h, player);
 	}
-	Level::Level(int win_y, int win_x, pPlayer player) {
-		setUp(win_y, win_x, CAMERA_HEIGHT, CAMERA_WIDTH, player);
+	Level::Level(int win_x, int win_y, pPlayer player) {
+		setUp(win_x, win_y, CAMERA_WIDTH, CAMERA_HEIGHT, player);
 	}
-	void Level::setUp(int win_y, int win_x, int win_h, int win_w, pPlayer player) {
-		width = CAMERA_WIDTH;
-		height = CAMERA_HEIGHT;
+	void Level::setUp(int win_x, int win_y, int win_w, int win_h, pPlayer player) {
+		width = win_w;
+		height = win_h;
 		lr_border = LR_BORDER;
 		tb_border = TB_BORDER;
 		level = 0;
 
 		//n_rooms = N_ROOMS;
-		levelWindow = newwin(win_y, win_x, win_h, win_w);
+		levelWindow = newwin(win_h, win_w, win_y, win_x);
+		box(levelWindow, 0, 0);
+		wrefresh(levelWindow);
 
 		this->player = player;
 
@@ -32,10 +34,10 @@
 
 	void Level::generateMap()
 	{
-		for(int i = 0; i < ROOM_AREA; i++) map[i] = NULL;
+		for(int i = 0; i < LEVEL_AREA; i++) map[i] = NULL;
 		//posizioni disponibili (allo stesso tempo) per la generazione di una nuova stanza, quindi adiacenti a una già presente
 		//implementato come min-heap; il terzo campo sono le stanze adiacenti, usate per confronto
-		PriorityQueueRoom available(-1);
+		PriorityQueueRoom available = PriorityQueueRoom(-1);
 		//stanze generate
 		pConnectedRoom rooms[N_ROOMS];
 		for(int i = 1; i < N_ROOMS; i++) rooms[i] = NULL;
@@ -77,7 +79,6 @@
 				spawnInRoom(rooms[i]);
 			}
 		}
-
 		available.destroy();
 	}
 	void Level::spawnInRoom(pConnectedRoom room) {

@@ -2,7 +2,8 @@
 
 
 	RoomPosition::RoomPosition() : Comparable() {
-		RoomPosition(Coordinate(-1, -1), 0);
+		this->pos = COORDINATE_NEGATIVE;
+		this->connected = 0;
 	}
 	RoomPosition::RoomPosition(Coordinate pos, int connected) : Comparable() {
 		this->pos = pos;

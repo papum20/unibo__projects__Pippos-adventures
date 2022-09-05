@@ -44,11 +44,11 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 //SPAWN: istanze e probabilità
 //enemy
 const int ENEMIES_N[LEVELS_N] {10};
-const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
-														{Zombie(), Spider()},
-														{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
-														{Spider(), Fire_spirit(), Snowman(), Witch()}
-														};
+const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES];//	= 	//{
+														//{Zombie(), Spider()},
+														//{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
+														//{Spider(), Fire_spirit(), Snowman(), Witch()}
+														//};
 const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]		= 	{
 														{3, 1},
 														{2, 3, 4, 1, 1},
@@ -58,9 +58,9 @@ const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 100, 100};
 //item
 const int CHESTS_N_MIN[LEVELS_N] {0};
 const int CHESTS_N_MAX[LEVELS_N] {2};
-const Artifact ARTIFACT_INSTANCES[N_ARTIFACTS] = {HealthPotion(), Life_elixir(), Rune()};
-const item_difensivo ITEM_DIFENSIVO_INSTANCES[N_ITEM_DIFENSIVO] = {armor(), boots(), helm(), necklace(), shield()};
-const Weapon WEAPON_INSTANCES[N_WEAPONS] = {Ascia(), Arco(), Hands(), Rod(), sword()};
+const Artifact ARTIFACT_INSTANCES[N_ARTIFACTS];// = {HealthPotion(), Life_elixir(), Rune()};
+const item_difensivo ITEM_DIFENSIVO_INSTANCES[N_ITEM_DIFENSIVO];// = {armor(), boots(), helm(), necklace(), shield()};
+const Weapon WEAPON_INSTANCES[N_WEAPONS] ;//= {Ascia(), Arco(), Hands(), Rod(), sword()};
 
 
 
@@ -107,7 +107,7 @@ class Level {
 		void nextLevel();						//passa al livello successivo
 		
 		// FUNZIONI AUSILIARIE
-		void setUp(int win_y, int win_x, int win_h, int win_w, pPlayer player);				//setup per costruttore
+		void setUp(int win_x, int win_y, int win_w, int win_h, pPlayer player);					//setup per costruttore
 		lock_type randLockedDoor(Room A, Room B);												//(per generate) ritorna casualmente se la/le porta/e tra la stanza da generare e room devono essere bloccate
 		pConnectedRoom findRoomAtCoordinates(pConnectedRoom rooms[], int len, Coordinate c);	//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		void cameraUpdate();																	//calcola il centro della camera
@@ -119,8 +119,8 @@ class Level {
 
 
 	public:
-		Level(int win_y, int win_x, pPlayer player);
-		Level(int win_y, int win_x, int win_h, int win_w, pPlayer player);
+		Level(int win_x, int win_y, pPlayer player);
+		Level(int win_x, int win_y, int win_w, int win_h, pPlayer player);
 		
 
 		void display();								//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa), con camera che segue il personaggio

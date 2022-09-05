@@ -4,6 +4,10 @@
 UnionFind::UnionFind() {
 	for(int i = 0; i < UNION_FIND_SIZE; i++) sets[i] = NULL;
 }
+void UnionFind::destroy() {
+	for(int i = 0; i < UNION_FIND_SIZE; i++) delete sets[i];
+}
+
 void UnionFind::makeSet(s_coord s) {
 	if(sets[s] == NULL) {
 		sets[s] = new UFelement;

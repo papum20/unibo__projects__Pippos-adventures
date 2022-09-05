@@ -1,7 +1,7 @@
 #include "door.hpp"
 
 
-	Door::Door(Coordinate pos, Coordinate entrancePosition, bool locked) {
+	Door::Door(Coordinate pos, Coordinate entrancePosition, bool locked) : Inanimate() {
 		id = ID_DOOR;
 		this->pos = pos;
 		this->entrancePosition = entrancePosition;

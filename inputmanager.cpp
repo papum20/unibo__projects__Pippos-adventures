@@ -2,7 +2,7 @@
 
 
 InputManager::InputManager(int x_win, int y_win) {
-    input_window=newwin (y_win, x_win, input_h, input_l);
+    input_window=newwin (input_h+2, input_l+2, y_win, x_win);
     keypad(input_window, true);
     nodelay(input_window, true);
     noecho();
@@ -11,10 +11,9 @@ InputManager::InputManager(int x_win, int y_win) {
 }
 
 void InputManager::calculate_input(){
-    curr_input=wgetch(input_window);
+    curr_input=mvwgetch(input_window, 0, 0);
 }
 
 int InputManager::get_input(){
-    calculate_input();
     return (curr_input);
 }

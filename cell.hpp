@@ -5,9 +5,8 @@
 #define CELL_HPP
 
 #include <curses.h>
+#include "definitions.hpp"
 
-
-#define COLORS_TOT 8
 
 // ATTRIBUTI DI DEFAULT
 #define CELL_DFLT_CHAR ' '
@@ -25,6 +24,8 @@ class Cell {
 	public:
 		Cell();											//inizializza con gli attributi di default
 		Cell(char ch, int fg, int bg, attr_t att);		//valori minori di 0 inizializzano di default
+
+		static void initPairs();						//da chiamare per inizializzare i color pair
 
 		void edit(char ch, int fg, int bg, attr_t att);	//valori minori di 0 non modificano
 		// GET

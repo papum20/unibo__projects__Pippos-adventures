@@ -22,7 +22,6 @@ class PriorityQueue {
 	private:
 		pComparable heap[HEAP_SIZE_MAX];
 		//p_class data[HEAP_SIZE_MAX];		//array da definire nelle sottoclassi con eventuali dati aggiuntivi
-		int size;
 		int compareSign;					//risultato di compareTo, se applicato tra padre e figlio
 
 		void fix(int i);
@@ -33,13 +32,14 @@ class PriorityQueue {
 
 
 	protected:
+		int size;
+		
 		int unevenRandom_index();			//ritorna l'indice ottenuto con unevenRandom
 
 		void removeAt(int ind);				//rimuove da un certo indice 
 		virtual void swap(int a, int b);
 
 		bool isFull();
-		int getSize();
 
 	public:
 		PriorityQueue();

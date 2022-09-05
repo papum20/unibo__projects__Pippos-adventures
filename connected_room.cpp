@@ -59,11 +59,13 @@
 		return res;
 	}
 	void ConnectedRoom::generateDoors(pUnionFind sets) {
-		for(int door = 0; door < n_doors_sides; door++) {
-			Coordinate door_pos = map->doors[door]->getPosition().times(1. / scale_x, 1);;
-			door_pos.setMatrix(size_t);
-			map->physical[door_pos.single()] = map->doors[door];
-			sets->makeSet(door_pos.single());
+		for(int door = 0; door < n_doors_max; door++) {
+			if(map->doors[door] != NULL) {
+				Coordinate door_pos = map->doors[door]->getPosition().times(1. / scale_x, 1);;
+				door_pos.setMatrix(size_t);
+				map->physical[door_pos.single()] = map->doors[door];
+				sets->makeSet(door_pos.single());
+			}
 		}
 	}
 #pragma endregion AUSILIARIE

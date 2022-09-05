@@ -70,20 +70,23 @@
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
-		Coordinate wstart = Coordinate(center.x - win_size.x / 2, center.y - win_size.y / 2), wend = Coordinate(center.x + Math::ceil(win_size.x / 2.), center.y + Math::ceil(win_size.y / 2.));
+		Coordinate wstart = Coordinate(center.x - Math::ceil(win_size.x / 2.) + 1, center.y - Math::ceil(win_size.y / 2.) + 1), wend = Coordinate(wstart, win_size);
 		Coordinate i = Coordinate(wstart, wstart, wend);
 		do {
-			Coordinate i_reverse = Coordinate(i.x, wstart.y + (wend.y - i.y));
-			pPhysical obj = MapHandler::checkPosition(map, i_reverse);
-			if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i_reverse);
-			else {
-				obj->drawAtOwnPosition(scr, wstart, win_size);
-				FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i_reverse);
+			if(i.inBounds(COORDINATE_ZERO, size)) {																	//se il punto è nella stanza
+				Coordinate i_reverse = Coordinate(Coordinate(i.x, wstart.y + (wend.y - i.y) - 1), wstart, wend);	//itera da sotto ma disegna da sopra
+				pPhysical obj = MapHandler::checkPosition(map, i_reverse);
+				//if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i_reverse);						//disegna oggetto inanimato
+				//else {																								//disegna animato+pavimento
+				//	//obj->drawAtOwnPosition(scr, wstart, win_size);
+				//	FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i_reverse);
+				//}
 			}
 			i.next();
 		} while(!i.equals(wstart));
 	}
 #pragma endregion MAIN
+
 
 
 #pragma region AUSILIARIE

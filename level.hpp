@@ -102,7 +102,7 @@ class Level {
 		
 		// FUNZIONI
 		void generateMap();						//genera lo schema della disposizione delle stanze del livello
-		void spawnInRoom(pConnectedRoom room);	//spawn iniziale di nemici
+		void spawnInRoom(pRoom room);			//spawn iniziale di nemici
 		void changeRoom();						//controlla se si deve cambiare stanza, ed eventualmente la cambia
 		void nextLevel();						//passa al livello successivo
 		

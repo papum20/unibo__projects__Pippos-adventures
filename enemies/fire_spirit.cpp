@@ -1,6 +1,6 @@
 #include "fire_spirit.hpp"
 
-Fire_spirit::Fire_spirit():Enemy(){
+Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
     fire_spirit_hands= new Fire_spirit_hands();
     collana= new necklace();
 

@@ -1,6 +1,6 @@
 #include "zombie.hpp"
 
-Zombie::Zombie():Enemy(){
+Zombie::Zombie(pCharacter p):Enemy(p){
     
     zombie_hands=new Zombie_hands();
     armatura= new armor();

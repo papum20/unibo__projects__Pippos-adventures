@@ -1,6 +1,6 @@
 #include "witch.hpp"
 
-Witch::Witch():Enemy(){
+Witch::Witch(pCharacter p):Enemy(p){
     witch_rod= new Witch_Rod();
     armatura= new armor();
     collana= new necklace();

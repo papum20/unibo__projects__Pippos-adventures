@@ -122,6 +122,7 @@ void Hud::drawHud (){
     y_cursor=1+start_y;
     draw_points(x_cursor, y_cursor);
 
+    wrefresh(hud_win);
 }
 
 void Hud::draw_n(int x, int y){

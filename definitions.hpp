@@ -68,7 +68,7 @@ const int scroll_up = KEY_UP;
 const int scroll_down = KEY_DOWN;
 const int scroll_left = KEY_LEFT;
 const int scroll_right = KEY_RIGHT;
-#define KEY_PAUSE esc
+#define KEY_PAUSE 'p'
 #pragma endregion KEY_BINDINGS
 
 

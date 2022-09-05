@@ -4,6 +4,7 @@
 
 Character::Character() : Alive() {
 	is_attacking=false;
+	current_animation=idle_index;
 }
 
 Character::Character(int maxH, int maxS) : Alive(maxH, maxS) {

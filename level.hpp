@@ -60,7 +60,7 @@ const int CHESTS_N_MIN[LEVELS_N] {0};
 const int CHESTS_N_MAX[LEVELS_N] {2};
 const Artifact ARTIFACT_INSTANCES[N_ARTIFACTS];// = {HealthPotion(), Life_elixir(), Rune()};
 const item_difensivo ITEM_DIFENSIVO_INSTANCES[N_ITEM_DIFENSIVO];// = {armor(), boots(), helm(), necklace(), shield()};
-const Weapon WEAPON_INSTANCES[N_WEAPONS] ;//= {Ascia(), Arco(), Hands(), Rod(), sword()};
+const Weapon WEAPON_INSTANCES[N_WEAPONS];//= {Ascia(), Arco(), Hands(), Rod(), sword()};
 
 
 
@@ -76,6 +76,7 @@ class Level {
 		int tb_border;
 		//stanze nel livello
 		pRoom map[LEVEL_AREA];
+		Coordinate map_size;
 
 		int level;					//livello corrente
 

@@ -29,17 +29,17 @@ int main() {
 	pPlayer player = new Player(inputManager);
 	Level level = Level(level_x, level_y, player);
 	Menu menu = Menu(inputManager);
-	Hud hud = Hud(hud_x, hud_y, player);
+	//Hud hud = Hud(hud_x, hud_y, player);
 
 
 	level.display();
 
-	WINDOW *debug = newwin(10,10,0,0);
+	/*WINDOW *debug = newwin(10,10,0,0);
 	box(debug,0,0);
 	wrefresh(debug);
 	int frame = 0;
 	//// UPDATE: ESEGUITO A OGNI FRAME
-	/*(isRunning)
+	while (isRunning)
 	{
 		mvwprintw(debug,0,0,to_string(frame).c_str());
 		// GESTIONE TEMPO FRAME : si eseguono tutte le operazioni, poi nel prossimo update il tempo rimasto nel tempo di aggiornamento (refresh_rate)

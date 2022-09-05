@@ -11,12 +11,13 @@
 #define UNION_FIND_SIZE (ROOM_AREA)
 
 
-// ELEMENTI COME LISTE CIRCOLARI
+// ELEMENTI COME LISTE CIRCOLARI BIDIREZIONALI
 struct UFelement {
 	s_coord val;
 	int weight;
 	UFelement *parent;
 	UFelement *next;
+	UFelement *last;
 };
 typedef UFelement *pUFelement;
 
@@ -35,6 +36,7 @@ class UnionFind {
 		void merge(s_coord a, s_coord b);	//unisce gli insiemi contenenti a e b
 
 		//GET
+		s_coord next(s_coord set);			//permette di ottenere l'elemento successivo nel set, sffruttando l'implementazione a liste circolari, con il campo next di UFelement
 		int getNumber();					//ritorna UnionFind.number
 		s_coord firstSet();					//ritorna il padre del primo insieme memorizzato
 };

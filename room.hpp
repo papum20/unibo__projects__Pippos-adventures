@@ -32,15 +32,15 @@ class Room {
 		Coordinate pos;											//coordinate rispetto alla prima stanza del livello
 
 		//// FUNZIONI AUSILIARIE
-		int getFreeCells(s_coord available[], Coordinate size);		//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
+		int getFreeCells(s_coord available[], Coordinate size);			//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// ADD
-		void addChest(pChest obj);									//aggiunge una chest nella sua posizione
+		void addChest(pChest obj);										//aggiunge una chest nella sua posizione
 		// FUNZIONI AUSILIARIE DI GENERAZIONE - SECONDARIE
-		void generatePath(Coordinate s, pUnionFind sets);			//genera un percorso casuale a partire da x,y
-		int getAdjacentWalls(Coordinate out[], s_coord currentSet);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero
-		int getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance);
-					//riempie border con i muri di confine tra il set di parent e un altro (con spessore distance)
-					//e directions con le rispettive direzioni, ne ritorna il numero
+		void generatePath(Coordinate s, pUnionFind sets);				//genera un percorso casuale a partire da x,y
+		int getAdjacentWalls(Coordinate out[], s_coord currentParent);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero; PRECONDIZIONE: currentParent è parent del suo set
+		int getBorderWalls(Coordinate walls[], int directions[], int walls_n, UnionFind sets, s_coord parent, int distance);
+					//riempie walls, già contenente i muri adiacenti, con i soli muri di confine tra il set di parent e un altro (con spessore distance)
+					//e directions con le rispettive direzioni; ne ritorna il numero
 	protected:
 		Coordinate size;		//dimensioni effettive
 		Coordinate size_t;		//dimensioni senza l'allargamento scale_x

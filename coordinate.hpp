@@ -1,4 +1,4 @@
-//// CLASSE CHE MEMORIZZA UNA COORDINATA, COME COPPIA X,Y (float), ED EVENTUALI "CONFINI" DI UNA MATRICE DA CUI NON PUÒ USCIRE E DI PIÙ INTERNI PER CONTROLLI E next (estremi finali escluso)
+//// CLASSE CHE MEMORIZZA UNA COORDINATA, COME COPPIA X,Y (float), ED EVENTUALI "CONFINI" DI UNA MATRICE (da cui non puo uscire con next) E DI PIÙ INTERNI PER CONTROLLI E next (estremi finali escluso)
 //// PERMETTE DI VERIFICARE SE LE COORDINATE SI TROVINO IN TALI BORDI (INTERNI) CON inBounds() e inOwnBounds(),
 //// E DI OTTENERE UNA COORDINATA "SINGOLA", RELATIVA AI BORDI, UTILIZZABILE COME INDICE, CON single() (sempre grazie ai confini interni)
 //// IMPLEMENTA SVARIATE SEMPLICI OPERAZIONI
@@ -29,8 +29,9 @@ class Coordinate {
 		float sizex, sizey;
 		//DIMENSIONI (SOTTOINSIEME DI SIZE) IN CUI SI POSSONO FARE CONTROLLI CON InOwnBounds E PER USARE NEXT
 		//RIMANGONO UGUALI ALLA MATRICE FINCHÉ NON VENGONO IMPOSTATI
-		float startx, starty;		//estremo incluso
-		float endx, endy;			//estremo escluso
+		float startx, starty;			//estremo incluso
+		float endx, endy;				//estremo escluso
+
 	public:
 		float x, y;
 
@@ -54,7 +55,7 @@ class Coordinate {
 		Coordinate negative() const;									//return (-x, -y)
 		Coordinate times(float px, float py);							//return (x*px, y*py)
 		void clamp(Coordinate mn, Coordinate mx);						//fa rientrare le coordinate nei bordi (mn lessEqual mx)
-		void next();													//trasforma in coordinata successiva rispetto a matrice (incrementata di 1, non esce fuori dai bordi, se arrivato alla fine diventa l'inizio della matrice); funziona solo con matrice impostata (o ritorna ERROR_INT)
+		void next();													//trasforma in coordinata successiva rispetto a matrice (incrementata di 1, non esce fuori dai bordi, se arrivato alla fine diventa l'inizio della matrice); funziona solo con matrice impostata e x,y in essa (o ritorna ERROR_INT)
 		void randomize(int xmin, int xmax, int ymin, int ymax);			//trasforma x e y in random (min inclusi, max esclusi) (solo interi)
 																		//se estremi uguali, non cambia il valore
 		//SET
@@ -71,7 +72,8 @@ class Coordinate {
 		Coordinate relative();							//relativi alla matrice
 		int rel_int_x();								//relativi alla matrice (intero)
 		int rel_int_y();
-		s_coord single();								//converte in una singola coordinata, rispetto a una matrice finita (=y*width + x) (usa parte intera delle coordinate); funziona solo con matrice impostata (o ritorna ERROR_INT)
+		s_coord single();								//converte in una singola coordinata, rispetto a una matrice finita (=y*width + x) (usa parte intera delle coordinate); funziona solo con matrice impostata e x,y in essa (o ritorna ERROR_INT)
+		s_coord single_set(Coordinate size);			//ritorna single rispetto alla matrice in parametro
 		s_coord single_ceil();							//single (usa arrotondamenti per eccesso delle coordinate)
 };
 
@@ -79,7 +81,7 @@ class Coordinate {
 const Coordinate COORDINATE_ZERO = Coordinate(0, 0);
 const Coordinate COORDINATE_ONE = Coordinate(1, 1);
 const Coordinate COORDINATE_NEGATIVE = Coordinate(-1, -1);
-const Coordinate COORDINATE_ERROR = COORDINATE_NEGATIVE;		//COORDINATA DI RITORNO "DI ERRORE"
+const Coordinate COORDINATE_ERROR = Coordinate(-1, -1);		//COORDINATA DI RITORNO "DI ERRORE"
 
 //// DIREZIONI
 //direzioni (vettori unitari) (utili per la generazione di stanze e livelli)

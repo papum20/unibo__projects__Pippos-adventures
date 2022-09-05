@@ -76,11 +76,11 @@
 			if(i.inBounds(COORDINATE_ZERO, size)) {																	//se il punto è nella stanza
 				Coordinate i_reverse = Coordinate(Coordinate(i.x, wstart.y + (wend.y - i.y) - 1), wstart, wend);	//itera da sotto ma disegna da sopra
 				pPhysical obj = MapHandler::checkPosition(map, i_reverse);
-				//if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i_reverse);						//disegna oggetto inanimato
-				//else {																								//disegna animato+pavimento
-				//	//obj->drawAtOwnPosition(scr, wstart, win_size);
-				//	FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i_reverse);
-				//}
+				if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i_reverse);						//disegna oggetto inanimato
+				else {																								//disegna animato+pavimento
+					//obj->drawAtOwnPosition(scr, wstart, win_size);
+					FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i_reverse);
+				}
 			}
 			i.next();
 		} while(!i.equals(wstart));
@@ -105,14 +105,14 @@
 	}
 //// ADD
 	void Room::addCharacter(pCharacter character) {
-		Coordinate i = Coordinate(character->getPosition(), character->getPosition(), Coordinate(character->getPosition(), character->getSize()));
+		Coordinate i = Coordinate(character->getPosition(), size, character->getPosition(), Coordinate(character->getPosition(), character->getSize()));
 		do {
 			map->physical[i.single()] = character;
 			map->characters[i.single()] = character;
 		} while(!i.equals(character->getPosition()));
 	}
 	void Room::addChest(pChest chest) {
-		Coordinate i = Coordinate(chest->getPosition(), chest->getPosition(), Coordinate(chest->getPosition(), chest->getSize()));
+		Coordinate i = Coordinate(chest->getPosition(), size, chest->getPosition(), Coordinate(chest->getPosition(), chest->getSize()));
 		do {
 			map->physical[i.single()] = chest;
 			map->chests[i.single()] = chest;
@@ -122,70 +122,64 @@
 
 #pragma region GENERATION
 	void Room::generateSidesWalls() {
-		for(int y = 0; y < size_t.y; y++) {
-			int delta_x = 1;
-			if(y != 0 && y != size_t.y - 1) delta_x = size_t.x - 1;
-			else delta_x = 1;
-			for(int x = 0; x < size_t.x; x += delta_x) map->physical[Coordinate(x, y, size).single()] = WALL_INSTANCE;
-		}
+		Coordinate i = Coordinate(COORDINATE_ZERO, size, COORDINATE_ZERO, size_t);
+		do {
+			map->physical[i.single()] = WALL_INSTANCE;
+			if(i.x == 0 && i.y > 0 && i.y < size_t.y - 1) i.x = size_t.x - 1;
+			else i.next();
+		} while(!i.equals(COORDINATE_ZERO));
 	}
 	void Room::generateInnerRoom() {
-		Coordinate rstart((size_t.x - CENTRAL_ROOM_SIZE) / 2, (size_t.y - CENTRAL_ROOM_SIZE) / 2), rend((size_t.y + CENTRAL_ROOM_SIZE) / 2., (size_t.x + CENTRAL_ROOM_SIZE) / 2);
-		Coordinate i(rstart, rstart, rend);
+		Coordinate rstart = Coordinate((size_t.x - CENTRAL_ROOM_SIZE) / 2, (size_t.y - CENTRAL_ROOM_SIZE) / 2), rend = Coordinate(rstart, size_t);
+		Coordinate i(rstart, size, rstart, rend);
 		do {
 			map->physical[i.single()] = FLOOR_INSTANCE;
 			i.next();
-		} while(!i.equals(rstart));
+		} while(!i.equals(i.start()));
 	}
 	void Room::generateAllPaths(pUnionFind sets) {
-		Coordinate rand_p = Coordinate();
-		rand_p.setMatrix(size_t);
-		rand_p.randomize(0, size_t.x, 0, size_t.y);
-		for(int i = 0; i < size_t.y * size_t.x; i++) {
-			if(map->physical[rand_p.single()] == NULL) {
-				sets->makeSet(rand_p.single());
-				generatePath(rand_p, sets);
+		Coordinate rand_start = Coordinate(COORDINATE_ZERO, size, COORDINATE_ZERO, size_t);
+		rand_start.randomize(0, size_t.x, 0, size_t.y);
+		Coordinate it = rand_start;
+		do {			
+			if(map->physical[it.single()] == NULL) {
+				sets->makeSet(it.single());
+				generatePath(it, sets);
 			}
-			rand_p.next();
-		}
+			it.next();
+		} while(!it.equals(rand_start.start()));
 	}
 	void Room::connectPaths(pUnionFind sets) {
 		s_coord currentSet = sets->firstSet();
 
-		while(sets->getNumber() > 1) {
+		while(sets->getNumber() > 1) {		//finché ci sono parti non connesse
 			bool hasConnected = false;
 			int distance = 1;
 
 			//TROVA I MURI ADIACENTI AL SET
-			//s_coord currentSet = sets->getNth(rand() % sets->getNumber());
 			currentSet = sets->find(currentSet);
-			Coordinate adjacentWalls[ROOM_AREA_T], borderWalls[ROOM_AREA_T];
-			int breakDirections[ROOM_AREA_T];
+			Coordinate adjacentWalls[ROOM_AREA_T];		//muri adiacenti al set
+			int breakDirections[ROOM_AREA_T];			//direzione in cui rompere un muro per unire due set
 			int adjacentWalls_n = getAdjacentWalls(adjacentWalls, currentSet), borderWalls_n = 0;
 
 			//FINCHÉ NON HA CONNESSO QUALCOSA, CERCA SET CHE CONFININO A UNA DETERMINATA DISTANZA OPPURE AUMENTA LA DISTANZA
 			while(!hasConnected) {
 				//OTTIENI I MURI DI CONFINE TRA DUE SET DIVERSI
-				borderWalls_n = getBorderWalls(borderWalls, breakDirections, adjacentWalls, adjacentWalls_n, *sets, currentSet, distance);
+				borderWalls_n = getBorderWalls(adjacentWalls, breakDirections, adjacentWalls_n, *sets, currentSet, distance);
 
 				//SE NE HA TROVATI: CONNETTI (ROMPI IL MURO/I MURI)
 				if(borderWalls_n != 0) {
 					//ROMPI UN MURO A CASO TRA QUELLI TROVATI
-					int r = rand() % borderWalls_n, brokenWall = 0;
-					while(r > 0) {
-						if(adjacentWalls[brokenWall].x != -1 && adjacentWalls[brokenWall].y != -1) r--;
-						brokenWall++;
-					}
-					Coordinate bw = borderWalls[brokenWall];
+					int broken_ind = rand() % borderWalls_n;
 					
 					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
 					for(int dist = 0; dist <= distance; dist++) {
-						Coordinate dir = DIRECTIONS[breakDirections[brokenWall]];
-						Coordinate tw = Coordinate(bw, dir.times(dist, dist));
-						map->physical[tw.single()] = FLOOR_INSTANCE;
-						sets->merge(currentSet, tw.single());
+						Coordinate dir = DIRECTIONS[breakDirections[broken_ind]];
+						Coordinate broken = Coordinate(adjacentWalls[broken_ind], dir.times(dist, dist));
+						broken.setMatrix(size);
+						map->physical[broken.single()] = FLOOR_INSTANCE;
+						sets->merge(currentSet, broken.single());
 					}
-
 					hasConnected = true;
 				}
 				//ALTRIMENTI CERCA A UNA DISTANZA MAGGIORE
@@ -269,39 +263,42 @@
 		}
 	}
 
-	int Room::getAdjacentWalls(Coordinate out[], s_coord currentSet) {
+	int Room::getAdjacentWalls(Coordinate out[], s_coord currentParent) {
 		int walls = 0;
-		s_coord square = currentSet;
+		Coordinate square = Coordinate(currentParent, size);
+		square.setBounds(COORDINATE_ZERO, size_t);
 		do {
 			for(int d = 0; d < DIRECTIONS_N; d++) {
-				Coordinate p = Coordinate(square, size);
-				Coordinate nxt = Coordinate(p, DIRECTIONS[d]);
+				Coordinate nxt = Coordinate(square, DIRECTIONS[d]);
 				if(nxt.inOwnBounds() && map->physical[nxt.single()]->getId() == ID_WALL) {
 					out[walls] = nxt;
 					walls++;
 				}
 			}
-		} while(square != currentSet);
+			square.next();
+		} while(square.single() != currentParent);
 		return walls;
 	}
-	int Room::getBorderWalls(Coordinate border[], int directions[], Coordinate walls[], int walls_n, UnionFind sets, s_coord parent, int distance) {
+	int Room::getBorderWalls(Coordinate walls[], int directions[], int walls_n, UnionFind sets, s_coord parent, int distance) {
 		int border_n = 0;
-		for(int i = 0; i < walls_n; i++) {
-			int rand_d = rand() % DIRECTIONS_N, d = 0;
+		for(int i = 0; i < walls_n; i++)
+		{
+			int rand_d = rand() % DIRECTIONS_N, d = 0;		//inizio a controllare da una direzione casuale per avere più casualità
 			bool found = false;
 			while(!found && d < DIRECTIONS_N) {
-				rand_d = (rand_d + 1) % DIRECTIONS_N;
-				Coordinate dir = DIRECTIONS[rand_d];
-				Coordinate nxt = Coordinate(walls[i], dir.times(distance, distance));
-				if(nxt.inOwnBounds() && sets.find(nxt.single()) != parent) {
-					border[i] = {nxt.x, nxt.y};
+				Coordinate dir = DIRECTIONS[rand_d];									//direzione in cui si prova a "rompere" il muro per connettere
+				Coordinate nxt = Coordinate(walls[i], dir.times(distance, distance));	//casella da controllare dopo aver rotto il muro
+
+				if(nxt.inBounds(COORDINATE_ZERO, size_t) && sets.find(nxt.single()) != parent) {
+					walls[border_n] = walls[i];
+					directions[border_n] = rand_d;
 					border_n++;
-					directions[i] = rand_d;
 					found = true;
+				} else {
+					d++;
+					rand_d = (rand_d + 1) % DIRECTIONS_N;
 				}
-				else d++;
 			}
-			if(!found) border[i] = Coordinate(-1, -1);
 		}
 		return border_n;
 	}

@@ -31,15 +31,15 @@
 		pUnionFind sets = new UnionFind();
 		//GENERA MURI LATERALI
 		generateSidesWalls();
-		//GENERA PORTE
+		////GENERA PORTE
 		generateDoors(sets);
-		//CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
+		////CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
 		generateInnerRoom();
-		//RIEMPI LA STANZA DI MURI E CORRIDOI
+		////RIEMPI LA STANZA DI MURI E CORRIDOI
 		generateAllPaths(sets);
-		//FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
+		////FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
 		connectPaths(sets);
-		//RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
+		////RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
 		resizeMap();
 		sets->destroy();
 	}
@@ -61,8 +61,8 @@
 	void ConnectedRoom::generateDoors(pUnionFind sets) {
 		for(int door = 0; door < n_doors_max; door++) {
 			if(map->doors[door] != NULL) {
-				Coordinate door_pos = map->doors[door]->getPosition().times(1. / scale_x, 1);;
-				door_pos.setMatrix(size_t);
+				Coordinate door_pos = map->doors[door]->getPosition().times(1. / scale_x, 1);
+				door_pos.setMatrix(size);
 				map->physical[door_pos.single()] = map->doors[door];
 				sets->makeSet(door_pos.single());
 			}

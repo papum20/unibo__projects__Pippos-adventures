@@ -21,6 +21,7 @@
 		box(levelWindow, 0, 0);
 		wrefresh(levelWindow);
 
+		map_size = Coordinate(N_ROOMS, N_ROOMS);
 		generateMap();
 
 		//CAMERA
@@ -45,7 +46,7 @@
 		for(int i = 1; i < N_ROOMS; i++) rooms[i] = NULL;
 		rooms[0] = new ConnectedRoom(Coordinate(0, 0));
 		this->curRoom = rooms[0];
-		map[curRoom->getPos().single()] = curRoom;
+		map[curRoom->getPos().single_set(map_size)] = curRoom;
 		//aggiungi ad available le posizioni adiacenti alla prima stanza
 		int r = rand() % DIRECTIONS_N;
 		for(int i = 0; i < DIRECTIONS_N; i++) available.insert(RoomPosition(DIRECTIONS[(r+i)%4], 1));
@@ -58,7 +59,7 @@
 			//crea la stanza
 			rooms[room] = new ConnectedRoom(new_pos.getPos());
 			available.remove(new_pos);
-			map[new_pos.getPos().single()] = rooms[room];
+			map[new_pos.getPos().single_set(map_size)] = rooms[room];
 
 			//aggiorna stanze adiacenti e celle disponibili
 			r = rand() % DIRECTIONS_N;
@@ -76,14 +77,14 @@
 		}
 		//avvia generazione di tutte le stanze
 		curRoom->generate();
-		player->setPosition(curRoom->getSize().times(.5, .5));
-		curRoom->addCharacter(player);
-		spawnInRoom(curRoom);
-		for(int i = 1; i < N_ROOMS; i++) {
-			if(rooms[i] != NULL) {
-				spawnInRoom(rooms[i]);
-			}
-		}
+		//player->setPosition(curRoom->getSize().times(.5, .5));
+		//curRoom->addCharacter(player);
+		//spawnInRoom(curRoom);
+		//for(int i = 1; i < N_ROOMS; i++) {
+		//	if(rooms[i] != NULL) {
+		//		spawnInRoom(rooms[i]);
+		//	}
+		//}
 		available.destroy();
 	}
 	void Level::spawnInRoom(pRoom room) {
@@ -95,7 +96,7 @@
 	void Level::display() {
 		cameraUpdate();
 		//displayAtPosition(position);
-		displayAtPosition(player->getPosition());
+		displayAtPosition(Coordinate(CENTRAL_ROOM_SIZE, CENTRAL_ROOM_SIZE));
 	}
 
 	void Level::displayAtPosition(Coordinate center) {
@@ -106,20 +107,21 @@
 
 		//stampa e aggiorna array corrente
 		//visto che room disegna dal basso mentre ncurses dall'alto, bisogna "rigirare" t_scr
-		//for(int room_y = tb_border; room_y < height - tb_border; room_y++) {
-		//	for(int x = lr_border; x < width - lr_border; x++) {
-		//		chtype cellValue = t_scr[room_y][x].toChtype();
-		//		chtype cell_char = cellValue & A_CHARTEXT;
-		//		if(cell_char == CHAR_EMPTY) cellValue = (cellValue & (A_ATTRIBUTES | A_COLOR)) | (screen[room_y][x] & A_CHARTEXT);	//se deve disegnare il carattere vuoto, riprende il carattere che era disegnato prima
-		//		
-		//		if(screen[room_y][x] != cellValue) {
-		//			int scr_y = height - room_y - 1;
-		//			mvwaddch(levelWindow, scr_y, x, cellValue);
-		//			screen[room_y][x] = cellValue;
-		//		}
-		//	}
-		//}
-		//wrefresh(levelWindow);
+		for(int room_y = tb_border; room_y < height - tb_border; room_y++) {
+			for(int x = lr_border; x < width - lr_border; x++) {
+				chtype cellValue = t_scr[room_y][x].toChtype();
+				chtype cell_char = cellValue & A_CHARTEXT;
+				if(cell_char == CHAR_EMPTY) cellValue = (cellValue & (A_ATTRIBUTES | A_COLOR)) | (screen[room_y][x] & A_CHARTEXT);	//se deve disegnare il carattere vuoto, riprende il carattere che era disegnato prima
+				
+				if(screen[room_y][x] != cellValue) {
+					int scr_y = height - room_y - 1;
+					mvwaddch(levelWindow, scr_y, x, cellValue);
+					screen[room_y][x] = cellValue;
+				}
+			}
+		}
+		wrefresh(levelWindow);
+		wgetch(levelWindow);
 	}
 
 	void Level::update(int input) {

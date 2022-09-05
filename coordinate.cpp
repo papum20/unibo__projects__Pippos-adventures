@@ -7,13 +7,16 @@
 	Coordinate::Coordinate() {
 		x = DFLT_COORDINATE_X;
 		y = DFLT_COORDINATE_Y;
-		setMatrix(COORDINATE_ERROR);
+		sizex = -1, sizey = -1;
+		startx = -1, starty = -1;
+		endx = -1, endy = -1;
 	}
 	Coordinate::Coordinate(float x, float y) {
 		this->x = x;
 		this->y = y;
-		setMatrix(COORDINATE_ERROR);
-		setBounds(COORDINATE_ERROR, COORDINATE_ERROR);
+		sizex = -1, sizey = -1;
+		startx = -1, starty = -1;
+		endx = -1, endy = -1;
 	}
 	Coordinate::Coordinate(float x, float y, Coordinate size) {
 		this->x = x;
@@ -21,7 +24,7 @@
 		startx = -1, starty = -1;
 		endx = -1, endy = -1;
 		setMatrix(size);
-		setBounds(COORDINATE_ZERO, size);
+		setBounds(Coordinate(0, 0), size);
 	}
 	Coordinate::Coordinate(Coordinate pos, Coordinate start, Coordinate end) {
 		x = pos.x;
@@ -39,13 +42,13 @@
 		setMatrix(size);
 		y = (int)(xy / sizex);
 		x = xy - y * sizex;
-		setBounds(COORDINATE_ZERO, this->size());
+		setBounds(Coordinate(0, 0), size);
 	}
 	Coordinate::Coordinate(const Coordinate a, const Coordinate b) {
 		x = a.x + b.x;
 		y = a.y + b.y;
-		setMatrix(size());
-		setBounds(start(), end());
+		setMatrix(a.size());
+		setBounds(a.start(), a.end());
 	}
 #pragma endregion COSTRUTTORI
 
@@ -103,7 +106,7 @@
 		}
 	}
 	void Coordinate::next() {
-		if(!size().lessEqual(COORDINATE_NEGATIVE)) {
+		if(!size().lessEqual(Coordinate(-1, -1)) && inBounds(Coordinate(0, 0), size())) {
 			x = intx(), y = inty();
 			if(x >= endx - 1) {
 				x = startx;
@@ -124,16 +127,12 @@
 #pragma region SET_GET
 // SET
 	void Coordinate::setMatrix(Coordinate size) {
-		if(size.x > 0 && size.y > 0) {
-			if(start().equals(COORDINATE_ZERO) && end().equals(this->size())) setBounds(COORDINATE_ZERO, size);
-			sizex = size.x, sizey = size.y;
-		}
+		sizex = size.x, sizey = size.y;
 	}
 	void Coordinate::setBounds(Coordinate start, Coordinate end) {
 		if(start.lessEqual(end)) {
-			if(end.equals(COORDINATE_ERROR)) setMatrix(end);
-			start.clamp(COORDINATE_ZERO, size());
-			end.clamp(COORDINATE_ZERO, size());
+			start.clamp(Coordinate(0, 0), size());
+			end.clamp(Coordinate(0, 0), size());
 			startx = start.x;
 			starty = start.y;
 			endx = end.x;
@@ -173,11 +172,15 @@
 		return (int)(y - starty);
 	}
 	s_coord Coordinate::single() {
-		if(size().lessEqual(COORDINATE_NEGATIVE)) return ERROR_INT;
+		if(size().lessEqual(Coordinate(-1, -1)) || !inBounds(Coordinate(0, 0), size())) return ERROR_INT;
 		else return inty() * sizex + intx();
 	}
+	s_coord Coordinate::single_set(Coordinate size) {
+		if(size.lessEqual(Coordinate(-1, -1)) || !inBounds(Coordinate(0, 0), size)) return ERROR_INT;
+		else return inty() * size.x + intx();
+	}
 	s_coord Coordinate::single_ceil() {
-		if(size().lessEqual(COORDINATE_NEGATIVE)) return ERROR_INT;
+		if(size().lessEqual(Coordinate(-1, -1))) return ERROR_INT;
 		return ceily() * sizex + ceilx();
 	}
 #pragma endregion SET_GET

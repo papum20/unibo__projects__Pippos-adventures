@@ -15,6 +15,7 @@ void UnionFind::makeSet(s_coord s) {
 		sets[s]->weight = 1;
 		sets[s]->parent = sets[s];
 		sets[s]->next = sets[s];
+		sets[s]->last = sets[s];
 	}
 }
 s_coord UnionFind::find(s_coord s) {
@@ -31,6 +32,7 @@ void UnionFind::merge(s_coord a, s_coord b) {
 			minor = sets[a];
 			major = sets[b]->parent;
 		}
+		//aggiorna puntatori a parent
 		pUFelement p = minor;
 		int num = 0;
 		do {
@@ -39,6 +41,12 @@ void UnionFind::merge(s_coord a, s_coord b) {
 			num++;
 		} while(p != minor);
 		major->weight += num;
+		//unisci liste circolari aggiornando next e last
+		pUFelement tmp = major->last;
+		tmp->next = minor;
+		minor->last->next = major;
+		major->last = minor->last;
+		minor->last = tmp;
 
 		number--;
 	}
@@ -46,6 +54,10 @@ void UnionFind::merge(s_coord a, s_coord b) {
 
 
 //// GET
+s_coord UnionFind::next(s_coord set) {
+	if(sets[set] == NULL) return ERROR_INT;
+	else return sets[set]->next->val;
+}
 int UnionFind::getNumber() {
 	return number;
 }

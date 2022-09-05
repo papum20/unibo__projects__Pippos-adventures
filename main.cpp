@@ -54,7 +54,7 @@ int main() {
 		//	if(inputManager->get_input() == KEY_PAUSE) menu.open();
 		//	level.update(inputManager->get_input());
 		//	level.display();
-		//	hud.drawHud();
+		//hud.drawHud();
 		//}
 	}
 

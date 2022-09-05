@@ -1,6 +1,6 @@
 #include "evil_tree.hpp"
 
-Evil_tree::Evil_tree():Enemy(){
+Evil_tree::Evil_tree(pCharacter p):Enemy(p){
     tree_branch= new Tree_branch();
     armatura= new armor();
 	collana= new necklace();

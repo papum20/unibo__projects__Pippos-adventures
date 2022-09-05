@@ -7,9 +7,9 @@
 
 class Projectile: public Animate{
     protected:
+    public:
         Coordinate horizontal_size;
 		Coordinate vertical_size;
-    public:
         int danno_fisico;
         int danno_magico;
         int shooter_id;

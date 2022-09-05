@@ -113,7 +113,7 @@ class Witch: public Enemy{
         pWitch_rod witch_rod;
 		pArmor armatura;
 		pNecklace collana;
-        Witch();
+        Witch(pCharacter p);
 
 };
 

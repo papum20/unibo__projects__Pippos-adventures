@@ -10,10 +10,10 @@ using namespace std;
 
 class Weapon : public item {
 	protected:
-		pProjectile projectile;
 		Coordinate offset;	//punto in cui "attaccare" l'animazione del character su quella della weapon, rispetto all'angolo in basso a sinistra
 		
 	public:
+		pProjectile projectile;
 		Coordinate horizontal_size;
 		Coordinate vertical_size;
 		int delta_x_horizontal;

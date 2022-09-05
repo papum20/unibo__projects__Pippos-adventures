@@ -3,6 +3,12 @@
 
 #include <curses.h>
 #include "player.hpp"
+#include "cell.hpp"
+
+const int COLORE_VITA = Cell (0, COLOR_BLACK, COLOR_RED, 0).colorPair();
+const int COLORE_STAMINA = Cell (0, COLOR_BLACK, COLOR_WHITE, 0).colorPair();
+const int COLORE_INVENTARIO = Cell (0, COLOR_BROWN, COLOR_BLACK, 0).colorPair();
+const int COLORE_CUORE = Cell (0, COLOR_RED, COLOR_BLACK, 0).colorPair();
 
 using namespace std;
 

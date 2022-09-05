@@ -1,6 +1,6 @@
 #include "snowman.hpp"
 
-Snowman::Snowman():Enemy(){
+Snowman::Snowman(pCharacter p):Enemy(p){
     snowman_hands= new Snowman_hands();
     armatura= new armor();
     stivali= new boots();

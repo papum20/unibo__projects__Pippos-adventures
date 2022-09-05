@@ -122,7 +122,7 @@ class Evil_tree: public Enemy{
 		pBoots stivali;
 		pHelm elmo;
 		
-        Evil_tree();
+        Evil_tree(pCharacter p);
 };
 
 typedef Evil_tree* pEvil_tree;

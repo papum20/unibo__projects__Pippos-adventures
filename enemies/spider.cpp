@@ -1,6 +1,6 @@
 #include "spider.hpp"
 
-Spider::Spider():Enemy(){
+Spider::Spider(pCharacter p):Enemy(p){
     spider_legs= new Spider_legs();
     armatura= new armor();
     stivali= new boots();

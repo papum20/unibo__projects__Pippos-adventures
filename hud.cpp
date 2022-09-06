@@ -8,6 +8,8 @@ Hud::Hud(int x, int y, pPlayer p){
     start_x=x;
     start_y=y;
     hud_win= newwin (HUD_HEIGHT, HUD_WIDTH, y, x);
+    box(hud_win,0,0);
+    wrefresh(hud_win);
 }
 
 void Hud::drawHud (){
@@ -20,11 +22,11 @@ void Hud::drawHud (){
     stamina_counter=(larghezza_blocchetto*n_blocchetti*(player->curStamina))/max_stamina;
     
     //disegno la barra della vita
-    y_cursor=start_y+1;
+    y_cursor=start_y-HUD_HEIGHT;
     x_cursor=6+start_x;
     for (int i=0; i<barra_righe; i++){
         for (int j=0; j<barra_colonne; j++){
-            if (y_cursor==start_y+2  && barra_vita[i][j]!='|' && health_counter>0){           //coloro di rosso se sono all'interno della barra (y_c), non sono alla fine 
+            if (y_cursor==start_y-HUD_HEIGHT+1  && barra_vita[i][j]!='|' && health_counter>0){           //coloro di rosso se sono all'interno della barra (y_c), non sono alla fine 
                 wattron(hud_win, COLORE_VITA);                                  //di un segmento ('|') e ho ancora della vita da visualizzare (health_counter)
                 mvwaddch(hud_win, y_cursor, x_cursor, barra_vita[i][j]);
                 wattroff(hud_win, COLORE_VITA);

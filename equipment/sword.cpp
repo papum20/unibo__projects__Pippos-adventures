@@ -38,6 +38,5 @@ sword::sword():Weapon(){
     horizontal_attack_animation=sword_horizontal_attack_animation;
     vertical_attack_animation=sword_vertical_attack_animation;
     current_animation=0;
-    projectile=NULL;
 }
 

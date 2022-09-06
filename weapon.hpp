@@ -7,13 +7,16 @@ using namespace std;
 #include "item.hpp"
 #include "projectile.hpp"
 
+const int player_x_coordinate = 3;
+const int player_y_coordinate = 2;
+
 
 class Weapon : public item {
 	protected:
 		Coordinate offset;	//punto in cui "attaccare" l'animazione del character su quella della weapon, rispetto all'angolo in basso a sinistra
 		
 	public:
-		pProjectile projectile;
+		Projectile projectile;
 		Coordinate horizontal_size;
 		Coordinate vertical_size;
 		int delta_x_horizontal;

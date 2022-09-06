@@ -25,13 +25,15 @@ Witch_Rod::Witch_Rod():Rod(){
     animations[attack_left_index]= new Animation (witch_rod_attack_left, Coordinate(witch_rod_width, witch_rod_height), witch_rod_attack_states);
     animations[attack_right_index]= new Animation (witch_rod_attack_right, Coordinate(witch_rod_width, witch_rod_height), witch_rod_attack_states);
     
+    offset = Coordinate(witch_x_coordinate, witch_y_coordinate);
+    
     owner_id=ID_ENEMY_S;
     is_melee=false;
 
     horizontal_attack_states=witch_rod_attack_states;
     vertical_attack_states=witch_rod_attack_states;
 
-    projectile= new Spell(danno_fisico, danno_magico, direction, owner_id);
+    projectile= Spell(danno_fisico, danno_magico, direction, owner_id);
     current_animation=0;
 }
 

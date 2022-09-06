@@ -27,7 +27,7 @@ const int player_dash_right_states = 1;
 
 const int p_width = 3;
 const int p_height = 3;
-const int p_depth = 1;
+const int p_depth = 2;
 
 const int w_attack_height=8;
 const int w_attack_width=9;

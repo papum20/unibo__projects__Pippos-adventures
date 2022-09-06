@@ -24,9 +24,6 @@ const int sword_attack_right_index=7;
 const int sword_height=8;
 const int sword_width=9;
 
-const int sword_player_x = 2;
-const int sword_player_y = 1;
-
 const int sword_horizontal_attack_width=2;
 const int sword_horizontal_attack_height=1;
 

@@ -4,6 +4,8 @@ Weapon::Weapon ():item(){
     is_equipped=false;
     id=ID_WEAPON_S;
     main_color = COLOR_WEAPON;
+
+    offset = Coordinate(player_x_coordinate, player_y_coordinate);
 }
 
 
@@ -84,6 +86,6 @@ bool Weapon::animationMask(Coordinate pos) {
 
 pProjectile Weapon::shoot() {
     pProjectile res = new Projectile;
-    res->copyProjectile(*projectile);
+    res->copyProjectile(projectile);
     return res;
 }

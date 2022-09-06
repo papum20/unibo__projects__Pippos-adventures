@@ -60,7 +60,7 @@ void Player::update(pMap map){
 		}
 		else{
 			is_attacking=false;
-			sp (direction){
+			switch (direction){
 				case 'u':
 					current_animation=move_up_index;
 					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
@@ -83,7 +83,7 @@ void Player::update(pMap map){
 	else{
 		int input;
 		input=in_manager->get_input();
-		sp (input){
+		switch (input){
 			case KEY_UP:{
 				moveUp(map);
 				break;
@@ -143,7 +143,7 @@ void Player::collect_item(pMap mappa){
 		newcoord.x=newcoord.x+size.x;
 	}
 	chest=MapHandler::checkChest(mappa, newcoord);				//cerco la chest
-	sp (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
+	switch (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
 		case 'w':
 			add_item(chest->open_w());			//aggiungo l'arma all'inventario
 			break;

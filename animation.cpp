@@ -22,7 +22,7 @@ void Animation::set(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const C
     this->size = size;
     this->next = next;
     if(!size.equals_int(COORDINATE_ZERO)) {
-        Coordinate i = Coordinate(0, 0, size);
+        Coordinate i = Coordinate(COORDINATE_ZERO, ANIMATION_SIZE, COORDINATE_ZERO, size);
         do {
             this->state[i.single()] = state[i.inty()][i.intx()];
             i.next();

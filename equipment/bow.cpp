@@ -26,14 +26,14 @@ Arco::Arco():Weapon(){
     animations[attack_down_index]= new Animation (bow_attack_down, Coordinate(bow_width, bow_height), bow_attack_states);
     animations[attack_left_index]= new Animation (bow_attack_left, Coordinate(bow_horizontal_attack_width, bow_horizontal_attack_height), bow_attack_states);
     animations[attack_right_index]= new Animation (bow_attack_right, Coordinate(bow_horizontal_attack_width, bow_horizontal_attack_height), bow_attack_states);
-    
+
     is_melee=false;
     owner_id=ID_PLAYER;
 
     horizontal_attack_states=bow_attack_states;
     vertical_attack_states=bow_attack_states;
     current_animation=0;
-    projectile= new Arrow(danno_fisico, danno_magico, direction, owner_id);
+    projectile= Arrow(danno_fisico, danno_magico, direction, owner_id);
 }
 
 /*pProjectile Arco::shoot(){

@@ -1,22 +1,25 @@
 #include "chest.hpp"
 
-Chest::Chest(){
-    
+Chest::Chest() : Inanimate(){
+    size = Coordinate(chest_width, chest_depth);
 }
 
-Chest::Chest(pWeapon w){
+Chest::Chest(pWeapon w) : Inanimate(){
     arma=w;
     type='w';
+    size = Coordinate(chest_width, chest_depth);
 }
 
-Chest::Chest(pArtifact a){
+Chest::Chest(pArtifact a) : Inanimate(){
     artefatto=a;
     type='a';
+    size = Coordinate(chest_width, chest_depth);
 }
 
-Chest::Chest(pItem_def d){
+Chest::Chest(pItem_def d) : Inanimate(){
     item_def=d;
     type='d';
+    size = Coordinate(chest_width, chest_depth);
 }
 
 void Chest::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {

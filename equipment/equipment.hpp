@@ -12,7 +12,7 @@
 #include "shield.hpp"
 #include "bow.hpp"
 #include "hands.hpp"
-#include "rod.hpp"
+#include "player_rod.hpp"
 #include "sword.hpp"
 
 

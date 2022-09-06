@@ -85,7 +85,7 @@
 				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);	//disegna floor se è vuoto
 				else if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, map_it);	//disegna oggetto inanimato
 				else {																			//disegna animate+floor
-					//obj->drawAtOwnPosition(scr, wstart, win_size);
+					obj->drawAtOwnPosition(scr, wstart, win_size);
 					FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);
 				}
 			} else												//altrimenti "cancella"/lascia uno spazio vuoto
@@ -101,7 +101,7 @@
 
 	int Room::getFreeCells(s_coord available[], Coordinate size) {
 		int length = 0;
-		Coordinate i = Coordinate(Coordinate(0, 0), size);
+		Coordinate i = Coordinate(0, 0, size);
 		do {
 			if(MapHandler::isFreeSpace(map, i, Coordinate(i, size))) {
 				available[length] = i.single();

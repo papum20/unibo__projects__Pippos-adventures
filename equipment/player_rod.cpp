@@ -32,7 +32,7 @@ Player_Rod::Player_Rod():Rod(){
     vertical_attack_states=player_rod_attack_states;
     current_animation=0;
 
-    projectile= new Spell(danno_fisico, danno_magico, direction, owner_id);
+    projectile= Spell(danno_fisico, danno_magico, direction, owner_id);
 }
 
 /*pProjectile Player_Rod::shoot(){

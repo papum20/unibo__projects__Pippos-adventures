@@ -25,6 +25,8 @@ Tree_branch::Tree_branch():Hands(){
     animations[attack_left_index]= new Animation (tree_branch_attack_left, Coordinate(tree_branch_width, tree_branch_height), tree_branch_attack_states);
     animations[attack_right_index]= new Animation (tree_branch_attack_right, Coordinate(tree_branch_width, tree_branch_height), tree_branch_attack_states);
 
+    offset = Coordinate(tree_x_coordinate, tree_y_coordinate);
+
     is_melee=true;
     owner_id=ID_ENEMY_S;
     
@@ -34,6 +36,4 @@ Tree_branch::Tree_branch():Hands(){
     horizontal_attack_states=tree_branch_attack_states;
     vertical_attack_states=tree_branch_attack_states;
     current_animation=0;
-
-    projectile=NULL;
 }

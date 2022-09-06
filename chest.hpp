@@ -8,6 +8,7 @@
 
 const int chest_width=3;
 const int chest_height=5;
+const int chest_depth=2;
 
 const char chest [chest_width][chest_height]=
 { {' ', '_', '_', '_', ' '},

@@ -25,12 +25,14 @@ Snowman_hands::Snowman_hands():Hands(){
     animations[attack_left_index]= new Animation (snowman_hands_attack_left, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_attack_states);
     animations[attack_right_index]= new Animation (snowman_hands_attack_right, Coordinate(snowman_hands_width, snowman_hands_height), snowman_hands_attack_states);
 
+    offset = Coordinate(snowman_x_coordinate, snowman_y_coordinate);
+
     is_melee=false;
     owner_id=ID_ENEMY_S;
 
     horizontal_attack_states=snowman_hands_attack_states;
     vertical_attack_states=snowman_hands_attack_states;
 
-    projectile= new Snowball(danno_fisico, danno_magico, direction, owner_id);
+    projectile= Snowball(danno_fisico, danno_magico, direction, owner_id);
     current_animation=0;
 }

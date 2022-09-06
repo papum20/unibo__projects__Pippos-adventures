@@ -25,11 +25,13 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
     animations[attack_left_index]= new Animation (fire_spirit_hands_attack_left, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_attack_states);
     animations[attack_right_index]= new Animation (fire_spirit_hands_attack_right, Coordinate(fire_spirit_hands_width, fire_spirit_hands_height), fire_spirit_hands_attack_states);
     
+    offset = Coordinate(fire_spirit_x_coordinate, fire_spirit_y_coordinate);
+
     is_melee=false;
     owner_id=ID_ENEMY_S;
 
     horizontal_attack_states=fire_spirit_hands_attack_states;
     vertical_attack_states=fire_spirit_hands_attack_states;
-    projectile= new Fireball(danno_fisico, danno_magico, direction, owner_id);
+    projectile= Fireball(danno_fisico, danno_magico, direction, owner_id);
     current_animation=0;
 }

@@ -85,8 +85,7 @@
 		curRoom->generate();
 		player->setPosition(curRoom->getSize().times(.5, .5));
 		curRoom->addCharacter(player);
-		//spawnInRoom(curRoom);
-		//for(int i = 1; i < N_ROOMS; i++) {
+		//for(int i = 0; i < N_ROOMS; i++) {
 		//	if(rooms[i] != NULL) {
 		//		spawnInRoom(rooms[i]);
 		//	}
@@ -248,26 +247,29 @@
 
 	pEnemy Level::randEnemy() {
 		int r = rand() % ENEMIES_CHANCE_TOT[level];
-		int i = 0;
-		while(r >= ENEMIES_CHANCHES[level][i]) i++;
+		int i = 0, counter = 0;
+		while(r >= counter + ENEMIES_CHANCHES[level][i]) {
+			counter += ENEMIES_CHANCHES[level][i];
+			i++;
+		}
 		pEnemy res = new Enemy(player);
 		res->copyEnemy(ENEMIES_INSTANCES[level][i]);
 		return res;
 	}
 	pChest Level::randChest() {
-		int r = rand() % N_ITEMS;
+		int r = rand() % ITEMS_INSTANCES_N;
 		pChest res;
-		if(r < N_ARTIFACTS) {
+		if(r < ARTIFACT_INSTANCES_N) {
 			pArtifact item = new Artifact();
 			item->copyArtifact(ARTIFACT_INSTANCES[r]);
 			res = new Chest(item);
-		} else if(r < N_ARTIFACTS + N_ITEM_DIFENSIVO) {
+		} else if(r < ARTIFACT_INSTANCES_N + ITEM_DIFENSIVO_INSTANCES_N) {
 			pItem_def item = new item_difensivo();
-			item->copyItemDifensivo(ITEM_DIFENSIVO_INSTANCES[r - N_ARTIFACTS]);
+			item->copyItemDifensivo(ITEM_DIFENSIVO_INSTANCES[r - ARTIFACT_INSTANCES_N]);
 			res = new Chest(item);
 		} else {
 			pWeapon item = new Weapon();
-			item->copyWeapon(WEAPON_INSTANCES[r - (N_ARTIFACTS + N_ITEM_DIFENSIVO)]);
+			item->copyWeapon(WEAPON_INSTANCES[r - (ARTIFACT_INSTANCES_N + ITEM_DIFENSIVO_INSTANCES_N)]);
 			res = new Chest(item);
 		}
 		return res;

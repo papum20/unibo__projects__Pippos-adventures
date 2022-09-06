@@ -18,11 +18,11 @@ int main() {
 	//calcolo per posizionare la finestra di gioco al centro
 	int stdscr_x, stdscr_y;
 	getmaxyx(stdscr, stdscr_y, stdscr_x);
-	int level_x = (stdscr_x - CAMERA_WIDTH) / 2, level_y = (stdscr_y - CAMERA_HEIGHT) / 2;
+	int level_x = (stdscr_x - CAMERA_WIDTH) / 2, level_y = (stdscr_y - (CAMERA_HEIGHT + HUD_HEIGHT + HUD_OFFSET)) / 2 + HUD_HEIGHT + HUD_OFFSET;
 	//finestra di input (in basso a destra, sotto level)
-	int input_x = level_x + CAMERA_WIDTH - input_l, input_y = level_y + CAMERA_HEIGHT;
+	int input_x = level_x + CAMERA_WIDTH, input_y = level_y + CAMERA_HEIGHT - input_h;
 	//finestra hud (in alto)
-	int hud_x = level_x, hud_y = level_y - HUD_HEIGHT;
+	int hud_x = (stdscr_x - HUD_WIDTH) / 2, hud_y = level_y - HUD_HEIGHT - HUD_OFFSET;
 
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
@@ -32,7 +32,6 @@ int main() {
 	//Hud hud = Hud(hud_x, hud_y, player);
 
 
-	level.display();
 
 	WINDOW *debug = newwin(10,10,0,0);
 	box(debug,0,0);
@@ -63,7 +62,7 @@ int main() {
 			else mvwaddch(debug,1,0,'p');// menu.open();
 		//	level.update(inputManager->get_input());
 			level.display();
-		//	hud.drawHud();
+			//hud.drawHud();
 		}
 
 		mvwprintw(debug,0,0,to_string(frame).c_str());

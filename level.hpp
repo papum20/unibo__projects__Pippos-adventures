@@ -43,7 +43,7 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 
 //SPAWN: istanze e probabilità
 //enemy
-const int ENEMIES_N[LEVELS_N] {10};
+const int ENEMIES_N[LEVELS_N] {10, 10, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
 														{Zombie(), Spider()},
 														{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
@@ -54,13 +54,17 @@ const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]		= 	{
 														{2, 3, 4, 1, 1},
 														{1, 2, 4, 4}
 														};
-const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 100, 100};
+const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 11};
 //item
-const int CHESTS_N_MIN[LEVELS_N] {0};
-const int CHESTS_N_MAX[LEVELS_N] {2};
-const Artifact ARTIFACT_INSTANCES[N_ARTIFACTS] = {HealthPotion(), Life_elixir(), Rune()};
-const item_difensivo ITEM_DIFENSIVO_INSTANCES[N_ITEM_DIFENSIVO] = {armor(), boots(), helm(), necklace(), shield()};
-const Weapon WEAPON_INSTANCES[N_WEAPONS] = {Ascia(), Arco(), Hands(), Rod(), sword()};
+const int CHESTS_N_MIN[LEVELS_N] {0, 0, 0};
+const int CHESTS_N_MAX[LEVELS_N] {2, 2, 2};
+#define ARTIFACT_INSTANCES_N (N_ARTIFACTS - 1)
+#define ITEM_DIFENSIVO_INSTANCES_N (N_ITEM_DIFENSIVO)
+#define WEAPON_INSTANCES_N (N_WEAPONS - 1)
+#define ITEMS_INSTANCES_N (ARTIFACT_INSTANCES_N + ITEM_DIFENSIVO_INSTANCES_N + WEAPON_INSTANCES_N)
+const Artifact ARTIFACT_INSTANCES[ARTIFACT_INSTANCES_N] = {HealthPotion(), Life_elixir(), Rune()};
+const item_difensivo ITEM_DIFENSIVO_INSTANCES[ITEM_DIFENSIVO_INSTANCES_N] = {armor(), boots(), helm(), necklace(), shield()};
+const Weapon WEAPON_INSTANCES[WEAPON_INSTANCES_N] = {Ascia(), Arco(), Player_Rod(), sword()};
 
 
 

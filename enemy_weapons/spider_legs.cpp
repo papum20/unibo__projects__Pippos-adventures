@@ -25,6 +25,8 @@ Spider_legs::Spider_legs():Hands(){
     animations[attack_left_index]= new Animation (spider_legs_attack_left, Coordinate(spider_legs_width, spider_legs_height), spider_legs_horizontal_attack_states);
     animations[attack_right_index]= new Animation (spider_legs_attack_right, Coordinate(spider_legs_width, spider_legs_height), spider_legs_horizontal_attack_states);
 
+    offset = Coordinate(spider_x_coordinate, spider_y_coordinate);
+
     is_melee=true;
     owner_id=ID_ENEMY_S;
     
@@ -34,5 +36,4 @@ Spider_legs::Spider_legs():Hands(){
     horizontal_attack_states=spider_legs_horizontal_attack_states;
     vertical_attack_states=spider_legs_vertical_attack_states;
     current_animation=0;
-    projectile=NULL;
 }

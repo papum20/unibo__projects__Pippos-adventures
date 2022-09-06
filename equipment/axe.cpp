@@ -25,7 +25,7 @@ Ascia::Ascia():Weapon(){
     animations[attack_down_index]= new Animation (axe_attack_down, Coordinate(axe_width, axe_height), axe_vertical_attack_states);
     animations[attack_left_index]= new Animation (axe_attack_left, Coordinate(axe_width, axe_height), axe_horizontal_attack_states);
     animations[attack_right_index]= new Animation (axe_attack_right, Coordinate(axe_width, axe_height), axe_horizontal_attack_states);
-    
+
     is_melee=true;
     owner_id=ID_PLAYER;
     strcpy (description, axe_description);
@@ -35,7 +35,6 @@ Ascia::Ascia():Weapon(){
 
     horizontal_attack_states=axe_horizontal_attack_states;
     vertical_attack_states=axe_vertical_attack_states;
-    projectile=NULL;
     current_animation=0;
 }
 

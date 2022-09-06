@@ -5,7 +5,7 @@
 
 
 
-#define WALL_HEIGHT 3
+#define WALL_HEIGHT 5
 
 
 class Wall : public Inanimate {

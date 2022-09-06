@@ -123,6 +123,7 @@ class Spider: public Enemy{
 		pSpider_legs spider_legs;
 		pArmor armatura;
 		pBoots stivali;
+        Spider();
         Spider(pCharacter p);
 };
 

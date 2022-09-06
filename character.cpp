@@ -9,6 +9,7 @@ Character::Character() : Alive() {
 
 Character::Character(int maxH, int maxS) : Alive(maxH, maxS) {
 	is_attacking=false;
+	current_animation=idle_index;
 }
 void Character::copyCharacter(Character B) {
 	is_attacking = B.is_attacking;

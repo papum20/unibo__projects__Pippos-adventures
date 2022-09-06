@@ -157,6 +157,7 @@ class Fire_spirit: public Enemy{
     public:
 		pFS_Hands fire_spirit_hands;
 		pNecklace collana;
+        Fire_spirit();
         Fire_spirit(pCharacter p);
 };
 

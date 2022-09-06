@@ -85,7 +85,7 @@
 				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);	//disegna floor se è vuoto
 				else if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, map_it);	//disegna oggetto inanimato
 				else {																			//disegna animate+floor
-					obj->drawAtOwnPosition(scr, wstart, win_size);
+					//obj->drawAtOwnPosition(scr, wstart, win_size);
 					FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);
 				}
 			} else												//altrimenti "cancella"/lascia uno spazio vuoto

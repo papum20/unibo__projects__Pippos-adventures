@@ -2,7 +2,11 @@
 #include "map_handler.hpp"
 
 Enemy::Enemy() : Character() {
-	
+	weapons_n=0;
+	defensive_items_n=0;
+	curHealth=maxHealth;
+	maxStamina=enemy_stamina;
+	curStamina=maxStamina;
 }
 
 Enemy::Enemy(pCharacter p):Character() {

@@ -109,6 +109,7 @@ class Snowman: public Enemy{
 		pArmor armatura;
 		pNecklace collana;
 		pBoots stivali;
+        Snowman();
         Snowman(pCharacter p);
 };
 

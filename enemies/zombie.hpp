@@ -101,6 +101,7 @@ class Zombie: public Enemy{
     public:
 		pZombie_hands zombie_hands;
 		pArmor armatura; 
+        Zombie();
         Zombie(pCharacter p);
 };
 

@@ -83,8 +83,8 @@
 		}
 		//avvia generazione di tutte le stanze
 		curRoom->generate();
-		//player->setPosition(curRoom->getSize().times(.5, .5));
-		//curRoom->addCharacter(player);
+		player->setPosition(curRoom->getSize().times(.5, .5));
+		curRoom->addCharacter(player);
 		//spawnInRoom(curRoom);
 		//for(int i = 1; i < N_ROOMS; i++) {
 		//	if(rooms[i] != NULL) {
@@ -102,7 +102,8 @@
 	void Level::display() {
 		cameraUpdate();
 		//displayAtPosition(position);
-		displayAtPosition(Coordinate(CENTRAL_ROOM_WIDTH_T*SCALE_X/2, CENTRAL_ROOM_HEIGHT/2));
+		//displayAtPosition(Coordinate(CENTRAL_ROOM_WIDTH_T*SCALE_X/2, CENTRAL_ROOM_HEIGHT/2));
+		displayAtPosition(player->getPosition());
 	}
 
 	void Level::displayAtPosition(Coordinate center) {

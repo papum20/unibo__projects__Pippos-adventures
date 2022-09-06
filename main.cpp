@@ -34,14 +34,14 @@ int main() {
 
 	level.display();
 
-	/*WINDOW *debug = newwin(10,10,0,0);
+	WINDOW *debug = newwin(10,10,0,0);
 	box(debug,0,0);
 	wrefresh(debug);
 	int frame = 0;
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while (isRunning)
 	{
-		mvwprintw(debug,0,0,to_string(frame).c_str());
+		
 		// GESTIONE TEMPO FRAME : si eseguono tutte le operazioni, poi nel prossimo update il tempo rimasto nel tempo di aggiornamento (refresh_rate)
 		// il gioco rimane "inattivo", continuando solo a ricevere l'input (comunque almeno una volta)
 		while(!refresh_timer.check(REFRESH_TIMER_INDEX));
@@ -62,12 +62,14 @@ int main() {
 			if(inputManager->get_input() == KEY_PAUSE) mvwaddch(debug,1,0,'P');// menu.open();
 			else mvwaddch(debug,1,0,'p');// menu.open();
 		//	level.update(inputManager->get_input());
-		//	level.display();
+			level.display();
 		//	hud.drawHud();
 		}
+
+		mvwprintw(debug,0,0,to_string(frame).c_str());
 		wrefresh(debug);
 		frame++;
-	}*/
+	}
 
 
 	//// END
@@ -91,9 +93,9 @@ void gameInit() {
 }
 void colorsInit() {
 	Cell::initPairs();
-	//init_color(COLOR_BROWN, 668, 273, 164);
-	//init_color(COLOR_BROWN_LIGHT, 906, 371, 367);
-	//init_color(COLOR_GREY, 156, 129, 137);
+	init_color(COLOR_BROWN, 500, 180, 150);
+	init_color(COLOR_BROWN_LIGHT, 906, 371, 367);
+	init_color(COLOR_GREY, 156, 129, 137);
 	//init_color(COLOR_BLUE, 156, 86, 898);
 }
 

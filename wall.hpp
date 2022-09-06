@@ -5,11 +5,12 @@
 
 
 
-#define WALL_HEIGHT 4
+#define WALL_HEIGHT 3
 
 
 class Wall : public Inanimate {
 	private:
+		int base_color;
 		int top_color;
 		int height;
 

@@ -78,6 +78,10 @@ class Room {
 		// SET
 		virtual void makeConnection(Room *room, int dir, lock_type lt, bool first = true);	//collega l'altra stanza a questa (se è connectedRoom), con stato bloccato lt; first inizializzato da solo
 		bool setPosition_strong(pPhysical obj, Coordinate pos);								//posiziona obj in pos e, se lo spazio risulta occupato, sposta ciò che lo occupa (esclusi muri)
+
+		//funzioni di debug: stampano la stanza in caratteri (rispettivamente con size e size_t)
+		//void debug();
+		//void debug2();
 };
 
 

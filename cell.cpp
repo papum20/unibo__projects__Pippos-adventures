@@ -9,7 +9,7 @@ Cell::Cell(char ch, int fg, int bg, attr_t att) {
 	if(ch < 0) ch = CELL_DFLT_CHAR;
 	if(fg < 0) fg = CELL_DFLT_FG;
 	if(bg < 0) bg = CELL_DFLT_BG;
-	if(att < 0) att = CELL_DFLT_ATTR;
+	if(att == CELL_NO_ATTR) att = CELL_DFLT_ATTR;
 	edit(ch, fg, bg, att);
 }
 
@@ -22,15 +22,18 @@ void Cell::edit(char ch, int fg, int bg, attr_t att) {
 	if(ch >= 0) this->ch = ch;
 	if(fg >= 0)	this->fg = fg;
 	if(bg >= 0) this->bg = bg;
-	if(att >= 0) this->att = att;
+	if(att != CELL_NO_ATTR) this->att = att;
 }
 
 /// GET
 char Cell::getCh() {
 	return ch;
 }
+int Cell::getBg() {
+	return bg;
+}
 chtype Cell::toChtype() {
-	return ((chtype)ch) | colorPair() | att;
+	return ch | colorPair() | att;
 }
 
 int Cell::pairNumber(int fg, int bg) {

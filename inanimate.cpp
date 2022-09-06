@@ -6,10 +6,10 @@ Inanimate::Inanimate() : Physical() {
 }
 
 void Inanimate::drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color) {
-	scr[pos.rel_int_y()][pos.rel_int_x()].edit(-1, -1, color, -1);
+	scr[pos.rel_int_y()][pos.rel_int_x()].edit(-1, -1, color, CELL_NO_ATTR);
 }
 void Inanimate::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
-	if(scr[pos.inty()][pos.intx()].getCh() == CHAR_EMPTY) drawCell(scr, pos, main_color);
+	pos.setBounds(win_start, Coordinate(win_start, win_size));
+	if(scr[pos.rel_int_y()][pos.rel_int_x()].getCh() == CHAR_EMPTY || scr[pos.rel_int_y()][pos.rel_int_x()].getBg() == main_color) drawCell(scr, pos, main_color);
 	else drawCell(scr, pos, second_color);
-	drawn = true;
 }

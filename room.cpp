@@ -15,6 +15,8 @@
 		for(int i = 0; i < size.x * size.y; i++) {
 			map->physical[i] = NULL;
 			map->characters[i] = NULL;
+			map->chests[i] = NULL;
+			map->projectiles[i] = NULL;
 		}
 	}
 	void Room::recursiveDestroy() {
@@ -24,6 +26,7 @@
 			if(obj != NULL && obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) map->physical[i.single()]->destroy();
 			i.next();
 		} while(!i.equals(Coordinate(0, 0)));
+		delete map;
 		delete this;
 	}
 	void Room::update(int input) {
@@ -70,20 +73,25 @@
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
-		Coordinate wstart = Coordinate(center.x - Math::ceil(win_size.x / 2.) + 1, center.y - Math::ceil(win_size.y / 2.) + 1), wend = Coordinate(wstart, win_size);
-		Coordinate i = Coordinate(wstart, wstart, wend);
+		Coordinate wstart = Coordinate(center.x - Math::ceil(win_size.x / 2.) + 1, center.y - Math::ceil(win_size.y / 2.) + 1);
+
+		Coordinate scr_it = Coordinate(0, 0, win_size);									//iteratore su schermo
 		do {
-			if(i.inBounds(COORDINATE_ZERO, size)) {																	//se il punto è nella stanza
-				Coordinate i_reverse = Coordinate(Coordinate(i.x, wstart.y + (wend.y - i.y) - 1), wstart, wend);	//itera da sotto ma disegna da sopra
-				pPhysical obj = MapHandler::checkPosition(map, i_reverse);
-				if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, i_reverse);						//disegna oggetto inanimato
-				else {																								//disegna animato+pavimento
-					//obj->drawAtOwnPosition(scr, wstart, win_size);
-					FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, i_reverse);
+			Coordinate scr_reverse = Coordinate(scr_it.x, win_size.y - scr_it.y - 1);	//itera da sotto ma disegna da sopra
+			Coordinate map_it = Coordinate(scr_reverse, wstart);						//iteratore su mappa
+
+			if(map_it.inBounds(COORDINATE_ZERO, size)) {								//se il punto è nella mappa: disegna
+				pPhysical obj = MapHandler::checkPosition(map, map_it);
+				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);	//disegna floor se è vuoto
+				else if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, map_it);	//disegna oggetto inanimato
+				else {																			//disegna animate+floor
+					obj->drawAtOwnPosition(scr, wstart, win_size);
+					FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);
 				}
-			}
-			i.next();
-		} while(!i.equals(wstart));
+			} else												//altrimenti "cancella"/lascia uno spazio vuoto
+				scr[scr_reverse.inty()][scr_reverse.intx()] = Cell('.', -1, COLOR_BLACK, CELL_NO_ATTR);
+			scr_it.next();
+		} while(!scr_it.equals(COORDINATE_ZERO));
 	}
 #pragma endregion MAIN
 
@@ -130,7 +138,7 @@
 		} while(!i.equals(COORDINATE_ZERO));
 	}
 	void Room::generateInnerRoom() {
-		Coordinate rstart = Coordinate((size_t.x - CENTRAL_ROOM_SIZE) / 2, (size_t.y - CENTRAL_ROOM_SIZE) / 2), rend = Coordinate(rstart, size_t);
+		Coordinate rstart = Coordinate((size_t.x - CENTRAL_ROOM_WIDTH_T) / 2, (size_t.y - CENTRAL_ROOM_HEIGHT) / 2), rend = Coordinate(rstart, Coordinate(CENTRAL_ROOM_WIDTH_T, CENTRAL_ROOM_HEIGHT));
 		Coordinate i(rstart, size, rstart, rend);
 		do {
 			map->physical[i.single()] = FLOOR_INSTANCE;
@@ -147,7 +155,7 @@
 				generatePath(it, sets);
 			}
 			it.next();
-		} while(!it.equals(rand_start.start()));
+		} while(!it.equals(rand_start));
 	}
 	void Room::connectPaths(pUnionFind sets) {
 		s_coord currentSet = sets->firstSet();
@@ -189,7 +197,7 @@
 		}
 	}
 	void Room::resizeMap() {
-		for(int xy = size.x * size.y - 1; xy >= 0; xy--) {
+		for(s_coord xy = size.x * size.y - 1; xy >= 0; xy--) {
 			Coordinate xy_t = Coordinate(xy, size).times(1. / scale_x, 1);
 			map->physical[xy] = map->physical[xy_t.single()];
 		}
@@ -265,8 +273,7 @@
 
 	int Room::getAdjacentWalls(Coordinate out[], s_coord currentParent) {
 		int walls = 0;
-		Coordinate square = Coordinate(currentParent, size);
-		square.setBounds(COORDINATE_ZERO, size_t);
+		Coordinate square = Coordinate(Coordinate(currentParent, size), size, COORDINATE_ZERO, size_t);
 		do {
 			for(int d = 0; d < DIRECTIONS_N; d++) {
 				Coordinate nxt = Coordinate(square, DIRECTIONS[d]);
@@ -341,3 +348,36 @@
 		return valid;
 	}
 #pragma endregion SET_GET
+
+
+
+	/*void Room::debug() {
+		WINDOW *w = newwin(ROOM_HEIGHT, ROOM_WIDTH, 0, 0);
+		Coordinate i = Coordinate(0, 0, size);
+		do {
+			wmove(w,size.y-1-i.y,i.x);
+			if(map->physical[i.single()] == NULL) waddch(w,'N');
+			else if(map->physical[i.single()]->getId() == ID_WALL) waddch(w,'x');
+			else if(map->physical[i.single()]->getId() == ID_FLOOR) waddch(w,'.');
+			else if(map->physical[i.single()]->getId() == ID_DOOR) waddch(w,'D');
+			else waddch(w,'5');
+		//wgetch(w);
+			i.next();
+		} while(!i.equals(COORDINATE_ZERO));
+		wgetch(w);
+	}
+	void Room::debug2() {
+		WINDOW *w = newwin(ROOM_HEIGHT, ROOM_WIDTH, 0, 0);
+		Coordinate i = Coordinate(COORDINATE_ZERO, size,COORDINATE_ZERO,size_t);
+		do {
+			wmove(w,size.y-1-i.y,i.x);
+			if(map->physical[i.single()] == NULL) waddch(w,'N');
+			else if(map->physical[i.single()]->getId() == ID_WALL) waddch(w,'x');
+			else if(map->physical[i.single()]->getId() == ID_FLOOR) waddch(w,'.');
+			else if(map->physical[i.single()]->getId() == ID_DOOR) waddch(w,'D');
+			else waddch(w,'5');
+		//wgetch(w);
+			i.next();
+		} while(!i.equals(COORDINATE_ZERO));
+		wgetch(w);
+	}*/

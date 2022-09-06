@@ -11,8 +11,8 @@
 	void Level::setUp(int win_x, int win_y, int win_w, int win_h, pPlayer player) {
 		width = win_w;
 		height = win_h;
-		lr_border = LR_BORDER;
-		tb_border = TB_BORDER;
+		this->lr_border = LR_BORDER;
+		this->tb_border = TB_BORDER;
 		level = 0;
 		this->player = player;
 
@@ -44,12 +44,15 @@
 		//stanze generate
 		pConnectedRoom rooms[N_ROOMS];
 		for(int i = 1; i < N_ROOMS; i++) rooms[i] = NULL;
-		rooms[0] = new ConnectedRoom(Coordinate(0, 0));
+		rooms[0] = new ConnectedRoom(map_size.times(.5, .5));
 		this->curRoom = rooms[0];
 		map[curRoom->getPos().single_set(map_size)] = curRoom;
 		//aggiungi ad available le posizioni adiacenti alla prima stanza
 		int r = rand() % DIRECTIONS_N;
-		for(int i = 0; i < DIRECTIONS_N; i++) available.insert(RoomPosition(DIRECTIONS[(r+i)%4], 1));
+		for(int i = 0; i < DIRECTIONS_N; i++) {
+			RoomPosition nxt = RoomPosition(Coordinate(curRoom->getPos(), DIRECTIONS[(r+i)%4]), 1);
+			if(nxt.getPos().inBounds(COORDINATE_ZERO, map_size)) available.insert(nxt);
+		}
 
 		//genera le altre stanze
 		for(int room = 1; room < N_ROOMS; room++)
@@ -58,21 +61,24 @@
 			RoomPosition new_pos = available.unevenRandom();
 			//crea la stanza
 			rooms[room] = new ConnectedRoom(new_pos.getPos());
-			available.remove(new_pos);
 			map[new_pos.getPos().single_set(map_size)] = rooms[room];
+			available.remove(new_pos);
 
 			//aggiorna stanze adiacenti e celle disponibili
 			r = rand() % DIRECTIONS_N;
 			for(int j = 0; j < DIRECTIONS_N; j++)
 			{
 				int dir = (r+j) % DIRECTIONS_N;															//direzione corrente (indice)
-				RoomPosition nxt = RoomPosition(Coordinate(DIRECTIONS[dir], new_pos.getPos()), 1);	//posizione da controllare
-				pConnectedRoom adjacent_room = findRoomAtCoordinates(rooms, 1, nxt.getPos());
-				int adjacent_cell = available.find(nxt);
-				
-				if(adjacent_room != NULL) rooms[room]->makeConnection(adjacent_room, dir, randLockedDoor(*rooms[room], *adjacent_room));	//se è una stanza, collegala a quella appena generata
-				else if(adjacent_cell != -1) available.increaseKey(nxt, RoomPosition(Coordinate(), 1));										//se era già presente come cella disponibile, aumentane il numero di stanze adiacenti
-				else available.insert(nxt);																									//altrimenti aggiungi la cella come disponibile
+				Coordinate nxt_pos = Coordinate(new_pos.getPos(), DIRECTIONS[dir]);
+				if(nxt_pos.inBounds(COORDINATE_ZERO, map_size)) {
+					RoomPosition nxt = RoomPosition(nxt_pos, 1);	//posizione da controllare
+					pConnectedRoom adjacent_room = findRoomAtCoordinates(rooms, 1, nxt_pos);
+					int adjacent_cell = available.find(nxt);
+					
+					if(adjacent_room != NULL) rooms[room]->makeConnection(adjacent_room, dir, randLockedDoor(*rooms[room], *adjacent_room));	//se è una stanza, collegala a quella appena generata
+					else if(adjacent_cell != -1) available.increaseKey(nxt, RoomPosition(Coordinate(), 1));										//se era già presente come cella disponibile, aumentane il numero di stanze adiacenti
+					else available.insert(nxt);																									//altrimenti aggiungi la cella come disponibile
+				}
 			}
 		}
 		//avvia generazione di tutte le stanze
@@ -96,34 +102,28 @@
 	void Level::display() {
 		cameraUpdate();
 		//displayAtPosition(position);
-		displayAtPosition(Coordinate(CENTRAL_ROOM_SIZE, CENTRAL_ROOM_SIZE));
+		displayAtPosition(Coordinate(CENTRAL_ROOM_WIDTH_T*SCALE_X/2, CENTRAL_ROOM_HEIGHT/2));
 	}
 
 	void Level::displayAtPosition(Coordinate center) {
 		//inizializza array
 		Cell t_scr[CAMERA_HEIGHT][CAMERA_WIDTH];	//matrice temporanea per il nuovo schermo da stampare
 		//fai riempire l'array alla stanza corrente
-		curRoom->draw(t_scr, Coordinate(width, height), center);
+		curRoom->draw(t_scr, Coordinate(width - lr_border * 2, height - tb_border * 2), center);
 
 		//stampa e aggiorna array corrente
 		//visto che room disegna dal basso mentre ncurses dall'alto, bisogna "rigirare" t_scr
-		for(int room_y = tb_border; room_y < height - tb_border; room_y++) {
-			for(int x = lr_border; x < width - lr_border; x++) {
+		for(int room_y = 0; room_y < height - 2 * tb_border; room_y++) {
+			for(int x = 0; x < width - 2 * lr_border; x++) {
 				chtype cellValue = t_scr[room_y][x].toChtype();
-				chtype cell_char = cellValue & A_CHARTEXT;
-				if(cell_char == CHAR_EMPTY) cellValue = (cellValue & (A_ATTRIBUTES | A_COLOR)) | (screen[room_y][x] & A_CHARTEXT);	//se deve disegnare il carattere vuoto, riprende il carattere che era disegnato prima
-				
 				if(screen[room_y][x] != cellValue) {
-					int scr_y = height - room_y - 1;
-					mvwaddch(levelWindow, scr_y, x, cellValue);
+					int scr_y = height - room_y - tb_border - 1;
+					mvwaddch(levelWindow, scr_y, x + lr_border, cellValue);
 					screen[room_y][x] = cellValue;
 				}
 			}
 		}
-		mvwaddch(levelWindow, 0,0, 'A'|COLOR_PAIR(Cell::pairNumber(COLOR_RED,COLOR_GREEN)|A_NORMAL));
-		mvwaddch(levelWindow, 0,3, Cell('A',COLOR_RED,COLOR_GREEN,-1).toChtype());
 		wrefresh(levelWindow);
-		mvwgetch(levelWindow,2,2);
 	}
 
 	void Level::update(int input) {

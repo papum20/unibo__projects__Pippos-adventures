@@ -29,10 +29,10 @@ class Coordinate {
 		float sizex, sizey;
 		//DIMENSIONI (SOTTOINSIEME DI SIZE) IN CUI SI POSSONO FARE CONTROLLI CON InOwnBounds E PER USARE NEXT
 		//RIMANGONO UGUALI ALLA MATRICE FINCHÉ NON VENGONO IMPOSTATI
-		float startx, starty;			//estremo incluso
-		float endx, endy;				//estremo escluso
 
 	public:
+		float startx, starty;			//estremo incluso
+		float endx, endy;				//estremo escluso
 		float x, y;
 
 		Coordinate();																	//x,y = 0,0

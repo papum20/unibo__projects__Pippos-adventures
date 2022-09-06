@@ -20,7 +20,7 @@ class Projectile: public Animate{
 
         void update (pMap map);
         int calculate_damage(pAlive c);
-        void setPosition (Coordinate shooter_pos, Coordinate shooter_size);
+        void setPosition (Coordinate shooter_pos, Coordinate shooter_size, char shooter_direction);
 };
 
 typedef Projectile *pProjectile;

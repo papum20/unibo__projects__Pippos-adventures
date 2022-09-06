@@ -32,5 +32,6 @@ Tree_branch::Tree_branch():Hands(){
 
     horizontal_attack_states=tree_branch_attack_states;
     vertical_attack_states=tree_branch_attack_states;
+    current_animation=0;
 
 }

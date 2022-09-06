@@ -30,6 +30,7 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
     horizontal_attack_states=fire_spirit_hands_attack_states;
     vertical_attack_states=fire_spirit_hands_attack_states;
     projectile= new Fireball(danno_fisico, danno_magico, direction, owner_id);
+    current_animation=0;
 }
 
 /*pProjectile Fire_spirit_hands::shoot(){

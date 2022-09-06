@@ -148,46 +148,62 @@ void Character::apply_equipment (){
 //FUNZIONI MOVIMENTO
 
 void Character::moveUp(pMap map){
-	Animate::moveDown(map);
+	Animate::moveUp(map);
 	if (current_animation==move_up_index){
-		animations[current_animation]=animations[current_animation]->next;
+		next_animation();
+		if (equipaggiamento.arma!=NULL)
+			equipaggiamento.arma->next_animation();
 	}
 	else{
 		current_animation=move_up_index;
+		equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
 		direction='u';
+		equipaggiamento.arma->direction=direction;
 	}
 }
 
 void Character::moveDown(pMap map){
 	Animate::moveDown(map);
 	if (current_animation==move_down_index){
-		animations[current_animation]=animations[current_animation]->next;
+		next_animation();
+		if (equipaggiamento.arma!=NULL)
+			equipaggiamento.arma->next_animation();
 	}
 	else{
 		current_animation=move_down_index;
+		equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
 		direction='d';
+		equipaggiamento.arma->direction=direction;
 	}
 }
 
 void Character::moveLeft(pMap map){
-	Animate::moveDown(map);
+	Animate::moveLeft(map);
 	if (current_animation==move_left_index){
-		animations[current_animation]=animations[current_animation]->next;
+		next_animation();
+		if (equipaggiamento.arma!=NULL)
+			equipaggiamento.arma->next_animation();
 	}
 	else{
 		current_animation=move_left_index;
+		equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
 		direction='l';
+		equipaggiamento.arma->direction=direction;
 	}
 }
 
 void Character::moveRight(pMap map){
-	Animate::moveDown(map);
+	Animate::moveRight(map);
 	if (current_animation==move_right_index){
-		animations[current_animation]=animations[current_animation]->next;
+		next_animation();
+		if (equipaggiamento.arma!=NULL)
+			equipaggiamento.arma->next_animation();
 	}
 	else{
 		current_animation=move_right_index;
+		equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
 		direction='r';
+		equipaggiamento.arma->direction=direction;
 	}
 }
 
@@ -221,7 +237,7 @@ void Character::initiate_attack (){
 void Character::ranged_attack(pMap map){
 	pProjectile proiettile;
 	proiettile=(equipaggiamento.arma)->shoot();
-	proiettile->setPosition(pos, size);
+	proiettile->setPosition(pos, size, direction);
 	MapHandler::addProjectile(map, proiettile);
 }
 

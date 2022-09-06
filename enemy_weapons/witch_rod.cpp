@@ -32,6 +32,7 @@ Witch_Rod::Witch_Rod():Rod(){
     vertical_attack_states=witch_rod_attack_states;
 
     projectile= new Spell(danno_fisico, danno_magico, direction, owner_id);
+    current_animation=0;
 }
 
 /*pProjectile Witch_Rod::shoot(){

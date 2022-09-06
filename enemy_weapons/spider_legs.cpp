@@ -32,4 +32,5 @@ Spider_legs::Spider_legs():Hands(){
 
     horizontal_attack_states=spider_legs_horizontal_attack_states;
     vertical_attack_states=spider_legs_vertical_attack_states;
+    current_animation=0;
 }

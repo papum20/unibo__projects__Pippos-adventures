@@ -7,7 +7,6 @@
 
 class Animate : public Physical {
 	protected:
-		char direction;							// u sopra, d sotto, l sinistra, r destra
 
 		attr_t main_color;
 
@@ -24,6 +23,8 @@ class Animate : public Physical {
 		int attack_down_index;
 		int attack_left_index;
 		int attack_right_index;
+
+		char direction;							// u sopra, d sotto, l sinistra, r destra
 		
 		Animate();
 		void copyAnimate(Animate B);

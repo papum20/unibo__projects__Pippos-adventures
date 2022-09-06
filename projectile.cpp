@@ -44,7 +44,7 @@ void Projectile::update(pMap map){
 
     int dim=MapHandler::checkRectangle(map, objects, this->pos, end);       //numero di oggetti in collisione
     
-    if (dim!=0){                                                            //se è maggiore di zero, calcolo le collisioni
+    if (dim>0){                                                            //se è maggiore di zero, calcolo le collisioni
         for (int i=0; i<dim; i++){
             if (objects[i]->getId()!=this->shooter_id && objects[i]->isCharacter()){         //se si tratta di un personaggio diverso dalla categoria di colui che ha sparato, 
                 defender=MapHandler::checkAlive(map, objects[i]->getPosition());    //mi serve un puntatore a character
@@ -82,23 +82,28 @@ int Projectile::calculate_damage(pAlive c){
         return 0;
 }
 
-void Projectile::setPosition(Coordinate shooter_pos, Coordinate shooter_size){
+void Projectile::setPosition(Coordinate shooter_pos, Coordinate shooter_size, char shooter_direction){
+    direction=shooter_direction;
     switch (direction){
         case 'u':
             this->pos.x=shooter_pos.x+(shooter_size.x)/2-size.x/2;
             this->pos.y=shooter_pos.y+shooter_size.y;
+            current_animation=move_up_index;
             break;
         case 'd':
             this->pos.x=shooter_pos.x+(shooter_size.x)/2-size.x/2;
             this->pos.y=shooter_pos.y-size.y;
+            current_animation=move_down_index;
             break;
         case 'l':
             this->pos.x=shooter_pos.x-size.x;
             this->pos.y=shooter_pos.y+(shooter_size.y)/2-size.y/2;
+            current_animation=move_left_index;
             break;
         case 'r':
             this->pos.x=shooter_pos.x+shooter_size.x;
             this->pos.y=shooter_pos.y+(shooter_size.y)/2-size.y/2;
+            current_animation=move_right_index;
             break;
     }
 }

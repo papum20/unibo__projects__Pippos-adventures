@@ -15,7 +15,7 @@
 //const int scroll_right = KEY_RIGHT;
 //const int esc = 27; //tasto per uscire dall'inventario
 //const int invio = 10;
-const char choices[3][20]={"start", "comandi", "chiudi"};
+const char choices[3][20]={"start", "opzioni", "chiudi"};
 
 const int c_hight = 25;
 const int c_lenght = 105; 

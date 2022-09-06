@@ -44,7 +44,7 @@ const bool face[face_hight][face_lenght]={
 const int N_ALPHABET = 33;
 const int ALPHABET_LENGHT = 5;
 const int ALPHABET_HIGHT = 5;
-const int ALPHABET[N_ALPHABET][ALPHABET_LENGHT][ALPHABET_HIGHT]={
+const bool ALPHABET[N_ALPHABET][ALPHABET_LENGHT][ALPHABET_HIGHT]={
      {   {1, 1, 1, 1, 1}, //a   1 
         {1, 0, 0, 0, 1},
         {1, 1, 1, 1, 1},

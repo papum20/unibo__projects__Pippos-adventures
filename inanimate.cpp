@@ -6,7 +6,9 @@ Inanimate::Inanimate() : Physical() {
 }
 
 void Inanimate::drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color) {
-	scr[pos.rel_int_y()][pos.rel_int_x()].edit(-1, -1, color, CELL_NO_ATTR);
+	char c = -1;
+	if(scr[pos.rel_int_y()][pos.rel_int_x()].getCh() == CHAR_OUTSIDE) c = CHAR_EMPTY;
+	scr[pos.rel_int_y()][pos.rel_int_x()].edit(c, -1, color, CELL_NO_ATTR);
 }
 
 

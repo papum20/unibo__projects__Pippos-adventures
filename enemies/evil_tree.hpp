@@ -8,6 +8,7 @@ const int tree_points=100;
 
 const int tree_width=9;
 const int tree_height=6;
+const int tree_depth=2;
 
 const int tree_idle_index=0;
 const int tree_move_up_index=1;

@@ -21,14 +21,15 @@ Evil_tree::Evil_tree():Enemy(){
 
     points_given=tree_points;
 
-    equipaggiamento.arma=tree_branch;
-    equipaggiamento.collana=collana;
-    equipaggiamento.armatura=armatura;
-    equipaggiamento.stivali=stivali;
-    equipaggiamento.elmo=elmo;
-    equipaggiamento.scudo=NULL;
+    change_armor(armatura);
+    change_necklace(collana);
+    change_boots(stivali);
+    change_helm(elmo);
+    change_weapon(tree_branch);
 
     maxHealth=Math::randomStep(70, 100, 10);
+    curHealth=maxHealth;
+    size=Coordinate (tree_width, tree_depth);
 }
 
 Evil_tree::Evil_tree(pCharacter p):Enemy(p){
@@ -52,13 +53,13 @@ Evil_tree::Evil_tree(pCharacter p):Enemy(p){
 
     points_given=tree_points;
 
-    equipaggiamento.arma=tree_branch;
-    equipaggiamento.collana=collana;
-    equipaggiamento.armatura=armatura;
-    equipaggiamento.stivali=stivali;
-    equipaggiamento.elmo=elmo;
-    equipaggiamento.scudo=NULL;
+    change_armor(armatura);
+    change_necklace(collana);
+    change_boots(stivali);
+    change_helm(elmo);
+    change_weapon(tree_branch);
 
     maxHealth=Math::randomStep(70, 100, 10);
-
+    curHealth=maxHealth;
+    size=Coordinate (tree_width, tree_depth);
 }

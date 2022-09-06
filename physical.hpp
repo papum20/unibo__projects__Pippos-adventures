@@ -8,7 +8,7 @@
 
 #pragma region PHYSICAL_CONSTANTS
 
-const int MAX_ANIMATIONS = 6;
+const int MAX_ANIMATIONS = 8;
 // NUMERI
 #define N_ENEMIES 6
 

@@ -3,7 +3,7 @@
 Witch_Rod::Witch_Rod():Rod(){
     danno_fisico_iniziale=0;
     danno_magico_iniziale=Math::randomStep(30, 60, 5);
-    //magia=Spell(this);
+    apply_rarity();
 
     move_up_index=witch_rod_up_index;
 	move_up_index=witch_rod_down_index;
@@ -35,8 +35,3 @@ Witch_Rod::Witch_Rod():Rod(){
     current_animation=0;
 }
 
-/*pProjectile Witch_Rod::shoot(){
-    pSpell magia= new Spell(danno_fisico, danno_magico, direction, owner_id);
-    return magia;
-}
-*/

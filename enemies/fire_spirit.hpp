@@ -8,6 +8,7 @@ const int fire_spirit_points=20;
 
 const int fire_spirit_width=4;
 const int fire_spirit_height=5;
+const int fire_spirit_depth=1;
 
 const int fire_spirit_idle_index=0;
 const int fire_spirit_move_up_index=1;

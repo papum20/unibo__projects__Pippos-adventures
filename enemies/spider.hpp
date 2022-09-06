@@ -8,6 +8,7 @@ const int spider_points=40;
 
 const int spider_width=7;
 const int spider_height=4;
+const int spider_depth=2;
 
 const int spider_idle_index=0;
 const int spider_move_up_index=1;

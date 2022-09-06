@@ -3,6 +3,7 @@
 Spider_legs::Spider_legs():Hands(){
     danno_fisico_iniziale=Math::randomStep(30, 50, 5);
     danno_magico_iniziale=0;
+    apply_rarity();
 
     move_up_index=spider_legs_up_index;
 	move_up_index=spider_legs_down_index;
@@ -33,4 +34,5 @@ Spider_legs::Spider_legs():Hands(){
     horizontal_attack_states=spider_legs_horizontal_attack_states;
     vertical_attack_states=spider_legs_vertical_attack_states;
     current_animation=0;
+    projectile=NULL;
 }

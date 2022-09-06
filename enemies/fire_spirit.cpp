@@ -18,14 +18,12 @@ Fire_spirit::Fire_spirit():Enemy(){
 
     points_given=fire_spirit_points;
 
-    equipaggiamento.arma=fire_spirit_hands;
-    equipaggiamento.collana=collana;
-    equipaggiamento.scudo=NULL;
-    equipaggiamento.stivali=NULL;
-    equipaggiamento.armatura=NULL;
-    equipaggiamento.elmo=NULL;
+    change_weapon(fire_spirit_hands);
+    change_necklace(collana);
 
     maxHealth=Math::randomStep(20, 30, 10);
+    curHealth=maxHealth;
+    size=Coordinate (fire_spirit_width, fire_spirit_depth);
 }
 
 Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
@@ -46,12 +44,10 @@ Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
 
     points_given=fire_spirit_points;
 
-    equipaggiamento.arma=fire_spirit_hands;
-    equipaggiamento.collana=collana;
-    equipaggiamento.scudo=NULL;
-    equipaggiamento.stivali=NULL;
-    equipaggiamento.armatura=NULL;
-    equipaggiamento.elmo=NULL;
+    change_weapon(fire_spirit_hands);
+    change_necklace(collana);
 
     maxHealth=Math::randomStep(20, 30, 10);
+    curHealth=maxHealth;
+    size=Coordinate (fire_spirit_width, fire_spirit_depth);
 }

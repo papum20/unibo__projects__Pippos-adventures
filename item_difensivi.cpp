@@ -22,6 +22,10 @@ void item_difensivo::apply_rune(){
 }
 
 void item_difensivo::apply_rarity(){
+    if (strcmp (rarity, common)==0){
+        difesa_fisica=difesa_fisica_iniziale;
+        difesa_magica=difesa_magica_iniziale;
+    }
     if (strcmp(rarity, rare)==0){
         difesa_fisica=difesa_fisica_iniziale*2;
         difesa_magica=difesa_magica_iniziale*2;

@@ -3,7 +3,8 @@
 Snowman_hands::Snowman_hands():Hands(){
     danno_fisico_iniziale=0;
     danno_magico_iniziale=Math::randomStep(30, 60, 5);
-
+    apply_rarity();
+    
     move_up_index=snowman_hands_up_index;
 	move_up_index=snowman_hands_down_index;
 	move_left_index=snowman_hands_left_index;
@@ -33,8 +34,3 @@ Snowman_hands::Snowman_hands():Hands(){
     projectile= new Snowball(danno_fisico, danno_magico, direction, owner_id);
     current_animation=0;
 }
-
-/*pProjectile Snowman_hands::shoot(){
-    pSnowball snowball=new Snowball(danno_fisico, danno_magico, direction, owner_id);
-    return snowball;
-}*/

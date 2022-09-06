@@ -5,6 +5,7 @@ Arco::Arco():Weapon(){
     danno_fisico_iniziale=Math::randomStep(20, 50, 5);
     danno_magico_iniziale=0;
     strcpy (description, bow_description);
+    apply_rarity();
 
     move_up_index=bow_up_index;
 	move_up_index=bow_down_index;
@@ -31,7 +32,7 @@ Arco::Arco():Weapon(){
 
     horizontal_attack_states=bow_attack_states;
     vertical_attack_states=bow_attack_states;
-
+    current_animation=0;
     projectile= new Arrow(danno_fisico, danno_magico, direction, owner_id);
 }
 

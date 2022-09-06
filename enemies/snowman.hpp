@@ -6,6 +6,7 @@
 
 const int snowman_height=4;
 const int snowman_width=9;
+const int snowman_depth=2;
 
 const int snowman_points=50;
 

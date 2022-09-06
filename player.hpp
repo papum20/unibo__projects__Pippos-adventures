@@ -27,6 +27,7 @@ const int player_dash_right_states = 1;
 
 const int p_width = 3;
 const int p_height = 3;
+const int p_depth = 1;
 
 const int w_attack_height=8;
 const int w_attack_width=9;
@@ -134,6 +135,7 @@ class Player : public Character {
 
 		pArtifact artifacts[MAX_ARTIFACTS];
 		int curr_artifact;
+		int artifacts_n;
 		pInputManager in_manager;
 		//Menu menu;
 		pArmor armatura;
@@ -157,13 +159,6 @@ class Player : public Character {
 		void add_item(pWeapon w);
 		void add_item(pItem_def w);
 		void add_item(pArtifact w);
-
-		void change_helm(pHelm h);
-		void change_weapon(pWeapon w);
-		void change_necklace (pNecklace n);
-		void change_armor (pArmor a);
-		void change_boots (pBoots b);
-		void change_shield (pShield s);
 
 		int get_points();
 		void change_points(int delta);

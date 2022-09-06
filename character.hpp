@@ -71,7 +71,18 @@ class Character : public Alive {
 		//precondizione: da richiamare con coordinate giuste
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
+		void initialize_equipment();
 		void apply_equipment ();
+
+		void change_helm(pHelm h);
+		void change_weapon(pWeapon w);
+		void change_necklace (pNecklace n);
+		void change_armor (pArmor a);
+		void change_boots (pBoots b);
+		void change_shield (pShield s);
+		
+		
+		//FUNZIONI MOVIMENTO
 
 		void moveUp(pMap map);
 		void moveDown(pMap map);

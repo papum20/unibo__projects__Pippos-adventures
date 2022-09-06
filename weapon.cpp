@@ -36,6 +36,10 @@ void Weapon::apply_rune(){
 }
 
 void Weapon::apply_rarity (){
+    if (strcmp(rarity, common)==0){
+        danno_fisico=danno_fisico_iniziale;
+        danno_magico=danno_magico_iniziale;
+        }
     if (strcmp(rarity, rare)==0){
         danno_fisico=danno_fisico_iniziale*2;
         danno_magico=danno_magico_iniziale*2;

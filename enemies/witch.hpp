@@ -8,6 +8,7 @@ const int witch_points=50;
 
 const int witch_width=4;
 const int witch_height=4;
+const int witch_depth=2;
 
 const int witch_idle_index=0;
 const int witch_move_up_index=1;

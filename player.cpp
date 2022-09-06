@@ -26,10 +26,10 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	animations[player_move_up_index] = new Animation(move_up, Coordinate(p_height, p_width), player_move_up_states);
 	animations[player_move_down_index] = new Animation(move_down, Coordinate(p_height, p_width), player_move_down_states);
 
-	animations[player_dash_up_index] = new Animation(dash_up, Coordinate(p_height, p_width), player_dash_up_states);
-	animations[player_dash_down_index] = new Animation(dash_down, Coordinate(p_height, p_width), player_dash_down_states);
-	animations[player_dash_left_index] = new Animation(dash_left, Coordinate(p_height, p_width), player_dash_left_states);
-	animations[player_dash_right_index] = new Animation(dash_right, Coordinate(p_height, p_width), player_dash_right_states);
+	//animations[player_dash_up_index] = new Animation(dash_up, Coordinate(p_height, p_width), player_dash_up_states);
+	//animations[player_dash_down_index] = new Animation(dash_down, Coordinate(p_height, p_width), player_dash_down_states);
+	//animations[player_dash_left_index] = new Animation(dash_left, Coordinate(p_height, p_width), player_dash_left_states);
+	//animations[player_dash_right_index] = new Animation(dash_right, Coordinate(p_height, p_width), player_dash_right_states);
 
 
 	idle_index=player_idle_index;
@@ -38,55 +38,10 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	move_up_index=player_move_up_index;
 	move_down_index=player_move_down_index;
 	points=0;
-	equipaggiamento.arma=arma;
-	equipaggiamento.armatura=armatura;
-	equipaggiamento.collana=collana;
-	equipaggiamento.scudo=scudo;
-	equipaggiamento.elmo=elmo;
-	equipaggiamento.stivali=stivali;
-	apply_equipment();
+	change_weapon(arma);
+	change_armor(armatura);
+	size=Coordinate (p_width, p_depth);
 	
-}
-
-void Player::change_helm(pHelm h){
-	(equipaggiamento.elmo)->is_equipped=false;
-	(equipaggiamento.elmo)=h;
-	(equipaggiamento.elmo)->is_equipped=true;
-	apply_equipment();
-}
-void Player::change_weapon(pWeapon w){
-	(equipaggiamento.arma)->is_equipped=false;
-	(equipaggiamento.arma)=w;
-	(equipaggiamento.arma)->is_equipped=true;
-	apply_equipment();
-}
-
-void Player::change_necklace(pNecklace n){
-	(equipaggiamento.collana)->is_equipped=false;
-	(equipaggiamento.collana)=n;
-	(equipaggiamento.collana)->is_equipped=true;
-	apply_equipment();
-}
-
-void Player::change_shield (pShield s){
-	(equipaggiamento.scudo)->is_equipped=false;
-	(equipaggiamento.scudo)=s;
-	(equipaggiamento.scudo)->is_equipped=true;
-	apply_equipment();
-}
-
-void Player::change_armor(pArmor a){
-	(equipaggiamento.armatura)->is_equipped=false;
-	(equipaggiamento.armatura)=a;
-	(equipaggiamento.armatura)->is_equipped=true;
-	apply_equipment();
-}
-
-void Player::change_boots (pBoots b){
-	(equipaggiamento.stivali)->is_equipped=false;
-	(equipaggiamento.stivali)=b;
-	(equipaggiamento.stivali)->is_equipped=true;
-	apply_equipment();
 }
 
 void Player::update(pMap map){
@@ -105,7 +60,7 @@ void Player::update(pMap map){
 		}
 		else{
 			is_attacking=false;
-			switch (direction){
+			sp (direction){
 				case 'u':
 					current_animation=move_up_index;
 					equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
@@ -128,7 +83,7 @@ void Player::update(pMap map){
 	else{
 		int input;
 		input=in_manager->get_input();
-		switch (input){
+		sp (input){
 			case KEY_UP:{
 				moveUp(map);
 				break;
@@ -188,7 +143,7 @@ void Player::collect_item(pMap mappa){
 		newcoord.x=newcoord.x+size.x;
 	}
 	chest=MapHandler::checkChest(mappa, newcoord);				//cerco la chest
-	switch (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
+	sp (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
 		case 'w':
 			add_item(chest->open_w());			//aggiungo l'arma all'inventario
 			break;
@@ -205,6 +160,7 @@ void Player::add_item(pWeapon w){
 	if (curr_weapon<(W_NUMBER-1)){
 		curr_weapon++;
 		weapons[curr_weapon]=w;
+		weapons_n++;
 	}
 }
 
@@ -212,6 +168,7 @@ void Player::add_item (pItem_def i){
 	if (last_def<(DEF_NUMBER-1)){
 		last_def++;
 		defensive_items[last_def]=i;
+		defensive_items_n++;
 	}
 }
 
@@ -219,6 +176,7 @@ void Player::add_item (pArtifact a){
 	if (curr_artifact<(MAX_ARTIFACTS-1)){
 		curr_artifact++;
 		artifacts[curr_artifact]=a;
+		artifacts_n++;
 	}
 }
 

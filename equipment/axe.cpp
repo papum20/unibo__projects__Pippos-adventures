@@ -4,6 +4,7 @@
 Ascia::Ascia():Weapon(){
     danno_fisico_iniziale=Math::randomStep(20, 40, 5);
     danno_magico_iniziale=0;
+    apply_rarity();
 
     move_up_index=axe_up_index;
 	move_up_index=axe_down_index;
@@ -34,5 +35,7 @@ Ascia::Ascia():Weapon(){
 
     horizontal_attack_states=axe_horizontal_attack_states;
     vertical_attack_states=axe_vertical_attack_states;
+    projectile=NULL;
+    current_animation=0;
 }
 

@@ -20,15 +20,14 @@ Snowman::Snowman():Enemy(){
 
     points_given=snowman_points;
 
-    equipaggiamento.arma=snowman_hands;
-    equipaggiamento.armatura=armatura;
-    equipaggiamento.stivali=stivali;
-    equipaggiamento.collana=collana;
-    equipaggiamento.scudo=NULL;
-    equipaggiamento.elmo=NULL;
+    change_armor(armatura);
+    change_necklace(collana);
+    change_boots(stivali);
+    change_weapon(snowman_hands);
     
     maxHealth=Math::randomStep(40, 70, 10);
-
+    curHealth=maxHealth;
+    size=Coordinate (snowman_width, snowman_depth);
 };
 
 Snowman::Snowman(pCharacter p):Enemy(p){
@@ -51,13 +50,12 @@ Snowman::Snowman(pCharacter p):Enemy(p){
 
     points_given=snowman_points;
 
-    equipaggiamento.arma=snowman_hands;
-    equipaggiamento.armatura=armatura;
-    equipaggiamento.stivali=stivali;
-    equipaggiamento.collana=collana;
-    equipaggiamento.scudo=NULL;
-    equipaggiamento.elmo=NULL;
+    change_armor(armatura);
+    change_necklace(collana);
+    change_boots(stivali);
+    change_weapon(snowman_hands);
     
     maxHealth=Math::randomStep(40, 70, 10);
-
+    curHealth=maxHealth;
+    size=Coordinate (snowman_width, snowman_depth);
 };

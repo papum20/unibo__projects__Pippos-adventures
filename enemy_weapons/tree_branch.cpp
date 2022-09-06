@@ -3,9 +3,10 @@
 Tree_branch::Tree_branch():Hands(){
     danno_fisico_iniziale=Math::randomStep(30, 50, 5);
     danno_magico_iniziale=Math::randomStep(30, 50, 5);
+    apply_rarity();
 
     move_up_index=tree_branch_up_index;
-	move_up_index=tree_branch_down_index;
+	move_down_index=tree_branch_down_index;
 	move_left_index=tree_branch_left_index;
 	move_right_index=tree_branch_right_index;
 
@@ -34,4 +35,5 @@ Tree_branch::Tree_branch():Hands(){
     vertical_attack_states=tree_branch_attack_states;
     current_animation=0;
 
+    projectile=NULL;
 }

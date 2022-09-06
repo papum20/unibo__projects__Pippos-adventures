@@ -3,6 +3,7 @@
 sword::sword():Weapon(){
     danno_fisico_iniziale=Math::randomStep(20, 40, 5);
     danno_magico_iniziale=0;
+    apply_rarity();
 
     move_up_index=sword_up_index;
 	move_up_index=sword_down_index;
@@ -36,5 +37,7 @@ sword::sword():Weapon(){
 
     horizontal_attack_animation=sword_horizontal_attack_animation;
     vertical_attack_animation=sword_vertical_attack_animation;
+    current_animation=0;
+    projectile=NULL;
 }
 

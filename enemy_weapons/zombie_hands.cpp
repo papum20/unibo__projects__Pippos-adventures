@@ -3,6 +3,7 @@
 Zombie_hands::Zombie_hands():Hands(){
     danno_fisico_iniziale=Math::randomStep(20, 40, 5);
     danno_magico_iniziale=0;
+    apply_rarity();
     
     move_up_index=zombie_hands_up_index;
 	move_up_index=zombie_hands_down_index;
@@ -32,4 +33,5 @@ Zombie_hands::Zombie_hands():Hands(){
     horizontal_attack_states=zombie_hands_attack_states;
     vertical_attack_states=zombie_hands_attack_states;
     current_animation=0;
+    projectile=NULL;
 }

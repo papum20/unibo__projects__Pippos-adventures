@@ -5,12 +5,106 @@
 Character::Character() : Alive() {
 	is_attacking=false;
 	current_animation=idle_index;
+	for (int i=0; i<W_NUMBER; i++){
+		weapons[i]=NULL;
+	}
+	for (int i=0; i<DEF_NUMBER; i++){
+		defensive_items[i]=NULL;
+	}
+	initialize_equipment();
 }
 
 Character::Character(int maxH, int maxS) : Alive(maxH, maxS) {
 	is_attacking=false;
 	current_animation=idle_index;
 }
+
+void Character::initialize_equipment(){
+	equipaggiamento.arma=NULL;
+	equipaggiamento.collana=NULL;
+	equipaggiamento.armatura=NULL;
+	equipaggiamento.scudo=NULL;
+	equipaggiamento.stivali=NULL;
+	equipaggiamento.elmo=NULL;
+}
+
+void Character::change_helm(pHelm h){
+	if (equipaggiamento.elmo!=NULL){
+		(equipaggiamento.elmo)->is_equipped=false;
+		(equipaggiamento.elmo)=h;
+		(equipaggiamento.elmo)->is_equipped=true;
+	}
+	else{
+		(equipaggiamento.elmo)=h;
+		(equipaggiamento.elmo)->is_equipped=true;
+	}
+	apply_equipment();
+}
+void Character::change_weapon(pWeapon w){
+	if (equipaggiamento.arma!=NULL){
+		(equipaggiamento.arma)->is_equipped=false;
+		(equipaggiamento.arma)=w;
+		(equipaggiamento.arma)->is_equipped=true;
+	}
+	else{
+		(equipaggiamento.arma)=w;
+		(equipaggiamento.arma)->is_equipped=true;
+	}
+	apply_equipment();
+}
+
+void Character::change_necklace(pNecklace n){
+	if (equipaggiamento.collana!=NULL){
+		(equipaggiamento.collana)->is_equipped=false;
+		(equipaggiamento.collana)=n;
+		(equipaggiamento.collana)->is_equipped=true;
+	}
+	else{
+		(equipaggiamento.collana)=n;
+		(equipaggiamento.collana)->is_equipped=true;
+	}
+	apply_equipment();
+}
+
+void Character::change_shield (pShield s){
+	if (equipaggiamento.scudo!=NULL){
+		(equipaggiamento.scudo)->is_equipped=false;
+		(equipaggiamento.scudo)=s;
+		(equipaggiamento.scudo)->is_equipped=true;
+	}
+	else{
+		(equipaggiamento.scudo)=s;
+		(equipaggiamento.scudo)->is_equipped=true;
+	}
+	apply_equipment();
+}
+
+void Character::change_armor(pArmor a){
+	if (equipaggiamento.armatura!=NULL){
+		(equipaggiamento.armatura)->is_equipped=false;
+		(equipaggiamento.armatura)=a;
+		(equipaggiamento.armatura)->is_equipped=true;
+	}
+	else{
+		(equipaggiamento.armatura)=a;
+		(equipaggiamento.armatura)->is_equipped=true;
+	}
+	apply_equipment();
+}
+
+void Character::change_boots (pBoots b){
+	if (equipaggiamento.stivali!=NULL){
+		(equipaggiamento.stivali)->is_equipped=false;
+		(equipaggiamento.stivali)=b;
+		(equipaggiamento.stivali)->is_equipped=true;
+	}
+	else{
+		(equipaggiamento.stivali)=b;
+		(equipaggiamento.stivali)->is_equipped=true;
+	}
+	apply_equipment();
+}
+
 void Character::copyCharacter(Character B) {
 	is_attacking = B.is_attacking;
 	attack_counter=B.attack_counter;

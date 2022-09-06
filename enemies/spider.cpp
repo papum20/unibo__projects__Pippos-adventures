@@ -18,15 +18,13 @@ Spider::Spider():Enemy(){
 
     points_given=spider_points;
 
-    equipaggiamento.arma=spider_legs;
-    equipaggiamento.armatura=armatura;
-    equipaggiamento.stivali=stivali;
-    equipaggiamento.elmo=NULL;
-    equipaggiamento.scudo=NULL;
-    equipaggiamento.collana=NULL;
+    change_armor(armatura);
+    change_boots(stivali);
+    change_weapon(spider_legs);
 
     maxHealth=Math::randomStep(30, 50, 10);
-
+    curHealth=maxHealth;
+    size=Coordinate (spider_width, spider_depth);
 }
 
 Spider::Spider(pCharacter p):Enemy(p){
@@ -47,14 +45,13 @@ Spider::Spider(pCharacter p):Enemy(p){
 
     points_given=spider_points;
 
-    equipaggiamento.arma=spider_legs;
-    equipaggiamento.armatura=armatura;
-    equipaggiamento.stivali=stivali;
-    equipaggiamento.elmo=NULL;
-    equipaggiamento.scudo=NULL;
-    equipaggiamento.collana=NULL;
+    change_armor(armatura);
+    change_boots(stivali);
+    change_weapon(spider_legs);
+
 
     maxHealth=Math::randomStep(30, 50, 10);
-
+    curHealth=maxHealth;
+    size=Coordinate (spider_width, spider_depth);
 }
 

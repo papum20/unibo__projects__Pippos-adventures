@@ -3,6 +3,7 @@
 Player_Rod::Player_Rod():Rod(){
     danno_fisico_iniziale=0;
     danno_magico_iniziale=Math::randomStep(20, 50, 5);
+    apply_rarity();
 
     move_up_index=player_rod_up_index;
 	move_up_index=player_rod_down_index;
@@ -29,6 +30,7 @@ Player_Rod::Player_Rod():Rod(){
 
     horizontal_attack_states=player_rod_attack_states;
     vertical_attack_states=player_rod_attack_states;
+    current_animation=0;
 
     projectile= new Spell(danno_fisico, danno_magico, direction, owner_id);
 }

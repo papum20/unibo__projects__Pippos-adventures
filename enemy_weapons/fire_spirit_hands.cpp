@@ -3,6 +3,7 @@
 Fire_spirit_hands::Fire_spirit_hands():Hands(){
     danno_fisico_iniziale=0;
     danno_magico_iniziale=Math::randomStep(20, 40, 5);
+    apply_rarity();
 
     move_up_index=fire_spirit_hands_up_index;
 	move_up_index=fire_spirit_hands_down_index;
@@ -32,9 +33,3 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
     projectile= new Fireball(danno_fisico, danno_magico, direction, owner_id);
     current_animation=0;
 }
-
-/*pProjectile Fire_spirit_hands::shoot(){
-    pFireball fireball= new Fireball(danno_fisico, danno_magico, direction, owner_id);
-    return fireball;
-}
-*/

@@ -19,15 +19,13 @@ Witch::Witch():Enemy(){
 
     points_given=witch_points;
     
-    equipaggiamento.arma=witch_rod;
-    equipaggiamento.armatura=armatura;
-    equipaggiamento.collana=collana;
-    equipaggiamento.elmo=NULL;
-    equipaggiamento.scudo=NULL;
-    equipaggiamento.stivali=NULL;
+    change_armor(armatura);
+    change_necklace(collana);
+    change_weapon(witch_rod);
 
     maxHealth=Math::randomStep(40, 70, 10);
-
+    curHealth=maxHealth;
+    size=Coordinate (witch_width, witch_depth);
 }
 Witch::Witch(pCharacter p):Enemy(p){
     witch_rod= new Witch_Rod();
@@ -48,13 +46,11 @@ Witch::Witch(pCharacter p):Enemy(p){
 
     points_given=witch_points;
     
-    equipaggiamento.arma=witch_rod;
-    equipaggiamento.armatura=armatura;
-    equipaggiamento.collana=collana;
-    equipaggiamento.elmo=NULL;
-    equipaggiamento.scudo=NULL;
-    equipaggiamento.stivali=NULL;
+    change_armor(armatura);
+    change_necklace(collana);
+    change_weapon(witch_rod);
 
     maxHealth=Math::randomStep(40, 70, 10);
-
+    curHealth=maxHealth;
+    size=Coordinate (witch_width, witch_depth);
 }

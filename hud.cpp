@@ -22,11 +22,11 @@ void Hud::drawHud (){
     stamina_counter=(larghezza_blocchetto*n_blocchetti*(player->curStamina))/max_stamina;
     
     //disegno la barra della vita
-    y_cursor=start_y-HUD_HEIGHT;
+    y_cursor=1;
     x_cursor=6+start_x;
     for (int i=0; i<barra_righe; i++){
         for (int j=0; j<barra_colonne; j++){
-            if (y_cursor==start_y-HUD_HEIGHT+1  && barra_vita[i][j]!='|' && health_counter>0){           //coloro di rosso se sono all'interno della barra (y_c), non sono alla fine 
+            if (y_cursor==2  && barra_vita[i][j]!='|' && health_counter>0){           //coloro di rosso se sono all'interno della barra (y_c), non sono alla fine 
                 wattron(hud_win, COLORE_VITA);                                  //di un segmento ('|') e ho ancora della vita da visualizzare (health_counter)
                 mvwaddch(hud_win, y_cursor, x_cursor, barra_vita[i][j]);
                 wattroff(hud_win, COLORE_VITA);
@@ -41,15 +41,15 @@ void Hud::drawHud (){
         x_cursor=6+start_x;
     }
     wattron(hud_win, COLORE_CUORE);
-    mvwprintw (hud_win, start_y+2, start_x+2, "HP");
+    mvwprintw (hud_win, 2, start_x+2, "HP");
     wattroff(hud_win, COLORE_CUORE);
 
     //disegno la barra della stamina
-    y_cursor=3+start_y;
+    y_cursor=3;
     x_cursor=6+start_x;
     for (int i=0; i<barra_righe; i++){
         for (int j=0; j<barra_colonne; j++){
-            if (y_cursor==start_y+4  && barra_stamina[i][j]!='/' && stamina_counter>0){            
+            if (y_cursor==4  && barra_stamina[i][j]!='/' && stamina_counter>0){            
                 wattron(hud_win, COLORE_STAMINA);                                  
                 mvwaddch(hud_win, y_cursor, x_cursor, barra_stamina[i][j]);
                 wattroff(hud_win, COLORE_STAMINA);
@@ -64,18 +64,18 @@ void Hud::drawHud (){
         x_cursor=6+start_x;
     }
 
-    mvwprintw (hud_win, start_y+4, start_x+2, "ST");
+    mvwprintw (hud_win, 4, start_x+2, "ST");
 
     //le x di partenza da ora diventeranno variabili
 
     //disegno il numero di cuori
     x_cursor=x_cursor+barra_colonne+10;
-    y_cursor=1+start_y;
+    y_cursor=1;
     draw_number(x_cursor, y_cursor, player->n_hearts);
 
     //disegno il cuore
     x_cursor=x_cursor+number_columns+2;                                          //5 larghezza lettera                                               
-    y_cursor=1+start_y;
+    y_cursor=1;
     wattron(hud_win, COLORE_CUORE);                                //nota per me, scritte rosse sfondo nero
     for (int i=0; i<heart_rows; i++){
         for (int j=0; j<heart_columns; j++){
@@ -91,12 +91,12 @@ void Hud::drawHud (){
     wattron(hud_win, COLORE_INVENTARIO);
 
     x_cursor=x_cursor+heart_columns+distance;
-    y_cursor=2+start_y;
+    y_cursor=2;
     draw_n(x_cursor, y_cursor);
 
     //disegno l'inventario
     x_cursor=x_cursor+n_columns+2;
-    y_cursor=2+start_y;
+    y_cursor=2;
     for (int i=0; i<inventary_rows; i++){
         for (int j=0; j<inventary_columns; j++){
            mvwaddch(hud_win, y_cursor, x_cursor, inventary[i][j]);
@@ -110,12 +110,12 @@ void Hud::drawHud (){
 
     //disegno i punti
     x_cursor=x_cursor+inventary_columns+distance;
-    y_cursor=1+start_y;
+    y_cursor=1;
     draw_p(x_cursor, y_cursor);
 
     //disegno i numeri
     x_cursor=x_cursor+p_columns+2;
-    y_cursor=1+start_y;
+    y_cursor=1;
     draw_points(x_cursor, y_cursor);
 
     wrefresh(hud_win);

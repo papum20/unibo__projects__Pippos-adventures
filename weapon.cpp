@@ -81,7 +81,7 @@ void Weapon::initiate_attack(char d){
 
 
 bool Weapon::animationMask(Coordinate pos) {
-    return getCurrentAnimation().state[pos.single()] != CHAR_EMPTY && getCurrentAnimation().state[pos.single()] != CHAR_WEAPON_MASK;
+    return getCurrentAnimation().at(pos) != CHAR_EMPTY && getCurrentAnimation().at(pos) != CHAR_WEAPON_MASK;
 }
 
 pProjectile Weapon::shoot() {

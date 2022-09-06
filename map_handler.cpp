@@ -55,7 +55,7 @@ MapHandler::MapHandler() {
 			QueueCoordinate Q = QueueCoordinate();	//posizioni da cui visitare quelle adiacenti
 			
 			for(int i = 0; i < ROOM_AREA; i++) dist[i] = -1;
-			dist[A->getPosition().single()] = 0;
+			dist[A->getPosition().single_set(map->size)] = 0;
 			Q.push(A->getPosition());
 
 			bool reached = false;
@@ -64,10 +64,10 @@ MapHandler::MapHandler() {
 				Coordinate start = Q.pop();							//vertice in basso a sinistra occupato dall'oggetto
 				Coordinate end = Coordinate(start, A->getSize());	//vertice in alto a destra
 				if(	//controlla i rettangoli in tutte le direzioni (cioè controlla di trovare B nel rettangolo lungo dist_max e non in quello lungo dist_min)
-					(findRectangle(map, B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x, start.y + dist_max))	&& !findRectangle(map, B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x, start.y + dist_min - 1))) ||	//basso
-					(findRectangle(map, B, Coordinate(start.x - 1, end.y), Coordinate(start.x - dist_max, start.y)) 				&& !findRectangle(map, B, Coordinate(start.x - 1, end.y), Coordinate(start.x - dist_min + 1, start.y))) 				||	//sinistra
-					(findRectangle(map, B, Coordinate(end, DIRECTIONS[DIRECTION_UP]), Coordinate(start.x, end.y - dist_max) )		&& !findRectangle(map, B, Coordinate(end, DIRECTIONS[DIRECTION_UP]), Coordinate(start.x, end.y - dist_min + 1)))		||	//alto
-					(findRectangle(map, B, Coordinate(end.x + 1, start.y), Coordinate(end.x + dist_max, end.y)) 					&& !findRectangle(map, B, Coordinate(end.x + 1, start.y), Coordinate(end.x + dist_min - 1, end.y)))						//destra
+					(findRectangle(map, B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x, start.y + dist_max))	&& (dist_min == 1 || !findRectangle(map, B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x, start.y + dist_min - 1))) 	) ||	//basso
+					(findRectangle(map, B, Coordinate(start.x - 1, end.y), Coordinate(start.x - dist_max, start.y)) 				&& (dist_min == 1 || !findRectangle(map, B, Coordinate(start.x - 1, end.y), Coordinate(start.x - dist_min + 1, start.y))) 				) ||	//sinistra
+					(findRectangle(map, B, Coordinate(end, DIRECTIONS[DIRECTION_UP]), Coordinate(start.x, end.y - dist_max) )		&& (dist_min == 1 || !findRectangle(map, B, Coordinate(end, DIRECTIONS[DIRECTION_UP]), Coordinate(start.x, end.y - dist_min + 1)))		) ||	//alto
+					(findRectangle(map, B, Coordinate(end.x + 1, start.y), Coordinate(end.x + dist_max, end.y)) 					&& (dist_min == 1 || !findRectangle(map, B, Coordinate(end.x + 1, start.y), Coordinate(end.x + dist_min, end.y)))						)		//destra
 				) {
 					reached = true;
 					res = start;
@@ -75,9 +75,10 @@ MapHandler::MapHandler() {
 				else {
 					for(int d = 0; d < DIRECTIONS_N; d++) {
 						Coordinate nxt = Coordinate(start, DIRECTIONS[d]);
+						nxt.setMatrix(map->size);
 						if(dist[nxt.single()] == -1 && isLegalMove(map, A, nxt)) {
 							prev[nxt.single()] = start;
-							dist[nxt.single()] = dist[start.single()] + 1;
+							dist[nxt.single()] = dist[start.single_set(map->size)] + 1;
 							Q.push(nxt);
 							length = dist[nxt.single()];
 						}
@@ -86,8 +87,10 @@ MapHandler::MapHandler() {
 			} while(!reached && !Q.isEmpty());
 
 			if(reached) {
-				path[length - 1] = res;
-				for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single()];
+				if(length > 0) {
+					path[length - 1] = res;
+					for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single()];
+				}
 				Q.destroy();
 				return length;
 			} else return -1;
@@ -305,11 +308,11 @@ MapHandler::MapHandler() {
 		} while(allowed && !i.equals(target));
 		return allowed;
 	}
-	bool MapHandler::isFreeSpace(pMap map, Coordinate start, Coordinate end) {
-		Coordinate i = Coordinate(start, start, Coordinate(start, end));
+	bool MapHandler::isFreeSpace(pMap map, Coordinate start, Coordinate size) {
+		Coordinate i = Coordinate(start, map->size, start, Coordinate(start, size));
 		bool allowed = true;
 		do {
-			if(map->physical[i.single()]->getId() != ID_FLOOR) allowed = false;
+			if(!i.inBounds(COORDINATE_ZERO, map->size) || map->physical[i.single()]->getId() != ID_FLOOR) allowed = false;
 			else i.next();
 		} while(allowed && !i.equals(start));
 		return allowed;
@@ -369,7 +372,7 @@ MapHandler::MapHandler() {
 		}
 	}
 	void MapHandler::addProjectile(pMap map, pProjectile projectile) {
-		if(isFreeSpace(map, projectile->getPosition(), Coordinate(projectile->getPosition(), projectile->getSize()))) {
+		if(isFreeSpace(map, projectile->getPosition(), projectile->getSize())) {
 			Coordinate i = projectile->getPosition();
 			do {
 				map->physical[i.single()] = projectile;

@@ -57,7 +57,7 @@ class MapHandler {
 		*/
 
 		//// BOOL
-		static bool isFreeSpace(pMap map, Coordinate start, Coordinate end);	//ritona true se il rettangolo è vuoto
+		static bool isFreeSpace(pMap map, Coordinate start, Coordinate size);	//ritona true se il rettangolo è vuoto
 };
 
 
@@ -73,8 +73,8 @@ class MapHandler {
 
 
 //istanze di muro e pavimento, riutilizzate sempre uguali
-const pInanimate FLOOR_INSTANCE = new Floor();
-const pInanimate WALL_INSTANCE = new Wall();
+const pFloor FLOOR_INSTANCE = new Floor();
+const pWall WALL_INSTANCE = new Wall();
 
 
 #endif

@@ -93,7 +93,7 @@
 		}
 	}
 	void ConnectedRoom::addDoor(int dir, lock_type lt) {
-		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_positions[dir], calcDoorEntrance(door_positions[dir]), lt);
+		//if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_positions[dir], calcDoorEntrance(door_positions[dir]), lt);
 	}
 	bool ConnectedRoom::addLockedDoor() {
 		if(locked_doors < LOCKED_DOORS_MAX) {

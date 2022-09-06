@@ -22,7 +22,6 @@ class Inanimate : public Physical {
 		Inanimate();
 
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);
-		//precondizione: da richiamare con coordinate giuste
 };
 
 typedef Inanimate *pInanimate;

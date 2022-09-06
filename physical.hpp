@@ -103,7 +103,7 @@ class Physical {
 		bool isItemDifensivo();
 		bool isArtifact();
 		bool findInArray(Physical *A[ROOM_AREA], int len);
-		virtual bool animationMask(Coordinate pos);		//true se la posizione, relativa all'animazione, copre quello che c'è sotto
+		virtual bool animationMask(Coordinate pos);			//true se la posizione, relativa all'animazione (partendo dal basso), copre quello che c'è sotto
 
 		// GET
 		int getId();

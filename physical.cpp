@@ -78,7 +78,7 @@ void Physical::next_animation(){
         return found;
     }
     bool Physical::animationMask(Coordinate pos) {
-	    return getCurrentAnimation().state[pos.single()] != CHAR_EMPTY;
+	    return getCurrentAnimation().at(pos) != CHAR_EMPTY;
     }
     
     int Physical::getId() {

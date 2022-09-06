@@ -25,17 +25,16 @@
 			pPhysical obj = map->physical[i.single()];
 			if(obj != NULL && obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) map->physical[i.single()]->destroy();
 			i.next();
-		} while(!i.equals(Coordinate(0, 0)));
+		} while(!i.equals(COORDINATE_ZERO));
 		delete map;
 		delete this;
 	}
 	void Room::update(int input) {
 		Coordinate i(0, 0, size);
 		do {
-			int points = 0;
-			map->characters[i.single()]->update(map);
+			if(map->characters[i.single()] != NULL) map->characters[i.single()]->update(map);
 			i.next();
-		} while(!i.equals(Coordinate(0, 0)));
+		} while(!i.equals(COORDINATE_ZERO));
 	}
 
 	void Room::generate()
@@ -82,14 +81,15 @@
 
 			if(map_it.inBounds(COORDINATE_ZERO, size)) {								//se il punto è nella mappa: disegna
 				pPhysical obj = MapHandler::checkPosition(map, map_it);
-				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);	//disegna floor se è vuoto
-				else if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, map_it);	//disegna oggetto inanimato
-				else {																			//disegna animate+floor
-					obj->drawAtOwnPosition(scr, wstart, win_size);
-					FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);
+				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);	//disegna floor se è vuoto
+				else if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, map_it);		//disegna oggetto inanimato
+				else {																				//disegna animate+floor
+					if(obj->getId() == ID_PLAYER) obj->drawAtOwnPosition(scr, wstart, win_size);
+					else scr[scr_reverse.inty()][scr_reverse.intx()].edit('x',-1,-1,0);
+					FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);
 				}
 			} else												//altrimenti "cancella"/lascia uno spazio vuoto
-				scr[scr_reverse.inty()][scr_reverse.intx()] = Cell('.', -1, COLOR_BLACK, CELL_NO_ATTR);
+				scr[scr_reverse.inty()][scr_reverse.intx()] = Cell(CHAR_OUTSIDE, COLOR_OUTSIDE_FG, COLOR_OUTSIDE_BG, CELL_NO_ATTR);
 			scr_it.next();
 		} while(!scr_it.equals(COORDINATE_ZERO));
 	}
@@ -101,14 +101,14 @@
 
 	int Room::getFreeCells(s_coord available[], Coordinate size) {
 		int length = 0;
-		Coordinate i = Coordinate(0, 0, size);
+		Coordinate i = Coordinate(0, 0, this->size);
 		do {
-			if(MapHandler::isFreeSpace(map, i, Coordinate(i, size))) {
+			if(MapHandler::isFreeSpace(map, i, size)) {
 				available[length] = i.single();
 				length++;
 			}
 			i.next();
-		} while(!i.equals(Coordinate(0, 0)));
+		} while(!i.equals(COORDINATE_ZERO));
 		return length;
 	}
 //// ADD
@@ -117,6 +117,7 @@
 		do {
 			map->physical[i.single()] = character;
 			map->characters[i.single()] = character;
+			i.next();
 		} while(!i.equals(character->getPosition()));
 	}
 	void Room::addChest(pChest chest) {
@@ -124,6 +125,7 @@
 		do {
 			map->physical[i.single()] = chest;
 			map->chests[i.single()] = chest;
+			i.next();
 		} while(!i.equals(chest->getPosition()));
 	}
 

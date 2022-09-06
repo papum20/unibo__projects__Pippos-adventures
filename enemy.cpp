@@ -28,7 +28,7 @@ void Enemy::copyEnemy(Enemy B) {
 }
 
 void Enemy::update(pMap map){
-    if (is_attacking){
+    /*if (is_attacking){
 		if (!animations[current_animation]->isLastFrame()){
 			if (attack_counter==1){
 				if ((equipaggiamento.arma)->is_melee)
@@ -69,7 +69,7 @@ void Enemy::update(pMap map){
         else
             ;//rangedIA(map);
     }
-
+*/
     Character::update(map);
 }
 

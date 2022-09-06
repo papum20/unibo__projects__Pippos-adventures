@@ -81,11 +81,12 @@
 
 			if(map_it.inBounds(COORDINATE_ZERO, size)) {								//se il punto è nella mappa: disegna
 				pPhysical obj = MapHandler::checkPosition(map, map_it);
-				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);	//disegna floor se è vuoto
-				else if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, map_it);	//disegna oggetto inanimato
-				else {																			//disegna animate+floor
-					obj->drawAtOwnPosition(scr, wstart, win_size);
-					FLOOR_INSTANCE->drawAtPosition(scr, wstart, win_size, map_it);
+				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);	//disegna floor se è vuoto
+				else if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, map_it);		//disegna oggetto inanimato
+				else {																				//disegna animate+floor
+					if(obj->getId() == ID_PLAYER) obj->drawAtOwnPosition(scr, wstart, win_size);
+					else scr[scr_reverse.inty()][scr_reverse.intx()].edit('x',-1,-1,0);
+					FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);
 				}
 			} else												//altrimenti "cancella"/lascia uno spazio vuoto
 				scr[scr_reverse.inty()][scr_reverse.intx()] = Cell(CHAR_OUTSIDE, COLOR_OUTSIDE_FG, COLOR_OUTSIDE_BG, CELL_NO_ATTR);
@@ -116,6 +117,7 @@
 		do {
 			map->physical[i.single()] = character;
 			map->characters[i.single()] = character;
+			i.next();
 		} while(!i.equals(character->getPosition()));
 	}
 	void Room::addChest(pChest chest) {
@@ -123,6 +125,7 @@
 		do {
 			map->physical[i.single()] = chest;
 			map->chests[i.single()] = chest;
+			i.next();
 		} while(!i.equals(chest->getPosition()));
 	}
 

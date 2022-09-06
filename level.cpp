@@ -95,7 +95,7 @@
 	void Level::spawnInRoom(pRoom room) {
 		for(int i = 0; i < ENEMIES_N[level]; i++) curRoom->spawnEnemy(randEnemy());
 		int chests_n = chestsNumber();
-		for(int i = 0; i < chests_n; i++) curRoom->spawnChest(randChest());
+		//for(int i = 0; i < chests_n; i++) curRoom->spawnChest(randChest());
 	}
 
 	void Level::display() {

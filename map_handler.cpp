@@ -312,7 +312,7 @@ MapHandler::MapHandler() {
 		Coordinate i = Coordinate(start, map->size, start, Coordinate(start, size));
 		bool allowed = true;
 		do {
-			if(!i.inBounds(COORDINATE_ZERO, size) || map->physical[i.single()]->getId() != ID_FLOOR) allowed = false;
+			if(!i.inBounds(COORDINATE_ZERO, map->size) || map->physical[i.single()]->getId() != ID_FLOOR) allowed = false;
 			else i.next();
 		} while(allowed && !i.equals(start));
 		return allowed;

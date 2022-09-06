@@ -22,6 +22,8 @@ class Wall : public Inanimate {
 
 };
 
+typedef Wall *pWall;
+
 
 
 

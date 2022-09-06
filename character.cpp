@@ -61,7 +61,7 @@ void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate
 					scr[global.rel_int_y()][global.rel_int_x()] = Cell(a_weapon.state[local.single()], equipaggiamento.arma->get_MainColor(), -1, -1);
 				else if(global.inBounds(character_start, character_end)) {						//altrimenti, se c'è il character, disegna il character
 					Coordinate local_character = Coordinate(global, character_start.negative());
-					if(animationMask(local_character)) scr[global.rel_int_y()][global.rel_int_x()] = Cell(getCurrentAnimation().state[local_character.single()], main_color, -1, -1);
+					if(animationMask(local_character)) scr[global.rel_int_y()][global.rel_int_x()] = Cell(getCurrentAnimation().state[local_character.single()], main_color, -1, CELL_NO_ATTR);
 				}
 			}
 		} while(!local.equals(draw_start));

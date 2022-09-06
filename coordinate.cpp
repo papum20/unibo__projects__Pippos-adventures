@@ -106,11 +106,11 @@
 		}
 	}
 	void Coordinate::next() {
-		if(!size().lessEqual(Coordinate(-1, -1)) && inBounds(Coordinate(0, 0), size())) {
+		if(sizex >= 0 && sizey >= 0 && inBounds(Coordinate(0, 0), size())) {
 			x = intx(), y = inty();
-			if(x >= endx - 1) {
+			if(x >= endx - 1 || x >= sizex - 1) {
 				x = startx;
-				if(y >= endy - 1) y = starty;
+				if(y >= endy - 1 || y >= sizey - 1) y = starty;
 				else y++;
 			}
 			else
@@ -131,8 +131,7 @@
 	}
 	void Coordinate::setBounds(Coordinate start, Coordinate end) {
 		if(start.lessEqual(end)) {
-			start.clamp(Coordinate(0, 0), size());
-			end.clamp(Coordinate(0, 0), size());
+			if(sizex < 0 || sizey < 0) sizex = end.x, sizey = end.y;
 			startx = start.x;
 			starty = start.y;
 			endx = end.x;
@@ -172,15 +171,15 @@
 		return (int)(y - starty);
 	}
 	s_coord Coordinate::single() {
-		if(size().lessEqual(Coordinate(-1, -1)) || !inBounds(Coordinate(0, 0), size())) return ERROR_INT;
+		if(sizex < 0 || sizey < 0 || !inBounds(Coordinate(0, 0), size())) return ERROR_INT;
 		else return inty() * sizex + intx();
 	}
 	s_coord Coordinate::single_set(Coordinate size) {
-		if(size.lessEqual(Coordinate(-1, -1)) || !inBounds(Coordinate(0, 0), size)) return ERROR_INT;
+		if(size.x < 0 || size.y < 0 || !inBounds(Coordinate(0, 0), size)) return ERROR_INT;
 		else return inty() * size.x + intx();
 	}
 	s_coord Coordinate::single_ceil() {
-		if(size().lessEqual(Coordinate(-1, -1))) return ERROR_INT;
+		if(sizex < 0 || sizey < 0) return ERROR_INT;
 		return ceily() * sizex + ceilx();
 	}
 #pragma endregion SET_GET

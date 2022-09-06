@@ -13,6 +13,7 @@
 #define CELL_DFLT_FG COLOR_WHITE
 #define CELL_DFLT_BG COLOR_BLACK
 #define CELL_DFLT_ATTR A_NORMAL	//nessun attributo
+#define CELL_NO_ATTR A_ATTRIBUTES
 
 
 class Cell {
@@ -23,15 +24,17 @@ class Cell {
 
 	public:
 		Cell();											//inizializza con gli attributi di default
-		Cell(char ch, int fg, int bg, attr_t att);		//valori minori di 0 inizializzano di default
+		Cell(char ch, int fg, int bg, attr_t att);		//valori minori di 0 (e CELL_NO_ATTR per att) inizializzano di default
 
 		static void initPairs();						//da chiamare per inizializzare i color pair
+		static int pairNumber(int fg, int bg);
 
 		void edit(char ch, int fg, int bg, attr_t att);	//valori minori di 0 non modificano
 		// GET
 		char getCh();									//ritorna il carattere memorizzato
+		int getBg();
 		chtype toChtype();								//converte in unico valore chtype
-		int colorPairNumber();							//ritorna il numero con cui è memorizzato il color_pair associato ai colori testo/sfondo dell'oggetto
+		int pairNumber_own();							//ritorna il numero con cui è memorizzato il color_pair associato ai colori testo/sfondo dell'oggetto
 		int colorPair();								//ritorna il color_pair associato ai colori testo/sfondo dell'oggetto
 		/*
 		essendoci solo 8 colori, le loro possibili combinazioni sono 8*8=64: dunque i numeri che identificano i color_pair possono essere inizializzati

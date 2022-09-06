@@ -139,12 +139,14 @@ MapHandler::MapHandler() {
 #pragma region CHECK
 //// CHECK POSITION
 	pPhysical MapHandler::checkPosition(pMap map, Coordinate pos) {
-		if(pos.inBounds(Coordinate(0, 0),map->size) && map->physical[pos.single()]->getId() != ID_FLOOR)
+		pos.setMatrix(map->size);
+		if(pos.inBounds(Coordinate(0, 0), map->size) && map->physical[pos.single()]->getId() != ID_FLOOR)
 			return map->physical[pos.single()];
 		else return NULL;
 	}
 	pCharacter MapHandler::checkCharacter(pMap map, Coordinate pos) {
-		if(pos.inBounds(Coordinate(0, 0),map->size) && map->characters[pos.single()] != NULL)
+		pos.setMatrix(map->size);
+		if(pos.inBounds(Coordinate(0, 0), map->size) && map->characters[pos.single()] != NULL)
 			return map->characters[pos.single()];
 		else return NULL;
 	}
@@ -152,11 +154,13 @@ MapHandler::MapHandler() {
 		return checkCharacter(map, pos);
 	}
 	pChest MapHandler::checkChest(pMap map, Coordinate pos) {
+		pos.setMatrix(map->size);
 		if(pos.inBounds(Coordinate(0, 0),map->size) && map->chests[pos.single()] != NULL)
 			return map->chests[pos.single()];
 		else return NULL;
 	}
 	pDoor MapHandler::checkDoor(pMap map, Coordinate pos) {
+		pos.setMatrix(map->size);
 		if(pos.inBounds(Coordinate(0, 0),map->size) && map->physical[pos.single()]->getId() == ID_DOOR)
 			return getDoorInPosition(map, pos);
 		else return NULL;

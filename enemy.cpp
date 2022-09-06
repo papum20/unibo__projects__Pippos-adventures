@@ -1,6 +1,10 @@
 #include "enemy.hpp"
 #include "map_handler.hpp"
 
+Enemy::Enemy() : Character() {
+	
+}
+
 Enemy::Enemy(pCharacter p):Character() {
     player=p;
 	weapons_n=0;
@@ -59,9 +63,9 @@ void Enemy::update(pMap map){
 	}
     else{
         if (equipaggiamento.arma->is_melee)
-            meleeIA(map);
+        	;//meleeIA(map);
         else
-            rangedIA(map);
+            ;//rangedIA(map);
     }
 
     Character::update(map);

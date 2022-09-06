@@ -57,7 +57,7 @@ class MapHandler {
 		*/
 
 		//// BOOL
-		static bool isFreeSpace(pMap map, Coordinate start, Coordinate end);	//ritona true se il rettangolo è vuoto
+		static bool isFreeSpace(pMap map, Coordinate start, Coordinate size);	//ritona true se il rettangolo è vuoto
 };
 
 

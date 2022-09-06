@@ -85,11 +85,11 @@
 		curRoom->generate();
 		player->setPosition(curRoom->getSize().times(.5, .5));
 		curRoom->addCharacter(player);
-		//for(int i = 0; i < N_ROOMS; i++) {
-		//	if(rooms[i] != NULL) {
-		//		spawnInRoom(rooms[i]);
-		//	}
-		//}
+		for(int i = 0; i < N_ROOMS; i++) {
+			if(rooms[i] != NULL) {
+				spawnInRoom(rooms[i]);
+			}
+		}
 		available.destroy();
 	}
 	void Level::spawnInRoom(pRoom room) {

@@ -33,6 +33,8 @@ class Animation {
 		Animation(const char animation[][ANIMATION_HEIGHT][ANIMATION_WIDTH], const Coordinate size, const int len);		//inizializza intera lista (lunghezza len)
 		void tail_insert(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], Coordinate size);							//inserisce in coda (rispetto alla testa attuale/passata per parametro)
 		void delete_list();
+
+		char at(Coordinate pos);		//carattere in posizione pos (dal basso)
 		bool isLastFrame();				//se è l'ultimo frame dell'animazione
 };
 

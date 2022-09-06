@@ -45,7 +45,7 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 }
 
 void Player::update(pMap map){
-	if (is_attacking){
+	/*if (is_attacking){
 		if (!animations[current_animation]->isLastFrame()){
 			if (attack_counter==1){
 				if ((equipaggiamento.arma)->is_melee)
@@ -121,7 +121,7 @@ void Player::update(pMap map){
 				initiate_attack();
 			}
 		}
-	}
+	}*/
 
 	Character::update(map);		//azioni generali
 }

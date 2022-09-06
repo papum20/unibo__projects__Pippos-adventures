@@ -24,7 +24,8 @@ void Animation::set(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const C
     if(!size.equals_int(COORDINATE_ZERO)) {
         Coordinate i = Coordinate(COORDINATE_ZERO, ANIMATION_SIZE, COORDINATE_ZERO, size);
         do {
-            this->state[i.single()] = state[i.inty()][i.intx()];
+            Coordinate reverse = Coordinate(i.x, size.y - i.y - 1);
+            this->state[reverse.single_set(ANIMATION_SIZE)] = state[i.inty()][i.intx()];
             i.next();
         } while(!i.equals(COORDINATE_ZERO));
     }
@@ -53,6 +54,9 @@ void Animation::delete_list() {
 	delete this;
 }
 
+char Animation::at(Coordinate pos) {
+    return state[pos.single_set(ANIMATION_SIZE)];
+}
 bool Animation::isLastFrame() {
     return next->index == ANIMATION_FIRST_INDEX;
 }

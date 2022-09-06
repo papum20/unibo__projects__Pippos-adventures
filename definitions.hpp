@@ -15,8 +15,8 @@
 
 
 #pragma region CAMERA_DEFINITIONS
-#define CAMERA_WIDTH 135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH ROOM_WIDTH//135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT ROOM_HEIGHT//35	//altezza (massima) inquadratura livello
 #pragma endregion CAMERA_DEFINITIONS
 
 
@@ -56,11 +56,13 @@
 #define COLOR_PLAYER COLOR_WHITE
 #define COLOR_WEAPON COLOR_BLUE
 #define COLOR_ENEMY COLOR_RED
-#define COLOR_OUTSIDE COLOR_BLACK
+#define COLOR_OUTSIDE_FG COLOR_WHITE
+#define COLOR_OUTSIDE_BG COLOR_BLACK
 // CARATTERI:
 #define CHAR_EMPTY ' '
 #define CHAR_WALL_BASE '_'
 #define CHAR_WEAPON_MASK 'm'				//quando si trova questo carattere in un'animazione, in quel punto non verrà rappresentato il personaggio
+#define CHAR_OUTSIDE '.'
 #pragma endregion GRAPHICS
 
 //// COMANDI

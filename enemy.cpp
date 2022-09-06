@@ -73,18 +73,18 @@ void Enemy::update(pMap map){
     Character::update(map);
 }
 
-/*
+
 
 void Enemy::meleeIA(pMap map){
     Coordinate path[ROOM_AREA];
 	Physical *obj[ROOM_AREA];
 	int player_distance;
 	int objects_in_view;
-	player_distance=MapHandler::shortestPath(map, path, pos, player->getPosition(), player);		
-	objects_in_view=MapHandler::vision(map, obj, pos, 10);
+	player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);		
+	objects_in_view=MapHandler::vision(map, obj, pos, 20);
 
-	if (player->findInArray(obj, objects_in_view) && player_distance<5){					//se il player è in vista e la distanza è minore di 5
-		if (player_distance>1){																
+	if (player->findInArray(obj, objects_in_view) && player_distance<10){					//se il player è in vista e la distanza è minore di 5
+		if (player_distance>0){																
 			Coordinate step;
 			step=path[0];
 			if (step.x==pos.x){																//se è maggiore di uno mi muovo nella sua direzione
@@ -100,22 +100,20 @@ void Enemy::meleeIA(pMap map){
 					moveLeft(map);
 			}
 		}
-		else{ 																				//altrimenti lo attacco
-			if (si trova a destra){
-				direction='r';
+		else 
+			if (player_distance==0){ 																				//altrimenti lo attacco
+				if (pos.x<=player->getPosition().x && pos.x+size.x>player->getPosition().x)
+					if (pos.y<player->getPosition().y)
+						direction='u';
+					else
+						direction='d';
+				else
+					if (pos.x<player->getPosition().x)
+						direction='r';
+					else
+						direction='l';
+				initiate_attack();		
 			}
-			if (si trova a sinistra){
-				direction='l';
-			}
-			if (si trova su){
-				direction='u';
-			}
-			if (si trova in basso){
-				direction='d';
-			}
-			initiate_attack();
-		
-		}
 	}
 
 }
@@ -123,43 +121,62 @@ void Enemy::meleeIA(pMap map){
 void Enemy::rangedIA(pMap map){
 	Physical *obj[ROOM_AREA];
 	int objects_in_view;	
-	objects_in_view=MapHandler::vision(map, obj, pos, 10);
+	objects_in_view=MapHandler::vision(map, obj, pos, 20);
+	Coordinate path[ROOM_AREA];
+	int player_distance;
+	player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
 	if (player->findInArray(obj, objects_in_view)){																//se il player è in vista
-		if (Math::abs(player->getPosition().x-pos.x)<Math::abs(player->getPosition().y-pos.y)){						//se sono più vicini sull'asse delle x
-			if (Math::abs(player->getPosition().x-pos.x)<((equipaggiamento.arma)->projectile)->vertical_size.x){	//se la larghezza del proiettile>=distanza sulle x
-				if (player->getPosition().y>pos.y){																//mi direziono in base alla posizione
-					direction='u';
+		if (player_distance<10){	
+			if (Math::abs(player->getPosition().x-pos.x)<Math::abs(player->getPosition().y-pos.y)){						//se sono più vicini sull'asse delle x
+				if (Math::abs(player->getPosition().x-pos.x)<((equipaggiamento.arma)->projectile).vertical_size.x){	//se la larghezza del proiettile>=distanza sulle x
+					if (player->getPosition().y>pos.y){																//mi direziono in base alla posizione
+						direction='u';
+					}
+					else																							
+						direction='d';
+					initiate_attack();																				//inizio l'attacco
 				}
-				else																							
-					direction='d';
-				initiate_attack();																				//inizio l'attacco
+				else{																							//se il proiettile non è sufficientemente largo, mi sposto
+					if (player->getPosition().x>pos.x){															//in orizzontale, avvicinandomi
+						moveRight(map);
+					}
+					else
+						moveLeft(map);
+				}
 			}
-			else{																							//se il proiettile non è sufficientemente largo, mi sposto
-				if (player->getPosition().x>pos.x){															//in orizzontale, avvicinandomi
-					moveRight(map);
+			else{																										//se sono più vicini sulle y
+				if (Math::abs(player->getPosition().y-pos.y)<((equipaggiamento.arma)->projectile).horizontal_size.y){		//se l'altezza del proiettile>=distanza sulle y
+					if (player->getPosition().x>pos.x){														//mi direziono in base alla posizione
+						direction='r';
+					}
+					else
+						direction='l';
+					initiate_attack();																		//inizio l'attacco
 				}
+				else{
+					if (player->getPosition().y>pos.y){												//altrimenti mi sposto in verticale
+						moveUp(map);
+					}
+					else
+						moveDown(map);
+				}
+			}
+		}
+		else if (player_distance<15){
+			Coordinate step;
+			step=path[0];
+			if (step.x==pos.x){																
+				if (step.y>pos.y)
+					moveUp(map);
+				else
+					moveDown(map);
+			}	
+			else{																		
+				if (step.x>pos.x)
+					moveRight(map);
 				else
 					moveLeft(map);
 			}
 		}
-		else{																										//se sono più vicini sulle y
-			if (Math::abs(player->getPosition().y-pos.y)<((equipaggiamento.arma)->projectile)->horizontal_size.y){		//se l'altezza del proiettile>=distanza sulle y
-				if (player->getPosition().x>pos.x){														//mi direziono in base alla posizione
-					direction='r';
-				}
-				else
-					direction='l';
-				initiate_attack();																		//inizio l'attacco
-			}
-			else{
-				if (player->getPosition().y>pos.y){												//altrimenti mi sposto in verticale
-					moveUp(map);
-				}
-				else
-					moveDown(map);
-			}
-		}
 	}
 }
-
-*/

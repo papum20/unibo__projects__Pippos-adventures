@@ -5,6 +5,7 @@ Arco::Arco():Weapon(){
     danno_fisico_iniziale=Math::randomStep(20, 50, 5);
     danno_magico_iniziale=0;
     strcpy (description, bow_description);
+    strcpy (name, bow_name);
     apply_rarity();
 
     move_up_index=bow_up_index;

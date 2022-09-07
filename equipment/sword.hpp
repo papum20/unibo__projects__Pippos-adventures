@@ -4,6 +4,7 @@
 #include "../weapon.hpp" 
 
 const char sword_description[description_length]="forgiata da un artigiano leggendario, si dice che questa spada una volta sfoderata, non possa essere riposta senza aver preso una vita.";
+const char sword_name[name_length]="Spada bramasangue";
 
 const int sword_movement_states=1;
 const int sword_horizontal_attack_states=4;

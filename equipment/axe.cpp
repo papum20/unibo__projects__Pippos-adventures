@@ -29,6 +29,7 @@ Ascia::Ascia():Weapon(){
     is_melee=true;
     owner_id=ID_PLAYER;
     strcpy (description, axe_description);
+    strcpy (name, axe_name);
 
     horizontal_size=Coordinate(axe_horizontal_attack_width, axe_horizontal_attack_height);
     vertical_size=Coordinate(axe_vertical_attack_width, axe_vertical_attack_height);

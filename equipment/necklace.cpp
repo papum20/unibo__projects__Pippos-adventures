@@ -5,6 +5,7 @@ necklace::necklace():item_difensivo(){
     difesa_fisica_iniziale=0;
     difesa_magica_iniziale=Math::randomStep(5, 10, 5);
     strcpy (description, necklace_description);
+    strcpy (name, necklace_name);
     apply_rarity();
 }
 

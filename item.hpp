@@ -6,7 +6,7 @@
 #include "math.hpp"
 
 const int description_length=200;
-const int name_length=20;
+const int name_length=25;
 const int rarity_length=10;
 
 const char common[rarity_length]="Common";  
@@ -16,16 +16,13 @@ const char legendary[rarity_length]="Legendary";
 
 class item: public Animate{
     public:
-        char rarity[15];
+        char rarity[rarity_length];
         char description[description_length];
-        char name[20];
-        char type[20];
+        char name[name_length];
         
         item ();
-        item (const char n[], const char desc[]);
-        item(const char rar[], const char n[], const char desc[]);
         void copyItem(item B);
-
+        virtual void apply_rune();
         bool check_rarity();
 
 };

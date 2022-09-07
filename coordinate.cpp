@@ -97,8 +97,14 @@
 	Coordinate Coordinate::negative() const {
 		return Coordinate(Coordinate(-x, -y), size(), start(), end());
 	}
-	Coordinate Coordinate::times(float px, float py) {
+	Coordinate Coordinate::times(float px, float py) const {
 		return Coordinate(Coordinate(x * px, y * py), size(), start(), end());
+	}
+	Coordinate Coordinate::integer() const {
+		return Coordinate(Coordinate(intx(), inty()), size(), start(), end());
+	}
+	Coordinate Coordinate::ceil() {
+		return Coordinate(Coordinate(Math::ceil(x), Math::ceil(y)), size(), start(), end());
 	}
 	void Coordinate::clamp(Coordinate mn, Coordinate mx) {
 		if(mn.lessEqual(mx)) {

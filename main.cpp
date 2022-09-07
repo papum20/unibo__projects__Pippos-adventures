@@ -28,8 +28,9 @@ int main() {
 	pInputManager inputManager = new InputManager(input_x, input_y);
 	pPlayer player = new Player(inputManager);
 	Level level = Level(level_x, level_y, player);
-	Menu menu = Menu(inputManager);
 	Hud hud = Hud(hud_x, hud_y, player);
+	Menu menu = Menu(inputManager);
+	Inventory inventory = Inventory(player, inputManager);
 
 
 
@@ -43,22 +44,26 @@ int main() {
 		
 		// GESTIONE TEMPO FRAME : si eseguono tutte le operazioni, poi nel prossimo update il tempo rimasto nel tempo di aggiornamento (refresh_rate)
 		// il gioco rimane "inattivo", continuando solo a ricevere l'input (comunque almeno una volta)
-		while(!refresh_timer.check(REFRESH_TIMER_INDEX));
-		inputManager->calculate_input();
-		refresh_timer.start(REFRESH_TIMER_INDEX);
+		do{
+			inputManager->calculate_input();
+		}while(!refresh_timer.check(REFRESH_TIMER_INDEX));
 
+		if(inputManager->get_input() == KEY_QUIT) isRunning = false;
 		//// IN PAUSA
-		if (menu.is_active()) {
+		else if (menu.is_active()) {
 			if(frame%2==0) mvwprintw(debug,5,1,"menu");
 			else mvwprintw(debug,5,1,"     ");
-			//if(inputManager->get_input() == KEY_PAUSE) menu.close_menu();
-		//	menu.update();			//se il menu è aperto il player non si muove
+			if(inputManager->get_input() == KEY_PAUSE) menu.close_menu();
+			menu.update();			//se il menu è aperto il player non si muove
 		}
 		//// IN GIOCO
 		else {
 			if(frame%2==0) mvwprintw(debug,5,1,"level");
 			else mvwprintw(debug,5,1,"     ");
-			if(inputManager->get_input() == KEY_PAUSE) mvwaddch(debug,1,0,'P');// menu.open();
+			if(inputManager->get_input() == KEY_PAUSE) {
+				mvwaddch(debug,1,0,'P');
+				//menu.open();
+			}
 			else mvwaddch(debug,1,0,'p');// menu.open();
 			level.update(inputManager->get_input());
 			level.display();
@@ -102,6 +107,7 @@ void colorsInit() {
 
 void cursesEnd() {
 	endwin();			//dealloca memoria
+	delwin(stdscr);
 }
 void gameEnd() {
 	delete FLOOR_INSTANCE;

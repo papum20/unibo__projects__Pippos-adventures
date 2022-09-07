@@ -11,6 +11,8 @@ Projectile::Projectile(int fisico, int magico, char dir, int shooter):Animate(){
     direction=dir;
     shooter_id=shooter;
     id=ID_PROJECTILE_S;
+    main_color = COLOR_PROJECTILE;
+    animations_n=projectile_animations_n;
 }
 
 void Projectile::copyProjectile(Projectile B) {
@@ -88,24 +90,44 @@ void Projectile::setPosition(Coordinate shooter_pos, Coordinate shooter_size, ch
     direction=shooter_direction;
     switch (direction){
         case 'u':
+            size = vertical_size;
             this->pos.x=shooter_pos.x+(shooter_size.x)/2-size.x/2;
             this->pos.y=shooter_pos.y+shooter_size.y;
             current_animation=move_up_index;
             break;
         case 'd':
+            size = vertical_size;
             this->pos.x=shooter_pos.x+(shooter_size.x)/2-size.x/2;
             this->pos.y=shooter_pos.y-size.y;
             current_animation=move_down_index;
             break;
         case 'l':
+            size = horizontal_size;
             this->pos.x=shooter_pos.x-size.x;
             this->pos.y=shooter_pos.y+(shooter_size.y)/2-size.y/2;
             current_animation=move_left_index;
             break;
         case 'r':
+            size = horizontal_size;
             this->pos.x=shooter_pos.x+shooter_size.x;
             this->pos.y=shooter_pos.y+(shooter_size.y)/2-size.y/2;
             current_animation=move_right_index;
             break;
     }
+}
+
+
+
+void Projectile::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
+    if(!drawn) {
+		Coordinate win_end = Coordinate(win_start, win_size);
+		Coordinate local = Coordinate(COORDINATE_ZERO, ANIMATION_SIZE, COORDINATE_ZERO, getCurrentAnimation().size);	//coordinata relativa all'animazione, all'interno di essa
+		do {
+			Coordinate global = Coordinate(Coordinate(pos, local), win_start, win_end);    //coordinata globale di relative, sulla mappa
+			if(global.inOwnBounds() && animationMask(local))            			    	//se il punto è interno alla finestra da disegnare e deve disegnare qualcosa
+				scr[global.rel_int_y()][global.rel_int_x()].edit(getCurrentAnimation().at(local), main_color, -1, CELL_NO_ATTR);
+            local.next();
+		} while(!local.equals(COORDINATE_ZERO));
+		drawn = true;
+	}
 }

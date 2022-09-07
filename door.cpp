@@ -20,6 +20,7 @@
 			drawCell(scr, i, main_color);
 			i.y++;
 		}
+		drawn = true;
 	}
 
 

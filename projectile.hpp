@@ -5,6 +5,9 @@
 #include "alive.hpp"
 
 
+const int projectile_animations_n = 4;
+
+
 class Projectile: public Animate{
     protected:
     public:
@@ -17,6 +20,7 @@ class Projectile: public Animate{
         //Projectile (pWeapon w);
         Projectile (int fisico, int magico, char dir, int shooter);
         void copyProjectile(Projectile B);
+		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
 
         void update (pMap map);
         int calculate_damage(pAlive c);

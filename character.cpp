@@ -290,19 +290,19 @@ void Character::initiate_attack (){
 	switch (direction){
 		case 'u':
 			current_animation=move_up_index;
-			attacking_states=equipaggiamento.arma->vertical_attack_states;
+			attack_counter=equipaggiamento.arma->vertical_attack_states;
 			break;
 		case 'd':
 			current_animation=move_down_index;
-			attacking_states=equipaggiamento.arma->vertical_attack_states;
+			attack_counter=equipaggiamento.arma->vertical_attack_states;
 			break;
 		case 'r':
 			current_animation=move_right_index;
-			attacking_states=equipaggiamento.arma->horizontal_attack_states;
+			attack_counter=equipaggiamento.arma->horizontal_attack_states;
 			break;
 		case 'l':
 			current_animation=move_left_index;
-			attacking_states=equipaggiamento.arma->horizontal_attack_states;
+			attack_counter=equipaggiamento.arma->horizontal_attack_states;
 			break;
 	}
 }

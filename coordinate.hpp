@@ -54,7 +54,9 @@ class Coordinate {
 		//EDIT
 		Coordinate swapped() const;										//ritorna coordinate con x e y invertiti
 		Coordinate negative() const;									//return (-x, -y)
-		Coordinate times(float px, float py);							//return (x*px, y*py)
+		Coordinate times(float px, float py) const;						//return (x*px, y*py)
+		Coordinate integer() const;
+		Coordinate ceil();
 		void clamp(Coordinate mn, Coordinate mx);						//fa rientrare le coordinate nei bordi (mn lessEqual mx)
 		void next();													//trasforma in coordinata successiva rispetto a matrice (incrementata di 1, non esce fuori dai bordi, se arrivato alla fine diventa l'inizio della matrice); funziona solo con matrice impostata e x,y in essa (o ritorna ERROR_INT)
 		void randomize(int xmin, int xmax, int ymin, int ymax);			//trasforma x e y in random (min inclusi, max esclusi) (solo interi)

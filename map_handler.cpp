@@ -158,7 +158,7 @@ MapHandler::MapHandler() {
 	}
 	pChest MapHandler::checkChest(pMap map, Coordinate pos) {
 		pos.setMatrix(map->size);
-		if(pos.inBounds(Coordinate(0, 0),map->size) && map->chests[pos.single()] != NULL)
+		if(pos.inBounds(COORDINATE_ZERO, map->size) && map->chests[pos.single()] != NULL)
 			return map->chests[pos.single()];
 		else return NULL;
 	}
@@ -176,7 +176,7 @@ MapHandler::MapHandler() {
 
 		Coordinate i = start;
 		bool ended = false;
-		while(!ended) {
+		while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
 			obj[found] = checkPosition(map, i);
 			//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
 			//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
@@ -196,7 +196,7 @@ MapHandler::MapHandler() {
 
 		Coordinate i = start;
 		bool ended = false;
-		while(!ended) {
+		while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
 			obj[found] = checkPosition(map, i);
 			//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
 			//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
@@ -216,7 +216,7 @@ MapHandler::MapHandler() {
 
 		Coordinate i = start;
 		bool ended = false;
-		while(!ended) {
+		while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
 			obj[found] = checkCharacter(map, i);
 			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
 			if(i.equals(end)) ended = true;
@@ -300,10 +300,10 @@ MapHandler::MapHandler() {
 //// BOOL
 
 	bool MapHandler::isLegalMove(pMap map, pPhysical obj, Coordinate target) {
-		Coordinate i = Coordinate(target, target, Coordinate(target, obj->getSize()));
+		Coordinate i = Coordinate(target, map->size, target, Coordinate(target, obj->getSize()));
 		bool allowed = true;
 		do {
-			if(map->physical[i.single()]->getId() != ID_FLOOR && map->physical[i.single()] != obj) allowed = false;
+			if(checkPosition(map, i) != NULL && map->physical[i.single()] != obj) allowed = false;
 			else i.next();
 		} while(allowed && !i.equals(target));
 		return allowed;
@@ -338,22 +338,23 @@ MapHandler::MapHandler() {
 
 //// EDIT
 	bool MapHandler::move(pMap map, pPhysical obj, Coordinate target) {
-		if(!obj->isInanimate() && obj->getPosition().inBounds(Coordinate(0, 0),map->size) && isLegalMove(map, obj, target)) {
+		if(!obj->isInanimate() && obj->getPosition().inBounds(COORDINATE_ZERO, map->size) && isLegalMove(map, obj, target)) {
 			//SPOSTA
-			Coordinate i = Coordinate(target, target, Coordinate(target, obj->getSize()));
+			Coordinate i = Coordinate(target, map->size, target, Coordinate(target, obj->getSize()));
 			do {
-				map->physical[i.single()] = map->physical[obj->getPosition().single()];
-				map->characters[i.single()] = map->characters[obj->getPosition().single()];
-				map->chests[i.single()] = map->chests[obj->getPosition().single()];
+				map->physical[i.single()] = obj;
+				if(obj->isCharacter()) map->characters[i.single()] = map->characters[obj->getPosition().single_set(map->size)];
+				else if(obj->isProjectile()) map->projectiles[i.single()] = map->projectiles[obj->getPosition().single_set(map->size)];
 				i.next();
 			} while(!i.equals(target));
 			//RIMUOVI CASELLE VECCHIE (NON PIÙ OCCUPATE)
-			i = Coordinate(obj->getPosition(), obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
+			i = Coordinate(obj->getPosition(), map->size, obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
 			do {
 				if(!i.inBounds(target, Coordinate(target, obj->getSize()))) {
 					map->physical[i.single()] = FLOOR_INSTANCE;
 					map->characters[i.single()] = NULL;
 					map->chests[i.single()] = NULL;
+					map->projectiles[i.single()] = NULL;
 				}
 				i.next();
 			} while (!i.equals(obj->getPosition()));
@@ -373,10 +374,11 @@ MapHandler::MapHandler() {
 	}
 	void MapHandler::addProjectile(pMap map, pProjectile projectile) {
 		if(isFreeSpace(map, projectile->getPosition(), projectile->getSize())) {
-			Coordinate i = projectile->getPosition();
+			Coordinate i = Coordinate(projectile->getPosition(), map->size, projectile->getPosition(), Coordinate(projectile->getPosition(), projectile->getSize()));
 			do {
 				map->physical[i.single()] = projectile;
 				map->projectiles[i.single()] = projectile;
+				i.next();
 			} while(!i.equals(projectile->getPosition()));
 		}
 	}

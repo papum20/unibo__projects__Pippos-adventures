@@ -9,10 +9,16 @@
 			connected[i] = NULL;
 			map->doors[i] = NULL;
 		}
-		door_positions[DIRECTION_UP]	= Coordinate(size.x / 2, size.y - 1);
-		door_positions[DIRECTION_RIGHT]	= Coordinate(size.x - 1, size.y / 2);
-		door_positions[DIRECTION_DOWN]	= Coordinate(size.x / 2, 0);
-		door_positions[DIRECTION_LEFT]	= Coordinate(0, size.y / 2);
+		door_positions[DIRECTION_UP]	= Coordinate((size.x - DOOR_WIDTH) / 2, size.y - DOOR_DEPTH);
+		door_positions[DIRECTION_RIGHT]	= Coordinate(size.x - DOOR_DEPTH, (size.y - DOOR_WIDTH) / 2);
+		door_positions[DIRECTION_DOWN]	= Coordinate((size.x + DOOR_WIDTH) / 2, 0);
+		door_positions[DIRECTION_LEFT]	= Coordinate(0, (size.y - DOOR_WIDTH) / 2);
+
+		door_entrances[DIRECTION_UP]	= Coordinate((size.x - p_width) / 2, size.y - DOOR_DEPTH - p_depth);
+		door_entrances[DIRECTION_RIGHT]	= Coordinate(size.x - DOOR_DEPTH - p_width, (size.y - DOOR_WIDTH - p_depth) / 2);
+		door_entrances[DIRECTION_DOWN]	= Coordinate((size.x - p_width) / 2, DOOR_DEPTH);
+		door_entrances[DIRECTION_LEFT]	= Coordinate(DOOR_DEPTH, (size.y - DOOR_WIDTH - p_depth) / 2);
+
 		locked_doors = 0;
 	}
 	void ConnectedRoom::recursiveDestroy() {
@@ -32,7 +38,7 @@
 		//GENERA MURI LATERALI
 		generateSidesWalls();
 		////GENERA SPAZI VUOTI DAVANTI ALLE PORTE, COSÌ CHE CI RIMANGA SPAZIO
-		//generateDoorsPlacehodlers(sets);
+		generateDoorsPlacehodlers(sets);
 		////CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
 		generateInnerRoom(sets);
 		////RIEMPI LA STANZA DI MURI E CORRIDOI
@@ -42,7 +48,7 @@
 		////RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
 		resizeMap();
 		////GENERA PORTE
-		//generateDoors();
+		generateDoors();
 		//delete della struttura
 		sets->destroy();
 	}
@@ -51,29 +57,21 @@
 
 
 #pragma region AUSILIARIE
-	Coordinate ConnectedRoom::calcDoorEntrance(Coordinate door_pos) {
-		Coordinate res = COORDINATE_ERROR;
-		int d = 0;
-		while(res.equals(COORDINATE_ERROR) && d < DIRECTIONS_N) {
-			if(Coordinate(door_pos, DIRECTIONS[d]).inBounds(COORDINATE_ONE, Coordinate(size, COORDINATE_NEGATIVE)))	//cerco la posizione interna alla stanza
-				res = Coordinate(door_pos, DIRECTIONS[d].negative());
-			else d++;
-		}
-		return res;
-	}
 	void ConnectedRoom::generateDoorsPlacehodlers(pUnionFind sets) {
 		for(int dir = 0; dir < DIRECTIONS_N; dir++) {
 			pDoor door = map->doors[dir];
 			if(door != NULL) {
 				Coordinate start, end;
+				Coordinate door_pos_t = door->getPosition().times(1/scale.x, 1/scale.y), door_size_t = door->getSize().times(1/scale.x, 1/scale.y).ceil();
+				Coordinate zone_lr_t = ZONE_DOOR_LR.times(1/scale.x, 1/scale.y).ceil(), zone_ud_t = ZONE_DOOR_UD.times(1/scale.x, 1/scale.y).ceil();
 				if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) {
-					if		(dir == DIRECTION_LEFT)	 	start = Coordinate(door->getPosition(), Coordinate(door->getSize().x, -ZONE_DOOR_VERTICAL.y / 2 + door->getSize().y / 2));
-					else if (dir == DIRECTION_RIGHT)	start = Coordinate(door->getPosition(), Coordinate(-door->getSize().x, -ZONE_DOOR_VERTICAL.y / 2 + door->getSize().y / 2));
-					end = Coordinate(start, ZONE_DOOR_VERTICAL);
+					if		(dir == DIRECTION_LEFT)	 	start = Coordinate(door_pos_t, Coordinate(door_size_t.x,(-zone_lr_t.y +door_size_t.y) / 2));
+					else if (dir == DIRECTION_RIGHT)	start = Coordinate(door_pos_t, Coordinate(-zone_lr_t.x, (-zone_lr_t.y +door_size_t.y) / 2));
+					end = Coordinate(start, zone_lr_t.ceil());
 				} else {
-					if (dir == DIRECTION_UP)	start = Coordinate(door->getPosition(), Coordinate(-door->getSize().x / 2 + door->getPosition().x / 2, -ZONE_DOOR_HORIZONTAL.y));
-					else						start = Coordinate(door->getPosition(), Coordinate(-door->getSize().x / 2 + door->getPosition().x / 2, door->getSize().y));
-					end = Coordinate(start, ZONE_DOOR_HORIZONTAL);
+					if (dir == DIRECTION_UP)	start = Coordinate(door_pos_t, Coordinate((door_size_t.x - zone_ud_t.x) / 2, -zone_ud_t.y));
+					else						start = Coordinate(door_pos_t, Coordinate((-door_size_t.x - zone_ud_t.x) / 2, door_size_t.y));
+					end = Coordinate(start, zone_ud_t);
 				}
 				Coordinate i = Coordinate(start, size, start, end);
 				do {
@@ -121,16 +119,9 @@
 		}
 	}
 	void ConnectedRoom::addDoor(int dir, lock_type lt) {
-		Coordinate door_pos = door_positions[dir], door_size = Coordinate(DOOR_WIDTH, DOOR_DEPTH);
-		if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) {
-			door_size = door_size.swapped();
-			door_pos.y -= door_size.y / 2;
-			if(dir == DIRECTION_RIGHT) door_pos.x -= door_size.x;
-		} else {
-			door_pos.x -= door_size.x / 2;
-			if(dir == DIRECTION_UP) door_pos.y -= door_size.y;
-		}
-		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_pos, door_size, calcDoorEntrance(door_pos), lt);
+		Coordinate door_size = DOOR_SIZE;
+		if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) door_size = door_size.swapped();
+		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_positions[dir], door_size, door_entrances[dir], lt);
 	}
 	bool ConnectedRoom::addLockedDoor() {
 		if(locked_doors < LOCKED_DOORS_MAX) {

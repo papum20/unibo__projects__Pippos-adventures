@@ -15,8 +15,9 @@
 //// COSTANTI DI INIZIALIZZAZIONE ATTRIBUTI DI LEVEL
 #define LR_BORDER 1
 #define TB_BORDER 1
-#define N_ROOMS 10						//numero di stanze (normali) generate per livello
-#define LEVEL_AREA (N_ROOMS * N_ROOMS)	//dimensioni matrice livello
+#define N_ROOMS 10																			//numero di stanze (normali) generate per livello
+#define LEVEL_AREA (N_ROOMS * N_ROOMS)														//dimensioni matrice livello
+const Coordinate LEVEL_CENTER = Coordinate(N_ROOMS, N_ROOMS).times(.5, .5).integer();		//dove viene spawnata la prima stanza
 #define LEVELS_N 3
 
 // COSTANTI PER IL MOVIMENTO DELLA CAMERA
@@ -134,7 +135,7 @@ class Level {
 		void update(int input);						//da richiamare a ogni frame
 
 		// GET
-		//void getLevelMap(pRoom map[]);
+		void getLevelMap(pRoom map[]);
 		//void getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), player
 
 		// SET

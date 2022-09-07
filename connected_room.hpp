@@ -9,15 +9,18 @@
 #include "room.hpp"
 
 
+const Coordinate DOOR_SIZE = Coordinate(DOOR_WIDTH, DOOR_DEPTH);
+
+
 class ConnectedRoom : public Room {
 	private:
 		int n_doors_max;						//massimo numero porte (dimensione array)
 		int locked_doors;						//numero di porte che richiedono chiave
 		Coordinate door_positions[MAX_SIDES_R];
+		Coordinate door_entrances[MAX_SIDES_R];
 		pRoom connected[MAX_CONNECTED_R];		//stanze collegate nella rispettiva direzione con una porta
 
 		//// FUNZONI AUSILIARIE
-		Coordinate calcDoorEntrance(Coordinate door_pos);	//calcola door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
 		//FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
 		void generateDoorsPlacehodlers(pUnionFind sets);	//genera dei placeholder per le porte per far si che rimangano connesse al resto della stanza (generazione stanza)
 		void generateDoors();								//genera le porte (generazione stanza)

@@ -44,7 +44,7 @@
 		//stanze generate
 		pConnectedRoom rooms[N_ROOMS];
 		for(int i = 1; i < N_ROOMS; i++) rooms[i] = NULL;
-		rooms[0] = new ConnectedRoom(map_size.times(.5, .5));
+		rooms[0] = new ConnectedRoom(LEVEL_CENTER);
 		this->curRoom = rooms[0];
 		map[curRoom->getPos().single_set(map_size)] = curRoom;
 		//aggiungi ad available le posizioni adiacenti alla prima stanza
@@ -149,9 +149,9 @@
 	}
 
 #pragma region SET_GET
-	/*void Level::getLevelMap(pRoom map[]) {
+	void Level::getLevelMap(pRoom map[]) {
 		for(int i = 0; i < LEVEL_AREA; i++) map[i] = this->map[i];
-	}*/
+	}
 	/*void Level::getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player) {
 		curRoom->getMap(map, size);
 		player = this->player;

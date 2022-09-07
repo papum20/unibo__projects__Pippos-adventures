@@ -25,7 +25,6 @@ void Physical::copyPhysical(Physical B) {
 
 void Physical::update(pMap map) {
     updated = true;
-    drawn = false;
 }
 
 void Physical::destroy() {
@@ -107,5 +106,6 @@ void Physical::next_animation(){
     } 
     void Physical::resetUpdate() {
         updated = false;
+        drawn = false;
     }
 #pragma endregion BOOL_GET_SET

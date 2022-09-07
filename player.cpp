@@ -4,7 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
 	//menu=m;
-	arma= new sword();
+	arma= new Player_Rod();
 	armatura=new armor();
 	collana=NULL;
 	elmo=NULL;
@@ -62,11 +62,11 @@ void Player::changeCurrentHealth(int delta){
 }
 
 void Player::update(pMap map){
-	/*if (!updated){
+	if (!updated){
 		if (curHealth>0){
 			if (is_attacking){
 				if (!animations[current_animation]->isLastFrame()){
-					if (attack_counter==1){
+					if (attack_counter<=1){
 						if ((equipaggiamento.arma)->is_melee)
 							check_enemy_melee(map);
 						else{
@@ -102,6 +102,11 @@ void Player::update(pMap map){
 			else{
 				int input;
 				input=in_manager->get_input();
+				WINDOW *w = newwin(10,10,1,10);
+				box(w,0,0);
+				mvwaddch(w,1,1,input);
+				wrefresh(w);
+				//wgetch(w);
 				switch (input){
 					case KEY_UP:{
 						moveUp(map);
@@ -121,23 +126,27 @@ void Player::update(pMap map){
 					}
 					case 'c':{
 						collect_item(map);
+						break;
 					}
-					case ctrl('w'):{
+					case ('w'):{
 						direction='u';
 						initiate_attack();
+						break;
 					}
-					case ctrl('a'):{
+					case ('a'):{
 						direction='l';
 						initiate_attack();
-						
+						break;
 					}
-					case ctrl('d'):{
+					case ('d'):{
 						direction='r';
 						initiate_attack();
+						break;
 					}
-					case ctrl('s'):{
+					case ('s'):{
 						direction='d';
 						initiate_attack();
+						break;
 					}
 				}
 			}
@@ -145,7 +154,7 @@ void Player::update(pMap map){
 		}
 		else
 			destroy();
-	}*/
+	}
 }
 
 void Player::check_enemy_melee(pMap map){
@@ -217,16 +226,18 @@ void Player::collect_item(pMap mappa){
 		newcoord.x=newcoord.x+size.x;
 	}
 	chest=MapHandler::checkChest(mappa, newcoord);				//cerco la chest
-	switch (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
-		case 'w':
-			add_item(chest->open_w());			//aggiungo l'arma all'inventario
-			break;
-		case 'a':
-			add_item(chest->open_a());			//aggiungo l'artefatto all'inventario
-			break;
-		case 'd':
-			add_item(chest->open_d());			//aggiungo l'item difensivo all'inventario
-			break;
+	if(chest != NULL) {
+		switch (chest->type){						//in base al tipo contenuto nella chest richiedo l'oggetto contenuto
+			case 'w':
+				add_item(chest->open_w());			//aggiungo l'arma all'inventario
+				break;
+			case 'a':
+				add_item(chest->open_a());			//aggiungo l'artefatto all'inventario
+				break;
+			case 'd':
+				add_item(chest->open_d());			//aggiungo l'item difensivo all'inventario
+				break;
+		}
 	}
 }
 

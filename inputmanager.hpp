@@ -7,11 +7,15 @@
 const int input_h=1;
 const int input_l=2;
 
+#define INPUT_TIMER_INDEX 0
+#define INPUT_IMER_LIMIT (REFRESH_RATE)
+
+
 class InputManager {
 	private:
-		Timer timer;
 		int curr_input;
 		WINDOW* input_window;
+		Timer timer;
 	public:
 		InputManager(int x_win, int y_win);
 

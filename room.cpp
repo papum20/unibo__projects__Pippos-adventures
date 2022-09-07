@@ -31,15 +31,14 @@
 	}
 	void Room::update(int input) {
 		Coordinate i(0, 0, size);
-		// setta tutti gli oggetti come non updated
+		// setta tutti gli oggetti come non updated e non drawn
 		do {
 			map->physical[i.single()]->resetUpdate();
 			i.next();
 		} while(!i.equals(COORDINATE_ZERO));
 		// chiama l'update di tutti
 		do {
-			if(MapHandler::checkCharacter(map, i) != NULL) map->characters[i.single()]->update(map);
-			else if(MapHandler::checkChest(map, i) != NULL) map->chests[i.single()]->update(map);
+			map->physical[i.single()]->update(map);
 			i.next();
 		} while(!i.equals(COORDINATE_ZERO));
 	}
@@ -89,9 +88,9 @@
 			if(map_it.inBounds(COORDINATE_ZERO, size)) {								//se il punto è nella mappa: disegna
 				pPhysical obj = MapHandler::checkPosition(map, map_it);
 				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);									//disegna floor se è vuoto
-				else if(obj->getId() == ID_WALL || obj->getId() == ID_DOOR) obj->drawAtPosition(scr, wstart, win_size, map_it);		//disegna wall/door
+				else if(obj->getId() == ID_WALL) obj->drawAtPosition(scr, wstart, win_size, map_it);		//disegna wall/door
 				else {																												//disegna animate/chest+floor
-					 obj->drawAtOwnPosition(scr, wstart, win_size);
+					obj->drawAtOwnPosition(scr, wstart, win_size);
 					//else{ scr[scr_reverse.inty()][scr_reverse.intx()].edit('x',-1,-1,0);
 						//WINDOW *w = newwin(10,10,1,10);
 						//box(w,0,0);
@@ -99,7 +98,8 @@
 						//mvwprintw(w,1,1,to_string(obj->getCurrentAnimation().size.x).append(" ").append(to_string(obj->getCurrentAnimation().size.y)).c_str());
 						//wrefresh(w);
 					//}
-					FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);
+					if(obj->getId() != ID_DOOR) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);
+					else scr[scr_it.inty()][scr_it.intx()].edit('x',-1,-1,0);
 				}
 			} else												//altrimenti "cancella"/lascia uno spazio vuoto
 				scr[scr_reverse.inty()][scr_reverse.intx()] = Cell(CHAR_OUTSIDE, COLOR_OUTSIDE_FG, COLOR_OUTSIDE_BG, CELL_NO_ATTR);

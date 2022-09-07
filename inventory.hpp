@@ -369,7 +369,7 @@ class Inventory : public Pixel_art{
         WINDOW * w_use;
         int w_use_high;
         int w_use_width;
-        int * p_input;
+        pInputManager p_input;
         bool is_open;
         bool options_is_active;
         bool zaino_is_active;
@@ -386,7 +386,7 @@ class Inventory : public Pixel_art{
         
         
 
-	Inventory(Player * p, int * input);
+	Inventory(Player * p, pInputManager input);
         void open_options();
         void update_options();
         void wattroff_inventory(WINDOW * win);

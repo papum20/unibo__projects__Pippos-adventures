@@ -150,10 +150,10 @@ void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate
 			Coordinate global = Coordinate(Coordinate(local, draw_start), win_start, win_end);		//coordinata globale di local, sulla mappa
 			if(global.inOwnBounds()) {																//se il punto è interno alla finestra da disegnare
 				if(equipaggiamento.arma->animationMask(local))										//se c'è l'arma: copre qualsiasi cosa
-					scr[global.rel_int_y()][global.rel_int_x()] = Cell(a_weapon.at(local), equipaggiamento.arma->get_MainColor(), -1, CELL_NO_ATTR);
+					scr[global.rel_int_y()][global.rel_int_x()].edit(a_weapon.at(local), equipaggiamento.arma->get_MainColor(), -1, A_BOLD);
 				else if(global.inBounds(character_start, character_end)) {							//altrimenti, se c'è il character, disegna il character
 					Coordinate local_character = Coordinate(global, character_start.negative());
-					if(animationMask(local_character)) scr[global.rel_int_y()][global.rel_int_x()] = Cell(getCurrentAnimation().at(local_character), main_color, -1, CELL_NO_ATTR);
+					if(animationMask(local_character)) scr[global.rel_int_y()][global.rel_int_x()].edit(getCurrentAnimation().at(local_character), main_color, -1, A_BOLD);
 				}
 			}
 			local.next();

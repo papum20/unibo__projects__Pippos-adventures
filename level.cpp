@@ -97,7 +97,7 @@
 	void Level::spawnInRoom(pRoom room) {
 		for(int i = 0; i < ENEMIES_N[level]; i++) room->spawnEnemy(randEnemy());
 		int chests_n = chestsNumber();
-		//for(int i = 0; i < chests_n; i++) room->spawnChest(randChest());
+		for(int i = 0; i < chests_n; i++) room->spawnChest(randChest());
 	}
 
 	void Level::display() {
@@ -254,7 +254,7 @@
 			counter += ENEMIES_CHANCHES[level][i];
 			i++;
 		}
-		pEnemy res = new Spider(player);
+		pEnemy res = new Enemy(player);
 		res->copyEnemy(ENEMIES_INSTANCES[level][i]);
 		return res;
 	}
@@ -277,7 +277,7 @@
 		return res;
 	}
 	int Level::chestsNumber() {
-		return rand() % (CHESTS_N_MAX[level] - CHESTS_N_MIN[level]) + CHESTS_N_MIN[level];
+		return rand() % (CHESTS_N_MAX[level] - CHESTS_N_MIN[level] + 1) + CHESTS_N_MIN[level];
 	}
 	
 #pragma endregion AUSILIARIE

@@ -7,6 +7,7 @@ Enemy::Enemy() : Character() {
 	maxStamina=enemy_stamina;
 	curStamina=maxStamina;
 	id= ID_ENEMY_S;
+	animations_n = 5;
 
 	main_color = COLOR_ENEMY;
 }
@@ -18,6 +19,9 @@ Enemy::Enemy(pCharacter p):Character() {
 	maxStamina=enemy_stamina;
 	curStamina=maxStamina;
 	id= ID_ENEMY_S;
+	animations_n = 5;
+	
+	main_color = COLOR_ENEMY;
 }
 
 /*Enemy::Enemy(int max_health, int max_stamina, int p_g, pCharacter p):Character (max_health, max_stamina){

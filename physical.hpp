@@ -75,6 +75,9 @@ class Physical {
 
 		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
 		int animations_n;
+
+		//BOOL DI CONTROLLO
+		bool updated;
 		bool drawn;		//mark se l'oggetto è stato disegnato per il frame corrente
 
 		//// FUNZIONI AUSILIARIE
@@ -115,6 +118,7 @@ class Physical {
 		// SET
 		void next_animation();
 		void setPosition(Coordinate pos);
+		void resetUpdate();					//rende non updated
 
 };
 

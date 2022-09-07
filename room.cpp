@@ -31,8 +31,15 @@
 	}
 	void Room::update(int input) {
 		Coordinate i(0, 0, size);
+		// setta tutti gli oggetti come non updated
 		do {
-			if(map->characters[i.single()] != NULL) map->characters[i.single()]->update(map);
+			map->physical[i.single()]->resetUpdate();
+			i.next();
+		} while(!i.equals(COORDINATE_ZERO));
+		// chiama l'update di tutti
+		do {
+			if(MapHandler::checkCharacter(map, i) != NULL) map->characters[i.single()]->update(map);
+			else if(MapHandler::checkChest(map, i) != NULL) map->chests[i.single()]->update(map);
 			i.next();
 		} while(!i.equals(COORDINATE_ZERO));
 	}
@@ -65,6 +72,10 @@
 		s_coord available[ROOM_AREA];
 		int av_size = getFreeCells(available, chest->getSize());
 		if(av_size > 0) {
+			WINDOW *w = newwin(10,10,12,1);
+			box(w,0,0);
+			mvwprintw(w,1,1,"fatto");
+			wrefresh(w);
 			chest->setPosition(Coordinate(available[rand() % av_size], size));
 			addChest(chest);
 		}
@@ -81,9 +92,9 @@
 
 			if(map_it.inBounds(COORDINATE_ZERO, size)) {								//se il punto è nella mappa: disegna
 				pPhysical obj = MapHandler::checkPosition(map, map_it);
-				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);	//disegna floor se è vuoto
-				else if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, map_it);		//disegna oggetto inanimato
-				else {																				//disegna animate+floor
+				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);									//disegna floor se è vuoto
+				else if(obj->getId() == ID_WALL || obj->getId() == ID_DOOR) obj->drawAtPosition(scr, wstart, win_size, map_it);		//disegna wall/door
+				else {																												//disegna animate/chest+floor
 					 obj->drawAtOwnPosition(scr, wstart, win_size);
 					//else{ scr[scr_reverse.inty()][scr_reverse.intx()].edit('x',-1,-1,0);
 						//WINDOW *w = newwin(10,10,1,10);

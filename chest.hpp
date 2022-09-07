@@ -6,18 +6,23 @@
 #include "item_difensivi.hpp"
 #include "inanimate.hpp"
 
-const int chest_width=3;
-const int chest_height=5;
+const int chest_width=5;
+const int chest_height=3;
 const int chest_depth=2;
 
-const char chest [chest_width][chest_height]=
+const int chest_idle_index = 0;
+
+const int chest_idle_states = 1;
+
+const char chest_idle [ANIMATION_HEIGHT][ANIMATION_WIDTH]=
 { {' ', '_', '_', '_', ' '},
   {'|', '-', 'o', '-', '|'},
   {' ', '*', '*', '*', ' '}
 };
 
 class Chest: public Inanimate{
-    protected:
+    private:
+        int idle_index;
     public:
         pWeapon arma;
         pArtifact artefatto;

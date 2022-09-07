@@ -6,6 +6,7 @@
 Physical::Physical() {
     id = ID_DEFAULT;
     drawn = false;
+    updated = false;
 
     //inizializza animation
     for(int i = 0; i < MAX_ANIMATIONS; i++) 
@@ -23,6 +24,7 @@ void Physical::copyPhysical(Physical B) {
 }
 
 void Physical::update(pMap map) {
+    updated = true;
     drawn = false;
 }
 
@@ -102,5 +104,8 @@ void Physical::next_animation(){
 
     void Physical::setPosition(Coordinate pos) {
 	this->pos = pos;
-}
+    } 
+    void Physical::resetUpdate() {
+        updated = false;
+    }
 #pragma endregion BOOL_GET_SET

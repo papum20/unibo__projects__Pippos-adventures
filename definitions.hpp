@@ -27,8 +27,8 @@
 #define ROOM_HEIGHT 40//180							//altezza stanza
 #define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT)
 #define ROOM_AREA (ROOM_WIDTH * ROOM_HEIGHT)
-#define CENTRAL_ROOM_WIDTH_T 8						//dimensioni dello spazio vuoto quadrato al centro (la width è prima dello scale)
-#define CENTRAL_ROOM_HEIGHT 8
+#define CENTRAL_ROOM_WIDTH_T 9						//dimensioni dello spazio vuoto quadrato al centro (la width è prima dello scale)
+#define CENTRAL_ROOM_HEIGHT 9
 //CONNECTED ROOM
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
@@ -43,21 +43,23 @@
 //COLOR_RED
 //COLOR_GREEN
 //COLOR_BLUE
-#define COLOR_BROWN COLOR_BLUE
+#define COLOR_BROWN COLOR_MAGENTA
 #define COLOR_BROWN_LIGHT COLOR_YELLOW
 #define COLOR_GREY COLOR_CYAN
 // COLORI ASSOCIATI:
-#define COLOR_WALL COLOR_BROWN
-#define COLOR_TRANSPARENT COLOR_BROWN_LIGHT	//per il muro quando diventa più chiaro se c'è qualcosa dietro
+#define COLOR_WALL COLOR_BROWN_LIGHT
+#define COLOR_TRANSPARENT COLOR_BROWN		//per il muro quando diventa più chiaro se c'è qualcosa dietro
 #define COLOR_WALL_TOP COLOR_BLACK			//bordo superiore muro
 #define COLOR_WALL_BASE COLOR_BLACK			//bordo superiore muro
 #define COLOR_FLOOR COLOR_GREEN
 #define COLOR_SHADOW COLOR_GREY				//per il pavimento con l'ombra di un oggetto
+#define COLOR_OUTSIDE_FG COLOR_WHITE
+#define COLOR_OUTSIDE_BG COLOR_BLACK
+
 #define COLOR_PLAYER COLOR_WHITE
 #define COLOR_WEAPON COLOR_BLUE
 #define COLOR_ENEMY COLOR_RED
-#define COLOR_OUTSIDE_FG COLOR_WHITE
-#define COLOR_OUTSIDE_BG COLOR_BLACK
+#define COLOR_CHEST COLOR_BLUE
 // CARATTERI:
 #define CHAR_EMPTY ' '
 #define CHAR_WALL_BASE '_'

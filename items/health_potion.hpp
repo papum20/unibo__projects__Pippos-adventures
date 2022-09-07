@@ -3,6 +3,9 @@
 
 #include "../artifact.hpp"
 
+const char potion_description[description_length]="Pozione che ripristina 20 punti vita ";
+const char potion_name[name_length]="Pozione della vita";
+
 #define HEALTH_GAINED 20
 
 class HealthPotion : public Artifact {

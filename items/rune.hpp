@@ -3,15 +3,16 @@
 
 #include "../artifact.hpp"
 
+const char rune_description[description_length]="Runa magica molto potente capace di aumentare la rarità di un oggetto random equipaggiato";
+const char rune_name[name_length]="Runa magica";
+
 class Rune: public Artifact{
     protected:
 
     public:
         Rune();
-        Rune(const char n[], const char desc[]);
 
-        //void use_rune (Weapon w);
-        //void use_rune (item_difensivo i_d);
+        void use_rune (pItem item);
         void use_item (pItem item, int &stat);
 };
 

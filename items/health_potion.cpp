@@ -2,13 +2,15 @@
 
 
 HealthPotion::HealthPotion() : Artifact() {
-	
+	healthGained = HEALTH_GAINED;
+	strcpy (name, potion_name);
+	strcpy (description, potion_description);
 }
 
-HealthPotion::HealthPotion(const char n[], const char desc[]) : Artifact(n, desc) {
-	healthGained = HEALTH_GAINED;
-}
 
 void HealthPotion::use_item(pItem item, int &stat) {
-	//p->changeCurrentHealth(healthGained);
+	if (stat+healthGained>=p_max_health)
+		stat=p_max_health;
+	else
+		stat=stat+healthGained;
 }

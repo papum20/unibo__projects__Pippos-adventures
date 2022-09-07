@@ -4,24 +4,15 @@ item::item():Animate(){
     strcpy(rarity, common);
 }
 
-item::item(const char n[], const char desc[]){
-    strcpy (name, n);
-    strcpy (description, desc);
-    strcpy(rarity, common);
-}
-
-item::item(const char rar[], const char n[], const char desc[]){
-    strcpy (rarity, rar);
-    strcpy(description, desc);
-    strcpy (name, n);
-}
-
 void item::copyItem(item B) {
     strcpy(rarity, B.rarity);
     strcpy(description, B.description);
     strcpy(name, B.name);
-    strcpy(type, B.type);
     copyAnimate(B);
+}
+
+void apply_rune(){
+
 }
 
 bool item::check_rarity(){

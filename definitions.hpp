@@ -15,8 +15,8 @@
 
 
 #pragma region CAMERA_DEFINITIONS
-#define CAMERA_WIDTH ROOM_WIDTH//135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT ROOM_HEIGHT+10//35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH  135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 35	//altezza (massima) inquadratura livello
 #pragma endregion CAMERA_DEFINITIONS
 
 
@@ -64,6 +64,9 @@
 #define CHAR_WEAPON_MASK 'm'				//quando si trova questo carattere in un'animazione, in quel punto non verrà rappresentato il personaggio
 #define CHAR_OUTSIDE '.'
 #pragma endregion GRAPHICS
+
+//PLAYER
+#define p_max_health 100
 
 //// COMANDI
 #pragma region KEY_BINDINGS

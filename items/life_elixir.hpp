@@ -5,6 +5,9 @@
 
 const int life_increase=1;
 
+const char elixir_description[description_length]="Elisir che aumenta di uno il numero delle vite";
+const char elixir_name[name_length]="Elisir della vita";
+
 class Life_elixir:public Artifact {
     protected:
         int life_added;                     //numero di vite che si aggiungono al player

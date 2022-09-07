@@ -53,7 +53,7 @@
 			RoomPosition nxt = RoomPosition(Coordinate(curRoom->getPos(), DIRECTIONS[(r+i)%4]), 1);
 			if(nxt.getPos().inBounds(COORDINATE_ZERO, map_size)) available.insert(nxt);
 		}
-
+//
 		//genera le altre stanze
 		for(int room = 1; room < N_ROOMS; room++)
 		{
@@ -105,6 +105,7 @@
 		//displayAtPosition(position);
 		//displayAtPosition(Coordinate(CENTRAL_ROOM_WIDTH_T*SCALE_X/2, CENTRAL_ROOM_HEIGHT/2));
 		displayAtPosition(player->getPosition());
+		//displayAtPosition(Coordinate(ROOM_WIDTH / 2, 0));
 	}
 
 	void Level::displayAtPosition(Coordinate center) {

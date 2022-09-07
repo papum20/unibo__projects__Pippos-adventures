@@ -1,11 +1,8 @@
 #ifndef WALL_HPP
 #define WALL_HPP
 
+
 #include "inanimate.hpp"
-
-
-
-#define WALL_HEIGHT 5
 
 
 class Wall : public Inanimate {

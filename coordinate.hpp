@@ -52,6 +52,7 @@ class Coordinate {
 		bool equals_int(Coordinate B) const;							//equals, ma confronta la parte intera
 		bool lessEqual(Coordinate B);									//x<B.x && yB.y
 		//EDIT
+		Coordinate swapped() const;										//ritorna coordinate con x e y invertiti
 		Coordinate negative() const;									//return (-x, -y)
 		Coordinate times(float px, float py);							//return (x*px, y*py)
 		void clamp(Coordinate mn, Coordinate mx);						//fa rientrare le coordinate nei bordi (mn lessEqual mx)

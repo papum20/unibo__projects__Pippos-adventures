@@ -15,20 +15,22 @@
 
 
 #pragma region CAMERA_DEFINITIONS
-#define CAMERA_WIDTH  ROOM_WIDTH//135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT ROOM_HEIGHT//35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH  255//135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 50//35	//altezza (massima) inquadratura livello
 #pragma endregion CAMERA_DEFINITIONS
 
 
 #pragma region ROOM_DEFINITIONS
-#define SCALE_X 9									//coefficiente di "allargamento orizzontale" della stanza
-#define ROOM_WIDTH_T 30								//larghezza (senza scala) stanza
+#define SCALE_X 1//9									//coefficiente di "allargamento orizzontale" della stanza
+#define SCALE_Y 1//6
+#define ROOM_WIDTH_T 250//30								//larghezza (senza scala) stanza
 #define ROOM_WIDTH (ROOM_WIDTH_T * SCALE_X)//320	//larghezza (reale) stanza
-#define ROOM_HEIGHT 40//180							//altezza stanza
-#define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT)
+#define ROOM_HEIGHT_T 40//14//180
+#define ROOM_HEIGHT (ROOM_HEIGHT_T * SCALE_Y)//180
+#define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT_T)
 #define ROOM_AREA (ROOM_WIDTH * ROOM_HEIGHT)
 #define CENTRAL_ROOM_WIDTH_T 9						//dimensioni dello spazio vuoto quadrato al centro (la width è prima dello scale)
-#define CENTRAL_ROOM_HEIGHT 9
+#define CENTRAL_ROOM_HEIGHT_T 2
 //CONNECTED ROOM
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
@@ -53,6 +55,7 @@
 #define COLOR_WALL_BASE COLOR_BLACK			//bordo superiore muro
 #define COLOR_FLOOR COLOR_GREEN
 #define COLOR_SHADOW COLOR_GREY				//per il pavimento con l'ombra di un oggetto
+#define COLOR_DOOR COLOR_BLUE
 #define COLOR_OUTSIDE_FG COLOR_WHITE
 #define COLOR_OUTSIDE_BG COLOR_BLACK
 
@@ -65,6 +68,11 @@
 #define CHAR_WALL_BASE '_'
 #define CHAR_WEAPON_MASK 'm'				//quando si trova questo carattere in un'animazione, in quel punto non verrà rappresentato il personaggio
 #define CHAR_OUTSIDE '.'
+// DIMENSIONI
+#define WALL_HEIGHT 1
+#define DOOR_HEIGHT (WALL_HEIGHT + 1)
+#define DOOR_WIDTH 3
+#define DOOR_DEPTH 1
 #pragma endregion GRAPHICS
 
 //PLAYER

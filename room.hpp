@@ -18,6 +18,11 @@ typedef char lock_type;
 #define LOCK_OTHER	(lock_type)2
 #define LOCK_BOTH	(lock_type)3
 
+// SPAZI
+const Coordinate ZONE_DOOR_HORIZONTAL = Coordinate(DOOR_WIDTH, 3);		//zona in cui non possono spawnare muri di fronte alla porta (orizzontale)
+const Coordinate ZONE_DOOR_VERTICAL = ZONE_DOOR_HORIZONTAL.swapped();
+#define ZONE_SPAWN_DISTANCE 5											//distanza dal player in cui non possono spawnare nemici
+
 
 #include "map_handler.hpp"
 #include "structures/union_find.hpp"
@@ -32,24 +37,24 @@ class Room {
 		Coordinate pos;											//coordinate rispetto alla prima stanza del livello
 
 		//// FUNZIONI AUSILIARIE
-		int getFreeCells(s_coord available[], Coordinate size);			//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
+		int getFreeCells(s_coord available[], Coordinate size);							//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// ADD
-		void addChest(pChest obj);										//aggiunge una chest nella sua posizione
+		void addChest(pChest obj);														//aggiunge una chest nella sua posizione
 		// FUNZIONI AUSILIARIE DI GENERAZIONE - SECONDARIE
-		void generatePath(Coordinate s, pUnionFind sets);				//genera un percorso casuale a partire da x,y
-		int getAdjacentWalls(Coordinate out[], s_coord currentParent);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero; PRECONDIZIONE: currentParent è parent del suo set
+		void generatePath(Coordinate s, pUnionFind sets);								//genera un percorso casuale a partire da x,y
+		int getAdjacentWalls(Coordinate out[], UnionFind sets, s_coord currentParent);	//riempie out con i muri adiacenti a una casella del set e ne ritorna il numero; PRECONDIZIONE: currentParent è parent del suo set
 		int getBorderWalls(Coordinate walls[], int directions[], int walls_n, UnionFind sets, s_coord parent, int distance);
 					//riempie walls, già contenente i muri adiacenti, con i soli muri di confine tra il set di parent e un altro (con spessore distance)
 					//e directions con le rispettive direzioni; ne ritorna il numero
 	protected:
 		Coordinate size;		//dimensioni effettive
 		Coordinate size_t;		//dimensioni senza l'allargamento scale_x
-		int scale_x;											//ridimensionamento orizzontale (in generazione)
+		Coordinate scale;		//ridimensionamento
 		pMap map;
 		
 	// FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
 		void generateSidesWalls();
-		void generateInnerRoom();
+		void generateInnerRoom(pUnionFind sets);
 		void generateAllPaths(pUnionFind sets);
 		void connectPaths(pUnionFind sets);		//fa in modo che ogni punto sia raggiungibile da ogni altro
 		void resizeMap();						//ridimensiona la mappa, allargando quella temporanea generata di X_SCALE

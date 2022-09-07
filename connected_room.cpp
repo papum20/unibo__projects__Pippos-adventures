@@ -9,10 +9,10 @@
 			connected[i] = NULL;
 			map->doors[i] = NULL;
 		}
-		door_positions[0] = Coordinate(size.x / 2, size.y - 1);
-		door_positions[1] = Coordinate(size.x - 1, size.y / 2);
-		door_positions[2] = Coordinate(size.x / 2, 0);
-		door_positions[3] = Coordinate(0, size.y / 2);
+		door_positions[DIRECTION_UP]	= Coordinate(size.x / 2, size.y - 1);
+		door_positions[DIRECTION_RIGHT]	= Coordinate(size.x - 1, size.y / 2);
+		door_positions[DIRECTION_DOWN]	= Coordinate(size.x / 2, 0);
+		door_positions[DIRECTION_LEFT]	= Coordinate(0, size.y / 2);
 		locked_doors = 0;
 	}
 	void ConnectedRoom::recursiveDestroy() {
@@ -31,16 +31,19 @@
 		pUnionFind sets = new UnionFind();
 		//GENERA MURI LATERALI
 		generateSidesWalls();
-		////GENERA PORTE
-		generateDoors(sets);
+		////GENERA SPAZI VUOTI DAVANTI ALLE PORTE, COSÌ CHE CI RIMANGA SPAZIO
+		//generateDoorsPlacehodlers(sets);
 		////CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
-		generateInnerRoom();
+		//generateInnerRoom(sets);
 		////RIEMPI LA STANZA DI MURI E CORRIDOI
 		generateAllPaths(sets);
 		////FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
 		connectPaths(sets);
 		////RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
-		resizeMap();
+		//resizeMap();
+		////GENERA PORTE
+		//generateDoors();
+		//delete della struttura
 		sets->destroy();
 	}
 #pragma endregion MAIN
@@ -58,13 +61,38 @@
 		}
 		return res;
 	}
-	void ConnectedRoom::generateDoors(pUnionFind sets) {
+	void ConnectedRoom::generateDoorsPlacehodlers(pUnionFind sets) {
+		for(int dir = 0; dir < DIRECTIONS_N; dir++) {
+			pDoor door = map->doors[dir];
+			if(door != NULL) {
+				Coordinate start, end;
+				if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) {
+					if		(dir == DIRECTION_LEFT)	 	start = Coordinate(door->getPosition(), Coordinate(door->getSize().x, -ZONE_DOOR_VERTICAL.y / 2 + door->getSize().y / 2));
+					else if (dir == DIRECTION_RIGHT)	start = Coordinate(door->getPosition(), Coordinate(-door->getSize().x, -ZONE_DOOR_VERTICAL.y / 2 + door->getSize().y / 2));
+					end = Coordinate(start, ZONE_DOOR_VERTICAL);
+				} else {
+					if (dir == DIRECTION_UP)	start = Coordinate(door->getPosition(), Coordinate(-door->getSize().x / 2 + door->getPosition().x / 2, -ZONE_DOOR_HORIZONTAL.y));
+					else						start = Coordinate(door->getPosition(), Coordinate(-door->getSize().x / 2 + door->getPosition().x / 2, door->getSize().y));
+					end = Coordinate(start, ZONE_DOOR_HORIZONTAL);
+				}
+				Coordinate i = Coordinate(start, size, start, end);
+				do {
+					map->physical[i.single()] = FLOOR_INSTANCE;
+					sets->makeSet(i.single());
+					i.next();
+				} while(!i.equals(start));
+			}
+		}
+	}
+	void ConnectedRoom::generateDoors() {
 		for(int door = 0; door < n_doors_max; door++) {
 			if(map->doors[door] != NULL) {
-				Coordinate door_pos = map->doors[door]->getPosition().times(1. / scale_x, 1);
-				door_pos.setMatrix(size);
-				map->physical[door_pos.single()] = map->doors[door];
-				sets->makeSet(door_pos.single());
+				Coordinate door_pos = map->doors[door]->getPosition();
+				Coordinate i = Coordinate(door_pos, size, door_pos, Coordinate(door_pos, map->doors[door]->getSize()));
+				do {
+					map->physical[i.single()] = map->doors[door];
+					i.next();
+				} while(!i.equals(door_pos));
 			}
 		}
 	}
@@ -93,7 +121,16 @@
 		}
 	}
 	void ConnectedRoom::addDoor(int dir, lock_type lt) {
-		//if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_positions[dir], calcDoorEntrance(door_positions[dir]), lt);
+		Coordinate door_pos = door_positions[dir], door_size = Coordinate(DOOR_WIDTH, DOOR_DEPTH);
+		if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) {
+			door_size = door_size.swapped();
+			door_pos.y -= door_size.y / 2;
+			if(dir == DIRECTION_RIGHT) door_pos.x -= door_size.x;
+		} else {
+			door_pos.x -= door_size.x / 2;
+			if(dir == DIRECTION_UP) door_pos.y -= door_size.y;
+		}
+		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_pos, door_size, calcDoorEntrance(door_pos), lt);
 	}
 	bool ConnectedRoom::addLockedDoor() {
 		if(locked_doors < LOCKED_DOORS_MAX) {

@@ -91,6 +91,9 @@
 
 //// EDIT
 #pragma region EDIT
+	Coordinate Coordinate::swapped() const {
+		return Coordinate(Coordinate(y, x), size(), start(), end());
+	}
 	Coordinate Coordinate::negative() const {
 		return Coordinate(Coordinate(-x, -y), size(), start(), end());
 	}

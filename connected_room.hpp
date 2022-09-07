@@ -19,7 +19,8 @@ class ConnectedRoom : public Room {
 		//// FUNZONI AUSILIARIE
 		Coordinate calcDoorEntrance(Coordinate door_pos);	//calcola door.entrancePosition, il punto in cui si ritrova un character che attraversa la porta
 		//FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
-		void generateDoors(pUnionFind sets);	//genera le porte (generazione stanza)
+		void generateDoorsPlacehodlers(pUnionFind sets);	//genera dei placeholder per le porte per far si che rimangano connesse al resto della stanza (generazione stanza)
+		void generateDoors();								//genera le porte (generazione stanza)
 
 	public:
 		ConnectedRoom(Coordinate pos);

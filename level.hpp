@@ -56,8 +56,8 @@ const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]		= 	{
 														};
 const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 12};
 //item
-const int CHESTS_N_MIN[LEVELS_N] {10, 0, 0};
-const int CHESTS_N_MAX[LEVELS_N] {10, 2, 2};
+const int CHESTS_N_MIN[LEVELS_N] {0, 0, 0};
+const int CHESTS_N_MAX[LEVELS_N] {2, 2, 2};
 #define ARTIFACT_INSTANCES_N (N_ARTIFACTS - 1)
 #define ITEM_DIFENSIVO_INSTANCES_N (N_ITEM_DIFENSIVO)
 #define WEAPON_INSTANCES_N (N_WEAPONS - 1)

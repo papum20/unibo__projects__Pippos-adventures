@@ -3,6 +3,7 @@
 
 UnionFind::UnionFind() {
 	for(int i = 0; i < UNION_FIND_SIZE; i++) sets[i] = NULL;
+	number = 0;
 }
 void UnionFind::destroy() {
 	for(int i = 0; i < UNION_FIND_SIZE; i++) delete sets[i];
@@ -16,6 +17,7 @@ void UnionFind::makeSet(s_coord s) {
 		sets[s]->parent = sets[s];
 		sets[s]->next = sets[s];
 		sets[s]->last = sets[s];
+		number++;
 	}
 }
 s_coord UnionFind::find(s_coord s) {
@@ -23,7 +25,7 @@ s_coord UnionFind::find(s_coord s) {
 	else return sets[s]->parent->val;
 }
 void UnionFind::merge(s_coord a, s_coord b) {
-	if(sets[a] != NULL && sets[b] != NULL) {
+	if(sets[a] != NULL && sets[b] != NULL && find(a) != find(b)) {
 		pUFelement minor, major;
 		if(sets[a]->parent->weight > sets[a]->parent->weight) {
 			minor = sets[b];

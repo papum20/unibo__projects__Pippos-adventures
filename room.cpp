@@ -5,9 +5,9 @@
 	Room::Room(Coordinate pos) {
 		//inzializza stanza
 		this->pos = pos;
-		scale_x = SCALE_X;
-		size_t = Coordinate(ROOM_WIDTH_T, ROOM_HEIGHT);
-		size = size_t.times(scale_x, 1);
+		scale = Coordinate(SCALE_X, SCALE_Y);
+		size_t = Coordinate(ROOM_WIDTH_T, ROOM_HEIGHT_T);
+		size = size_t.times(scale.x, scale.y);
 
 		map = new Map;
 		map->size = size;
@@ -51,7 +51,7 @@
 		generateSidesWalls();
 		//GENERA PORTE
 		//CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
-		generateInnerRoom();
+		generateInnerRoom(sets);
 		//RIEMPI LA STANZA DI MURI E CORRIDOI
 		generateAllPaths(sets);
 		//FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
@@ -152,11 +152,12 @@
 			else i.next();
 		} while(!i.equals(COORDINATE_ZERO));
 	}
-	void Room::generateInnerRoom() {
-		Coordinate rstart = Coordinate((size_t.x - CENTRAL_ROOM_WIDTH_T) / 2, (size_t.y - CENTRAL_ROOM_HEIGHT) / 2), rend = Coordinate(rstart, Coordinate(CENTRAL_ROOM_WIDTH_T, CENTRAL_ROOM_HEIGHT));
+	void Room::generateInnerRoom(pUnionFind sets) {
+		Coordinate rstart = Coordinate((size_t.x - CENTRAL_ROOM_WIDTH_T) / 2, (size_t.y - CENTRAL_ROOM_HEIGHT_T) / 2), rend = Coordinate(rstart, Coordinate(CENTRAL_ROOM_WIDTH_T, CENTRAL_ROOM_HEIGHT_T));
 		Coordinate i(rstart, size, rstart, rend);
 		do {
 			map->physical[i.single()] = FLOOR_INSTANCE;
+			sets->makeSet(i.single());
 			i.next();
 		} while(!i.equals(i.start()));
 	}
@@ -183,7 +184,7 @@
 			currentSet = sets->find(currentSet);
 			Coordinate adjacentWalls[ROOM_AREA_T];		//muri adiacenti al set
 			int breakDirections[ROOM_AREA_T];			//direzione in cui rompere un muro per unire due set
-			int adjacentWalls_n = getAdjacentWalls(adjacentWalls, currentSet), borderWalls_n = 0;
+			int adjacentWalls_n = getAdjacentWalls(adjacentWalls, *sets, currentSet), borderWalls_n = 0;
 
 			//FINCHÉ NON HA CONNESSO QUALCOSA, CERCA SET CHE CONFININO A UNA DETERMINATA DISTANZA OPPURE AUMENTA LA DISTANZA
 			while(!hasConnected) {
@@ -213,12 +214,13 @@
 	}
 	void Room::resizeMap() {
 		for(s_coord xy = size.x * size.y - 1; xy >= 0; xy--) {
-			Coordinate xy_t = Coordinate(xy, size).times(1. / scale_x, 1);
+			Coordinate xy_t = Coordinate(xy, size).times(1. / scale.x, 1. / scale.y);
 			map->physical[xy] = map->physical[xy_t.single()];
 		}
 	}
 	void Room::generatePath(Coordinate s, pUnionFind sets)
 	{
+		s.setMatrix(size);
 		map->physical[s.single()] = FLOOR_INSTANCE;
 
 		bool used_dirs[DIRECTIONS_N];	//direzioni usate
@@ -230,20 +232,19 @@
 		int tot_chance = DIR_CHANCES[0];	//somma delle probabilità delle direzioni disponibili
 		int unused_dirs_n = 0;
 		for(int d = 0; d < DIRECTIONS_N; d++) {
-			Coordinate nxt = Coordinate(s, DIRECTIONS[d]);
-			if(map->physical[nxt.single()] == NULL) {
-				if(nxt.inOwnBounds()) {
-					used_dirs[d] = false;
-					unused_dirs_n++;
-					tot_chance += DIR_CHANCES[unused_dirs_n];
-				}
-			}
-			else {
-				//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
-				if(map->physical[nxt.single()]->getId() == ID_FLOOR)
+			Coordinate nxt = Coordinate(Coordinate(s, DIRECTIONS[d]), size, COORDINATE_ZERO, size_t);
+			if(nxt.inOwnBounds()) {
+				if(map->physical[nxt.single()] == NULL) {
+				used_dirs[d] = false;
+				unused_dirs_n++;
+				tot_chance += DIR_CHANCES[unused_dirs_n];
+				} else if(map->physical[nxt.single()]->getId() == ID_FLOOR) {
+					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
+					sets->makeSet(nxt.single());
 					sets->merge(s.single(), nxt.single());
-				used_dirs[d] = true;
-			}
+					used_dirs[d] = true;
+				}
+			} else used_dirs[d] = true;
 		}
 		used_dirs_n = DIRECTIONS_N - unused_dirs_n;
 
@@ -271,8 +272,11 @@
 
 			// PRIMA GENERA MURI E CASELLE ADIACENTI,
 			for(int d = 0; d < DIRECTIONS_N; d++) {
-				if(new_dirs[d]) map->physical[Coordinate(s, DIRECTIONS[d]).single()] = FLOOR_INSTANCE;
-				else if(!used_dirs[d]) map->physical[Coordinate(s, DIRECTIONS[d]).single()] = WALL_INSTANCE;
+				Coordinate nxt = Coordinate (s, DIRECTIONS[d]);
+				if(nxt.inBounds(COORDINATE_ZERO, size_t)) {
+					if(new_dirs[d]) map->physical[nxt.single()] = FLOOR_INSTANCE;
+					else if(!used_dirs[d] && map->physical[nxt.single()] == NULL) map->physical[nxt.single()] = WALL_INSTANCE;
+				}
 			}
 			//POI VA IN RICORSIONE SULLE DIREZIONI
 			for(int d = 0; d < DIRECTIONS_N; d++) {
@@ -286,19 +290,21 @@
 		}
 	}
 
-	int Room::getAdjacentWalls(Coordinate out[], s_coord currentParent) {
+	int Room::getAdjacentWalls(Coordinate out[], UnionFind sets, s_coord currentParent) {
 		int walls = 0;
-		Coordinate square = Coordinate(Coordinate(currentParent, size), size, COORDINATE_ZERO, size_t);
+		s_coord square = currentParent;
 		do {
 			for(int d = 0; d < DIRECTIONS_N; d++) {
-				Coordinate nxt = Coordinate(square, DIRECTIONS[d]);
-				if(nxt.inOwnBounds() && map->physical[nxt.single()]->getId() == ID_WALL) {
-					out[walls] = nxt;
-					walls++;
+				Coordinate nxt = Coordinate(Coordinate(square, size), DIRECTIONS[d]);
+				if(nxt.inBounds(COORDINATE_ZERO, size_t)) {
+					if(map->physical[nxt.single_set(size)]->getId() == ID_WALL) {
+						out[walls] = nxt;
+						walls++;
+					}
 				}
 			}
-			square.next();
-		} while(square.single() != currentParent);
+			square = sets.next(square);
+		} while(square != currentParent);
 		return walls;
 	}
 	int Room::getBorderWalls(Coordinate walls[], int directions[], int walls_n, UnionFind sets, s_coord parent, int distance) {
@@ -311,7 +317,7 @@
 				Coordinate dir = DIRECTIONS[rand_d];									//direzione in cui si prova a "rompere" il muro per connettere
 				Coordinate nxt = Coordinate(walls[i], dir.times(distance, distance));	//casella da controllare dopo aver rotto il muro
 
-				if(nxt.inBounds(COORDINATE_ZERO, size_t) && sets.find(nxt.single()) != parent) {
+				if(nxt.inBounds(COORDINATE_ZERO, size_t) && sets.find(nxt.single_set(size)) != parent) {
 					walls[border_n] = walls[i];
 					directions[border_n] = rand_d;
 					border_n++;

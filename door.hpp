@@ -8,11 +8,13 @@
 
 class Door : public Inanimate {
 	private:
+		int height;
 		bool locked;					//se è bloccata (serve chiave)
 		Coordinate entrancePosition;	//posizione in cui arriva il giocatore dopo aver attraversato la porta
 
 	public:
-		Door(Coordinate pos, Coordinate entrancePosition, bool locked);
+		Door(Coordinate pos, Coordinate size, Coordinate entrancePosition, bool locked);
+		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);
 
 		// SET
 		void unlock();						//sblocca (se bloccata)

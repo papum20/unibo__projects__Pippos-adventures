@@ -120,10 +120,7 @@ const char spider_move_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 };
 
 class Spider: public Enemy{
-    public: 
-		pSpider_legs spider_legs;
-		pArmor armatura;
-		pBoots stivali;
+    public:
         Spider();
         Spider(pCharacter p);
 };

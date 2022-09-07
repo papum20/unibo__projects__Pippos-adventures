@@ -1,11 +1,6 @@
 #include "snowman.hpp"
 
 Snowman::Snowman():Enemy(){
-    snowman_hands= new Snowman_hands();
-    armatura= new armor();
-    stivali= new boots();
-    collana= new necklace();
-
     idle_index=snowman_idle_index;
     move_up_index=snowman_move_up_index;
     move_down_index=snowman_move_down_index;
@@ -20,10 +15,10 @@ Snowman::Snowman():Enemy(){
 
     points_given=snowman_points;
 
-    change_armor(armatura);
-    change_necklace(collana);
-    change_boots(stivali);
-    change_weapon(snowman_hands);
+    change_armor(new armor());
+    change_necklace(new necklace());
+    change_boots(new boots());
+    change_weapon(new Snowman_hands());
     
     maxHealth=Math::randomStep(40, 70, 10);
     curHealth=maxHealth;
@@ -31,11 +26,6 @@ Snowman::Snowman():Enemy(){
 };
 
 Snowman::Snowman(pCharacter p):Enemy(p){
-    snowman_hands= new Snowman_hands();
-    armatura= new armor();
-    stivali= new boots();
-    collana= new necklace();
-
     idle_index=snowman_idle_index;
     move_up_index=snowman_move_up_index;
     move_down_index=snowman_move_down_index;
@@ -50,10 +40,10 @@ Snowman::Snowman(pCharacter p):Enemy(p){
 
     points_given=snowman_points;
 
-    change_armor(armatura);
-    change_necklace(collana);
-    change_boots(stivali);
-    change_weapon(snowman_hands);
+    change_armor(new armor());
+    change_necklace(new necklace());
+    change_boots(new boots());
+    change_weapon(new Snowman_hands());
     
     maxHealth=Math::randomStep(40, 70, 10);
     curHealth=maxHealth;

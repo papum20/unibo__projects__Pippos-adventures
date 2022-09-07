@@ -19,7 +19,9 @@ class Alive : public Animate {
 		Alive(int maxH, int maxS);
 		void copyAlive(Alive B);
 
-		void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce
+		int getHealth();
+
+		virtual void changeCurrentHealth(int delta);		//se delta positivo aumenta la vita corrente, se negativo la diminuisce
 };
 
 typedef Alive *pAlive;

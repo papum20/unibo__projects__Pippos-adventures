@@ -146,7 +146,7 @@ void Hud::draw_p(int x, int y){
 void Hud::draw_points(int x, int y){
     p_list head=NULL;
     int points;
-    points=player->get_points();
+    points=player->getPoints();
     while (points!=0){
         head=head_insert(head, (points%10) );
         points=points/10;

@@ -1,9 +1,6 @@
 #include "spider.hpp"
 
 Spider::Spider():Enemy(){
-    spider_legs= new Spider_legs();
-    armatura= new armor();
-    stivali= new boots();
     idle_index=spider_idle_index;
     move_up_index=spider_move_up_index;
     move_down_index=spider_move_down_index;
@@ -18,9 +15,9 @@ Spider::Spider():Enemy(){
 
     points_given=spider_points;
 
-    change_armor(armatura);
-    change_boots(stivali);
-    change_weapon(spider_legs);
+    change_armor(new armor());
+    change_boots(new boots());
+    change_weapon(new Spider_legs());
 
     maxHealth=Math::randomStep(30, 50, 10);
     curHealth=maxHealth;
@@ -28,9 +25,6 @@ Spider::Spider():Enemy(){
 }
 
 Spider::Spider(pCharacter p):Enemy(p){
-    spider_legs= new Spider_legs();
-    armatura= new armor();
-    stivali= new boots();
     idle_index=spider_idle_index;
     move_up_index=spider_move_up_index;
     move_down_index=spider_move_down_index;
@@ -45,13 +39,12 @@ Spider::Spider(pCharacter p):Enemy(p){
 
     points_given=spider_points;
 
-    change_armor(armatura);
-    change_boots(stivali);
-    change_weapon(spider_legs);
+    change_armor(new armor());
+    change_boots(new boots());
+    change_weapon(new Spider_legs());
 
 
     maxHealth=Math::randomStep(30, 50, 10);
     curHealth=maxHealth;
     size=Coordinate (spider_width, spider_depth);
 }
-

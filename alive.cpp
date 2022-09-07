@@ -25,6 +25,18 @@ void Alive::copyAlive(Alive B) {
 	copyAnimate(B);
 }
 
+int Alive::getHealth(){
+	return curHealth;
+}
+
 void Alive::changeCurrentHealth(int delta) {
-	curHealth += delta;
+	if (curHealth+delta>=maxHealth){
+		curHealth=maxHealth;
+	}
+	else
+		if (curHealth+delta<0){
+			curHealth=0;
+		}
+		else
+			curHealth=curHealth+delta;
 }

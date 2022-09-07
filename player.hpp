@@ -104,8 +104,8 @@ const char dash_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 
 
-const int max_lifes=5;
-const int start_lifes=3;
+const int max_hearts=5;
+const int start_hearts=3;
 const int p_max_stamina=50;
 //il suo attacco dipende dall'arma
 
@@ -150,6 +150,7 @@ class Player : public Character {
 		Player(pInputManager in);
 	
 		void update(pMap map);
+		void check_enemy_melee (pMap map);
 
 		void modify_lifes (int delta);
 
@@ -159,10 +160,13 @@ class Player : public Character {
 		void add_item(pItem_def w);
 		void add_item(pArtifact w);
 
-		int get_points();
+		int getPoints();
 		void change_points(int delta);
 		pDoor usedDoor();				//porta usata, NULL se non sta usando una porta
 		void useDoor();					//usa la porta (e la setta a usata, cioè NULL)
+
+		void destroy();
+		void changeCurrentHealth(int delta);
 		
 };
 

@@ -99,9 +99,7 @@ const char zombie_move_right[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 
 class Zombie: public Enemy{
-    public:
-		pZombie_hands zombie_hands;
-		pArmor armatura; 
+    public: 
         Zombie();
         Zombie(pCharacter p);
 };

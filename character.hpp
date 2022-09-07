@@ -10,7 +10,7 @@
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 
 const int W_NUMBER=10;
-const int DEF_NUMBER=10;
+const int DEF_NUMBER=15;
 
 struct equipment {
 	pWeapon arma;
@@ -57,6 +57,7 @@ class Character : public Alive {
 		
 		virtual void update(pMap map);
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
+		void destroy();
 		//precondizione: da richiamare con coordinate giuste
 
 		//FUNZIONI CHE MODIFICANO STATISTICHE
@@ -69,7 +70,7 @@ class Character : public Alive {
 		void change_armor (pArmor a);
 		void change_boots (pBoots b);
 		void change_shield (pShield s);
-		
+		virtual int getPoints();
 		
 		//FUNZIONI MOVIMENTO
 
@@ -80,7 +81,6 @@ class Character : public Alive {
 
 		//FUNZIONI COMBATTIMENTO
 
-		void check_enemy_melee(pMap map);
 		void initiate_attack();
 		void ranged_attack(pMap map);
 		int calculate_damage(Alive *c);

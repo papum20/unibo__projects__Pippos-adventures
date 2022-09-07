@@ -111,9 +111,6 @@ const char witch_move_down[2][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 class Witch: public Enemy{
 
     public:
-        pWitch_rod witch_rod;
-		pArmor armatura;
-		pNecklace collana;
         Witch();
         Witch(pCharacter p);
 

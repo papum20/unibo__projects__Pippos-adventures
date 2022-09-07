@@ -15,17 +15,17 @@
 
 
 #pragma region CAMERA_DEFINITIONS
-#define CAMERA_WIDTH  255//135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 50//35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH  300//135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 70//35	//altezza (massima) inquadratura livello
 #pragma endregion CAMERA_DEFINITIONS
 
 
 #pragma region ROOM_DEFINITIONS
-#define SCALE_X 1//9									//coefficiente di "allargamento orizzontale" della stanza
-#define SCALE_Y 1//6
-#define ROOM_WIDTH_T 250//30								//larghezza (senza scala) stanza
+#define SCALE_X 9									//coefficiente di "allargamento orizzontale" della stanza
+#define SCALE_Y 6
+#define ROOM_WIDTH_T 30								//larghezza (senza scala) stanza
 #define ROOM_WIDTH (ROOM_WIDTH_T * SCALE_X)//320	//larghezza (reale) stanza
-#define ROOM_HEIGHT_T 40//14//180
+#define ROOM_HEIGHT_T 14//180
 #define ROOM_HEIGHT (ROOM_HEIGHT_T * SCALE_Y)//180
 #define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT_T)
 #define ROOM_AREA (ROOM_WIDTH * ROOM_HEIGHT)

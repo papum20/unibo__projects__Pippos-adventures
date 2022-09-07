@@ -34,13 +34,13 @@
 		////GENERA SPAZI VUOTI DAVANTI ALLE PORTE, COSÌ CHE CI RIMANGA SPAZIO
 		//generateDoorsPlacehodlers(sets);
 		////CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
-		//generateInnerRoom(sets);
+		generateInnerRoom(sets);
 		////RIEMPI LA STANZA DI MURI E CORRIDOI
 		generateAllPaths(sets);
 		////FAI IN MODO CHE OGNI PUNTO SIA RAGGIUNGIBILE DA OGNI ALTRO PUNTO
 		connectPaths(sets);
 		////RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
-		//resizeMap();
+		resizeMap();
 		////GENERA PORTE
 		//generateDoors();
 		//delete della struttura

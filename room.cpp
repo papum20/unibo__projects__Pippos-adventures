@@ -197,11 +197,12 @@
 					int broken_ind = rand() % borderWalls_n;
 					
 					//ROMPI distance MURI A PARTIRE DA QUELLO, NELLA GIUSTA DIREZIONE
+					Coordinate dir = DIRECTIONS[breakDirections[broken_ind]];
 					for(int dist = 0; dist <= distance; dist++) {
-						Coordinate dir = DIRECTIONS[breakDirections[broken_ind]];
 						Coordinate broken = Coordinate(adjacentWalls[broken_ind], dir.times(dist, dist));
 						broken.setMatrix(size);
 						map->physical[broken.single()] = FLOOR_INSTANCE;
+						sets->makeSet(broken.single());
 						sets->merge(currentSet, broken.single());
 					}
 					hasConnected = true;
@@ -233,17 +234,10 @@
 		int unused_dirs_n = 0;
 		for(int d = 0; d < DIRECTIONS_N; d++) {
 			Coordinate nxt = Coordinate(Coordinate(s, DIRECTIONS[d]), size, COORDINATE_ZERO, size_t);
-			if(nxt.inOwnBounds()) {
-				if(map->physical[nxt.single()] == NULL) {
+			if(nxt.inOwnBounds() && map->physical[nxt.single()] == NULL) {
 				used_dirs[d] = false;
 				unused_dirs_n++;
 				tot_chance += DIR_CHANCES[unused_dirs_n];
-				} else if(map->physical[nxt.single()]->getId() == ID_FLOOR) {
-					//se incontra altro pavimento (proveniente da un'altra generazione) li unisce
-					sets->makeSet(nxt.single());
-					sets->merge(s.single(), nxt.single());
-					used_dirs[d] = true;
-				}
 			} else used_dirs[d] = true;
 		}
 		used_dirs_n = DIRECTIONS_N - unused_dirs_n;
@@ -317,7 +311,7 @@
 				Coordinate dir = DIRECTIONS[rand_d];									//direzione in cui si prova a "rompere" il muro per connettere
 				Coordinate nxt = Coordinate(walls[i], dir.times(distance, distance));	//casella da controllare dopo aver rotto il muro
 
-				if(nxt.inBounds(COORDINATE_ZERO, size_t) && sets.find(nxt.single_set(size)) != parent) {
+				if(nxt.inBounds(COORDINATE_ZERO, size_t) && map->physical[nxt.single_set(size)]->getId() == ID_FLOOR && sets.find(nxt.single_set(size)) != parent) {
 					walls[border_n] = walls[i];
 					directions[border_n] = rand_d;
 					border_n++;

@@ -5,6 +5,7 @@
 #include "../projectiles/spell.hpp"
 
 const char player_rod_description[description_length]="Raro bastone intriso di grandi poteri, usato da stregoni provenienti da tutto il mondo e di tutti i tempi ";
+const char player_rod_name[name_length]="Bastone magico";
 
 const int player_rod_up_index=0;
 const int player_rod_down_index=1;

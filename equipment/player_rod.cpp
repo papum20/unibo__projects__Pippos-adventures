@@ -29,6 +29,7 @@ Player_Rod::Player_Rod():Rod(){
     owner_id=ID_PLAYER;
 
     strcpy (description, player_rod_description);
+    strcpy (name, player_rod_name);
 
     horizontal_attack_states=player_rod_attack_states;
     vertical_attack_states=player_rod_attack_states;

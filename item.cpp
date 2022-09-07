@@ -2,6 +2,8 @@
 
 item::item():Animate(){
     strcpy(rarity, common);
+    strcpy (description, " ");
+    strcpy (name, " ");
 }
 
 void item::copyItem(item B) {

@@ -4,6 +4,7 @@
 #include "../weapon.hpp"
 
 const char axe_description[description_length]="arma rozza usata dal berserker, un guerriero tanto feroce da sembrare una bestia, seppur non elegante, non è seconda a nessun'altra arma in termini puro potere distruttivo.";
+const char axe_name[name_length]="Ascia Berserker";
 
 const int axe_movement_states=1;
 const int axe_horizontal_attack_states=4;

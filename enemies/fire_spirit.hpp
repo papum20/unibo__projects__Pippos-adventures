@@ -156,8 +156,6 @@ const char fire_spirit_move_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 class Fire_spirit: public Enemy{
     public:
-		pFS_Hands fire_spirit_hands;
-		pNecklace collana;
         Fire_spirit();
         Fire_spirit(pCharacter p);
 };

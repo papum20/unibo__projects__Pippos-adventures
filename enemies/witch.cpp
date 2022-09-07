@@ -1,10 +1,6 @@
 #include "witch.hpp"
 
 Witch::Witch():Enemy(){
-    witch_rod= new Witch_Rod();
-    armatura= new armor();
-    collana= new necklace();
-    
     idle_index=witch_idle_index;
     move_up_index=witch_move_up_index;
     move_down_index=witch_move_down_index;
@@ -19,19 +15,16 @@ Witch::Witch():Enemy(){
 
     points_given=witch_points;
     
-    change_armor(armatura);
-    change_necklace(collana);
-    change_weapon(witch_rod);
+    change_armor(new armor());
+    change_necklace(new necklace());
+    change_weapon(new Witch_Rod());
 
     maxHealth=Math::randomStep(40, 70, 10);
     curHealth=maxHealth;
     size=Coordinate (witch_width, witch_depth);
 }
+
 Witch::Witch(pCharacter p):Enemy(p){
-    witch_rod= new Witch_Rod();
-    armatura= new armor();
-    collana= new necklace();
-    
     idle_index=witch_idle_index;
     move_up_index=witch_move_up_index;
     move_down_index=witch_move_down_index;
@@ -46,9 +39,9 @@ Witch::Witch(pCharacter p):Enemy(p){
 
     points_given=witch_points;
     
-    change_armor(armatura);
-    change_necklace(collana);
-    change_weapon(witch_rod);
+    change_armor(new armor());
+    change_necklace(new necklace());
+    change_weapon(new Witch_Rod());
 
     maxHealth=Math::randomStep(40, 70, 10);
     curHealth=maxHealth;

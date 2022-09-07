@@ -22,6 +22,22 @@ Character::Character(int maxH, int maxS) : Alive(maxH, maxS) {
 	current_animation=0;
 }
 
+void Character::destroy(){
+	delete equipaggiamento.arma;
+	delete equipaggiamento.collana;
+	delete equipaggiamento.scudo;
+	delete equipaggiamento.stivali;
+	delete equipaggiamento.collana;
+	delete equipaggiamento.elmo;
+	for (int i=0; i<W_NUMBER; i++){
+		delete weapons[i];
+	}
+	for (int i=0; i<DEF_NUMBER; i++){
+		delete defensive_items[i];
+	}
+	Physical::destroy();
+}
+
 void Character::initialize_equipment(){
 	equipaggiamento.arma=NULL;
 	equipaggiamento.collana=NULL;
@@ -173,42 +189,6 @@ void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate
 	}
 }*/
 
-void Character::check_enemy_melee(pMap map){
-	pCharacter defender=NULL;
-    pPhysical objects[ROOM_AREA];
-	Coordinate start;
-	Coordinate end;
-	switch (direction){
-		case 'u':
-			start=Coordinate (pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y+size.y);
-			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
-			break;
-		case 'd':
-			start=Coordinate ( pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y-(equipaggiamento.arma)->vertical_size.y );
-			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
-			break;
-		case 'l':
-			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
-			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
-			break;
-		case 'r':
-			start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
-			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
-			break;
-	}
-
-	int dim=MapHandler::checkRectangle(map, objects, start, end);       
-    
-    if (dim!=0){                                                            
-        for (int i=0; i<dim; i++){
-            if (objects[i]->getId()!=this->id && objects[i]->isCharacter()){         
-                defender=MapHandler::checkCharacter(map, objects[i]->getPosition());       
-                defender->changeCurrentHealth(calculate_damage(defender));    
-            }
-        }
-    }
-
-}
 void Character::apply_equipment (){
 	if ((equipaggiamento.arma)!=NULL){
 		danno_fisico=(equipaggiamento.arma)->danno_fisico;
@@ -346,6 +326,10 @@ int Character::calculate_damage(pAlive c){
 
 equipment *Character::getEqipment() {
 	return &equipaggiamento;
+}
+
+int Character::getPoints(){
+	return -1;
 }
 /*
 #pragma region AUSILIARIE_GENERICHE

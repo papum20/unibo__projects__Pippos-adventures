@@ -1,8 +1,6 @@
 #include "fire_spirit.hpp"
 
 Fire_spirit::Fire_spirit():Enemy(){
-    fire_spirit_hands= new Fire_spirit_hands();
-    collana= new necklace();
 
     idle_index=fire_spirit_idle_index;
     move_up_index=fire_spirit_move_up_index;
@@ -18,8 +16,8 @@ Fire_spirit::Fire_spirit():Enemy(){
 
     points_given=fire_spirit_points;
 
-    change_weapon(fire_spirit_hands);
-    change_necklace(collana);
+    change_weapon(new Fire_spirit_hands());
+    change_necklace(new necklace());
 
     maxHealth=Math::randomStep(20, 30, 10);
     curHealth=maxHealth;
@@ -27,8 +25,6 @@ Fire_spirit::Fire_spirit():Enemy(){
 }
 
 Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
-    fire_spirit_hands= new Fire_spirit_hands();
-    collana= new necklace();
 
     idle_index=fire_spirit_idle_index;
     move_up_index=fire_spirit_move_up_index;
@@ -44,8 +40,8 @@ Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
 
     points_given=fire_spirit_points;
 
-    change_weapon(fire_spirit_hands);
-    change_necklace(collana);
+    change_weapon(new Fire_spirit_hands());
+    change_necklace(new necklace());
 
     maxHealth=Math::randomStep(20, 30, 10);
     curHealth=maxHealth;

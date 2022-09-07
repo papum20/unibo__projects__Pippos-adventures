@@ -2,9 +2,6 @@
 
 Zombie::Zombie():Enemy(){
     size=Coordinate (zombie_width, zombie_depth);
-    
-    zombie_hands=new Zombie_hands();
-    armatura= new armor();
 
     idle_index=zombie_idle_index;
     move_up_index=zombie_move_up_index;
@@ -20,17 +17,14 @@ Zombie::Zombie():Enemy(){
 
     points_given=zombie_points;
 
-    change_weapon(zombie_hands);
-    change_armor(armatura);
+    change_weapon(new Zombie_hands());
+    change_armor(new armor());
 
     maxHealth=Math::randomStep(20, 40, 10);
     curHealth=maxHealth;
 }
 Zombie::Zombie(pCharacter p):Enemy(p){
     size=Coordinate (zombie_width, zombie_depth);
-    
-    zombie_hands=new Zombie_hands();
-    armatura= new armor();
 
     idle_index=zombie_idle_index;
     move_up_index=zombie_move_up_index;
@@ -46,8 +40,8 @@ Zombie::Zombie(pCharacter p):Enemy(p){
 
     points_given=zombie_points;
 
-    change_weapon(zombie_hands);
-    change_armor(armatura);
+    change_weapon(new Zombie_hands());
+    change_armor(new armor());
 
     maxHealth=Math::randomStep(20, 40, 10);
     curHealth=maxHealth;

@@ -1,12 +1,6 @@
 #include "evil_tree.hpp"
 
 Evil_tree::Evil_tree():Enemy(){
-    tree_branch= new Tree_branch();
-    armatura= new armor();
-	collana= new necklace();
-	stivali= new boots();
-	elmo= new helm();
-
     idle_index=tree_idle_index;
     move_up_index=tree_move_up_index;
     move_down_index=tree_move_down_index;
@@ -21,11 +15,11 @@ Evil_tree::Evil_tree():Enemy(){
 
     points_given=tree_points;
 
-    change_armor(armatura);
-    change_necklace(collana);
-    change_boots(stivali);
-    change_helm(elmo);
-    change_weapon(tree_branch);
+    change_weapon(new Tree_branch());
+    change_armor(new armor());
+    change_necklace(new necklace());
+    change_boots(new boots());
+    change_helm(new helm());
 
     maxHealth=Math::randomStep(70, 100, 10);
     curHealth=maxHealth;
@@ -33,12 +27,6 @@ Evil_tree::Evil_tree():Enemy(){
 }
 
 Evil_tree::Evil_tree(pCharacter p):Enemy(p){
-    tree_branch= new Tree_branch();
-    armatura= new armor();
-	collana= new necklace();
-	stivali= new boots();
-	elmo= new helm();
-
     idle_index=tree_idle_index;
     move_up_index=tree_move_up_index;
     move_down_index=tree_move_down_index;
@@ -53,11 +41,11 @@ Evil_tree::Evil_tree(pCharacter p):Enemy(p){
 
     points_given=tree_points;
 
-    change_armor(armatura);
-    change_necklace(collana);
-    change_boots(stivali);
-    change_helm(elmo);
-    change_weapon(tree_branch);
+    change_weapon(new Tree_branch());
+    change_armor(new armor());
+    change_necklace(new necklace());
+    change_boots(new boots());
+    change_helm(new helm());
 
     maxHealth=Math::randomStep(70, 100, 10);
     curHealth=maxHealth;

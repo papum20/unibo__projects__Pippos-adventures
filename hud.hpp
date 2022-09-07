@@ -20,7 +20,7 @@ struct list{
 typedef list* p_list;
 
 #define HUD_WIDTH 200
-#define HUD_HEIGHT 10
+#define HUD_HEIGHT 8
 #define HUD_OFFSET 1
 
 const int n_rows=4;

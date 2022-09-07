@@ -29,7 +29,7 @@ int main() {
 	pPlayer player = new Player(inputManager);
 	Level level = Level(level_x, level_y, player);
 	Menu menu = Menu(inputManager);
-	//Hud hud = Hud(hud_x, hud_y, player);
+	Hud hud = Hud(hud_x, hud_y, player);
 
 
 
@@ -62,7 +62,7 @@ int main() {
 			else mvwaddch(debug,1,0,'p');// menu.open();
 			level.update(inputManager->get_input());
 			level.display();
-			//hud.drawHud();
+			hud.drawHud();
 		}
 
 		mvwprintw(debug,0,0,to_string(frame).c_str());

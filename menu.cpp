@@ -51,6 +51,9 @@ void Menu::close_menu(){
     werase(wface);
     werase(menu);
     werase(caverna);
+    wrefresh(wface);
+    wrefresh(menu);
+    wrefresh(caverna);
 }
 
 void Menu::update(){

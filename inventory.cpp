@@ -1,8 +1,8 @@
 #include "inventory.hpp"
 
 
-Inventory::Inventory(Player * p, int * input):Pixel_art(){
-p_input=input;
+Inventory::Inventory(Player * p, pInputManager input):Pixel_art(){
+this->p_input=input;
 is_open=false;
 options_is_active=false;
 zaino_is_active=false;
@@ -60,7 +60,7 @@ void Inventory::open_options(){
 
 void Inventory::update_options(){
 int choice;
-        choice=(*p_input);
+        choice=p_input->get_input();
         if(choice==esc){
             keypad(w_inventory,true);
             werase(w_options);         
@@ -276,7 +276,7 @@ if((check_class_name(array_index))==3)
  is_item=true;
 
 int choice;
-choice = (*p_input);
+choice=p_input->get_input();
 if(choice==esc){
     w_use_is_active=false;
     keypad(w_use, false); 
@@ -495,7 +495,7 @@ wattroff_inventory(w_zaino);
 item_menu(z_highlight);
 
 
-choice=(*p_input);
+choice=p_input->get_input();
     if(choice==esc){
     zaino_is_active=false;
     keypad(w_zaino, false); 
@@ -668,7 +668,7 @@ mvwprintw(w_equip, 13, 72, defense_magic);
 
 void Inventory:: update_equip_menu(){
 int choice;    
-        choice=(*p_input);
+        choice=p_input->get_input();
         if(choice==esc){
             keypad(w_inventory, true);
             werase(w_equip);
@@ -705,7 +705,7 @@ if(w_equip_is_active==true){
        }
 
     int choice;
-    choice=(*p_input);
+    choice=p_input->get_input();
     if(choice==scroll_right){
         highlight++;
         if(highlight>3)
@@ -760,4 +760,5 @@ highlight=0;
 u_highlight = 1;
 is_open=false;
 werase(w_inventory);
+wrefresh(w_inventory);
 }

@@ -85,17 +85,19 @@
 		curRoom->generate();
 		player->setPosition(curRoom->getSize().times(.5, .5));
 		curRoom->addCharacter(player);
-		for(int i = 0; i < N_ROOMS; i++) {
+		spawnInRoom(curRoom);
+		for(int i = 1; i < N_ROOMS; i++) {
 			if(rooms[i] != NULL) {
+				rooms[i]->generate();
 				spawnInRoom(rooms[i]);
 			}
 		}
 		available.destroy();
 	}
 	void Level::spawnInRoom(pRoom room) {
-		for(int i = 0; i < ENEMIES_N[level]; i++) curRoom->spawnEnemy(randEnemy());
+		for(int i = 0; i < ENEMIES_N[level]; i++) room->spawnEnemy(randEnemy());
 		int chests_n = chestsNumber();
-		//for(int i = 0; i < chests_n; i++) curRoom->spawnChest(randChest());
+		//for(int i = 0; i < chests_n; i++) room->spawnChest(randChest());
 	}
 
 	void Level::display() {
@@ -252,7 +254,7 @@
 			counter += ENEMIES_CHANCHES[level][i];
 			i++;
 		}
-		pEnemy res = new Enemy(player);
+		pEnemy res = new Spider(player);
 		res->copyEnemy(ENEMIES_INSTANCES[level][i]);
 		return res;
 	}

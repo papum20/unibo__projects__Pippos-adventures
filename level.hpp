@@ -45,7 +45,7 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 //enemy
 const int ENEMIES_N[LEVELS_N] {10, 10, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
-														{Zombie(), Spider()},
+														{Spider()},//, Spider()},
 														{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
 														{Spider(), Fire_spirit(), Snowman(), Witch()}
 														};
@@ -54,7 +54,7 @@ const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]		= 	{
 														{2, 3, 4, 1, 1},
 														{1, 2, 4, 4}
 														};
-const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 11};
+const int ENEMIES_CHANCE_TOT[LEVELS_N] = {3, 11, 11};
 //item
 const int CHESTS_N_MIN[LEVELS_N] {0, 0, 0};
 const int CHESTS_N_MAX[LEVELS_N] {2, 2, 2};

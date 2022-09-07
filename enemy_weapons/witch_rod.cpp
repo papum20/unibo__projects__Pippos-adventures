@@ -6,7 +6,7 @@ Witch_Rod::Witch_Rod():Rod(){
     apply_rarity();
 
     move_up_index=witch_rod_up_index;
-	move_up_index=witch_rod_down_index;
+	move_down_index=witch_rod_down_index;
 	move_left_index=witch_rod_left_index;
 	move_right_index=witch_rod_right_index;
 

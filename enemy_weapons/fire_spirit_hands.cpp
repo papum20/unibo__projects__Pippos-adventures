@@ -6,7 +6,7 @@ Fire_spirit_hands::Fire_spirit_hands():Hands(){
     apply_rarity();
 
     move_up_index=fire_spirit_hands_up_index;
-	move_up_index=fire_spirit_hands_down_index;
+	move_down_index=fire_spirit_hands_down_index;
 	move_left_index=fire_spirit_hands_left_index;
 	move_right_index=fire_spirit_hands_right_index;
 

@@ -6,7 +6,7 @@ Zombie_hands::Zombie_hands():Hands(){
     apply_rarity();
     
     move_up_index=zombie_hands_up_index;
-	move_up_index=zombie_hands_down_index;
+	move_down_index=zombie_hands_down_index;
 	move_left_index=zombie_hands_left_index;
 	move_right_index=zombie_hands_right_index;
 

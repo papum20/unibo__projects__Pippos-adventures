@@ -26,8 +26,6 @@ struct equipment {
 
 
 class Character : public Alive {
-	private:
-		//void swapPositions(Character *characters[], Coordinate a, Coordinate b);
 		
 	protected:
 
@@ -35,19 +33,10 @@ class Character : public Alive {
 		int attack_counter;				//variabile che contiene il contatore a cui l'animazione fa danno
 		int attacking_states;			//variabiile che contiene il numero di animazioni d'attacco
 		//variabili di movimento
-		int idle_index;
-		int move_up_index;
-		int move_down_index;
-		int move_left_index;
-		int move_right_index;
-
 		int attack_up_states;
 		int attack_down_states;
 		int attack_right_states;
 		int attack_left_states;
-
-		// ROOM
-		//bool moveObject(pMap map[], Coordinate size, Coordinate move);	//muove di move se può, altrimenti ritorna false (se fuori mappa, se ob=inanimate/door, se non va su cella vuota..)
 
 		equipment equipaggiamento;
 

@@ -6,7 +6,7 @@ Spider_legs::Spider_legs():Hands(){
     apply_rarity();
 
     move_up_index=spider_legs_up_index;
-	move_up_index=spider_legs_down_index;
+	move_down_index=spider_legs_down_index;
 	move_left_index=spider_legs_left_index;
 	move_right_index=spider_legs_right_index;
 

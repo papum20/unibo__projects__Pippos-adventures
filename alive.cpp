@@ -18,7 +18,7 @@ Alive::Alive(int maxH, int maxS) : Animate() {
 void Alive::copyAlive(Alive B) {
 	maxHealth=B.maxHealth;
 	curHealth=B.curHealth;
-	maxStamina=B.maxHealth;
+	maxStamina=B.maxStamina;
 	curStamina=B.curStamina;
 	difesa_fisica = B.difesa_fisica;
 	difesa_magica=B.difesa_magica;

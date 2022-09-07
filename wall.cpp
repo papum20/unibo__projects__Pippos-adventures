@@ -22,10 +22,19 @@ void Wall::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_
 			Inanimate::drawCell(scr, i, top_color);
 		}
 		else if(i.y < pos.y + height) {
-			if(scr[i.rel_int_y()][i.rel_int_x()].getCh() == CHAR_EMPTY || scr[i.rel_int_y()][i.rel_int_x()].getBg() == main_color) drawCell(scr, i, main_color);
+			if(scr[i.rel_int_y()][i.rel_int_x()].getCh() == CHAR_EMPTY || scr[i.rel_int_y()][i.rel_int_x()].getCh() == CHAR_OUTSIDE) drawCell(scr, i, main_color);
 			else drawCell(scr, i, second_color);
 		}
 		i.y++;
 	}
 }
+
+
+void Wall::drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color) {
+	char c = -1;
+	if(scr[pos.rel_int_y()][pos.rel_int_x()].getCh() == CHAR_OUTSIDE) c = CHAR_EMPTY;
+	scr[pos.rel_int_y()][pos.rel_int_x()].edit(c, -1, color, CELL_NO_ATTR);
+}
+
+
 

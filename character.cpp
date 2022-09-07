@@ -4,19 +4,22 @@
 
 Character::Character() : Alive() {
 	is_attacking=false;
-	current_animation=idle_index;
+	current_animation=0;
+
 	for (int i=0; i<W_NUMBER; i++){
 		weapons[i]=NULL;
 	}
+	weapons_n=0;
 	for (int i=0; i<DEF_NUMBER; i++){
 		defensive_items[i]=NULL;
 	}
+	defensive_items_n=0;
 	initialize_equipment();
 }
 
 Character::Character(int maxH, int maxS) : Alive(maxH, maxS) {
 	is_attacking=false;
-	current_animation=idle_index;
+	current_animation=0;
 }
 
 void Character::initialize_equipment(){
@@ -109,12 +112,6 @@ void Character::copyCharacter(Character B) {
 	is_attacking = B.is_attacking;
 	attack_counter=B.attack_counter;
 	attacking_states=B.attacking_states;
-
-	idle_index=B.idle_index;
-	move_up_index=B.move_up_index;
-	move_down_index=B.move_down_index;
-	move_left_index=B.move_left_index;
-	move_right_index=B.move_right_index;
 
 	attack_up_states=B.attack_up_states;
 	attack_down_states=B.attack_down_states;

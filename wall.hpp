@@ -14,6 +14,9 @@ class Wall : public Inanimate {
 		int top_color;
 		int height;
 
+	protected:
+		void drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color);	//riempie una cella
+
 	public:
 		Wall();
 

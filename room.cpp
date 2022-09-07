@@ -84,8 +84,14 @@
 				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);	//disegna floor se è vuoto
 				else if(obj->isInanimate()) obj->drawAtPosition(scr, wstart, win_size, map_it);		//disegna oggetto inanimato
 				else {																				//disegna animate+floor
-					if(obj->getId() == ID_PLAYER) obj->drawAtOwnPosition(scr, wstart, win_size);
-					else scr[scr_reverse.inty()][scr_reverse.intx()].edit('x',-1,-1,0);
+					 obj->drawAtOwnPosition(scr, wstart, win_size);
+					//else{ scr[scr_reverse.inty()][scr_reverse.intx()].edit('x',-1,-1,0);
+						//WINDOW *w = newwin(10,10,1,10);
+						//box(w,0,0);
+						//obj->getCurrentAnimation();
+						//mvwprintw(w,1,1,to_string(obj->getCurrentAnimation().size.x).append(" ").append(to_string(obj->getCurrentAnimation().size.y)).c_str());
+						//wrefresh(w);
+					//}
 					FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);
 				}
 			} else												//altrimenti "cancella"/lascia uno spazio vuoto

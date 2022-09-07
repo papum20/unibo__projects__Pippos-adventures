@@ -15,7 +15,7 @@ class Inanimate : public Physical {
 		attr_t main_color;
 		attr_t second_color;
 		
-		void drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color);	//riempie una cella
+		virtual void drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color);	//riempie una cella
 		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata
 		
 	public:

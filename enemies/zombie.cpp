@@ -1,9 +1,11 @@
 #include "zombie.hpp"
 
 Zombie::Zombie():Enemy(){
+    size=Coordinate (zombie_width, zombie_depth);
     
     zombie_hands=new Zombie_hands();
     armatura= new armor();
+
     idle_index=zombie_idle_index;
     move_up_index=zombie_move_up_index;
     move_down_index=zombie_move_down_index;
@@ -23,12 +25,13 @@ Zombie::Zombie():Enemy(){
 
     maxHealth=Math::randomStep(20, 40, 10);
     curHealth=maxHealth;
-    size=Coordinate (zombie_width, zombie_depth);
 }
 Zombie::Zombie(pCharacter p):Enemy(p){
+    size=Coordinate (zombie_width, zombie_depth);
     
     zombie_hands=new Zombie_hands();
     armatura= new armor();
+
     idle_index=zombie_idle_index;
     move_up_index=zombie_move_up_index;
     move_down_index=zombie_move_down_index;
@@ -48,5 +51,4 @@ Zombie::Zombie(pCharacter p):Enemy(p){
 
     maxHealth=Math::randomStep(20, 40, 10);
     curHealth=maxHealth;
-    size=Coordinate (zombie_width, zombie_depth);
 }

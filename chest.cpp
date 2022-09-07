@@ -51,8 +51,8 @@ void Chest::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win
 		Coordinate win_end = Coordinate(win_start, win_size);
 		Coordinate local = Coordinate(COORDINATE_ZERO, ANIMATION_SIZE, COORDINATE_ZERO, getCurrentAnimation().size);	//coordinata relativa all'animazione, all'interno di essa
 		do {
-			Coordinate global = Coordinate(pos, win_start, win_end);	    //coordinata globale di relative, sulla mappa
-			if(global.inOwnBounds() && animationMask(local))				//se il punto è interno alla finestra da disegnare e deve disegnare qualcosa
+			Coordinate global = Coordinate(Coordinate(pos, local), win_start, win_end);    //coordinata globale di relative, sulla mappa
+			if(global.inOwnBounds() && animationMask(local))            			    	//se il punto è interno alla finestra da disegnare e deve disegnare qualcosa
 				scr[global.rel_int_y()][global.rel_int_x()].edit(getCurrentAnimation().at(local), main_color, -1, CELL_NO_ATTR);
             local.next();
 		} while(!local.equals(COORDINATE_ZERO));

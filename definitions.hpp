@@ -15,8 +15,8 @@
 
 
 #pragma region CAMERA_DEFINITIONS
-#define CAMERA_WIDTH  135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH  ROOM_WIDTH//135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT ROOM_HEIGHT//35	//altezza (massima) inquadratura livello
 #pragma endregion CAMERA_DEFINITIONS
 
 

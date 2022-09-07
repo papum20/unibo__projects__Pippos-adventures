@@ -13,7 +13,7 @@ void item::copyItem(item B) {
     copyAnimate(B);
 }
 
-void apply_rune(){
+void item::apply_rune(){
 
 }
 

@@ -60,8 +60,8 @@ int main() {
 			else mvwprintw(debug,5,1,"     ");
 			if(inputManager->get_input() == KEY_PAUSE) mvwaddch(debug,1,0,'P');// menu.open();
 			else mvwaddch(debug,1,0,'p');// menu.open();
-			//level.update(inputManager->get_input());
-			//level.display();
+			level.update(inputManager->get_input());
+			level.display();
 			hud.drawHud();
 		}
 

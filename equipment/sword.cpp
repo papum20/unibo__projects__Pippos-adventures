@@ -41,3 +41,8 @@ sword::sword():Weapon(){
     current_animation=0;
 }
 
+
+
+void sword::apply_rune() {
+    
+}

@@ -23,7 +23,7 @@ void Hud::drawHud (){
     
     //disegno la barra della vita
     y_cursor=1;
-    x_cursor=6+start_x;
+    x_cursor=6;
     for (int i=0; i<barra_righe; i++){
         for (int j=0; j<barra_colonne; j++){
             if (y_cursor==2  && barra_vita[i][j]!='|' && health_counter>0){           //coloro di rosso se sono all'interno della barra (y_c), non sono alla fine 
@@ -38,15 +38,15 @@ void Hud::drawHud (){
             x_cursor++;
         }
         y_cursor++;
-        x_cursor=6+start_x;
+        x_cursor=6;
     }
     wattron(hud_win, COLORE_CUORE);
-    mvwprintw (hud_win, 2, start_x+2, "HP");
+    mvwprintw (hud_win, 2, 2, "HP");
     wattroff(hud_win, COLORE_CUORE);
 
     //disegno la barra della stamina
     y_cursor=3;
-    x_cursor=6+start_x;
+    x_cursor=6;
     for (int i=0; i<barra_righe; i++){
         for (int j=0; j<barra_colonne; j++){
             if (y_cursor==4  && barra_stamina[i][j]!='/' && stamina_counter>0){            
@@ -61,10 +61,10 @@ void Hud::drawHud (){
             x_cursor++;
         }
         y_cursor++;
-        x_cursor=6+start_x;
+        x_cursor=6;
     }
 
-    mvwprintw (hud_win, 4, start_x+2, "ST");
+    mvwprintw (hud_win, 4, 2, "ST");
 
     //le x di partenza da ora diventeranno variabili
 

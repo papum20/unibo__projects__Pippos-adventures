@@ -72,10 +72,6 @@
 		s_coord available[ROOM_AREA];
 		int av_size = getFreeCells(available, chest->getSize());
 		if(av_size > 0) {
-			WINDOW *w = newwin(10,10,12,1);
-			box(w,0,0);
-			mvwprintw(w,1,1,"fatto");
-			wrefresh(w);
 			chest->setPosition(Coordinate(available[rand() % av_size], size));
 			addChest(chest);
 		}

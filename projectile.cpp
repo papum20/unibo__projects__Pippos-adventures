@@ -112,7 +112,7 @@ void Projectile::setPosition(Coordinate shooter_pos, Coordinate shooter_size, ch
             break;
         case 'r':
             size = horizontal_size;
-            this->pos.x=shooter_pos.x+shooter_size.x+5;
+            this->pos.x=shooter_pos.x+shooter_size.x;
             this->pos.y=shooter_pos.y+(shooter_size.y)/2-size.y/2;
             current_animation=move_right_index;
             break;

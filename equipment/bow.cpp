@@ -25,8 +25,8 @@ Arco::Arco():Weapon(){
 
     animations[attack_up_index]= new Animation (bow_attack_up, Coordinate(bow_width, bow_height), bow_attack_states);
     animations[attack_down_index]= new Animation (bow_attack_down, Coordinate(bow_width, bow_height), bow_attack_states);
-    animations[attack_left_index]= new Animation (bow_attack_left, Coordinate(bow_horizontal_attack_width, bow_horizontal_attack_height), bow_attack_states);
-    animations[attack_right_index]= new Animation (bow_attack_right, Coordinate(bow_horizontal_attack_width, bow_horizontal_attack_height), bow_attack_states);
+    animations[attack_left_index]= new Animation (bow_attack_left, Coordinate(bow_width, bow_height), bow_attack_states);
+    animations[attack_right_index]= new Animation (bow_attack_right, Coordinate(bow_width, bow_height), bow_attack_states);
 
     is_melee=false;
     owner_id=ID_PLAYER;

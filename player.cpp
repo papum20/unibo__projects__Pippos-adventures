@@ -4,7 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
 	//menu=m;
-	arma= new Player_Rod();
+	arma= new Arco();
 	armatura=new armor();
 	collana=NULL;
 	elmo=NULL;

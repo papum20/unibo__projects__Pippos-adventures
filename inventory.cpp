@@ -69,7 +69,7 @@ void Inventory::open_options(){
 
 void Inventory::update_options(){
 
-        if(input==KEY_PAUSE){
+        if(input==KEY_ESC){
             options_is_active = false;
             keypad(w_inventory,true);
             werase(w_options);         
@@ -323,7 +323,7 @@ if((check_class_name(array_index))==13)
  is_item=true;
 
 
-if(input==KEY_PAUSE){
+if(input==KEY_ESC){
     w_use_is_active=false;
     keypad(w_use, false); 
     keypad(w_zaino, true); 
@@ -540,7 +540,7 @@ wattroff_inventory(w_zaino);
 
 item_menu(z_highlight);
 
-    if(input==KEY_PAUSE){
+    if(input==KEY_ESC){
     zaino_is_active=false;
     keypad(w_zaino, false); 
     keypad(w_inventory, true); 
@@ -712,7 +712,7 @@ if(static_cast< Weapon *>(objects[i])->is_equipped){
 }
 
 void Inventory:: update_equip_menu(){
-        if(input==KEY_PAUSE){
+        if(input==KEY_ESC){
             w_equip_is_active = false;
             keypad(w_inventory, true);
             werase(w_equip);

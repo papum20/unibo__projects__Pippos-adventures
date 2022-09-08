@@ -12,6 +12,9 @@ const int tree_branch_attack_down_index=5;
 const int tree_branch_attack_left_index=6;
 const int tree_branch_attack_right_index=7;
 
+const int tree_horizontal_attack_animation=2;
+const int tree_vertical_attack_animation=2;
+
 const int tree_x_coordinate=2;
 const int tree_y_coordinate=2;
 

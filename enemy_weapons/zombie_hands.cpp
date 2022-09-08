@@ -34,5 +34,9 @@ Zombie_hands::Zombie_hands():Hands(){
 
     horizontal_attack_states=zombie_hands_attack_states;
     vertical_attack_states=zombie_hands_attack_states;
+
+    horizontal_attack_animation=zombie_hands_horizontal_attack_animation;
+    vertical_attack_animation=zombie_hands_vertical_attack_animation;
+
     current_animation=0;
 }

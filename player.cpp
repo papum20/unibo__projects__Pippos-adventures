@@ -66,7 +66,7 @@ void Player::update(pMap map){
 		if (curHealth>0){
 			if (is_attacking){
 				if (equipaggiamento.arma->is_melee){
-					if (attack_counter==0){
+					if (attack_counter==1){
 						check_enemy_melee(map);
 						attack_counter=-1;
 					}

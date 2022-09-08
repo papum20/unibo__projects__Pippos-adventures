@@ -61,50 +61,52 @@ int main() {
 		game_timer.start(REFRESH_TIMER_INDEX);
 
 
-		// TERMINA IL GIOCO
-		if(inputManager->get_input() == KEY_QUIT) isRunning = false;
 
+		//// GESTIONE MENU APERTI CON INPUT
+			// CONTROLLA SE È STATO PREMUTO UN TASTO PAUSA, MA APPLICALO SOLO SE È PRIMA STATO RILASCIATO (ALTRIMENTI IL MENU SI APRIREBBE E CHIUDEREBBE)
+		if(pressedPause && inputManager->get_input() != KEY_PAUSE) pressedPause = false;
+		if(pressedMinimap && inputManager->get_input() != KEY_PAUSE) pressedMinimap = false;
+
+		//// MENU INIZIALE
 		if(menu.is_active()) {
+			if(frame % 2 == 0) mvwprintw(debug, 5, 1, "menu");
+
 			menu.update(isRunning);
 		}
-
+		//// IN GIOCO
 		else {
-			// CONTROLLA SE È STATO PREMUTO UN TASTO PAUSA, MA APPLICALO SOLO SE È PRIMA STATO RILASCIATO (ALTRIMENTI IL MENU SI APRIREBBE E CHIUDEREBBE)
-			if(pressedPause) {
-				if(inputManager->get_input() != KEY_PAUSE) pressedPause = false;
-			} else if(pressedMinimap) {
-				if(inputManager->get_input() != KEY_MAP) pressedMinimap = false;
-			} else if(inputManager->get_input() == KEY_PAUSE) {
-				if(!inventory.is_active()) {
-					//erase();
-					//refresh();
-					inventory.open();
+		//// GESTIONE MENU APERTI CON INPUT
+			if(inputManager->get_input() == KEY_QUIT) isRunning = false;
+			else if(inputManager->get_input() == KEY_MAIN_MENU) {
+				menu.open();
+			}
+			else if(inputManager->get_input() == KEY_PAUSE) {
+				if(!pressedPause) {
+					if (!inventory.is_active()) inventory.open();
+					else inventory.close();
 					pressedPause = true;
 				}
-			} else if(inputManager->get_input() == KEY_MAP) {
-				if(miniMap.isOpen()) miniMap.close();
-				else miniMap.open(level);
-				//pressedMinimap = true;
+			}
+			else if(inputManager->get_input() == KEY_QUIT) {
+				if(!pressedMinimap) {
+					if(!miniMap.isOpen()) miniMap.open(level);
+					else miniMap.close();
+					pressedMinimap = true;
+				}
 			}
 
-			//// IN PAUSA
-			if (inventory.is_active()) {
-				if(frame%2==0) mvwprintw(debug,5,1,"menu");
-				else mvwprintw(debug,5,1,"     ");
-				if(pressedPause) inventory.update(player, ERR);			//se il menu è aperto il player non si muove
-				else {
-					inventory.update(player, inputManager->get_input());
-					if(inputManager->get_input() == KEY_PAUSE) ;//pressedPause = true;
-				}
+			//// UPDATE
+			if(inventory.is_active()) {
+				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "pause");
+
+				if(!pressedPause) inventory.update(player, inputManager->get_input());
+				else inventory.update(player, ERR);
 			}
-			//// IN GIOCO
+			else if(miniMap.isOpen()) {
+				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map");
+			}
 			else {
 				if(frame%2==0) mvwprintw(debug,5,1,"level");
-				else mvwprintw(debug,5,1,"     ");
-				if(inputManager->get_input() == KEY_PAUSE) {
-					mvwaddch(debug,1,0,'P');
-				}
-				else mvwaddch(debug,1,0,'p');// menu.open();
 
 				level.update(inputManager->get_input());
 				level.display();
@@ -112,6 +114,8 @@ int main() {
 			}
 		}
 
+
+		//// DEBUG
 		mvwprintw(debug,0,0,to_string(frame).c_str());
 		mvwprintw(debug,1,0,to_string((int)game_timer.get_time_passed(GAME_TIMER_INDEX)).c_str());
 		mvwprintw(debug,2,0,to_string((int)(frame / game_timer.get_time_passed(GAME_TIMER_INDEX))).c_str());

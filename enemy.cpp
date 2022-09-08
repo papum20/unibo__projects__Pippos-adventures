@@ -103,7 +103,7 @@ void Enemy::meleeIA(pMap map){
 	int player_distance;
 	int objects_in_view;
 	player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);		
-	objects_in_view=MapHandler::vision(map, obj, pos, 20);
+	objects_in_view=MapHandler::vision(map, obj, pos, 30);
 
 	if (player->findInArray(obj, objects_in_view) && player_distance<10){					//se il player è in vista e la distanza è minore di 5
 		if (player_distance>0){																

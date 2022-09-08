@@ -67,7 +67,7 @@
 		mvwprintw(w,1,1,to_string(room).c_str());
 		mvwprintw(w,1,1,to_string(rooms[room]->getPos().x).c_str());
 		mvwprintw(w,2,1,to_string(rooms[room]->getPos().y).c_str());
-		wgetch(w);
+		//wgetch(w);
 			map[new_pos.getPos().single_set(map_size)] = rooms[room];
 			available.remove(new_pos);
 
@@ -97,7 +97,7 @@
 						available.insert(nxt);																									//altrimenti aggiungi la cella come disponibile
 					}
 				}
-		wgetch(w);
+		//wgetch(w);
 			}
 		}
 		//avvia generazione di tutte le stanze

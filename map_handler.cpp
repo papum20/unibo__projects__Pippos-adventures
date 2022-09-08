@@ -15,7 +15,7 @@ MapHandler::MapHandler() {
 			QueueCoordinate Q = QueueCoordinate();	//posizioni da cui visitare quelle adiacenti
 
 			for(int i = 0; i < ROOM_AREA; i++) dist[i] = -1;
-			dist[A.single()] = 0;
+			dist[A.single_set(map->size)] = 0;
 			Q.push(A);
 
 			bool reached = false;
@@ -37,7 +37,7 @@ MapHandler::MapHandler() {
 
 			if(dist[B.single()] != -1) {
 				path[length - 1] = B;
-				for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single()];
+				for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single_set(map->size)];
 				Q.destroy();
 				return length;
 			} else return -1;
@@ -89,7 +89,7 @@ MapHandler::MapHandler() {
 			if(reached) {
 				if(length > 0) {
 					path[length - 1] = res;
-					for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single()];
+					for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single_set(map->size)];
 				}
 				Q.destroy();
 				return length;

@@ -53,7 +53,6 @@ const char spider_move_left[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	}
 
 };
-
 const char spider_move_right[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {
 	{' ',' ','_',' ',' ',' ',' '},
@@ -118,6 +117,7 @@ const char spider_move_down[3][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	}
 
 };
+
 
 class Spider: public Enemy{
     public:

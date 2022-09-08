@@ -1,6 +1,8 @@
 #ifndef PIXEL_ART_HPP
 #define PIXEL_ART_HPP
 
+#include "cell.hpp"
+
 //face
 const int face_hight= 32; 
 const int face_lenght=65;
@@ -250,7 +252,10 @@ const bool ALPHABET[N_ALPHABET][ALPHABET_LENGHT][ALPHABET_HIGHT]={
 #include <iostream>
 
 class Pixel_art {
-	private:
+	protected:
+        short d_r_cyan, d_g_cyan, d_b_cyan; 
+        short d_r_magenta, d_g_magenta, d_b_magenta; 
+        short d_r_blue, d_g_blue, d_b_blue; 
 
 	public:
 		Pixel_art();
@@ -258,6 +263,7 @@ class Pixel_art {
     void pixel_phrase(WINDOW* menu, int start_x, int start_y, const char string[], bool highlight);
     void clean_window(WINDOW* window, int w_hight, int w_lenght);//questa funzione mi serve per l'inventario
     void print_face(WINDOW* facewin, const bool face[][face_lenght], int face_lenght, int face_hight);
+    void default_color();
 };
 
 

@@ -8,6 +8,7 @@
 #include "inputmanager.hpp"
 #include "pixel_art.hpp"
 
+
 #include "definitions.hpp"
 //const int scroll_up = 'w';
 //const int scroll_down = 's';
@@ -60,22 +61,22 @@ class Menu : public Pixel_art {
         WINDOW * caverna;
         WINDOW * w_options;
         int yMax, xMax;
+        int input;
+        
         bool menu_is_active;
         bool options_is_active;
-        pInputManager p_input;
         int highlight;
        
 	public:
-        Menu(pInputManager input);
+        Menu();
         void set_menu_color();
         void print_cave();
         void open_options();
-        void update(bool &isRunning);
+        void update(bool &isRunning, int input);
         bool is_active();
         void close_menu();
         void open();
         void update_options();
-      
 };      
 
 typedef Menu* pMenu;

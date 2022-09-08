@@ -3,19 +3,27 @@
 
 
 Pixel_art::Pixel_art() {
+    color_content(COLOR_CYAN, &d_r_cyan, &d_g_cyan, &d_b_cyan);
+    color_content(COLOR_MAGENTA, &d_r_magenta, &d_g_magenta, &d_b_magenta);
+    color_content(COLOR_BLUE, &d_r_blue, &d_g_blue, &d_b_blue);
 	
+      
+}
+
+void Pixel_art::default_color(){
+init_color(COLOR_CYAN, d_r_cyan, d_g_cyan, d_b_cyan);
+init_color(COLOR_MAGENTA, d_r_magenta, d_g_magenta, d_b_magenta); 
+init_color(COLOR_BLUE, d_r_blue, d_g_blue, d_b_blue); 
 }
 
 void Pixel_art::convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, char c, bool highlight){
     for(int i=0; i < 5; i++){
         for(int j = 0; j < 5; j++){
             if(highlight==false){
-                //init_pair(1, COLOR_GREEN, COLOR_WHITE);
-                wattron(menu, COLOR_PAIR(1));
+                wattron(menu, COLOR_PAIR(Cell::pairNumber(COLOR_GREEN, COLOR_WHITE)));
             }
             else{
-               //init_pair(2, COLOR_GREEN, COLOR_YELLOW);
-                wattron(menu, COLOR_PAIR(2)); 
+                wattron(menu, COLOR_PAIR(Cell::pairNumber(COLOR_GREEN, COLOR_YELLOW))); 
             }
         if(c=='A' || c== 'a'){
             if(ALPHABET[0][i][j]==1)
@@ -150,8 +158,8 @@ void Pixel_art::convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, ch
         }
     }
     }
-    wattroff(menu, COLOR_PAIR(1));
-    wattroff(menu, COLOR_PAIR(2));
+    wattroff(menu, COLOR_PAIR(Cell::pairNumber(COLOR_GREEN, COLOR_WHITE)));
+    wattroff(menu, COLOR_PAIR(Cell::pairNumber(COLOR_GREEN, COLOR_YELLOW)));
     wrefresh(menu);
 }
 
@@ -176,7 +184,7 @@ j=j+6;
 }
 
 
-void Pixel_art::clean_window(WINDOW* window, int w_hight, int w_lenght){
+void Pixel_art::clean_window(WINDOW* window, int w_hight, int w_lenght){    
 //init_pair(4, COLOR_BLACK, COLOR_BLACK);
 for(int i=1; i<w_hight; i++){
     for(int j=1; j<w_lenght; j++){
@@ -187,16 +195,14 @@ for(int i=1; i<w_hight; i++){
 
 void Pixel_art::print_face(WINDOW* facewin, const bool face[][face_lenght], int face_lenght, int face_hight){ 
 int r;
-//init_pair(3, COLOR_WHITE, COLOR_BLACK);
-//init_pair(4, COLOR_BLACK, COLOR_BLACK);
 box(facewin, 0, 0);    
  for(int i=1; i<face_hight; i++){
         for(int j=1; j<face_lenght; j++){
             if(face[i][j]==0){
-                wattron(facewin, COLOR_PAIR(3));
+                wattron(facewin, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
             }
             else if(face[i][j]==1){
-                wattron(facewin, COLOR_PAIR(4));
+                wattron(facewin, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_BLACK)));
             } 
             r=rand()%(2);  
             if(r==0) 
@@ -205,7 +211,7 @@ box(facewin, 0, 0);
                 mvwaddch(facewin, i, j, (char)(49));
         }
     }
-wattroff(facewin, COLOR_PAIR(3));
-wattroff(facewin, COLOR_PAIR(4));
+wattroff(facewin, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
+wattroff(facewin, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_BLACK)));
 wrefresh(facewin);
 }

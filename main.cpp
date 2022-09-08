@@ -34,8 +34,8 @@ int main() {
 	Level level = Level(level_x, level_y, player);
 
 	Hud hud = Hud(hud_x, hud_y, player);
-	Inventory inventory = Inventory(player, inputManager);
-	Menu menu = Menu(inputManager);
+	Inventory inventory = Inventory(player);
+	Menu menu = Menu();
 	MiniMap miniMap = MiniMap(map_x, map_y);
 
 
@@ -71,7 +71,7 @@ int main() {
 		if(menu.is_active()) {
 			if(frame % 2 == 0) mvwprintw(debug, 5, 1, "menu ");
 
-			menu.update(isRunning);
+			menu.update(isRunning, inputManager->get_input());
 		}
 		//// IN GIOCO
 		else {
@@ -99,8 +99,8 @@ int main() {
 			if(inventory.is_active()) {
 				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "pause");
 
-				if(!pressedPause) inventory.update(player, inputManager->get_input());
-				else inventory.update(player, ERR);
+				if(!pressedPause) inventory.update(inputManager->get_input());
+				else inventory.update(ERR);
 			}
 			else if(miniMap.isOpen()) {
 				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map  ");

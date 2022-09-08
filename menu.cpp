@@ -1,8 +1,7 @@
 #include "menu.hpp"
 
 
-Menu::Menu(pInputManager input):Pixel_art() {
-this->p_input=input;
+Menu::Menu():Pixel_art() {
 this->menu_is_active=false;
 getmaxyx(stdscr, yMax, xMax);
 this->menu = newwin(25, 60, yMax/2 - 10, xMax/2-25);
@@ -31,10 +30,7 @@ void Menu::open_options(){
 }
 
 void Menu::update_options(){
-int choice;
-choice=p_input->get_input();
-        
-        if(choice==esc){
+        if(input==KEY_ESC){
             keypad(menu,true);
             werase(w_options);
             options_is_active=false;
@@ -47,6 +43,7 @@ bool Menu::is_active(){
 }
 
 void Menu::close_menu(){
+    default_color();
     menu_is_active=false;
     werase(wface);
     werase(menu);
@@ -56,7 +53,8 @@ void Menu::close_menu(){
     wrefresh(caverna);
 }
 
-void Menu::update(bool &isRunning){
+void Menu::update(bool &isRunning, int input){
+    this->input=input;
         if(options_is_active==true){
             update_options();
             if(options_is_active==false){
@@ -64,28 +62,24 @@ void Menu::update(bool &isRunning){
             }
             return;
        }
-       int choice;
-       choice=p_input->get_input();
-       switch (choice){
-           case scroll_up:
-            {highlight--;
-            if(highlight==-1)
+       
+       if(input==scroll_up){
+        highlight--;
+        if(highlight==-1)
             highlight=0;
-            break;}
-            case scroll_down:
-            { highlight++;
-            if(highlight==3)
-            highlight=2;
-            break;}
-            default:
-            break;
        }
-       if((highlight==1) &&(choice==KEY_SELECT_MENU)){
+       if(input==scroll_down){
+        highlight++;
+        if(highlight==3)
+            highlight=2;
+       }
+      
+       if((highlight==1) &&(input==KEY_SELECT_MENU)){
         open_options();
         
         
        }
-       if(((highlight==0) || (highlight==2)) &&(choice==KEY_SELECT_MENU)){
+       if(((highlight==0) || (highlight==2)) &&(input==KEY_SELECT_MENU)){
         close_menu();
         if(highlight == 2) isRunning = false;
         
@@ -106,53 +100,48 @@ void Menu::update(bool &isRunning){
    }
 
 
-void Menu::set_menu_color(){/*
+void Menu::set_menu_color(){
         init_color(COLOR_CYAN, 239, 86, 0); // crea il marrone scuro
         init_color(COLOR_MAGENTA, 474, 321, 192); // crea il marrone chiaro
-        init_color(COLOR_BLUE, 90, 454, 47);//VERDE SCURO*/
+        init_color(COLOR_BLUE, 90, 454, 47);//VERDE SCURO
         
 }
 
 void Menu::print_cave(){
 
-set_menu_color();/*
-init_pair(5, COLOR_BLACK, COLOR_CYAN);//marrone scuro
-init_pair(6, COLOR_BLACK, COLOR_MAGENTA);//marrone chiaro
-init_pair(7, COLOR_BLACK, COLOR_GREEN);//verde
-init_pair(4, COLOR_BLACK, COLOR_BLACK);//nero
-init_pair(8, COLOR_BLUE, COLOR_BLUE);//verde scuro*/
+set_menu_color();
 for(int i = 0; i < c_hight; i++){
     for(int j = 0; j <c_lenght; j++){
         if(cave[i][j]==0){
-            wattron(caverna, COLOR_PAIR(5));
+            wattron(caverna, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_CYAN)));
             mvwaddch(caverna, i*2, j*2, ' ');
             mvwaddch(caverna, i*2 + 1, j*2, ' ');
             mvwaddch(caverna, i*2, j*2 + 1, ' ');
             mvwaddch(caverna, i*2 + 1, j*2 + 1, ' ');
         }
         if(cave[i][j]==1){
-            wattron(caverna, COLOR_PAIR(6));
+            wattron(caverna, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_MAGENTA)));
             mvwaddch(caverna, i*2, j*2, ' ');
             mvwaddch(caverna, i*2 + 1, j*2, ' ');
             mvwaddch(caverna, i*2, j*2 + 1, ' ');
             mvwaddch(caverna, i*2 + 1, j*2 + 1, ' ');
         }
         if(cave[i][j]==2){
-            wattron(caverna, COLOR_PAIR(7));
+            wattron(caverna, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_GREEN)));
             mvwaddch(caverna, i*2, j*2, ' ');
             mvwaddch(caverna, i*2 + 1, j*2, ' ');
             mvwaddch(caverna, i*2, j*2 + 1, ' ');
             mvwaddch(caverna, i*2 + 1, j*2 + 1, ' ');
         }
         if(cave[i][j]==3){
-            wattron(caverna, COLOR_PAIR(4));
+            wattron(caverna, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_BLACK)));
             mvwaddch(caverna, i*2, j*2, ' ');
             mvwaddch(caverna, i*2 + 1, j*2, ' ');
             mvwaddch(caverna, i*2, j*2 + 1, ' ');
             mvwaddch(caverna, i*2 + 1, j*2 + 1, ' ');
         }
         if(cave[i][j]==4){
-            wattron(caverna, COLOR_PAIR(8));
+            wattron(caverna, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_BLUE)));
             mvwaddch(caverna, i*2, j*2, ' ');
             mvwaddch(caverna, i*2 + 1, j*2, ' ');
             mvwaddch(caverna, i*2, j*2 + 1, ' ');

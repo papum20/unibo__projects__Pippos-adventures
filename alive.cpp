@@ -29,7 +29,7 @@ int Alive::getHealth(){
 	return curHealth;
 }
 
-void Alive::changeCurrentHealth(int delta) {
+void Alive::changeCurrentHealth( int delta) {
 	if (curHealth+delta>=maxHealth){
 		curHealth=maxHealth;
 	}

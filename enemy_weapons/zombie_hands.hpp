@@ -25,9 +25,9 @@ const int zombie_x_coordinate=1;
 const int zombie_y_coordinate=1;
 
 const int zombie_horizontal_attack_width=2;
-const int zombie_horizontal_attack_height=1;
+const int zombie_horizontal_attack_height=2;
 
-const int zombie_vertical_attack_width=1;
+const int zombie_vertical_attack_width=2;
 const int zombie_vertical_attack_height=2;
 
 const char zombie_hands_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={

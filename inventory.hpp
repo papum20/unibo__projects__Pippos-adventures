@@ -369,7 +369,6 @@ class Inventory : public Pixel_art{
         WINDOW * w_use;
         int w_use_high;
         int w_use_width;
-        pInputManager p_input;
         int input;
         bool is_open;
         bool options_is_active;
@@ -379,6 +378,7 @@ class Inventory : public Pixel_art{
         int highlight;
         int u_highlight;
         int z_highlight;
+        Player * p;
         
         int curr_inventory_space;
         pItem objects[n_max_inventory_objects];
@@ -387,34 +387,34 @@ class Inventory : public Pixel_art{
         
         
 
-	Inventory(Player * p, pInputManager input);
+	Inventory(Player * p);
         void open_options();
         void update_options();
         void wattroff_inventory(WINDOW * win);
-        void init_inventory_color();
         int calculate_my_weight();
         void insert(const char nome[], const char rarity[], const char description[], const char type[], int stats_attack, int stats_defense, int magic_defense, int attack_magic);
         void insert (pItem item);
-        void fix_array(int array_index, Player * p);
+        void fix_array(int array_index);
         void int_to_string(int number, char string[]);
         void reverse_string(char string[]);
         int count_char(int start_char,char string[]);
+        int count_char_with_space(int start_char,char string[]);
         void print_weapon(int high, int lenght, const char graphic_weapon[][w_graphic_lenght]);
         void item_menu(int array_index);
         void useOrdiscardItem(int y_position, int x_position, int array_index);
         void strcmp_rarity(WINDOW * win, int array_index, int number);
         void print_item_name(WINDOW * win, int y, int x, int array_index);
-        void zaino_menu(int array_index, Player * p);
+        void zaino_menu(int array_index);
         void aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high);
-        void equip_menu(Player * p);
+        void equip_menu();
         void update_equip_menu();
         void open();
-        void update(Player * p, int input);
+        void update(int input);
         int check_class_name(int array_index);
         int check_subclass_name(int array_index);
         bool is_active();
         void close();
-        void update_w_use(int array_index, Player * p);
+        void update_w_use(int array_index);
         int random_item();
 
         

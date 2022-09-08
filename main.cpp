@@ -40,7 +40,7 @@ int main() {
 
 
 
-	menu.open();
+	//menu.open();
 	
 
 
@@ -65,11 +65,11 @@ int main() {
 		//// GESTIONE MENU APERTI CON INPUT
 			// CONTROLLA SE È STATO PREMUTO UN TASTO PAUSA, MA APPLICALO SOLO SE È PRIMA STATO RILASCIATO (ALTRIMENTI IL MENU SI APRIREBBE E CHIUDEREBBE)
 		if(pressedPause && inputManager->get_input() != KEY_PAUSE) pressedPause = false;
-		if(pressedMinimap && inputManager->get_input() != KEY_PAUSE) pressedMinimap = false;
+		if(pressedMinimap && inputManager->get_input() != KEY_MAP) pressedMinimap = false;
 
 		//// MENU INIZIALE
 		if(menu.is_active()) {
-			if(frame % 2 == 0) mvwprintw(debug, 5, 1, "menu");
+			if(frame % 2 == 0) mvwprintw(debug, 5, 1, "menu ");
 
 			menu.update(isRunning);
 		}
@@ -87,7 +87,7 @@ int main() {
 					pressedPause = true;
 				}
 			}
-			else if(inputManager->get_input() == KEY_QUIT) {
+			else if(inputManager->get_input() == KEY_MAP) {
 				if(!pressedMinimap) {
 					if(!miniMap.isOpen()) miniMap.open(level);
 					else miniMap.close();
@@ -103,7 +103,7 @@ int main() {
 				else inventory.update(player, ERR);
 			}
 			else if(miniMap.isOpen()) {
-				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map");
+				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map  ");
 			}
 			else {
 				if(frame%2==0) mvwprintw(debug,5,1,"level");

@@ -44,7 +44,7 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	
 }
 
-void Player::changeCurrentHealth(int delta){
+void Player::changeCurrentHealth(int delta, pMap map){
 	if (curHealth+delta>=maxHealth){
 		curHealth=maxHealth;
 	}
@@ -55,7 +55,7 @@ void Player::changeCurrentHealth(int delta){
 				curHealth=p_max_health;
 			}
 			else
-				destroy();
+				destroy(map);
 		}
 		else
 			curHealth=curHealth+delta;
@@ -66,7 +66,7 @@ void Player::update(pMap map){
 		if (curHealth>0){
 			if (is_attacking){
 				if (equipaggiamento.arma->is_melee){
-					if (attack_counter==0){
+					if (attack_counter==1){
 						check_enemy_melee(map);
 						attack_counter=-1;
 					}
@@ -150,7 +150,7 @@ void Player::update(pMap map){
 			Character::update(map);		//azioni generali
 		}
 		else
-			destroy();
+			destroy(map);
 	}
 }
 
@@ -192,7 +192,7 @@ void Player::check_enemy_melee(pMap map){
     }
 }
 
-void Player::destroy(){
+void Player::destroy(pMap map){
 	delete used_door;
 	for (int i=0; i<MAX_ARTIFACTS; i++)
 		delete artifacts[i];
@@ -203,7 +203,7 @@ void Player::destroy(){
 	delete scudo;
 	delete stivali;
 	delete arma;
-	Character::destroy();
+	Character::destroy(map);
 }
 
 void Player::collect_item(pMap mappa){

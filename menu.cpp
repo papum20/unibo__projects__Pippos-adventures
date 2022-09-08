@@ -106,21 +106,21 @@ void Menu::update(bool &isRunning){
    }
 
 
-void Menu::set_menu_color(){
+void Menu::set_menu_color(){/*
         init_color(COLOR_CYAN, 239, 86, 0); // crea il marrone scuro
         init_color(COLOR_MAGENTA, 474, 321, 192); // crea il marrone chiaro
-        init_color(COLOR_BLUE, 90, 454, 47);//VERDE SCURO
+        init_color(COLOR_BLUE, 90, 454, 47);//VERDE SCURO*/
         
 }
 
 void Menu::print_cave(){
 
-set_menu_color();
+set_menu_color();/*
 init_pair(5, COLOR_BLACK, COLOR_CYAN);//marrone scuro
 init_pair(6, COLOR_BLACK, COLOR_MAGENTA);//marrone chiaro
 init_pair(7, COLOR_BLACK, COLOR_GREEN);//verde
 init_pair(4, COLOR_BLACK, COLOR_BLACK);//nero
-init_pair(8, COLOR_BLUE, COLOR_BLUE);//verde scuro
+init_pair(8, COLOR_BLUE, COLOR_BLUE);//verde scuro*/
 for(int i = 0; i < c_hight; i++){
     for(int j = 0; j <c_lenght; j++){
         if(cave[i][j]==0){

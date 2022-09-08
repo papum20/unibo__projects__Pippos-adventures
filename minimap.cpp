@@ -36,11 +36,16 @@ bool MiniMap::isOpen() {
 //// DRAW
 #pragma region DRAW
 void MiniMap::drawLevel(pRoom rooms[LEVEL_AREA]) {
+	box(window, 0, 0);
 	// CERCO GLI ESTREMI DELLA MAPPA
 	Coordinate mn = COORDINATE_ZERO, mx = COORDINATE_ZERO;
 	Coordinate it = Coordinate(0, 0, size);
+	WINDOW *w=newwin(10,10,10,0);
 	do {
 		if(rooms[it.single()] != NULL) {
+			mvwprintw(w,1,1,to_string(rooms[it.single()]->getPos().x).c_str());
+			mvwprintw(w,2,1,to_string(rooms[it.single()]->getPos().y).c_str());
+			wgetch(w);
 			if(it.x < mn.x) mn.x = it.x;
 			else if(it.x > mx.x) mx.x = it.x;
 			if(it.y < mn.y) mn.y = it.y;
@@ -48,6 +53,7 @@ void MiniMap::drawLevel(pRoom rooms[LEVEL_AREA]) {
 		}
 		it.next();
 	} while(!it.equals(COORDINATE_ZERO));
+	wrefresh(w);
 	// TROVO INFORMAZIONI
 	Coordinate center = Coordinate(mn, mx).times(.5, .5).integer();									//CENTRO
 	Coordinate diff = Coordinate(mx, mn.negative());												//mx-mn
@@ -71,10 +77,10 @@ void MiniMap::drawRoom_in_level(pRoom room, Coordinate start, Coordinate size) {
 		Cell cell;
 		if(!it.inBounds(Coordinate(start, COORDINATE_ONE), Coordinate(Coordinate(start, size), COORDINATE_NEGATIVE) ) )		//se sul bordo
 			cell = MINIMAP_ROOMS_BORDER;
-		else if(it.equals_int(Coordinate(start, Coordinate(size).times(.5, .5))) )
+		else if(it.equals_int(Coordinate(start, size.times(.5, .5))) )
 			cell = MINIMAP_ROOMS_PLAYER;
 		else cell = MINIMAP_ROOMS_EMPTY;
-		mvwaddch(window, start.y, start.x, cell.toChtype());
+		mvwaddch(window, it.y, it.x, cell.toChtype());
 		it.next();
 	} while(!it.equals(start));
 }

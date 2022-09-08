@@ -15,9 +15,10 @@
 //// COSTANTI DI INIZIALIZZAZIONE ATTRIBUTI DI LEVEL
 #define LR_BORDER 1
 #define TB_BORDER 1
-#define N_ROOMS 10																			//numero di stanze (normali) generate per livello
-#define LEVEL_AREA (N_ROOMS * N_ROOMS)														//dimensioni matrice livello
-const Coordinate LEVEL_CENTER = Coordinate(N_ROOMS, N_ROOMS).times(.5, .5).integer();		//dove viene spawnata la prima stanza
+#define N_ROOMS 10														//numero di stanze (normali) generate per livello
+#define LEVEL_AREA (N_ROOMS * N_ROOMS)									//dimensioni matrice livello
+const Coordinate LEVEL_SIZE = Coordinate(N_ROOMS, N_ROOMS);
+const Coordinate LEVEL_CENTER = LEVEL_SIZE.times(.5, .5).integer();		//dove viene spawnata la prima stanza
 #define LEVELS_N 3
 
 // COSTANTI PER IL MOVIMENTO DELLA CAMERA
@@ -44,7 +45,7 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 
 //SPAWN: istanze e probabilità
 //enemy
-const int ENEMIES_N[LEVELS_N] {10, 10, 10};
+const int ENEMIES_N[LEVELS_N] {1, 10, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
 														{Zombie(), Spider()},
 														{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
@@ -135,7 +136,7 @@ class Level {
 		void update(int input);						//da richiamare a ogni frame
 
 		// GET
-		void getLevelMap(pRoom map[]);
+		void getLevelMap(pRoom map[LEVEL_AREA]);
 		//void getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player);	//ritorna (modifica) mappa (disposizione stanze), dimensioni (della matrice del livello), player
 
 		// SET

@@ -18,12 +18,13 @@ class Enemy : public Character {
 		Enemy();
 		Enemy(pCharacter p);
 		Enemy(int max_health, int max_stamina, int p_g, pCharacter p);
+		void destroy(pMap map);
 		void copyEnemy(Enemy B);			//copia i parametri di B
 
 		void update(pMap map);
+		void check_enemy_melee(pMap map);
 		void meleeIA(pMap map);
 		void rangedIA(pMap map);
-		void destroy();
 		int getPoints();
 };
 

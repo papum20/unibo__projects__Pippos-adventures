@@ -22,7 +22,7 @@ Character::Character(int maxH, int maxS) : Alive(maxH, maxS) {
 	current_animation=0;
 }
 
-void Character::destroy(){
+void Character::destroy(pMap map){
 	delete equipaggiamento.arma;
 	delete equipaggiamento.collana;
 	delete equipaggiamento.scudo;
@@ -35,7 +35,7 @@ void Character::destroy(){
 	for (int i=0; i<DEF_NUMBER; i++){
 		delete defensive_items[i];
 	}
-	Physical::destroy();
+	Physical::destroy(map);
 }
 
 void Character::initialize_equipment(){
@@ -283,6 +283,9 @@ void Character::moveRight(pMap map){
 
 
 //FUNZIONI COMBATTIMENTO
+void Character::check_enemy_melee(pMap map){
+	
+}
 
 void Character::initiate_attack (){
 	is_attacking=true;

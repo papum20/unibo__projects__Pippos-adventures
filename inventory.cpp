@@ -147,8 +147,8 @@ void Inventory::wattroff_inventory(WINDOW * win){
     wattroff(win, COLOR_PAIR(14));
 }
 
-void Inventory::init_inventory_color(){
-        init_color(COLOR_CYAN, 532, 250, 82);//colore arancione
+void Inventory::init_inventory_color(){/*
+        F(COLOR_CYAN, 532, 250, 82);//colore arancione
         init_pair(3, COLOR_YELLOW, COLOR_BLACK);//comune
         init_pair(4, COLOR_YELLOW, COLOR_BLUE); //rarità raro
         init_pair(5, COLOR_YELLOW, COLOR_MAGENTA);//rarità epico
@@ -162,7 +162,7 @@ void Inventory::init_inventory_color(){
         init_pair(11, COLOR_WHITE, COLOR_BLACK);
         init_pair(12, COLOR_BLUE, COLOR_BLACK); //rarità raro
         init_pair(13, COLOR_MAGENTA, COLOR_BLACK);//rarità epico
-        init_pair(14, COLOR_CYAN, COLOR_BLACK);//rarità leggendario
+        init_pair(14, COLOR_CYAN, COLOR_BLACK);//rarità leggendario*/
 
 }
 
@@ -740,7 +740,6 @@ void Inventory::open(){
     pixel_phrase(w_inventory, 36, 2, "equip", false);
     pixel_phrase(w_inventory, 70, 2, "opzioni", false);
     keypad(w_inventory, true);   
-       
 }
 
 

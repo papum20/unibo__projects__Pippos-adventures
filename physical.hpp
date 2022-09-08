@@ -95,7 +95,7 @@ class Physical {
 		Physical();
 		void copyPhysical(Physical B);			//copia i parametri di B
 		virtual void update(pMap map);			//da richiamare a ogni frame
-		virtual void destroy();
+		virtual void destroy(pMap map);
 
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
 		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata

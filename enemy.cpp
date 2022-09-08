@@ -34,9 +34,9 @@ int Enemy::getPoints(){
 	return points_given;
 }
 
-void Enemy::destroy(){
+void Enemy::destroy(pMap map){
 	delete player;
-	Character::destroy();
+	Character::destroy(map);
 }
 
 void Enemy::copyEnemy(Enemy B) {

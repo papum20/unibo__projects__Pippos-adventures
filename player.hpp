@@ -161,8 +161,8 @@ class Player : public Character {
 		pDoor usedDoor();				//porta usata, NULL se non sta usando una porta
 		void useDoor();					//usa la porta (e la setta a usata, cioè NULL)
 
-		void destroy();
-		void changeCurrentHealth(int delta);
+		void destroy(pMap map);
+		void changeCurrentHealth(int delta, pMap map);
 		
 };
 

@@ -58,7 +58,7 @@ void Projectile::update(pMap map){
             //        defender->changeCurrentHealth(calculate_damage(defender));    //cambio la vita in base ai danni subiti
             //    }
             //}
-            destroy();                                                              //visto che ha colliso, elimino il proiettile
+            destroy(map);                                                              //visto che ha colliso, elimino il proiettile
         }
         else{                                               //se non ci sono state collisioni
             switch (direction){                             //il proiettile si muove verso la sua direzione
@@ -75,8 +75,8 @@ void Projectile::update(pMap map){
                     moveRight(map);
                     break;
             }
+            Physical::update(map);
         }
-        Physical::update(map);
     }
 }
 

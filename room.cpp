@@ -23,7 +23,7 @@
 		Coordinate i(0, 0, size);
 		do {
 			pPhysical obj = map->physical[i.single()];
-			if(obj != NULL && obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) map->physical[i.single()]->destroy();
+			if(obj != NULL && obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) map->physical[i.single()]->destroy(map);
 			i.next();
 		} while(!i.equals(COORDINATE_ZERO));
 		delete map;
@@ -357,7 +357,7 @@
 		int i = 0;
 		while(valid && i < found) {
 			if(physical[i]->isInanimate() || physical[i]->getId() == ID_CHEST) valid = false;
-			else physical[i]->destroy();	//distruggi oggetto se è character o projectile
+			else physical[i]->destroy(map);	//distruggi oggetto se è character o projectile
 			i++;
 		}
 		return valid;

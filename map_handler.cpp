@@ -364,12 +364,13 @@ MapHandler::MapHandler() {
 		} else return false;
 	}
 	void MapHandler::remove(pMap map, pPhysical obj) {
-		if(!obj->isInanimate()) {
-			Coordinate i = Coordinate(obj->getPosition(), obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
+		if(!obj->isInanimate() || obj->getId() == ID_CHEST) {
+			Coordinate i = Coordinate(obj->getPosition(), map->size, obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
 			do {
 				map->physical[i.single()] = FLOOR_INSTANCE;
 				map->characters[i.single()] = NULL;
 				map->chests[i.single()] = NULL;
+				map->projectiles[i.single()] = NULL;
 				i.next();
 			} while(!i.equals(obj->getPosition()));
 		}
@@ -403,15 +404,15 @@ MapHandler::MapHandler() {
 	}
 	Coordinate MapHandler::checkLine_floor_next(pMap map, Coordinate i, Coordinate delta) {
 		Coordinate j = Coordinate(i, delta);
-		Coordinate t1 = Coordinate(i.x, j.y);
-		Coordinate t2 = Coordinate(j.x, i.y);
+		Coordinate t1 = Coordinate(i.x, j.y, map->size);
+		Coordinate t2 = Coordinate(j.x, i.y, map->size);
 		if(map->physical[t1.single()]->getId() == ID_WALL && map->physical[t2.single()]->getId() == ID_WALL) return COORDINATE_ERROR;
 		else return j;
 	}
 	Coordinate MapHandler::checkLine_ceil_next(pMap map, Coordinate i, Coordinate delta) {
 		Coordinate j = Coordinate(i, delta);
-		Coordinate t1 = Coordinate(i.x, j.y);
-		Coordinate t2 = Coordinate(j.x, i.y);
+		Coordinate t1 = Coordinate(i.x, j.y, map->size);
+		Coordinate t2 = Coordinate(j.x, i.y, map->size);
 		if(map->physical[t1.single_ceil()]->getId() == ID_WALL && map->physical[t2.single_ceil()]->getId() == ID_WALL) return COORDINATE_ERROR;
 		else return j;
 	}

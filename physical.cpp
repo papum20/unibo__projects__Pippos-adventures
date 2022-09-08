@@ -1,6 +1,5 @@
 #include "physical.hpp"
-
-
+#include "map_handler.hpp"
 
 
 Physical::Physical() {
@@ -27,11 +26,12 @@ void Physical::update(pMap map) {
     updated = true;
 }
 
-void Physical::destroy() {
+void Physical::destroy(pMap map) {
     // ELIMINA PUNTATORI ANIMAZIONI
-    for(int i = 0; i < MAX_ANIMATIONS; i++)
-        if(animations[i] != NULL) animations[i]->delete_list();
+    for(int i = 0; i < animations_n; i++)
+        if(animations[i] != NULL) animations[i] = NULL;
     // ELIMINA OGGETTO
+    MapHandler::remove(map, this);
     delete this;
 }
 

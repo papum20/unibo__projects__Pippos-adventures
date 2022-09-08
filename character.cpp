@@ -283,6 +283,9 @@ void Character::moveRight(pMap map){
 
 
 //FUNZIONI COMBATTIMENTO
+void Character::check_enemy_melee(pMap map){
+	
+}
 
 void Character::initiate_attack (){
 	is_attacking=true;

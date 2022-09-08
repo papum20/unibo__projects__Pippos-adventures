@@ -47,46 +47,50 @@ void Enemy::copyEnemy(Enemy B) {
 void Enemy::update(pMap map){
 	if(!updated){
 		if (curHealth>0){	
-			if (is_attacking){
-				//if (!animations[current_animation]->isLastFrame()){
-				//	if (attack_counter==1){
-				//		if ((equipaggiamento.arma)->is_melee)
-				//			check_enemy_melee(map);
-				//		else{
-				//			ranged_attack(map);
-				//		}
-				//	}
-				//	next_animation();
-				//	equipaggiamento.arma->next_animation();
-				//	attack_counter--;
-				//}
-				//else{
-				//	is_attacking=false;
-				//	switch (direction){
-				//		case 'u':
-				//			current_animation=move_up_index;
-				//			equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
-				//			break;
-				//		case 'd':
-				//			current_animation=move_down_index;
-				//			equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
-				//			break;
-				//		case 'l':
-				//			current_animation=move_left_index;
-				//			equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
-				//			break;
-				//		case 'r':
-				//			current_animation=move_right_index;
-				//			equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
-				//			break;	
-				//	}
-				//}	
+			if (!is_attacking){
+				if (equipaggiamento.arma->is_melee){
+					meleeIA(map);
+				}
+				else{
+					rangedIA(map);
+				}
 			}
 			else{
-				if (equipaggiamento.arma->is_melee)
-					meleeIA(map);
-				else
-					;//rangedIA(map);
+				if (equipaggiamento.arma->is_melee){
+					if (attack_counter==1){
+						check_enemy_melee(map);
+						attack_counter=-1;
+					}
+					else
+						attack_counter--;
+				}
+				if (!animations[current_animation]->isLastFrame()){
+					next_animation();
+					equipaggiamento.arma->next_animation();
+				}
+				else{
+					if (!equipaggiamento.arma->is_melee)
+						ranged_attack(map);
+					is_attacking=false;
+					switch (direction){
+						case 'u':
+							current_animation=move_up_index;
+							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
+							break;
+						case 'd':
+							current_animation=move_down_index;
+							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
+							break;
+						case 'l':
+							current_animation=move_left_index;
+							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
+							break;
+						case 'r':
+							current_animation=move_right_index;
+							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
+							break;	
+					}
+				}	
 			}
 		}
 		else
@@ -95,6 +99,40 @@ void Enemy::update(pMap map){
 	}
 }
 
+void Enemy::check_enemy_melee(pMap map){
+    pPhysical objects[ROOM_AREA];
+	Coordinate start;
+	Coordinate end;
+	switch (direction){
+		case 'u':
+			start=Coordinate (pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y+size.y);
+			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
+			break;
+		case 'd':
+			start=Coordinate ( pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y-(equipaggiamento.arma)->vertical_size.y );
+			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
+			break;
+		case 'l':
+			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
+			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
+			break;
+		case 'r':
+			start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
+			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
+			break;
+	}
+
+	int dim=MapHandler::checkRectangle(map, objects, start, end);       
+    
+    if (dim>0){                                                        
+        for (int i=0; i<dim; i++){
+            if (objects[i]->getId()==player->getId()){          
+                player->changeCurrentHealth(calculate_damage(player));
+            }
+			break;
+        }
+    }
+}
 
 
 void Enemy::meleeIA(pMap map){

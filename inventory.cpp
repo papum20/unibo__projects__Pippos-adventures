@@ -436,8 +436,8 @@ if(choice==invio){
                             p->change_boots (static_cast< pBoots>(objects[array_index]));
                         }
                     }
-    /*           }
-            }*//*  && ((check_subclass_name(array_index)==check_subclass_name(i)
+                }
+            }
                   
         }
         }
@@ -468,10 +468,10 @@ if(choice==invio){
         z_highlight=0;
         zaino_menu(array_index, p);
         return;  
-    }*/
+    }
 }
 
-/*void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){
+void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){
     if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
         wattron(win, COLOR_PAIR(number));
     else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
@@ -480,9 +480,9 @@ if(choice==invio){
         wattron(win, COLOR_PAIR(number + 2));
     else if(strcmp(objects[array_index]->rarity, rarity[3]) == 0)
         wattron(win, COLOR_PAIR(number + 3));
-}*/
+}
 
-void Inventory::print_item_name(WINDOW * win, int y, int x, int array_index){/*
+void Inventory::print_item_name(WINDOW * win, int y, int x, int array_index){
 int n;
     mvwprintw(win, y, x, objects[array_index]->name);
     wattron(win, COLOR_PAIR(7));
@@ -508,14 +508,11 @@ for(int i=0; i<curr_inventory_space; i++){
         high = high + 2;
     }
 }
-    
-
-
 wattroff(win, COLOR_PAIR(7));
-wrefresh(win);*/
+wrefresh(win);
 }
 
-void Inventory::zaino_menu(int array_index, Player * p){/*
+void Inventory::zaino_menu(int array_index, Player * p){
 zaino_is_active=true;
 if(w_use_is_active==true){
   update_w_use(array_index, p);
@@ -618,15 +615,15 @@ choice=input;
         print_item_name(w_zaino, high - 2, xMax/2 -15, z_highlight - 1);
         wattroff_inventory(w_zaino);
         }} 
- */  
+ 
 }
 
 void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high){
     int counter = 0;
      counter = counter + 3 * high;
         
-  //      mvwprintw(win, y, x, objects[array_index]->type);
-        mvwprintw(win, y, x + 10, objects[array_index]->name);
+        //mvwprintw(win, y, x, objects[array_index]->type);
+        mvwprintw(win, y, x/* + 10*/, objects[array_index]->name);
         mvwprintw(win, y + 1 + counter, x, "rarita'");
         mvwprintw(win, y + 1 + counter, x + 10, objects[array_index]->rarity);
         counter = counter + 3 * high;
@@ -701,26 +698,27 @@ mvwprintw(w_equip, 13, 72, defense_magic);
 wrefresh(w_equip);
 
 
-//for(int i=0; i<curr_inventory_space; i++){
-//if(check_class_name(i)==12){
-//if((strcmp(objects[i]->type, type[2]) == 0) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-//    aux_equip_item_menu(w_equip, 12, 2, i, 0);
-//    }
-//
-//if((strcmp(objects[i]->type, type[4]) == 0) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-//    aux_equip_item_menu(w_equip, 7, 2, i, 0);
-//    }
-//if((strcmp(objects[i]->type, type[8]) == 0) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-//    aux_equip_item_menu(w_equip, 22, 2, i, 0);
-//    }
-//if((strcmp(objects[i]->type, type[7]) == 0) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-//    aux_equip_item_menu(w_equip, 27, 2, i, 0);
-//    }}
-//if(check_class_name(i)==11){
-//if(static_cast< Weapon *>(objects[i])->is_equipped){
-//    aux_equip_item_menu(w_equip, 2, 2, i, 0);
-//    }}
-//}        
+for(int i=0; i<curr_inventory_space; i++){
+if(check_class_name(i)==12){
+    
+if((check_subclass_name(i)==2) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
+    aux_equip_item_menu(w_equip, 12, 2, i, 0);
+    }
+
+if((check_subclass_name(i)==4) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
+    aux_equip_item_menu(w_equip, 7, 2, i, 0);
+    }
+if((check_subclass_name(i)==8) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
+    aux_equip_item_menu(w_equip, 22, 2, i, 0);
+    }
+if((check_subclass_name(i)==7) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
+    aux_equip_item_menu(w_equip, 27, 2, i, 0);
+    }}
+if(check_class_name(i)==11){
+if(static_cast< Weapon *>(objects[i])->is_equipped){
+    aux_equip_item_menu(w_equip, 2, 2, i, 0);
+    }}
+}        
 }
 
 void Inventory:: update_equip_menu(){

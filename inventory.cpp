@@ -42,7 +42,7 @@ int Inventory::random_item(){
 int r;
  for(int i=0;i<100;i++){
   r = (rand() % curr_inventory_space) + 1;
-  if((check_class_name(r)==1) || (check_class_name(r)==2)){
+  if((check_class_name(r)==11) || (check_class_name(r)==12)){
     return r;
    }
  }
@@ -72,13 +72,64 @@ int choice;
 }
 
 int Inventory::check_class_name(int array_index){
-    if(objects[array_index]->isWeapon())
+    
+    if(objects[array_index]->isSword())
+        return 0;
+    else if(objects[array_index]->isBow())
         return 1;
-    else if(objects[array_index]->isItemDifensivo())
+    else if(objects[array_index]->isArmor())
         return 2;
-    else if(objects[array_index]->isArtifact())
+    else if(objects[array_index]->isShield())
         return 3;
-    else return 0;
+    else if(objects[array_index]->isHelm())
+        return 4;
+    else if(objects[array_index]->isAxe())
+        return 5;
+    else if(objects[array_index]->isPotion())
+        return 6;
+    else if(objects[array_index]->isBoots())
+        return 7;
+    else if(objects[array_index]->isNecklace())
+        return 8;
+    else if(objects[array_index]->isRod())
+        return 9;
+    else if(objects[array_index]->isRune())
+        return 10;
+
+    else if(objects[array_index]->isWeapon())
+        return 11;
+    else if(objects[array_index]->isItemDifensivo())
+        return 12;
+    else if(objects[array_index]->isArtifact())
+        return 13;
+    else return -1;
+}
+
+int Inventory::check_subclass_name(int array_index){
+    
+    if(objects[array_index]->isSword())
+        return 0;
+    else if(objects[array_index]->isBow())
+        return 1;
+    else if(objects[array_index]->isArmor())
+        return 2;
+    else if(objects[array_index]->isShield())
+        return 3;
+    else if(objects[array_index]->isHelm())
+        return 4;
+    else if(objects[array_index]->isAxe())
+        return 5;
+    else if(objects[array_index]->isPotion())
+        return 6;
+    else if(objects[array_index]->isBoots())
+        return 7;
+    else if(objects[array_index]->isNecklace())
+        return 8;
+    else if(objects[array_index]->isRod())
+        return 9;
+    else if(objects[array_index]->isRune())
+        return 10;
+    else return -1;
 }
 
 void Inventory::wattroff_inventory(WINDOW * win){
@@ -119,7 +170,7 @@ void Inventory::init_inventory_color(){
 
 
 void Inventory::fix_array(int array_index, Player * p){
-    /*
+    
     if(array_index==curr_inventory_space){
          curr_inventory_space--;}
     else{
@@ -127,8 +178,8 @@ void Inventory::fix_array(int array_index, Player * p){
          strcpy(objects[array_index]->name, " ");
         strcpy(objects[array_index]->rarity, " ");
             strcpy(objects[array_index]->description, " ");
-            strcpy(objects[array_index]->type, " ");
-        if((check_class_name(array_index)==1))
+            
+        if((check_class_name(array_index)==11))
         {
            static_cast< Weapon *>(objects[array_index])->danno_fisico=0;
            static_cast< Weapon *>(objects[array_index])->danno_magico=0;
@@ -136,14 +187,14 @@ void Inventory::fix_array(int array_index, Player * p){
 
            
         }
-         if((check_class_name(array_index)==2))
+         if((check_class_name(array_index)==12))
         {
            static_cast< item_difensivo *>(objects[array_index])->difesa_fisica=0;
            static_cast< item_difensivo *>(objects[array_index])->difesa_magica=0;
            static_cast< item_difensivo *>(objects[array_index])->is_equipped=false;
            
         }
-    }  */
+    }  
     }
 
   
@@ -195,7 +246,7 @@ for(int i=0; i<high; i++){
 wrefresh(w_weapon);
 }
 
-void Inventory::item_menu(int array_index){/*
+void Inventory::item_menu(int array_index){
 box(w_item, 0, 0);
 int yMax, xMax;
 getmaxyx(w_item, yMax, xMax);
@@ -238,11 +289,8 @@ k++;
 }}
 wrefresh(w_item);
 
-for(int i = 0; i<n_graphic_types_items; i++){
-    if(strcmp(objects[array_index]->type, type[i]) == 0)
-        print_weapon(w_graphic_high, w_graphic_lenght, graphic_items[i]);
-}
-wrefresh(w_weapon);*/
+print_weapon(w_graphic_high, w_graphic_lenght, graphic_items[check_subclass_name(array_index)]);
+wrefresh(w_weapon);
 }
 
 void Inventory::useOrdiscardItem(int y_position, int x_position, int array_index){//c'è il menu solo se premi invio
@@ -255,14 +303,14 @@ box(w_use, 0, 0);
 keypad(w_zaino, false);
 wattron(w_use, COLOR_PAIR(3));
 
-if(((check_class_name(array_index))==3)){
+if(((check_class_name(array_index))==13)){
     mvwprintw(w_use, 1, 4, "usa");
     
 }
 else
     mvwprintw(w_use, 1, 2, "equipaggia");
 wattroff(w_use, COLOR_PAIR(3));
-if((check_class_name(array_index))==3 || (((check_class_name(array_index))==2)&&(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))) || (((check_class_name(array_index))==1)&&(!(static_cast<Weapon *>(objects[array_index])->is_equipped))))
+if((check_class_name(array_index))==13 || (((check_class_name(array_index))==12)&&(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))) || (((check_class_name(array_index))==11)&&(!(static_cast<Weapon *>(objects[array_index])->is_equipped))))
    mvwprintw(w_use, 2, 3, "scarta");
 
 keypad(w_use, true);
@@ -274,9 +322,9 @@ wrefresh(w_use);
 
 }
 
-void Inventory::update_w_use(int array_index, Player * p){/*
+void Inventory::update_w_use(int array_index, Player * p){
 bool is_item = false;
-if((check_class_name(array_index))==3)
+if((check_class_name(array_index))==13)
  is_item=true;
 
 int choice;
@@ -293,7 +341,7 @@ if(choice==KEY_PAUSE){
 if(choice==scroll_up){
         u_highlight--;
         if(u_highlight<=0){
-           if((check_class_name(array_index))==3 || (((check_class_name(array_index))==2)&&(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))) || (((check_class_name(array_index))==1)&&(!(static_cast<Weapon *>(objects[array_index])->is_equipped))))
+           if((check_class_name(array_index))==13 || (((check_class_name(array_index))==12)&&(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))) || (((check_class_name(array_index))==11)&&(!(static_cast<Weapon *>(objects[array_index])->is_equipped))))
               u_highlight=2;
             else
                u_highlight=1;
@@ -301,7 +349,7 @@ if(choice==scroll_up){
 }
 if(choice==scroll_down){
         u_highlight++;
-     if((check_class_name(array_index))==3 || (((check_class_name(array_index))==2)&&(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))) || (((check_class_name(array_index))==1)&&(!(static_cast<Weapon *>(objects[array_index])->is_equipped)))){
+     if((check_class_name(array_index))==13 || (((check_class_name(array_index))==12)&&(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))) || (((check_class_name(array_index))==11)&&(!(static_cast<Weapon *>(objects[array_index])->is_equipped)))){
         if(u_highlight>=3){
             u_highlight=1;
         }
@@ -315,7 +363,7 @@ if(choice==scroll_down){
 }
 if(u_highlight==1){
     wattron(w_use, COLOR_PAIR(3)); 
-    if(((check_class_name(array_index))==3))
+    if(((check_class_name(array_index))==13))
         mvwprintw(w_use, 1, 4, "usa");
     else
         mvwprintw(w_use, 1, 2, "equipaggia");   
@@ -330,7 +378,7 @@ if(u_highlight==2){
     mvwprintw(w_use, 2, 3, "scarta");
     wattroff(w_use, COLOR_PAIR(3));
     wattron(w_use, COLOR_PAIR(7)); 
-    if(((check_class_name(array_index))==3))
+    if(((check_class_name(array_index))==13))
         mvwprintw(w_use, 1, 4, "usa");
     else
         mvwprintw(w_use, 1, 2, "equipaggia");
@@ -363,29 +411,33 @@ if(choice==invio){
     else if(u_highlight==1){
         for(int i = 0; i<curr_inventory_space; i++){
             
-            if(check_class_name(array_index)==1){
-                if(((array_index!=i) && (static_cast< Weapon *>(objects[i])->is_equipped)) || ((strcmp(objects[array_index]->type, objects[i]->type) == 0) && (array_index!=i) && (static_cast< Weapon *>(objects[i])->is_equipped))){
-                    p->change_weapon(static_cast< pWeapon> (objects[array_index]));
+            if(check_class_name(array_index)==11){
+                if((array_index!=i) && (check_class_name(i)==11)){
+                    if(static_cast< Weapon *>(objects[i])->is_equipped)
+                        p->change_weapon(static_cast< pWeapon> (objects[array_index]));
             }
             }
-            if(check_class_name(array_index)==2){
-                 if(((array_index!=i) && (static_cast< item_difensivo *>(objects[i])->is_equipped)) && (strcmp(objects[array_index]->type, objects[i]->type) == 0) /*&& (array_index!=i) && (static_cast< item_difensivo *>(objects[i])->is_equipped)*///){
-    /*            if(strcmp(objects[i]->type, type[2]) == 0){
-                    p->change_armor (static_cast< pArmor>(objects[array_index]));
-                }
-                if(strcmp(objects[i]->type, type[3]) == 0){
-                   p->change_shield (static_cast< pShield>(objects[array_index])); 
-                }
-                if(strcmp(objects[i]->type, type[4]) == 0){
-                    p->change_helm (static_cast< pHelm>(objects[array_index])); 
-                }
-                if(strcmp(objects[i]->type, type[8]) == 0){
-                    p->change_necklace (static_cast< pNecklace>(objects[array_index]));
-                }
-                if(strcmp(objects[i]->type, type[7]) == 0){
-                    p->change_boots (static_cast< pBoots>(objects[array_index]));
-                }}
-            }*//*
+            if(check_class_name(array_index)==12){
+                 if((array_index!=i) && (check_class_name(i)==12)){
+                    if((static_cast< item_difensivo *>(objects[i])->is_equipped)){
+                        if((check_subclass_name(array_index)==check_subclass_name(i))&&(check_subclass_name(array_index)==2)){
+                            p->change_armor (static_cast< pArmor>(objects[array_index]));
+                        }
+                        if((check_subclass_name(array_index)==check_subclass_name(i))&&(check_subclass_name(array_index)==3)){
+                            p->change_shield (static_cast< pShield>(objects[array_index])); 
+                        }
+                        if((check_subclass_name(array_index)==check_subclass_name(i))&&(check_subclass_name(array_index)==4)){
+                            p->change_helm (static_cast< pHelm>(objects[array_index])); 
+                        }
+                        if((check_subclass_name(array_index)==check_subclass_name(i))&&(check_subclass_name(array_index)==8)){
+                            p->change_necklace (static_cast< pNecklace>(objects[array_index]));
+                        }
+                        if((check_subclass_name(array_index)==check_subclass_name(i))&&(check_subclass_name(array_index)==7)){
+                            p->change_boots (static_cast< pBoots>(objects[array_index]));
+                        }
+                    }
+    /*           }
+            }*//*  && ((check_subclass_name(array_index)==check_subclass_name(i)
                   
         }
         }
@@ -419,7 +471,7 @@ if(choice==invio){
     }*/
 }
 
-void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){/*
+/*void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){
     if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
         wattron(win, COLOR_PAIR(number));
     else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
@@ -427,8 +479,8 @@ void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){/*
     else if(strcmp(objects[array_index]->rarity, rarity[2]) == 0)
         wattron(win, COLOR_PAIR(number + 2));
     else if(strcmp(objects[array_index]->rarity, rarity[3]) == 0)
-        wattron(win, COLOR_PAIR(number + 3));*/
-}
+        wattron(win, COLOR_PAIR(number + 3));
+}*/
 
 void Inventory::print_item_name(WINDOW * win, int y, int x, int array_index){/*
 int n;
@@ -437,13 +489,13 @@ int n;
 int high = 2;
 for(int i=0; i<curr_inventory_space; i++){
     n = count_char(0, objects[i]->name) + 1;
-    if((check_class_name(i))==1){
+    if((check_class_name(i))==11){
     if(static_cast< Weapon *>(objects[i])->is_equipped)
         mvwaddch(win, high, x + n, 'E');
     else
         mvwaddch(win, high, x + n, ' ');
     high = high + 2;}
- else if((check_class_name(i))==2){
+ else if((check_class_name(i))==12){
     if(static_cast< item_difensivo *>(objects[i])->is_equipped)
         mvwaddch(win, high, x + n, 'E');
     else
@@ -579,7 +631,7 @@ void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index,
         mvwprintw(win, y + 1 + counter, x + 10, objects[array_index]->rarity);
         counter = counter + 3 * high;
     int i = 2;
-    if((check_class_name(array_index))==1){
+    if((check_class_name(array_index))==11){
        char s_attack[max_n_digit_stats];
        int_to_string(static_cast< Weapon *>(objects[array_index])->danno_fisico, s_attack);
             mvwprintw(win, y + i + counter, x, "attacco fisico");
@@ -594,7 +646,7 @@ void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index,
             i++;
             counter = counter + 3 * high;
     }
-    if((check_class_name(array_index))==2){
+    if((check_class_name(array_index))==12){
          char defense[max_n_digit_stats];
        int_to_string(static_cast< item_difensivo *>(objects[array_index])->difesa_fisica, defense);
             mvwprintw(win, y + i + counter, x, "difesa fisica");
@@ -650,7 +702,7 @@ wrefresh(w_equip);
 
 
 //for(int i=0; i<curr_inventory_space; i++){
-//if(check_class_name(i)==2){
+//if(check_class_name(i)==12){
 //if((strcmp(objects[i]->type, type[2]) == 0) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
 //    aux_equip_item_menu(w_equip, 12, 2, i, 0);
 //    }
@@ -664,7 +716,7 @@ wrefresh(w_equip);
 //if((strcmp(objects[i]->type, type[7]) == 0) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
 //    aux_equip_item_menu(w_equip, 27, 2, i, 0);
 //    }}
-//if(check_class_name(i)==1){
+//if(check_class_name(i)==11){
 //if(static_cast< Weapon *>(objects[i])->is_equipped){
 //    aux_equip_item_menu(w_equip, 2, 2, i, 0);
 //    }}

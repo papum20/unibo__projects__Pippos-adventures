@@ -411,6 +411,7 @@ class Inventory : public Pixel_art{
         void open();
         void update(Player * p, int input);
         int check_class_name(int array_index);
+        int check_subclass_name(int array_index);
         bool is_active();
         void close();
         void update_w_use(int array_index, Player * p);

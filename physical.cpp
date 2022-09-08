@@ -69,6 +69,72 @@ void Physical::next_animation(){
     bool Physical::isItemDifensivo() {
         return id >= ID_ARTIFACT_S && id <= ID_ARTIFACT_E;
     }
+    bool Physical::isSword(){
+        if(id==ID_WEAPON_SWORD)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isAxe(){
+        if(id==ID_WEAPON_AXE)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isBow(){
+        if(id==ID_WEAPON_BOW)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isRod(){
+        if(id==ID_WEAPON_ROD)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isArmor(){
+        if(id==ID_ITEM_DIFENSIVO_ARMOR)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isShield(){
+        if(id==ID_ITEM_DIFENSIVO_SHIELD)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isHelm(){
+        if(id==ID_ITEM_DIFENSIVO_HELM)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isBoots(){
+        if(id==ID_ITEM_DIFENSIVO_BOOTS)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isNecklace(){
+        if(id==ID_ITEM_DIFENSIVO_NECKLACE)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isPotion(){
+        if(id==ID_ARTIFACT_POTION)
+            return true;
+        else 
+            return false;
+    }
+    bool Physical::isRune(){
+        if(id==ID_ARTIFACT_RUNE)
+            return true;
+        else 
+            return false;
+    }
     bool Physical::findInArray(pPhysical A[ROOM_AREA], int len) {
         bool found = false;
         int i = 0;

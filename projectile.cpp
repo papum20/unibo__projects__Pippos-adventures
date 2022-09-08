@@ -30,33 +30,33 @@ void Projectile::update(pMap map){
         pAlive defender=NULL;
         pPhysical objects[ROOM_AREA];
         Coordinate end;
-        //switch (direction){                 //guardo se ci sono oggetti in collisione con il proiettile
-        //    case 'u':
-        //        end=Coordinate (Coordinate (pos, vertical_size), Coordinate (-1, -1));
-        //        break;
-        //    case 'd':
-        //        end=Coordinate (Coordinate (pos, vertical_size), Coordinate (-1, -1));
-        //        break;
-        //    case 'l':
-        //        end=Coordinate (Coordinate (pos, horizontal_size), Coordinate (-1, -1));
-        //        break;
-        //    case 'r':
-        //        end= Coordinate (Coordinate (pos, horizontal_size), Coordinate (-1, -1));
-        //        break;
-        //}
-//
-        //int dim=MapHandler::checkRectangle(map, objects, this->pos, end);       //numero di oggetti in collisione
-        //
-        //if (dim>0){                                                            //se è maggiore di zero, calcolo le collisioni
-        //    for (int i=0; i<dim; i++){
-        //        if (objects[i]->getId()!=this->shooter_id && objects[i]->isCharacter()){         //se si tratta di un personaggio diverso dalla categoria di colui che ha sparato, 
-        //            defender=MapHandler::checkAlive(map, objects[i]->getPosition());    //mi serve un puntatore a character
-        //            defender->changeCurrentHealth(calculate_damage(defender));    //cambio la vita in base ai danni subiti
-        //        }
-        //    }
-        //    destroy();                                                              //visto che ha colliso, elimino il proiettile
-        //}
-        //else{                                               //se non ci sono state collisioni
+        switch (direction){                 //guardo se ci sono oggetti in collisione con il proiettile
+            case 'u':
+                end=Coordinate (Coordinate (pos, vertical_size), Coordinate (-1, -1));
+                break;
+            case 'd':
+                end=Coordinate (Coordinate (pos, vertical_size), Coordinate (-1, -1));
+                break;
+            case 'l':
+                end=Coordinate (Coordinate (pos, horizontal_size), Coordinate (-1, -1));
+                break;
+            case 'r':
+                end= Coordinate (Coordinate (pos, horizontal_size), Coordinate (-1, -1));
+                break;
+        }
+
+        int dim=MapHandler::checkRectangle(map, objects, this->pos, end);       //numero di oggetti in collisione
+        
+        if (dim>0){                                                            //se è maggiore di zero, calcolo le collisioni
+            for (int i=0; i<dim; i++){
+                if (objects[i]->getId()!=this->shooter_id && objects[i]->isCharacter()){         //se si tratta di un personaggio diverso dalla categoria di colui che ha sparato, 
+                    defender=MapHandler::checkAlive(map, objects[i]->getPosition());    //mi serve un puntatore a character
+                    defender->changeCurrentHealth(calculate_damage(defender));    //cambio la vita in base ai danni subiti
+                }
+            }
+            destroy();                                                              //visto che ha colliso, elimino il proiettile
+        }
+        else{                                               //se non ci sono state collisioni
             switch (direction){                             //il proiettile si muove verso la sua direzione
                 case 'u':
                     moveUp(map);
@@ -71,7 +71,8 @@ void Projectile::update(pMap map){
                     moveRight(map);
                     break;
             }
-        //}
+        }
+        Physical::update(map);
     }
 }
 

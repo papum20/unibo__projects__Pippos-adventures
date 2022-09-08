@@ -22,6 +22,7 @@ class Enemy : public Character {
 		void copyEnemy(Enemy B);			//copia i parametri di B
 
 		void update(pMap map);
+		void check_enemy_melee(pMap map);
 		void meleeIA(pMap map);
 		void rangedIA(pMap map);
 		int getPoints();

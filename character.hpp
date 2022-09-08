@@ -80,7 +80,7 @@ class Character : public Alive {
 		void moveRight(pMap map);
 
 		//FUNZIONI COMBATTIMENTO
-
+		virtual void check_enemy_melee(pMap map);
 		void initiate_attack();
 		void ranged_attack(pMap map);
 		int calculate_damage(Alive *c);

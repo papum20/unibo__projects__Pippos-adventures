@@ -36,6 +36,9 @@ Ascia::Ascia():Weapon(){
 
     horizontal_attack_states=axe_horizontal_attack_states;
     vertical_attack_states=axe_vertical_attack_states;
+
+    vertical_attack_animation=axe_vertical_attack_animation;
+    horizontal_attack_animation=axe_horizontal_attack_animation;
     current_animation=0;
 }
 

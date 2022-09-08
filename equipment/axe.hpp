@@ -28,6 +28,9 @@ const int axe_horizontal_attack_height=1;
 const int axe_vertical_attack_width=1;
 const int axe_vertical_attack_height=2;
 
+const int axe_vertical_attack_animation=2;
+const int axe_horizontal_attack_animation=4;
+
 const char axe_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},

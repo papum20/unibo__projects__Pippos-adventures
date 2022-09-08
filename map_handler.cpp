@@ -358,6 +358,8 @@ MapHandler::MapHandler() {
 				}
 				i.next();
 			} while (!i.equals(obj->getPosition()));
+			
+			obj->setPosition(target);
 			return true;
 		} else return false;
 	}

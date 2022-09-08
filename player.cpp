@@ -102,11 +102,6 @@ void Player::update(pMap map){
 			else{
 				int input;
 				input=in_manager->get_input();
-				WINDOW *w = newwin(10,10,1,10);
-				box(w,0,0);
-				mvwaddch(w,1,1,input);
-				wrefresh(w);
-				//wgetch(w);
 				switch (input){
 					case KEY_UP:{
 						moveUp(map);

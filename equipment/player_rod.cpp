@@ -25,7 +25,7 @@ Player_Rod::Player_Rod():Rod(){
     animations[attack_left_index]= new Animation (player_rod_attack_left, Coordinate(player_rod_width, player_rod_height), player_rod_attack_states);
     animations[attack_right_index]= new Animation (player_rod_attack_right, Coordinate(player_rod_width, player_rod_height), player_rod_attack_states);
 
-    is_melee=true;
+    is_melee=false;
     owner_id=ID_PLAYER;
 
     strcpy (description, player_rod_description);

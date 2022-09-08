@@ -34,27 +34,23 @@ attr_t Animate::get_MainColor() {
 void Animate::moveUp(pMap map){
     Coordinate newpos=pos;
 	newpos.y++;
-	if(MapHandler::move(map, this, newpos))
-		pos = newpos;
+	MapHandler::move(map, this, newpos);
 }
 
 void Animate::moveDown(pMap map){
 	Coordinate newpos=pos;
 	newpos.y--;
-	if(MapHandler::move(map, this, newpos))
-		pos = newpos;
+	MapHandler::move(map, this, newpos);
 }
 
 void Animate::moveLeft(pMap map){
 	Coordinate newpos=pos;
 	newpos.x--;
-	if(MapHandler::move(map, this, newpos))
-		pos = newpos;
+	MapHandler::move(map, this, newpos);
 }
 
 void Animate::moveRight(pMap map){
 	Coordinate newpos=pos;
 	newpos.x++;
-	if(MapHandler::move(map, this, newpos))
-		pos = newpos;
+	MapHandler::move(map, this, newpos);
 }

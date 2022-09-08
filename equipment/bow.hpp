@@ -8,7 +8,8 @@ const char bow_description[description_length]="arco leggendario consegnato dal 
 const char bow_name[name_length]="Arco di Apollo";
 
 const int bow_movement_states=1;
-const int bow_attack_states=3;
+const int bow_attack_states_horizontal=4;
+const int bow_attack_states_vertical=3;
 
 const int bow_up_index=0;
 const int bow_down_index=1;
@@ -76,9 +77,7 @@ const char bow_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 };
 
 
-
-
-const char bow_attack_right[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=6
+const char bow_attack_right[bow_attack_states_horizontal][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=6
 
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
@@ -100,6 +99,16 @@ const char bow_attack_right[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH
 	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
 	},
 
+{   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', '|', '\\', ' '},
+    {' ',' ',' ',' ',' ', 'm', '|', '(', ' '},
+	{' ',' ',' ',' ', ' ', '/', '|', '/', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	},
+
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -111,7 +120,7 @@ const char bow_attack_right[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH
 	}
 };
 
-const char bow_attack_left[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=6
+const char bow_attack_left[bow_attack_states_horizontal][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=3, width=6
 
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
@@ -133,6 +142,15 @@ const char bow_attack_left[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]
 	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
 	},
 
+{   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
+	{' ','/','|',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ',')','|',' ', ' ', ' ', ' ', ' ', ' '},
+    {' ','\\','|','\\',' ', ' ', ' ', ' ', ' '},
+	{' ',' ',' ','m', ' ', ' ', ' ', ' ', ' '},
+	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '},
+	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
+	},
 {   {' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' '},
 	{' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -143,7 +161,8 @@ const char bow_attack_left[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]
 	{' ', ' ' , ' ',' ',' ',' ', ' ' , ' ', ' '}
 	}
 };
-const char bow_attack_up[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
+
+const char bow_attack_up[bow_attack_states_vertical][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},
@@ -176,7 +195,7 @@ const char bow_attack_up[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 
 };
 
-const char bow_attack_down[bow_attack_states][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
+const char bow_attack_down[bow_attack_states_vertical][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9
 
 {   {' ',' ',' ',' ', ' ' , ' ', ' ', ' ', ' '},
 	{' ',' ',' ',' ', ' ', ' ', ' ', ' ', ' '},

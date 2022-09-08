@@ -56,38 +56,50 @@ void Menu::close_menu(){
     wrefresh(caverna);
 }
 
-void Menu::update(){
-if(options_is_active==true){
-  update_options();
-if(options_is_active==false){
-open();
-}
-  return;
+void Menu::update(bool &isRunning){
+        if(options_is_active==true){
+            update_options();
+            if(options_is_active==false){
+            open();
+            }
+            return;
        }
        int choice;
        choice=p_input->get_input();
        switch (choice){
            case scroll_up:
-            highlight--;
+            {highlight--;
             if(highlight==-1)
             highlight=0;
-            break;
+            break;}
             case scroll_down:
-             highlight++;
+            { highlight++;
             if(highlight==3)
             highlight=2;
-            break;
+            break;}
             default:
             break;
        }
-       if((highlight==1) &&(choice==invio)){
+       if((highlight==1) &&(choice==KEY_SELECT_MENU)){
         open_options();
         
         
        }
-       if(((highlight==0) || (highlight==2)) &&(choice==invio)){
+       if(((highlight==0) || (highlight==2)) &&(choice==KEY_SELECT_MENU)){
         close_menu();
+        if(highlight == 2) isRunning = false;
         
+       }
+       int high_letter=3;
+       for(int i=0; i<3; i++){
+           if(i==highlight){
+                pixel_phrase(menu, 10, high_letter, choices[i], true);
+                high_letter=high_letter+6;
+           }
+            else{
+                pixel_phrase(menu, 10, high_letter, choices[i], false);
+                high_letter=high_letter+6;
+            }
        }
    
    wrefresh(menu);

@@ -11,6 +11,7 @@
 #include "inputmanager.hpp"
 #include "inventory.hpp"
 #include "menu.hpp"
+#include "minimap.hpp"
 
 #include "level.hpp"
 #include "player.hpp"

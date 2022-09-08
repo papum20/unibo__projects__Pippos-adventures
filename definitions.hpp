@@ -98,8 +98,11 @@ const int scroll_up = KEY_UP;
 const int scroll_down = KEY_DOWN;
 const int scroll_left = KEY_LEFT;
 const int scroll_right = KEY_RIGHT;
-#define KEY_PAUSE 'p'
+#define KEY_PAUSE 'm'
+#define KEY_MAIN_MENU 'p'
 #define KEY_QUIT 'o'
+#define KEY_MAP 'b'
+#define KEY_SELECT_MENU invio
 #pragma endregion KEY_BINDINGS
 
 

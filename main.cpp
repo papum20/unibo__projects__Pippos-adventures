@@ -3,10 +3,15 @@ using namespace std;
 
 
 
+
+
+
 int main() {
 
 	bool isRunning = true;
-	//bool isPaused = false;
+	bool pressedPause = false;
+	bool pressedMinimap = false;
+
 	Timer refresh_timer = Timer();
 	refresh_timer.set_max(REFRESH_TIMER_INDEX, REFRESH_RATE);
 
@@ -19,19 +24,24 @@ int main() {
 	int stdscr_x, stdscr_y;
 	getmaxyx(stdscr, stdscr_y, stdscr_x);
 	int level_x = (stdscr_x - CAMERA_WIDTH) / 2, level_y = (stdscr_y - (CAMERA_HEIGHT + HUD_HEIGHT + HUD_OFFSET)) / 2 + HUD_HEIGHT + HUD_OFFSET;
-	//finestra di input (in basso a destra, sotto level)
 	int input_x = level_x + CAMERA_WIDTH, input_y = level_y + CAMERA_HEIGHT - input_h;
-	//finestra hud (in alto)
 	int hud_x = (stdscr_x - HUD_WIDTH) / 2, hud_y = level_y - HUD_HEIGHT - HUD_OFFSET;
+	int map_x = (stdscr_x - MINIMAP_WIDTH) / 2, map_y = (stdscr_y - MINIMAP_HEIGHT) / 2;
 
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
 	pPlayer player = new Player(inputManager);
 	Level level = Level(level_x, level_y, player);
-	Hud hud = Hud(hud_x, hud_y, player);
-	Menu menu = Menu(inputManager);
-	Inventory inventory = Inventory(player, inputManager);
 
+	Hud hud = Hud(hud_x, hud_y, player);
+	Inventory inventory = Inventory(player, inputManager);
+	Menu menu = Menu(inputManager);
+	MiniMap miniMap = MiniMap(map_x, map_y);
+
+
+
+	menu.open();
+	
 
 
 	WINDOW *debug = newwin(10,10,0,0);
@@ -48,26 +58,56 @@ int main() {
 			inputManager->calculate_input();
 		}while(!refresh_timer.check(REFRESH_TIMER_INDEX));
 
+
+		// TERMINA IL GIOCO
 		if(inputManager->get_input() == KEY_QUIT) isRunning = false;
-		//// IN PAUSA
-		else if (menu.is_active()) {
-			if(frame%2==0) mvwprintw(debug,5,1,"menu");
-			else mvwprintw(debug,5,1,"     ");
-			if(inputManager->get_input() == KEY_PAUSE) menu.close_menu();
-			menu.update();			//se il menu è aperto il player non si muove
+
+		if(menu.is_active()) {
+			menu.update(isRunning);
 		}
-		//// IN GIOCO
+
 		else {
-			if(frame%2==0) mvwprintw(debug,5,1,"level");
-			else mvwprintw(debug,5,1,"     ");
-			if(inputManager->get_input() == KEY_PAUSE) {
-				mvwaddch(debug,1,0,'P');
-				//menu.open();
+			// CONTROLLA SE È STATO PREMUTO UN TASTO PAUSA, MA APPLICALO SOLO SE È PRIMA STATO RILASCIATO (ALTRIMENTI IL MENU SI APRIREBBE E CHIUDEREBBE)
+			if(pressedPause) {
+				if(inputManager->get_input() != KEY_PAUSE) pressedPause = false;
+			} else if(pressedMinimap) {
+				if(inputManager->get_input() != KEY_MAP) pressedMinimap = false;
+			} else if(inputManager->get_input() == KEY_PAUSE) {
+				if(!inventory.is_active()) {
+					//erase();
+					//refresh();
+					inventory.open();
+					pressedPause = true;
+				}
+			} else if(inputManager->get_input() == KEY_MAP) {
+				if(miniMap.isOpen()) miniMap.close();
+				else miniMap.open(level);
+				pressedMinimap = true;
 			}
-			else mvwaddch(debug,1,0,'p');// menu.open();
-			level.update(inputManager->get_input());
-			level.display();
-			hud.drawHud();
+
+			//// IN PAUSA
+			if (inventory.is_active()) {
+				if(frame%2==0) mvwprintw(debug,5,1,"menu");
+				else mvwprintw(debug,5,1,"     ");
+				if(pressedPause) inventory.update(player, ERR);			//se il menu è aperto il player non si muove
+				else {
+					inventory.update(player, inputManager->get_input());
+					if(inputManager->get_input() == KEY_PAUSE) pressedPause = true;
+				}
+			}
+			//// IN GIOCO
+			else {
+				if(frame%2==0) mvwprintw(debug,5,1,"level");
+				else mvwprintw(debug,5,1,"     ");
+				if(inputManager->get_input() == KEY_PAUSE) {
+					mvwaddch(debug,1,0,'P');
+				}
+				else mvwaddch(debug,1,0,'p');// menu.open();
+
+				level.update(inputManager->get_input());
+				level.display();
+				hud.drawHud();
+			}
 		}
 
 		mvwprintw(debug,0,0,to_string(frame).c_str());
@@ -107,7 +147,6 @@ void colorsInit() {
 
 void cursesEnd() {
 	endwin();			//dealloca memoria
-	delwin(stdscr);
 }
 void gameEnd() {
 	delete FLOOR_INSTANCE;

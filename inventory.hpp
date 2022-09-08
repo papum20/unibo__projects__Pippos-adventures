@@ -370,6 +370,7 @@ class Inventory : public Pixel_art{
         int w_use_high;
         int w_use_width;
         pInputManager p_input;
+        int input;
         bool is_open;
         bool options_is_active;
         bool zaino_is_active;
@@ -408,7 +409,7 @@ class Inventory : public Pixel_art{
         void equip_menu(Player * p);
         void update_equip_menu();
         void open();
-        void update(Player * p);
+        void update(Player * p, int input);
         int check_class_name(int array_index);
         bool is_active();
         void close();

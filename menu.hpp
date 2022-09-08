@@ -70,7 +70,7 @@ class Menu : public Pixel_art {
         void set_menu_color();
         void print_cave();
         void open_options();
-        void update();
+        void update(bool &isRunning);
         bool is_active();
         void close_menu();
         void open();

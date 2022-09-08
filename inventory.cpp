@@ -53,17 +53,21 @@ void Inventory::open_options(){
     options_is_active=true;
     keypad(w_inventory,false);
     box(w_options, 0, 0);
-    mvwprintw(w_options, 2, 2, "m = apri menu");
+    mvwaddch(w_options, 2, 2, KEY_PAUSE);
+    wprintw(w_options, " = apri menu");
     mvwprintw(w_options, 4, 2, "n = apri inventario");
     mvwprintw(w_options, 6, 2, "i tasti w a s d servono a muoversi nelle 4 direzioni");   
+    wrefresh(w_options);
 }
 
 void Inventory::update_options(){
 int choice;
-        choice=p_input->get_input();
-        if(choice==esc){
+        choice=input;
+        if(choice==KEY_PAUSE){
+            options_is_active = false;
             keypad(w_inventory,true);
             werase(w_options);         
+            wrefresh(w_options);
         }
 }
 
@@ -276,8 +280,8 @@ if((check_class_name(array_index))==3)
  is_item=true;
 
 int choice;
-choice=p_input->get_input();
-if(choice==esc){
+choice=input;
+if(choice==KEY_PAUSE){
     w_use_is_active=false;
     keypad(w_use, false); 
     keypad(w_zaino, true); 
@@ -366,7 +370,7 @@ if(choice==invio){
             }
             if(check_class_name(array_index)==2){
                  if(((array_index!=i) && (static_cast< item_difensivo *>(objects[i])->is_equipped)) && (strcmp(objects[array_index]->type, objects[i]->type) == 0) /*&& (array_index!=i) && (static_cast< item_difensivo *>(objects[i])->is_equipped)*///){
-  /*              if(strcmp(objects[i]->type, type[2]) == 0){
+    /*            if(strcmp(objects[i]->type, type[2]) == 0){
                     p->change_armor (static_cast< pArmor>(objects[array_index]));
                 }
                 if(strcmp(objects[i]->type, type[3]) == 0){
@@ -381,7 +385,7 @@ if(choice==invio){
                 if(strcmp(objects[i]->type, type[7]) == 0){
                     p->change_boots (static_cast< pBoots>(objects[array_index]));
                 }}
-            }
+            }*//*
                   
         }
         }
@@ -415,7 +419,7 @@ if(choice==invio){
     }*/
 }
 
-void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){
+void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){/*
     if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
         wattron(win, COLOR_PAIR(number));
     else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
@@ -423,12 +427,12 @@ void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){
     else if(strcmp(objects[array_index]->rarity, rarity[2]) == 0)
         wattron(win, COLOR_PAIR(number + 2));
     else if(strcmp(objects[array_index]->rarity, rarity[3]) == 0)
-        wattron(win, COLOR_PAIR(number + 3));
+        wattron(win, COLOR_PAIR(number + 3));*/
 }
 
-void Inventory::print_item_name(WINDOW * win, int y, int x, int array_index){
+void Inventory::print_item_name(WINDOW * win, int y, int x, int array_index){/*
 int n;
-/*    mvwprintw(win, y, x, objects[array_index]->name);
+    mvwprintw(win, y, x, objects[array_index]->name);
     wattron(win, COLOR_PAIR(7));
 int high = 2;
 for(int i=0; i<curr_inventory_space; i++){
@@ -458,7 +462,8 @@ for(int i=0; i<curr_inventory_space; i++){
 wattroff(win, COLOR_PAIR(7));
 wrefresh(win);*/
 }
-void Inventory::zaino_menu(int array_index, Player * p){
+
+void Inventory::zaino_menu(int array_index, Player * p){/*
 zaino_is_active=true;
 if(w_use_is_active==true){
   update_w_use(array_index, p);
@@ -495,8 +500,8 @@ wattroff_inventory(w_zaino);
 item_menu(z_highlight);
 
 
-choice=p_input->get_input();
-    if(choice==esc){
+choice=input;
+    if(choice==KEY_PAUSE){
     zaino_is_active=false;
     keypad(w_zaino, false); 
     keypad(w_inventory, true); 
@@ -507,7 +512,7 @@ choice=p_input->get_input();
     wrefresh(w_weapon);
     return;
     }
-    if(choice==invio){
+    if(choice==KEY_SELECT_MENU){
         useOrdiscardItem(high-1, xMax - 8, z_highlight);
     }
     if(choice==scroll_up){
@@ -561,7 +566,7 @@ choice=p_input->get_input();
         print_item_name(w_zaino, high - 2, xMax/2 -15, z_highlight - 1);
         wattroff_inventory(w_zaino);
         }} 
-   
+ */  
 }
 
 void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high){
@@ -641,7 +646,7 @@ mvwprintw(w_equip, 11, 72, defense);
 mvwprintw(w_equip, 13, 55, "difesa magica:");
 mvwprintw(w_equip, 13, 72, defense_magic);
 
-
+wrefresh(w_equip);
 
 
 //for(int i=0; i<curr_inventory_space; i++){
@@ -668,8 +673,9 @@ mvwprintw(w_equip, 13, 72, defense_magic);
 
 void Inventory:: update_equip_menu(){
 int choice;    
-        choice=p_input->get_input();
-        if(choice==esc){
+        choice=input;
+        if(choice==KEY_PAUSE){
+            w_equip_is_active = false;
             keypad(w_inventory, true);
             werase(w_equip);
             wrefresh(w_equip);
@@ -688,7 +694,9 @@ void Inventory::open(){
 }
 
 
-void Inventory::update(Player * p){
+void Inventory::update(Player * p, int input){
+
+this->input = input;
 
 if(options_is_active==true){
   update_options();
@@ -705,7 +713,7 @@ if(w_equip_is_active==true){
        }
 
     int choice;
-    choice=p_input->get_input();
+    choice=input;
     if(choice==scroll_right){
         highlight++;
         if(highlight>3)
@@ -735,11 +743,11 @@ if(w_equip_is_active==true){
      pixel_phrase(w_inventory, 70, 2, "opzioni", true);
      wrefresh(w_inventory);
     }
-    if(choice==esc){
+    if(choice==KEY_PAUSE){
         close();
 
     }
-    if(choice==10){
+    if(choice==KEY_SELECT_MENU){
         if(highlight==1){
             z_highlight=0;
             zaino_menu(1, p);
@@ -762,3 +770,5 @@ is_open=false;
 werase(w_inventory);
 wrefresh(w_inventory);
 }
+
+

@@ -15,14 +15,15 @@ class InputManager {
 	private:
 		int curr_input;
 		WINDOW* input_window;
+
 		Timer timer;
+
 	public:
 		InputManager(int x_win, int y_win);
 
 		void calculate_input (); //calcola l'input
 
 		int get_input();		//ritorna l'input corrente
-
 };
 
 typedef InputManager *pInputManager;

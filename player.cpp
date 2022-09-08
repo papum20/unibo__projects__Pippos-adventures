@@ -44,7 +44,7 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	
 }
 
-void Player::changeCurrentHealth(int delta, pMap map){
+void Player::changeCurrentHealth(int delta){
 	if (curHealth+delta>=maxHealth){
 		curHealth=maxHealth;
 	}
@@ -55,7 +55,7 @@ void Player::changeCurrentHealth(int delta, pMap map){
 				curHealth=p_max_health;
 			}
 			else
-				destroy(map);
+				curHealth=-1;
 		}
 		else
 			curHealth=curHealth+delta;
@@ -150,7 +150,10 @@ void Player::update(pMap map){
 			Character::update(map);		//azioni generali
 		}
 		else
-			destroy(map);
+			if (curHealth==-1)
+				destroy(map);
+			else
+				changeCurrentHealth(-1);
 	}
 }
 
@@ -161,19 +164,19 @@ void Player::check_enemy_melee(pMap map){
 	Coordinate end;
 	switch (direction){
 		case 'u':
-			start=Coordinate (pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y+size.y);
+			start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y+size.y);
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
 			break;
 		case 'd':
-			start=Coordinate ( pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y-(equipaggiamento.arma)->vertical_size.y );
+			start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y-(equipaggiamento.arma)->vertical_size.y );
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
 			break;
 		case 'l':
-			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
+			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 			break;
 		case 'r':
-			start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
+			start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 			break;
 	}

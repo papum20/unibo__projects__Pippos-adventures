@@ -30,7 +30,7 @@ void Menu::open_options(){
 }
 
 void Menu::update_options(){
-        if(input==KEY_PAUSE){
+        if(input==KEY_ESC){
             keypad(menu,true);
             werase(w_options);
             options_is_active=false;

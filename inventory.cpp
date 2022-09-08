@@ -40,7 +40,14 @@ bool Inventory::is_active(){
 
 int Inventory::random_item(){
 int r;
- for(int i=0;i<100;i++){
+bool all_artifact=true;
+for(int i=1; i<=curr_inventory_space;i++){
+    if((check_class_name(i)==11) || (check_class_name(i)==12))
+        all_artifact=false;
+}
+if(all_artifact)
+    return (-1);
+ while(true){
   r = (rand() % curr_inventory_space) + 1;
   if((check_class_name(r)==11) || (check_class_name(r)==12)){
     return r;
@@ -62,7 +69,7 @@ void Inventory::open_options(){
 
 void Inventory::update_options(){
 
-        if(input==KEY_PAUSE){
+        if(input==KEY_ESC){
             options_is_active = false;
             keypad(w_inventory,true);
             werase(w_options);         
@@ -217,6 +224,14 @@ start_char++;
 return count;
 }
 
+int Inventory::count_char_with_space(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio, l'ho usata in w_item e print_nome
+int count = 0;
+    while((string[start_char + count]!='\0')){
+        count++;
+    }
+return count;
+}
+
 void Inventory::print_weapon(int high, int lenght, const char graphic_weapon[][w_graphic_lenght]){
 for(int i=0; i<high; i++){
     for(int k=0; k<lenght; k++){
@@ -308,7 +323,7 @@ if((check_class_name(array_index))==13)
  is_item=true;
 
 
-if(input==KEY_PAUSE){
+if(input==KEY_ESC){
     w_use_is_active=false;
     keypad(w_use, false); 
     keypad(w_zaino, true); 
@@ -467,7 +482,7 @@ int n;
     wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
 int high = 2;
 for(int i=0; i<curr_inventory_space; i++){
-    n = count_char(0, objects[i]->name) + 1;
+    n = count_char_with_space(0, objects[i]->name) + 1;
     if((check_class_name(i))==11){
     if(static_cast< Weapon *>(objects[i])->is_equipped)
         mvwaddch(win, high, x + n, 'E');
@@ -525,7 +540,7 @@ wattroff_inventory(w_zaino);
 
 item_menu(z_highlight);
 
-    if(input==KEY_PAUSE){
+    if(input==KEY_ESC){
     zaino_is_active=false;
     keypad(w_zaino, false); 
     keypad(w_inventory, true); 
@@ -697,7 +712,7 @@ if(static_cast< Weapon *>(objects[i])->is_equipped){
 }
 
 void Inventory:: update_equip_menu(){
-        if(input==KEY_PAUSE){
+        if(input==KEY_ESC){
             w_equip_is_active = false;
             keypad(w_inventory, true);
             werase(w_equip);

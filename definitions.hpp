@@ -11,6 +11,7 @@
 #define FRAMES_PER_SECOND 15					//aggiornamenti in un secondo
 #define REFRESH_RATE (1. / FRAMES_PER_SECOND)	//durata di un aggiornamento
 #define REFRESH_TIMER_INDEX 0					//indice del timer (implementazione)
+#define GAME_TIMER_INDEX 1
 #pragma endregion REFRESH_RATE
 
 

@@ -12,8 +12,8 @@ int main() {
 	bool pressedPause = false;
 	bool pressedMinimap = false;
 
-	Timer refresh_timer = Timer();
-	refresh_timer.set_max(REFRESH_TIMER_INDEX, REFRESH_RATE);
+	Timer game_timer = Timer();
+	game_timer.set_max(REFRESH_TIMER_INDEX, REFRESH_RATE);
 
 	//// START: ESEGUITO UNA VOLTA ALL'AVVIO
 	cursesInit();
@@ -48,6 +48,7 @@ int main() {
 	box(debug,0,0);
 	wrefresh(debug);
 	int frame = 0;
+	game_timer.start(GAME_TIMER_INDEX);
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while (isRunning)
 	{
@@ -56,7 +57,8 @@ int main() {
 		// il gioco rimane "inattivo", continuando solo a ricevere l'input (comunque almeno una volta)
 		do{
 			inputManager->calculate_input();
-		}while(!refresh_timer.check(REFRESH_TIMER_INDEX));
+		}while(!game_timer.check(REFRESH_TIMER_INDEX));
+		game_timer.start(REFRESH_TIMER_INDEX);
 
 
 		// TERMINA IL GIOCO
@@ -111,6 +113,8 @@ int main() {
 		}
 
 		mvwprintw(debug,0,0,to_string(frame).c_str());
+		mvwprintw(debug,2,0,to_string((int)game_timer.get_time_passed(GAME_TIMER_INDEX)).c_str());
+		mvwprintw(debug,1,0,to_string((int)(frame / game_timer.get_time_passed(GAME_TIMER_INDEX))).c_str());
 		wrefresh(debug);
 		frame++;
 	}

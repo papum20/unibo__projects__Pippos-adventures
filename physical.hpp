@@ -11,6 +11,7 @@
 const int MAX_ANIMATIONS = 8;
 // NUMERI
 #define N_ENEMIES 6
+#define N_PROJECTILES 4
 
 #define N_CHEST_TYPES 3
 #define N_ITEM_DIFENSIVO 5
@@ -26,14 +27,16 @@ const int MAX_ANIMATIONS = 8;
 #define ID_ENEMY_E 149
 #define ID_ITEM_S 150
 #define ID_ITEM_E 179
-#define ID_PROJECTILE_S 180
-#define ID_PROJECTILE_E 199
 #define ID_ARTIFACT_S 150
 #define ID_ARTIFACT_E 159
 #define ID_WEAPON_S 160
 #define ID_WEAPON_E 169
 #define ID_ITEM_DIFENSIVO_S 170
 #define ID_ITEM_DIFENSIVO_E 179
+#define ID_PROJECTILE_S 180
+#define ID_PROJECTILE_E 189
+#define ID_WEAPON_ENEMY_S 190
+#define ID_WEAPON_ENEMY_E 199
 
 #define ID_DEFAULT 0
 #define ID_PLACEHOLDER 1
@@ -47,6 +50,8 @@ const int MAX_ANIMATIONS = 8;
 #define ID_KEY 151
 #define ID_LIFE_ELIXIR 152
 #define ID_RUNE 153
+
+#define ID_SWORD 160
 #pragma endregion PHYSICAL_IDS
 
 #pragma region PHYSICAL_STATS

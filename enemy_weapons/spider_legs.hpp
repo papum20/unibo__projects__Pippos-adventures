@@ -5,7 +5,10 @@
 
 const int spider_legs_movement_states=1;
 const int spider_legs_horizontal_attack_states=3;
-const int spider_legs_vertical_attack_states=3;
+const int spider_legs_vertical_attack_states=2;
+
+const int spider_horizontal_attack_animation=3;
+const int spider_vertical_attack_animation=2;
 
 const int spider_legs_up_index=0;
 const int spider_legs_down_index=1;

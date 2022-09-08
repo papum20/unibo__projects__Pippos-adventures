@@ -15,6 +15,9 @@ const int zombie_hands_attack_down_index=5;
 const int zombie_hands_attack_left_index=6;
 const int zombie_hands_attack_right_index=7;
 
+const int zombie_hands_vertical_attack_animation=2;
+const int zombie_hands_horizontal_attack_animation=2;
+
 const int zombie_hands_height=5;
 const int zombie_hands_width=6;
 

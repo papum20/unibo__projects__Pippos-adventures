@@ -40,7 +40,7 @@ int main() {
 
 
 
-	menu.open();
+	//menu.open();
 	
 
 

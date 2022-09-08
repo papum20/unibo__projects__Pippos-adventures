@@ -147,8 +147,8 @@ void Inventory::wattroff_inventory(WINDOW * win){
     wattroff(win, COLOR_PAIR(14));
 }
 
-void Inventory::init_inventory_color(){
-        init_color(COLOR_CYAN, 532, 250, 82);//colore arancione
+void Inventory::init_inventory_color(){/*
+        F(COLOR_CYAN, 532, 250, 82);//colore arancione
         init_pair(3, COLOR_YELLOW, COLOR_BLACK);//comune
         init_pair(4, COLOR_YELLOW, COLOR_BLUE); //rarità raro
         init_pair(5, COLOR_YELLOW, COLOR_MAGENTA);//rarità epico
@@ -162,7 +162,7 @@ void Inventory::init_inventory_color(){
         init_pair(11, COLOR_WHITE, COLOR_BLACK);
         init_pair(12, COLOR_BLUE, COLOR_BLACK); //rarità raro
         init_pair(13, COLOR_MAGENTA, COLOR_BLACK);//rarità epico
-        init_pair(14, COLOR_CYAN, COLOR_BLACK);//rarità leggendario
+        init_pair(14, COLOR_CYAN, COLOR_BLACK);//rarità leggendario*/
 
 }
 
@@ -436,8 +436,8 @@ if(choice==invio){
                             p->change_boots (static_cast< pBoots>(objects[array_index]));
                         }
                     }
-    /*           }
-            }*//*  && ((check_subclass_name(array_index)==check_subclass_name(i)
+               }
+            }/*  && ((check_subclass_name(array_index)==check_subclass_name(i)
                   
         }
         }
@@ -469,7 +469,7 @@ if(choice==invio){
         zaino_menu(array_index, p);
         return;  
     }*/
-}
+}}}}
 
 /*void Inventory::strcmp_rarity(WINDOW * win, int array_index, int number){
     if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
@@ -621,7 +621,7 @@ choice=input;
  */  
 }
 
-void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high){
+void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high){/*
     int counter = 0;
      counter = counter + 3 * high;
         
@@ -661,10 +661,10 @@ void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index,
             i++;
             counter = counter + 3 * high;
     }
-    wrefresh(win);
+    wrefresh(win);*/
 }
 
-void Inventory::equip_menu(Player * p){
+void Inventory::equip_menu(Player * p){/*
 w_equip_is_active=true;
 int yMax, xMax;
 getmaxyx(w_equip, yMax, xMax);
@@ -698,7 +698,7 @@ mvwprintw(w_equip, 11, 72, defense);
 mvwprintw(w_equip, 13, 55, "difesa magica:");
 mvwprintw(w_equip, 13, 72, defense_magic);
 
-wrefresh(w_equip);
+wrefresh(w_equip);*/
 
 
 //for(int i=0; i<curr_inventory_space; i++){
@@ -723,7 +723,7 @@ wrefresh(w_equip);
 //}        
 }
 
-void Inventory:: update_equip_menu(){
+void Inventory:: update_equip_menu(){/*
 int choice;    
         choice=input;
         if(choice==KEY_PAUSE){
@@ -732,7 +732,7 @@ int choice;
             werase(w_equip);
             wrefresh(w_equip);
             return;
-        }
+        }*/
 }
 
 void Inventory::open(){
@@ -742,7 +742,6 @@ void Inventory::open(){
     pixel_phrase(w_inventory, 36, 2, "equip", false);
     pixel_phrase(w_inventory, 70, 2, "opzioni", false);
     keypad(w_inventory, true);   
-       
 }
 
 

@@ -45,54 +45,54 @@ void Enemy::copyEnemy(Enemy B) {
 }
 
 void Enemy::update(pMap map){
-	/*if(!updated){
+	if(!updated){
 		if (curHealth>0){	
 			if (is_attacking){
-				if (!animations[current_animation]->isLastFrame()){
-					if (attack_counter==1){
-						if ((equipaggiamento.arma)->is_melee)
-							check_enemy_melee(map);
-						else{
-							ranged_attack(map);
-						}
-					}
-					next_animation();
-					equipaggiamento.arma->next_animation();
-					attack_counter--;
-				}
-				else{
-					is_attacking=false;
-					switch (direction){
-						case 'u':
-							current_animation=move_up_index;
-							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
-							break;
-						case 'd':
-							current_animation=move_down_index;
-							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
-							break;
-						case 'l':
-							current_animation=move_left_index;
-							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
-							break;
-						case 'r':
-							current_animation=move_right_index;
-							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
-							break;	
-					}
-				}	
+				//if (!animations[current_animation]->isLastFrame()){
+				//	if (attack_counter==1){
+				//		if ((equipaggiamento.arma)->is_melee)
+				//			check_enemy_melee(map);
+				//		else{
+				//			ranged_attack(map);
+				//		}
+				//	}
+				//	next_animation();
+				//	equipaggiamento.arma->next_animation();
+				//	attack_counter--;
+				//}
+				//else{
+				//	is_attacking=false;
+				//	switch (direction){
+				//		case 'u':
+				//			current_animation=move_up_index;
+				//			equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
+				//			break;
+				//		case 'd':
+				//			current_animation=move_down_index;
+				//			equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
+				//			break;
+				//		case 'l':
+				//			current_animation=move_left_index;
+				//			equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
+				//			break;
+				//		case 'r':
+				//			current_animation=move_right_index;
+				//			equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
+				//			break;	
+				//	}
+				//}	
 			}
 			else{
 				if (equipaggiamento.arma->is_melee)
-					;//meleeIA(map);
+					meleeIA(map);
 				else
 					;//rangedIA(map);
 			}
 		}
 		else
-			destroy();
+			destroy(map);
 		Character::update(map);
-	}*/
+	}
 }
 
 

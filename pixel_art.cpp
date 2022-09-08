@@ -10,11 +10,11 @@ void Pixel_art::convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, ch
     for(int i=0; i < 5; i++){
         for(int j = 0; j < 5; j++){
             if(highlight==false){
-                init_pair(1, COLOR_GREEN, COLOR_WHITE);
+                //init_pair(1, COLOR_GREEN, COLOR_WHITE);
                 wattron(menu, COLOR_PAIR(1));
             }
             else{
-               init_pair(2, COLOR_GREEN, COLOR_YELLOW);
+               //init_pair(2, COLOR_GREEN, COLOR_YELLOW);
                 wattron(menu, COLOR_PAIR(2)); 
             }
         if(c=='A' || c== 'a'){
@@ -177,7 +177,7 @@ j=j+6;
 
 
 void Pixel_art::clean_window(WINDOW* window, int w_hight, int w_lenght){
-init_pair(4, COLOR_BLACK, COLOR_BLACK);
+//init_pair(4, COLOR_BLACK, COLOR_BLACK);
 for(int i=1; i<w_hight; i++){
     for(int j=1; j<w_lenght; j++){
         mvwaddch(window, i, j, ' ');
@@ -187,8 +187,8 @@ for(int i=1; i<w_hight; i++){
 
 void Pixel_art::print_face(WINDOW* facewin, const bool face[][face_lenght], int face_lenght, int face_hight){ 
 int r;
-init_pair(3, COLOR_WHITE, COLOR_BLACK);
-init_pair(4, COLOR_BLACK, COLOR_BLACK);
+//init_pair(3, COLOR_WHITE, COLOR_BLACK);
+//init_pair(4, COLOR_BLACK, COLOR_BLACK);
 box(facewin, 0, 0);    
  for(int i=1; i<face_hight; i++){
         for(int j=1; j<face_lenght; j++){

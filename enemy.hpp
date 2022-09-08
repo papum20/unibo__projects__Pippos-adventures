@@ -24,7 +24,6 @@ class Enemy : public Character {
 		void update(pMap map);
 		void meleeIA(pMap map);
 		void rangedIA(pMap map);
-		void destroy();
 		int getPoints();
 };
 

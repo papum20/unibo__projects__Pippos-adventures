@@ -34,6 +34,12 @@ void Physical::destroy(pMap map) {
     MapHandler::remove(map, this);
     delete this;
 }
+void Physical::destroyInstance(pMap map) {
+    // ELIMINA OGGETTO
+    MapHandler::remove(map, this);
+    delete this;
+}
+
 
 void Physical::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
     drawn = true;

@@ -44,9 +44,9 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 
 //SPAWN: istanze e probabilità
 //enemy
-const int ENEMIES_N[LEVELS_N] {10, 10, 10};
+const int ENEMIES_N[LEVELS_N] {1, 10, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
-														{Zombie(), Spider()},
+														{Spider(), Spider()},
 														{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
 														{Spider(), Fire_spirit(), Snowman(), Witch(), Evil_tree()}
 														};

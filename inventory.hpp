@@ -398,6 +398,7 @@ class Inventory : public Pixel_art{
         void int_to_string(int number, char string[]);
         void reverse_string(char string[]);
         int count_char(int start_char,char string[]);
+        int count_char_with_space(int start_char,char string[]);
         void print_weapon(int high, int lenght, const char graphic_weapon[][w_graphic_lenght]);
         void item_menu(int array_index);
         void useOrdiscardItem(int y_position, int x_position, int array_index);

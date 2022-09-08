@@ -40,7 +40,14 @@ bool Inventory::is_active(){
 
 int Inventory::random_item(){
 int r;
- for(int i=0;i<100;i++){
+bool all_artifact=true;
+for(int i=1; i<=curr_inventory_space;i++){
+    if((check_class_name(i)==11) || (check_class_name(i)==12))
+        all_artifact=false;
+}
+if(all_artifact)
+    return (-1);
+ while(true){
   r = (rand() % curr_inventory_space) + 1;
   if((check_class_name(r)==11) || (check_class_name(r)==12)){
     return r;
@@ -214,6 +221,14 @@ if((string[start_char]=='\0'))
 count++;
 start_char++;
 }
+return count;
+}
+
+int Inventory::count_char_with_space(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio, l'ho usata in w_item e print_nome
+int count = 0;
+    while((string[start_char + count]!='\0')){
+        count++;
+    }
 return count;
 }
 
@@ -467,7 +482,7 @@ int n;
     wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
 int high = 2;
 for(int i=0; i<curr_inventory_space; i++){
-    n = count_char(0, objects[i]->name) + 1;
+    n = count_char_with_space(0, objects[i]->name) + 1;
     if((check_class_name(i))==11){
     if(static_cast< Weapon *>(objects[i])->is_equipped)
         mvwaddch(win, high, x + n, 'E');

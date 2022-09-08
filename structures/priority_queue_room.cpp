@@ -1,7 +1,6 @@
 #include "priority_queue_room.hpp"
 
 
-
 	PriorityQueueRoom::PriorityQueueRoom() : PriorityQueue(COMPARE_SIGN_DFLT) {
 		
 	}
@@ -21,10 +20,19 @@
 		}
 	}
 	void PriorityQueueRoom::remove(RoomPosition x) {
-		int ind = find(x);
+		int ind = findPos(x);
 		if(ind != -1) {
 			PriorityQueue::removeAt(ind);
 		}
+	}
+	int PriorityQueueRoom::findPos(RoomPosition x) {
+		int res = -1;
+		int i = 0;
+		while(res == -1 && i < size) {
+			if(data[i]->getPos().equals((x.getPos()))) res = i;
+			else i++;
+		}
+		return res;
 	}
 
 	RoomPosition PriorityQueueRoom::random() {

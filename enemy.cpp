@@ -146,15 +146,15 @@ void Enemy::meleeIA(pMap map){
 	objects_in_view=MapHandler::vision(map, obj, pos, 30);
 	objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), 30);
 
-	WINDOW *w = newwin(10,10,30,0);
-	box(w,0,0);
-		mvwprintw(w,1,1,to_string(getPosition().x).c_str());
-		mvwprintw(w,2,1,to_string(getPosition().y).c_str());
-		for(int i = 0; i < 3; i++) {
-			mvwprintw(w,3+i*2,1,to_string(path[i].x).c_str());
-			mvwprintw(w,3+i*2+1,1,to_string(path[i].y).c_str());
-		}
-		wrefresh(w);
+	//WINDOW *w = newwin(10,10,30,0);
+	//box(w,0,0);
+	//	mvwprintw(w,1,1,to_string(getPosition().x).c_str());
+	//	mvwprintw(w,2,1,to_string(getPosition().y).c_str());
+	//	for(int i = 0; i < 3; i++) {
+	//		mvwprintw(w,3+i*2,1,to_string(path[i].x).c_str());
+	//		mvwprintw(w,3+i*2+1,1,to_string(path[i].y).c_str());
+	//	}
+	//	wrefresh(w);
 	/*for(int i = 0; i < player_distance; i++) {
 		mvwprintw(w,1,1,to_string(path[i].x).c_str());
 		mvwprintw(w,2,1,to_string(path[i].y).c_str());

@@ -34,12 +34,12 @@
 		for(int y = 0; y < height; y++)
 			for(int x = 0; x < width; x++) screen[y][x] = CHAR_EMPTY;
 	}
+	void Level::destroy() {
+		curRoom->recursiveDestroy();
+	}
 
 	void Level::generateMap()
 	{
-		WINDOW *w = newwin(10,10,10,0);
-		box(w,0,0);
-
 		for(int i = 0; i < LEVEL_AREA; i++) map[i] = NULL;
 		//posizioni disponibili (allo stesso tempo) per la generazione di una nuova stanza, quindi adiacenti a una già presente
 		//implementato come min-heap; il terzo campo sono le stanze adiacenti, usate per confronto
@@ -64,10 +64,6 @@
 			RoomPosition new_pos = available.unevenRandom();
 			//crea la stanza
 			rooms[room] = new ConnectedRoom(new_pos.getPos());
-		mvwprintw(w,1,1,to_string(room).c_str());
-		mvwprintw(w,1,1,to_string(rooms[room]->getPos().x).c_str());
-		mvwprintw(w,2,1,to_string(rooms[room]->getPos().y).c_str());
-		//wgetch(w);
 			map[new_pos.getPos().single_set(map_size)] = rooms[room];
 			available.remove(new_pos);
 
@@ -75,39 +71,27 @@
 			r = rand() % DIRECTIONS_N;
 			for(int j = 0; j < DIRECTIONS_N; j++)
 			{
-				int dir = (r+j) % DIRECTIONS_N;															//direzione corrente (indice)
+				int dir = (r+j) % DIRECTIONS_N;										//direzione corrente (indice)
 				Coordinate nxt_pos = Coordinate(new_pos.getPos(), DIRECTIONS[dir]);
 				if(nxt_pos.inBounds(COORDINATE_ZERO, map_size)) {
-					RoomPosition nxt = RoomPosition(nxt_pos, 1);	//posizione da controllare
+					RoomPosition nxt = RoomPosition(nxt_pos, 1);					//posizione da controllare
 					pConnectedRoom adjacent_room = findRoomAtCoordinates(rooms, room, nxt_pos);
-					int adjacent_cell = available.find(nxt);
+					int adjacent_cell = available.findPos(nxt);
 					
-		mvwprintw(w,4,1,to_string(nxt_pos.x).c_str());
-		mvwprintw(w,5,1,to_string(nxt_pos.y).c_str());
-					if(adjacent_room != NULL) {
-						mvwaddch(w,3,1,'A');
-						rooms[room]->makeConnection(adjacent_room, dir, randLockedDoor(*rooms[room], *adjacent_room));	//se è una stanza, collegala a quella appena generata
-					}
-					else if(adjacent_cell != -1){
-						mvwaddch(w,3,1,'G');
-						available.increaseKey(nxt, RoomPosition(Coordinate(), 1));										//se era già presente come cella disponibile, aumentane il numero di stanze adiacenti
-					}
-					else {
-						mvwaddch(w,3,1,'C');
-						available.insert(nxt);																									//altrimenti aggiungi la cella come disponibile
-					}
+					if(adjacent_room != NULL) rooms[room]->makeConnection(adjacent_room, dir, randLockedDoor(*rooms[room], *adjacent_room));	//se è una stanza, collegala a quella appena generata
+					else if(adjacent_cell != -1) available.increaseKey(nxt, RoomPosition(Coordinate(), 1));										//se era già presente come cella disponibile, aumentane il numero di stanze adiacenti
+					else available.insert(nxt);																									//altrimenti aggiungi la cella come disponibile
 				}
-		//wgetch(w);
 			}
 		}
 		//avvia generazione di tutte le stanze
-		curRoom->generate();
+		curRoom->generate(true);
 		player->setPosition(curRoom->getSize().times(.5, .5));
 		curRoom->addCharacter(player);
 		spawnInRoom(curRoom);
 		for(int i = 1; i < N_ROOMS; i++) {
 			if(rooms[i] != NULL) {
-				rooms[i]->generate();
+				rooms[i]->generate(false);
 				spawnInRoom(rooms[i]);
 			}
 		}
@@ -170,6 +154,12 @@
 #pragma region SET_GET
 	void Level::getLevelMap(pRoom map[LEVEL_AREA]) {
 		for(int i = 0; i < LEVEL_AREA; i++) map[i] = this->map[i];
+	}
+	Coordinate Level::getSize() {
+		return map_size;
+	}
+	pRoom Level::getCurrentRoom() {
+		return curRoom;
 	}
 	/*void Level::getRoomMap(pPhysical map[], Coordinate &size, pPlayer &player) {
 		curRoom->getMap(map, size);

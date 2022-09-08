@@ -19,8 +19,8 @@ class MiniMap {
 		WINDOW *window;
 		bool is_open;
 	
-		void drawLevel(pRoom rooms[LEVEL_AREA]);
-		void drawRoom_in_level(pRoom room, Coordinate start, Coordinate size);
+		void drawLevel(pRoom rooms[LEVEL_AREA], Coordinate l_size, pRoom current);
+		void drawRoom_in_level(pRoom room, Coordinate start, Coordinate size, bool current);
 
 	public:
 		MiniMap(int win_x, int win_y);

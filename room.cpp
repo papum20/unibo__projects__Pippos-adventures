@@ -7,7 +7,7 @@
 		this->pos = pos;
 		scale = Coordinate(SCALE_X, SCALE_Y);
 		size_t = Coordinate(ROOM_WIDTH_T, ROOM_HEIGHT_T);
-		size = size_t.times(scale.x, scale.y);
+		size = size_t.times(scale);
 
 		map = new Map;
 		map->size = size;
@@ -43,7 +43,7 @@
 		} while(!i.equals(COORDINATE_ZERO));
 	}
 
-	void Room::generate()
+	void Room::generate(bool c)
 	{
 		pUnionFind sets = new UnionFind();
 		//GENERA MURI LATERALI
@@ -99,7 +99,6 @@
 						//wrefresh(w);
 					//}
 					if(obj->getId() != ID_DOOR) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);
-					else scr[scr_it.inty()][scr_it.intx()].edit('x',-1,-1,0);
 				}
 			} else												//altrimenti "cancella"/lascia uno spazio vuoto
 				scr[scr_reverse.inty()][scr_reverse.intx()] = Cell(CHAR_OUTSIDE, COLOR_OUTSIDE_FG, COLOR_OUTSIDE_BG, CELL_NO_ATTR);

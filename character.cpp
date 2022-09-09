@@ -294,23 +294,19 @@ void Character::initiate_attack (){
 	switch (direction){
 		case 'u':
 			current_animation=move_up_index;
-			if (equipaggiamento.arma->is_melee)
-				attack_counter=equipaggiamento.arma->vertical_attack_animation;
+			attack_counter=equipaggiamento.arma->vertical_attack_animation;
 			break;
 		case 'd':
 			current_animation=move_down_index;
-			if (equipaggiamento.arma->is_melee)
-				attack_counter=equipaggiamento.arma->vertical_attack_states;
+			attack_counter=equipaggiamento.arma->vertical_attack_states;
 			break;
 		case 'r':
 			current_animation=move_right_index;
-			if (equipaggiamento.arma->is_melee)
-				attack_counter=equipaggiamento.arma->horizontal_attack_animation;
+			attack_counter=equipaggiamento.arma->horizontal_attack_animation;
 			break;
 		case 'l':
 			current_animation=move_left_index;
-			if (equipaggiamento.arma->is_melee)
-				attack_counter=equipaggiamento.arma->horizontal_attack_animation;
+			attack_counter=equipaggiamento.arma->horizontal_attack_animation;
 			break;
 	}
 }

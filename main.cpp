@@ -61,7 +61,7 @@ int main() {
 		game_timer.start(REFRESH_TIMER_INDEX);
 
 
-
+/*
 		//// GESTIONE MENU APERTI CON INPUT
 			// CONTROLLA SE È STATO PREMUTO UN TASTO PAUSA, MA APPLICALO SOLO SE È PRIMA STATO RILASCIATO (ALTRIMENTI IL MENU SI APRIREBBE E CHIUDEREBBE)
 		if(pressedPause && inputManager->get_input() != KEY_PAUSE) pressedPause = false;
@@ -112,8 +112,11 @@ int main() {
 				level.display();
 				hud.drawHud();
 			}
-		}
+		}*/
 
+		level.update(inputManager->get_input());
+		level.display();
+		hud.drawHud();
 
 		//// DEBUG
 		mvwprintw(debug,0,0,to_string(frame).c_str());

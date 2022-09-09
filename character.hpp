@@ -50,7 +50,7 @@ class Character : public Alive {
 	public:
 		int danno_fisico;
 		int danno_magico;
-	
+		int weapon_attacking_index;
 		Character();
 		Character(int maxH, int maxS);
 		void copyCharacter(Character B);

@@ -4,7 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
 	//menu=m;
-	arma= new sword();
+	arma= new Arco();
 	armatura=new armor();
 	collana=NULL;
 	elmo=NULL;
@@ -119,6 +119,10 @@ void Player::update(pMap map){
 						collect_item(map);
 						break;
 					}
+					case 'v':{
+						door_actions(map);
+						break;
+					}
 					case ('w'):{
 						direction='u';
 						initiate_attack();
@@ -177,22 +181,14 @@ void Player::check_enemy_melee(pMap map){
 
 	int dim=MapHandler::checkRectangle(map, objects, start, end);       
     
-				WINDOW *w = newwin(10,10,10,0);
     if (dim>0){                                                            
-				mvwprintw(w,3,1,to_string(dim).c_str());
         for (int i=0; i<dim; i++){
             if (objects[i]->getId()!=this->id && objects[i]->isCharacter()){         
                 defender=MapHandler::checkCharacter(map, objects[i]->getPosition());       
                 defender->changeCurrentHealth(calculate_damage(defender));
-				mvwprintw(w,1,1,to_string(defender->curHealth).c_str());
-				mvwprintw(w,2,1,to_string(calculate_damage(defender)).c_str());
-				if (defender->getHealth()==0)
-					points=points+defender->getPoints();
             }
         }
     }
-		//else		mvwprintw(w,1,1,"   ");
-				wrefresh(w);
 }
 
 void Player::destroy(pMap map){
@@ -237,6 +233,9 @@ void Player::collect_item(pMap mappa){
 			case 'd':
 				add_item(chest->open_d());			//aggiungo l'item difensivo all'inventario
 				break;
+			case 'k':
+				n_keys++;
+				break;
 		}
 	}
 }
@@ -277,9 +276,38 @@ int Player::getPoints(){
 void Player::change_points(int delta){
     points+=delta;
 }
+
+void Player::door_actions(pMap map){
+	Coordinate newcoord;
+	newcoord=pos;
+	if (direction=='u'){		
+		newcoord.y=newcoord.y+size.y;
+	}
+	if (direction=='d'){
+		newcoord.y--;
+	}
+	if (direction=='l'){
+		newcoord.x--;
+	}
+	if (direction=='r'){
+		newcoord.x=newcoord.x+size.x;
+	}
+	used_door=MapHandler::checkDoor(map, newcoord);
+	if (used_door->isLocked()){
+		if (n_keys>0){
+			n_keys--;
+			used_door->unlock();
+		}
+		else
+			used_door=NULL;
+			//messaggio giuseppe
+	}
+}
+
 pDoor Player::usedDoor() {
 	return used_door;
 }
+
 void Player::useDoor() {
 	used_door = NULL;
 }

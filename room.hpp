@@ -19,9 +19,9 @@ typedef char lock_type;
 #define LOCK_BOTH	(lock_type)3
 
 // SPAZI
-const Coordinate ZONE_DOOR_UD = Coordinate(DOOR_WIDTH*2, 5);		//zona in cui non possono spawnare muri di fronte alla porta (up-down)
-const Coordinate ZONE_DOOR_LR = ZONE_DOOR_UD.swapped();			//left-right
-#define ZONE_SPAWN_DISTANCE 5									//distanza dal player in cui non possono spawnare nemici
+const Coordinate ZONE_DOOR_UD = Coordinate(SCALE_X*2, SCALE_Y);		//zona in cui non possono spawnare muri di fronte alla porta (up-down)
+const Coordinate ZONE_DOOR_LR = Coordinate(SCALE_X, SCALE_Y*2);		//left-right
+#define ZONE_SPAWN_DISTANCE 5										//distanza dal player in cui non possono spawnare nemici
 
 
 #include "map_handler.hpp"
@@ -65,9 +65,9 @@ class Room {
 		void recursiveDestroy();								//elimina tutti i puntatori contenuti nella stanza, agendo poi ricorsivamente sulle stanze collegate
 		void update(int input);									//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
 		
-		virtual void generate(bool c); 								//genera uno schema randomico per i muri, inserendoli nell'array map
+		virtual void generate(); 								//genera uno schema randomico per i muri, inserendoli nell'array map
 		
-		void addCharacter(pCharacter obj);							//aggiunge un character nella sua posizione
+		void addCharacter(pCharacter obj);						//aggiunge un character nella sua posizione
 		void spawnEnemy(pEnemy enemy);							//spawna un nemico
 		void spawnChest(pChest chest);							//spawna una chest
 		// DISEGNO

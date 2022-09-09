@@ -85,13 +85,13 @@
 			}
 		}
 		//avvia generazione di tutte le stanze
-		curRoom->generate(true);
+		curRoom->generate();
 		player->setPosition(curRoom->getSize().times(.5, .5));
 		curRoom->addCharacter(player);
 		spawnInRoom(curRoom);
 		for(int i = 1; i < N_ROOMS; i++) {
 			if(rooms[i] != NULL) {
-				rooms[i]->generate(false);
+				rooms[i]->generate();
 				spawnInRoom(rooms[i]);
 			}
 		}

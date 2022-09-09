@@ -21,7 +21,7 @@ void Wall::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_
 		if(i.y == pos.y + height - 1) {
 			Inanimate::drawCell(scr, i, top_color);
 		}
-		else if(i.y < pos.y + height) {
+		else {
 			if(scr[i.rel_int_y()][i.rel_int_x()].getCh() == CHAR_EMPTY || scr[i.rel_int_y()][i.rel_int_x()].getCh() == CHAR_OUTSIDE) drawCell(scr, i, main_color);
 			else drawCell(scr, i, second_color);
 		}

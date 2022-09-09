@@ -43,10 +43,10 @@ const int MAX_ANIMATIONS = 8;
 #define ID_DEFAULT 0
 #define ID_PLACEHOLDER 1
 #define ID_PLAYER 2
-#define ID_WALL 10
-#define ID_CHEST 11
+#define ID_CHEST 10
 #define ID_FLOOR 15
-#define ID_DOOR 16
+#define ID_WALL 16
+#define ID_DOOR 17
 
 #define ID_HEALTH_POTION 150
 #define ID_KEY 151

@@ -249,8 +249,7 @@ MapHandler::MapHandler() {
 		Coordinate i = start;
 		bool ended = false;
 		while(!ended) {
-			if(checkPosition(map, i) == obj) ended = true;
-			if(i.equals(end)) ended = true;
+			if(checkPosition(map, i) == obj || i.equals(end)) ended = true;
 			else {
 				i = checkLine_floor_next(map, i, delta);
 				if(i.equals(COORDINATE_ERROR)) ended = true;

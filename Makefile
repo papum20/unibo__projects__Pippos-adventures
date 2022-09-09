@@ -135,8 +135,6 @@ room_position.o: structures/room_position.cpp structures/room_position.hpp
 	g++ -c structures/room_position.cpp
 union_find.o: structures/union_find.cpp structures/union_find.hpp
 	g++ -c structures/union_find.cpp
-sword.o: sword.cpp sword.hpp
-	g++ -c sword.cpp
 timer.o: timer.cpp timer.hpp
 	g++ -c timer.cpp
 wall.o: wall.cpp wall.hpp

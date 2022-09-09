@@ -173,61 +173,79 @@ MapHandler::MapHandler() {
 
 //// CHECK LINE
 	int MapHandler::checkLine(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
-		int found = 0;
-		Coordinate delta = Coordinate::unitVector(start, end);
+		if(Coordinate(start, end.negative()).equals(COORDINATE_ZERO)) {
+			obj[0] = checkPosition(map, start);
+			if(obj[0] != NULL) return 1;
+			else return 0;
+		} else {
+			int found = 0;
+			Coordinate delta = Coordinate::unitVector(start, end);
 
-		Coordinate i = start;
-		bool ended = false;
-		while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
-			obj[found] = checkPosition(map, i);
-			//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
-			//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
-			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
-			if(i.equals_int(end)) ended = true;
-			else {
-				i = checkLine_floor_next(map, i, delta);
-				if(i.equals(COORDINATE_ERROR)) ended = true;
+			Coordinate i = start;
+			bool ended = false;
+			while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
+				obj[found] = checkPosition(map, i);
+				//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
+				//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
+				if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
+				if(i.equals_int(end)) ended = true;
+				else {
+					i = checkLine_floor_next(map, i, delta);
+					if(i.equals(COORDINATE_ERROR)) ended = true;
+				}
 			}
+			return found;
 		}
-		return found;
 	}
 	//IMPLEMENTATO COME CHECKLINE, CAMBIA ARROTONDAMENTO
 	int MapHandler::checkLine_ceil(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
-		int found = 0;
-		Coordinate delta = Coordinate::unitVector(start, end);
+		if(Coordinate(start, end.negative()).equals(COORDINATE_ZERO)) {
+			obj[0] = checkPosition(map, start);
+			if(obj[0] != NULL) return 1;
+			else return 0;
+		} else {
+			int found = 0;
+			Coordinate delta = Coordinate::unitVector(start, end);
 
-		Coordinate i = start;
-		bool ended = false;
-		while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
-			obj[found] = checkPosition(map, i);
-			//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
-			//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
-			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
-			if(i.equals_int(end)) ended = true;
-			else {
-				i = checkLine_ceil_next(map, i, delta);
-				if(i.equals(COORDINATE_ERROR)) ended = true;
+			Coordinate i = start;
+			bool ended = false;
+			while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
+				obj[found] = checkPosition(map, i);
+				//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
+				//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
+				if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
+				if(i.equals_int(end)) ended = true;
+				else {
+					i = checkLine_ceil_next(map, i, delta);
+					if(i.equals(COORDINATE_ERROR)) ended = true;
+				}
 			}
+			return found;
 		}
-		return found;
 	}
 	//IMPLEMENTATO COME CHECKLINE, CAMBIA TIPO DI RIORNO
 	int MapHandler::checkLine_character(pMap map, pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end) {
-		int found = 0;
-		Coordinate delta = Coordinate::unitVector(start, end);
+		if(Coordinate(start, end.negative()).equals(COORDINATE_ZERO)) {
+			obj[0] = checkCharacter(map, start);
+			if(obj[0] != NULL) return 1;
+			else return 0;
+		} else {
+			int found = 0;
+			Coordinate delta = Coordinate::unitVector(start, end);
 
-		Coordinate i = start;
-		bool ended = false;
-		while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
-			obj[found] = checkCharacter(map, i);
-			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
-			if(i.equals(end)) ended = true;
-			else {
-				i = checkLine_floor_next(map, i, delta);
-				if(i.equals(COORDINATE_ERROR)) ended = true;
+			Coordinate i = start;
+			bool ended = false;
+			while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
+				obj[found] = checkCharacter(map, i);
+				if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
+				if(i.equals(end)) ended = true;
+				else {
+					i = checkLine_floor_next(map, i, delta);
+					if(i.equals(COORDINATE_ERROR)) ended = true;
+				}
 			}
+			return found;
 		}
-		return found;
 	}
 
 //// CHECK RECTANGLE

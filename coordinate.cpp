@@ -56,7 +56,8 @@
 		Coordinate diff = Coordinate(B, A.negative());
 		int diffMax = Math::abs(diff.x);
 		if(Math::abs(diff.y) > diffMax) diffMax = Math::abs(diff.y);
-		return diff.times(1. / diffMax, 1. / diffMax);
+		if(diffMax == 0) return COORDINATE_ZERO;
+		else return diff.times(1. / diffMax, 1. / diffMax);
 	}
 
 

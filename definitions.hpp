@@ -102,12 +102,15 @@ const int scroll_up = KEY_UP;
 const int scroll_down = KEY_DOWN;
 const int scroll_left = KEY_LEFT;
 const int scroll_right = KEY_RIGHT;
+//apertura/utilzzo menu
 #define KEY_PAUSE 'm'
 #define KEY_ESC 'q'
 #define KEY_MAIN_MENU 'p'
 #define KEY_QUIT 'o'
 #define KEY_MAP 'b'
 #define KEY_SELECT_MENU invio
+//gioco
+#define KEY_INTERACT 'v'
 #pragma endregion KEY_BINDINGS
 
 

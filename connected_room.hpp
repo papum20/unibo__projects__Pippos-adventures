@@ -24,13 +24,13 @@ class ConnectedRoom : public Room {
 		//// FUNZONI AUSILIARIE
 		//FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
 		void generateDoorsPlacehodlers(pUnionFind sets);	//genera dei placeholder per le porte per far si che rimangano connesse al resto della stanza (generazione stanza)
-		void generateDoors(bool c);								//genera le porte (generazione stanza)
+		void generateDoors();								//genera le porte (generazione stanza)
 
 	public:
 		ConnectedRoom(Coordinate pos);
 		void recursiveDestroy();
 
-		void generate(bool c);
+		void generate();
 
 		// SET
 		void makeConnection(pRoom room, int dir, lock_type lt, bool first = true);	//(overridden) connette questa stanza a room, creando una porta in direzione dir (e la relativa porta in room), con stato bloccato lt; first inizializzato da solo

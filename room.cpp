@@ -43,7 +43,7 @@
 		} while(!i.equals(COORDINATE_ZERO));
 	}
 
-	void Room::generate(bool c)
+	void Room::generate()
 	{
 		pUnionFind sets = new UnionFind();
 		//GENERA MURI LATERALI

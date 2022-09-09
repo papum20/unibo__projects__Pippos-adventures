@@ -33,8 +33,7 @@ void Physical::destroy(pMap map) {
     // ELIMINA PUNTATORI ANIMAZIONI
     for(int i = 0; i < animations_n; i++) animations[i]->delete_list();
     // ELIMINA OGGETTO
-    if(map !=NULL)
-        MapHandler::remove(map, this);
+    if(map != NULL) MapHandler::remove(map, this);
     delete this;
 }
 void Physical::destroyInstance(pMap map) {

@@ -123,6 +123,16 @@
 		} while(!i.equals(COORDINATE_ZERO));
 		return length;
 	}
+	int Room::doorDirection(pDoor door) {
+		bool found = false;
+		int dir = 0;
+		while(!found && dir < DIRECTIONS_N) {
+			if(map->doors[dir] == door) found = true;
+			else dir++;
+		}
+		if(found) return dir;
+		else return DIRECION_ERROR;
+	}
 //// ADD
 	void Room::addCharacter(pCharacter character) {
 		Coordinate i = Coordinate(character->getPosition(), size, character->getPosition(), Coordinate(character->getPosition(), character->getSize()));
@@ -335,31 +345,45 @@
 	Coordinate Room::getSize() {
 		return size;
 	}
-	pRoom Room::getRoomInPosition(Coordinate pos) {
+	pDoor Room::getDoor(int dir) {
+		return map->doors[dir];
+	}
+	Coordinate Room::getEntrance(pDoor door) {
+		return COORDINATE_ERROR;
+	}
+	pRoom Room::getConnectedRoom(pDoor room) {
 		return NULL;
 	}
 	/*void Room::getMap(pPhysical map[], Coordinate &size) {
 		for(s_coord i = 0; i < this->map->getSize().x / scale_x * this->map->getSize().y; i++) map[i] = this->map->checkPosition(Coordinate(i * scale_x, this->map->getSize()));
 		size = this->map->getSize().times(1. / scale_x, 1);
 	}*/
+	void Room::remove(pPhysical obj) {
+		MapHandler::remove(map, obj);
+	}
+	bool Room::addCharacter_strong(pCharacter obj) {
+		Coordinate pos_end = Coordinate(obj->getPosition(), Coordinate(obj->getSize(), COORDINATE_NEGATIVE));
+		pPhysical physical[ROOM_AREA];
+		int found = MapHandler::checkRectangle(map, physical, pos, pos_end);
+		bool valid = false;
+		
+		int i = 0;
+		while(valid && i < found) {
+			if(physical[i]->isInanimate()) valid = false;
+			else physical[i]->destroy(map);	//distruggi oggetto se è character o projectile
+			i++;
+		}
+		addCharacter(obj);
+		return valid;
+	}
 	void Room::makeConnection(pRoom room, int dir, lock_type lt, bool first) {
 		if(room != NULL && first) {
 			int dir2 = (dir + 2) % DIRECTIONS_N;
 			room->makeConnection(this, dir2, lt, false);
 		}
 	}
-	bool Room::setPosition_strong(pPhysical obj, Coordinate pos) {
-		Coordinate pos_end = Coordinate(pos, obj->getSize());	//vertice del rettangolo opposto a pos
-		pPhysical physical[ROOM_AREA];
-		int found = MapHandler::checkRectangle(map, physical, pos, pos_end);
-		bool valid = false;
-		int i = 0;
-		while(valid && i < found) {
-			if(physical[i]->isInanimate() || physical[i]->getId() == ID_CHEST) valid = false;
-			else physical[i]->destroy(map);	//distruggi oggetto se è character o projectile
-			i++;
-		}
-		return valid;
+	void Room::unlockDoor(pDoor door) {
+		
 	}
 #pragma endregion SET_GET
 

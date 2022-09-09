@@ -125,6 +125,17 @@
 
 
 #pragma region SET_GET
+	void ConnectedRoom::addDoor(int dir, lock_type lt) {
+		Coordinate door_size = DOOR_SIZE;
+		if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) door_size = door_size.swapped();
+		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_positions[dir], door_size, door_entrances[dir], lt);
+	}
+	bool ConnectedRoom::addLockedDoor() {
+		if(locked_doors < LOCKED_DOORS_MAX) {
+			locked_doors++;
+			return true;
+		} else return false;
+	}
 	void ConnectedRoom::makeConnection(pRoom room, int dir, lock_type lt, bool first) {
 		if(connected[dir] == NULL && room != NULL) {
 			connected[dir] = room;
@@ -144,27 +155,26 @@
 			}
 		}
 	}
-	void ConnectedRoom::addDoor(int dir, lock_type lt) {
-		Coordinate door_size = DOOR_SIZE;
-		if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) door_size = door_size.swapped();
-		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_positions[dir], door_size, door_entrances[dir], lt);
-	}
-	bool ConnectedRoom::addLockedDoor() {
-		if(locked_doors < LOCKED_DOORS_MAX) {
-			locked_doors++;
-			return true;
-		} else return false;
+	void ConnectedRoom::unlockDoor(pDoor door) {
+		pRoom adjacent = NULL;
+		int dir = 0;
+		while(adjacent == NULL && dir < DIRECTIONS_N) {
+			if(map->doors[dir] == door) adjacent = connected[dir];
+			else dir++;
+		}
+		door->unlock();
+		adjacent->getDoor((dir + 2) % DIRECTIONS_N)->unlock();
 	}
 //// GET
-	pRoom ConnectedRoom::getRoomInPosition(Coordinate pos) {
-		if(!pos.inBounds(Coordinate(0, 0), size)) return NULL;
-		else {
-			pRoom res = NULL;
-			for(int i = 0; i < MAX_CONNECTED_R; i++) {
-				if(connected[i] != NULL && map->doors[i]->getPosition().equals(pos)) res = connected[i];
-			}
-			return res;
-		}
+	pRoom ConnectedRoom::getConnectedRoom(pDoor door) {
+		int dir = doorDirection(door);
+		if(dir != DIRECION_ERROR) return connected[dir];
+		else return NULL;
+	}
+	Coordinate ConnectedRoom::getEntrance(pDoor door) {
+		int dir = doorDirection(door);
+		if(dir == DIRECION_ERROR) return COORDINATE_ERROR;
+		else return connected[dir]->getDoor((dir + 2) % DIRECTIONS_N)->getEntrancePosition();
 	}
 	int ConnectedRoom::getLockedDoors() {
 		return locked_doors;

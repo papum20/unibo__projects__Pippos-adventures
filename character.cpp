@@ -23,17 +23,17 @@ Character::Character(int maxH, int maxS) : Alive(maxH, maxS) {
 }
 
 void Character::destroy(pMap map){
-	delete equipaggiamento.arma;
+	/*delete equipaggiamento.arma;
 	delete equipaggiamento.collana;
 	delete equipaggiamento.scudo;
 	delete equipaggiamento.stivali;
 	delete equipaggiamento.collana;
-	delete equipaggiamento.elmo;
-	for (int i=0; i<W_NUMBER; i++){
-		delete weapons[i];
+	delete equipaggiamento.elmo;*/
+	for (int i=0; i<weapons_n; i++){
+		weapons[i]->destroy(NULL);
 	}
-	for (int i=0; i<DEF_NUMBER; i++){
-		delete defensive_items[i];
+	for (int i=0; i<defensive_items_n; i++){
+		defensive_items[i]->destroy(NULL);
 	}
 	Physical::destroy(map);
 }
@@ -137,11 +137,17 @@ void Character::copyCharacter(Character B) {
 	equipaggiamento=B.equipaggiamento;
 
 	weapons_n=B.weapons_n;
-	for(int i = 0; i < weapons_n;i++) weapons[i]=B.weapons[i];
+	for(int i = 0; i < weapons_n;i++) {
+		weapons[i] = new Weapon();
+		weapons[i]->copyWeapon(*B.weapons[i]);
+	}
 	curr_weapon=B.curr_weapon;
 
 	defensive_items_n=B.defensive_items_n;
-	for(int i = 0; i < defensive_items_n;i++) defensive_items[i]=B.defensive_items[i];
+	for(int i = 0; i < defensive_items_n;i++) {
+		defensive_items[i] = new item_difensivo();
+		defensive_items[i]->copyItemDifensivo(*B.defensive_items[i]);
+	}
 	last_def=B.last_def;
 	danno_fisico=B.danno_fisico;
 	danno_magico=B.danno_magico;

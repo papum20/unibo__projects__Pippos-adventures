@@ -52,7 +52,9 @@ class Room {
 		Coordinate scale;		//ridimensionamento
 		pMap map;
 		
-	// FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
+		// FUNZIONI AUSILIARIE
+		int doorDirection(pDoor door);													//direzione in cui si trova la porta
+		// FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
 		void generateSidesWalls();
 		void generateInnerRoom(pUnionFind sets);
 		void generateAllPaths(pUnionFind sets);
@@ -78,11 +80,15 @@ class Room {
 		Coordinate getPos();
 		Coordinate getSize();
 		//void getMap(pPhysical map[], Coordinate &size);			//modifica mappa, ritorna dimensioni
-		virtual Room *getRoomInPosition(Coordinate pos);		//ritorna il puntatore alla stanza collegata da una porta in posizione pos
+		pDoor getDoor(int dir);										//porta in direzione
+		virtual Coordinate getEntrance(pDoor door);					//posizione in cui si entra nell'altra stanza attraversando questa porta
+		virtual Room *getConnectedRoom(pDoor door);					//ritorna il puntatore alla stanza collegata dalla porta
 
 		// SET
+		void remove(pPhysical obj);															//rimuove da map
+		bool addCharacter_strong(pCharacter obj);											//posiziona obj in pos e, se lo spazio risulta occupato, sposta ciò che lo occupa (esclusi muri)
 		virtual void makeConnection(Room *room, int dir, lock_type lt, bool first = true);	//collega l'altra stanza a questa (se è connectedRoom), con stato bloccato lt; first inizializzato da solo
-		bool setPosition_strong(pPhysical obj, Coordinate pos);								//posiziona obj in pos e, se lo spazio risulta occupato, sposta ciò che lo occupa (esclusi muri)
+		virtual void unlockDoor(pDoor door);												//sblocca porta da entrambi i lati
 
 		//funzioni di debug: stampano la stanza in caratteri (rispettivamente con size e size_t)
 		//void debug();

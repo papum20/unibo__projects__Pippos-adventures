@@ -58,7 +58,7 @@ MapHandler::MapHandler() {
 			
 			for(int i = 0; i < ROOM_AREA; i++) dist[i] = -1;
 			dist[A->getPosition().single_set(map->size)] = 0;
-			Q.push(A->getPosition());
+			Q.push(A->getPosition().integer());
 
 			bool reached = false;
 			Coordinate res;
@@ -167,67 +167,85 @@ MapHandler::MapHandler() {
 	pDoor MapHandler::checkDoor(pMap map, Coordinate pos) {
 		pos.setMatrix(map->size);
 		if(pos.inBounds(Coordinate(0, 0),map->size) && map->physical[pos.single()]->getId() == ID_DOOR)
-			return getDoorInPosition(map, pos);
+			return to_door(map, map->physical[pos.single()]);
 		else return NULL;
 	}
 
 //// CHECK LINE
 	int MapHandler::checkLine(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
-		int found = 0;
-		Coordinate delta = Coordinate::unitVector(start, end);
+		if(Coordinate(start, end.negative()).equals(COORDINATE_ZERO)) {
+			obj[0] = checkPosition(map, start);
+			if(obj[0] != NULL) return 1;
+			else return 0;
+		} else {
+			int found = 0;
+			Coordinate delta = Coordinate::unitVector(start, end);
 
-		Coordinate i = start;
-		bool ended = false;
-		while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
-			obj[found] = checkPosition(map, i);
-			//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
-			//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
-			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
-			if(i.equals_int(end)) ended = true;
-			else {
-				i = checkLine_floor_next(map, i, delta);
-				if(i.equals(COORDINATE_ERROR)) ended = true;
+			Coordinate i = start;
+			bool ended = false;
+			while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
+				obj[found] = checkPosition(map, i);
+				//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
+				//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
+				if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
+				if(i.equals_int(end)) ended = true;
+				else {
+					i = checkLine_floor_next(map, i, delta);
+					if(i.equals(COORDINATE_ERROR)) ended = true;
+				}
 			}
+			return found;
 		}
-		return found;
 	}
 	//IMPLEMENTATO COME CHECKLINE, CAMBIA ARROTONDAMENTO
 	int MapHandler::checkLine_ceil(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
-		int found = 0;
-		Coordinate delta = Coordinate::unitVector(start, end);
+		if(Coordinate(start, end.negative()).equals(COORDINATE_ZERO)) {
+			obj[0] = checkPosition(map, start);
+			if(obj[0] != NULL) return 1;
+			else return 0;
+		} else {
+			int found = 0;
+			Coordinate delta = Coordinate::unitVector(start, end);
 
-		Coordinate i = start;
-		bool ended = false;
-		while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
-			obj[found] = checkPosition(map, i);
-			//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
-			//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
-			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
-			if(i.equals_int(end)) ended = true;
-			else {
-				i = checkLine_ceil_next(map, i, delta);
-				if(i.equals(COORDINATE_ERROR)) ended = true;
+			Coordinate i = start;
+			bool ended = false;
+			while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
+				obj[found] = checkPosition(map, i);
+				//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
+				//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
+				if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
+				if(i.equals_int(end)) ended = true;
+				else {
+					i = checkLine_ceil_next(map, i, delta);
+					if(i.equals(COORDINATE_ERROR)) ended = true;
+				}
 			}
+			return found;
 		}
-		return found;
 	}
 	//IMPLEMENTATO COME CHECKLINE, CAMBIA TIPO DI RIORNO
 	int MapHandler::checkLine_character(pMap map, pCharacter obj[ROOM_AREA], Coordinate start, Coordinate end) {
-		int found = 0;
-		Coordinate delta = Coordinate::unitVector(start, end);
+		if(Coordinate(start, end.negative()).equals(COORDINATE_ZERO)) {
+			obj[0] = checkCharacter(map, start);
+			if(obj[0] != NULL) return 1;
+			else return 0;
+		} else {
+			int found = 0;
+			Coordinate delta = Coordinate::unitVector(start, end);
 
-		Coordinate i = start;
-		bool ended = false;
-		while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
-			obj[found] = checkCharacter(map, i);
-			if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
-			if(i.equals(end)) ended = true;
-			else {
-				i = checkLine_floor_next(map, i, delta);
-				if(i.equals(COORDINATE_ERROR)) ended = true;
+			Coordinate i = start;
+			bool ended = false;
+			while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
+				obj[found] = checkCharacter(map, i);
+				if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
+				if(i.equals(end)) ended = true;
+				else {
+					i = checkLine_floor_next(map, i, delta);
+					if(i.equals(COORDINATE_ERROR)) ended = true;
+				}
 			}
+			return found;
 		}
-		return found;
 	}
 
 //// CHECK RECTANGLE
@@ -318,7 +336,16 @@ MapHandler::MapHandler() {
 	}
 
 //// GET
-	pDoor MapHandler::getDoorInPosition(pMap map, Coordinate pos) {
+	pDoor MapHandler::to_door(pMap map, pPhysical door) {
+		pDoor res = NULL;
+		int dir = 0;
+		while(res == NULL && dir < DIRECTIONS_N) {
+			if(map->doors[dir] == door) res = map->doors[dir];
+			else dir++;
+		}
+		return res;
+	}
+	/*pDoor MapHandler::getDoorInPosition(pMap map, Coordinate pos) {
 		bool found = false;
 		int d = 0;
 		while(!found && d < MAX_CONNECTED_R) {
@@ -327,7 +354,7 @@ MapHandler::MapHandler() {
 		}
 		if(!found) return NULL;
 		else return map->doors[d];
-	}
+	}*/
 /*	Coordinate MapHandler::getSize(pMap map) {
 		returnmap->size;
 	}
@@ -339,24 +366,24 @@ MapHandler::MapHandler() {
 	bool MapHandler::move(pMap map, pPhysical obj, Coordinate target) {
 		if(!obj->isInanimate() && obj->getPosition().inBounds(COORDINATE_ZERO, map->size) && isLegalMove(map, obj, target)) {
 			//SPOSTA
-			Coordinate i = Coordinate(target, map->size, target, Coordinate(target, obj->getSize()));
+			Coordinate i = Coordinate(target.integer(), map->size, target.integer(), Coordinate(target, obj->getSize()).integer());
 			do {
 				map->physical[i.single()] = obj;
 				if(obj->isCharacter()) map->characters[i.single()] = map->characters[obj->getPosition().single_set(map->size)];
 				else if(obj->isProjectile()) map->projectiles[i.single()] = map->projectiles[obj->getPosition().single_set(map->size)];
 				i.next();
-			} while(!i.equals(target));
+			} while(!i.equals_int(target));
 			//RIMUOVI CASELLE VECCHIE (NON PIÙ OCCUPATE)
-			i = Coordinate(obj->getPosition(), map->size, obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
+			i = Coordinate(obj->getPosition().integer(), map->size, obj->getPosition().integer(), Coordinate(obj->getPosition(), obj->getSize()).integer());
 			do {
-				if(!i.inBounds(target, Coordinate(target, obj->getSize()))) {
+				if(!i.inBounds(target.integer(), Coordinate(target, obj->getSize()).integer())) {
 					map->physical[i.single()] = FLOOR_INSTANCE;
 					map->characters[i.single()] = NULL;
 					map->chests[i.single()] = NULL;
 					map->projectiles[i.single()] = NULL;
 				}
 				i.next();
-			} while (!i.equals(obj->getPosition()));
+			} while (!i.equals_int(obj->getPosition()));
 			
 			obj->setPosition(target);
 			return true;
@@ -364,24 +391,24 @@ MapHandler::MapHandler() {
 	}
 	void MapHandler::remove(pMap map, pPhysical obj) {
 		if(!obj->isInanimate() || obj->getId() == ID_CHEST) {
-			Coordinate i = Coordinate(obj->getPosition(), map->size, obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
+			Coordinate i = Coordinate(obj->getPosition().integer(), map->size, obj->getPosition().integer(), Coordinate(obj->getPosition(), obj->getSize()).integer());
 			do {
 				map->physical[i.single()] = FLOOR_INSTANCE;
 				map->characters[i.single()] = NULL;
 				map->chests[i.single()] = NULL;
 				map->projectiles[i.single()] = NULL;
 				i.next();
-			} while(!i.equals(obj->getPosition()));
+			} while(!i.equals_int(obj->getPosition()));
 		}
 	}
 	void MapHandler::addProjectile(pMap map, pProjectile projectile) {
 		if(isFreeSpace(map, projectile->getPosition(), projectile->getSize())) {
-			Coordinate i = Coordinate(projectile->getPosition(), map->size, projectile->getPosition(), Coordinate(projectile->getPosition(), projectile->getSize()));
+			Coordinate i = Coordinate(projectile->getPosition().integer(), map->size, projectile->getPosition().integer(), Coordinate(projectile->getPosition(), projectile->getSize()).integer());
 			do {
 				map->physical[i.single()] = projectile;
 				map->projectiles[i.single()] = projectile;
 				i.next();
-			} while(!i.equals(projectile->getPosition()));
+			} while(!i.equals_int(projectile->getPosition()));
 		}
 	}
 #pragma endregion SET_GET

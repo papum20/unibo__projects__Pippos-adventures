@@ -52,8 +52,7 @@ const int MAX_ANIMATIONS = 8;
 #define ID_WEAPON_ENEMY_E 199
 
 #define ID_DEFAULT 0
-#define ID_PLACEHOLDER 1
-#define ID_PLAYER 2
+#define ID_PLAYER 1
 #define ID_CHEST 10
 #define ID_FLOOR 15
 #define ID_WALL 16

@@ -22,8 +22,8 @@ const int spider_legs_attack_right_index=7;
 const int spider_legs_height=7;
 const int spider_legs_width=11;
 
-const int spider_x_coordinate=0;
-const int spider_y_coordinate=0;
+const int spider_x_coordinate=2;
+const int spider_y_coordinate=2;
 
 const int spider_horizontal_attack_width=3;
 const int spider_horizontal_attack_height=2;

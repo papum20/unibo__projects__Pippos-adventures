@@ -13,7 +13,8 @@
 class MapHandler {
 	private:
 		//// FUNZIONI AUSILIARIE
-		static Door *getDoorInPosition(pMap map, Coordinate pos);				//door (puntatore) in una posizione
+		//static Door *getDoorInPosition(pMap map, Coordinate pos);				//door (puntatore) in una posizione
+		static Door *to_door(pMap map, Physical *door);							//converte pPhysical in door (se è un pDoor)
 		static bool isLegalMove(pMap map, Physical *obj, Coordinate target);	//ritorna true se obj può occupare, con le sue dimensioni, la cella target
 		//per check
 		static void addLineToCheck(pMap map, Physical *obj[ROOM_AREA], int &found, Coordinate start, Coordinate end);	//funzione ausiliaria per checkRectangle: controlla una linea

@@ -2,6 +2,8 @@
 
 
 HealthPotion::HealthPotion() : Artifact() {
+	strcpy(rarity, common);
+	id=ID_HEALTH_POTION;
 	healthGained = HEALTH_GAINED;
 	strcpy (name, potion_name);
 	strcpy (description, potion_description);

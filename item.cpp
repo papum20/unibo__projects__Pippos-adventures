@@ -1,7 +1,7 @@
 #include "item.hpp"
 
 item::item():Animate(){
-    strcpy(rarity, common);
+    
     strcpy (description, " ");
     strcpy (name, " ");
 }

@@ -34,7 +34,23 @@ int main() {
 	Level level = Level(level_x, level_y, player);
 
 	Hud hud = Hud(hud_x, hud_y, player);
-	Inventory inventory = Inventory(player);
+	Inventory  inventory = Inventory(player,1, 80, 11, 40, 12, 110, 12, 50, 18, 90);
+	/*pSword sw = new sword();
+	Ascia * axe = new Ascia();
+	HealthPotion * hp = new HealthPotion();
+	HealthPotion * hd = new HealthPotion();
+	pElixir elis = new Life_elixir();
+	pSword sd = new sword();
+	pSword d = new sword();
+	pSword f = new sword();
+	shield * s = new shield();
+	inventory.insert(hp);
+	inventory.insert(hd);
+	inventory.insert(d);
+	inventory.insert(axe);
+	inventory.insert(elis);
+	inventory.insert(s);
+	*/
 	Menu menu = Menu();
 	MiniMap miniMap = MiniMap(map_x, map_y);
 

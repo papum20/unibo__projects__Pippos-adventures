@@ -29,12 +29,10 @@ const int MAX_ANIMATIONS = 8;
 #define ID_ITEM_E 179
 
 #define ID_ARTIFACT_S 150
-#define ID_ARTIFACT_POTION 151
-#define ID_ARTIFACT_RUNE 152
 #define ID_ARTIFACT_E 159
 
 #define ID_WEAPON_S 160
-#define ID_WEAPON_SWORD 161
+
 #define ID_WEAPON_AXE 162
 #define ID_WEAPON_BOW 163
 #define ID_WEAPON_ROD 164
@@ -61,12 +59,12 @@ const int MAX_ANIMATIONS = 8;
 #define ID_FLOOR 11
 #define ID_DOOR 12
 
-#define ID_HEALTH_POTION 150
-#define ID_KEY 151
-#define ID_LIFE_ELIXIR 152
-#define ID_RUNE 153
+#define ID_HEALTH_POTION 151
+#define ID_KEY 152
+#define ID_LIFE_ELIXIR 153
+#define ID_RUNE 154
 
-#define ID_SWORD 160
+#define ID_SWORD 161
 #pragma endregion PHYSICAL_IDS
 
 #pragma region PHYSICAL_STATS

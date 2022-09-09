@@ -69,14 +69,14 @@ void Physical::next_animation(){
     bool Physical::isWeapon() {
         return id >= ID_WEAPON_S && id <= ID_WEAPON_E;
     }
-    bool Physical::isArtifact() {
+    bool Physical::isItemDifensivo() {
         return id >= ID_ITEM_DIFENSIVO_S && id <= ID_ITEM_DIFENSIVO_E;
     }
-    bool Physical::isItemDifensivo() {
+    bool Physical::isArtifact() {
         return id >= ID_ARTIFACT_S && id <= ID_ARTIFACT_E;
     }
     bool Physical::isSword(){
-        if(id==ID_WEAPON_SWORD)
+        if(id==ID_SWORD)
             return true;
         else 
             return false;
@@ -130,13 +130,13 @@ void Physical::next_animation(){
             return false;
     }
     bool Physical::isPotion(){
-        if(id==ID_ARTIFACT_POTION)
+        if((id==ID_HEALTH_POTION) || (id==ID_LIFE_ELIXIR))
             return true;
         else 
             return false;
     }
     bool Physical::isRune(){
-        if(id==ID_ARTIFACT_RUNE)
+        if(id==ID_RUNE)
             return true;
         else 
             return false;

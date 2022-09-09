@@ -81,7 +81,7 @@
 #define CHAR_OUTSIDE '.'
 // DIMENSIONI
 #define WALL_HEIGHT 6
-#define DOOR_HEIGHT (WALL_HEIGHT + 1)
+#define DOOR_HEIGHT (WALL_HEIGHT)
 #define DOOR_WIDTH 3
 #define DOOR_DEPTH 1
 //player

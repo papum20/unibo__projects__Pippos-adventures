@@ -56,7 +56,7 @@
 			RoomPosition nxt = RoomPosition(Coordinate(curRoom->getPos(), DIRECTIONS[(r+i)%4]), 1);
 			if(nxt.getPos().inBounds(COORDINATE_ZERO, map_size)) available.insert(nxt);
 		}
-//
+
 		//genera le altre stanze
 		for(int room = 1; room < N_ROOMS; room++)
 		{

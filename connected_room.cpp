@@ -19,7 +19,7 @@
 		door_entrances[DIRECTION_DOWN]	= Coordinate((size.x - p_width) / 2, DOOR_DEPTH);
 		door_entrances[DIRECTION_LEFT]	= Coordinate(DOOR_DEPTH, (size.y - p_depth) / 2);
 
-		door_zones_t[DIRECTION_UP]		= Coordinate((size_t.x - Math::ceil(ZONE_DOOR_UD.x/scale.x)) / 2, size_t.y - 1 - Math::ceil(ZONE_DOOR_UD.y/scale.y)).integer();
+		door_zones_t[DIRECTION_UP]	= Coordinate((size_t.x - Math::ceil(ZONE_DOOR_UD.x/scale.x)) / 2, size_t.y - 1 - Math::ceil(ZONE_DOOR_UD.y/scale.y)).integer();
 		door_zones_t[DIRECTION_RIGHT]	= Coordinate(size_t.y - 1 - Math::ceil(ZONE_DOOR_LR.x), (size_t.y - Math::ceil(ZONE_DOOR_LR.y)) / 2).integer();
 		door_zones_t[DIRECTION_DOWN] 	= Coordinate((size_t.x - Math::ceil(ZONE_DOOR_UD.x/scale.x)) / 2, 1).integer();
 		door_zones_t[DIRECTION_LEFT] 	= Coordinate(1, (size_t.y - Math::ceil(ZONE_DOOR_LR.y)) / 2).integer();
@@ -105,14 +105,14 @@
 					end		= Coordinate(mx.x, door_pos.y + door_size.y);
 				}
 				if(c) {
-					WINDOW *w = newwin(10,10, 10,0);
-					mvwprintw(w,1,1,to_string(start.x).c_str());
-					mvwprintw(w,2,1,to_string(start.y).c_str());
-					mvwprintw(w,3,1,to_string(end.x).c_str());
-					mvwprintw(w,4,1,to_string(end.y).c_str());
-					mvwprintw(w,5,1,to_string(mx.x).c_str());
-					mvwprintw(w,6,1,to_string(mx.y).c_str());
-					wgetch(w);
+					//WINDOW *w = newwin(10,10, 10,0);
+					//mvwprintw(w,1,1,to_string(start.x).c_str());
+					//mvwprintw(w,2,1,to_string(start.y).c_str());
+					//mvwprintw(w,3,1,to_string(end.x).c_str());
+					//mvwprintw(w,4,1,to_string(end.y).c_str());
+					//mvwprintw(w,5,1,to_string(mx.x).c_str());
+					//mvwprintw(w,6,1,to_string(mx.y).c_str());
+					//wgetch(w);
 				}
 				i = Coordinate(start, size, start, end);
 				do {

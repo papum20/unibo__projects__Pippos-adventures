@@ -31,7 +31,7 @@
 	void PriorityQueue::removeAt(int ind) {
 		if(ind >= 0 && ind < size) {
 			swap(ind, size - 1);
-			delete heap[size];
+			delete heap[size - 1];
 			size--;
 			fix(ind);
 		}

@@ -88,7 +88,7 @@
 			if(map_it.inBounds(COORDINATE_ZERO, size)) {								//se il punto è nella mappa: disegna
 				pPhysical obj = MapHandler::checkPosition(map, map_it);
 				if(obj == NULL) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);									//disegna floor se è vuoto
-				else if(obj->getId() == ID_WALL) obj->drawAtPosition(scr, wstart, win_size, map_it);		//disegna wall/door
+				else if(obj->getId() == ID_WALL || obj->getId() == ID_DOOR) obj->drawAtPosition(scr, wstart, win_size, map_it);		//disegna wall/door
 				else {																												//disegna animate/chest+floor
 					obj->drawAtOwnPosition(scr, wstart, win_size);
 					//else{ scr[scr_reverse.inty()][scr_reverse.intx()].edit('x',-1,-1,0);

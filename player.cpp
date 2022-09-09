@@ -158,23 +158,23 @@ void Player::check_enemy_melee(pMap map){
 	Coordinate end;
 	switch (direction){
 		case 'u':
-			start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y+size.y);
+			start=Coordinate (pos.x+(size.x-(equipaggiamento.arma)->vertical_size.x)/2, pos.y+size.y);
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
 			break;
 		case 'd':
-			start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y-(equipaggiamento.arma)->vertical_size.y );
+			start=Coordinate (pos.x+(size.x-(equipaggiamento.arma)->vertical_size.x)/2, pos.y-(equipaggiamento.arma)->vertical_size.y );
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
 			break;
 		case 'l':
-			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
+			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(size.y-(equipaggiamento.arma)->horizontal_size.y)/2);
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 			break;
 		case 'r':
-			start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
+			start=Coordinate (pos.x+size.x, pos.y+(size.y-(equipaggiamento.arma)->horizontal_size.y)/2);
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 			break;
 	}
-
+	
 	int dim=MapHandler::checkRectangle(map, objects, start, end);
 
 	/*WINDOW* debugging=newwin (10, 10, 40, 0);
@@ -187,6 +187,11 @@ void Player::check_enemy_melee(pMap map){
             if (objects[i]->getId()!=this->id && objects[i]->isCharacter()){         
                 defender=MapHandler::checkCharacter(map, objects[i]->getPosition());       
                 defender->changeCurrentHealth(calculate_damage(defender));
+	WINDOW* debugging=newwin (10, 10, 40, 0);
+    box (debugging, 0, 0);
+	mvwprintw (debugging, 1, 1, to_string(defender->curHealth).c_str());
+    wrefresh(debugging);   
+    
 				if (defender->getHealth()==0)
 					points=points+defender->getPoints();
             }

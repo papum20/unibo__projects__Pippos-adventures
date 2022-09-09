@@ -99,7 +99,7 @@ void Enemy::check_enemy_melee(pMap map){
 	Coordinate end;
 	
 	//setto le coordinate per cercare in alto
-	start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y+size.y);
+	start=Coordinate (pos.x+(size.x-(equipaggiamento.arma)->vertical_size.x)/2, pos.y+size.y);
 	end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
 	if (MapHandler::findRectangle(map, player, start, end)){
 		direction='u';
@@ -107,7 +107,7 @@ void Enemy::check_enemy_melee(pMap map){
 	}
 	//Basso
 	if (!player_found){
-		start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y-(equipaggiamento.arma)->vertical_size.y );
+		start=Coordinate (pos.x+(size.x-(equipaggiamento.arma)->vertical_size.x)/2, pos.y-(equipaggiamento.arma)->vertical_size.y );
 		end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
 		if (MapHandler::findRectangle(map, player, start, end)){
 			direction='d';
@@ -116,7 +116,7 @@ void Enemy::check_enemy_melee(pMap map){
 	}
 	//Sinistra
 	if (!player_found){
-		start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
+		start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(size.y-(equipaggiamento.arma)->horizontal_size.y)/2);
 		end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 		if (MapHandler::findRectangle(map, player, start, end)){
 			direction='l';
@@ -125,7 +125,7 @@ void Enemy::check_enemy_melee(pMap map){
 	}
 	//Destra
 	if (!player_found){
-		start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
+		start=Coordinate (pos.x+size.x, pos.y+(size.y-(equipaggiamento.arma)->horizontal_size.y)/2);
 		end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 		if (MapHandler::findRectangle(map, player, start, end)){
 			direction='r';

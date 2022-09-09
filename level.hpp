@@ -54,7 +54,7 @@ const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]		= 	{
 														{2, 3, 4, 1, 1},
 														{1, 2, 4, 4, 1}
 														};
-const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 12};
+const int ENEMIES_CHANCE_TOT[LEVELS_N] = {1, 11, 12};
 //item
 const int CHESTS_N_MIN[LEVELS_N] {0, 0, 0};
 const int CHESTS_N_MAX[LEVELS_N] {2, 2, 2};

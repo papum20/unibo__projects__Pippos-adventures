@@ -21,6 +21,8 @@ const Coordinate ANIMATION_SIZE = Coordinate(ANIMATION_WIDTH, ANIMATION_HEIGHT);
 class Animation {
 	private:
 		void set(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const Coordinate size, Animation *next = NULL);		//setup
+		void setSingle(const char state[ANIMATION_AREA], const Coordinate size, Animation *next = NULL);					//setup
+		void tail_insertSingle(const char state[ANIMATION_AREA], Coordinate size);											//inserisce in coda (rispetto alla testa attuale/passata per parametro)
 
 	public:
 		char state[ANIMATION_AREA];		//un frame dell'animazione
@@ -30,7 +32,9 @@ class Animation {
 
 		Animation();
 		Animation(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], const Coordinate size);							//inizializza singolo frame
+		Animation(const char animation[ANIMATION_AREA], const Coordinate);												//inizializza intera lista (lunghezza len)
 		Animation(const char animation[][ANIMATION_HEIGHT][ANIMATION_WIDTH], const Coordinate size, const int len);		//inizializza intera lista (lunghezza len)
+		void copy(Animation *B);
 		void tail_insert(const char state[ANIMATION_HEIGHT][ANIMATION_WIDTH], Coordinate size);							//inserisce in coda (rispetto alla testa attuale/passata per parametro)
 		void delete_list();
 

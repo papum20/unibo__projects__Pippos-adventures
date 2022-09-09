@@ -138,13 +138,15 @@ void Inventory::wattroff_inventory(WINDOW * win){
 
 
 void Inventory::fix_array(int array_index){
-    
+    delete objects[array_index];
     if(array_index==curr_inventory_space){
+        
          curr_inventory_space--;}
     else{
         curr_inventory_space--;
         objects[array_index]=objects[curr_inventory_space];
-        array_index=curr_inventory_space;
+        delete objects[curr_inventory_space];
+        /*array_index=curr_inventory_space;
          strcpy(objects[array_index]->name, " ");
         strcpy(objects[array_index]->rarity, " ");
             strcpy(objects[array_index]->description, " ");
@@ -163,7 +165,7 @@ void Inventory::fix_array(int array_index){
            static_cast< item_difensivo *>(objects[array_index])->difesa_magica=0;
            static_cast< item_difensivo *>(objects[array_index])->is_equipped=false;
            
-        }
+        }*/
     }  
     }
 

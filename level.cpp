@@ -140,9 +140,17 @@
 	void Level::changeRoom() {
 		pDoor new_door = player->usedDoor();
 		if(new_door != NULL) {
-			curRoom->setPosition_strong(player, new_door->getEntrancePosition());	//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
-			curRoom = curRoom->getRoomInPosition(new_door->getPosition());
+			curRoom->remove(player);
+			
+			//WINDOW *w = newwin(10,10,10,1);
+			//box(w,0,0);
+			//mvwprintw(w,1,1,to_string(curRoom->getConnectedRoom(new_door)!=NULL).c_str());
+			//wgetch(w);
 			player->useDoor();
+			if(new_door->isLocked()) curRoom->unlockDoor(new_door);
+			player->setPosition(curRoom->getEntrance(new_door));
+			curRoom = curRoom->getConnectedRoom(new_door);
+			curRoom->addCharacter_strong(player);	//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
 		}
 	}
 	void Level::nextLevel() {

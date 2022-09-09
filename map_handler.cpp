@@ -167,7 +167,7 @@ MapHandler::MapHandler() {
 	pDoor MapHandler::checkDoor(pMap map, Coordinate pos) {
 		pos.setMatrix(map->size);
 		if(pos.inBounds(Coordinate(0, 0),map->size) && map->physical[pos.single()]->getId() == ID_DOOR)
-			return getDoorInPosition(map, pos);
+			return to_door(map, map->physical[pos.single()]);
 		else return NULL;
 	}
 
@@ -336,7 +336,16 @@ MapHandler::MapHandler() {
 	}
 
 //// GET
-	pDoor MapHandler::getDoorInPosition(pMap map, Coordinate pos) {
+	pDoor MapHandler::to_door(pMap map, pPhysical door) {
+		pDoor res = NULL;
+		int dir = 0;
+		while(res == NULL && dir < DIRECTIONS_N) {
+			if(map->doors[dir] == door) res = map->doors[dir];
+			else dir++;
+		}
+		return res;
+	}
+	/*pDoor MapHandler::getDoorInPosition(pMap map, Coordinate pos) {
 		bool found = false;
 		int d = 0;
 		while(!found && d < MAX_CONNECTED_R) {
@@ -345,7 +354,7 @@ MapHandler::MapHandler() {
 		}
 		if(!found) return NULL;
 		else return map->doors[d];
-	}
+	}*/
 /*	Coordinate MapHandler::getSize(pMap map) {
 		returnmap->size;
 	}

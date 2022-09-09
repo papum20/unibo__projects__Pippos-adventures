@@ -33,12 +33,13 @@ class ConnectedRoom : public Room {
 		void generate();
 
 		// SET
-		void makeConnection(pRoom room, int dir, lock_type lt, bool first = true);	//(overridden) connette questa stanza a room, creando una porta in direzione dir (e la relativa porta in room), con stato bloccato lt; first inizializzato da solo
 		void addDoor(int dir, lock_type lt);
 		bool addLockedDoor();														//aggiunge una porta bloccata, se non superano il massimo (costante); ritorna true se ha successo
+		void makeConnection(pRoom room, int dir, lock_type lt, bool first = true);	//(overridden) connette questa stanza a room, creando una porta in direzione dir (e la relativa porta in room), con stato bloccato lt; first inizializzato da solo
+		void unlockDoor(pDoor door);												//sblocca porta da entrambi i lati
 		// GET
-		pRoom getRoomInPosition(Coordinate pos);				//ritorna il puntatore alla stanza collegata da una porta in posizione pos
-		//pDoor getDoorInPosition(Coordinate pos) 
+		pRoom getConnectedRoom(pDoor door);						//ritorna il puntatore alla stanza collegata da una porta in posizione pos
+		Coordinate getEntrance(pDoor door);						//posizione in cui si entra nell'altra stanza attraversando questa porta
 		int getLockedDoors();									//ritorna il numero di porte che richiedono chiave (anche se sbloccate)
 };
 

@@ -95,6 +95,7 @@ const Coordinate COORDINATE_ERROR = Coordinate(-1, -1);		//COORDINATA DI RITORNO
 #define DIRECTION_RIGHT 1
 #define DIRECTION_DOWN 2
 #define DIRECTION_LEFT 3
+#define DIRECION_ERROR -1
 const Coordinate DIRECTIONS[DIRECTIONS_N] = {Coordinate(0,1), Coordinate(1,0), Coordinate(0,-1), Coordinate(-1,0)};	//up, right, down, left
 
 

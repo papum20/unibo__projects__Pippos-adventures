@@ -293,10 +293,9 @@ void Player::door_actions(pMap map){
 		newcoord.x=newcoord.x+size.x;
 	}
 	used_door=MapHandler::checkDoor(map, newcoord);
-	if (used_door->isLocked()){
+	if (used_door != NULL && used_door->isLocked()){
 		if (n_keys>0){
 			n_keys--;
-			used_door->unlock();
 		}
 		else
 			used_door=NULL;

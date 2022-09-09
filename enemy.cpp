@@ -32,7 +32,6 @@ int Enemy::getPoints(){
 }
 
 void Enemy::destroy(pMap map){
-	delete player;
 	Character::destroy(map);
 }
 

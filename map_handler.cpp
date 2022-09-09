@@ -407,14 +407,14 @@ MapHandler::MapHandler() {
 		Coordinate j = Coordinate(i, delta);
 		Coordinate t1 = Coordinate(i.x, j.y, map->size);
 		Coordinate t2 = Coordinate(j.x, i.y, map->size);
-		if(checkPosition(map, t1)->isFixed() && checkPosition(map, t2)->isFixed()) return COORDINATE_ERROR;
+		if(!t1.inOwnBounds() || !t2.inOwnBounds() || map->physical[t1.single()]->getId() == ID_WALL && map->physical[t2.single()]->getId() == ID_WALL) return COORDINATE_ERROR;
 		else return j;
 	}
 	Coordinate MapHandler::checkLine_ceil_next(pMap map, Coordinate i, Coordinate delta) {
 		Coordinate j = Coordinate(i, delta);
 		Coordinate t1 = Coordinate(i.x, j.y, map->size);
 		Coordinate t2 = Coordinate(j.x, i.y, map->size);
-		if(checkPosition(map, t1)->isFixed() && checkPosition(map, t2)->isFixed()) return COORDINATE_ERROR;
+		if(!t1.inOwnBounds() || !t2.inOwnBounds() || map->physical[t1.single_ceil()]->getId() == ID_WALL && map->physical[t2.single_ceil()]->getId() == ID_WALL) return COORDINATE_ERROR;
 		else return j;
 	}
 #pragma endregion AUSILIARIE

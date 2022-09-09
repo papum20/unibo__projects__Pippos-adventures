@@ -391,14 +391,14 @@ MapHandler::MapHandler() {
 	}
 	void MapHandler::remove(pMap map, pPhysical obj) {
 		if(!obj->isInanimate() || obj->getId() == ID_CHEST) {
-			Coordinate i = Coordinate(obj->getPosition(), map->size, obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
+			Coordinate i = Coordinate(obj->getPosition().integer(), map->size, obj->getPosition().integer(), Coordinate(obj->getPosition(), obj->getSize()).integer());
 			do {
 				map->physical[i.single()] = FLOOR_INSTANCE;
 				map->characters[i.single()] = NULL;
 				map->chests[i.single()] = NULL;
 				map->projectiles[i.single()] = NULL;
 				i.next();
-			} while(!i.equals(obj->getPosition()));
+			} while(!i.equals_int(obj->getPosition()));
 		}
 	}
 	void MapHandler::addProjectile(pMap map, pProjectile projectile) {

@@ -8,7 +8,7 @@
 
 //// REFRESH RATE : durata di un frame
 #pragma region REFRESH_RATE
-#define FRAMES_PER_SECOND 8					//aggiornamenti in un secondo
+#define FRAMES_PER_SECOND 1					//aggiornamenti in un secondo
 #define REFRESH_RATE (1. / FRAMES_PER_SECOND)	//durata di un aggiornamento
 #define REFRESH_TIMER_INDEX 0					//indice del timer (implementazione)
 #define GAME_TIMER_INDEX 1

@@ -22,11 +22,11 @@ const int axe_attack_right_index=7;
 const int axe_height=8;
 const int axe_width=9;
 
-const int axe_horizontal_attack_width=2;
-const int axe_horizontal_attack_height=2;
+const int axe_horizontal_attack_width=3;
+const int axe_horizontal_attack_height=3;
 
-const int axe_vertical_attack_width=2;
-const int axe_vertical_attack_height=2;
+const int axe_vertical_attack_width=3;
+const int axe_vertical_attack_height=3;
 
 const int axe_vertical_attack_animation=2;
 const int axe_horizontal_attack_animation=4;

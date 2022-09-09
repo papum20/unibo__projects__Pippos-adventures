@@ -27,7 +27,7 @@ MapHandler::MapHandler() {
 				else {
 					for(int d = 0; d < DIRECTIONS_N; d++) {
 						Coordinate nxt = Coordinate(cur, DIRECTIONS[d]);
-						if(dist[nxt.single()] == -1 && ((obj == NULL && checkPosition(map, nxt) == NULL) || isLegalMove(map, obj, nxt)) ) {
+						if(dist[nxt.single()] == -1 && ((obj == NULL && map->physical[nxt.single()]->getId() == ID_FLOOR || isLegalMove(map, obj, nxt)) )) {
 							prev[nxt.single()] = cur;
 							dist[nxt.single()] = dist[cur.single()] + 1;
 							Q.push(nxt);
@@ -233,8 +233,9 @@ MapHandler::MapHandler() {
 //// CHECK RECTANGLE
 	int MapHandler::checkRectangle(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
-		int delta = (start.y - end.y) / Math::abs(start.y - end.y);			//incremento/decremento di 1 per far avvicinare start.y a end.y
-		while(start.y <= end.y) {
+		start = start.integer(), end = end.integer();
+		int delta = (end.y - start.y) / Math::abs(end.y - start.y);			//incremento/decremento di 1 per far avvicinare start.y a end.y
+		while(start.y != end.y) {
 			addLineToCheck(map, obj, found, start, Coordinate(end.x, start.y));
 			start.y += delta;
 		}

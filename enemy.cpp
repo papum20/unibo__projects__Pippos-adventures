@@ -13,6 +13,7 @@ Enemy::Enemy() : Character() {
 	main_color = COLOR_ENEMY;
 	frames_passed=enemy_refreshing_rate;
 	current_step=initial_step;
+	attack_counter=3;
 }
 
 Enemy::Enemy(pCharacter p):Character() {
@@ -56,6 +57,7 @@ void Enemy::update(pMap map){
 					next_animation();
 					equipaggiamento.arma->next_animation();
 				}
+				
 				else{
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);
@@ -85,12 +87,14 @@ void Enemy::update(pMap map){
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
 							break;	
 					}
-				}	
+				}
 			}
 			Character::update(map);
 		}
-		else
+		else{
+			player->change_points(points_given);
 			destroy(map);
+		}
 	}
 }
 
@@ -206,7 +210,7 @@ void Enemy::rangedIA(pMap map){
 	Coordinate path[ROOM_AREA];
 	int player_distance;
 	player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
-	if (player->findInArray(obj, objects_in_view)){																//se il player è in vista
+	/*if (player->findInArray(obj, objects_in_view)){																//se il player è in vista
 		if (player_distance<chase_distance/2){	
 			if (Math::abs(player->getPosition().x-pos.x)<Math::abs(player->getPosition().y-pos.y)){						//se sono più vicini sull'asse delle x
 				if (Math::abs(player->getPosition().x-pos.x)<((equipaggiamento.arma)->projectile).vertical_size.x){	//se la larghezza del proiettile>=distanza sulle x
@@ -243,21 +247,10 @@ void Enemy::rangedIA(pMap map){
 				}
 			}
 		}
-		else if (player_distance<chase_distance){
-			Coordinate step;
-			step=path[0];
-			if (step.x==pos.x){																
-				if (step.y>pos.y)
-					moveUp(map);
-				else
-					moveDown(map);
-			}	
-			else{																		
-				if (step.x>pos.x)
-					moveRight(map);
-				else
-					moveLeft(map);
+		else 
+			if (player_distance<chase_distance){
+				make_step(map);
 			}
-		}
 	}
+	*/
 }

@@ -19,7 +19,7 @@ Fire_spirit::Fire_spirit():Enemy(){
     change_weapon(new Fire_spirit_hands());
     change_necklace(new necklace());
 
-    maxHealth=Math::randomStep(20, 30, 10);
+    maxHealth=Math::randomStep(150, 200, 10);
     curHealth=maxHealth;
     size=Coordinate (fire_spirit_width, fire_spirit_depth);
 }
@@ -43,7 +43,7 @@ Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
     change_weapon(new Fire_spirit_hands());
     change_necklace(new necklace());
 
-    maxHealth=Math::randomStep(20, 30, 10);
+    maxHealth=Math::randomStep(150, 200, 10);
     curHealth=maxHealth;
     size=Coordinate (fire_spirit_width, fire_spirit_depth);
 }

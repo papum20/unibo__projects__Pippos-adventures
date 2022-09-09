@@ -17,6 +17,7 @@ const int max_steps=enemy_refreshing_rate*2;
 
 class Enemy : public Character {
 	protected:
+		int attack_counter;
 		int points_given;
 		pCharacter player;
 		Coordinate memorized_path[max_steps];

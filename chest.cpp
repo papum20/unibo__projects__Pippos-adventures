@@ -10,6 +10,18 @@ Chest::Chest() : Inanimate(){
     main_color = COLOR_CHEST;
 }
 
+Chest::Chest(pKey k):Inanimate(){
+    id=ID_CHEST;
+    key=k;
+    type='k';
+    size = Coordinate(chest_width, chest_depth);
+    idle_index = chest_idle_index;
+    current_animation = idle_index;
+    animations[chest_idle_index] = new Animation(chest_idle, Coordinate(chest_width, chest_height));
+    animations_n = 1;
+    main_color = COLOR_CHEST;
+}
+
 Chest::Chest(pWeapon w) : Inanimate(){
     id = ID_CHEST;
     arma=w;

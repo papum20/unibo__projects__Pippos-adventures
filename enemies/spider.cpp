@@ -15,7 +15,7 @@ Spider::Spider():Enemy(){
 
     points_given=spider_points;
 
-    change_armor(new armor());
+    //change_armor(new armor());
     change_boots(new boots());
     change_weapon(new Spider_legs());
 
@@ -39,7 +39,7 @@ Spider::Spider(pCharacter p):Enemy(p){
 
     points_given=spider_points;
 
-    change_armor(new armor());
+    //change_armor(new armor());
     change_boots(new boots());
     change_weapon(new Spider_legs());
 

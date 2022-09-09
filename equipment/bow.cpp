@@ -2,7 +2,6 @@
 #include <cstring> 
 
 Arco::Arco():Weapon(){
-    strcpy(rarity, legendary);
     id=ID_WEAPON_BOW;
     danno_fisico_iniziale=Math::randomStep(20, 50, 5);
     danno_magico_iniziale=0;
@@ -38,9 +37,3 @@ Arco::Arco():Weapon(){
     current_animation=0;
     projectile= Arrow(danno_fisico, danno_magico, direction, owner_id);
 }
-
-/*pProjectile Arco::shoot(){
-    pArrow freccia= new Arrow(danno_fisico, danno_magico, direction, owner_id);
-    return freccia;
-}
-*/

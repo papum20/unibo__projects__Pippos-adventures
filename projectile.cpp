@@ -51,17 +51,18 @@ void Projectile::update(pMap map){
 
         int dim=MapHandler::checkRectangle(map, objects, start, end);       //numero di oggetti in collisione
         
-        if (dim>0){                                                            //se è maggiore di zero, calcolo le collisioni
+        WINDOW* debugging= newwin (10, 10, 40, 0);
+        box(debugging, 0, 0);
+        if (dim>0){    
+            mvwprintw(debugging, 5, 5, "non fa danno");                                                        //se è maggiore di zero, calcolo le collisioni
             for (int i=0; i<dim; i++){
                 if (objects[i]->getId()!=this->shooter_id && objects[i]->isCharacter()){         //se si tratta di un personaggio diverso dalla categoria di colui che ha sparato, 
                     defender=MapHandler::checkAlive(map, objects[i]->getPosition());    //mi serve un puntatore a character
                     defender->changeCurrentHealth(calculate_damage(defender));    //cambio la vita in base ai danni subiti
-                    WINDOW* debugging=newwin (10, 10, 40, 0);
-                    box (debugging, 0, 0);
-                    mvwprintw (debugging, 1, 1, to_string(defender->curHealth).c_str());
-                    wrefresh(debugging);
+                    mvwprintw (debugging, 1, 1, to_string(calculate_damage(defender)).c_str());
                 }
             }
+            wrefresh(debugging);
             destroy(map);                                                              //visto che ha colliso, elimino il proiettile
         }
         else{                                               //se non ci sono state collisioni
@@ -88,6 +89,13 @@ void Projectile::update(pMap map){
 
 int Projectile::calculate_damage(pAlive c){
     int damage;
+    WINDOW* danni= newwin (10, 10, 52, 0);
+    box(danni, 0, 0);
+    mvwprintw (danni, 1, 1, to_string(danno_fisico).c_str());
+    mvwprintw (danni, 2, 1, to_string(danno_magico).c_str());
+    mvwprintw (danni, 3, 1, to_string(c->difesa_fisica).c_str());
+    mvwprintw (danni, 4, 1, to_string(c->difesa_magica).c_str());
+    wrefresh(danni);
     damage=danno_fisico-(c->difesa_fisica/2)+danno_magico-(c->difesa_magica/2);
     if (damage>0)
         return (-(damage));

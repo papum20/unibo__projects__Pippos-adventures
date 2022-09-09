@@ -5,6 +5,7 @@
 #include "artifact.hpp"
 #include "item_difensivi.hpp"
 #include "inanimate.hpp"
+#include "items/key.hpp"
 
 const int chest_width=5;
 const int chest_height=3;
@@ -27,11 +28,13 @@ class Chest: public Inanimate{
         pWeapon arma;
         pArtifact artefatto;
         pItem_def item_def;
+        pKey key;
         char type;
         Chest();
         Chest(pWeapon w);
         Chest (pArtifact a);
         Chest (pItem_def d);
+        Chest (pKey k);
 		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);
 
         pWeapon open_w();

@@ -11,7 +11,7 @@ Fireball::Fireball(int fisico, int magico, char dir, int shooter):Projectile( fi
     animations[move_left_index]=new Animation (fireball_left, Coordinate(fireball_horizontal_width, fireball_horizontal_height));
     animations[move_right_index]=new Animation (fireball_right, Coordinate(fireball_horizontal_width, fireball_horizontal_height));
 
-    horizontal_size=Coordinate (fireball_horizontal_width, fireball_horizontal_height);
-    vertical_size=Coordinate (fireball_vertical_width,fireball_vertical_height);
+    horizontal_size=Coordinate (fireball_horizontal_width, fireball_horizontal_height+1);
+    vertical_size=Coordinate (fireball_vertical_width+1,fireball_vertical_height);
 
 }

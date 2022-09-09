@@ -288,6 +288,10 @@ void Character::check_enemy_melee(pMap map){
 	
 }
 
+void Character::change_points(int delta){
+	
+}
+
 void Character::initiate_attack (){
 	is_attacking=true;
 	(equipaggiamento.arma)->initiate_attack(direction);

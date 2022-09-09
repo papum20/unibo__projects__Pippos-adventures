@@ -53,18 +53,6 @@ void Enemy::update(pMap map){
 				}
 			}
 			else{
-				if (equipaggiamento.arma->is_melee){
-					if (attack_counter==1){
-						check_enemy_melee(map);
-						if (player_found){
-							player->changeCurrentHealth(calculate_damage(player));
-							player_found=false;
-						}
-						attack_counter=-1;
-					}
-					else
-						attack_counter--;
-				}
 				if (!animations[current_animation]->isLastFrame()){
 					next_animation();
 					equipaggiamento.arma->next_animation();
@@ -72,6 +60,13 @@ void Enemy::update(pMap map){
 				else{
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);
+					else{
+						check_enemy_melee(map);
+						if (player_found){
+							player->changeCurrentHealth(calculate_damage(player));
+							player_found=false;
+						}
+					}
 					is_attacking=false;
 					switch (direction){
 						case 'u':

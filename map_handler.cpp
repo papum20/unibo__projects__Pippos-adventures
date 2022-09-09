@@ -27,7 +27,7 @@ MapHandler::MapHandler() {
 				else {
 					for(int d = 0; d < DIRECTIONS_N; d++) {
 						Coordinate nxt = Coordinate(cur, DIRECTIONS[d]);
-						if(dist[nxt.single()] == -1 && ((obj == NULL && map->physical[nxt.single()]->getId() == ID_FLOOR || isLegalMove(map, obj, nxt)) )) {
+						if(dist[nxt.single()] == -1 && ((obj == NULL && map->physical[nxt.single()]->getId() == ID_FLOOR) || isLegalMove(map, obj, nxt)) ) {
 							prev[nxt.single()] = cur;
 							dist[nxt.single()] = dist[cur.single()] + 1;
 							Q.push(nxt);
@@ -233,11 +233,10 @@ MapHandler::MapHandler() {
 //// CHECK RECTANGLE
 	int MapHandler::checkRectangle(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
-		start = start.integer(), end = end.integer();
-		int delta = (end.y - start.y) / Math::abs(end.y - start.y);			//incremento/decremento di 1 per far avvicinare start.y a end.y
-		while(start.y != end.y) {
-			addLineToCheck(map, obj, found, start, Coordinate(end.x, start.y));
-			start.y += delta;
+		Coordinate A = start;
+		while(A.y <= end.y) {
+			addLineToCheck(map, obj, found, A, Coordinate(end.x, A.y));
+			A.y++;
 		}
 		return found;
 	}
@@ -263,30 +262,28 @@ MapHandler::MapHandler() {
 		bool found = false;
 		if(start.lessEqual(end) || end.lessEqual(start)) {
 			//riga per riga
-			Coordinate A = start;
 			if(start.lessEqual(end)) {	//basso
-				while(!found && A.y <= end.y) {
-					found = findLine(map, obj, A, Coordinate(end.x, A.y));
-					A.y++;
+				while(!found && start.y <= end.y) {
+					found = findLine(map, obj, start, Coordinate(end.x, start.y));
+					start.y++;
 				}
 			} else {					//alto
-				while(!found && A.y >= end.y) {
-					found = findLine(map, obj, A, Coordinate(end.x, A.y));
-					A.y--;
+				while(!found && start.y >= end.y) {
+					found = findLine(map, obj, start, Coordinate(end.x, start.y));
+					start.y--;
 				}
 			}
 		} else {
 			//colonna per colonna
-			Coordinate A = start;
 			if(start.x <= end.x) {		//destra
-				while(!found && A.x <= end.x) {
-					found = findLine(map, obj, A, Coordinate(A.x, end.y));
-					A.x++;
+				while(!found && start.x <= end.x) {
+					found = findLine(map, obj, start, Coordinate(start.x, end.y));
+					start.x++;
 				}
 			} else {					//sinistra
-				while(!found && A.x >= end.x) {
-					found = findLine(map, obj, A, Coordinate(A.x, end.y));
-					A.x--;
+				while(!found && start.x >= end.x) {
+					found = findLine(map, obj, start, Coordinate(start.x, end.y));
+					start.x--;
 				}
 			}
 		}
@@ -393,29 +390,27 @@ MapHandler::MapHandler() {
 
 #pragma region AUSILIARIE
 	void MapHandler::addLineToCheck(pMap map, pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end) {
-		int added = 0;
 		pPhysical line[ROOM_AREA];
 		int len = checkLine(map, line, start, end);
 		for(int i = 0; i < len; i++) {
 			if(!line[i]->findInArray(obj, found)) {
-				obj[found + i] = line[i];
-				added++;
+				obj[found] = line[i];
+				found++;
 			}
 		}
-		found += added;
 	}
 	Coordinate MapHandler::checkLine_floor_next(pMap map, Coordinate i, Coordinate delta) {
 		Coordinate j = Coordinate(i, delta);
 		Coordinate t1 = Coordinate(i.x, j.y, map->size);
 		Coordinate t2 = Coordinate(j.x, i.y, map->size);
-		if(!t1.inOwnBounds() || !t2.inOwnBounds() || map->physical[t1.single()]->getId() == ID_WALL && map->physical[t2.single()]->getId() == ID_WALL) return COORDINATE_ERROR;
+		if((t1.inOwnBounds() && map->physical[t1.single()]->getId() == ID_WALL) && (t2.inOwnBounds() && map->physical[t2.single()]->getId() == ID_WALL)) return COORDINATE_ERROR;
 		else return j;
 	}
 	Coordinate MapHandler::checkLine_ceil_next(pMap map, Coordinate i, Coordinate delta) {
 		Coordinate j = Coordinate(i, delta);
 		Coordinate t1 = Coordinate(i.x, j.y, map->size);
 		Coordinate t2 = Coordinate(j.x, i.y, map->size);
-		if(!t1.inOwnBounds() || !t2.inOwnBounds() || map->physical[t1.single_ceil()]->getId() == ID_WALL && map->physical[t2.single_ceil()]->getId() == ID_WALL) return COORDINATE_ERROR;
+		if((t1.inOwnBounds() && map->physical[t1.single()]->getId() == ID_WALL) && (t2.inOwnBounds() && map->physical[t2.single()]->getId() == ID_WALL)) return COORDINATE_ERROR;
 		else return j;
 	}
 #pragma endregion AUSILIARIE

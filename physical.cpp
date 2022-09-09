@@ -18,7 +18,10 @@ void Physical::copyPhysical(Physical B) {
     size = B.size;
     id = B.id;
     animations_n = B.animations_n;
-    for(int i = 0; i < animations_n; i++) animations[i] = B.animations[i];
+    for(int i = 0; i < animations_n; i++) {
+        animations[i] = new Animation();
+        animations[i]->copy(B.animations[i]);
+    }
     current_animation = B.current_animation;
 }
 
@@ -28,8 +31,7 @@ void Physical::update(pMap map) {
 
 void Physical::destroy(pMap map) {
     // ELIMINA PUNTATORI ANIMAZIONI
-    for(int i = 0; i < animations_n; i++)
-        if(animations[i] != NULL) animations[i] = NULL;
+    for(int i = 0; i < animations_n; i++) animations[i]->delete_list();
     // ELIMINA OGGETTO
     MapHandler::remove(map, this);
     delete this;

@@ -43,7 +43,7 @@
 		//GENERA MURI LATERALI
 		generateSidesWalls();
 		////GENERA SPAZI VUOTI DAVANTI ALLE PORTE, COSÌ CHE CI RIMANGA SPAZIO
-		generateDoorsPlacehodlers(sets);
+		//generateDoorsPlacehodlers(sets);
 		////CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
 		generateInnerRoom(sets);
 		////RIEMPI LA STANZA DI MURI E CORRIDOI
@@ -53,7 +53,7 @@
 		////RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
 		resizeMap();
 		////GENERA PORTE
-		generateDoors(c);
+		//generateDoors(c);
 		//delete della struttura
 		sets->destroy();
 	}

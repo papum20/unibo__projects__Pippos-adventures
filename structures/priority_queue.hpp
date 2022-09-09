@@ -12,17 +12,17 @@
 #include "../definitions.hpp"
 
 
-#define HEAP_SIZE_MAX ROOM_AREA			//deve contenere un "quadrato" di N_ROOMS e uno di ROOM_AREA
-#define COMPARE_SIGN_DFLT -1			//min-heap
-#define UNEVEN_RAND_EXECUTIONS_MAX 3	//massimo numero di esecuzioni di cicli che terminano solo in base a un numero random
-#define UNEVEN_RAND_CHANCE 2			//usato come probabilità in generateMap()
+#define HEAP_SIZE_MAX LEVEL_AREA//ROOM_AREA		//deve contenere un "quadrato" di N_ROOMS e uno di ROOM_AREA
+#define COMPARE_SIGN_DFLT -1					//min-heap
+#define UNEVEN_RAND_EXECUTIONS_MAX 3			//massimo numero di esecuzioni di cicli che terminano solo in base a un numero random
+#define UNEVEN_RAND_CHANCE 2					//usato come probabilità in generateMap()
 
 
 class PriorityQueue {
 	private:
 		pComparable heap[HEAP_SIZE_MAX];
 		//p_class data[HEAP_SIZE_MAX];		//array da definire nelle sottoclassi con eventuali dati aggiuntivi
-		int compareSign;					//risultato di compareTo, se applicato tra padre e figlio
+		int compareSign;					//risultato di compareTo, se applicato tra padre e figlio (il padre ha segno compareSign con il figlio)
 
 		void fix(int i);
 

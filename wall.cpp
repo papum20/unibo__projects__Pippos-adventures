@@ -2,7 +2,7 @@
 
 
 
-Wall::Wall() : Inanimate() {
+Wall::Wall() : Fixed() {
 	id = ID_WALL;
 	height = WALL_HEIGHT;
 

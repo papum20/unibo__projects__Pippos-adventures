@@ -100,6 +100,9 @@
 	Coordinate Coordinate::times(float px, float py) const {
 		return Coordinate(Coordinate(x * px, y * py), size(), start(), end());
 	}
+	Coordinate Coordinate::times(Coordinate B) const {
+		return Coordinate(Coordinate(x * B.x, y * B.y), size(), start(), end());
+	}
 	Coordinate Coordinate::integer() const {
 		return Coordinate(Coordinate(intx(), inty()), size(), start(), end());
 	}

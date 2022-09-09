@@ -31,7 +31,7 @@
 	void PriorityQueue::removeAt(int ind) {
 		if(ind >= 0 && ind < size) {
 			swap(ind, size - 1);
-			delete heap[size];
+			delete heap[size - 1];
 			size--;
 			fix(ind);
 		}
@@ -53,7 +53,7 @@
 		do {	//verrebbe comunque eseguito almeno una volta anche con il while
 			if(rand() % UNEVEN_RAND_CHANCE == 0) executions = 0;
 			else {
-				if(left(i) < size && rand() % 2) i = left(i);
+				if(left(i) < size && rand() % 2 == 0) i = left(i);
 				else if(right(i) < size) i = right(i);
 				else {
 					i = 0;
@@ -73,7 +73,8 @@
 	int PriorityQueue::find(Comparable x, int i) {
 		if(i >= size) return -1;
 		else {
-			if(heap[i]->compareTo(x) == 0) return i;
+			if(heap[i]->compareTo(x) == 0) return i;					//coincide
+			else if(heap[i]->compareTo(x) != compareSign) return -1;	//figlio più grande (compareSign) del padre: impossibile
 			else {
 				int l = find(x, left(i));
 				if(l != -1) return l;

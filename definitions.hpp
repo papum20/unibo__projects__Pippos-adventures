@@ -41,6 +41,9 @@
 //CONNECTED ROOM
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
+//LEVEL
+#define N_ROOMS 10							//numero di stanze (normali) generate per livello
+#define LEVEL_AREA (N_ROOMS * N_ROOMS)		//dimensioni matrice livello
 #pragma endregion ROOM_DEFINITIONS
 
 //// COSTANTI PER LA RAPPRESENTAZIONE GRAFICA
@@ -78,7 +81,7 @@
 #define CHAR_OUTSIDE '.'
 // DIMENSIONI
 #define WALL_HEIGHT 6
-#define DOOR_HEIGHT (WALL_HEIGHT + 1)
+#define DOOR_HEIGHT (WALL_HEIGHT)
 #define DOOR_WIDTH 3
 #define DOOR_DEPTH 1
 //player

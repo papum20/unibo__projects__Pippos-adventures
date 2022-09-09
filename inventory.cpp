@@ -79,27 +79,27 @@ void Inventory::update_options(){
 
 int Inventory::check_class_name(int array_index){
     
-    if(objects[array_index]->isSword())
+    if(objects[array_index]->getId() == ID_SWORD)
         return 0;
-    else if(objects[array_index]->isBow())
+    else if(objects[array_index]->getId() == ID_BOW)
         return 1;
-    else if(objects[array_index]->isArmor())
+    else if(objects[array_index]->getId() == ID_ARMOR)
         return 2;
-    else if(objects[array_index]->isShield())
+    else if(objects[array_index]->getId() == ID_SHIELD)
         return 3;
-    else if(objects[array_index]->isHelm())
+    else if(objects[array_index]->getId() == ID_HELM)
         return 4;
-    else if(objects[array_index]->isAxe())
+    else if(objects[array_index]->getId() == ID_AXE)
         return 5;
-    else if(objects[array_index]->isPotion())
+    else if(objects[array_index]->getId() == ID_HEALTH_POTION)
         return 6;
-    else if(objects[array_index]->isBoots())
+    else if(objects[array_index]->getId() == ID_BOOTS)
         return 7;
-    else if(objects[array_index]->isNecklace())
+    else if(objects[array_index]->getId() == ID_NECKLACE)
         return 8;
-    else if(objects[array_index]->isRod())
+    else if(objects[array_index]->getId() == ID_PLAYER_ROD)
         return 9;
-    else if(objects[array_index]->isRune())
+    else if(objects[array_index]->getId() == ID_RUNE)
         return 10;
 
     else if(objects[array_index]->isWeapon())
@@ -113,28 +113,8 @@ int Inventory::check_class_name(int array_index){
 
 int Inventory::check_subclass_name(int array_index){
     
-    if(objects[array_index]->isSword())
-        return 0;
-    else if(objects[array_index]->isBow())
-        return 1;
-    else if(objects[array_index]->isArmor())
-        return 2;
-    else if(objects[array_index]->isShield())
-        return 3;
-    else if(objects[array_index]->isHelm())
-        return 4;
-    else if(objects[array_index]->isAxe())
-        return 5;
-    else if(objects[array_index]->isPotion())
-        return 6;
-    else if(objects[array_index]->isBoots())
-        return 7;
-    else if(objects[array_index]->isNecklace())
-        return 8;
-    else if(objects[array_index]->isRod())
-        return 9;
-    else if(objects[array_index]->isRune())
-        return 10;
+    int class_name = check_class_name(array_index);
+    if(class_name >= 0 && class_name <= 10) return class_name;
     else return -1;
 }
 

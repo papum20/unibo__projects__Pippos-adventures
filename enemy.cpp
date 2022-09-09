@@ -87,10 +87,10 @@ void Enemy::update(pMap map){
 					}
 				}	
 			}
+			Character::update(map);
 		}
 		else
 			destroy(map);
-		Character::update(map);
 	}
 }
 

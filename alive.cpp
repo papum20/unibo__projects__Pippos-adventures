@@ -6,6 +6,8 @@ Alive::Alive() : Animate() {
 	curHealth = 0;
 	maxStamina = 0;
 	curStamina = 0;
+	difesa_fisica = 0;
+	difesa_magica = 0;
 }
 
 Alive::Alive(int maxH, int maxS) : Animate() {

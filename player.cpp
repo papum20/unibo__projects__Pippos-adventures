@@ -4,7 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
 	//menu=m;
-	arma= new Ascia();
+	arma= new sword();
 	armatura=new armor();
 	collana=NULL;
 	elmo=NULL;
@@ -166,7 +166,7 @@ void Player::check_enemy_melee(pMap map){
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
 			break;
 		case 'l':
-			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(size.y-(equipaggiamento.arma)->horizontal_size.y)/2);
+			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, (pos.y+(size.y-equipaggiamento.arma->horizontal_size.y)/2));
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 			break;
 		case 'r':
@@ -174,29 +174,25 @@ void Player::check_enemy_melee(pMap map){
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 			break;
 	}
-	
-	int dim=MapHandler::checkRectangle(map, objects, start, end);
 
-	/*WINDOW* debugging=newwin (10, 10, 40, 0);
-    box (debugging, 0, 0);
-	mvwprintw (debugging, 1, 1, to_string(dim).c_str());
-    wrefresh(debugging);   
-    */
+	int dim=MapHandler::checkRectangle(map, objects, start, end);       
+    
+				WINDOW *w = newwin(10,10,10,0);
     if (dim>0){                                                            
+				mvwprintw(w,3,1,to_string(dim).c_str());
         for (int i=0; i<dim; i++){
             if (objects[i]->getId()!=this->id && objects[i]->isCharacter()){         
                 defender=MapHandler::checkCharacter(map, objects[i]->getPosition());       
                 defender->changeCurrentHealth(calculate_damage(defender));
-	WINDOW* debugging=newwin (10, 10, 40, 0);
-    box (debugging, 0, 0);
-	mvwprintw (debugging, 1, 1, to_string(defender->curHealth).c_str());
-    wrefresh(debugging);   
-    
+				mvwprintw(w,1,1,to_string(defender->curHealth).c_str());
+				mvwprintw(w,2,1,to_string(calculate_damage(defender)).c_str());
 				if (defender->getHealth()==0)
 					points=points+defender->getPoints();
             }
         }
     }
+		//else		mvwprintw(w,1,1,"   ");
+				wrefresh(w);
 }
 
 void Player::destroy(pMap map){

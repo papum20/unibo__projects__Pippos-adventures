@@ -25,11 +25,11 @@ const int sword_attack_right_index=7;
 const int sword_height=8;
 const int sword_width=9;
 
-const int sword_horizontal_attack_width=2;
-const int sword_horizontal_attack_height=2;
+const int sword_horizontal_attack_width=3;
+const int sword_horizontal_attack_height=3;
 
-const int sword_vertical_attack_width=2;
-const int sword_vertical_attack_height=2;
+const int sword_vertical_attack_width=3;
+const int sword_vertical_attack_height=3;
 
 
 const char sword_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={//height=8 width=9

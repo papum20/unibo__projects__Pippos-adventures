@@ -1,4 +1,4 @@
-//// CLASSE PARENT DI OGGETTI FERMI E NON ATTRAVERSABILI/NON MOVIBILI (WALL E DOOR)
+//// CLASSE PARENT DI OGGETTI FERMI E NON ATTRAVERSABILI/NON MOVIBILI (WALL, FLOOR E DOOR)
 
 
 #ifndef FIXED_HPP
@@ -9,9 +9,6 @@
 
 
 class Fixed : public Inanimate {
-	protected:
-		int height;
-	
 	public:
 		Fixed();
 };

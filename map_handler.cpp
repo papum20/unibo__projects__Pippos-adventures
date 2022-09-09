@@ -233,10 +233,10 @@ MapHandler::MapHandler() {
 //// CHECK RECTANGLE
 	int MapHandler::checkRectangle(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
-		Coordinate A = start;
-		while(A.y <= end.y) {
-			addLineToCheck(map, obj, found, A, Coordinate(end.x, A.y));
-			A.y++;
+		int delta = (start.y - end.y) / Math::abs(start.y - end.y);			//incremento/decremento di 1 per far avvicinare start.y a end.y
+		while(start.y <= end.y) {
+			addLineToCheck(map, obj, found, start, Coordinate(end.x, start.y));
+			start.y += delta;
 		}
 		return found;
 	}
@@ -415,7 +415,7 @@ MapHandler::MapHandler() {
 		Coordinate j = Coordinate(i, delta);
 		Coordinate t1 = Coordinate(i.x, j.y, map->size);
 		Coordinate t2 = Coordinate(j.x, i.y, map->size);
-		if(map->physical[t1.single_ceil()]->getId() == ID_WALL && map->physical[t2.single_ceil()]->getId() == ID_WALL) return COORDINATE_ERROR;
+		if(checkPosition(map, t1)->isFixed() && checkPosition(map, t2)->isFixed()) return COORDINATE_ERROR;
 		else return j;
 	}
 #pragma endregion AUSILIARIE

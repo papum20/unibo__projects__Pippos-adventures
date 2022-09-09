@@ -3,7 +3,7 @@
 
 
 
-Floor::Floor() : Inanimate() {
+Floor::Floor() : Fixed() {
 	id = ID_FLOOR;
 
 	main_color = COLOR_FLOOR;

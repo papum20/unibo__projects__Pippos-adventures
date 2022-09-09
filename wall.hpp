@@ -7,6 +7,7 @@
 
 class Wall : public Fixed {
 	private:
+		int height;
 		int base_color;
 		int top_color;
 

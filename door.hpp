@@ -8,6 +8,7 @@
 
 class Door : public Fixed {
 	private:
+		int height;
 		bool locked;					//se è bloccata (serve chiave)
 		Coordinate entrancePosition;	//posizione in cui arriva il giocatore dopo aver attraversato la porta
 

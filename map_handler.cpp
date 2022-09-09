@@ -366,24 +366,24 @@ MapHandler::MapHandler() {
 	bool MapHandler::move(pMap map, pPhysical obj, Coordinate target) {
 		if(!obj->isInanimate() && obj->getPosition().inBounds(COORDINATE_ZERO, map->size) && isLegalMove(map, obj, target)) {
 			//SPOSTA
-			Coordinate i = Coordinate(target, map->size, target, Coordinate(target, obj->getSize()));
+			Coordinate i = Coordinate(target.integer(), map->size, target.integer(), Coordinate(target, obj->getSize()).integer());
 			do {
 				map->physical[i.single()] = obj;
 				if(obj->isCharacter()) map->characters[i.single()] = map->characters[obj->getPosition().single_set(map->size)];
 				else if(obj->isProjectile()) map->projectiles[i.single()] = map->projectiles[obj->getPosition().single_set(map->size)];
 				i.next();
-			} while(!i.equals(target));
+			} while(!i.equals_int(target));
 			//RIMUOVI CASELLE VECCHIE (NON PIÙ OCCUPATE)
-			i = Coordinate(obj->getPosition(), map->size, obj->getPosition(), Coordinate(obj->getPosition(), obj->getSize()));
+			i = Coordinate(obj->getPosition().integer(), map->size, obj->getPosition().integer(), Coordinate(obj->getPosition(), obj->getSize()).integer());
 			do {
-				if(!i.inBounds(target, Coordinate(target, obj->getSize()))) {
+				if(!i.inBounds(target.integer(), Coordinate(target, obj->getSize()).integer())) {
 					map->physical[i.single()] = FLOOR_INSTANCE;
 					map->characters[i.single()] = NULL;
 					map->chests[i.single()] = NULL;
 					map->projectiles[i.single()] = NULL;
 				}
 				i.next();
-			} while (!i.equals(obj->getPosition()));
+			} while (!i.equals_int(obj->getPosition()));
 			
 			obj->setPosition(target);
 			return true;
@@ -403,12 +403,12 @@ MapHandler::MapHandler() {
 	}
 	void MapHandler::addProjectile(pMap map, pProjectile projectile) {
 		if(isFreeSpace(map, projectile->getPosition(), projectile->getSize())) {
-			Coordinate i = Coordinate(projectile->getPosition(), map->size, projectile->getPosition(), Coordinate(projectile->getPosition(), projectile->getSize()));
+			Coordinate i = Coordinate(projectile->getPosition().integer(), map->size, projectile->getPosition().integer(), Coordinate(projectile->getPosition(), projectile->getSize()).integer());
 			do {
 				map->physical[i.single()] = projectile;
 				map->projectiles[i.single()] = projectile;
 				i.next();
-			} while(!i.equals(projectile->getPosition()));
+			} while(!i.equals_int(projectile->getPosition()));
 		}
 	}
 #pragma endregion SET_GET

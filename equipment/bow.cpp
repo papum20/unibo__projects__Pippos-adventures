@@ -2,6 +2,8 @@
 #include <cstring> 
 
 Arco::Arco():Weapon(){
+    strcpy(rarity, legendary);
+    id=ID_WEAPON_BOW;
     danno_fisico_iniziale=Math::randomStep(20, 50, 5);
     danno_magico_iniziale=0;
     strcpy (description, bow_description);

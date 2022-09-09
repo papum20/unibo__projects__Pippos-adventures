@@ -9,10 +9,10 @@ const int description_length=200;
 const int name_length=25;
 const int rarity_length=12;
 
-const char common[rarity_length]="Comune";  
-const char rare[rarity_length]="Raro";
-const char epic[rarity_length]="Epico";
-const char legendary[rarity_length]="Leggendario";
+const char common[rarity_length]="comune";  
+const char rare[rarity_length]="raro";
+const char epic[rarity_length]="epico";
+const char legendary[rarity_length]="leggendario";
 
 class item: public Animate{
     public:

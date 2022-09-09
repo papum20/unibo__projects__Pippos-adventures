@@ -28,7 +28,7 @@ const int w_graphic_high = 29;
 const int w_graphic_lenght = 29;
 const int n_graphic_types_items = 10;
 //space
-const int n_max_inventory_objects = 18;
+const int n_max_inventory_objects = 19;
 
 
 
@@ -370,12 +370,23 @@ class Inventory : public Pixel_art{
         int w_use_high;
         int w_use_width;
         int input;
+        int inventory_y_pos;
+        int inventory_x_pos;
+        int zaino_y_pos;
+        int zaino_x_pos;
+        int item_menu_y_pos;
+        int item_menu_x_pos;
         bool is_open;
         bool options_is_active;
         bool zaino_is_active;
         bool w_use_is_active;
         bool w_equip_is_active;
+        int status_x_pos;
+        int status_y_pos;
+        int options_y_pos;
+        int options_x_pos;
         int highlight;
+        int high;
         int u_highlight;
         int z_highlight;
         Player * p;
@@ -387,7 +398,7 @@ class Inventory : public Pixel_art{
         
         
 
-	Inventory(Player * p);
+	Inventory(Player * p, int zaino_y_pos,int inventory_y_pos,int inventory_x_pos, int zaino_x_pos, int item_menu_y_pos, int item_menu_x_pos, int status_y_pos, int status_x_pos, int options_y_pos, int options_x_pos);
         void open_options();
         void update_options();
         void wattroff_inventory(WINDOW * win);
@@ -402,9 +413,10 @@ class Inventory : public Pixel_art{
         void print_weapon(int high, int lenght, const char graphic_weapon[][w_graphic_lenght]);
         void item_menu(int array_index);
         void useOrdiscardItem(int y_position, int x_position, int array_index);
-        void strcmp_rarity(WINDOW * win, int array_index, int number);
+        void strcmp_rarity(WINDOW * win, int array_index, bool highlight);
         void print_item_name(WINDOW * win, int y, int x, int array_index);
         void zaino_menu(int array_index);
+        void open_zaino();
         void aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high);
         void equip_menu();
         void update_equip_menu();

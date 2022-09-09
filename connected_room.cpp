@@ -19,10 +19,10 @@
 		door_entrances[DIRECTION_DOWN]	= Coordinate((size.x - p_width) / 2, DOOR_DEPTH);
 		door_entrances[DIRECTION_LEFT]	= Coordinate(DOOR_DEPTH, (size.y - p_depth) / 2);
 
-		door_zones_t[DIRECTION_UP]	= Coordinate((size_t.x - Math::ceil(ZONE_DOOR_UD.x/scale.x)) / 2, size_t.y - 1 - Math::ceil(ZONE_DOOR_UD.y/scale.y)).integer();
-		door_zones_t[DIRECTION_RIGHT]	= Coordinate(size_t.y - 1 - Math::ceil(ZONE_DOOR_LR.x), (size_t.y - Math::ceil(ZONE_DOOR_LR.y)) / 2).integer();
-		door_zones_t[DIRECTION_DOWN] 	= Coordinate((size_t.x - Math::ceil(ZONE_DOOR_UD.x/scale.x)) / 2, 1).integer();
-		door_zones_t[DIRECTION_LEFT] 	= Coordinate(1, (size_t.y - Math::ceil(ZONE_DOOR_LR.y)) / 2).integer();
+		door_zones_t[DIRECTION_UP]		= Coordinate((size_t.x - ZONE_DOOR_UD.x/scale.x) / 2, size_t.y - 1 - ZONE_DOOR_UD.y/scale.y);
+		door_zones_t[DIRECTION_RIGHT]	= Coordinate(size_t.x - 1 - ZONE_DOOR_LR.x/scale.x, (size_t.y - ZONE_DOOR_LR.y/scale.y) / 2);
+		door_zones_t[DIRECTION_DOWN] 	= Coordinate((size_t.x - ZONE_DOOR_UD.x/scale.x) / 2, 1);
+		door_zones_t[DIRECTION_LEFT] 	= Coordinate(1, (size_t.y - ZONE_DOOR_LR.y/scale.y) / 2);
 
 		locked_doors = 0;
 	}
@@ -37,13 +37,13 @@
 		}
 		Room::recursiveDestroy();										//distruggi tutto il resto della stanza
 	}
-	void ConnectedRoom::generate(bool c)
+	void ConnectedRoom::generate()
 	{
 		pUnionFind sets = new UnionFind();
 		//GENERA MURI LATERALI
 		generateSidesWalls();
 		////GENERA SPAZI VUOTI DAVANTI ALLE PORTE, COSÌ CHE CI RIMANGA SPAZIO
-		//generateDoorsPlacehodlers(sets);
+		generateDoorsPlacehodlers(sets);
 		////CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
 		generateInnerRoom(sets);
 		////RIEMPI LA STANZA DI MURI E CORRIDOI
@@ -53,7 +53,7 @@
 		////RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
 		resizeMap();
 		////GENERA PORTE
-		//generateDoors(c);
+		generateDoors();
 		//delete della struttura
 		sets->destroy();
 	}
@@ -77,7 +77,7 @@
 			}
 		}
 	}
-	void ConnectedRoom::generateDoors(bool c) {
+	void ConnectedRoom::generateDoors() {
 		for(int dir = 0; dir < n_doors_max; dir++) {
 			if(map->doors[dir] != NULL) {
 				Coordinate door_pos = map->doors[dir]->getPosition(), door_size = map->doors[dir]->getSize();
@@ -96,7 +96,7 @@
 					end		= Coordinate(door_pos.x + door_size.x, door_pos.y);
 				} else if(dir == DIRECTION_RIGHT) {
 					start	= Coordinate(size.x - mx.x, door_pos.y);
-					end		= Coordinate(door_pos.x - 1, door_pos.y + door_size.y);
+					end		= Coordinate(door_pos.x, door_pos.y + door_size.y);
 				} else if(dir == DIRECTION_DOWN) {
 					start	= Coordinate(door_pos.x, door_pos.y + 1);
 					end		= Coordinate(door_pos.x + door_size.x, mx.y);
@@ -104,7 +104,6 @@
 					start	= Coordinate(door_size.x, door_pos.y);
 					end		= Coordinate(mx.x, door_pos.y + door_size.y);
 				}
-				if(c) {
 					//WINDOW *w = newwin(10,10, 10,0);
 					//mvwprintw(w,1,1,to_string(start.x).c_str());
 					//mvwprintw(w,2,1,to_string(start.y).c_str());
@@ -113,7 +112,6 @@
 					//mvwprintw(w,5,1,to_string(mx.x).c_str());
 					//mvwprintw(w,6,1,to_string(mx.y).c_str());
 					//wgetch(w);
-				}
 				i = Coordinate(start, size, start, end);
 				do {
 					map->physical[i.single()] = FLOOR_INSTANCE;

@@ -82,7 +82,7 @@
 // DIMENSIONI
 #define WALL_HEIGHT 6
 #define DOOR_HEIGHT (WALL_HEIGHT)
-#define DOOR_WIDTH 3
+#define DOOR_WIDTH 4
 #define DOOR_DEPTH 1
 //player
 const int p_width = 3;

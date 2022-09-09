@@ -4,7 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
 	//menu=m;
-	arma= new Player_Rod();
+	arma= new Ascia();
 	armatura=new armor();
 	collana=NULL;
 	elmo=NULL;
@@ -181,7 +181,12 @@ void Player::check_enemy_melee(pMap map){
 			break;
 	}
 
-	int dim=MapHandler::checkRectangle(map, objects, start, end);       
+	int dim=MapHandler::checkRectangle(map, objects, start, end);
+
+	//WINDOW* debugging=newwin (10, 10, 40, 0);
+    //box (debugging, 0, 0);
+    //mvwprintw (debugging, 1, 1, to_string(dim).c_str());
+    //wrefresh(debugging);   
     
     if (dim>0){                                                            
         for (int i=0; i<dim; i++){

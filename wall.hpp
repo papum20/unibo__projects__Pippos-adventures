@@ -2,14 +2,14 @@
 #define WALL_HPP
 
 
-#include "inanimate.hpp"
+#include "fixed.hpp"
 
 
-class Wall : public Inanimate {
+class Wall : public Fixed {
 	private:
+		int height;
 		int base_color;
 		int top_color;
-		int height;
 
 	protected:
 		void drawCell(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate pos, attr_t color);	//riempie una cella

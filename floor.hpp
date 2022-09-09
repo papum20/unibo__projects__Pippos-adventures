@@ -2,11 +2,11 @@
 #define FLOOR_HPP
 
 
-#include "inanimate.hpp"
+#include "fixed.hpp"
 
 
 
-class Floor : public Inanimate {
+class Floor : public Fixed {
 	private:
 
 	public:

@@ -4,7 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
 	//menu=m;
-	arma= new Player_Rod();
+	arma= new Ascia();
 	armatura=new armor();
 	collana=NULL;
 	elmo=NULL;
@@ -44,7 +44,7 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	
 }
 
-void Player::changeCurrentHealth(int delta, pMap map){
+void Player::changeCurrentHealth(int delta){
 	if (curHealth+delta>=maxHealth){
 		curHealth=maxHealth;
 	}
@@ -55,7 +55,7 @@ void Player::changeCurrentHealth(int delta, pMap map){
 				curHealth=p_max_health;
 			}
 			else
-				destroy(map);
+				curHealth=-1;
 		}
 		else
 			curHealth=curHealth+delta;
@@ -65,14 +65,6 @@ void Player::update(pMap map){
 	if (!updated){
 		if (curHealth>0){
 			if (is_attacking){
-				if (equipaggiamento.arma->is_melee){
-					if (attack_counter==1){
-						check_enemy_melee(map);
-						attack_counter=-1;
-					}
-					else
-						attack_counter--;
-				}
 				if (!animations[current_animation]->isLastFrame()){
 					next_animation();
 					equipaggiamento.arma->next_animation();
@@ -80,6 +72,8 @@ void Player::update(pMap map){
 				else{
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);
+					else
+						check_enemy_melee(map);
 					is_attacking=false;
 					switch (direction){
 						case 'u':
@@ -150,7 +144,10 @@ void Player::update(pMap map){
 			Character::update(map);		//azioni generali
 		}
 		else
-			destroy(map);
+			if (curHealth==-1)
+				destroy(map);
+			else
+				changeCurrentHealth(-1);
 	}
 }
 
@@ -161,25 +158,30 @@ void Player::check_enemy_melee(pMap map){
 	Coordinate end;
 	switch (direction){
 		case 'u':
-			start=Coordinate (pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y+size.y);
+			start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y+size.y);
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
 			break;
 		case 'd':
-			start=Coordinate ( pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y-(equipaggiamento.arma)->vertical_size.y );
+			start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y-(equipaggiamento.arma)->vertical_size.y );
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
 			break;
 		case 'l':
-			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
+			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 			break;
 		case 'r':
-			start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
+			start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
 			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
 			break;
 	}
 
-	int dim=MapHandler::checkRectangle(map, objects, start, end);       
-    
+	int dim=MapHandler::checkRectangle(map, objects, start, end);
+
+	/*WINDOW* debugging=newwin (10, 10, 40, 0);
+    box (debugging, 0, 0);
+	mvwprintw (debugging, 1, 1, to_string(dim).c_str());
+    wrefresh(debugging);   
+    */
     if (dim>0){                                                            
         for (int i=0; i<dim; i++){
             if (objects[i]->getId()!=this->id && objects[i]->isCharacter()){         

@@ -11,13 +11,18 @@
 		}
 		door_positions[DIRECTION_UP]	= Coordinate((size.x - DOOR_WIDTH) / 2, size.y - DOOR_DEPTH);
 		door_positions[DIRECTION_RIGHT]	= Coordinate(size.x - DOOR_DEPTH, (size.y - DOOR_WIDTH) / 2);
-		door_positions[DIRECTION_DOWN]	= Coordinate((size.x + DOOR_WIDTH) / 2, 0);
+		door_positions[DIRECTION_DOWN]	= Coordinate((size.x - DOOR_WIDTH) / 2, 0);
 		door_positions[DIRECTION_LEFT]	= Coordinate(0, (size.y - DOOR_WIDTH) / 2);
 
 		door_entrances[DIRECTION_UP]	= Coordinate((size.x - p_width) / 2, size.y - DOOR_DEPTH - p_depth);
-		door_entrances[DIRECTION_RIGHT]	= Coordinate(size.x - DOOR_DEPTH - p_width, (size.y - DOOR_WIDTH - p_depth) / 2);
+		door_entrances[DIRECTION_RIGHT]	= Coordinate(size.x - DOOR_DEPTH - p_width, (size.y - p_depth) / 2);
 		door_entrances[DIRECTION_DOWN]	= Coordinate((size.x - p_width) / 2, DOOR_DEPTH);
-		door_entrances[DIRECTION_LEFT]	= Coordinate(DOOR_DEPTH, (size.y - DOOR_WIDTH - p_depth) / 2);
+		door_entrances[DIRECTION_LEFT]	= Coordinate(DOOR_DEPTH, (size.y - p_depth) / 2);
+
+		door_zones_t[DIRECTION_UP]	= Coordinate((size_t.x - Math::ceil(ZONE_DOOR_UD.x/scale.x)) / 2, size_t.y - 1 - Math::ceil(ZONE_DOOR_UD.y/scale.y)).integer();
+		door_zones_t[DIRECTION_RIGHT]	= Coordinate(size_t.y - 1 - Math::ceil(ZONE_DOOR_LR.x), (size_t.y - Math::ceil(ZONE_DOOR_LR.y)) / 2).integer();
+		door_zones_t[DIRECTION_DOWN] 	= Coordinate((size_t.x - Math::ceil(ZONE_DOOR_UD.x/scale.x)) / 2, 1).integer();
+		door_zones_t[DIRECTION_LEFT] 	= Coordinate(1, (size_t.y - Math::ceil(ZONE_DOOR_LR.y)) / 2).integer();
 
 		locked_doors = 0;
 	}
@@ -32,7 +37,7 @@
 		}
 		Room::recursiveDestroy();										//distruggi tutto il resto della stanza
 	}
-	void ConnectedRoom::generate()
+	void ConnectedRoom::generate(bool c)
 	{
 		pUnionFind sets = new UnionFind();
 		//GENERA MURI LATERALI
@@ -48,7 +53,7 @@
 		////RIDIMENSIONA LA STANZA, OVVERO ESEGUI UN ALLARGAMENTO DI "X_SCALE" VOLTE
 		resizeMap();
 		////GENERA PORTE
-		generateDoors();
+		generateDoors(c);
 		//delete della struttura
 		sets->destroy();
 	}
@@ -61,36 +66,59 @@
 		for(int dir = 0; dir < DIRECTIONS_N; dir++) {
 			pDoor door = map->doors[dir];
 			if(door != NULL) {
-				Coordinate start, end;
-				Coordinate door_pos_t = door->getPosition().times(1/scale.x, 1/scale.y), door_size_t = door->getSize().times(1/scale.x, 1/scale.y).ceil();
-				Coordinate zone_lr_t = ZONE_DOOR_LR.times(1/scale.x, 1/scale.y).ceil(), zone_ud_t = ZONE_DOOR_UD.times(1/scale.x, 1/scale.y).ceil();
-				if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) {
-					if		(dir == DIRECTION_LEFT)	 	start = Coordinate(door_pos_t, Coordinate(door_size_t.x,(-zone_lr_t.y +door_size_t.y) / 2));
-					else if (dir == DIRECTION_RIGHT)	start = Coordinate(door_pos_t, Coordinate(-zone_lr_t.x, (-zone_lr_t.y +door_size_t.y) / 2));
-					end = Coordinate(start, zone_lr_t.ceil());
-				} else {
-					if (dir == DIRECTION_UP)	start = Coordinate(door_pos_t, Coordinate((door_size_t.x - zone_ud_t.x) / 2, -zone_ud_t.y));
-					else						start = Coordinate(door_pos_t, Coordinate((-door_size_t.x - zone_ud_t.x) / 2, door_size_t.y));
-					end = Coordinate(start, zone_ud_t);
-				}
-				Coordinate i = Coordinate(start, size, start, end);
+				Coordinate end = Coordinate(door_zones_t[dir], ZONE_DOOR_LR.times(1 / scale.x, 1 / scale.y).ceil());
+				if(dir == DIRECTION_UP || dir == DIRECTION_DOWN) end = Coordinate(door_zones_t[dir], ZONE_DOOR_UD.times(1 / scale.x, 1 / scale.y).ceil());
+				Coordinate i = Coordinate(door_zones_t[dir], size, door_zones_t[dir], end);
 				do {
 					map->physical[i.single()] = FLOOR_INSTANCE;
 					sets->makeSet(i.single());
 					i.next();
-				} while(!i.equals(start));
+				} while(!i.equals(door_zones_t[dir]));
 			}
 		}
 	}
-	void ConnectedRoom::generateDoors() {
-		for(int door = 0; door < n_doors_max; door++) {
-			if(map->doors[door] != NULL) {
-				Coordinate door_pos = map->doors[door]->getPosition();
-				Coordinate i = Coordinate(door_pos, size, door_pos, Coordinate(door_pos, map->doors[door]->getSize()));
+	void ConnectedRoom::generateDoors(bool c) {
+		for(int dir = 0; dir < n_doors_max; dir++) {
+			if(map->doors[dir] != NULL) {
+				Coordinate door_pos = map->doors[dir]->getPosition(), door_size = map->doors[dir]->getSize();
+				Coordinate i = Coordinate(door_pos, size, door_pos, Coordinate(door_pos, door_size));
+				//posiziona porte
 				do {
-					map->physical[i.single()] = map->doors[door];
+					map->physical[i.single()] = map->doors[dir];
 					i.next();
 				} while(!i.equals(door_pos));
+				//posiziona spazio vuoto davanti (al posto dei muri)
+				Coordinate start, end, mx = scale;
+				if((dir == DIRECTION_UP || dir == DIRECTION_DOWN) && door_size.y > scale.y) mx.y = door_size.y;
+				else if(door_size.x > scale.x) mx.x = door_size.x;
+				if(dir == DIRECTION_UP) {
+					start	= Coordinate(door_pos.x, size.y - mx.y);
+					end		= Coordinate(door_pos.x + door_size.x, door_pos.y);
+				} else if(dir == DIRECTION_RIGHT) {
+					start	= Coordinate(size.x - mx.x, door_pos.y);
+					end		= Coordinate(door_pos.x - 1, door_pos.y + door_size.y);
+				} else if(dir == DIRECTION_DOWN) {
+					start	= Coordinate(door_pos.x, door_pos.y + 1);
+					end		= Coordinate(door_pos.x + door_size.x, mx.y);
+				} else {
+					start	= Coordinate(door_size.x, door_pos.y);
+					end		= Coordinate(mx.x, door_pos.y + door_size.y);
+				}
+				if(c) {
+					//WINDOW *w = newwin(10,10, 10,0);
+					//mvwprintw(w,1,1,to_string(start.x).c_str());
+					//mvwprintw(w,2,1,to_string(start.y).c_str());
+					//mvwprintw(w,3,1,to_string(end.x).c_str());
+					//mvwprintw(w,4,1,to_string(end.y).c_str());
+					//mvwprintw(w,5,1,to_string(mx.x).c_str());
+					//mvwprintw(w,6,1,to_string(mx.y).c_str());
+					//wgetch(w);
+				}
+				i = Coordinate(start, size, start, end);
+				do {
+					map->physical[i.single()] = FLOOR_INSTANCE;
+					i.next();
+				} while(!i.equals(start));
 			}
 		}
 	}
@@ -108,7 +136,7 @@
 					locked_doors++;
 				}
 				else addDoor(dir, false);
-				Room::makeConnection(room, dir, lt, false);
+				Room::makeConnection(room, dir, lt, true);
 			} else {
 				if(locked_doors < LOCKED_DOORS_MAX && (lt == LOCK_OTHER || lt == LOCK_BOTH)) {
 					addDoor(dir, true);

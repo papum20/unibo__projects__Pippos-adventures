@@ -13,9 +13,11 @@ MapHandler::MapHandler() {
 			Coordinate prev[ROOM_AREA];				//ogni cella contiene quella da cui si proviene (per il percorso più breve)
 			int dist[ROOM_AREA];					//distanza (più breve) di ogni cella da A
 			QueueCoordinate Q = QueueCoordinate();	//posizioni da cui visitare quelle adiacenti
+			A.setMatrix(map->size);
+			B.setMatrix(map->size);
 
 			for(int i = 0; i < ROOM_AREA; i++) dist[i] = -1;
-			dist[A.single_set(map->size)] = 0;
+			dist[A.single()] = 0;
 			Q.push(A);
 
 			bool reached = false;
@@ -25,7 +27,7 @@ MapHandler::MapHandler() {
 				else {
 					for(int d = 0; d < DIRECTIONS_N; d++) {
 						Coordinate nxt = Coordinate(cur, DIRECTIONS[d]);
-						if(dist[nxt.single()] == -1 && ((obj == NULL && map->physical[nxt.single()]->getId() == ID_FLOOR) || isLegalMove(map, obj, nxt)) ) {
+						if(dist[nxt.single()] == -1 && ((obj == NULL && map->physical[nxt.single()]->getId() == ID_FLOOR || isLegalMove(map, obj, nxt)) )) {
 							prev[nxt.single()] = cur;
 							dist[nxt.single()] = dist[cur.single()] + 1;
 							Q.push(nxt);
@@ -37,7 +39,7 @@ MapHandler::MapHandler() {
 
 			if(dist[B.single()] != -1) {
 				path[length - 1] = B;
-				for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single_set(map->size)];
+				for(int i = length - 1; i > 0; i--) path[i - 1] = prev[path[i].single()];
 				Q.destroy();
 				return length;
 			} else return -1;
@@ -231,10 +233,11 @@ MapHandler::MapHandler() {
 //// CHECK RECTANGLE
 	int MapHandler::checkRectangle(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
-		Coordinate A = start;
-		while(A.y <= end.y) {
-			addLineToCheck(map, obj, found, A, Coordinate(end.x, A.y));
-			A.y++;
+		start = start.integer(), end = end.integer();
+		int delta = (end.y - start.y) / Math::abs(end.y - start.y);			//incremento/decremento di 1 per far avvicinare start.y a end.y
+		while(start.y != end.y) {
+			addLineToCheck(map, obj, found, start, Coordinate(end.x, start.y));
+			start.y += delta;
 		}
 		return found;
 	}
@@ -247,8 +250,7 @@ MapHandler::MapHandler() {
 		Coordinate i = start;
 		bool ended = false;
 		while(!ended) {
-			if(checkPosition(map, i) == obj) ended = true;
-			if(i.equals(end)) ended = true;
+			if(checkPosition(map, i) == obj || i.equals(end)) ended = true;
 			else {
 				i = checkLine_floor_next(map, i, delta);
 				if(i.equals(COORDINATE_ERROR)) ended = true;
@@ -406,14 +408,14 @@ MapHandler::MapHandler() {
 		Coordinate j = Coordinate(i, delta);
 		Coordinate t1 = Coordinate(i.x, j.y, map->size);
 		Coordinate t2 = Coordinate(j.x, i.y, map->size);
-		if(map->physical[t1.single()]->getId() == ID_WALL && map->physical[t2.single()]->getId() == ID_WALL) return COORDINATE_ERROR;
+		if(!t1.inOwnBounds() || !t2.inOwnBounds() || map->physical[t1.single()]->getId() == ID_WALL && map->physical[t2.single()]->getId() == ID_WALL) return COORDINATE_ERROR;
 		else return j;
 	}
 	Coordinate MapHandler::checkLine_ceil_next(pMap map, Coordinate i, Coordinate delta) {
 		Coordinate j = Coordinate(i, delta);
 		Coordinate t1 = Coordinate(i.x, j.y, map->size);
 		Coordinate t2 = Coordinate(j.x, i.y, map->size);
-		if(map->physical[t1.single_ceil()]->getId() == ID_WALL && map->physical[t2.single_ceil()]->getId() == ID_WALL) return COORDINATE_ERROR;
+		if(!t1.inOwnBounds() || !t2.inOwnBounds() || map->physical[t1.single_ceil()]->getId() == ID_WALL && map->physical[t2.single_ceil()]->getId() == ID_WALL) return COORDINATE_ERROR;
 		else return j;
 	}
 #pragma endregion AUSILIARIE

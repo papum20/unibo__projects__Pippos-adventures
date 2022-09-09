@@ -162,7 +162,7 @@ class Player : public Character {
 		void useDoor();					//usa la porta (e la setta a usata, cioè NULL)
 
 		void destroy(pMap map);
-		void changeCurrentHealth(int delta, pMap map);
+		void changeCurrentHealth(int delta);
 		
 };
 

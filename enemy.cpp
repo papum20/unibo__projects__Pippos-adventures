@@ -8,8 +8,11 @@ Enemy::Enemy() : Character() {
 	curStamina=maxStamina;
 	id= ID_ENEMY_S;
 	animations_n = 5;
-
+	player_in_vision=false;
+	player_found=false;
 	main_color = COLOR_ENEMY;
+	frames_passed=enemy_refreshing_rate;
+	current_step=initial_step;
 }
 
 Enemy::Enemy(pCharacter p):Character() {
@@ -24,18 +27,11 @@ Enemy::Enemy(pCharacter p):Character() {
 	main_color = COLOR_ENEMY;
 }
 
-/*Enemy::Enemy(int max_health, int max_stamina, int p_g, pCharacter p):Character (max_health, max_stamina){
-    points_given=p_g;
-    player=p;
-}
-*/
-
 int Enemy::getPoints(){
 	return points_given;
 }
 
 void Enemy::destroy(pMap map){
-	delete player;
 	Character::destroy(map);
 }
 
@@ -56,14 +52,6 @@ void Enemy::update(pMap map){
 				}
 			}
 			else{
-				if (equipaggiamento.arma->is_melee){
-					if (attack_counter==1){
-						check_enemy_melee(map);
-						attack_counter=-1;
-					}
-					else
-						attack_counter--;
-				}
 				if (!animations[current_animation]->isLastFrame()){
 					next_animation();
 					equipaggiamento.arma->next_animation();
@@ -71,6 +59,13 @@ void Enemy::update(pMap map){
 				else{
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);
+					else{
+						check_enemy_melee(map);
+						if (player_found){
+							player->changeCurrentHealth(calculate_damage(player));
+							player_found=false;
+						}
+					}
 					is_attacking=false;
 					switch (direction){
 						case 'u':
@@ -100,110 +95,119 @@ void Enemy::update(pMap map){
 }
 
 void Enemy::check_enemy_melee(pMap map){
-    pPhysical objects[ROOM_AREA];
 	Coordinate start;
 	Coordinate end;
-	switch (direction){
-		case 'u':
-			start=Coordinate (pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y+size.y);
-			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
-			break;
-		case 'd':
-			start=Coordinate ( pos.x+(equipaggiamento.arma)->delta_x_horizontal, pos.y-(equipaggiamento.arma)->vertical_size.y );
-			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
-			break;
-		case 'l':
-			start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
-			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
-			break;
-		case 'r':
-			start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->delta_y_vertical);
-			end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
-			break;
+	
+	//setto le coordinate per cercare in alto
+	start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y+size.y);
+	end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
+	if (MapHandler::findRectangle(map, player, start, end)){
+		direction='u';
+		player_found=true;
 	}
-
-	int dim=MapHandler::checkRectangle(map, objects, start, end);       
-    
-    if (dim>0){                                                        
-        for (int i=0; i<dim; i++){
-            if (objects[i]->getId()==player->getId()){          
-                player->changeCurrentHealth(calculate_damage(player));
-            }
-			break;
-        }
-    }
+	//Basso
+	if (!player_found){
+		start=Coordinate (pos.x+(equipaggiamento.arma)->vertical_size.x/2, pos.y-(equipaggiamento.arma)->vertical_size.y );
+		end=Coordinate (Coordinate (start, (equipaggiamento.arma)->vertical_size), Coordinate (-1, -1));
+		if (MapHandler::findRectangle(map, player, start, end)){
+			direction='d';
+			player_found=true;
+		}
+	}
+	//Sinistra
+	if (!player_found){
+		start=Coordinate (pos.x-(equipaggiamento.arma)->horizontal_size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
+		end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
+		if (MapHandler::findRectangle(map, player, start, end)){
+			direction='l';
+			player_found=true;
+		}
+	}
+	//Destra
+	if (!player_found){
+		start=Coordinate (pos.x+size.x, pos.y+(equipaggiamento.arma)->horizontal_size.y/2);
+		end=Coordinate (Coordinate (start, (equipaggiamento.arma)->horizontal_size), Coordinate (-1, -1));
+		if (MapHandler::findRectangle(map, player, start, end)){
+			direction='r';
+			player_found=true;
+		}
+	}
 }
 
 
 void Enemy::meleeIA(pMap map){
-    Coordinate path[ROOM_AREA];
-	Physical *obj[ROOM_AREA];
-	Physical *obj2[ROOM_AREA];
-	int player_distance;
-	int objects_in_view;
-	int objects_in_view2;
-	player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);		
-	objects_in_view=MapHandler::vision(map, obj, pos, 30);
-	objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), 30);
-
-	WINDOW *w = newwin(10,10,30,0);
-	box(w,0,0);
-		mvwprintw(w,1,1,to_string(getPosition().x).c_str());
-		mvwprintw(w,2,1,to_string(getPosition().y).c_str());
-		for(int i = 0; i < 3; i++) {
-			mvwprintw(w,3+i*2,1,to_string(path[i].x).c_str());
-			mvwprintw(w,3+i*2+1,1,to_string(path[i].y).c_str());
-		}
-		wrefresh(w);
-	/*for(int i = 0; i < player_distance; i++) {
-		mvwprintw(w,1,1,to_string(path[i].x).c_str());
-		mvwprintw(w,2,1,to_string(path[i].y).c_str());
-		wgetch(w);
-	}*/
-
-	if ((player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)) && player_distance<20){					//se il player è in vista e la distanza è minore di 5
-		if (player_distance>0){																
-			Coordinate step;
-			step=path[1];
-			if (step.x==pos.x){																//se è maggiore di uno mi muovo nella sua direzione
-				if (step.y>pos.y)
-					moveUp(map);
-				else
-					moveDown(map);
-			}	
-			else{																		
-				if (step.x>pos.x)
-					moveRight(map);
-				else
-					moveLeft(map);
+	check_enemy_melee(map);
+	if (player_found){
+		initiate_attack();
+		player_found=false;
+	}
+	else{
+		if (frames_passed<enemy_refreshing_rate){
+			frames_passed++;
+			if (player_in_vision && current_step<memorized_steps){
+				make_step(map);
 			}
 		}
-		else { 																				//altrimenti lo attacco
-			if (pos.x<=player->getPosition().x && pos.x+size.x>player->getPosition().x)
-				if (pos.y<player->getPosition().y)
-					direction='u';
-				else
-					direction='d';
+		else{
+			frames_passed=0;
+			Physical *obj[ROOM_AREA];
+			Physical *obj2[ROOM_AREA];
+			int objects_in_view;
+			int objects_in_view2;
+			objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
+			objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), enemy_vision);
+			if (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)){
+				player_in_vision=true;
+				int player_distance;
+				Coordinate path[ROOM_AREA];
+				player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
+				if (player_distance>=max_steps){
+					memorized_steps=max_steps;
+					for (int i=0; i<memorized_steps; i++){
+						memorized_path[i]=path[i];
+					}
+				}
+				else{
+					memorized_steps=player_distance;
+					for (int i=0; i<memorized_steps; i++){
+						memorized_path[i]=path[i];
+					}
+				}
+				current_step=initial_step;
+				make_step(map);
+			}
 			else
-				if (pos.x<player->getPosition().x)
-					direction='r';
-				else
-					direction='l';
-			initiate_attack();		
+				player_in_vision=false;
+
 		}
 	}
+}
 
+void Enemy::make_step(pMap map){
+	if (memorized_path[current_step].x==pos.x){																//se è maggiore di uno mi muovo nella sua direzione
+		if (memorized_path[current_step].y>pos.y)
+			moveUp(map);
+		else
+			moveDown(map);
+		}	
+	else{																		
+		if (memorized_path[current_step].x>pos.x)
+			moveRight(map);
+		else
+			moveLeft(map);
+	}
+	current_step++;
 }
 
 void Enemy::rangedIA(pMap map){
 	Physical *obj[ROOM_AREA];
 	int objects_in_view;	
-	objects_in_view=MapHandler::vision(map, obj, pos, 20);
+	objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
 	Coordinate path[ROOM_AREA];
 	int player_distance;
 	player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
 	if (player->findInArray(obj, objects_in_view)){																//se il player è in vista
-		if (player_distance<10){	
+		if (player_distance<chase_distance/2){	
 			if (Math::abs(player->getPosition().x-pos.x)<Math::abs(player->getPosition().y-pos.y)){						//se sono più vicini sull'asse delle x
 				if (Math::abs(player->getPosition().x-pos.x)<((equipaggiamento.arma)->projectile).vertical_size.x){	//se la larghezza del proiettile>=distanza sulle x
 					if (player->getPosition().y>pos.y){																//mi direziono in base alla posizione
@@ -239,7 +243,7 @@ void Enemy::rangedIA(pMap map){
 				}
 			}
 		}
-		else if (player_distance<15){
+		else if (player_distance<chase_distance){
 			Coordinate step;
 			step=path[0];
 			if (step.x==pos.x){																

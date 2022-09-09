@@ -94,27 +94,27 @@ int Inventory::check_class_name(int array_index){
 
 int Inventory::check_subclass_name(int array_index){
     
-    if(objects[array_index]->isSword())
+    if(objects[array_index]->getId()==ID_SWORD)
         return 0;
-    else if(objects[array_index]->isBow())
+    else if(objects[array_index]->getId()==ID_WEAPON_BOW)
         return 1;
-    else if(objects[array_index]->isArmor())
+    else if(objects[array_index]->getId()==ID_ITEM_DIFENSIVO_ARMOR)
         return 2;
-    else if(objects[array_index]->isShield())
+    else if(objects[array_index]->getId()==ID_ITEM_DIFENSIVO_SHIELD)
         return 3;
-    else if(objects[array_index]->isHelm())
+    else if(objects[array_index]->getId()==ID_ITEM_DIFENSIVO_HELM)
         return 4;
-    else if(objects[array_index]->isAxe())
+    else if(objects[array_index]->getId()==ID_WEAPON_AXE)
         return 5;
-    else if(objects[array_index]->isPotion())
+    else if((objects[array_index]->getId()==ID_HEALTH_POTION) || (objects[array_index]->getId()==ID_LIFE_ELIXIR))
         return 6;
-    else if(objects[array_index]->isBoots())
+    else if(objects[array_index]->getId()==ID_ITEM_DIFENSIVO_BOOTS)
         return 7;
-    else if(objects[array_index]->isNecklace())
+    else if(objects[array_index]->getId()==ID_ITEM_DIFENSIVO_NECKLACE)
         return 8;
-    else if(objects[array_index]->isRod())
+    else if(objects[array_index]->getId()==ID_WEAPON_ROD)
         return 9;
-    else if(objects[array_index]->isRune())
+    else if(objects[array_index]->getId()==ID_RUNE)
         return 10;
     return -1;
 }

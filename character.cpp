@@ -165,8 +165,9 @@ void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate
 		do {
 			Coordinate global = Coordinate(Coordinate(local, draw_start), win_start, win_end);		//coordinata globale di local, sulla mappa
 			if(global.inOwnBounds()) {																//se il punto è interno alla finestra da disegnare
-				if(equipaggiamento.arma->animationMask(local))										//se c'è l'arma: copre qualsiasi cosa
+				if(equipaggiamento.arma->animationMask(local)){										//se c'è l'arma: copre qualsiasi cosa
 					scr[global.rel_int_y()][global.rel_int_x()].edit(a_weapon.at(local), equipaggiamento.arma->get_MainColor(), -1, A_BOLD);
+				}
 				else if(global.inBounds(character_start, character_end)) {							//altrimenti, se c'è il character, disegna il character
 					Coordinate local_character = Coordinate(global, character_start.negative());
 					if(animationMask(local_character)) scr[global.rel_int_y()][global.rel_int_x()].edit(getCurrentAnimation().at(local_character), main_color, -1, A_BOLD);
@@ -293,23 +294,15 @@ void Character::initiate_attack (){
 	switch (direction){
 		case 'u':
 			current_animation=move_up_index;
-			if (equipaggiamento.arma->is_melee)
-				attack_counter=equipaggiamento.arma->vertical_attack_animation;
 			break;
 		case 'd':
 			current_animation=move_down_index;
-			if (equipaggiamento.arma->is_melee)
-				attack_counter=equipaggiamento.arma->vertical_attack_states;
 			break;
 		case 'r':
 			current_animation=move_right_index;
-			if (equipaggiamento.arma->is_melee)
-				attack_counter=equipaggiamento.arma->horizontal_attack_animation;
 			break;
 		case 'l':
 			current_animation=move_left_index;
-			if (equipaggiamento.arma->is_melee)
-				attack_counter=equipaggiamento.arma->horizontal_attack_animation;
 			break;
 	}
 }
@@ -338,6 +331,7 @@ equipment *Character::getEqipment() {
 int Character::getPoints(){
 	return -1;
 }
+
 /*
 #pragma region AUSILIARIE_GENERICHE
 	void Character::swapPositions(pCharacter this[], Coordinate a, Coordinate b) {

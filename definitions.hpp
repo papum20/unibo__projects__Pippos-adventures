@@ -8,7 +8,7 @@
 
 //// REFRESH RATE : durata di un frame
 #pragma region REFRESH_RATE
-#define FRAMES_PER_SECOND 2					//aggiornamenti in un secondo
+#define FRAMES_PER_SECOND 10					//aggiornamenti in un secondo
 #define REFRESH_RATE (1. / FRAMES_PER_SECOND)	//durata di un aggiornamento
 #define REFRESH_TIMER_INDEX 0					//indice del timer (implementazione)
 #define GAME_TIMER_INDEX 1
@@ -17,8 +17,8 @@
 
 #pragma region SCREENS_SIZES
 // CAMERA
-#define CAMERA_WIDTH  300//135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 70//35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH  300//150//135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 70//50//35	//altezza (massima) inquadratura livello
 // MINI-MAP
 #define MINIMAP_WIDTH (CAMERA_WIDTH - 4)
 #define MINIMAP_HEIGHT (CAMERA_HEIGHT - 2)
@@ -41,6 +41,9 @@
 //CONNECTED ROOM
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
+//LEVEL
+#define N_ROOMS 10							//numero di stanze (normali) generate per livello
+#define LEVEL_AREA (N_ROOMS * N_ROOMS)		//dimensioni matrice livello
 #pragma endregion ROOM_DEFINITIONS
 
 //// COSTANTI PER LA RAPPRESENTAZIONE GRAFICA
@@ -78,7 +81,7 @@
 #define CHAR_OUTSIDE '.'
 // DIMENSIONI
 #define WALL_HEIGHT 6
-#define DOOR_HEIGHT (WALL_HEIGHT + 1)
+#define DOOR_HEIGHT (WALL_HEIGHT)
 #define DOOR_WIDTH 3
 #define DOOR_DEPTH 1
 //player

@@ -10,11 +10,6 @@
 #include "room_position.hpp"
 
 
-#define HEAP_SIZE_MAX ROOM_AREA		//deve contenere un "quadrato" di N_ROOMS e uno di ROOM_AREA
-#define COMPARE_SIGN_DFLT -1		//min-heap
-#define ROOM_RAND_EXECUTIONS_MAX 3	//massimo numero di esecuzioni di cicli che terminano solo in base a un numero random
-#define ROOM_RAND_CHANCE 2			//usato come probabilità in generateMap()
-
 
 
 class PriorityQueueRoom : public PriorityQueue {
@@ -30,6 +25,7 @@ class PriorityQueueRoom : public PriorityQueue {
 
 		void insert(RoomPosition x);
 		void remove(RoomPosition x);
+		int findPos(RoomPosition x);
 
 		RoomPosition random();
 		RoomPosition unevenRandom();
@@ -37,6 +33,8 @@ class PriorityQueueRoom : public PriorityQueue {
 		// EREDITATI
 		//int find(RoomPosition x, int i = 0);
 		//void increaseKey(RoomPosition x, RoomPosition incr);
+
+		
 };
 typedef PriorityQueue *pPriorityQueue;
 

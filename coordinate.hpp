@@ -55,6 +55,7 @@ class Coordinate {
 		Coordinate swapped() const;										//ritorna coordinate con x e y invertiti
 		Coordinate negative() const;									//return (-x, -y)
 		Coordinate times(float px, float py) const;						//return (x*px, y*py)
+		Coordinate times(Coordinate B) const;							//return (x*px, y*py)
 		Coordinate integer() const;
 		Coordinate ceil();
 		void clamp(Coordinate mn, Coordinate mx);						//fa rientrare le coordinate nei bordi (mn lessEqual mx)

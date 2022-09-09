@@ -24,11 +24,11 @@ const int tree_branch_attack_states=2;
 const int tree_branch_height=10;
 const int tree_branch_width=13;
 
-const int tree_horizontal_attack_width=2;
-const int tree_horizontal_attack_height=1;
+const int tree_horizontal_attack_width=3;
+const int tree_horizontal_attack_height=2;
 
-const int tree_vertical_attack_width=1;
-const int tree_vertical_attack_height=2;
+const int tree_vertical_attack_width=2;
+const int tree_vertical_attack_height=3;
 
 const char tree_branch_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {

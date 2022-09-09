@@ -1,7 +1,7 @@
 #include "door.hpp"
 
 
-	Door::Door(Coordinate pos, Coordinate size, Coordinate entrancePosition, bool locked) : Inanimate() {
+	Door::Door(Coordinate pos, Coordinate size, Coordinate entrancePosition, bool locked) : Fixed() {
 		id = ID_DOOR;
 		this->pos = pos;
 		this->size = size;
@@ -20,7 +20,6 @@
 			drawCell(scr, i, main_color);
 			i.y++;
 		}
-		drawn = true;
 	}
 
 

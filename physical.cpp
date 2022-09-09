@@ -57,6 +57,9 @@ void Physical::next_animation(){
     bool Physical::isInanimate() {
         return id >= ID_INANIMATE_S && id <= ID_INANIMATE_E;
     }
+    bool Physical::isFixed() {
+        return id >= ID_FIXED_S && id <= ID_FIXED_E;
+    }
     bool Physical::isCharacter() {
         return id == ID_PLAYER || (id >= ID_ENEMY_S && id <= ID_ENEMY_E);
     }
@@ -74,72 +77,6 @@ void Physical::next_animation(){
     }
     bool Physical::isArtifact() {
         return id >= ID_ARTIFACT_S && id <= ID_ARTIFACT_E;
-    }
-    bool Physical::isSword(){
-        if(id==ID_SWORD)
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isAxe(){
-        if(id==ID_WEAPON_AXE)
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isBow(){
-        if(id==ID_WEAPON_BOW)
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isRod(){
-        if(id==ID_WEAPON_ROD)
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isArmor(){
-        if(id==ID_ITEM_DIFENSIVO_ARMOR)
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isShield(){
-        if(id==ID_ITEM_DIFENSIVO_SHIELD)
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isHelm(){
-        if(id==ID_ITEM_DIFENSIVO_HELM)
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isBoots(){
-        if(id==ID_ITEM_DIFENSIVO_BOOTS)
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isNecklace(){
-        if(id==ID_ITEM_DIFENSIVO_NECKLACE)
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isPotion(){
-        if((id==ID_HEALTH_POTION) || (id==ID_LIFE_ELIXIR))
-            return true;
-        else 
-            return false;
-    }
-    bool Physical::isRune(){
-        if(id==ID_RUNE)
-            return true;
-        else 
-            return false;
     }
     bool Physical::findInArray(pPhysical A[ROOM_AREA], int len) {
         bool found = false;

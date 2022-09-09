@@ -23,29 +23,29 @@ const int MAX_ANIMATIONS = 8;
 #pragma region PHYSICAL_IDS
 #define ID_INANIMATE_S 10
 #define ID_INANIMATE_E 19
+#define ID_FIXED_S 15
+#define ID_FIXED_E 19
 #define ID_ENEMY_S 100
 #define ID_ENEMY_E 149
 #define ID_ITEM_S 150
 #define ID_ITEM_E 179
-
 #define ID_ARTIFACT_S 150
 #define ID_ARTIFACT_E 159
-
 #define ID_WEAPON_S 160
 
 #define ID_WEAPON_AXE 162
 #define ID_WEAPON_BOW 163
 #define ID_WEAPON_ROD 164
 #define ID_WEAPON_E 169
-
 #define ID_ITEM_DIFENSIVO_S 170
+
 #define ID_ITEM_DIFENSIVO_ARMOR 171
 #define ID_ITEM_DIFENSIVO_HELM 172
 #define ID_ITEM_DIFENSIVO_BOOTS 173
 #define ID_ITEM_DIFENSIVO_SHIELD 174
 #define ID_ITEM_DIFENSIVO_NECKLACE 175
-#define ID_ITEM_DIFENSIVO_E 179
 
+#define ID_ITEM_DIFENSIVO_E 179
 #define ID_PROJECTILE_S 180
 #define ID_PROJECTILE_E 189
 #define ID_WEAPON_ENEMY_S 190
@@ -54,10 +54,10 @@ const int MAX_ANIMATIONS = 8;
 #define ID_DEFAULT 0
 #define ID_PLACEHOLDER 1
 #define ID_PLAYER 2
-#define ID_CHEST 3
-#define ID_WALL 10
-#define ID_FLOOR 11
-#define ID_DOOR 12
+#define ID_CHEST 10
+#define ID_FLOOR 15
+#define ID_WALL 16
+#define ID_DOOR 17
 
 #define ID_HEALTH_POTION 151
 #define ID_KEY 152
@@ -118,25 +118,14 @@ class Physical {
 
 		// BOOL
 		bool isInanimate();
+		bool isFixed();
 		bool isCharacter();
 		bool isProjectile();
 		//bool isItem();			//se è item/artefatto...
 		bool isWeapon();
 		bool isItemDifensivo();
 		bool isArtifact();
-		bool isSword();
-		bool isAxe();
-		bool isBow();
-		bool isRod();
 
-		bool isArmor();
-		bool isShield();
-		bool isHelm();
-		bool isBoots();
-		bool isNecklace();
-
-		bool isPotion();
-		bool isRune();
 		bool findInArray(Physical *A[ROOM_AREA], int len);
 		virtual bool animationMask(Coordinate pos);			//true se la posizione, relativa all'animazione (partendo dal basso), copre quello che c'è sotto
 

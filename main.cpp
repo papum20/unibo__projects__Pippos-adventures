@@ -130,7 +130,6 @@ int main() {
 			}
 		}
 
-
 		//// DEBUG
 		mvwprintw(debug,0,0,to_string(frame).c_str());
 		mvwprintw(debug,1,0,to_string((int)game_timer.get_time_passed(GAME_TIMER_INDEX)).c_str());

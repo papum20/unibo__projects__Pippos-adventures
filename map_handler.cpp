@@ -58,7 +58,7 @@ MapHandler::MapHandler() {
 			
 			for(int i = 0; i < ROOM_AREA; i++) dist[i] = -1;
 			dist[A->getPosition().single_set(map->size)] = 0;
-			Q.push(A->getPosition());
+			Q.push(A->getPosition().integer());
 
 			bool reached = false;
 			Coordinate res;

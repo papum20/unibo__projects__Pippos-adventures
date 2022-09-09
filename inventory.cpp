@@ -46,7 +46,7 @@ bool Inventory::is_active(){
 int Inventory::random_item(){
 int r;
 bool all_artifact=true;
-for(int i=1; i<=curr_inventory_space;i++){
+for(int i=0; i<curr_inventory_space;i++){
     if((check_class_name(i)==11) || (check_class_name(i)==12))
         all_artifact=false;
 }
@@ -138,35 +138,16 @@ void Inventory::wattroff_inventory(WINDOW * win){
 
 
 void Inventory::fix_array(int array_index){
+    objects[array_index]=NULL;
     delete objects[array_index];
     if(array_index==curr_inventory_space){
-        
          curr_inventory_space--;}
     else{
         curr_inventory_space--;
         objects[array_index]=objects[curr_inventory_space];
+        objects[curr_inventory_space] = NULL;
         delete objects[curr_inventory_space];
-        /*array_index=curr_inventory_space;
-         strcpy(objects[array_index]->name, " ");
-        strcpy(objects[array_index]->rarity, " ");
-            strcpy(objects[array_index]->description, " ");
-            
-        if((check_class_name(array_index)==11))
-        {
-           static_cast< Weapon *>(objects[array_index])->danno_fisico=0;
-           static_cast< Weapon *>(objects[array_index])->danno_magico=0;
-           static_cast< Weapon *>(objects[array_index])->is_equipped=false;
-
-           
-        }
-         if((check_class_name(array_index)==12))
-        {
-           static_cast< item_difensivo *>(objects[array_index])->difesa_fisica=0;
-           static_cast< item_difensivo *>(objects[array_index])->difesa_magica=0;
-           static_cast< item_difensivo *>(objects[array_index])->is_equipped=false;
-           
-        }*/
-    }  
+    }
     }
 
   
@@ -198,7 +179,7 @@ for (int i = 0; i < lenght / 2; i++){
 	string[lenght -1 -i]= tmp; 
 }}
 
-int Inventory::count_char(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio, l'ho usata in w_item e print_nome
+int Inventory::count_char(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio, l'ho usata in w_item 
 int count = 0;
 while((string[start_char]!=' ')){
 if((string[start_char]=='\0'))
@@ -209,7 +190,7 @@ start_char++;
 return count;
 }
 
-int Inventory::count_char_with_space(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio, l'ho usata in w_item e print_nome
+int Inventory::count_char_with_space(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio contando gli spazi, l'ho usata in print_nome
 int count = 0;
     while((string[start_char + count]!='\0')){
         count++;
@@ -244,7 +225,7 @@ mvwprintw(w_item, 2, xMax/2 -3,objects[array_index]->name);
 
 wattroff_inventory(w_item);
 
-int high=yMax - 10;//
+int high=yMax - 10;
 
 if(curr_inventory_space>0){
 
@@ -386,8 +367,6 @@ else if(u_highlight==2){
 
 wrefresh(w_use);
 }
-//giusto fino a qui
-
 if(input==invio){
  if(u_highlight==1){
     if(check_class_name(array_index)==13){
@@ -397,9 +376,11 @@ if(input==invio){
         else if(tmp->getId() == ID_LIFE_ELIXIR) tmp->use_item(objects[array_index], p->n_hearts);
         else if(tmp->getId() == ID_RUNE) {
           int item_index=random_item();
-          if(item_index!=(-1))
-            tmp->use_item(objects[item_index], p->n_hearts);}
-        //fix_array(array_index);
+          if(item_index!=(-1)){
+            tmp->use_item(objects[item_index], p->n_hearts);
+            }
+        }
+        fix_array(array_index);
         clean_window(w_zaino, 36, 53);
         clean_window(w_item, 34, 69); 
         wrefresh(w_item);
@@ -446,8 +427,10 @@ if(input==invio){
         return;  
         }
         else if(u_highlight==2){
-            //fix_array(array_index);
+            fix_array(array_index);
             clean_window(w_zaino, 36, 53);
+            clean_window(w_item, 34, 69); 
+            wrefresh(w_item);
             keypad(w_use, false); 
             keypad(w_zaino, true); 
             w_use_is_active=false;
@@ -582,7 +565,7 @@ item_menu(z_highlight);
     return;
     }
     if(input==KEY_SELECT_MENU){
-        int n = count_char_with_space(0, objects[array_index]->name) + 3;
+        int n = count_char_with_space(0, objects[z_highlight]->name) + 3;
         useOrdiscardItem(zaino_y_pos + high-1, zaino_x_pos + n + 17, z_highlight);
     }
     if(input==scroll_up){
@@ -643,9 +626,6 @@ item_menu(z_highlight);
 void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high){
     int counter = 0;
      counter = counter + 3 * high;
-        
-
-        mvwprintw(win, y, x, objects[array_index]->name);
         mvwprintw(win, y + 1 + counter, x, "rarita'");
         mvwprintw(win, y + 1 + counter, x + 10, objects[array_index]->rarity);
         counter = counter + 3 * high;

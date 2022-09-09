@@ -65,14 +65,6 @@ void Player::update(pMap map){
 	if (!updated){
 		if (curHealth>0){
 			if (is_attacking){
-				if (equipaggiamento.arma->is_melee){
-					if (attack_counter==1){
-						check_enemy_melee(map);
-						attack_counter=-1;
-					}
-					else
-						attack_counter--;
-				}
 				if (!animations[current_animation]->isLastFrame()){
 					next_animation();
 					equipaggiamento.arma->next_animation();
@@ -80,6 +72,8 @@ void Player::update(pMap map){
 				else{
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);
+					else
+						check_enemy_melee(map);
 					is_attacking=false;
 					switch (direction){
 						case 'u':
@@ -183,11 +177,11 @@ void Player::check_enemy_melee(pMap map){
 
 	int dim=MapHandler::checkRectangle(map, objects, start, end);
 
-	//WINDOW* debugging=newwin (10, 10, 40, 0);
-    //box (debugging, 0, 0);
-    //mvwprintw (debugging, 1, 1, to_string(dim).c_str());
-    //wrefresh(debugging);   
-    
+	/*WINDOW* debugging=newwin (10, 10, 40, 0);
+    box (debugging, 0, 0);
+	mvwprintw (debugging, 1, 1, to_string(dim).c_str());
+    wrefresh(debugging);   
+    */
     if (dim>0){                                                            
         for (int i=0; i<dim; i++){
             if (objects[i]->getId()!=this->id && objects[i]->isCharacter()){         

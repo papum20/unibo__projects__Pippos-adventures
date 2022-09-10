@@ -49,10 +49,10 @@ for(int i=0; i<curr_inventory_space;i++){
 if(all_artifact)
     return (-1);
  while(true){
-  r = (rand() % curr_inventory_space) + 1;
+  r = (rand() % curr_inventory_space);
   if((check_class_name(r)==11) || (check_class_name(r)==12)){
     return r;
-   }
+   }  
  }
 return (-1);
 }
@@ -449,7 +449,7 @@ if(input==invio){
 
 void Pause_menu::strcmp_rarity(WINDOW * win, int array_index, bool highlight){
 if(highlight){
-    if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
+    if(((strcmp(objects[array_index]->rarity, rarity[0]) == 0)) || (check_class_name(array_index)==13))
         wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
     else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
         wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLUE)));
@@ -460,7 +460,7 @@ if(highlight){
 }
 else{
     
-    if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
+    if(((strcmp(objects[array_index]->rarity, rarity[0]) == 0)) || (check_class_name(array_index)==13))
         wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
     else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
         wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLUE)));
@@ -627,8 +627,9 @@ void Pause_menu::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index
      counter = counter + 3 * high;
     if(wrtite_name)
         mvwprintw(win, y, x, objects[array_index]->name);
+    if((check_class_name(array_index)==11) || (check_class_name(array_index)==12)){
     mvwprintw(win, y + 1 + counter, x, "rarita'");
-    mvwprintw(win, y + 1 + counter, x + 10, objects[array_index]->rarity);
+    mvwprintw(win, y + 1 + counter, x + 10, objects[array_index]->rarity);}
     counter = counter + 3 * high;
     int i = 2;
     if((check_class_name(array_index))==11){

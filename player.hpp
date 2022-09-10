@@ -4,6 +4,8 @@
 #include "character.hpp"
 #include "inputmanager.hpp"
 #include "equipment/shield.hpp"
+#include "items/artifacts.hpp"
+
 
 const int player_idle_index = 0;
 const int player_move_right_index = 1;

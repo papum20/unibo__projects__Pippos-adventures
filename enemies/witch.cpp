@@ -1,6 +1,7 @@
 #include "witch.hpp"
 
 Witch::Witch():Enemy(){
+    speed = SPEED_WITCH;
     idle_index=witch_idle_index;
     move_up_index=witch_move_up_index;
     move_down_index=witch_move_down_index;
@@ -25,6 +26,7 @@ Witch::Witch():Enemy(){
 }
 
 Witch::Witch(pCharacter p):Enemy(p){
+    speed = SPEED_WITCH;
     idle_index=witch_idle_index;
     move_up_index=witch_move_up_index;
     move_down_index=witch_move_down_index;

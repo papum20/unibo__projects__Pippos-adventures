@@ -1,6 +1,7 @@
 #include "evil_tree.hpp"
 
 Evil_tree::Evil_tree():Enemy(){
+    speed = SPEED_TREE;
     idle_index=tree_idle_index;
     move_up_index=tree_move_up_index;
     move_down_index=tree_move_down_index;
@@ -27,6 +28,7 @@ Evil_tree::Evil_tree():Enemy(){
 }
 
 Evil_tree::Evil_tree(pCharacter p):Enemy(p){
+    speed = SPEED_TREE;
     idle_index=tree_idle_index;
     move_up_index=tree_move_up_index;
     move_down_index=tree_move_down_index;

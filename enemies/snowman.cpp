@@ -1,6 +1,7 @@
 #include "snowman.hpp"
 
 Snowman::Snowman():Enemy(){
+    speed = SPEED_SNOWMAN;
     idle_index=snowman_idle_index;
     move_up_index=snowman_move_up_index;
     move_down_index=snowman_move_down_index;
@@ -26,6 +27,7 @@ Snowman::Snowman():Enemy(){
 };
 
 Snowman::Snowman(pCharacter p):Enemy(p){
+    speed = SPEED_SNOWMAN;
     idle_index=snowman_idle_index;
     move_up_index=snowman_move_up_index;
     move_down_index=snowman_move_down_index;

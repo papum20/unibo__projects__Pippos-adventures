@@ -35,6 +35,7 @@ class Chest: public Inanimate{
         Chest (pArtifact a);
         Chest (pItem_def d);
         Chest (pKey k);
+        void destroyInstance(pMap map);
 		void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);
 
         pWeapon open_w();

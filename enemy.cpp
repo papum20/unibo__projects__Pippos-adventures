@@ -2,8 +2,6 @@
 #include "map_handler.hpp"
 
 Enemy::Enemy() : Character() {
-	weapons_n=0;
-	defensive_items_n=0;
 	maxStamina=enemy_stamina;
 	curStamina=maxStamina;
 	id= ID_ENEMY_S;
@@ -12,14 +10,12 @@ Enemy::Enemy() : Character() {
 	player_found=false;
 	main_color = COLOR_ENEMY;
 	frames_passed=enemy_refreshing_rate;
-	current_step=initial_step;
-	attack_counter=3;
+	current_step=1;
+	range=enemy_range;
 }
 
 Enemy::Enemy(pCharacter p):Character() {
     player=p;
-	weapons_n=0;
-	defensive_items_n=0;
 	maxStamina=enemy_stamina;
 	curStamina=maxStamina;
 	id= ID_ENEMY_S;
@@ -32,12 +28,44 @@ int Enemy::getPoints(){
 	return points_given;
 }
 
-void Enemy::destroy(pMap map){
-	Character::destroy(map);
+void Enemy::destroyInstance(pMap map){
+	if(equipaggiamento.arma != NULL) equipaggiamento.arma->destroy(NULL);
+	if(equipaggiamento.armatura != NULL) equipaggiamento.armatura->destroy(NULL);
+	if(equipaggiamento.elmo != NULL) equipaggiamento.elmo->destroy(NULL);
+	if(equipaggiamento.stivali != NULL) equipaggiamento.stivali->destroy(NULL);
+	if(equipaggiamento.collana != NULL) equipaggiamento.collana->destroy(NULL);
+	if(equipaggiamento.scudo != NULL) equipaggiamento.scudo->destroy(NULL);
+	Character::destroyInstance(map);
 }
 
 void Enemy::copyEnemy(Enemy B) {
 	points_given = B.points_given;
+	if(B.equipaggiamento.arma != NULL) {
+		change_weapon(new Weapon());
+		equipaggiamento.arma->copyWeapon(*B.equipaggiamento.arma);
+	}
+	if(B.equipaggiamento.elmo != NULL) {
+		change_helm(new item_difensivo());
+		equipaggiamento.elmo->copyItemDifensivo(*B.equipaggiamento.elmo);
+	}
+	if(B.equipaggiamento.collana != NULL) {
+		change_necklace(new item_difensivo());
+		equipaggiamento.collana->copyItemDifensivo(*B.equipaggiamento.collana);
+	}
+	if(B.equipaggiamento.scudo != NULL) {
+		change_shield(new item_difensivo());
+		equipaggiamento.scudo->copyItemDifensivo(*B.equipaggiamento.scudo);
+	}
+	if(B.equipaggiamento.stivali != NULL) {
+		change_boots(new item_difensivo());
+		equipaggiamento.stivali->copyItemDifensivo(*B.equipaggiamento.stivali);
+	}
+	if(B.equipaggiamento.armatura != NULL) {
+		change_armor(new item_difensivo());
+		equipaggiamento.armatura->copyItemDifensivo(*B.equipaggiamento.armatura);
+	}
+
+
     copyCharacter(B);
 }
 
@@ -73,18 +101,37 @@ void Enemy::update(pMap map){
 						case 'u':
 							current_animation=move_up_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
+							if (!equipaggiamento.arma->is_melee)
+								if (player->getPosition().x>pos.x)
+									moveRight(map);
+								else
+									moveLeft(map);
 							break;
 						case 'd':
 							current_animation=move_down_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
+							if (!equipaggiamento.arma->is_melee)
+								if (player->getPosition().x>pos.x)
+									moveRight(map);
+								else
+									moveLeft(map);
 							break;
 						case 'l':
 							current_animation=move_left_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
-							break;
+							if (!equipaggiamento.arma->is_melee)
+								if (player->getPosition().y>pos.y)
+									moveUp(map);
+								else
+									moveDown(map);
 						case 'r':
 							current_animation=move_right_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
+							if (!equipaggiamento.arma->is_melee)
+								if (player->getPosition().y>pos.y)
+									moveUp(map);
+								else
+									moveDown(map);
 							break;	
 					}
 				}
@@ -177,7 +224,7 @@ void Enemy::meleeIA(pMap map){
 						memorized_path[i]=path[i];
 					}
 				}
-				current_step=initial_step;
+				current_step=1;
 				make_step(map);
 			}
 			else
@@ -188,69 +235,75 @@ void Enemy::meleeIA(pMap map){
 }
 
 void Enemy::make_step(pMap map){
-	if (memorized_path[current_step].x==pos.x){																//se è maggiore di uno mi muovo nella sua direzione
-		if (memorized_path[current_step].y>pos.y)
-			moveUp(map);
-		else
-			moveDown(map);
-		}	
-	else{																		
-		if (memorized_path[current_step].x>pos.x)
-			moveRight(map);
-		else
-			moveLeft(map);
+	if (current_step<max_steps){
+		if (memorized_path[current_step].x==pos.x){																//se è maggiore di uno mi muovo nella sua direzione
+			if (memorized_path[current_step].y>pos.y)
+				moveUp(map);
+			else
+				moveDown(map);
+			}	
+		else{																		
+			if (memorized_path[current_step].x>pos.x)
+				moveRight(map);
+			else
+				moveLeft(map);
+		}
+		current_step++;
 	}
-	current_step++;
 }
 
 void Enemy::rangedIA(pMap map){
 	Physical *obj[ROOM_AREA];
-	int objects_in_view;	
+	Physical *obj2[ROOM_AREA];
+	int objects_in_view;
+	int objects_in_view2;
 	objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
-	Coordinate path[ROOM_AREA];
-	int player_distance;
-	player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
-	/*if (player->findInArray(obj, objects_in_view)){																//se il player è in vista
-		if (player_distance<chase_distance/2){	
-			if (Math::abs(player->getPosition().x-pos.x)<Math::abs(player->getPosition().y-pos.y)){						//se sono più vicini sull'asse delle x
-				if (Math::abs(player->getPosition().x-pos.x)<((equipaggiamento.arma)->projectile).vertical_size.x){	//se la larghezza del proiettile>=distanza sulle x
-					if (player->getPosition().y>pos.y){																//mi direziono in base alla posizione
-						direction='u';
-					}
-					else																							
-						direction='d';
-					initiate_attack();																				//inizio l'attacco
-				}
-				else{																							//se il proiettile non è sufficientemente largo, mi sposto
-					if (player->getPosition().x>pos.x){															//in orizzontale, avvicinandomi
-						moveRight(map);
-					}
-					else
-						moveLeft(map);
-				}
-			}
-			else{																										//se sono più vicini sulle y
-				if (Math::abs(player->getPosition().y-pos.y)<((equipaggiamento.arma)->projectile).horizontal_size.y){		//se l'altezza del proiettile>=distanza sulle y
-					if (player->getPosition().x>pos.x){														//mi direziono in base alla posizione
-						direction='r';
-					}
-					else
-						direction='l';
-					initiate_attack();																		//inizio l'attacco
-				}
-				else{
-					if (player->getPosition().y>pos.y){												//altrimenti mi sposto in verticale
-						moveUp(map);
-					}
-					else
-						moveDown(map);
-				}
+	objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), enemy_vision);
+	if (player->findInArray(obj, objects_in_view)){
+		Coordinate path[ROOM_AREA];
+		int player_distance;
+		player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
+		if (player_distance>=max_steps){
+			memorized_steps=max_steps;
+			for (int i=0; i<memorized_steps; i++){
+				memorized_path[i]=path[i];
 			}
 		}
-		else 
+		else{
+			memorized_steps=player_distance;
+			for (int i=0; i<memorized_steps; i++){
+				memorized_path[i]=path[i];
+			}
+		}
+		current_step=1;
+		if (player_distance<range){
+			if ( player->getPosition().x>=pos.x-1 && player->getPosition().x<=pos.x+size.x ){
+				if (player->getPosition().y<pos.y){
+					direction='d';
+					initiate_attack();
+				}
+				else{
+					direction='u';
+					initiate_attack();
+				}
+			}
+			if (player->getPosition().y>=pos.y-1 && player->getPosition().y<=pos.y+size.y){
+				if (player->getPosition().x<pos.x){
+					direction='l';
+					initiate_attack();
+				}
+				else{
+					direction='r';
+					initiate_attack();
+				}	
+			}
+			if (!is_attacking) make_step(map);
+		}
+		else
 			if (player_distance<chase_distance){
 				make_step(map);
 			}
 	}
-	*/
+	else
+		make_step(map);
 }

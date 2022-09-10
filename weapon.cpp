@@ -5,6 +5,7 @@ Weapon::Weapon ():item(){
     id=ID_WEAPON_S;
     main_color = COLOR_WEAPON;
     offset = Coordinate(player_x_coordinate, player_y_coordinate);
+    animations_n = 8;
 }
 
 

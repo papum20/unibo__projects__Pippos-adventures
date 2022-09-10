@@ -10,7 +10,9 @@ class Animate : public Physical {
 
 		attr_t main_color;
 
-		//Coordinate 
+		Coordinate toDirection();		//da direzione carattere a direzione coordinat
+        Coordinate nextPos();
+
 
 	public:
 		//variabili per array di movimento, si trovano qui perchè servono a weapon, character e projectile
@@ -34,6 +36,7 @@ class Animate : public Physical {
 		attr_t get_MainColor();
 		
 		//MOVE
+		void move(pMap map);
 		void moveUp(pMap map);
 		void moveDown(pMap map);
 		void moveLeft(pMap map);

@@ -27,7 +27,6 @@ int main() {
 	int input_x = level_x + CAMERA_WIDTH, input_y = level_y + CAMERA_HEIGHT - input_h;
 	int hud_x = (stdscr_x - HUD_WIDTH) / 2, hud_y = level_y - HUD_HEIGHT - HUD_OFFSET;
 	int map_x = (stdscr_x - MINIMAP_WIDTH) / 2, map_y = (stdscr_y - MINIMAP_HEIGHT) / 2;
-	//menu
 
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
@@ -43,7 +42,7 @@ int main() {
 
 
 
-	menu.open();
+	//menu.open();
 
 	
 	WINDOW *debug = newwin(10,10,0,0);
@@ -130,9 +129,9 @@ int main() {
 	cursesEnd();
 	gameEnd();
 	//DELETE
-	level.destroy();
-	player->destroy(NULL);
-	inputManager->destroy();
+	//level.destroy();
+	//player->destroy(NULL);
+	//inputManager->destroy();
 	
 }
 

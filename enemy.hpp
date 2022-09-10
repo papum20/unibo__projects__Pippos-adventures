@@ -11,10 +11,10 @@
 
 const int enemy_stamina=50;
 const int enemy_refreshing_rate=3;
-const int chase_distance=20;
+const int chase_distance=15;
 const int enemy_vision=30;
-const int initial_step=0;
 const int max_steps=enemy_refreshing_rate*2;
+const int enemy_range=10;
 
 class Enemy : public Character {
 	protected:
@@ -27,11 +27,12 @@ class Enemy : public Character {
 		int frames_passed;
 		int memorized_steps;
 		int current_step;
+		int range;
 	public:
 		Enemy();
 		Enemy(pCharacter p);
 		Enemy(int max_health, int max_stamina, int p_g, pCharacter p);
-		void destroy(pMap map);
+		void destroyInstance(pMap map);
 		void copyEnemy(Enemy B);			//copia i parametri di B
 
 		void make_step(pMap map);

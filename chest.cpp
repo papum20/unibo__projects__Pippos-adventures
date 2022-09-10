@@ -58,6 +58,14 @@ Chest::Chest(pItem_def d) : Inanimate(){
     main_color = COLOR_CHEST;
 }
 
+void Chest::destroyInstance(pMap map) {
+    if(type=='a') arma->destroyInstance(map);
+    else if(type=='k') key->destroyInstance(map);
+    else if(type =='d') item_def->destroyInstance(map);
+    else if(type =='a') artefatto->destroyInstance(map);
+    Inanimate::destroyInstance(map);
+}
+
 void Chest::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
     if(!drawn) {
 		Coordinate win_end = Coordinate(win_start, win_size);

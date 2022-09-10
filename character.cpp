@@ -4,38 +4,16 @@
 
 Character::Character() : Alive() {
 	is_attacking=false;
-	current_animation=0;
-
-	for (int i=0; i<W_NUMBER; i++){
-		weapons[i]=NULL;
-	}
-	weapons_n=0;
-	for (int i=0; i<DEF_NUMBER; i++){
-		defensive_items[i]=NULL;
-	}
-	defensive_items_n=0;
 	initialize_equipment();
 }
 
 Character::Character(int maxH, int maxS) : Alive(maxH, maxS) {
 	is_attacking=false;
-	current_animation=0;
+	initialize_equipment();
 }
 
-void Character::destroy(pMap map){
-	/*delete equipaggiamento.arma;
-	delete equipaggiamento.collana;
-	delete equipaggiamento.scudo;
-	delete equipaggiamento.stivali;
-	delete equipaggiamento.collana;
-	delete equipaggiamento.elmo;*/
-	for (int i=0; i<weapons_n; i++){
-		weapons[i]->destroy(NULL);
-	}
-	for (int i=0; i<defensive_items_n; i++){
-		defensive_items[i]->destroy(NULL);
-	}
-	Physical::destroy(map);
+void Character::destroyInstance(pMap map){
+	Physical::destroyInstance(map);
 }
 
 void Character::initialize_equipment(){
@@ -134,21 +112,6 @@ void Character::copyCharacter(Character B) {
 	attack_right_states=B.attack_right_states;
 	attack_left_states=B.attack_left_states;
 
-	weapons_n=B.weapons_n;
-	for(int i = 0; i < weapons_n;i++) {
-		weapons[i] = new Weapon();
-		weapons[i]->copyWeapon(*B.weapons[i]);
-		change_weapon(weapons[i]);
-	}
-	curr_weapon=B.curr_weapon;
-
-	defensive_items_n=B.defensive_items_n;
-	for(int i = 0; i < defensive_items_n;i++) {
-		defensive_items[i] = new item_difensivo();
-		defensive_items[i]->copyItemDifensivo(*B.defensive_items[i]);
-		
-	}
-	last_def=B.last_def;
 	danno_fisico=B.danno_fisico;
 	danno_magico=B.danno_magico;
 
@@ -161,6 +124,12 @@ void Character::update(pMap map) {
 
 void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
 	if(!drawn) {
+		WINDOW *w = newwin(10,10,1,10);
+		box(w,0,0);
+		mvwprintw(w,1,1,to_string(id).c_str());
+		wrefresh(w);
+		mvwprintw(w,2,1,to_string(id).c_str());
+		wrefresh(w);
 		Animation a_weapon = equipaggiamento.arma->getCurrentAnimation();											//arma
 		Coordinate draw_start = Coordinate(pos, equipaggiamento.arma->getOffset().negative());						//inizio disegno (con l'arma), sulla mappa
 		Coordinate draw_end = Coordinate(draw_start, a_weapon.size);												//fine il disegno
@@ -228,7 +197,7 @@ void Character::apply_equipment (){
 //FUNZIONI MOVIMENTO
 
 void Character::moveUp(pMap map){
-	Animate::moveUp(map);
+	//Animate::moveUp(map);
 	if (current_animation==move_up_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -240,10 +209,11 @@ void Character::moveUp(pMap map){
 		direction='u';
 		equipaggiamento.arma->direction=direction;
 	}
+	Animate::move(map);
 }
 
 void Character::moveDown(pMap map){
-	Animate::moveDown(map);
+	//Animate::moveDown(map);
 	if (current_animation==move_down_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -255,10 +225,11 @@ void Character::moveDown(pMap map){
 		direction='d';
 		equipaggiamento.arma->direction=direction;
 	}
+	Animate::move(map);
 }
 
 void Character::moveLeft(pMap map){
-	Animate::moveLeft(map);
+	//Animate::moveLeft(map);
 	if (current_animation==move_left_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -270,10 +241,11 @@ void Character::moveLeft(pMap map){
 		direction='l';
 		equipaggiamento.arma->direction=direction;
 	}
+	Animate::move(map);
 }
 
 void Character::moveRight(pMap map){
-	Animate::moveRight(map);
+	//Animate::moveRight(map);
 	if (current_animation==move_right_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -285,6 +257,7 @@ void Character::moveRight(pMap map){
 		direction='r';
 		equipaggiamento.arma->direction=direction;
 	}
+	Animate::move(map);
 }
 
 

@@ -54,3 +54,27 @@ void Animate::moveRight(pMap map){
 	Coordinate newpos = Coordinate(pos, DIRECTIONS[DIRECTION_RIGHT].times(movement));
 	MapHandler::move(map, this, newpos);
 }
+void Animate::move(pMap map) {
+	Coordinate target = nextPos(), direction = toDirection().negative();
+	while(!target.equals_int(pos) && !MapHandler::move(map, this, nextPos())) target = Coordinate(target, direction);
+	lastMove = Coordinate(target, pos.negative());
+	pos = target;
+}
+
+
+Coordinate Animate::toDirection() {
+	if(direction == 'u') return DIRECTIONS[DIRECTION_UP];
+	else if(direction == 'd') return DIRECTIONS[DIRECTION_DOWN];
+	else if(direction == 'l') return DIRECTIONS[DIRECTION_LEFT];
+	else if(direction == 'r') return DIRECTIONS[DIRECTION_RIGHT];
+	else return COORDINATE_ZERO;
+}
+
+
+Coordinate Animate::nextPos() {
+	//posizione attuale + direzione*velocità*refresh_rate
+    Coordinate start = Coordinate(pos, toDirection().times(speed.times(REFRESH_RATE, REFRESH_RATE)));
+	if(id==ID_PROJECTILE_S){
+}
+    return start;
+}

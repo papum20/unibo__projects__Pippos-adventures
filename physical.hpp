@@ -70,7 +70,7 @@ const int MAX_ANIMATIONS = 8;
 #pragma endregion PHYSICAL_IDS
 
 #pragma region PHYSICAL_STATS
-#define PHYSICAL_MAX_SPEED 5.
+#define PHYSICAL_MAX_SPEED 20.
 // SPEED
 const Coordinate SPEED_PLAYER = Coordinate(14, 9);
 const Coordinate SPEED_ZOMBIE = Coordinate(5, 3);
@@ -114,8 +114,8 @@ class Physical {
 		Physical();
 		void copyPhysical(Physical B);			//copia i parametri di B
 		virtual void update(pMap map);			//da richiamare a ogni frame
-		virtual void destroy(pMap map);
-		//virtual void destroyInstance(pMap map);	//distrugge tutto tranne le animazioni (per eliminare le istanze copiate)
+		void destroy(pMap map);
+		virtual void destroyInstance(pMap map);	//distrugge tutto tranne se stesso (per i non puntatori)
 
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
 		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata

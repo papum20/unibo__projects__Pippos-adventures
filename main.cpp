@@ -27,7 +27,6 @@ int main() {
 	int input_x = level_x + CAMERA_WIDTH, input_y = level_y + CAMERA_HEIGHT - input_h;
 	int hud_x = (stdscr_x - HUD_WIDTH) / 2, hud_y = level_y - HUD_HEIGHT - HUD_OFFSET;
 	int map_x = (stdscr_x - MINIMAP_WIDTH) / 2, map_y = (stdscr_y - MINIMAP_HEIGHT) / 2;
-	//menu
 
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
@@ -36,16 +35,14 @@ int main() {
 
 	Hud hud = Hud(hud_x, hud_y, player);
 	
-	Pause_menu  pause_menu = Pause_menu(player,3, stdscr_x/(3.3), stdscr_y/4, stdscr_x/(3.5), stdscr_y/(4.2), stdscr_x/(2), stdscr_y/(3.7), stdscr_x/(2.9), stdscr_y/(3.5), stdscr_x/(2.7));//inventory zaino item_menu status opzioni
-	//pSword s = new sword();
-	//pause_menu.insert(s);
-	Start_menu menu = Start_menu(stdscr_y/(2.2), stdscr_x/(2.5), stdscr_x, stdscr_y, stdscr_y/(2.4), stdscr_x/(5.6));//menu, opzioni, face
+	Pause_menu  pause_menu = Pause_menu(player,stdscr_x, stdscr_y);
+	Start_menu menu = Start_menu(stdscr_x, stdscr_y);
 	
 	MiniMap miniMap = MiniMap(map_x, map_y);
 
 
 
-	menu.open();
+	//menu.open();
 
 	
 	WINDOW *debug = newwin(10,10,0,0);
@@ -132,9 +129,9 @@ int main() {
 	cursesEnd();
 	gameEnd();
 	//DELETE
-	level.destroy();
-	player->destroy(NULL);
-	inputManager->destroy();
+	//level.destroy();
+	//player->destroy(NULL);
+	//inputManager->destroy();
 	
 }
 

@@ -4,7 +4,7 @@
 #include "../weapon.hpp"
 #include "../projectiles/arrow.hpp"
 
-const char bow_description[description_length]="arco leggendario consegnato dal dio Apollo in persona, secondo la leggenda il suo possessore non finirà mai le frecce finché lo userà per intenti puri";
+const char bow_description[description_length]="arco leggendario consegnato dal dio Apollo in persona, secondo la leggenda il suo possessore non finira' mai le frecce finche' lo usera' per intenti puri";
 const char bow_name[name_length]="Arco di Apollo";
 
 const int bow_movement_states=1;

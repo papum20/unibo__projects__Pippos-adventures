@@ -11,6 +11,7 @@ Physical::Physical() {
     for(int i = 0; i < MAX_ANIMATIONS; i++) 
         animations[i] = NULL;
     animations_n = 0;
+	current_animation=0;
 
     speed = COORDINATE_ONE;
     lastMove = COORDINATE_ZERO;
@@ -34,17 +35,15 @@ void Physical::update(pMap map) {
 }
 
 void Physical::destroy(pMap map) {
+    destroyInstance(map);
+    delete this;
+}
+void Physical::destroyInstance(pMap map) {
     // ELIMINA PUNTATORI ANIMAZIONI
     for(int i = 0; i < animations_n; i++) animations[i]->delete_list();
     // ELIMINA OGGETTO
     if(map != NULL) MapHandler::remove(map, this);
-    delete this;
 }
-/*void Physical::destroyInstance(pMap map) {
-    // ELIMINA OGGETTO
-    MapHandler::remove(map, this);
-    delete this;
-}*/
 
 
 void Physical::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {

@@ -261,19 +261,23 @@ MapHandler::MapHandler() {
 
 //// FIND
 	bool MapHandler::findLine(pMap map, pPhysical obj, Coordinate start, Coordinate end) {
-		//si potrebbe implementare semplicemente chiamando checkline e cercando nell'array, ma almeno così se trova l'oggetto si può fermare subito
-		Coordinate delta = Coordinate::unitVector(start, end);
+			//si potrebbe implementare semplicemente chiamando checkline e cercando nell'array, ma almeno così se trova l'oggetto si può fermare subito
+		if(Coordinate(start, end.negative()).equals(COORDINATE_ZERO)) {
+			return checkPosition(map, start) == obj;
+		} else {
+			Coordinate delta = Coordinate::unitVector(start, end);
 
-		Coordinate i = start;
-		bool ended = false;
-		while(!ended) {
-			if(checkPosition(map, i) == obj || i.equals(end)) ended = true;
-			else {
-				i = checkLine_floor_next(map, i, delta);
-				if(i.equals(COORDINATE_ERROR)) ended = true;
+			Coordinate i = start;
+			bool ended = false;
+			while(!ended) {
+				if(checkPosition(map, i) == obj || i.equals(end)) ended = true;
+				else {
+					i = checkLine_floor_next(map, i, delta);
+					if(i.equals(COORDINATE_ERROR)) ended = true;
+				}
 			}
+			return checkPosition(map, i) == obj;
 		}
-		return checkPosition(map, i) == obj;
 	}
 	bool MapHandler::findRectangle(pMap map, pPhysical obj, Coordinate start, Coordinate end) {
 		//si potrebbe implementare semplicemente chiamando checkrectangle e cercando nell'array, ma almeno così se trova l'oggetto si può fermare subito
@@ -388,7 +392,6 @@ MapHandler::MapHandler() {
 				i.next();
 			} while (!i.equals_int(obj->getPosition()));
 			
-			obj->setPosition(target);
 			return true;
 		} else return false;
 	}

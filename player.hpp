@@ -131,18 +131,19 @@ class Player : public Character {
 	protected:
 		int points;
 
+		pWeapon weapons[W_NUMBER];
+		int weapons_n;
+		int curr_weapon;
+		pItem_def defensive_items[DEF_NUMBER];
+		int defensive_items_n;
+		int last_def;
 		pArtifact artifacts[MAX_ARTIFACTS];
 		int curr_artifact;
 		int artifacts_n;
 
 		pInputManager in_manager;
-		//Menu menu;
-		//pArmor armatura;
-		//pNecklace collana;
-		//pHelm elmo;
-		//pShield scudo;
-		//pBoots stivali;
-		//pWeapon arma;
+
+
 	public:
 		int n_hearts;		
 		int n_keys;
@@ -167,7 +168,7 @@ class Player : public Character {
 		pDoor usedDoor();				//porta usata, NULL se non sta usando una porta
 		void useDoor();					//usa la porta (e la setta a usata, cioè NULL)
 
-		void destroy(pMap map);
+		void destroyInstance(pMap map);
 		void changeCurrentHealth(int delta);
 
 		//GET

@@ -35,7 +35,7 @@ const Coordinate ZONE_DOOR_LR = Coordinate(SCALE_X, SCALE_Y*2);		//left-right
 
 //SPAWN: istanze e probabilità
 //enemy
-const int ENEMIES_N[LEVELS_N] {10, 10, 10};
+const int ENEMIES_N[LEVELS_N] {1, 10, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]		= 	{
 															{Zombie(), Spider()},
 															{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},

@@ -31,7 +31,7 @@ class Enemy : public Character {
 		Enemy();
 		Enemy(pCharacter p);
 		Enemy(int max_health, int max_stamina, int p_g, pCharacter p);
-		void destroy(pMap map);
+		void destroyInstance(pMap map);
 		void copyEnemy(Enemy B);			//copia i parametri di B
 
 		void make_step(pMap map);

@@ -2,14 +2,9 @@
 #include "map_handler.hpp"
 
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
+	size=Coordinate (p_width, p_depth);
+	speed = SPEED_PLAYER;
 	in_manager=in;
-	//menu=m;
-	weapons[0]= new Arco();
-	defensive_items[0] = new armor();
-	//collana=NULL;
-	//elmo=NULL;
-	//scudo=NULL;
-	//stivali=NULL;
 
 	n_hearts=start_hearts;
 	n_keys = 0;
@@ -38,16 +33,16 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	move_up_index=player_move_up_index;
 	move_down_index=player_move_down_index;
 	points=0;
-	change_weapon(weapons[0]);
-	change_armor(defensive_items[0]);
-	size=Coordinate (p_width, p_depth);
-	speed = SPEED_PLAYER;
 
 
+	weapons[0]= new Arco();
+	defensive_items[0] = new armor();
 	weapons[1] = new sword();
 	weapons_n = 2;
 	defensive_items_n = 1;
 	artifacts_n = 0;
+	change_weapon(weapons[0]);
+	change_armor(defensive_items[0]);
 	
 }
 
@@ -107,18 +102,38 @@ void Player::update(pMap map){
 				input=in_manager->get_input();
 				switch (input){
 					case KEY_UP:{
+						//WINDOW *w = newwin(10,10,0,20);
+						//box(w,0,0);
+						//mvwprintw(w,1,1,to_string(pos.x).c_str());
+						//mvwprintw(w,2,1,to_string(pos.y).c_str());
+						//wrefresh(w);
 						moveUp(map);
 						break;
 					}
 					case KEY_DOWN:{
+						//WINDOW *w = newwin(10,10,0,20);
+						//box(w,0,0);
+						//mvwprintw(w,1,1,to_string(pos.x).c_str());
+						//mvwprintw(w,2,1,to_string(pos.y).c_str());
+						//wrefresh(w);
 						moveDown(map);
 						break;
 					}	
 					case KEY_LEFT:{
+						//WINDOW *w = newwin(10,10,0,20);
+						//box(w,0,0);
+						//mvwprintw(w,1,1,to_string(pos.x).c_str());
+						//mvwprintw(w,2,1,to_string(pos.y).c_str());
+						//wrefresh(w);
 						moveLeft(map);
 						break;
 					}
 					case KEY_RIGHT:{
+						//WINDOW *w = newwin(10,10,0,20);
+						//box(w,0,0);
+						//mvwprintw(w,1,1,to_string(pos.x).c_str());
+						//mvwprintw(w,2,1,to_string(pos.y).c_str());
+						//wrefresh(w);
 						moveRight(map);
 						break;
 					}
@@ -198,7 +213,13 @@ void Player::check_enemy_melee(pMap map){
     }
 }
 
-void Player::destroy(pMap map){
+void Player::destroyInstance(pMap map){
+	for (int i=0; i<weapons_n; i++){
+		weapons[i]->destroy(NULL);
+	}
+	for (int i=0; i<defensive_items_n; i++){
+		defensive_items[i]->destroy(NULL);
+	}
 	Character::destroy(map);
 }
 
@@ -314,7 +335,7 @@ void Player::useDoor() {
 int Player::getInventory(pItem inventory[n_max_inventory_objects]) {
 	for(int i = 0; i < weapons_n; i++) inventory[i] = weapons[i];
 	for(int i = 0; i < artifacts_n; i++) inventory[i + weapons_n] = artifacts[i];
-	for(int i = 0; i < defensive_items_n; i++) inventory[i + weapons_n + artifacts_n] = artifacts[i];
+	for(int i = 0; i < defensive_items_n; i++) inventory[i + weapons_n + artifacts_n] = defensive_items[i];
 	return weapons_n + artifacts_n + defensive_items_n;
 }
 void Player::removeItem(pItem item) {
@@ -324,15 +345,19 @@ void Player::removeItem(pItem item) {
 		if(item == weapons[i]) found = true;
 		else i++;
 	}
-	i = 0;
-	while(!found && i < artifacts_n) {
-		if(item == artifacts[i]) found = true;
-		else i++;
+	if(!found) {
+		i = 0;
+		while(!found && i < artifacts_n) {
+			if(item == artifacts[i]) found = true;
+			else i++;
+		}
 	}
-	i = 0;
-	while(!found && i < defensive_items_n) {
-		if(item == defensive_items[i]) found = true;
-		else i++;
+	if(!found) {
+		i = 0;
+		while(!found && i < defensive_items_n) {
+			if(item == defensive_items[i]) found = true;
+			else i++;
+		}
 	}
 
 	if(found) {

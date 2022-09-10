@@ -1,17 +1,13 @@
 #include "pause_menu.hpp"
 
 
-Pause_menu::Pause_menu(Player * p,int inventory_y_pos,int inventory_x_pos, int zaino_y_pos, int zaino_x_pos, int item_menu_y_pos, int item_menu_x_pos, int status_y_pos, int status_x_pos, int options_y_pos, int options_x_pos):Pixel_art(){
-this->zaino_y_pos= zaino_y_pos;
-this->zaino_x_pos= zaino_x_pos;
-this->item_menu_y_pos= item_menu_y_pos;
-this->item_menu_x_pos= item_menu_x_pos;
-this->inventory_y_pos= inventory_y_pos;
-this->inventory_x_pos= inventory_x_pos;
-this->status_y_pos= status_y_pos;
-this->status_x_pos= status_x_pos;
-this->options_y_pos= options_y_pos;
-this->options_x_pos= options_x_pos;
+Pause_menu::Pause_menu(Player * p, int stdscr_x, int stdscr_y):Pixel_art(){
+
+zaino_x_pos = (stdscr_x - ZAINO_WIDTH) / (3.5), zaino_y_pos = (stdscr_y - ZAINO_HEIGHT) / 2.1;
+inventory_x_pos = (stdscr_x - PAUSE_MENU_WIDTH) / (2.2), inventory_y_pos = 3;
+item_menu_x_pos = zaino_x_pos + ZAINO_WIDTH + 3, item_menu_y_pos = (stdscr_y - ZAINO_HEIGHT) / (2.2);
+status_x_pos = (stdscr_x - STATUS_MENU_WIDTH) / (2.2), status_y_pos = (stdscr_y - STATUS_MENU_HEIGHT) / (2.3);
+options_x_pos = (stdscr_x - MENU_OPTIONS_WIDTH) / (2.3), options_y_pos = (stdscr_y - MENU_OPTIONS_HEIGHT) / (2.1);
 
 this->p = p;
 is_open=false;
@@ -20,13 +16,12 @@ zaino_is_active=false;
 w_use_is_active=false;
 w_equip_is_active=false;
 
-
-this->w_inventory = newwin(8, 113, inventory_y_pos,inventory_x_pos);
-this->w_zaino = newwin(38, 55, zaino_y_pos, zaino_x_pos);
-this->w_item = newwin(39, 70, item_menu_y_pos, item_menu_x_pos);
-this->w_weapon = newwin(32, 31, item_menu_y_pos + 2, item_menu_x_pos + 1);
-this->w_equip = newwin(35, 100, status_y_pos, status_x_pos);
-this->w_options = newwin(30, 75, options_y_pos, options_x_pos);
+this->w_inventory = newwin(PAUSE_MENU_HEIGHT, PAUSE_MENU_WIDTH, inventory_y_pos,inventory_x_pos);
+this->w_zaino = newwin(ZAINO_HEIGHT, ZAINO_WIDTH, zaino_y_pos, zaino_x_pos);
+this->w_item = newwin(ITEM_MENU_HEIGHT, ITEM_MENU_WIDTH, item_menu_y_pos, item_menu_x_pos);
+this->w_weapon = newwin(w_graphic_high + 1, w_graphic_lenght + 1, item_menu_y_pos + 2, item_menu_x_pos + 1);
+this->w_equip = newwin(STATUS_MENU_HEIGHT, STATUS_MENU_WIDTH, status_y_pos, status_x_pos);
+this->w_options = newwin(MENU_OPTIONS_HEIGHT, MENU_OPTIONS_WIDTH, options_y_pos, options_x_pos);
 
 curr_inventory_space = 0;
 }
@@ -380,8 +375,8 @@ if(input==invio){
             }
         }
         fix_array(array_index);
-        clean_window(w_zaino, 36, 53);
-        clean_window(w_item, 34, 69); 
+        clean_window(w_zaino, ZAINO_HEIGHT - 1, ZAINO_WIDTH -1);
+        clean_window(w_item, ITEM_MENU_HEIGHT -1, ITEM_MENU_WIDTH - 1); 
         wrefresh(w_item);
         keypad(w_use, false); 
         keypad(w_zaino, true);
@@ -427,8 +422,8 @@ if(input==invio){
         }
         else if(u_highlight==2){
             fix_array(array_index);
-            clean_window(w_zaino, 36, 53);
-            clean_window(w_item, 34, 69); 
+            clean_window(w_zaino, ZAINO_HEIGHT - 1, ZAINO_WIDTH -1);
+            clean_window(w_item, ITEM_MENU_HEIGHT -1, ITEM_MENU_WIDTH - 1);  
             wrefresh(w_item);
             keypad(w_use, false); 
             keypad(w_zaino, true); 
@@ -521,9 +516,6 @@ if(w_use_is_active==true){
   update_w_use(z_highlight);
   return;
 }
-
-    //clean_window(w_item, 34, 69); //queste due righe servono per quando si richiama zaino_menu dopo aver eliminato un oggetto dall'inventario
-    //wrefresh(w_item);
     int xMax = getmaxx(w_zaino);
 
 if(curr_inventory_space<=0){

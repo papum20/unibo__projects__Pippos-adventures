@@ -29,9 +29,20 @@ const int w_graphic_lenght = 29;
 const int n_graphic_types_items = 11;
 
 
+#define ZAINO_WIDTH 55
+#define ZAINO_HEIGHT 38
 
+#define PAUSE_MENU_WIDTH 113
+#define PAUSE_MENU_HEIGHT 8
 
+#define ITEM_MENU_WIDTH 70
+#define ITEM_MENU_HEIGHT 39
 
+#define STATUS_MENU_WIDTH 100
+#define STATUS_MENU_HEIGHT 35
+
+#define MENU_OPTIONS_HEIGHT 30
+#define MENU_OPTIONS_WIDTH 75
 
 
 const char graphic_items[n_graphic_types_items][w_graphic_high][w_graphic_lenght]={
@@ -428,7 +439,7 @@ class Pause_menu : public Pixel_art{
         
         
 
-	Pause_menu(Player * p, int zaino_y_pos,int inventory_y_pos,int inventory_x_pos, int zaino_x_pos, int item_menu_y_pos, int item_menu_x_pos, int status_y_pos, int status_x_pos, int options_y_pos, int options_x_pos);
+	Pause_menu(Player * p, int stdscr_x, int stdscr_y);
         void open_options();
         void update_options();
         void wattroff_inventory(WINDOW * win);

@@ -143,6 +143,10 @@ int main() {
 	//// END
 	cursesEnd();
 	gameEnd();
+	//DELETE
+	level.destroy();
+	player->destroy(NULL);
+	inputManager->destroy();
 	
 }
 
@@ -173,7 +177,8 @@ void cursesEnd() {
 	endwin();			//dealloca memoria
 }
 void gameEnd() {
-	delete FLOOR_INSTANCE;
-	delete WALL_INSTANCE;
+	//// DELETE
+	FLOOR_INSTANCE->destroy(NULL);
+	WALL_INSTANCE->destroy(NULL);
 }
 #pragma endregion FUNZIONI

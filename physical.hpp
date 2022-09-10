@@ -2,6 +2,9 @@
 #define PHYSICAL_HPP
 
 
+#include "coordinate.hpp"
+
+
 #define ctrl(x) (x & 0x1F)				//permette di fare i controlli per le combinazioni ctrl+tasto per fare combo e simili.  
 										//Es. if ( input==ctrl(a) ) permette di controllare se abbiamo premuto ctrl+a
 
@@ -68,6 +71,11 @@ const int MAX_ANIMATIONS = 8;
 
 #pragma region PHYSICAL_STATS
 #define PHYSICAL_MAX_SPEED 5.
+// SPEED
+const Coordinate SPEED_PLAYER = Coordinate(14, 9);
+const Coordinate SPEED_ZOMBIE = Coordinate(5, 3);
+const Coordinate SPEED_SPIDER = Coordinate(8, 6);
+const Coordinate SPEED_PROJECTILE = Coordinate(30, 20);
 #pragma endregion PHYSICAL_STATS
 
 #pragma endregion PHYSICAL_CONSTANTS
@@ -76,7 +84,6 @@ const int MAX_ANIMATIONS = 8;
 #include <iostream>
 #include "animation.hpp"
 #include "cell.hpp"
-#include "coordinate.hpp"
 #include "definitions.hpp"
 #include "map.hpp"
 
@@ -108,7 +115,7 @@ class Physical {
 		void copyPhysical(Physical B);			//copia i parametri di B
 		virtual void update(pMap map);			//da richiamare a ogni frame
 		virtual void destroy(pMap map);
-		virtual void destroyInstance(pMap map);	//distrugge tutto tranne le animazioni (per eliminare le istanze copiate)
+		//virtual void destroyInstance(pMap map);	//distrugge tutto tranne le animazioni (per eliminare le istanze copiate)
 
 		virtual void drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos);	//disegna l'oggetto nella finestra, alle date coordinate, secondo la sua animazione, entro i limiti della finestra
 		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata

@@ -27,7 +27,7 @@ class MapHandler {
 		MapHandler();
 		static bool move(pMap map, Physical *obj, Coordinate target);	//muove un oggetto qualsiasi (non inanimate); ritorna true se ha successo
 		static void remove(pMap map, Physical *obj);					//rimuove un oggetto qualsiasi (non inanimate)
-		static void addProjectile(pMap map, Projectile *projectile);	//aggiunge un proiettile nella sua posizione
+		static bool addProjectile(pMap map, Projectile *projectile);	//aggiunge un proiettile nella sua posizione
 
 		//// PATH FINDING
 		static int shortestPath(pMap map, Coordinate path[ROOM_AREA], Coordinate A, Coordinate B, Physical *obj = NULL);

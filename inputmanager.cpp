@@ -12,6 +12,9 @@ InputManager::InputManager(int x_win, int y_win) {
     timer.set_max(INPUT_TIMER_INDEX, INPUT_IMER_LIMIT);
     timer.start(INPUT_TIMER_INDEX);
 }
+void InputManager::destroy() {
+    delete this;
+}
 
 void InputManager::calculate_input(){
     //se non riceve input può comunque restituire l'ultimo preso, se non è sato preso troppo tempo fa

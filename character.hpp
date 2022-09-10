@@ -21,6 +21,7 @@ struct equipment {
 	pHelm elmo;
 };
 
+
 #include "alive.hpp"
 #include "artifact.hpp"
 

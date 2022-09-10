@@ -10,6 +10,8 @@ class Animate : public Physical {
 
 		attr_t main_color;
 
+		//Coordinate 
+
 	public:
 		//variabili per array di movimento, si trovano qui perchè servono a weapon, character e projectile
 		int idle_index;

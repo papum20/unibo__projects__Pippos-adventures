@@ -36,6 +36,7 @@
 	}
 	void Level::destroy() {
 		curRoom->recursiveDestroy();
+		delwin(levelWindow);
 	}
 
 	void Level::generateMap()
@@ -86,21 +87,14 @@
 		}
 		//avvia generazione di tutte le stanze
 		curRoom->generate();
-		player->setPosition(curRoom->getSize().times(.5, .5));
-		curRoom->addCharacter(player);
-		spawnInRoom(curRoom);
+		curRoom->spawn(level, player);
 		for(int i = 1; i < N_ROOMS; i++) {
 			if(rooms[i] != NULL) {
 				rooms[i]->generate();
-				spawnInRoom(rooms[i]);
+				rooms[i]->spawn(level, NULL);
 			}
 		}
 		available.destroy();
-	}
-	void Level::spawnInRoom(pRoom room) {
-		for(int i = 0; i < ENEMIES_N[level]; i++) room->spawnEnemy(randEnemy());
-		int chests_n = chestsNumber();
-		for(int i = 0; i < chests_n; i++) room->spawnChest(randChest());
 	}
 
 	void Level::display() {
@@ -139,24 +133,28 @@
 
 	void Level::changeRoom() {
 		pDoor new_door = player->usedDoor();
-		if(new_door != NULL) {
+		if(new_door != NULL && new_door->isUseable()) {
 			curRoom->remove(player);
 			
 			//WINDOW *w = newwin(10,10,10,1);
 			//box(w,0,0);
 			//mvwprintw(w,1,1,to_string(curRoom->getConnectedRoom(new_door)!=NULL).c_str());
 			//wgetch(w);
-			player->useDoor();
-			if(new_door->isLocked()) curRoom->unlockDoor(new_door);
-			player->setPosition(curRoom->getEntrance(new_door));
-			curRoom = curRoom->getConnectedRoom(new_door);
-			curRoom->addCharacter_strong(player);	//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
+			if(new_door->isBoss()) {
+				nextLevel();
+			} else {
+				player->useDoor();
+				if(new_door->isLocked()) curRoom->unlockDoor(new_door);
+				player->setPosition(curRoom->getEntrance(new_door));
+				curRoom = curRoom->getConnectedRoom(new_door);
+				curRoom->addCharacter_strong(player);	//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
+			}
 		}
 	}
 	void Level::nextLevel() {
 		curRoom->recursiveDestroy();
-		generateMap();
 		level++;
+		generateMap();
 	}
 
 #pragma region SET_GET
@@ -263,39 +261,6 @@
 	}
 	Coordinate Level::cameraEnd() {
 		return Coordinate(position, Coordinate(curRoom->getSize().x / 2, curRoom->getSize().y / 2));
-	}
-
-	pEnemy Level::randEnemy() {
-		int r = rand() % ENEMIES_CHANCE_TOT[level];
-		int i = 0, counter = 0;
-		while(r >= counter + ENEMIES_CHANCHES[level][i]) {
-			counter += ENEMIES_CHANCHES[level][i];
-			i++;
-		}
-		pEnemy res = new Enemy(player);
-		res->copyEnemy(ENEMIES_INSTANCES[level][i]);
-		return res;
-	}
-	pChest Level::randChest() {
-		int r = rand() % ITEMS_INSTANCES_N;
-		pChest res;
-		if(r < ARTIFACT_INSTANCES_N) {
-			pArtifact item = new Artifact();
-			item->copyArtifact(ARTIFACT_INSTANCES[r]);
-			res = new Chest(item);
-		} else if(r < ARTIFACT_INSTANCES_N + ITEM_DIFENSIVO_INSTANCES_N) {
-			pItem_def item = new item_difensivo();
-			item->copyItemDifensivo(ITEM_DIFENSIVO_INSTANCES[r - ARTIFACT_INSTANCES_N]);
-			res = new Chest(item);
-		} else {
-			pWeapon item = new Weapon();
-			item->copyWeapon(WEAPON_INSTANCES[r - (ARTIFACT_INSTANCES_N + ITEM_DIFENSIVO_INSTANCES_N)]);
-			res = new Chest(item);
-		}
-		return res;
-	}
-	int Level::chestsNumber() {
-		return rand() % (CHESTS_N_MAX[level] - CHESTS_N_MIN[level] + 1) + CHESTS_N_MIN[level];
 	}
 	
 #pragma endregion AUSILIARIE

@@ -13,6 +13,7 @@ Projectile::Projectile(int fisico, int magico, char dir, int shooter):Animate(){
     id=ID_PROJECTILE_S;
     main_color = COLOR_PROJECTILE;
     animations_n=projectile_animations_n;
+    speed = SPEED_PROJECTILE;
 }
 
 void Projectile::copyProjectile(Projectile B) {
@@ -144,8 +145,8 @@ void Projectile::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinat
 		Coordinate win_end = Coordinate(win_start, win_size);
 		Coordinate local = Coordinate(COORDINATE_ZERO, ANIMATION_SIZE, COORDINATE_ZERO, getCurrentAnimation().size);	//coordinata relativa all'animazione, all'interno di essa
 		do {
-			Coordinate global = Coordinate(Coordinate(pos, local), win_start, win_end);     //coordinata globale di relative, sulla mappa
-			if(global.inOwnBounds() && animationMask(local))            			        //se il punto è interno alla finestra da disegnare e deve disegnare qualcosa
+			Coordinate global = Coordinate(Coordinate(pos, local), win_start, win_end);            //coordinata globale di relative, sulla mappa
+			if(global.inOwnBounds() && animationMask(local))            		        	        //se il punto è interno alla finestra da disegnare e deve disegnare qualcosa
 				scr[global.rel_int_y()][global.rel_int_x()].edit(getCurrentAnimation().at(local), main_color, -1, CELL_NO_ATTR);
             local.next();
 		} while(!local.equals(COORDINATE_ZERO));

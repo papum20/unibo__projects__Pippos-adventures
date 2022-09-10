@@ -122,6 +122,9 @@ const int mv_right=KEY_RIGHT;
 
 const int MAX_ARTIFACTS=10;
 
+
+
+
 class Player : public Character {
 	private:
 		pDoor used_door;		//porta che sta usando

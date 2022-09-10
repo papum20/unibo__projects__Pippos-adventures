@@ -677,11 +677,16 @@ char attack[max_n_digit_stats];
 char attack_magic[max_n_digit_stats];
 char defense[max_n_digit_stats];
 char defense_magic[max_n_digit_stats];
+char number_keys[max_n_digit_stats];
+char number_hearts[max_n_digit_stats];
 int_to_string(p->curHealth, curr_life);
 int_to_string(p->danno_fisico, attack);
 int_to_string(p->danno_magico, attack_magic);
 int_to_string(p->difesa_fisica, defense);
 int_to_string(p->difesa_magica, defense_magic);
+int_to_string(p->n_keys, number_keys);
+int_to_string(p->n_hearts, number_hearts);
+
 mvwprintw(w_equip, 2, 60, "PERSONAGGIO");
 mvwprintw(w_equip, 5, 55, "vita:");
 mvwprintw(w_equip, 5, 72, curr_life);
@@ -698,6 +703,12 @@ mvwprintw(w_equip, 11, 72, defense);
 mvwprintw(w_equip, 13, 55, "difesa magica:");
 mvwprintw(w_equip, 13, 72, defense_magic);
 
+mvwprintw(w_equip, 15, 55, "chiavi:");
+mvwprintw(w_equip, 15, 72, number_keys);
+
+mvwprintw(w_equip, 17, 55, "vite rimanenti:");
+mvwprintw(w_equip, 17, 72, number_hearts);
+
 wrefresh(w_equip);
 
 
@@ -708,7 +719,7 @@ if((check_subclass_name(i)==2) && (static_cast< item_difensivo *>(objects[i])->i
     aux_equip_item_menu(w_equip, 12, 2, i, 0, true);
     }
 if((check_subclass_name(i)==3) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-    aux_equip_item_menu(w_equip, 12, 2, i, 0, true);
+    aux_equip_item_menu(w_equip, 17, 2, i, 0, true);
     }
 
 if((check_subclass_name(i)==4) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){

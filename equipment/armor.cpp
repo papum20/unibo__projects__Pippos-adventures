@@ -1,7 +1,7 @@
 #include "armor.hpp"
 
 armor::armor():item_difensivo(){
-    strcpy(rarity, rare);
+    //strcpy(rarity, rare);
     id=ID_ITEM_DIFENSIVO_ARMOR;
     difesa_fisica_iniziale=Math::randomStep(10, 20, 5);
     difesa_magica_iniziale=Math::randomStep(10, 20, 5);

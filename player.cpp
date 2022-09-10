@@ -4,7 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	size=Coordinate (p_width, p_depth);
 	speed = SPEED_PLAYER;
-	
+
 	in_manager=in;
 
 	n_hearts=start_hearts;
@@ -39,13 +39,12 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 
 
 	weapons[0]= new Arco();
-	defensive_items[0] = new armor();
-	weapons[1] = new sword();
-	weapons_n = 2;
-	defensive_items_n = 1;
+	weapons_n = 1;
+	defensive_items_n = 0;
 	artifacts_n = 0;
-	change_weapon(weapons[1]);
-	change_armor(defensive_items[0]);
+	change_weapon(weapons[0]);
+	
+
 	
 }
 

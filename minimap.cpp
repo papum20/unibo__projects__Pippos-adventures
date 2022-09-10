@@ -72,7 +72,14 @@ void MiniMap::drawRoom_in_level(pRoom room, Coordinate start, Coordinate size, b
 		Cell cell;
 		if(!it.inBounds(Coordinate(start, COORDINATE_ONE), Coordinate(Coordinate(start, size), COORDINATE_NEGATIVE) ) )		//se sul bordo
 			cell = MINIMAP_ROOMS_BORDER;
-		else if(current && it.equals_int(Coordinate(start, size.times(.5, .5))) ) cell = MINIMAP_ROOMS_PLAYER;				//se al centro ed è la stanza attuale
+		else if(it.equals_int(Coordinate(start, size.times(.5, .5))) ) {													//se al centro
+			if(current) {
+				cell = MINIMAP_ROOMS_PLAYER;																				//disegna player	
+				if(room->isBossRoom()) mvwaddch(window, it.y, it.x - 1, MINIMAP_ROOMS_BOSS.toChtype());						//disegna boss
+			}
+			else if(room->isBossRoom()) cell = MINIMAP_ROOMS_BOSS;															//disegna boss
+			else cell = MINIMAP_ROOMS_EMPTY;																				//interno
+		}
 		else cell = MINIMAP_ROOMS_EMPTY;																					//interno
 		mvwaddch(window, it.y, it.x, cell.toChtype());
 		it.next();

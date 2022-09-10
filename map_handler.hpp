@@ -7,6 +7,9 @@
 #include "map.hpp"
 
 
+#define VISION_STEPS 5		//ogni quanti punti del bordo controlla con raggi per vision
+							//è importante che sia un numero dispari, o controllerebbe solo un lato, in verticale, per come è implementata
+
 
 
 

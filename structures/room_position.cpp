@@ -26,3 +26,6 @@
 	Coordinate RoomPosition::getPos() {
 		return pos;
 	}
+	int RoomPosition::getConnected() {
+		return connected;
+	}

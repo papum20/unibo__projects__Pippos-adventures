@@ -158,14 +158,15 @@
 		}
 	}
 	void ConnectedRoom::unlockDoor(pDoor door) {
-		pRoom adjacent = NULL;
-		int dir = 0;
-		while(adjacent == NULL && dir < DIRECTIONS_N) {
-			if(map->doors[dir] == door) adjacent = connected[dir];
-			else dir++;
-		}
+		//PARTE COMMENTATA: per sbloccare anche dall'altro lato
+		//pRoom adjacent = NULL;
+		//int dir = 0;
+		//while(adjacent == NULL && dir < DIRECTIONS_N) {
+		//	if(map->doors[dir] == door) adjacent = connected[dir];
+		//	else dir++;
+		//}
 		door->unlock();
-		adjacent->getDoor((dir + 2) % DIRECTIONS_N)->unlock();
+		//adjacent->getDoor((dir + 2) % DIRECTIONS_N)->unlock();
 	}
 //// GET
 	pRoom ConnectedRoom::getConnectedRoom(pDoor door) {
@@ -196,10 +197,10 @@
 
 #pragma region SPAWN
 
-	void ConnectedRoom::spawn(int level, pCharacter player) {
+	void ConnectedRoom::spawn(int level, pCharacter player, bool current) {
 		int key_chests = keyChestsNumber();
 		for(int i = 0; i < key_chests; i++) spawnChest(new Chest(new Key()));
-		Room::spawn(level, player);
+		Room::spawn(level, player, current);
 	}
 
 #pragma endregion

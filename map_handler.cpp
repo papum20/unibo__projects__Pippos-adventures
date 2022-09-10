@@ -106,24 +106,28 @@ MapHandler::MapHandler() {
 		int len_floor = 0, len_ceil = 0;
 		//"spara" raggi
 		Coordinate target = Coordinate(0, 0, map->size);
+		int steps = rand() % VISION_STEPS;
 		do {
-			//cerca physical
-			pPhysical tmp_floor[ROOM_AREA], tmp_ceil[ROOM_AREA];
-			int len_floor_t = checkLine(map, tmp_floor, source, target);
-			int len_ceil_t = checkLine_ceil(map, tmp_ceil, source, target);
-			//aggiungi quelli che non erano già stati trovati
-			for(int i = 0; i < len_floor_t; i++) {
-				if(!tmp_floor[i]->findInArray(obj_floor, len_floor)) {
-					obj_floor[len_floor] = tmp_floor[i];
-					len_floor++;
+			if(steps == 0) {
+				//cerca physical
+				pPhysical tmp_floor[ROOM_AREA], tmp_ceil[ROOM_AREA];
+				int len_floor_t = checkLine(map, tmp_floor, source, target);
+				int len_ceil_t = checkLine_ceil(map, tmp_ceil, source, target);
+				//aggiungi quelli che non erano già stati trovati
+				for(int i = 0; i < len_floor_t; i++) {
+					if(!tmp_floor[i]->findInArray(obj_floor, len_floor)) {
+						obj_floor[len_floor] = tmp_floor[i];
+						len_floor++;
+					}
 				}
-			}
-			for(int i = 0; i < len_ceil_t; i++) {
-				if(!tmp_ceil[i]->findInArray(obj_ceil, len_ceil)) {
-					obj_ceil[len_ceil] = tmp_ceil[i];
-					len_ceil++;
+				for(int i = 0; i < len_ceil_t; i++) {
+					if(!tmp_ceil[i]->findInArray(obj_ceil, len_ceil)) {
+						obj_ceil[len_ceil] = tmp_ceil[i];
+						len_ceil++;
+					}
 				}
-			}
+				steps = VISION_STEPS - 1;
+			} else steps--;
 			//next
 			if(target.x == 0 && target.y != 0 && target.y != map->size.y - 1) target.x = map->size.x - 1;
 			else target.next();

@@ -38,7 +38,7 @@ class ConnectedRoom : public Room {
 		void recursiveDestroy();
 
 		void generate();
-		virtual void spawn(int level, pCharacter player);
+		virtual void spawn(int level, pCharacter player, bool current = false);
 
 		// SET
 		void addDoor(int dir, lock_type lt, bool boss = false);

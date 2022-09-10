@@ -75,6 +75,7 @@ const int MAX_ANIMATIONS = 8;
 const Coordinate SPEED_PLAYER = Coordinate(14, 9);
 const Coordinate SPEED_ZOMBIE = Coordinate(5, 3);
 const Coordinate SPEED_SPIDER = Coordinate(8, 6);
+const Coordinate SPEED_WITCH = Coordinate(4, 4);
 const Coordinate SPEED_PROJECTILE = Coordinate(30, 20);
 #pragma endregion PHYSICAL_STATS
 

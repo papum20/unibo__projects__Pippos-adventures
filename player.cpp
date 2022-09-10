@@ -4,6 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	size=Coordinate (p_width, p_depth);
 	speed = SPEED_PLAYER;
+	
 	in_manager=in;
 
 	n_hearts=start_hearts;

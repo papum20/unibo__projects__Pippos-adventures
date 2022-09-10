@@ -1,7 +1,7 @@
 #include "pause_menu.hpp"
 
 
-Pause_menu::Pause_menu(Player * p, int stdscr_x, int stdscr_y):Pixel_art(){
+Pause_menu::Pause_menu(Player * p, int stdscr_x, int stdscr_y):Pixel_art(), Overlay(){
 
 zaino_x_pos = (stdscr_x - ZAINO_WIDTH) / (3.5), zaino_y_pos = (stdscr_y - ZAINO_HEIGHT) / 2.1;
 inventory_x_pos = (stdscr_x - PAUSE_MENU_WIDTH) / (2.2), inventory_y_pos = 3;

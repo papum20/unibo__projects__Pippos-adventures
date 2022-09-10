@@ -31,14 +31,14 @@ int main() {
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
 	pPlayer player = new Player(inputManager);
-	Level level = Level(level_x, level_y, player);	
+	pLevel level = new Level(level_x, level_y, player);	
 
 	Hud hud = Hud(hud_x, hud_y, player);
 	
 	Pause_menu  pause_menu = Pause_menu(player,stdscr_x, stdscr_y);
 	Start_menu menu = Start_menu(stdscr_x, stdscr_y);
 	
-	MiniMap miniMap = MiniMap(map_x, map_y);
+	MiniMap miniMap = MiniMap(map_x, map_y, level);
 
 
 
@@ -84,14 +84,14 @@ int main() {
 			else if(inputManager->get_input() == KEY_PAUSE) {
 				if(!pressedPause) {
 					if (!pause_menu.is_active()) pause_menu.open();
-					else pause_menu.close();
+					else level->open_over(pause_menu);
 					pressedPause = true;
 				}
 			}
 			else if(inputManager->get_input() == KEY_MAP) {
 				if(!pressedMinimap) {
-					if(!miniMap.isOpen()) miniMap.open(level);
-					else miniMap.close();
+					if(!miniMap.isOpen()) miniMap.open();
+					else level->open_over(miniMap);
 					pressedMinimap = true;
 				}
 			}
@@ -109,8 +109,8 @@ int main() {
 			else {
 				if(frame%2==0) mvwprintw(debug,5,1,"level");
 
-				level.update(inputManager->get_input());
-				level.display();
+				level->update(inputManager->get_input());
+				level->display();
 				hud.drawHud();
 			}
 		}
@@ -129,9 +129,10 @@ int main() {
 	cursesEnd();
 	gameEnd();
 	//DELETE
-	//level.destroy();
-	//player->destroy(NULL);
-	//inputManager->destroy();
+	inputManager->destroy();
+	level->destroy();
+	hud.destroy();
+	player->destroy(NULL);
 	
 }
 

@@ -1,7 +1,7 @@
 #include "start_menu.hpp"
 
 
-Start_menu::Start_menu(int stdscr_x, int stdscr_y):Pixel_art() {
+Start_menu::Start_menu(int stdscr_x, int stdscr_y):Pixel_art(),Overlay() {
 options_x_pos = (stdscr_x - MENU_OPTIONS_WIDTH) / (2.3), options_y_pos = (stdscr_y - MENU_OPTIONS_HEIGHT) / (1.7);
 face_x_pos = (stdscr_x - FACE_WIDTH) / (5.6), face_y_pos = (stdscr_y - FACE_HEIGHT) / (1.65);
 menu_x_pos = (stdscr_x - MENU_WIDTH) / (2.2), menu_y_pos = (stdscr_y - MENU_HEIGHT) / (1.6);
@@ -52,7 +52,7 @@ bool Start_menu::is_active(){
     return(menu_is_active);
 }
 
-void Start_menu::close_menu(){
+void Start_menu::close(){
     default_color();
     menu_is_active=false;
     werase(wface);
@@ -89,7 +89,7 @@ void Start_menu::update(bool &isRunning, int input){
         open_options();
        }
        else if(((highlight==0) || (highlight==2)) &&(input==KEY_SELECT_MENU)){
-        close_menu();
+        close();
         if(highlight == 2) isRunning = false;
        } else {
             int high_letter=3;

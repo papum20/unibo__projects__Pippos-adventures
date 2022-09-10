@@ -5,6 +5,7 @@
 #include <curses.h>
 #include <cstring>
 #include <ctime>
+#include "overlay.hpp"
 #include "inputmanager.hpp"
 #include "pixel_art.hpp"
 
@@ -72,7 +73,7 @@ const int cave[c_hight][c_lenght]={
 };
 
 
-class Start_menu : public Pixel_art {
+class Start_menu : public Pixel_art, public Overlay {
 	protected:
         WINDOW * menu;
         WINDOW * wface;
@@ -94,7 +95,7 @@ class Start_menu : public Pixel_art {
         void open_options();
         void update(bool &isRunning, int input);
         bool is_active();
-        void close_menu();
+        void close();
         void open();
         void update_options();
         void destroy();

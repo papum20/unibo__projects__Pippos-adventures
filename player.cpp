@@ -4,7 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
 	//menu=m;
-	arma= new sword();
+	arma= new Arco();
 	armatura=new armor();
 	collana=NULL;
 	elmo=NULL;
@@ -41,6 +41,7 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	change_weapon(arma);
 	change_armor(armatura);
 	size=Coordinate (p_width, p_depth);
+	speed = SPEED_PLAYER;
 	
 }
 
@@ -192,16 +193,6 @@ void Player::check_enemy_melee(pMap map){
 }
 
 void Player::destroy(pMap map){
-	delete used_door;
-	for (int i=0; i<MAX_ARTIFACTS; i++)
-		delete artifacts[i];
-	delete in_manager;
-	delete armatura;
-	delete collana;
-	delete elmo;
-	delete scudo;
-	delete stivali;
-	delete arma;
 	Character::destroy(map);
 }
 

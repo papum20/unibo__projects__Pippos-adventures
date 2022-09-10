@@ -28,14 +28,58 @@ const Coordinate ZONE_DOOR_LR = Coordinate(SCALE_X, SCALE_Y*2);		//left-right
 #include "structures/union_find.hpp"
 
 #include "enemy.hpp"
+#include "enemies/enemies.hpp"
+#include "equipment/equipment.hpp"
+#include "items/artifacts.hpp"
 
+
+//SPAWN: istanze e probabilità
+//enemy
+const int ENEMIES_N[LEVELS_N] {10, 10, 10};
+const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]		= 	{
+															{Zombie(), Spider()},
+															{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
+															{Spider(), Fire_spirit(), Snowman(), Witch(), Evil_tree()}
+															};
+const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]			= 	{
+															{3, 1},
+															{2, 3, 4, 1, 1},
+															{1, 2, 4, 4, 1}
+															};
+const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 12};
+const int BOSSES_N[LEVELS_N] {25, 6, 3};
+const Enemy BOSSES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
+															{Zombie()},
+															{Snowman()},
+															{Evil_tree()}
+															};
+const int BOSSES_CHANCHES[LEVELS_N][N_ENEMIES]	= 	{
+															{1},
+															{1},
+															{1}
+															};
+const int BOSSES_CHANCE_TOT[LEVELS_N] = {1, 1, 1};
+//item
+const int CHESTS_N_MIN[LEVELS_N] {0, 0, 0};
+const int CHESTS_N_MAX[LEVELS_N] {2, 2, 2};
+#define ARTIFACT_INSTANCES_N (N_ARTIFACTS - 1)
+#define ITEM_DIFENSIVO_INSTANCES_N (N_ITEM_DIFENSIVO)
+#define WEAPON_INSTANCES_N (N_WEAPONS - 1)
+#define ITEMS_INSTANCES_N (ARTIFACT_INSTANCES_N + ITEM_DIFENSIVO_INSTANCES_N + WEAPON_INSTANCES_N)
+const Artifact ARTIFACT_INSTANCES[ARTIFACT_INSTANCES_N] = {HealthPotion(), Life_elixir(), Rune()};
+const item_difensivo ITEM_DIFENSIVO_INSTANCES[ITEM_DIFENSIVO_INSTANCES_N] = {armor(), boots(), helm(), necklace(), shield()};
+const Weapon WEAPON_INSTANCES[WEAPON_INSTANCES_N] = {Ascia(), Arco(), Player_Rod(), sword()};
 
 
 
 class Room {
 	private:
-		Coordinate pos;											//coordinate rispetto alla prima stanza del livello
+		Coordinate pos;												//coordinate rispetto alla prima stanza del livello
 
+		//// FUNZIONI
+		int chestsNumber(int level);								//numero di chest da spawnare in una stanza
+		pChest randChest();
+		virtual pEnemy randEnemy(int level, pCharacter player);		//ritorna un nemico casuale
 		//// FUNZIONI AUSILIARIE
 		int getFreeCells(s_coord available[], Coordinate size);							//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// ADD
@@ -51,9 +95,16 @@ class Room {
 		Coordinate size_t;		//dimensioni senza l'allargamento scale_x
 		Coordinate scale;		//ridimensionamento
 		pMap map;
+
+		bool destroyed;							//serve per recursive destroy
 		
+		//// FUNZIONI
+		void addCharacter(pCharacter obj);							//aggiunge un character nella sua posizione
 		// FUNZIONI AUSILIARIE
 		int doorDirection(pDoor door);													//direzione in cui si trova la porta
+		// SPAWN
+		void spawnChest(pChest chest);							//spawna una chest
+		void spawnEnemy(pEnemy enemy);							//spawna un nemico
 		// FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
 		void generateSidesWalls();
 		void generateInnerRoom(pUnionFind sets);
@@ -68,10 +119,8 @@ class Room {
 		void update(int input);									//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
 		
 		virtual void generate(); 								//genera uno schema randomico per i muri, inserendoli nell'array map
+		virtual void spawn(int level, pCharacter player);
 		
-		void addCharacter(pCharacter obj);						//aggiunge un character nella sua posizione
-		void spawnEnemy(pEnemy enemy);							//spawna un nemico
-		void spawnChest(pChest chest);							//spawna una chest
 		// DISEGNO
 		void draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
 																									//inquadra solo un rettangolo con le dimensioni dei parametri intorno al giocatore
@@ -83,6 +132,7 @@ class Room {
 		pDoor getDoor(int dir);										//porta in direzione
 		virtual Coordinate getEntrance(pDoor door);					//posizione in cui si entra nell'altra stanza attraversando questa porta
 		virtual Room *getConnectedRoom(pDoor door);					//ritorna il puntatore alla stanza collegata dalla porta
+		bool wasDestroyed();
 
 		// SET
 		void remove(pPhysical obj);															//rimuove da map

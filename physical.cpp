@@ -11,11 +11,15 @@ Physical::Physical() {
     for(int i = 0; i < MAX_ANIMATIONS; i++) 
         animations[i] = NULL;
     animations_n = 0;
+
+    speed = COORDINATE_ONE;
+    lastMove = COORDINATE_ZERO;
 }
 
 void Physical::copyPhysical(Physical B) {
     pos = B.pos;
     size = B.size;
+    speed = B.speed;
     id = B.id;
     animations_n = B.animations_n;
     for(int i = 0; i < animations_n; i++) {
@@ -36,18 +40,18 @@ void Physical::destroy(pMap map) {
     if(map != NULL) MapHandler::remove(map, this);
     delete this;
 }
-void Physical::destroyInstance(pMap map) {
+/*void Physical::destroyInstance(pMap map) {
     // ELIMINA OGGETTO
     MapHandler::remove(map, this);
     delete this;
-}
+}*/
 
 
 void Physical::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
     drawn = true;
 }
 void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size) {
-    drawAtPosition(scr, win_start, win_size, pos);
+    drawAtPosition(scr, win_start, win_size, pos.integer());
 }
 
 void Physical::next_animation(){

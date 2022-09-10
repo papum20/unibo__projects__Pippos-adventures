@@ -2,6 +2,7 @@
 
 Zombie::Zombie():Enemy(){
     size=Coordinate (zombie_width, zombie_depth);
+    speed = SPEED_ZOMBIE;
 
     idle_index=zombie_idle_index;
     move_up_index=zombie_move_up_index;

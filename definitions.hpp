@@ -27,6 +27,9 @@
 #pragma endregion SCREENS_SIZES
 
 
+////LEVEL
+#define LEVELS_N 3
+////ROOM
 #pragma region ROOM_DEFINITIONS
 #define SCALE_X 8									//coefficiente di "allargamento orizzontale" della stanza
 #define SCALE_Y 3

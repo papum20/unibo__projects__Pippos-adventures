@@ -1,9 +1,7 @@
 #ifndef ARTIFACT_HPP
 #define ARTIFACT_HPP
 
-#include "character.hpp"
 #include "item.hpp"
-//#include "player.hpp"
 
 class Artifact: public item{
     protected:

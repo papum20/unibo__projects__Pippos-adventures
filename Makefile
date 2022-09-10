@@ -1,5 +1,5 @@
-main: alive.o animate.o animation.o artifact.o cell.o character.o chest.o connected_room.o coordinate.o door.o evil_tree.o fire_spirit.o snowman.o spider.o witch.o zombie.o enemy.o fire_spirit_hands.o snowman_hands.o spider_legs.o tree_branch.o witch_rod.o zombie_hands.o armor.o axe.o boots.o bow.o hands.o helm.o necklace.o player_rod.o rod.o shield.o sword.o fixed.o floor.o hud.o inanimate.o inputmanager.o item.o item_difensivi.o health_potion.o key.o life_elixir.o rune.o level.o main.o map_handler.o math.o minimap.o pause_menu.o physical.o pixel_art.o player.o projectile.o arrow.o fireball.o snowball.o spell.o room.o start_menu.o comparable.o priority_queue.o priority_queue_room.o queue_coordinate.o room_position.o union_find.o sword.o timer.o wall.o weapon.o
-	g++ alive.o animate.o animation.o artifact.o cell.o character.o chest.o connected_room.o coordinate.o door.o evil_tree.o fire_spirit.o snowman.o spider.o witch.o zombie.o enemy.o fire_spirit_hands.o snowman_hands.o spider_legs.o tree_branch.o witch_rod.o zombie_hands.o armor.o axe.o boots.o bow.o hands.o helm.o necklace.o player_rod.o rod.o shield.o sword.o fixed.o floor.o hud.o inanimate.o inputmanager.o item.o item_difensivi.o health_potion.o key.o life_elixir.o rune.o level.o main.o map_handler.o math.o minimap.o pause_menu.o physical.o pixel_art.o player.o projectile.o arrow.o fireball.o snowball.o spell.o room.o start_menu.o comparable.o priority_queue.o priority_queue_room.o queue_coordinate.o room_position.o union_find.o sword.o timer.o wall.o weapon.o -lncurses -o main
+main: alive.o animate.o animation.o artifact.o boss_room.o cell.o character.o chest.o connected_room.o coordinate.o door.o evil_tree.o fire_spirit.o snowman.o spider.o witch.o zombie.o enemy.o fire_spirit_hands.o snowman_hands.o spider_legs.o tree_branch.o witch_rod.o zombie_hands.o armor.o axe.o boots.o bow.o hands.o helm.o necklace.o player_rod.o rod.o shield.o sword.o fixed.o floor.o hud.o inanimate.o inputmanager.o item.o item_difensivi.o health_potion.o key.o life_elixir.o rune.o level.o main.o map_handler.o math.o minimap.o pause_menu.o physical.o pixel_art.o player.o projectile.o arrow.o fireball.o snowball.o spell.o room.o start_menu.o comparable.o priority_queue.o priority_queue_room.o queue_coordinate.o room_position.o union_find.o timer.o wall.o weapon.o
+	g++ alive.o animate.o animation.o artifact.o boss_room.o cell.o character.o chest.o connected_room.o coordinate.o door.o evil_tree.o fire_spirit.o snowman.o spider.o witch.o zombie.o enemy.o fire_spirit_hands.o snowman_hands.o spider_legs.o tree_branch.o witch_rod.o zombie_hands.o armor.o axe.o boots.o bow.o hands.o helm.o necklace.o player_rod.o rod.o shield.o sword.o fixed.o floor.o hud.o inanimate.o inputmanager.o item.o item_difensivi.o health_potion.o key.o life_elixir.o rune.o level.o main.o map_handler.o math.o minimap.o pause_menu.o physical.o pixel_art.o player.o projectile.o arrow.o fireball.o snowball.o spell.o room.o start_menu.o comparable.o priority_queue.o priority_queue_room.o queue_coordinate.o room_position.o union_find.o timer.o wall.o weapon.o -lncurses -o main
 
 alive.o: alive.cpp alive.hpp
 	g++ -c alive.cpp
@@ -9,6 +9,8 @@ animation.o: animation.cpp animation.hpp
 	g++ -c animation.cpp
 artifact.o: artifact.cpp artifact.hpp
 	g++ -c artifact.cpp
+boss_room.o: boss_room.cpp boss_room.hpp
+	g++ -c boss_room.cpp
 cell.o: cell.cpp cell.hpp
 	g++ -c cell.cpp
 character.o: character.cpp character.hpp
@@ -135,8 +137,6 @@ room_position.o: structures/room_position.cpp structures/room_position.hpp
 	g++ -c structures/room_position.cpp
 union_find.o: structures/union_find.cpp structures/union_find.hpp
 	g++ -c structures/union_find.cpp
-sword.o: sword.cpp sword.hpp
-	g++ -c sword.cpp
 timer.o: timer.cpp timer.hpp
 	g++ -c timer.cpp
 wall.o: wall.cpp wall.hpp

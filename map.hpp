@@ -21,6 +21,7 @@ struct Map {
 											//disposte in direzioni: 0=su, 1=destra, 2=giu, 3=sinistra, 4=segreta,all'interno
 	Chest *chests[ROOM_AREA];
 	Projectile *projectiles[ROOM_AREA];
+	int characters_n;
 };
 typedef Map *pMap;
 

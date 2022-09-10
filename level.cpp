@@ -136,10 +136,6 @@
 		if(new_door != NULL && new_door->isUseable()) {
 			curRoom->remove(player);
 			
-			//WINDOW *w = newwin(10,10,10,1);
-			//box(w,0,0);
-			//mvwprintw(w,1,1,to_string(curRoom->getConnectedRoom(new_door)!=NULL).c_str());
-			//wgetch(w);
 			if(new_door->isBoss()) {
 				nextLevel();
 			} else {
@@ -208,10 +204,10 @@
 
 	void Level::cameraUpdate() {
 		if(width >= curRoom->getSize().x && height >= curRoom->getSize().y)
-			position = Coordinate(width / 2, height / 2);
+			position = curRoom->getSize().times(.5, .5);
 		
 		else {
-			Coordinate tolerance(REFRESH_RATE / damping_speed / PHYSICAL_MAX_SPEED, REFRESH_RATE / damping_speed / PHYSICAL_MAX_SPEED);
+			Coordinate tolerance = Coordinate(REFRESH_RATE / damping_speed / PHYSICAL_MAX_SPEED, REFRESH_RATE / damping_speed / PHYSICAL_MAX_SPEED);
 			float ratio = timer.deltaTime();
 			//se il pivot è cambiato
 			if(pivotChanged) {

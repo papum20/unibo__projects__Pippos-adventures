@@ -21,7 +21,7 @@ typedef char lock_type;
 // SPAZI
 const Coordinate ZONE_DOOR_UD = Coordinate(SCALE_X*2, SCALE_Y);		//zona in cui non possono spawnare muri di fronte alla porta (up-down)
 const Coordinate ZONE_DOOR_LR = Coordinate(SCALE_X, SCALE_Y*2);		//left-right
-#define ZONE_SPAWN_DISTANCE 5										//distanza dal player in cui non possono spawnare nemici
+const Coordinate SPAWN_DISTANCE = Coordinate(40, 14);				//distanza dal player in cui non possono spawnare nemici
 
 
 #include "map_handler.hpp"

@@ -63,11 +63,29 @@
 	}
 
 	void Room::spawn(int level, pCharacter player) {
+		//segno le posizioni in un rettangolo come occupate dal player per non farci spawnare nemici
+		Coordinate start = Coordinate(size.times(.5, .5), SPAWN_DISTANCE.negative()).integer(), end = Coordinate(start, SPAWN_DISTANCE.times(2, 2));
+		Coordinate i = Coordinate(start, size, start, end);
+		if(player != NULL) {
+			do {
+				if(map->physical[i.single()]->getId() == ID_FLOOR) map->physical[i.single()] = player;
+				i.next();
+			} while(!i.equals(start));
+		}
+		//spawno nemici
+		for(int i = 0; i < ENEMIES_N[level]; i++) spawnEnemy(randEnemy(level, player));
+		//dopo averli spawnati, le elimino (tranne quelle dove va effettivamente)
 		if(player != NULL) {
 			player->setPosition(size.times(.5, .5).integer());
-			addCharacter(player);
+			do {
+				if(map->physical[i.single()] == player) {
+					if(!i.inBounds(player->getPosition(), Coordinate(player->getPosition(), player->getSize()))) map->physical[i.single()] = FLOOR_INSTANCE;
+					else map->characters[i.single()] = player;
+				}
+				i.next();
+			} while(!i.equals(start));
 		}
-		for(int i = 0; i < ENEMIES_N[level]; i++) spawnEnemy(randEnemy(level, player));
+		//spawno chest
 		int chests_n = chestsNumber(level);
 		for(int i = 0; i < chests_n; i++) spawnChest(randChest());
 	}
@@ -79,6 +97,7 @@
 			enemy->setPosition(Coordinate(available[rand() % av_size], size));
 			addCharacter(enemy);
 		}
+		//else enemy->destroy(NULL);
 	}
 	void Room::spawnChest(pChest chest) {
 		s_coord available[ROOM_AREA];
@@ -87,6 +106,7 @@
 			chest->setPosition(Coordinate(available[rand() % av_size], size));
 			addChest(chest);
 		}
+		//else chest->destroy(NULL);
 	}
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {

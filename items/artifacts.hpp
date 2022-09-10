@@ -1,6 +1,6 @@
 //include tutti i file di item
 
-#ifndef ARIFACTS_HPP
+#ifndef ARTIFACTS_HPP
 #define ARTIFACTS_HPP
 
 

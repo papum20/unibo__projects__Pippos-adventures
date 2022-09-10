@@ -25,15 +25,13 @@
 		door_zones_t[DIRECTION_LEFT] 	= Coordinate(1, (size_t.y - ZONE_DOOR_LR.y/scale.y) / 2);
 
 		locked_doors = 0;
+		destroyed = false;
 	}
 	void ConnectedRoom::recursiveDestroy() {
-		for(int i = 0; i < MAX_CONNECTED_R; i++) {
-			if(connected[i] != NULL) {
-				//if(i < DIR_TOT) doors[i]->getConnected()->makeConnection(NULL, (i + 2) % DIR_TOT, LOCK_NONE);
-				//else connected[i]->makeConnection(NULL, i, LOCK_NONE);		//scollega la stanza adiacente da questa
-				connected[i]->makeConnection(NULL, i, LOCK_NONE);		//scollega la stanza adiacente da questa
-				connected[i]->recursiveDestroy();						//distruggi in ricorsione la stanza adiacente
-			}
+		destroyed = true;
+		for(int dir = 0; dir < MAX_CONNECTED_R; dir++) {
+			if(connected[dir] != NULL && !connected[dir]->wasDestroyed())
+				connected[dir]->recursiveDestroy();						//distruggi in ricorsione la stanza adiacente
 		}
 		Room::recursiveDestroy();										//distruggi tutto il resto della stanza
 	}
@@ -81,12 +79,12 @@
 		for(int dir = 0; dir < n_doors_max; dir++) {
 			if(map->doors[dir] != NULL) {
 				Coordinate door_pos = map->doors[dir]->getPosition(), door_size = map->doors[dir]->getSize();
-				Coordinate i = Coordinate(door_pos, size, door_pos, Coordinate(door_pos, door_size));
+				Coordinate i = Coordinate(door_pos.integer(), size, door_pos.integer(), Coordinate(door_pos, door_size).integer());
 				//posiziona porte
 				do {
 					map->physical[i.single()] = map->doors[dir];
 					i.next();
-				} while(!i.equals(door_pos));
+				} while(!i.equals_int(door_pos));
 				//posiziona spazio vuoto davanti (al posto dei muri)
 				Coordinate start, end, mx = scale;
 				if((dir == DIRECTION_UP || dir == DIRECTION_DOWN) && door_size.y > scale.y) mx.y = door_size.y;
@@ -112,23 +110,27 @@
 					//mvwprintw(w,5,1,to_string(mx.x).c_str());
 					//mvwprintw(w,6,1,to_string(mx.y).c_str());
 					//wgetch(w);
-				i = Coordinate(start, size, start, end);
+				i = Coordinate(start.integer(), size, start.integer(), end.integer());
 				do {
 					map->physical[i.single()] = FLOOR_INSTANCE;
 					i.next();
-				} while(!i.equals(start));
+				} while(!i.equals_int(start));
 			}
 		}
+	}
+
+	int ConnectedRoom::keyChestsNumber() {
+		return locked_doors;
 	}
 #pragma endregion AUSILIARIE
 
 
 
 #pragma region SET_GET
-	void ConnectedRoom::addDoor(int dir, lock_type lt) {
+	void ConnectedRoom::addDoor(int dir, lock_type lt, bool boss) {
 		Coordinate door_size = DOOR_SIZE;
 		if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) door_size = door_size.swapped();
-		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_positions[dir], door_size, door_entrances[dir], lt);
+		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_positions[dir], door_size, door_entrances[dir], lt, boss);
 	}
 	bool ConnectedRoom::addLockedDoor() {
 		if(locked_doors < LOCKED_DOORS_MAX) {
@@ -190,3 +192,14 @@
 		else return doors[d];
 	}*/
 #pragma endregion SET_GET
+
+
+#pragma region SPAWN
+
+	void ConnectedRoom::spawn(int level, pCharacter player) {
+		int key_chests = keyChestsNumber();
+		for(int i = 0; i < key_chests; i++) spawnChest(new Chest(new Key()));
+		Room::spawn(level, player);
+	}
+
+#pragma endregion

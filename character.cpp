@@ -47,7 +47,7 @@ void Character::initialize_equipment(){
 	equipaggiamento.elmo=NULL;
 }
 
-void Character::change_helm(pHelm h){
+void Character::change_helm(pItem_def h){
 	if (equipaggiamento.elmo!=NULL){
 		(equipaggiamento.elmo)->is_equipped=false;
 		(equipaggiamento.elmo)=h;
@@ -72,7 +72,7 @@ void Character::change_weapon(pWeapon w){
 	apply_equipment();
 }
 
-void Character::change_necklace(pNecklace n){
+void Character::change_necklace(pItem_def n){
 	if (equipaggiamento.collana!=NULL){
 		(equipaggiamento.collana)->is_equipped=false;
 		(equipaggiamento.collana)=n;
@@ -85,7 +85,7 @@ void Character::change_necklace(pNecklace n){
 	apply_equipment();
 }
 
-void Character::change_shield (pShield s){
+void Character::change_shield (pItem_def s){
 	if (equipaggiamento.scudo!=NULL){
 		(equipaggiamento.scudo)->is_equipped=false;
 		(equipaggiamento.scudo)=s;
@@ -98,7 +98,7 @@ void Character::change_shield (pShield s){
 	apply_equipment();
 }
 
-void Character::change_armor(pArmor a){
+void Character::change_armor(pItem_def a){
 	if (equipaggiamento.armatura!=NULL){
 		(equipaggiamento.armatura)->is_equipped=false;
 		(equipaggiamento.armatura)=a;
@@ -111,7 +111,7 @@ void Character::change_armor(pArmor a){
 	apply_equipment();
 }
 
-void Character::change_boots (pBoots b){
+void Character::change_boots (pItem_def b){
 	if (equipaggiamento.stivali!=NULL){
 		(equipaggiamento.stivali)->is_equipped=false;
 		(equipaggiamento.stivali)=b;
@@ -169,12 +169,12 @@ void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate
 
 		Coordinate local = Coordinate(COORDINATE_ZERO, ANIMATION_SIZE, COORDINATE_ZERO, a_weapon.size);	//coordinata relativa all'animazione, all'interno di essa
 		do {
-			Coordinate global = Coordinate(Coordinate(local, draw_start), win_start, win_end);		//coordinata globale di local, sulla mappa
-			if(global.inOwnBounds()) {																//se il punto è interno alla finestra da disegnare
-				if(equipaggiamento.arma->animationMask(local)){										//se c'è l'arma: copre qualsiasi cosa
+			Coordinate global = Coordinate(Coordinate(local, draw_start), win_start, win_end);			//coordinata globale di local, sulla mappa
+			if(global.inOwnBounds()) {																	//se il punto è interno alla finestra da disegnare
+				if(equipaggiamento.arma->animationMask(local)){											//se c'è l'arma: copre qualsiasi cosa
 					scr[global.rel_int_y()][global.rel_int_x()].edit(a_weapon.at(local), equipaggiamento.arma->get_MainColor(), -1, A_BOLD);
 				}
-				else if(global.inBounds(character_start, character_end)) {							//altrimenti, se c'è il character, disegna il character
+				else if(global.inBounds(character_start, character_end)) {								//altrimenti, se c'è il character, disegna il character
 					Coordinate local_character = Coordinate(global, character_start.negative());
 					if(animationMask(local_character)) scr[global.rel_int_y()][global.rel_int_x()].edit(getCurrentAnimation().at(local_character), main_color, -1, A_BOLD);
 				}
@@ -352,3 +352,5 @@ int Character::getPoints(){
 #pragma endregion AUSILIARIE_GENERICHE
 
 */
+
+

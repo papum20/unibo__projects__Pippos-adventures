@@ -20,6 +20,7 @@ class InputManager {
 
 	public:
 		InputManager(int x_win, int y_win);
+		void destroy();
 
 		void calculate_input (); //calcola l'input
 

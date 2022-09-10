@@ -6,6 +6,7 @@
 #include "weapon.hpp"
 
 
+
 //ha una sottoclasse per ogni tipo di nemico
 
 const int enemy_stamina=50;

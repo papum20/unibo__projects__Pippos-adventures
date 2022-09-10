@@ -122,6 +122,9 @@ const int mv_right=KEY_RIGHT;
 
 const int MAX_ARTIFACTS=10;
 
+
+
+
 class Player : public Character {
 	private:
 		pDoor used_door;		//porta che sta usando
@@ -131,14 +134,15 @@ class Player : public Character {
 		pArtifact artifacts[MAX_ARTIFACTS];
 		int curr_artifact;
 		int artifacts_n;
+
 		pInputManager in_manager;
 		//Menu menu;
-		pArmor armatura;
-		pNecklace collana;
-		pHelm elmo;
-		pShield scudo;
-		pBoots stivali;
-		pWeapon arma;
+		//pArmor armatura;
+		//pNecklace collana;
+		//pHelm elmo;
+		//pShield scudo;
+		//pBoots stivali;
+		//pWeapon arma;
 	public:
 		int n_hearts;		
 		int n_keys;
@@ -165,6 +169,11 @@ class Player : public Character {
 
 		void destroy(pMap map);
 		void changeCurrentHealth(int delta);
+
+		//GET
+		int getInventory(pItem inventory[n_max_inventory_objects]);
+		//SET
+		void removeItem(pItem item);
 		
 };
 

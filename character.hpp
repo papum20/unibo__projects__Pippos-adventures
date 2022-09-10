@@ -14,12 +14,13 @@ const int DEF_NUMBER=15;
 
 struct equipment {
 	pWeapon arma;
-	pShield scudo;
-	pNecklace collana;
-	pBoots stivali;
-	pArmor armatura;
-	pHelm elmo;
+	pItem_def scudo;
+	pItem_def collana;
+	pItem_def stivali;
+	pItem_def armatura;
+	pItem_def elmo;
 };
+
 
 #include "alive.hpp"
 #include "artifact.hpp"
@@ -64,12 +65,12 @@ class Character : public Alive {
 		void initialize_equipment();
 		void apply_equipment ();
 
-		void change_helm(pHelm h);
+		void change_helm(pItem_def h);
 		void change_weapon(pWeapon w);
-		void change_necklace (pNecklace n);
-		void change_armor (pArmor a);
-		void change_boots (pBoots b);
-		void change_shield (pShield s);
+		void change_necklace (pItem_def n);
+		void change_armor (pItem_def a);
+		void change_boots (pItem_def b);
+		void change_shield (pItem_def s);
 		virtual int getPoints();
 		
 		//FUNZIONI MOVIMENTO

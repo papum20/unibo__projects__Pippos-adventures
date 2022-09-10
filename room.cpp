@@ -9,6 +9,8 @@
 		size_t = Coordinate(ROOM_WIDTH_T, ROOM_HEIGHT_T);
 		size = size_t.times(scale);
 
+		destroyed = false;
+
 		map = new Map;
 		map->size = size;
 		//mappe
@@ -18,12 +20,13 @@
 			map->chests[i] = NULL;
 			map->projectiles[i] = NULL;
 		}
+		map->characters_n = 0;
 	}
 	void Room::recursiveDestroy() {
 		Coordinate i(0, 0, size);
 		do {
 			pPhysical obj = map->physical[i.single()];
-			if(obj != NULL && obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) map->physical[i.single()]->destroy(map);
+			if(obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) map->physical[i.single()]->destroy(map);
 			i.next();
 		} while(!i.equals(COORDINATE_ZERO));
 		delete map;
@@ -59,6 +62,16 @@
 		resizeMap();
 	}
 
+	void Room::spawn(int level, pCharacter player) {
+		if(player != NULL) {
+			player->setPosition(size.times(.5, .5).integer());
+			addCharacter(player);
+		}
+		for(int i = 0; i < ENEMIES_N[level]; i++) spawnEnemy(randEnemy(level, player));
+		int chests_n = chestsNumber(level);
+		for(int i = 0; i < chests_n; i++) spawnChest(randChest());
+	}
+
 	void Room::spawnEnemy(pEnemy enemy) {
 		s_coord available[ROOM_AREA];
 		int av_size = getFreeCells(available, enemy->getSize());
@@ -78,7 +91,7 @@
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
 		//disegna dall'alto al basso, da sinistra a destra, così si mantiene la prospettiva quando un oggetto che si trova davanti ad un altro gli viene disegnato davanti
-		Coordinate wstart = Coordinate(center.x - Math::ceil(win_size.x / 2.) + 1, center.y - Math::ceil(win_size.y / 2.) + 1);
+		Coordinate wstart = Coordinate(center.x - Math::ceil(win_size.x / 2.) + 1, center.y - Math::ceil(win_size.y / 2.) + 1).integer();
 
 		Coordinate scr_it = Coordinate(0, 0, win_size);									//iteratore su schermo
 		do {
@@ -135,20 +148,21 @@
 	}
 //// ADD
 	void Room::addCharacter(pCharacter character) {
-		Coordinate i = Coordinate(character->getPosition(), size, character->getPosition(), Coordinate(character->getPosition(), character->getSize()));
+		Coordinate i = Coordinate(character->getPosition().integer(), size, character->getPosition().integer(), Coordinate(character->getPosition(), character->getSize()).integer());
 		do {
 			map->physical[i.single()] = character;
 			map->characters[i.single()] = character;
 			i.next();
-		} while(!i.equals(character->getPosition()));
+		} while(!i.equals_int(character->getPosition()));
+		map->characters_n++;
 	}
 	void Room::addChest(pChest chest) {
-		Coordinate i = Coordinate(chest->getPosition(), size, chest->getPosition(), Coordinate(chest->getPosition(), chest->getSize()));
+		Coordinate i = Coordinate(chest->getPosition().integer(), size, chest->getPosition().integer(), Coordinate(chest->getPosition(), chest->getSize()).integer());
 		do {
 			map->physical[i.single()] = chest;
 			map->chests[i.single()] = chest;
 			i.next();
-		} while(!i.equals(chest->getPosition()));
+		} while(!i.equals_int(chest->getPosition()));
 	}
 
 
@@ -348,6 +362,9 @@
 	pDoor Room::getDoor(int dir) {
 		return map->doors[dir];
 	}
+	bool Room::wasDestroyed() {
+		return destroyed;
+	}
 	Coordinate Room::getEntrance(pDoor door) {
 		return COORDINATE_ERROR;
 	}
@@ -387,6 +404,43 @@
 	}
 #pragma endregion SET_GET
 
+
+#pragma region SPAWN
+
+	pEnemy Room::randEnemy(int level, pCharacter player) {
+		int r = rand() % ENEMIES_CHANCE_TOT[level];
+		int i = 0, counter = 0;
+		while(r >= counter + ENEMIES_CHANCHES[level][i]) {
+			counter += ENEMIES_CHANCHES[level][i];
+			i++;
+		}
+		pEnemy res = new Enemy(player);
+		res->copyEnemy(ENEMIES_INSTANCES[level][i]);
+		return res;
+	}
+	pChest Room::randChest() {
+		int r = rand() % ITEMS_INSTANCES_N;
+		pChest res;
+		if(r < ARTIFACT_INSTANCES_N) {
+			pArtifact item = new Artifact();
+			item->copyArtifact(ARTIFACT_INSTANCES[r]);
+			res = new Chest(item);
+		} else if(r < ARTIFACT_INSTANCES_N + ITEM_DIFENSIVO_INSTANCES_N) {
+			pItem_def item = new item_difensivo();
+			item->copyItemDifensivo(ITEM_DIFENSIVO_INSTANCES[r - ARTIFACT_INSTANCES_N]);
+			res = new Chest(item);
+		} else {
+			pWeapon item = new Weapon();
+			item->copyWeapon(WEAPON_INSTANCES[r - (ARTIFACT_INSTANCES_N + ITEM_DIFENSIVO_INSTANCES_N)]);
+			res = new Chest(item);
+		}
+		return res;
+	}
+	int Room::chestsNumber(int level) {
+		return rand() % (CHESTS_N_MAX[level] - CHESTS_N_MIN[level] + 1) + CHESTS_N_MIN[level];
+	}
+
+#pragma endregion SPAWN
 
 
 	/*void Room::debug() {

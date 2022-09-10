@@ -251,10 +251,10 @@ MapHandler::MapHandler() {
 //// CHECK RECTANGLE
 	int MapHandler::checkRectangle(pMap map, pPhysical obj[ROOM_AREA], Coordinate start, Coordinate end) {
 		int found = 0;
-		Coordinate A = start;
-		while(A.y <= end.y) {
-			addLineToCheck(map, obj, found, A, Coordinate(end.x, A.y));
-			A.y++;
+		start = start.integer(), end = end.integer();
+		while(start.y <= end.y) {
+			addLineToCheck(map, obj, found, start, Coordinate(end.x, start.y));
+			start.y++;
 		}
 		return found;
 	}
@@ -317,6 +317,7 @@ MapHandler::MapHandler() {
 //// BOOL
 
 	bool MapHandler::isLegalMove(pMap map, pPhysical obj, Coordinate target) {
+		target = target.integer();
 		Coordinate i = Coordinate(target, map->size, target, Coordinate(target, obj->getSize()));
 		bool allowed = true;
 		do {
@@ -326,6 +327,7 @@ MapHandler::MapHandler() {
 		return allowed;
 	}
 	bool MapHandler::isFreeSpace(pMap map, Coordinate start, Coordinate size) {
+		start = start.integer();
 		Coordinate i = Coordinate(start, map->size, start, Coordinate(start, size));
 		bool allowed = true;
 		do {
@@ -364,19 +366,20 @@ MapHandler::MapHandler() {
 
 //// EDIT
 	bool MapHandler::move(pMap map, pPhysical obj, Coordinate target) {
-		if(!obj->isInanimate() && obj->getPosition().inBounds(COORDINATE_ZERO, map->size) && isLegalMove(map, obj, target)) {
+		Coordinate target_int = target.integer();
+		if(!obj->isInanimate() && obj->getPosition().inBounds(COORDINATE_ZERO, map->size) && isLegalMove(map, obj, target_int)) {
 			//SPOSTA
-			Coordinate i = Coordinate(target.integer(), map->size, target.integer(), Coordinate(target, obj->getSize()).integer());
+			Coordinate i = Coordinate(target_int, map->size, target_int, Coordinate(target_int, obj->getSize()));
 			do {
 				map->physical[i.single()] = obj;
 				if(obj->isCharacter()) map->characters[i.single()] = map->characters[obj->getPosition().single_set(map->size)];
 				else if(obj->isProjectile()) map->projectiles[i.single()] = map->projectiles[obj->getPosition().single_set(map->size)];
 				i.next();
-			} while(!i.equals_int(target));
+			} while(!i.equals_int(target_int));
 			//RIMUOVI CASELLE VECCHIE (NON PIÙ OCCUPATE)
 			i = Coordinate(obj->getPosition().integer(), map->size, obj->getPosition().integer(), Coordinate(obj->getPosition(), obj->getSize()).integer());
 			do {
-				if(!i.inBounds(target.integer(), Coordinate(target, obj->getSize()).integer())) {
+				if(!i.inBounds(target_int, Coordinate(target_int, obj->getSize()))) {
 					map->physical[i.single()] = FLOOR_INSTANCE;
 					map->characters[i.single()] = NULL;
 					map->chests[i.single()] = NULL;
@@ -390,7 +393,7 @@ MapHandler::MapHandler() {
 		} else return false;
 	}
 	void MapHandler::remove(pMap map, pPhysical obj) {
-		if(!obj->isInanimate() || obj->getId() == ID_CHEST) {
+		if(obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) {
 			Coordinate i = Coordinate(obj->getPosition().integer(), map->size, obj->getPosition().integer(), Coordinate(obj->getPosition(), obj->getSize()).integer());
 			do {
 				map->physical[i.single()] = FLOOR_INSTANCE;
@@ -399,9 +402,10 @@ MapHandler::MapHandler() {
 				map->projectiles[i.single()] = NULL;
 				i.next();
 			} while(!i.equals_int(obj->getPosition()));
+		if(obj->isCharacter()) map->characters_n--;
 		}
 	}
-	void MapHandler::addProjectile(pMap map, pProjectile projectile) {
+	bool MapHandler::addProjectile(pMap map, pProjectile projectile) {
 		if(isFreeSpace(map, projectile->getPosition(), projectile->getSize())) {
 			Coordinate i = Coordinate(projectile->getPosition().integer(), map->size, projectile->getPosition().integer(), Coordinate(projectile->getPosition(), projectile->getSize()).integer());
 			do {
@@ -409,7 +413,8 @@ MapHandler::MapHandler() {
 				map->projectiles[i.single()] = projectile;
 				i.next();
 			} while(!i.equals_int(projectile->getPosition()));
-		}
+			return true;
+		} else return false;
 	}
 #pragma endregion SET_GET
 

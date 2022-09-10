@@ -27,20 +27,26 @@ int main() {
 	int input_x = level_x + CAMERA_WIDTH, input_y = level_y + CAMERA_HEIGHT - input_h;
 	int hud_x = (stdscr_x - HUD_WIDTH) / 2, hud_y = level_y - HUD_HEIGHT - HUD_OFFSET;
 	int map_x = (stdscr_x - MINIMAP_WIDTH) / 2, map_y = (stdscr_y - MINIMAP_HEIGHT) / 2;
+	//menu
 
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
-	Player player= Player(inputManager);
+	pPlayer player = new Player(inputManager);
+	Level level = Level(level_x, level_y, player);	
 
-	Hud hud = Hud(hud_x, hud_y, &player);
-	Pause_menu  pause_menu = Pause_menu(&player,3, stdscr_x/(3.3), stdscr_y/4, stdscr_x/(3.5), stdscr_y/(4.2), stdscr_x/(2), stdscr_y/(3.7), stdscr_x/(2.9), stdscr_y/(3.5), stdscr_x/(2.7));//inventory zaino item_menu status opzioni
-	pSword s = new sword();
-	pause_menu.insert(s);
+	Hud hud = Hud(hud_x, hud_y, player);
 	
-	Menu menu = Menu(stdscr_y/(2.2), stdscr_x/(2.5), stdscr_y/(3.5), stdscr_x/(2.7), stdscr_y/(2.4), stdscr_x/(5.6));//menu, opzioni, face
+	Pause_menu  pause_menu = Pause_menu(player,3, stdscr_x/(3.3), stdscr_y/4, stdscr_x/(3.5), stdscr_y/(4.2), stdscr_x/(2), stdscr_y/(3.7), stdscr_x/(2.9), stdscr_y/(3.5), stdscr_x/(2.7));//inventory zaino item_menu status opzioni
+	//pSword s = new sword();
+	//pause_menu.insert(s);
+	Start_menu menu = Start_menu(stdscr_y/(2.2), stdscr_x/(2.5), stdscr_x, stdscr_y, stdscr_y/(2.4), stdscr_x/(5.6));//menu, opzioni, face
+	
 	MiniMap miniMap = MiniMap(map_x, map_y);
 
+
+
 	menu.open();
+
 	
 	WINDOW *debug = newwin(10,10,0,0);
 	box(debug,0,0);
@@ -125,6 +131,10 @@ int main() {
 	//// END
 	cursesEnd();
 	gameEnd();
+	//DELETE
+	level.destroy();
+	player->destroy(NULL);
+	inputManager->destroy();
 	
 }
 
@@ -155,7 +165,8 @@ void cursesEnd() {
 	endwin();			//dealloca memoria
 }
 void gameEnd() {
-	delete FLOOR_INSTANCE;
-	delete WALL_INSTANCE;
+	//// DELETE
+	FLOOR_INSTANCE->destroy(NULL);
+	WALL_INSTANCE->destroy(NULL);
 }
 #pragma endregion FUNZIONI

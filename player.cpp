@@ -4,12 +4,12 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	in_manager=in;
 	//menu=m;
-	arma= new sword();
-	armatura=new armor();
-	collana=NULL;
-	elmo=NULL;
-	scudo=NULL;
-	stivali=NULL;
+	weapons[0]= new Arco();
+	defensive_items[0] = new armor();
+	//collana=NULL;
+	//elmo=NULL;
+	//scudo=NULL;
+	//stivali=NULL;
 
 	n_hearts=start_hearts;
 	n_keys = 0;
@@ -38,9 +38,16 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	move_up_index=player_move_up_index;
 	move_down_index=player_move_down_index;
 	points=0;
-	change_weapon(arma);
-	change_armor(armatura);
+	change_weapon(weapons[0]);
+	change_armor(defensive_items[0]);
 	size=Coordinate (p_width, p_depth);
+	speed = SPEED_PLAYER;
+
+
+	weapons[1] = new sword();
+	weapons_n = 2;
+	defensive_items_n = 1;
+	artifacts_n = 0;
 	
 }
 
@@ -192,16 +199,6 @@ void Player::check_enemy_melee(pMap map){
 }
 
 void Player::destroy(pMap map){
-	delete used_door;
-	for (int i=0; i<MAX_ARTIFACTS; i++)
-		delete artifacts[i];
-	delete in_manager;
-	delete armatura;
-	delete collana;
-	delete elmo;
-	delete scudo;
-	delete stivali;
-	delete arma;
 	Character::destroy(map);
 }
 
@@ -309,4 +306,49 @@ pDoor Player::usedDoor() {
 
 void Player::useDoor() {
 	used_door = NULL;
+}
+
+
+
+
+int Player::getInventory(pItem inventory[n_max_inventory_objects]) {
+ for(int i = 0; i < weapons_n; i++) inventory[i] = weapons[i];
+ for(int i = 0; i < artifacts_n; i++) inventory[i + weapons_n] = artifacts[i];
+ for(int i = 0; i < defensive_items_n; i++) inventory[i + weapons_n + artifacts_n] = defensive_items[i];
+ return weapons_n + artifacts_n + defensive_items_n;
+}
+void Player::removeItem(pItem item) {
+ bool found = false;
+ int i = 0;
+ while(!found && i < weapons_n) {
+  	if(item == weapons[i]) found = true;
+  	else i++;
+ 	}
+ 	if(!found) {
+  		i = 0;
+  		while(!found && i < artifacts_n) {
+   			if(item == artifacts[i]) found = true;
+   			else i++;
+  			}
+ 		}
+ 	if(!found) {
+  		i = 0;
+  		while(!found && i < defensive_items_n) {
+   			if(item == defensive_items[i]) found = true;
+   			else i++;
+  			}
+ 	}
+ if(found) {
+  if(item->isWeapon()) {
+   	weapons[i] = weapons[weapons_n - 1];
+   	weapons_n--;
+  } else if(item->isArtifact()) {
+   artifacts[i] = artifacts[artifacts_n - 1];
+   artifacts_n--;
+  } else if(item->isItemDifensivo()) {
+   defensive_items[i] = defensive_items[defensive_items_n- 1];
+   defensive_items_n--;
+  }
+  item->destroy(NULL);
+ }
 }

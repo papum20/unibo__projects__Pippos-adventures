@@ -47,4 +47,5 @@ Spider::Spider(pCharacter p):Enemy(p){
     maxHealth=Math::randomStep(30, 50, 10);
     curHealth=maxHealth;
     size=Coordinate (spider_width, spider_depth);
+    speed = SPEED_SPIDER;
 }

@@ -32,25 +32,25 @@ attr_t Animate::get_MainColor() {
 
 
 void Animate::moveUp(pMap map){
-    Coordinate newpos=pos;
-	newpos.y++;
+	Coordinate movement = speed.times(REFRESH_RATE, REFRESH_RATE);
+	Coordinate newpos = Coordinate(pos, DIRECTIONS[DIRECTION_UP].times(movement));
 	MapHandler::move(map, this, newpos);
 }
 
 void Animate::moveDown(pMap map){
-	Coordinate newpos=pos;
-	newpos.y--;
+	Coordinate movement = speed.times(REFRESH_RATE, REFRESH_RATE);
+	Coordinate newpos = Coordinate(pos, DIRECTIONS[DIRECTION_DOWN].times(movement));
 	MapHandler::move(map, this, newpos);
 }
 
 void Animate::moveLeft(pMap map){
-	Coordinate newpos=pos;
-	newpos.x--;
+	Coordinate movement = speed.times(REFRESH_RATE, REFRESH_RATE);
+	Coordinate newpos = Coordinate(pos, DIRECTIONS[DIRECTION_LEFT].times(movement));
 	MapHandler::move(map, this, newpos);
 }
 
 void Animate::moveRight(pMap map){
-	Coordinate newpos=pos;
-	newpos.x++;
+	Coordinate movement = speed.times(REFRESH_RATE, REFRESH_RATE);
+	Coordinate newpos = Coordinate(pos, DIRECTIONS[DIRECTION_RIGHT].times(movement));
 	MapHandler::move(map, this, newpos);
 }

@@ -134,12 +134,11 @@ void Character::copyCharacter(Character B) {
 	attack_right_states=B.attack_right_states;
 	attack_left_states=B.attack_left_states;
 
-	equipaggiamento=B.equipaggiamento;
-
 	weapons_n=B.weapons_n;
 	for(int i = 0; i < weapons_n;i++) {
 		weapons[i] = new Weapon();
 		weapons[i]->copyWeapon(*B.weapons[i]);
+		change_weapon(weapons[i]);
 	}
 	curr_weapon=B.curr_weapon;
 
@@ -147,6 +146,7 @@ void Character::copyCharacter(Character B) {
 	for(int i = 0; i < defensive_items_n;i++) {
 		defensive_items[i] = new item_difensivo();
 		defensive_items[i]->copyItemDifensivo(*B.defensive_items[i]);
+		
 	}
 	last_def=B.last_def;
 	danno_fisico=B.danno_fisico;

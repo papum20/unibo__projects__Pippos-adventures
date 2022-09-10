@@ -117,11 +117,6 @@ const char tree_move_down[tree_move_down_states][ANIMATION_HEIGHT][ANIMATION_WID
 
 class Evil_tree: public Enemy{
     public:
-		pTree_branch tree_branch;
-		pArmor armor;
-		pNecklace necklace;
-		pBoots boots;
-		pHelm helm;
         Evil_tree();
         Evil_tree(pCharacter p);
 };

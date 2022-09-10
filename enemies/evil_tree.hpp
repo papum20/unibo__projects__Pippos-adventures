@@ -117,7 +117,6 @@ const char tree_move_down[tree_move_down_states][ANIMATION_HEIGHT][ANIMATION_WID
 
 class Evil_tree: public Enemy{
     public:
-		
         Evil_tree();
         Evil_tree(pCharacter p);
 };

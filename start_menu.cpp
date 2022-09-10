@@ -20,6 +20,12 @@ highlight=0;
 options_is_active=false;
 }
 
+void Start_menu::destroy(){
+    delwin(menu);
+    delwin(wface);
+    delwin(caverna);
+    delwin(w_options);
+}
 
 void Start_menu::open_options(){
     //clean_window(menu, menu_y_pos, menu_x_pos);

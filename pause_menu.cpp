@@ -31,13 +31,14 @@ this->w_options = newwin(30, 75, options_y_pos, options_x_pos);
 curr_inventory_space = 0;
 }
 
-void Pause_menu::insert(pItem item){
-    if(curr_inventory_space< n_max_inventory_objects){
-        objects[curr_inventory_space]=item;
-        curr_inventory_space++;
-    }
+void Pause_menu::destroy(){
+    delwin(w_inventory);
+    delwin(w_zaino);
+    delwin(w_item);
+    delwin(w_weapon);
+    delwin(w_equip);
+    delwin(w_options);
 }
-
 
 bool Pause_menu::is_active(){
     return(is_open);
@@ -138,15 +139,15 @@ void Pause_menu::wattroff_inventory(WINDOW * win){
 
 
 void Pause_menu::fix_array(int array_index){
+    p->removeItem(objects[array_index]);
     objects[array_index]=NULL;
-    delete objects[array_index];
     if(array_index==curr_inventory_space){
          curr_inventory_space--;}
     else{
         curr_inventory_space--;
         objects[array_index]=objects[curr_inventory_space];
         objects[curr_inventory_space] = NULL;
-        delete objects[curr_inventory_space];
+        
     }
     }
 
@@ -295,28 +296,25 @@ if(input==scroll_up){
         }
 }
 if(input==scroll_down){
-        u_highlight++;
         if(check_class_name(array_index)==13){
+            u_highlight++;
             if(u_highlight>=3){
             u_highlight=2;
             }
         }
         else if(check_class_name(array_index)==12){
-            if(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))
+            if(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped)){
+                u_highlight++;
                if(u_highlight>=3){
                     u_highlight=2;
-                } 
+                }} 
         }
         else if(check_class_name(array_index)==11){
-            if(!(static_cast<Weapon *>(objects[array_index])->is_equipped))
+            if(!(static_cast<Weapon *>(objects[array_index])->is_equipped)){
+                u_highlight++;
                if(u_highlight>=3){
                     u_highlight=2;
-                } 
-        }
-        else{
-            if(u_highlight>=2){
-            u_highlight=1;
-            }
+                }} 
         }
 }
 if(u_highlight==1){
@@ -367,6 +365,7 @@ else if(u_highlight==2){
 
 wrefresh(w_use);
 }
+
 if(input==invio){
  if(u_highlight==1){
     if(check_class_name(array_index)==13){
@@ -739,6 +738,7 @@ void Pause_menu:: update_equip_menu(){
 }
 
 void Pause_menu::open(){
+    curr_inventory_space = p->getInventory(objects);
     highlight=0;
     is_open=true;
     box(w_inventory, 0, 0);

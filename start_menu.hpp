@@ -90,6 +90,7 @@ class Start_menu : public Pixel_art {
         void close_menu();
         void open();
         void update_options();
+        void destroy();
 };      
 
 typedef Start_menu* pMenu;

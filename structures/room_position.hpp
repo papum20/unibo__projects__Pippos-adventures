@@ -19,6 +19,7 @@ class RoomPosition : public Comparable {
 		void add(RoomPosition B);		//somma a this B
 
 		Coordinate getPos();
+		int getConnected();
 };
 typedef RoomPosition *pRoomPosition;
 

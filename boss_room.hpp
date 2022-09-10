@@ -11,7 +11,8 @@ class BossRoom : public ConnectedRoom {
 		// FUNZIONI
 		void setDoorsUseable();								//rende porte utilizzabili se sono soddisfatte le condizioni (uccidere tutti i nemici nella stanza)
 		// GENERAZIONE
-		void generateLevelDoor();
+		void generateEmpty();
+		void addLevelDoor();
 		// SPAWN
 		pEnemy randEnemy(int level, pCharacter player);		//ritorna un nemico casuale
 		// AUSILIARIE
@@ -23,7 +24,9 @@ class BossRoom : public ConnectedRoom {
 
 		void update(int input);
 		void generate();
-		void spawn(int level, pCharacter player);
+		void spawn(int level, pCharacter player, bool current = false);
+
+		bool isBossRoom();
 };
 
 

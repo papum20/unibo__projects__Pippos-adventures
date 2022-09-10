@@ -62,11 +62,11 @@
 		resizeMap();
 	}
 
-	void Room::spawn(int level, pCharacter player) {
+	void Room::spawn(int level, pCharacter player, bool current) {
 		//segno le posizioni in un rettangolo come occupate dal player per non farci spawnare nemici
 		Coordinate start = Coordinate(size.times(.5, .5), SPAWN_DISTANCE.negative()).integer(), end = Coordinate(start, SPAWN_DISTANCE.times(2, 2));
 		Coordinate i = Coordinate(start, size, start, end);
-		if(player != NULL) {
+		if(current && player != NULL) {
 			do {
 				if(map->physical[i.single()]->getId() == ID_FLOOR) map->physical[i.single()] = player;
 				i.next();
@@ -75,7 +75,7 @@
 		//spawno nemici
 		for(int i = 0; i < ENEMIES_N[level]; i++) spawnEnemy(randEnemy(level, player));
 		//dopo averli spawnati, le elimino (tranne quelle dove va effettivamente)
-		if(player != NULL) {
+		if(current && player != NULL) {
 			player->setPosition(size.times(.5, .5).integer());
 			do {
 				if(map->physical[i.single()] == player) {
@@ -84,6 +84,7 @@
 				}
 				i.next();
 			} while(!i.equals(start));
+			map->characters_n++;
 		}
 		//spawno chest
 		int chests_n = chestsNumber(level);
@@ -384,6 +385,9 @@
 	}
 	bool Room::wasDestroyed() {
 		return destroyed;
+	}
+	bool Room::isBossRoom() {
+		return false;
 	}
 	Coordinate Room::getEntrance(pDoor door) {
 		return COORDINATE_ERROR;

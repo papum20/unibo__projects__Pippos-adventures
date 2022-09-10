@@ -47,7 +47,7 @@ const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]			= 	{
 															{1, 2, 4, 4, 1}
 															};
 const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 12};
-const int BOSSES_N[LEVELS_N] {25, 6, 3};
+const int BOSSES_N[LEVELS_N] {8, 6, 3};
 const Enemy BOSSES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
 															{Zombie()},
 															{Snowman()},
@@ -119,7 +119,7 @@ class Room {
 		void update(int input);									//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
 		
 		virtual void generate(); 								//genera uno schema randomico per i muri, inserendoli nell'array map
-		virtual void spawn(int level, pCharacter player);
+		virtual void spawn(int level, pCharacter player, bool current = false);
 		
 		// DISEGNO
 		void draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
@@ -133,6 +133,7 @@ class Room {
 		virtual Coordinate getEntrance(pDoor door);					//posizione in cui si entra nell'altra stanza attraversando questa porta
 		virtual Room *getConnectedRoom(pDoor door);					//ritorna il puntatore alla stanza collegata dalla porta
 		bool wasDestroyed();
+		virtual bool isBossRoom();
 
 		// SET
 		void remove(pPhysical obj);															//rimuove da map

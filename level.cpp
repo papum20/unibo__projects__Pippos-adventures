@@ -11,7 +11,7 @@
 	void Level::setUp(int win_x, int win_y, int win_w, int win_h, pPlayer player) {
 		this->lr_border = LR_BORDER;
 		this->tb_border = TB_BORDER;
-		level = 2;
+		level = 0;
 		this->player = player;
 
 		map_size = Coordinate(N_ROOMS, N_ROOMS);
@@ -58,9 +58,16 @@
 			//scegli la nuova posizione
 			RoomPosition new_pos = available.unevenRandom();
 			//crea la stanza
-			rooms[room] = new ConnectedRoom(new_pos.getPos());
-			map[new_pos.getPos().single_set(map_size)] = rooms[room];
+			if(room == N_ROOMS - 1) {								//se è l'ultima stanza: genera la stanza del boss
+				while(new_pos.getConnected() == 4) {
+					available.remove(new_pos);
+					new_pos = available.unevenRandom();
+				}
+				rooms[room] = new BossRoom(new_pos.getPos());
+			} else													//altrimenti genera una normale stanza con porte
+				rooms[room] = new ConnectedRoom(new_pos.getPos());
 			available.remove(new_pos);
+			map[new_pos.getPos().single_set(map_size)] = rooms[room];
 
 			//aggiorna stanze adiacenti e celle disponibili
 			r = rand() % DIRECTIONS_N;
@@ -80,13 +87,10 @@
 			}
 		}
 		//avvia generazione di tutte le stanze
-		curRoom->generate();
-		curRoom->spawn(level, player);
-		for(int i = 1; i < N_ROOMS; i++) {
-			if(rooms[i] != NULL) {
-				rooms[i]->generate();
-				rooms[i]->spawn(level, player);
-			}
+		for(int i = 0; i < N_ROOMS; i++) {
+			rooms[i]->generate();
+			if(i == 0) rooms[i]->spawn(level, player, true);
+			else rooms[i]->spawn(level, player, false);
 		}
 		available.destroy();
 	}
@@ -126,7 +130,13 @@
 	}
 
 	void Level::update(int input) {
+		WINDOW *w = newwin(10,10,10,0);
+		box(w,0,0);
+		mvwprintw(w,1,1,to_string(curRoom->isBossRoom()).c_str());
+		wrefresh(w);
 		curRoom->update(input);
+		mvwprintw(w,1,2,to_string(curRoom->isBossRoom()).c_str());
+		wrefresh(w);
 		changeRoom();
 	}
 
@@ -141,8 +151,9 @@
 				player->useDoor();
 				if(new_door->isLocked()) curRoom->unlockDoor(new_door);
 				player->setPosition(curRoom->getEntrance(new_door));
+				MapHandler::remove(curRoom->getMap(), player);		//rimuovo player cosi che non faccia il delete
 				curRoom = curRoom->getConnectedRoom(new_door);
-				curRoom->addCharacter_strong(player);	//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
+				curRoom->addCharacter_strong(player);				//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
 			}
 		}
 	}

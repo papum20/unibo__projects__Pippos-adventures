@@ -43,7 +43,7 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	weapons_n = 2;
 	defensive_items_n = 1;
 	artifacts_n = 0;
-	change_weapon(weapons[0]);
+	change_weapon(weapons[1]);
 	change_armor(defensive_items[0]);
 	
 }
@@ -264,7 +264,7 @@ void Player::collect_item(pMap mappa){
 void Player::add_item(pWeapon w){
 	if (curr_weapon<(W_NUMBER-1)){
 		curr_weapon++;
-		weapons[curr_weapon]=w;
+		weapons[weapons_n]=w;
 		weapons_n++;
 	}
 }
@@ -272,7 +272,7 @@ void Player::add_item(pWeapon w){
 void Player::add_item (pItem_def i){
 	if (last_def<(DEF_NUMBER-1)){
 		last_def++;
-		defensive_items[last_def]=i;
+		defensive_items[defensive_items_n]=i;
 		defensive_items_n++;
 	}
 }
@@ -280,7 +280,7 @@ void Player::add_item (pItem_def i){
 void Player::add_item (pArtifact a){
 	if (curr_artifact<(MAX_ARTIFACTS-1)){
 		curr_artifact++;
-		artifacts[curr_artifact]=a;
+		artifacts[artifacts_n]=a;
 		artifacts_n++;
 	}
 }

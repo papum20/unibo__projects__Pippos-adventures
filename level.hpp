@@ -32,7 +32,7 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 
 
 #include "cell.hpp"
-#include "connected_room.hpp"
+#include "boss_room.hpp"
 #include "definitions.hpp"
 #include "enemies/enemies.hpp"
 #include "equipment/equipment.hpp"

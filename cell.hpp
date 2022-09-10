@@ -33,9 +33,9 @@ class Cell {
 		// GET
 		char getCh();									//ritorna il carattere memorizzato
 		int getBg();
-		chtype toChtype();								//converte in unico valore chtype
-		int pairNumber_own();							//ritorna il numero con cui è memorizzato il color_pair associato ai colori testo/sfondo dell'oggetto
-		int colorPair();								//ritorna il color_pair associato ai colori testo/sfondo dell'oggetto
+		chtype toChtype() const;						//converte in unico valore chtype
+		int pairNumber_own() const;						//ritorna il numero con cui è memorizzato il color_pair associato ai colori testo/sfondo dell'oggetto
+		int colorPair() const;							//ritorna il color_pair associato ai colori testo/sfondo dell'oggetto
 		/*
 		essendoci solo 8 colori, le loro possibili combinazioni sono 8*8=64: dunque i numeri che identificano i color_pair possono essere inizializzati
 		una volta per tutte secondo un certo ordine, e venire restituiti autonomamente dalla classe cell.

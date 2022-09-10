@@ -10,6 +10,7 @@
 const Cell MINIMAP_ROOMS_BORDER = Cell('x', COLOR_WHITE, COLOR_BROWN, A_BOLD);
 const Cell MINIMAP_ROOMS_EMPTY = Cell(' ', COLOR_WHITE, COLOR_GREEN, A_BOLD);
 const Cell MINIMAP_ROOMS_PLAYER = Cell('P', COLOR_RED, COLOR_GREEN, A_BOLD);
+const Cell MINIMAP_ROOMS_BOSS = Cell('B', COLOR_RED, COLOR_GREEN, A_BOLD);
 
 
 class MiniMap : public Overlay {

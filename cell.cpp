@@ -32,16 +32,16 @@ char Cell::getCh() {
 int Cell::getBg() {
 	return bg;
 }
-chtype Cell::toChtype() {
+chtype Cell::toChtype() const {
 	return ch | colorPair() | att;
 }
 
 int Cell::pairNumber(int fg, int bg) {
 	return fg * COLORS_NUMBER + bg + 1;
 }
-int Cell::pairNumber_own() {
+int Cell::pairNumber_own() const {
 	return pairNumber(fg, bg);
 }
-int Cell::colorPair() {
+int Cell::colorPair() const{
 	return COLOR_PAIR(pairNumber_own());
 }

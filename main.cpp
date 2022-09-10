@@ -30,10 +30,10 @@ int main() {
 
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
-	
+	Player player= Player(inputManager);
 
-	Hud hud = Hud(hud_x, hud_y, player);
-	Pause_menu  pause_menu = Pause_menu(player,3, stdscr_x/(3.3), stdscr_y/4, stdscr_x/(3.5), stdscr_y/(4.2), stdscr_x/(2), stdscr_y/(3.7), stdscr_x/(2.9), stdscr_y/(3.5), stdscr_x/(2.7));//inventory zaino item_menu status opzioni
+	Hud hud = Hud(hud_x, hud_y, &player);
+	Pause_menu  pause_menu = Pause_menu(&player,3, stdscr_x/(3.3), stdscr_y/4, stdscr_x/(3.5), stdscr_y/(4.2), stdscr_x/(2), stdscr_y/(3.7), stdscr_x/(2.9), stdscr_y/(3.5), stdscr_x/(2.7));//inventory zaino item_menu status opzioni
 	pSword s = new sword();
 	pause_menu.insert(s);
 	

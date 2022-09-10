@@ -15,11 +15,17 @@ Evil_tree::Evil_tree():Enemy(){
 
     points_given=tree_points;
 
-    change_weapon(new Tree_branch());
-    change_armor(new armor());
-    change_necklace(new necklace());
-    change_boots(new boots());
-    change_helm(new helm());
+    tree_branch=new Tree_branch();
+    armor= new armor();
+    necklace=new necklace();
+    boots=new boots();
+    helm=new helm();
+
+    change_weapon(tree_branch);
+    change_armor(armor);
+    change_necklace(necklace);
+    change_boots(boots);
+    change_helm(helm);
 
     maxHealth=Math::randomStep(70, 100, 10);
     curHealth=maxHealth;

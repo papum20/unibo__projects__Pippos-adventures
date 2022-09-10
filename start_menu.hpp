@@ -22,12 +22,6 @@
 #define FACE_WIDTH 66
 
 
-//const int scroll_up = 'w';
-//const int scroll_down = 's';
-//const int scroll_left = KEY_LEFT;
-//const int scroll_right = KEY_RIGHT;
-//const int esc = 27; //tasto per uscire dall'inventario
-//const int invio = 10;
 const char choices[3][20]={"start", "opzioni", "chiudi"};
 
 const int c_hight = 31;

@@ -1,7 +1,7 @@
 #include "start_menu.hpp"
 
 
-Start_menu::Start_menu(int menu_y_pos, int menu_x_pos, int options_x_pos, int options_y_pos, int face_y_pos, int face_x_pos):Pixel_art() {
+Start_menu::Start_menu(int menu_y_pos, int menu_x_pos, int stdscr_x, int stdscr_y, int face_y_pos, int face_x_pos):Pixel_art() {
 this->menu_y_pos=menu_y_pos;
 this->menu_x_pos=menu_x_pos;
 options_x_pos = (stdscr_x - MENU_OPTIONS_WIDTH) / 2, options_y_pos = (stdscr_y - MENU_OPTIONS_HEIGHT) / 2;

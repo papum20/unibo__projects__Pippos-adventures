@@ -1,15 +1,13 @@
 #include "system_text.hpp"
 
 
-
+char window_write[6][max_words];
 
 System_text::System_text(int stdscr_x, int stdscr_y) {
 text_x_pos = (stdscr_x - WINDOW_TEXT_WIDTH) / (2.2), text_y_pos = (stdscr_y - WINDOW_TEXT_HEIGHT) / (1.6);
 this->text = newwin(WINDOW_TEXT_HEIGHT, WINDOW_TEXT_WIDTH, 10,10/*text_y_pos, text_x_pos*/);
 is_open=false;
-is_full=false;
-space=1;
-      
+space=0; 
 }
 
 
@@ -28,40 +26,49 @@ void System_text::open(){
     for(int i=0; i<WINDOW_TEXT_WIDTH - 3; i++){
         waddch(text, '_');
     }
-    
-    /*mvwprintw(text, WINDOW_TEXT_HEIGHT - 2, 1, "HAI PERSO VITA");
-    mvwprintw(text, WINDOW_TEXT_HEIGHT - 4, 1, "HAI ATTACCATO MALE");
-    mvwprintw(text, WINDOW_TEXT_HEIGHT - 6, 1, "E' STREMANTE PROGRAMMARE");
-    mvwprintw(text, WINDOW_TEXT_HEIGHT - 8, 1, "HAI APERTO UNA CESTA");
-    mvwprintw(text, WINDOW_TEXT_HEIGHT - 10, 1, "HIA SUBITO DANNI");
-    mvwprintw(text, WINDOW_TEXT_HEIGHT - 12, 1, "BELLA");*/
     wrefresh(text);
 }
 
 void System_text::insert_string(const char string[]){
-if(is_full){
-    Pixel_art::clean_window(text, WINDOW_TEXT_HEIGHT - 2, WINDOW_TEXT_WIDTH - 1);
-    mvwprintw(text, WINDOW_TEXT_HEIGHT - 2, 1,string);
+space++;
+if(space>6){
+space=6;
+   for(int i=space-1; i>0;i--){
+        char tmp[max_words];
+        strcpy(tmp, window_write[i]);
+        strcpy(window_write[i], window_write[i-1]);
+            strcpy(window_write[i-1], tmp);
+    }
+strcpy (window_write[0], string);
+
 }
 else{
-    mvwprintw(text, WINDOW_TEXT_HEIGHT - (space*2), 1,string);
-    space++;
-    if(space>=5)
-        is_full=true;
-}    
+    strcpy (window_write[space-1], string);
+}
+clean_window(text, WINDOW_TEXT_HEIGHT - 2, WINDOW_TEXT_WIDTH - 1);
+open();
+int j=1;
+    for(int i=0; i<space; i++){
+        
+        int k=0;
+        while(window_write[i][k]!='\0'){
+            mvwaddch(text, WINDOW_TEXT_HEIGHT - (j*2), k+1, window_write[i][k]);
+            k++;
+        }
+        j++;
+    }   
+
+wrefresh(text);
 }
 
-void System_text::insert_number(int danno){
-if(is_full){
-    //Pixel_art::clean_window(text, WINDOW_TEXT_HEIGHT - 2, WINDOW_TEXT_WIDTH - 1);
-    mvwprintw(text, WINDOW_TEXT_HEIGHT - 2, 1,string);
+void System_text::clean_window(WINDOW* window, int w_hight, int w_lenght){
+wattron(window, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_BLACK))); 
+for(int i=1; i<w_hight; i++){
+    for(int j=1; j<w_lenght; j++){
+        mvwaddch(window, i, j, ' ');
+    }
 }
-else{
-    mvwprintw(text, WINDOW_TEXT_HEIGHT - (space*2), 1,string);
-    space++;
-    if(space>=5)
-        is_full=true;
-}    
+wattroff(window, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_BLACK)));   
 }
 
 void System_text::close(){

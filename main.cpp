@@ -44,8 +44,6 @@ int main() {
 	System_text text = System_text(stdscr_x, stdscr_y);
 	
 	menu.open();
-	text.open();
-
 	
 	WINDOW *debug = newwin(10,10,0,0);
 	box(debug,0,0);

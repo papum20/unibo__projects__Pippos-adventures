@@ -6,10 +6,11 @@
 #include <curses.h>
 #include <iostream>
 #include "pixel_art.hpp"
+#include "definitions.hpp"
+#include <cstring>
 
 #define WINDOW_TEXT_HEIGHT 13
-#define WINDOW_TEXT_WIDTH 50
-
+#define WINDOW_TEXT_WIDTH 70
 
 
 
@@ -19,7 +20,6 @@ class System_text {
     int space;
     int text_x_pos, text_y_pos;
     bool is_open;
-    bool is_full;
 	public:
 		System_text(int stdscr_x, int stdscr_y);
         void destroy();
@@ -27,7 +27,7 @@ class System_text {
         void open();
         void close();
         void insert_string(const char string[]);
-        void insert_number(const char string[]);
+        void clean_window(WINDOW* window, int w_hight, int w_lenght);
 };
 
 

@@ -10,6 +10,11 @@
 
 
 #include "definitions.hpp"
+
+
+#define MENU_OPTIONS_HEIGHT 30
+#define MENU_OPTIONS_WIDTH 75
+
 //const int scroll_up = 'w';
 //const int scroll_down = 's';
 //const int scroll_left = KEY_LEFT;

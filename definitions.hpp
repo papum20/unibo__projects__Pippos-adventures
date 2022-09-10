@@ -24,6 +24,9 @@
 #define MINIMAP_HEIGHT (CAMERA_HEIGHT - 2)
 #define MINIMAP_PADDING_X 4				//distanza da bordo sinistro e destro
 #define MINIMAP_PADDING_Y 2
+// INVENTORY
+//space
+const int n_max_inventory_objects = 19;
 #pragma endregion SCREENS_SIZES
 
 

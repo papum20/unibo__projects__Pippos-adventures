@@ -27,8 +27,7 @@ const int start_written = 32; //punto di inizio delle scritte del w_item quindi 
 const int w_graphic_high = 29;
 const int w_graphic_lenght = 29;
 const int n_graphic_types_items = 11;
-//space
-const int n_max_inventory_objects = 19;
+
 
 
 

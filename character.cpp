@@ -47,7 +47,7 @@ void Character::initialize_equipment(){
 	equipaggiamento.elmo=NULL;
 }
 
-void Character::change_helm(pHelm h){
+void Character::change_helm(pItem_def h){
 	if (equipaggiamento.elmo!=NULL){
 		(equipaggiamento.elmo)->is_equipped=false;
 		(equipaggiamento.elmo)=h;
@@ -72,7 +72,7 @@ void Character::change_weapon(pWeapon w){
 	apply_equipment();
 }
 
-void Character::change_necklace(pNecklace n){
+void Character::change_necklace(pItem_def n){
 	if (equipaggiamento.collana!=NULL){
 		(equipaggiamento.collana)->is_equipped=false;
 		(equipaggiamento.collana)=n;
@@ -85,7 +85,7 @@ void Character::change_necklace(pNecklace n){
 	apply_equipment();
 }
 
-void Character::change_shield (pShield s){
+void Character::change_shield (pItem_def s){
 	if (equipaggiamento.scudo!=NULL){
 		(equipaggiamento.scudo)->is_equipped=false;
 		(equipaggiamento.scudo)=s;
@@ -98,7 +98,7 @@ void Character::change_shield (pShield s){
 	apply_equipment();
 }
 
-void Character::change_armor(pArmor a){
+void Character::change_armor(pItem_def a){
 	if (equipaggiamento.armatura!=NULL){
 		(equipaggiamento.armatura)->is_equipped=false;
 		(equipaggiamento.armatura)=a;
@@ -111,7 +111,7 @@ void Character::change_armor(pArmor a){
 	apply_equipment();
 }
 
-void Character::change_boots (pBoots b){
+void Character::change_boots (pItem_def b){
 	if (equipaggiamento.stivali!=NULL){
 		(equipaggiamento.stivali)->is_equipped=false;
 		(equipaggiamento.stivali)=b;
@@ -352,3 +352,5 @@ int Character::getPoints(){
 #pragma endregion AUSILIARIE_GENERICHE
 
 */
+
+

@@ -62,9 +62,16 @@ void Pause_menu::open_options(){
     keypad(w_inventory,false);
     box(w_options, 0, 0);
     mvwaddch(w_options, 2, 2, KEY_PAUSE);
-    wprintw(w_options, " = apri menu");
-    mvwprintw(w_options, 4, 2, "n = apri inventario");
-    mvwprintw(w_options, 6, 2, "i tasti w a s d servono a muoversi nelle 4 direzioni");   
+    wprintw(w_options, " = apri e chiudi menu di pausa");
+    mvwaddch(w_options, 4, 2, KEY_ESC);
+    wprintw(w_options, " = torni indietro nei menu");
+    mvwaddch(w_options, 6, 2, KEY_INTERACT);
+    wprintw(w_options, " = tasto per interagire");
+    mvwaddch(w_options, 8, 2, KEY_MAP);
+    wprintw(w_options, " = apri la minimappa");
+    mvwprintw(w_options, 10, 2, "invio = tasto di selezione nei menu");
+    mvwprintw(w_options, 12, 2, "i tasti freccia servono a muoversi nelle 4 direzioni");
+    mvwprintw(w_options, 14, 2, "i tasti w a s d servono ad attaccare nelle 4 direzioni"); 
     wrefresh(w_options);
 }
 

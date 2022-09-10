@@ -1,20 +1,17 @@
 #include "start_menu.hpp"
 
 
-Start_menu::Start_menu(int menu_y_pos, int menu_x_pos, int stdscr_x, int stdscr_y, int face_y_pos, int face_x_pos):Pixel_art() {
-this->menu_y_pos=menu_y_pos;
-this->menu_x_pos=menu_x_pos;
-options_x_pos = (stdscr_x - MENU_OPTIONS_WIDTH) / 2, options_y_pos = (stdscr_y - MENU_OPTIONS_HEIGHT) / 2;
+Start_menu::Start_menu(int stdscr_x, int stdscr_y):Pixel_art() {
+options_x_pos = (stdscr_x - MENU_OPTIONS_WIDTH) / (2.3), options_y_pos = (stdscr_y - MENU_OPTIONS_HEIGHT) / (1.7);
+face_x_pos = (stdscr_x - FACE_WIDTH) / (5.6), face_y_pos = (stdscr_y - FACE_HEIGHT) / (1.65);
+menu_x_pos = (stdscr_x - MENU_WIDTH) / (2.2), menu_y_pos = (stdscr_y - MENU_HEIGHT) / (1.6);
 
-this->options_y_pos=options_y_pos;
-this->options_x_pos=options_x_pos;
-this->face_y_pos=face_y_pos;
-this->face_x_pos=face_x_pos;
+
 this->menu_is_active=false;
 
-this->menu = newwin(25, 60, menu_y_pos, menu_x_pos);
-this->wface = newwin(33, 66, face_y_pos, face_x_pos);
-this->caverna = newwin(110, 350, 0, 0);
+this->menu = newwin(MENU_HEIGHT, MENU_WIDTH, menu_y_pos, menu_x_pos);
+this->wface = newwin(FACE_HEIGHT, FACE_WIDTH, face_y_pos, face_x_pos);
+this->caverna = newwin(stdscr_y, stdscr_x, 0, 0);
 this->w_options = newwin(MENU_OPTIONS_HEIGHT, MENU_OPTIONS_WIDTH, options_y_pos, options_x_pos);
 highlight=0;
 options_is_active=false;
@@ -28,7 +25,6 @@ void Start_menu::destroy(){
 }
 
 void Start_menu::open_options(){
-    //clean_window(menu, menu_y_pos, menu_x_pos);
     options_is_active=true;
     keypad(menu,false);
     werase(wface);

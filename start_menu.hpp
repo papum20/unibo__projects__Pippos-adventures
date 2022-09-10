@@ -15,6 +15,13 @@
 #define MENU_OPTIONS_HEIGHT 30
 #define MENU_OPTIONS_WIDTH 75
 
+#define MENU_HEIGHT 25
+#define MENU_WIDTH 60
+
+#define FACE_HEIGHT 33
+#define FACE_WIDTH 66
+
+
 //const int scroll_up = 'w';
 //const int scroll_down = 's';
 //const int scroll_left = KEY_LEFT;
@@ -81,7 +88,7 @@ class Start_menu : public Pixel_art {
         int highlight;
        
 	public:
-        Start_menu(int menu_y_pos, int menu_x_pos, int options_x_pos, int options_y_pos, int face_y_pos, int face_x_pos);
+        Start_menu(int stdscr_x, int stdscr_y);
         void set_menu_color();
         void print_cave();
         void open_options();

@@ -36,10 +36,8 @@ int main() {
 
 	Hud hud = Hud(hud_x, hud_y, player);
 	
-	Pause_menu  pause_menu = Pause_menu(player,3, stdscr_x/(3.3), stdscr_y/4, stdscr_x/(3.5), stdscr_y/(4.2), stdscr_x/(2), stdscr_y/(3.7), stdscr_x/(2.9), stdscr_y/(3.5), stdscr_x/(2.7));//inventory zaino item_menu status opzioni
-	//pSword s = new sword();
-	//pause_menu.insert(s);
-	Start_menu menu = Start_menu(stdscr_y/(2.2), stdscr_x/(2.5), stdscr_x, stdscr_y, stdscr_y/(2.4), stdscr_x/(5.6));//menu, opzioni, face
+	Pause_menu  pause_menu = Pause_menu(player,stdscr_x, stdscr_y);
+	Start_menu menu = Start_menu(stdscr_x, stdscr_y);
 	
 	MiniMap miniMap = MiniMap(map_x, map_y);
 

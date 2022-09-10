@@ -1,7 +1,7 @@
-#include "inventory.hpp"
+#include "pause_menu.hpp"
 
 
-Inventory::Inventory(Player * p,int inventory_y_pos,int inventory_x_pos, int zaino_y_pos, int zaino_x_pos, int item_menu_y_pos, int item_menu_x_pos, int status_y_pos, int status_x_pos, int options_y_pos, int options_x_pos):Pixel_art(){
+Pause_menu::Pause_menu(Player * p,int inventory_y_pos,int inventory_x_pos, int zaino_y_pos, int zaino_x_pos, int item_menu_y_pos, int item_menu_x_pos, int status_y_pos, int status_x_pos, int options_y_pos, int options_x_pos):Pixel_art(){
 this->zaino_y_pos= zaino_y_pos;
 this->zaino_x_pos= zaino_x_pos;
 this->item_menu_y_pos= item_menu_y_pos;
@@ -31,7 +31,7 @@ this->w_options = newwin(30, 75, options_y_pos, options_x_pos);
 curr_inventory_space = 0;
 }
 
-void Inventory::insert(pItem item){
+void Pause_menu::insert(pItem item){
     if(curr_inventory_space< n_max_inventory_objects){
         objects[curr_inventory_space]=item;
         curr_inventory_space++;
@@ -39,11 +39,11 @@ void Inventory::insert(pItem item){
 }
 
 
-bool Inventory::is_active(){
+bool Pause_menu::is_active(){
     return(is_open);
 }
 
-int Inventory::random_item(){
+int Pause_menu::random_item(){
 int r;
 bool all_artifact=true;
 for(int i=0; i<curr_inventory_space;i++){
@@ -61,7 +61,7 @@ if(all_artifact)
 return (-1);
 }
 
-void Inventory::open_options(){
+void Pause_menu::open_options(){
     options_is_active=true;
     keypad(w_inventory,false);
     box(w_options, 0, 0);
@@ -72,7 +72,7 @@ void Inventory::open_options(){
     wrefresh(w_options);
 }
 
-void Inventory::update_options(){
+void Pause_menu::update_options(){
 
         if(input==KEY_ESC){
             options_is_active = false;
@@ -82,7 +82,7 @@ void Inventory::update_options(){
         }
 }
 
-int Inventory::check_class_name(int array_index){
+int Pause_menu::check_class_name(int array_index){
     if(objects[array_index]->isWeapon())
         return 11;
     else if(objects[array_index]->isItemDifensivo())
@@ -92,7 +92,7 @@ int Inventory::check_class_name(int array_index){
     return -1;
 }
 
-int Inventory::check_subclass_name(int array_index){
+int Pause_menu::check_subclass_name(int array_index){
     
     if(objects[array_index]->getId()==ID_SWORD)
         return 0;
@@ -119,7 +119,7 @@ int Inventory::check_subclass_name(int array_index){
     return -1;
 }
 
-void Inventory::wattroff_inventory(WINDOW * win){
+void Pause_menu::wattroff_inventory(WINDOW * win){
     wattroff(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
     wattroff(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLUE)));
     wattroff(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_MAGENTA)));
@@ -137,7 +137,7 @@ void Inventory::wattroff_inventory(WINDOW * win){
 
 
 
-void Inventory::fix_array(int array_index){
+void Pause_menu::fix_array(int array_index){
     objects[array_index]=NULL;
     delete objects[array_index];
     if(array_index==curr_inventory_space){
@@ -152,7 +152,7 @@ void Inventory::fix_array(int array_index){
 
   
 
-void Inventory::int_to_string(int number, char string[]){
+void Pause_menu::int_to_string(int number, char string[]){
 	if(number==0){
 		string[0]=(char)48;
 		string[1]='\0';
@@ -171,7 +171,7 @@ void Inventory::int_to_string(int number, char string[]){
 	reverse_string(string);
 }
 
-void Inventory::reverse_string(char string[]){
+void Pause_menu::reverse_string(char string[]){
 int lenght = strlen(string);
 for (int i = 0; i < lenght / 2; i++){
 	char tmp=string[i];
@@ -179,7 +179,7 @@ for (int i = 0; i < lenght / 2; i++){
 	string[lenght -1 -i]= tmp; 
 }}
 
-int Inventory::count_char(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio, l'ho usata in w_item 
+int Pause_menu::count_char(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio, l'ho usata in w_item 
 int count = 0;
 while((string[start_char]!=' ')){
 if((string[start_char]=='\0'))
@@ -190,7 +190,7 @@ start_char++;
 return count;
 }
 
-int Inventory::count_char_with_space(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio contando gli spazi, l'ho usata in print_nome
+int Pause_menu::count_char_with_space(int start_char,char string[]){//data una stringa conta le lettere della parola seguente al punto di inizio contando gli spazi, l'ho usata in print_nome
 int count = 0;
     while((string[start_char + count]!='\0')){
         count++;
@@ -198,7 +198,7 @@ int count = 0;
 return count;
 }
 
-void Inventory::print_weapon(int high, int lenght, const char graphic_weapon[][w_graphic_lenght]){
+void Pause_menu::print_weapon(int high, int lenght, const char graphic_weapon[][w_graphic_lenght]){
 for(int i=0; i<high; i++){
     for(int k=0; k<lenght; k++){
         mvwaddch(w_weapon, i + 2, k + 2, graphic_weapon[i][k]);
@@ -207,7 +207,7 @@ for(int i=0; i<high; i++){
 wrefresh(w_weapon);
 }
 
-void Inventory::item_menu(int array_index){
+void Pause_menu::item_menu(int array_index){
 box(w_item, 0, 0);
 int yMax, xMax;
 getmaxyx(w_item, yMax, xMax);
@@ -254,7 +254,7 @@ print_weapon(w_graphic_high, w_graphic_lenght, graphic_items[check_subclass_name
 wrefresh(w_weapon);
 }
 
-void Inventory::useOrdiscardItem(int y_position, int x_position, int array_index){
+void Pause_menu::useOrdiscardItem(int y_position, int x_position, int array_index){
 u_highlight=1;
 w_use_is_active=true;
     w_use_high = y_position;
@@ -278,7 +278,7 @@ keypad(w_use, true);
 wrefresh(w_use); 
 }
 
-void Inventory::update_w_use(int array_index){
+void Pause_menu::update_w_use(int array_index){
 if(input==KEY_ESC){
     w_use_is_active=false;
     keypad(w_use, false); 
@@ -445,7 +445,7 @@ if(input==invio){
     }
 }
 
-void Inventory::strcmp_rarity(WINDOW * win, int array_index, bool highlight){
+void Pause_menu::strcmp_rarity(WINDOW * win, int array_index, bool highlight){
 if(highlight){
     if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
         wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
@@ -469,7 +469,7 @@ else{
 }   
 }
 
-void Inventory::print_item_name(WINDOW * win, int y, int x, int array_index){
+void Pause_menu::print_item_name(WINDOW * win, int y, int x, int array_index){
 int n;
     mvwprintw(win, y, x, objects[array_index]->name);
     wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
@@ -499,7 +499,7 @@ wattroff(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
 wrefresh(win);
 }
 
-void Inventory::open_zaino(){
+void Pause_menu::open_zaino(){
   int xMax = getmaxx(w_zaino);      
   z_highlight=0;
   zaino_is_active=true;
@@ -517,7 +517,7 @@ void Inventory::open_zaino(){
         high = 2;
 }
 
-void Inventory::zaino_menu(int array_index){
+void Pause_menu::zaino_menu(int array_index){
 if(w_use_is_active==true){
   update_w_use(z_highlight);
   return;
@@ -623,7 +623,7 @@ item_menu(z_highlight);
 }
 }
 
-void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high, bool wrtite_name){
+void Pause_menu::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high, bool wrtite_name){
     int counter = 0;
      counter = counter + 3 * high;
     if(wrtite_name)
@@ -665,7 +665,7 @@ void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index,
     wrefresh(win);
 }
 
-void Inventory::equip_menu(){
+void Pause_menu::equip_menu(){
 w_equip_is_active=true;
 int yMax, xMax;
 getmaxyx(w_equip, yMax, xMax);
@@ -728,7 +728,7 @@ if(static_cast< Weapon *>(objects[i])->is_equipped){
 }        
 }
 
-void Inventory:: update_equip_menu(){
+void Pause_menu:: update_equip_menu(){
         if(input==KEY_ESC){
             w_equip_is_active = false;
             keypad(w_inventory, true);
@@ -738,7 +738,7 @@ void Inventory:: update_equip_menu(){
         }
 }
 
-void Inventory::open(){
+void Pause_menu::open(){
     highlight=0;
     is_open=true;
     box(w_inventory, 0, 0);
@@ -749,7 +749,7 @@ void Inventory::open(){
 }
 
 
-void Inventory::update(int input){
+void Pause_menu::update(int input){
 
 this->input = input;
 
@@ -815,7 +815,7 @@ if(w_equip_is_active==true){
     }
 }
 
-void Inventory::close(){
+void Pause_menu::close(){
 if(zaino_is_active){
     werase(w_zaino);
     wrefresh(w_zaino);

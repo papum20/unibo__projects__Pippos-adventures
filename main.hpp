@@ -9,7 +9,7 @@
 
 #include "hud.hpp"
 #include "inputmanager.hpp"
-#include "inventory.hpp"
+#include "pause_menu.hpp"
 #include "menu.hpp"
 #include "minimap.hpp"
 

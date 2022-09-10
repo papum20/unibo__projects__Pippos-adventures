@@ -1,5 +1,5 @@
-#ifndef INVENTORY_HPP
-#define INVENTORY_HPP
+#ifndef PAUSE_MENU_HPP
+#define PAUSE_MENU_HPP
 
 #include <iostream>
 #include <curses.h>
@@ -389,7 +389,7 @@ const char rarity[4][12] = {"comune", "raro", "epico", "leggendario"};
 const char type[n_graphic_types_items][10] = {"spada", "arco", "armatura", "scudo", "elmo","ascia","pozione","stivali","collana","bastone"};
 
 
-class Inventory : public Pixel_art{
+class Pause_menu : public Pixel_art{
 	private:
         WINDOW * w_inventory;
         WINDOW * w_zaino;
@@ -429,7 +429,7 @@ class Inventory : public Pixel_art{
         
         
 
-	Inventory(Player * p, int zaino_y_pos,int inventory_y_pos,int inventory_x_pos, int zaino_x_pos, int item_menu_y_pos, int item_menu_x_pos, int status_y_pos, int status_x_pos, int options_y_pos, int options_x_pos);
+	Pause_menu(Player * p, int zaino_y_pos,int inventory_y_pos,int inventory_x_pos, int zaino_x_pos, int item_menu_y_pos, int item_menu_x_pos, int status_y_pos, int status_x_pos, int options_y_pos, int options_x_pos);
         void open_options();
         void update_options();
         void wattroff_inventory(WINDOW * win);

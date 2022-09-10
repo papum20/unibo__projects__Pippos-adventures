@@ -11,7 +11,7 @@
 	void Level::setUp(int win_x, int win_y, int win_w, int win_h, pPlayer player) {
 		this->lr_border = LR_BORDER;
 		this->tb_border = TB_BORDER;
-		level = 0;
+		level = 2;
 		this->player = player;
 
 		map_size = Coordinate(N_ROOMS, N_ROOMS);

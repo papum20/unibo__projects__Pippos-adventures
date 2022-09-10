@@ -312,40 +312,43 @@ void Player::useDoor() {
 
 
 int Player::getInventory(pItem inventory[n_max_inventory_objects]) {
-	for(int i = 0; i < weapons_n; i++) inventory[i] = weapons[i];
-	for(int i = 0; i < artifacts_n; i++) inventory[i + weapons_n] = artifacts[i];
-	for(int i = 0; i < defensive_items_n; i++) inventory[i + weapons_n + artifacts_n] = artifacts[i];
-	return weapons_n + artifacts_n + defensive_items_n;
+ for(int i = 0; i < weapons_n; i++) inventory[i] = weapons[i];
+ for(int i = 0; i < artifacts_n; i++) inventory[i + weapons_n] = artifacts[i];
+ for(int i = 0; i < defensive_items_n; i++) inventory[i + weapons_n + artifacts_n] = defensive_items[i];
+ return weapons_n + artifacts_n + defensive_items_n;
 }
 void Player::removeItem(pItem item) {
-	bool found = false;
-	int i = 0;
-	while(!found && i < weapons_n) {
-		if(item == weapons[i]) found = true;
-		else i++;
-	}
-	i = 0;
-	while(!found && i < artifacts_n) {
-		if(item == artifacts[i]) found = true;
-		else i++;
-	}
-	i = 0;
-	while(!found && i < defensive_items_n) {
-		if(item == defensive_items[i]) found = true;
-		else i++;
-	}
-
-	if(found) {
-		if(item->isWeapon()) {
-			weapons[i] = weapons[weapons_n - 1];
-			weapons_n--;
-		} else if(item->isArtifact()) {
-			artifacts[i] = artifacts[artifacts_n - 1];
-			artifacts_n--;
-		} else if(item->isItemDifensivo()) {
-			defensive_items[i] = defensive_items[defensive_items_n- 1];
-			defensive_items_n--;
-		}
-		item->destroy(NULL);
-	}
+ bool found = false;
+ int i = 0;
+ while(!found && i < weapons_n) {
+  	if(item == weapons[i]) found = true;
+  	else i++;
+ 	}
+ 	if(!found) {
+  		i = 0;
+  		while(!found && i < artifacts_n) {
+   			if(item == artifacts[i]) found = true;
+   			else i++;
+  			}
+ 		}
+ 	if(!found) {
+  		i = 0;
+  		while(!found && i < defensive_items_n) {
+   			if(item == defensive_items[i]) found = true;
+   			else i++;
+  			}
+ 	}
+ if(found) {
+  if(item->isWeapon()) {
+   	weapons[i] = weapons[weapons_n - 1];
+   	weapons_n--;
+  } else if(item->isArtifact()) {
+   artifacts[i] = artifacts[artifacts_n - 1];
+   artifacts_n--;
+  } else if(item->isItemDifensivo()) {
+   defensive_items[i] = defensive_items[defensive_items_n- 1];
+   defensive_items_n--;
+  }
+  item->destroy(NULL);
+ }
 }

@@ -433,8 +433,6 @@ class Pause_menu : public Pixel_art{
         void update_options();
         void wattroff_inventory(WINDOW * win);
         int calculate_my_weight();
-        void insert(const char nome[], const char rarity[], const char description[], const char type[], int stats_attack, int stats_defense, int magic_defense, int attack_magic);
-        void insert (pItem item);
         void fix_array(int array_index);
         void int_to_string(int number, char string[]);
         void reverse_string(char string[]);
@@ -458,6 +456,7 @@ class Pause_menu : public Pixel_art{
         void close();
         void update_w_use(int array_index);
         int random_item();
+        void destroy();
 
         
 };      

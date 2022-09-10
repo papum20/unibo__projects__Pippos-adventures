@@ -65,7 +65,7 @@ const int cave[c_hight][c_lenght]={
 };
 
 
-class Menu : public Pixel_art {
+class Start_menu : public Pixel_art {
 	protected:
         WINDOW * menu;
         WINDOW * wface;
@@ -81,7 +81,7 @@ class Menu : public Pixel_art {
         int highlight;
        
 	public:
-        Menu(int menu_y_pos, int menu_x_pos, int options_x_pos, int options_y_pos, int face_y_pos, int face_x_pos);
+        Start_menu(int menu_y_pos, int menu_x_pos, int options_x_pos, int options_y_pos, int face_y_pos, int face_x_pos);
         void set_menu_color();
         void print_cave();
         void open_options();
@@ -92,6 +92,6 @@ class Menu : public Pixel_art {
         void update_options();
 };      
 
-typedef Menu* pMenu;
+typedef Start_menu* pMenu;
 
 #endif

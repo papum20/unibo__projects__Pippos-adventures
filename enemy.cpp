@@ -63,36 +63,7 @@ void Enemy::copyEnemy(Enemy B) {
 		change_armor(new item_difensivo());
 		equipaggiamento.armatura->copyItemDifensivo(*B.equipaggiamento.armatura);
 	}
-<<<<<<< HEAD
 	current_step=0;
-=======
-	if(B.equipaggiamento.arma != NULL) {
-		change_weapon(new Weapon());
-		equipaggiamento.arma->copyWeapon(*B.equipaggiamento.arma);
-	}
-	if(B.equipaggiamento.elmo != NULL) {
-		change_helm(new item_difensivo());
-		equipaggiamento.elmo->copyItemDifensivo(*B.equipaggiamento.elmo);
-	}
-	if(B.equipaggiamento.collana != NULL) {
-		change_necklace(new item_difensivo());
-		equipaggiamento.collana->copyItemDifensivo(*B.equipaggiamento.collana);
-	}
-	if(B.equipaggiamento.scudo != NULL) {
-		change_shield(new item_difensivo());
-		equipaggiamento.scudo->copyItemDifensivo(*B.equipaggiamento.scudo);
-	}
-	if(B.equipaggiamento.stivali != NULL) {
-		change_boots(new item_difensivo());
-		equipaggiamento.stivali->copyItemDifensivo(*B.equipaggiamento.stivali);
-	}
-	if(B.equipaggiamento.armatura != NULL) {
-		change_armor(new item_difensivo());
-		equipaggiamento.armatura->copyItemDifensivo(*B.equipaggiamento.armatura);
-	}
-
-
->>>>>>> 4cef973a21611c6b224855de3ed84038b8665ab0copyCharacter(B);
 	Character::copyCharacter(B);
 }
 

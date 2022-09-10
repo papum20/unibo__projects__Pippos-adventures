@@ -5,7 +5,7 @@ char window_write[6][max_words];
 
 System_text::System_text(int stdscr_x, int stdscr_y):Overlay() {
 text_x_pos = (stdscr_x - WINDOW_TEXT_WIDTH) / (2.2), text_y_pos = (stdscr_y - WINDOW_TEXT_HEIGHT) / (1.6);
-this->text = newwin(WINDOW_TEXT_HEIGHT, WINDOW_TEXT_WIDTH, 10,10/*text_y_pos, text_x_pos*/);
+this->text = newwin(WINDOW_TEXT_HEIGHT, WINDOW_TEXT_WIDTH,text_y_pos, text_x_pos);
 is_open=false;
 space=0; 
 }

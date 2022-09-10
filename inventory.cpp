@@ -229,7 +229,7 @@ int high=yMax - 10;
 
 if(curr_inventory_space>0){
 
-aux_equip_item_menu(w_item, 6, start_written, array_index, 1);
+aux_equip_item_menu(w_item, 6, start_written, array_index, 1, false);
 
 mvwprintw(w_item, high, start_written,"descrizione:");
 
@@ -623,12 +623,14 @@ item_menu(z_highlight);
 }
 }
 
-void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high){
+void Inventory::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high, bool wrtite_name){
     int counter = 0;
      counter = counter + 3 * high;
-        mvwprintw(win, y + 1 + counter, x, "rarita'");
-        mvwprintw(win, y + 1 + counter, x + 10, objects[array_index]->rarity);
-        counter = counter + 3 * high;
+    if(wrtite_name)
+        mvwprintw(win, y, x, objects[array_index]->name);
+    mvwprintw(win, y + 1 + counter, x, "rarita'");
+    mvwprintw(win, y + 1 + counter, x + 10, objects[array_index]->rarity);
+    counter = counter + 3 * high;
     int i = 2;
     if((check_class_name(array_index))==11){
        char s_attack[max_n_digit_stats];
@@ -704,24 +706,24 @@ for(int i=0; i<curr_inventory_space; i++){
 if(check_class_name(i)==12){
     
 if((check_subclass_name(i)==2) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-    aux_equip_item_menu(w_equip, 12, 2, i, 0);
+    aux_equip_item_menu(w_equip, 12, 2, i, 0, true);
     }
 if((check_subclass_name(i)==3) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-    aux_equip_item_menu(w_equip, 12, 2, i, 0);
+    aux_equip_item_menu(w_equip, 12, 2, i, 0, true);
     }
 
 if((check_subclass_name(i)==4) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-    aux_equip_item_menu(w_equip, 7, 2, i, 0);
+    aux_equip_item_menu(w_equip, 7, 2, i, 0, true);
     }
 if((check_subclass_name(i)==8) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-    aux_equip_item_menu(w_equip, 22, 2, i, 0);
+    aux_equip_item_menu(w_equip, 22, 2, i, 0, true);
     }
 if((check_subclass_name(i)==7) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-    aux_equip_item_menu(w_equip, 27, 2, i, 0);
+    aux_equip_item_menu(w_equip, 27, 2, i, 0, true);
     }}
 if(check_class_name(i)==11){
 if(static_cast< Weapon *>(objects[i])->is_equipped){
-    aux_equip_item_menu(w_equip, 2, 2, i, 0);
+    aux_equip_item_menu(w_equip, 2, 2, i, 0, true);
     }}
 }        
 }

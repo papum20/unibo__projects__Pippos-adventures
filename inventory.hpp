@@ -448,7 +448,7 @@ class Inventory : public Pixel_art{
         void print_item_name(WINDOW * win, int y, int x, int array_index);
         void zaino_menu(int array_index);
         void open_zaino();
-        void aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high);
+        void aux_equip_item_menu(WINDOW * win, int y, int x, int array_index, int high, bool write_name);
         void equip_menu();
         void update_equip_menu();
         void open();

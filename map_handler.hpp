@@ -40,6 +40,8 @@ class MapHandler {
 		//shortestPath per far arrivare un oggetto A a distanza compresa tra dist_min = dist_max (inclusi) da un oggetto B (minimo 1), in linea retta (cioè solo se A e B sono allineati);
 		static int vision(pMap map, Physical *obj[ROOM_AREA], Coordinate source, int range = -1);
 		//"visione" a 360 gradi: ritorna tutti gli oggetti visibili (anche passando attraverso physical diversi da wall) in tutte le direzioni a partire da una sorgente source; se <0, il range massimo si considera infinito
+		static bool visionLine_check(pMap map, Coordinate source, Character *target, int range = -1);
+		// in tutte le direzioni a partire da una sorgente source; il range è la coordinata più grande della differenza delle due posizioni; se <0, il range massimo si considera infinito;
 
 		//// CHECK
 		//singola casella

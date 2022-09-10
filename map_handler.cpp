@@ -106,28 +106,24 @@ MapHandler::MapHandler() {
 		int len_floor = 0, len_ceil = 0;
 		//"spara" raggi
 		Coordinate target = Coordinate(0, 0, map->size);
-		int steps = rand() % VISION_STEPS;
 		do {
-			if(steps == 0) {
-				//cerca physical
-				pPhysical tmp_floor[ROOM_AREA], tmp_ceil[ROOM_AREA];
-				int len_floor_t = checkLine(map, tmp_floor, source, target);
-				int len_ceil_t = checkLine_ceil(map, tmp_ceil, source, target);
-				//aggiungi quelli che non erano già stati trovati
-				for(int i = 0; i < len_floor_t; i++) {
-					if(!tmp_floor[i]->findInArray(obj_floor, len_floor)) {
-						obj_floor[len_floor] = tmp_floor[i];
-						len_floor++;
-					}
+			//cerca physical
+			pPhysical tmp_floor[ROOM_AREA], tmp_ceil[ROOM_AREA];
+			int len_floor_t = checkLine(map, tmp_floor, source, target);
+			int len_ceil_t = checkLine_ceil(map, tmp_ceil, source, target);
+			//aggiungi quelli che non erano già stati trovati
+			for(int i = 0; i < len_floor_t; i++) {
+				if(!tmp_floor[i]->findInArray(obj_floor, len_floor)) {
+					obj_floor[len_floor] = tmp_floor[i];
+					len_floor++;
 				}
-				for(int i = 0; i < len_ceil_t; i++) {
-					if(!tmp_ceil[i]->findInArray(obj_ceil, len_ceil)) {
-						obj_ceil[len_ceil] = tmp_ceil[i];
-						len_ceil++;
-					}
+			}
+			for(int i = 0; i < len_ceil_t; i++) {
+				if(!tmp_ceil[i]->findInArray(obj_ceil, len_ceil)) {
+					obj_ceil[len_ceil] = tmp_ceil[i];
+					len_ceil++;
 				}
-				steps = VISION_STEPS - 1;
-			} else steps--;
+			}
 			//next
 			if(target.x == 0 && target.y != 0 && target.y != map->size.y - 1) target.x = map->size.x - 1;
 			else target.next();
@@ -141,6 +137,23 @@ MapHandler::MapHandler() {
 		}
 		return length;
 	}
+	bool MapHandler::visionLine_check(pMap map, Coordinate source, pCharacter target, int range) {
+		bool valid = true;
+		Coordinate start = Coordinate(source, source.times(.5, .5)).integer(), end = Coordinate(target->getPosition(), target->getSize().times(.5, .5)).integer();
+		Coordinate delta = Coordinate::unitVector(start, end);
+		if(delta.equals(COORDINATE_ZERO)) return true;
+		else {
+			Coordinate i = Coordinate(start.x, start.y, map->size);
+			int dist = 0;
+			while(valid && (range < 1 || dist < range) && checkPosition(map, i) != target) {
+				if(checkLine_floor_next(map, i, delta).equals(COORDINATE_ERROR) || checkLine_ceil_next(map, i, delta).equals(COORDINATE_ERROR) || checkPosition(map, i)->getId() == ID_WALL || checkPosition(map, i.ceil())->getId() == ID_WALL)
+					valid = false;
+				else i = Coordinate(i, delta);
+			}
+			return valid;
+		}
+	}
+
 #pragma endregion PATH_FINDING
 
 
@@ -213,8 +226,8 @@ MapHandler::MapHandler() {
 
 			Coordinate i = start;
 			bool ended = false;
-			while(!ended && i.inBounds(COORDINATE_ZERO, map->size)) {
-				obj[found] = checkPosition(map, i);
+			while(!ended && i.ceil().inBounds(COORDINATE_ZERO, map->size)) {
+				obj[found] = checkPosition(map, i.ceil());
 				//prima di aggiungerlo (incrementando found) controlla 1.di aver trovato qualcosa
 				//2.di non averlo già inserito (per far ciò basta controllare l'ultimo inserito, perché gli oggetti, essendo rettangolari, non possono averne un altro "in mezzo", controllando in questo ordine)
 				if(obj[found] != NULL && (found == 0 || obj[found - 1] != obj[found])) found++;
@@ -447,9 +460,9 @@ MapHandler::MapHandler() {
 	}
 	Coordinate MapHandler::checkLine_ceil_next(pMap map, Coordinate i, Coordinate delta) {
 		Coordinate j = Coordinate(i, delta);
-		Coordinate t1 = Coordinate(i.x, j.y, map->size);
-		Coordinate t2 = Coordinate(j.x, i.y, map->size);
-		if((t1.inOwnBounds() && map->physical[t1.single()]->getId() == ID_WALL) && (t2.inOwnBounds() && map->physical[t2.single()]->getId() == ID_WALL)) return COORDINATE_ERROR;
+		Coordinate t1 = Coordinate(i.ceilx(), j.ceily(), map->size);
+		Coordinate t2 = Coordinate(j.ceilx(), i.ceily(), map->size);
+		if((t1.inOwnBounds() && map->physical[t1.ceil().single()]->getId() == ID_WALL) && (t2.inOwnBounds() && map->physical[t2.ceil().single()]->getId() == ID_WALL)) return COORDINATE_ERROR;
 		else return j;
 	}
 #pragma endregion AUSILIARIE

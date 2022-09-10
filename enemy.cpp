@@ -211,7 +211,9 @@ void Enemy::meleeIA(pMap map){
 			int objects_in_view2;
 			objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
 			objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), enemy_vision);
+			//bool b = MapHandler::visionLine_check(map, Coordinate(pos,size.times(.5,.5)), player, enemy_vision);
 			if (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)){
+			//if (b){
 				player_in_vision=true;
 				int player_distance;
 				Coordinate path[ROOM_AREA];
@@ -264,6 +266,8 @@ void Enemy::rangedIA(pMap map){
 	objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
 	objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), enemy_vision);
 	if ( (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2) ) && inRange()){
+	//bool b = MapHandler::visionLine_check(map, Coordinate(pos,size.times(.5,.5)), player, enemy_vision);
+	//if ( b && inRange()){
 		initiate_attack();
 	}
 	else{
@@ -276,6 +280,7 @@ void Enemy::rangedIA(pMap map){
 		else{
 			frames_passed=0;
 			if (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)){
+			//if (b){
 				player_in_vision=true;
 				int player_distance;
 				Coordinate path[ROOM_AREA];

@@ -72,6 +72,7 @@ void Pause_menu::open_options(){
     mvwprintw(w_options, 12, 2, "i tasti freccia servono a muoversi nelle 4 direzioni");
     mvwprintw(w_options, 14, 2, "i tasti w a s d servono ad attaccare nelle 4 direzioni");
     mvwprintw(w_options, 16, 2, "si può attaccare pure con ctrl + frecce direzionali");
+    mvwprintw(w_options, 18, 2, "nella mappa la P indica player e la B indica boss");
     wrefresh(w_options);
 }
 

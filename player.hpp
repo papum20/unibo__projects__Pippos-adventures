@@ -133,12 +133,9 @@ class Player : public Character {
 
 		pWeapon weapons[W_NUMBER];
 		int weapons_n;
-		int curr_weapon;
 		pItem_def defensive_items[DEF_NUMBER];
 		int defensive_items_n;
-		int last_def;
 		pArtifact artifacts[MAX_ARTIFACTS];
-		int curr_artifact;
 		int artifacts_n;
 
 		pInputManager in_manager;

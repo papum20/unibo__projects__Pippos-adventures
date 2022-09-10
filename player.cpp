@@ -263,24 +263,21 @@ void Player::collect_item(pMap mappa){
 }
 
 void Player::add_item(pWeapon w){
-	if (curr_weapon<(W_NUMBER-1)){
-		curr_weapon++;
+	if (weapons_n<(W_NUMBER-1)){
 		weapons[weapons_n]=w;
 		weapons_n++;
 	}
 }
 
 void Player::add_item (pItem_def i){
-	if (last_def<(DEF_NUMBER-1)){
-		last_def++;
+	if (defensive_items_n<(DEF_NUMBER-1)){
 		defensive_items[defensive_items_n]=i;
 		defensive_items_n++;
 	}
 }
 
 void Player::add_item (pArtifact a){
-	if (curr_artifact<(MAX_ARTIFACTS-1)){
-		curr_artifact++;
+	if (artifacts_n<(MAX_ARTIFACTS-1)){
 		artifacts[artifacts_n]=a;
 		artifacts_n++;
 	}

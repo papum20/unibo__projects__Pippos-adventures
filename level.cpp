@@ -2,24 +2,17 @@
 
 
 #pragma region MAIN
-	Level::Level(int win_x, int win_y, int win_w, int win_h, pPlayer player) {
+	Level::Level(int win_x, int win_y, int win_w, int win_h, pPlayer player) : Overlay(win_x, win_y, win_w, win_h) {
 		setUp(win_x, win_y, win_w, win_h, player);
 	}
-	Level::Level(int win_x, int win_y, pPlayer player) {
+	Level::Level(int win_x, int win_y, pPlayer player) : Overlay(win_x, win_y, CAMERA_WIDTH, CAMERA_HEIGHT) {
 		setUp(win_x, win_y, CAMERA_WIDTH, CAMERA_HEIGHT, player);
 	}
 	void Level::setUp(int win_x, int win_y, int win_w, int win_h, pPlayer player) {
-		width = win_w;
-		height = win_h;
 		this->lr_border = LR_BORDER;
 		this->tb_border = TB_BORDER;
-		level = 0;
+		level = 2;
 		this->player = player;
-
-		//n_rooms = N_ROOMS;
-		levelWindow = newwin(height, width, win_y, win_x);
-		box(levelWindow, 0, 0);
-		wrefresh(levelWindow);
 
 		map_size = Coordinate(N_ROOMS, N_ROOMS);
 		generateMap();
@@ -36,7 +29,8 @@
 	}
 	void Level::destroy() {
 		curRoom->recursiveDestroy();
-		delwin(levelWindow);
+		Overlay::destroy();
+		delete this;
 	}
 
 	void Level::generateMap()
@@ -91,14 +85,14 @@
 		for(int i = 1; i < N_ROOMS; i++) {
 			if(rooms[i] != NULL) {
 				rooms[i]->generate();
-				rooms[i]->spawn(level, NULL);
+				rooms[i]->spawn(level, player);
 			}
 		}
 		available.destroy();
 	}
 
 	void Level::display() {
-		cameraUpdate();
+		//cameraUpdate();
 		//displayAtPosition(position);
 		//displayAtPosition(Coordinate(CENTRAL_ROOM_WIDTH_T*SCALE_X/2, CENTRAL_ROOM_HEIGHT/2));
 		displayAtPosition(player->getPosition());
@@ -118,12 +112,17 @@
 				chtype cellValue = t_scr[room_y][x].toChtype();
 				if(screen[room_y][x] != cellValue) {
 					int scr_y = height - room_y - tb_border - 1;
-					mvwaddch(levelWindow, scr_y, x + lr_border, cellValue);
+					mvwaddch(window, scr_y, x + lr_border, cellValue);
 					screen[room_y][x] = cellValue;
 				}
 			}
 		}
-		wrefresh(levelWindow);
+		wrefresh(window);
+	}
+	void Level::open() {
+		box(window, 0, 0);
+		for(int y = 0; y < height; y++)
+			for(int x = 0; x < width; x++) screen[y][x] = Cell().toChtype();
 	}
 
 	void Level::update(int input) {
@@ -148,6 +147,7 @@
 		}
 	}
 	void Level::nextLevel() {
+		MapHandler::remove(curRoom->getMap(), player);		//rimuovo player cosi che non faccia il delete
 		curRoom->recursiveDestroy();
 		level++;
 		generateMap();

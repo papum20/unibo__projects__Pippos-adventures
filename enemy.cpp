@@ -11,16 +11,22 @@ Enemy::Enemy() : Character() {
 	main_color = COLOR_ENEMY;
 	frames_passed=enemy_refreshing_rate;
 	current_step=0;
+	memorized_steps=0;
 }
 
 Enemy::Enemy(pCharacter p):Character() {
-    player=p;
+	player = p;
+
 	maxStamina=enemy_stamina;
 	curStamina=maxStamina;
 	id= ID_ENEMY_S;
 	animations_n = 5;
-	
+	player_in_vision=false;
+	player_found=false;
 	main_color = COLOR_ENEMY;
+	frames_passed=enemy_refreshing_rate;
+	current_step=0;
+	memorized_steps=0;
 }
 
 int Enemy::getPoints(){

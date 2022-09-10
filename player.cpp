@@ -27,6 +27,8 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	//animations[player_dash_left_index] = new Animation(dash_left, Coordinate(p_height, p_width), player_dash_left_states);
 	//animations[player_dash_right_index] = new Animation(dash_right, Coordinate(p_height, p_width), player_dash_right_states);
 
+	animations_n = 5;
+
 
 	idle_index=player_idle_index;
 	move_right_index=player_move_right_index;
@@ -221,7 +223,7 @@ void Player::destroyInstance(pMap map){
 	for (int i=0; i<defensive_items_n; i++){
 		defensive_items[i]->destroy(NULL);
 	}
-	Character::destroy(map);
+	Character::destroyInstance(map);
 }
 
 void Player::collect_item(pMap mappa){
@@ -256,6 +258,7 @@ void Player::collect_item(pMap mappa){
 				n_keys++;
 				break;
 		}
+		chest->destroy(mappa);
 	}
 }
 

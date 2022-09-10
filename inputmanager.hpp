@@ -3,6 +3,7 @@
 
 #include "timer.hpp"
 #include <curses.h>
+#include "overlay.hpp"
 
 const int input_h=1;
 const int input_l=2;
@@ -11,7 +12,7 @@ const int input_l=2;
 #define INPUT_IMER_LIMIT (REFRESH_RATE)
 
 
-class InputManager {
+class InputManager:public Overlay {
 	private:
 		int curr_input;
 		WINDOW* input_window;

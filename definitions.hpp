@@ -115,6 +115,14 @@ const int scroll_right = KEY_RIGHT;
 #define KEY_QUIT 'o'
 #define KEY_MAP 'b'
 #define KEY_SELECT_MENU invio
+//gioco
+#define KEY_INTERACT 'v'
+#pragma endregion KEY_BINDINGS
+
+
+#define ERROR_INT -1
+
+
 //MESSAGGI DI SISTEMA
 #define max_words 70
 const char door_unlocked[max_words]={"PORTA SBLOCCATA"};
@@ -132,12 +140,8 @@ const char collect_item_difensive[max_words]={"HAI RACCOLTO UN ITEM DIFENSIVO"};
 const char collect_artifact[max_words]={"HAI RACCOLTO UN ARTEFATTO"};
 const char upgrade_equip[max_words]={"HAI MIGLIORATO UN OGGETTO NEL TUO EQUIPAGGIAMENTO"};
 const char no_upgrade[max_words]={"NON PUOI MIGLIORARE NESSUN ALTRO OGGETTO DEL TUO EQUIPAGGIAMENTO"};
-//gioco
-#define KEY_INTERACT 'v'
-#pragma endregion KEY_BINDINGS
 
 
-#define ERROR_INT -1
 
 
 #endif

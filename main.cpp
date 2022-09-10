@@ -31,17 +31,16 @@ int main() {
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
 	pPlayer player = new Player(inputManager);
-	Level level = Level(level_x, level_y, player);	
+	pLevel level = new Level(level_x, level_y, player);	
 
 	Hud hud = Hud(hud_x, hud_y, player);
-	
-	Pause_menu  pause_menu = Pause_menu(player,stdscr_x, stdscr_y);
-	Start_menu menu = Start_menu(stdscr_x, stdscr_y);
-	
-	MiniMap miniMap = MiniMap(map_x, map_y);
-
-
+	MiniMap *miniMap = new MiniMap(map_x, map_y, level);
 	System_text text = System_text(stdscr_x, stdscr_y);
+	Start_menu menu = Start_menu(stdscr_x, stdscr_y);
+	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y);
+	
+
+
 	
 	menu.open();
 	
@@ -83,34 +82,34 @@ int main() {
 			}
 			else if(inputManager->get_input() == KEY_PAUSE) {
 				if(!pressedPause) {
-					if (!pause_menu.is_active()) pause_menu.open();
-					else pause_menu.close();
+					if (!pause_menu->is_active()) pause_menu->open();
+					else level->open_over(pause_menu);
 					pressedPause = true;
 				}
 			}
 			else if(inputManager->get_input() == KEY_MAP) {
 				if(!pressedMinimap) {
-					if(!miniMap.isOpen()) miniMap.open(level);
-					else miniMap.close();
+					if(!miniMap->isOpen()) miniMap->open();
+					else level->open_over(miniMap);
 					pressedMinimap = true;
 				}
 			}
 
 			//// UPDATE
-			if(pause_menu.is_active()) {
+			if(pause_menu->is_active()) {
 				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "pause");
 
-				if(!pressedPause) pause_menu.update(inputManager->get_input());
-				else pause_menu.update(ERR);
+				if(!pressedPause) pause_menu->update(inputManager->get_input());
+				else pause_menu->update(ERR);
 			}
-			else if(miniMap.isOpen()) {
+			else if(miniMap->isOpen()) {
 				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map  ");
 			}
 			else {
 				if(frame%2==0) mvwprintw(debug,5,1,"level");
 
-				level.update(inputManager->get_input());
-				level.display();
+				level->update(inputManager->get_input());
+				level->display();
 				hud.drawHud();
 			}
 		}
@@ -129,9 +128,13 @@ int main() {
 	cursesEnd();
 	gameEnd();
 	//DELETE
-	//level.destroy();
-	//player->destroy(NULL);
-	//inputManager->destroy();
+	hud.destroy();
+	inputManager->destroy();
+	level->destroy();
+	menu.destroy();
+	miniMap->destroy();
+	pause_menu->destroy();
+	player->destroy(NULL);
 	
 }
 

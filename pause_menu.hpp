@@ -4,6 +4,7 @@
 #include <iostream>
 #include <curses.h>
 #include <cstring>
+#include "overlay.hpp"
 #include "pixel_art.hpp"
 
 #include "item_difensivi.hpp"
@@ -393,7 +394,7 @@ const char rarity[4][12] = {"comune", "raro", "epico", "leggendario"};
 const char type[n_graphic_types_items][10] = {"spada", "arco", "armatura", "scudo", "elmo","ascia","pozione","stivali","collana","bastone"};
 
 
-class Pause_menu : public Pixel_art{
+class Pause_menu : public Pixel_art, public Overlay {
 	private:
         WINDOW * w_inventory;
         WINDOW * w_zaino;

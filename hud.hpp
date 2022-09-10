@@ -2,6 +2,7 @@
 #define HUD_HPP
 
 #include <curses.h>
+#include "overlay.hpp"
 #include "player.hpp"
 #include "cell.hpp"
 
@@ -164,7 +165,7 @@ const char nine[number_rows][number_columns]=
 };
 
 
-class Hud {
+class Hud :public Overlay {
 	private:
 		int x_win;
 		int y_win;
@@ -176,6 +177,7 @@ class Hud {
 	public:
     WINDOW* hud_win;
     Hud(int x, int y, pPlayer p);
+    void destroy();
 
 		void drawHud();		//disegna hud (in gioco)
     void draw_number(int x, int y, int number);

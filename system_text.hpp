@@ -7,6 +7,7 @@
 #include <iostream>
 #include "pixel_art.hpp"
 #include "definitions.hpp"
+#include "overlay.hpp"
 #include <cstring>
 
 #define WINDOW_TEXT_HEIGHT 13
@@ -14,7 +15,7 @@
 
 
 
-class System_text {
+class System_text:public Overlay {
 	protected:
     WINDOW * text;
     int space;

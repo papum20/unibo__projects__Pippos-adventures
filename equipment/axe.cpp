@@ -2,7 +2,7 @@
 #include <cstring>
 
 Ascia::Ascia():Weapon(){
-    strcpy(rarity, common);
+    //strcpy(rarity, common);
     id=ID_WEAPON_AXE;
     danno_fisico_iniziale=Math::randomStep(30, 50, 5);
     danno_magico_iniziale=0;

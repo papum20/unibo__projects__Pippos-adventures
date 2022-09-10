@@ -1,7 +1,7 @@
 #include "sword.hpp"
 
 sword::sword():Weapon(){
-    strcpy(rarity, rare);
+    //strcpy(rarity, rare);
     id=ID_SWORD;
     danno_fisico_iniziale=Math::randomStep(20, 40, 5);
     danno_magico_iniziale=0;

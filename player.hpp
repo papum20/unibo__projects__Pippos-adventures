@@ -120,7 +120,7 @@ const int mv_down=KEY_DOWN;
 const int mv_left=KEY_LEFT;
 const int mv_right=KEY_RIGHT;
 
-const int MAX_ARTIFACTS=10;
+const int MAX_ARTIFACTS=8;
 
 
 

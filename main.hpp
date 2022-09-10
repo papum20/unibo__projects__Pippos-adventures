@@ -10,7 +10,7 @@
 #include "hud.hpp"
 #include "inputmanager.hpp"
 #include "pause_menu.hpp"
-#include "menu.hpp"
+#include "start_menu.hpp"
 #include "minimap.hpp"
 
 #include "level.hpp"

@@ -12,6 +12,7 @@
 #include "pause_menu.hpp"
 #include "start_menu.hpp"
 #include "minimap.hpp"
+#include "system_text.hpp"
 
 #include "level.hpp"
 #include "player.hpp"

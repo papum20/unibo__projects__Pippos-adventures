@@ -41,8 +41,10 @@ int main() {
 	MiniMap miniMap = MiniMap(map_x, map_y);
 
 
-
-	//menu.open();
+	System_text text = System_text(stdscr_x, stdscr_y);
+	
+	menu.open();
+	text.open();
 
 	
 	WINDOW *debug = newwin(10,10,0,0);

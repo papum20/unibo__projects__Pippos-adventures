@@ -391,10 +391,9 @@
 	pRoom Room::getConnectedRoom(pDoor room) {
 		return NULL;
 	}
-	/*void Room::getMap(pPhysical map[], Coordinate &size) {
-		for(s_coord i = 0; i < this->map->getSize().x / scale_x * this->map->getSize().y; i++) map[i] = this->map->checkPosition(Coordinate(i * scale_x, this->map->getSize()));
-		size = this->map->getSize().times(1. / scale_x, 1);
-	}*/
+	pMap Room::getMap() {
+		return map;
+	}
 	void Room::remove(pPhysical obj) {
 		MapHandler::remove(map, obj);
 	}

@@ -128,7 +128,7 @@ class Room {
 		// GET
 		Coordinate getPos();
 		Coordinate getSize();
-		//void getMap(pPhysical map[], Coordinate &size);			//modifica mappa, ritorna dimensioni
+		pMap getMap();
 		pDoor getDoor(int dir);										//porta in direzione
 		virtual Coordinate getEntrance(pDoor door);					//posizione in cui si entra nell'altra stanza attraversando questa porta
 		virtual Room *getConnectedRoom(pDoor door);					//ritorna il puntatore alla stanza collegata dalla porta

@@ -10,18 +10,23 @@ Enemy::Enemy() : Character() {
 	player_found=false;
 	main_color = COLOR_ENEMY;
 	frames_passed=enemy_refreshing_rate;
-	current_step=1;
-	range=enemy_range;
+	current_step=0;
+	memorized_steps=0;
 }
 
 Enemy::Enemy(pCharacter p):Character() {
-    player=p;
+	player = p;
+
 	maxStamina=enemy_stamina;
 	curStamina=maxStamina;
 	id= ID_ENEMY_S;
 	animations_n = 5;
-	
+	player_in_vision=false;
+	player_found=false;
 	main_color = COLOR_ENEMY;
+	frames_passed=enemy_refreshing_rate;
+	current_step=0;
+	memorized_steps=0;
 }
 
 int Enemy::getPoints(){
@@ -64,9 +69,8 @@ void Enemy::copyEnemy(Enemy B) {
 		change_armor(new item_difensivo());
 		equipaggiamento.armatura->copyItemDifensivo(*B.equipaggiamento.armatura);
 	}
-
-
-    copyCharacter(B);
+	current_step=0;
+	Character::copyCharacter(B);
 }
 
 void Enemy::update(pMap map){
@@ -259,51 +263,63 @@ void Enemy::rangedIA(pMap map){
 	int objects_in_view2;
 	objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
 	objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), enemy_vision);
-	if (player->findInArray(obj, objects_in_view)){
-		Coordinate path[ROOM_AREA];
-		int player_distance;
-		player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
-		if (player_distance>=max_steps){
-			memorized_steps=max_steps;
-			for (int i=0; i<memorized_steps; i++){
-				memorized_path[i]=path[i];
+	if ( (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2) ) && inRange()){
+		initiate_attack();
+	}
+	else{
+		if (frames_passed<enemy_refreshing_rate){
+			frames_passed++;
+			if (player_in_vision && current_step<memorized_steps){
+				make_step(map);
 			}
 		}
 		else{
-			memorized_steps=player_distance;
-			for (int i=0; i<memorized_steps; i++){
-				memorized_path[i]=path[i];
-			}
-		}
-		current_step=1;
-		if (player_distance<range){
-			if ( player->getPosition().x>=pos.x-1 && player->getPosition().x<=pos.x+size.x ){
-				if (player->getPosition().y<pos.y){
-					direction='d';
-					initiate_attack();
+			frames_passed=0;
+			if (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)){
+				player_in_vision=true;
+				int player_distance;
+				Coordinate path[ROOM_AREA];
+				player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
+				if (player_distance>=max_steps){
+					memorized_steps=max_steps;
+					for (int i=0; i<memorized_steps; i++){
+						memorized_path[i]=path[i];
+					}
 				}
 				else{
-					direction='u';
-					initiate_attack();
+					memorized_steps=player_distance;
+					for (int i=0; i<memorized_steps; i++){
+						memorized_path[i]=path[i];
+					}
 				}
-			}
-			if (player->getPosition().y>=pos.y-1 && player->getPosition().y<=pos.y+size.y){
-				if (player->getPosition().x<pos.x){
-					direction='l';
-					initiate_attack();
-				}
-				else{
-					direction='r';
-					initiate_attack();
-				}	
-			}
-			if (!is_attacking) make_step(map);
-		}
-		else
-			if (player_distance<chase_distance){
+				current_step=0;
 				make_step(map);
 			}
+			else
+				player_in_vision=false;
+		}
 	}
-	else
-		make_step(map);
+}
+
+
+bool Enemy::inRange(){
+	if (player->getPosition().x>=pos.x && player->getPosition().x<pos.x+size.x && Math::abs(pos.y-player->getPosition().y)<enemy_range/2){
+		if (player->getPosition().y<pos.y){
+			direction='d';
+		}
+		else{
+			direction='u';
+		}
+		return true;
+	}
+	if (player->getPosition().y>=pos.y && player->getPosition().y<pos.y+size.y && Math::abs(pos.x-player->getPosition().x)<enemy_range/2){
+		if (player->getPosition().x<pos.x){
+			direction='l';
+		}
+		else{
+			direction='r';
+		}
+		return true;
+	}
+	return false;
 }

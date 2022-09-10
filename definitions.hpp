@@ -123,4 +123,25 @@ const int scroll_right = KEY_RIGHT;
 #define ERROR_INT -1
 
 
+//MESSAGGI DI SISTEMA
+#define max_words 70
+const char door_unlocked[max_words]={"PORTA SBLOCCATA"};
+const char no_keys[max_words]={"CHIAVI INSUFFICIENTI"};
+const char gain_life[max_words]={"HAI RIPRISTINATO PARTE DELLA TUA SALUTE"};
+const char life_max[max_words]={"LA TUA SALUTE E' AL MASSIMO"};
+const char gain_heart[max_words]={"HAI OTTENUTO UNA VITA IN PIU'"};
+const char lose_heart[max_words]={"HAI PERSO UNA VITA"};
+const char life_full[max_words]={"HAI RAGGIUNTO IL NUMERO MASSIMO DI VITE"};
+const char no_weapon[max_words]={"NON PUOI PIU' RACCOGLIERE ARMI"};
+const char no_item_difensive[max_words]={"NON PUOI PIU' RACCOGLIERE OGGETTI DIFENSIVI"};
+const char no_artifacts[max_words]={"NON PUOI PIU' RACCOGLIERE ARTEFATTI"};
+const char collect_weapon[max_words]={"HAI RACCOLTO UN'ARMA"};
+const char collect_item_difensive[max_words]={"HAI RACCOLTO UN ITEM DIFENSIVO"};
+const char collect_artifact[max_words]={"HAI RACCOLTO UN ARTEFATTO"};
+const char upgrade_equip[max_words]={"HAI MIGLIORATO UN OGGETTO NEL TUO EQUIPAGGIAMENTO"};
+const char no_upgrade[max_words]={"NON PUOI MIGLIORARE NESSUN ALTRO OGGETTO DEL TUO EQUIPAGGIAMENTO"};
+
+
+
+
 #endif

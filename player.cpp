@@ -257,6 +257,7 @@ void Player::collect_item(pMap mappa){
 				n_keys++;
 				break;
 		}
+		chest->destroy(mappa);
 	}
 }
 

@@ -14,7 +14,7 @@ const int enemy_refreshing_rate=3;
 const int chase_distance=15;
 const int enemy_vision=30;
 const int max_steps=enemy_refreshing_rate*2;
-const int enemy_range=10;
+const int enemy_range=50;
 
 class Enemy : public Character {
 	protected:
@@ -27,7 +27,6 @@ class Enemy : public Character {
 		int frames_passed;
 		int memorized_steps;
 		int current_step;
-		int range;
 	public:
 		Enemy();
 		Enemy(pCharacter p);
@@ -35,6 +34,7 @@ class Enemy : public Character {
 		void destroyInstance(pMap map);
 		void copyEnemy(Enemy B);			//copia i parametri di B
 
+		bool inRange();
 		void make_step(pMap map);
 		void update(pMap map);
 		void check_enemy_melee(pMap map);

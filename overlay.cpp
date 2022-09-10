@@ -20,8 +20,8 @@ void Overlay::open() {
 	wrefresh(window);
 }
 
-void Overlay::open_over(Overlay B) {
-	B.close();
+void Overlay::open_over(Overlay *B) {
+	B->close();
 	open();
 }
 

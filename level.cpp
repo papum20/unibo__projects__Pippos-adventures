@@ -85,14 +85,14 @@
 		for(int i = 1; i < N_ROOMS; i++) {
 			if(rooms[i] != NULL) {
 				rooms[i]->generate();
-				rooms[i]->spawn(level, NULL);
+				rooms[i]->spawn(level, player);
 			}
 		}
 		available.destroy();
 	}
 
 	void Level::display() {
-		cameraUpdate();
+		//cameraUpdate();
 		//displayAtPosition(position);
 		//displayAtPosition(Coordinate(CENTRAL_ROOM_WIDTH_T*SCALE_X/2, CENTRAL_ROOM_HEIGHT/2));
 		displayAtPosition(player->getPosition());
@@ -147,6 +147,7 @@
 		}
 	}
 	void Level::nextLevel() {
+		MapHandler::remove(curRoom->getMap(), player);		//rimuovo player cosi che non faccia il delete
 		curRoom->recursiveDestroy();
 		level++;
 		generateMap();

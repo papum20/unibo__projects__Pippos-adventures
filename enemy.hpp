@@ -10,10 +10,10 @@
 
 const int enemy_stamina=50;
 const int enemy_refreshing_rate=3;
-const int chase_distance=20;
+const int chase_distance=15;
 const int enemy_vision=30;
-const int initial_step=0;
 const int max_steps=enemy_refreshing_rate*2;
+const int enemy_range=10;
 
 class Enemy : public Character {
 	protected:
@@ -26,6 +26,7 @@ class Enemy : public Character {
 		int frames_passed;
 		int memorized_steps;
 		int current_step;
+		int range;
 	public:
 		Enemy();
 		Enemy(pCharacter p);

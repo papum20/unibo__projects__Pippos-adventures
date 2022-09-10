@@ -81,8 +81,6 @@ inanimate.o: inanimate.cpp inanimate.hpp
 	g++ -c inanimate.cpp
 inputmanager.o: inputmanager.cpp inputmanager.hpp
 	g++ -c inputmanager.cpp
-inventory.o: inventory.cpp inventory.hpp
-	g++ -c inventory.cpp
 item.o: item.cpp item.hpp
 	g++ -c item.cpp
 item_difensivi.o: item_difensivi.cpp item_difensivi.hpp
@@ -107,6 +105,8 @@ menu.o: menu.cpp menu.hpp
 	g++ -c menu.cpp
 minimap.o: minimap.cpp minimap.hpp
 	g++ -c minimap.cpp
+pause_menu.o: pause_menu.cpp pause_menu.hpp
+	g++ -c pause_menu.cpp
 physical.o: physical.cpp physical.hpp
 	g++ -c physical.cpp
 pixel_art.o: pixel_art.cpp pixel_art.hpp

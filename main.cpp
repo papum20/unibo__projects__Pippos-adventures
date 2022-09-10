@@ -30,36 +30,18 @@ int main() {
 
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
-	pPlayer player = new Player(inputManager);
-	Level level = Level(level_x, level_y, player);
+	
 
 	Hud hud = Hud(hud_x, hud_y, player);
-	Inventory  inventory = Inventory(player,1, 80, 11, 40, 12, 110, 16, 85, 18, 100);//inventory zaino item_menu status opzioni
-	pSword sw = new sword();
-	Ascia * axe = new Ascia();
-	HealthPotion * hp = new HealthPotion();
-	HealthPotion * hd = new HealthPotion();
-	pElixir elis = new Life_elixir();
-	pSword sd = new sword();
-	pSword d = new sword();
-	pSword f = new sword();
-	shield * s = new shield();
-	inventory.insert(hp);
-	inventory.insert(hd);
-	inventory.insert(d);
-	inventory.insert(axe);
-	inventory.insert(elis);
-	inventory.insert(s);
+	Pause_menu  pause_menu = Pause_menu(player,3, stdscr_x/(3.3), stdscr_y/4, stdscr_x/(3.5), stdscr_y/(4.2), stdscr_x/(2), stdscr_y/(3.7), stdscr_x/(2.9), stdscr_y/(3.5), stdscr_x/(2.7));//inventory zaino item_menu status opzioni
+	pSword s = new sword();
+	pause_menu.insert(s);
 	
-	Menu menu = Menu(40, 125, 37, 120, 35, 50);//menu, opzioni, face
+	Menu menu = Menu(stdscr_y/(2.2), stdscr_x/(2.5), stdscr_y/(3.5), stdscr_x/(2.7), stdscr_y/(2.4), stdscr_x/(5.6));//menu, opzioni, face
 	MiniMap miniMap = MiniMap(map_x, map_y);
 
-
-
-	//menu.open();
+	menu.open();
 	
-
-
 	WINDOW *debug = newwin(10,10,0,0);
 	box(debug,0,0);
 	wrefresh(debug);
@@ -98,8 +80,8 @@ int main() {
 			}
 			else if(inputManager->get_input() == KEY_PAUSE) {
 				if(!pressedPause) {
-					if (!inventory.is_active()) inventory.open();
-					else inventory.close();
+					if (!pause_menu.is_active()) pause_menu.open();
+					else pause_menu.close();
 					pressedPause = true;
 				}
 			}
@@ -112,11 +94,11 @@ int main() {
 			}
 
 			//// UPDATE
-			if(inventory.is_active()) {
+			if(pause_menu.is_active()) {
 				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "pause");
 
-				if(!pressedPause) inventory.update(inputManager->get_input());
-				else inventory.update(ERR);
+				if(!pressedPause) pause_menu.update(inputManager->get_input());
+				else pause_menu.update(ERR);
 			}
 			else if(miniMap.isOpen()) {
 				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map  ");

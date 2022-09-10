@@ -25,6 +25,7 @@ Zombie::Zombie():Enemy(){
     curHealth=maxHealth;
 }
 Zombie::Zombie(pCharacter p):Enemy(p){
+    speed = SPEED_ZOMBIE;
     size=Coordinate (zombie_width, zombie_depth);
 
     idle_index=zombie_idle_index;

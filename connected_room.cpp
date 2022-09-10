@@ -9,20 +9,6 @@
 			connected[i] = NULL;
 			map->doors[i] = NULL;
 		}
-		door_positions[DIRECTION_UP]	= Coordinate((size.x - DOOR_WIDTH) / 2, size.y - DOOR_DEPTH);
-		door_positions[DIRECTION_RIGHT]	= Coordinate(size.x - DOOR_DEPTH, (size.y - DOOR_WIDTH) / 2);
-		door_positions[DIRECTION_DOWN]	= Coordinate((size.x - DOOR_WIDTH) / 2, 0);
-		door_positions[DIRECTION_LEFT]	= Coordinate(0, (size.y - DOOR_WIDTH) / 2);
-
-		door_entrances[DIRECTION_UP]	= Coordinate((size.x - p_width) / 2, size.y - DOOR_DEPTH - p_depth);
-		door_entrances[DIRECTION_RIGHT]	= Coordinate(size.x - DOOR_DEPTH - p_width, (size.y - p_depth) / 2);
-		door_entrances[DIRECTION_DOWN]	= Coordinate((size.x - p_width) / 2, DOOR_DEPTH);
-		door_entrances[DIRECTION_LEFT]	= Coordinate(DOOR_DEPTH, (size.y - p_depth) / 2);
-
-		door_zones_t[DIRECTION_UP]		= Coordinate((size_t.x - ZONE_DOOR_UD.x/scale.x) / 2, size_t.y - 1 - ZONE_DOOR_UD.y/scale.y);
-		door_zones_t[DIRECTION_RIGHT]	= Coordinate(size_t.x - 1 - ZONE_DOOR_LR.x/scale.x, (size_t.y - ZONE_DOOR_LR.y/scale.y) / 2);
-		door_zones_t[DIRECTION_DOWN] 	= Coordinate((size_t.x - ZONE_DOOR_UD.x/scale.x) / 2, 1);
-		door_zones_t[DIRECTION_LEFT] 	= Coordinate(1, (size_t.y - ZONE_DOOR_LR.y/scale.y) / 2);
 
 		locked_doors = 0;
 		destroyed = false;
@@ -64,14 +50,14 @@
 		for(int dir = 0; dir < DIRECTIONS_N; dir++) {
 			pDoor door = map->doors[dir];
 			if(door != NULL) {
-				Coordinate end = Coordinate(door_zones_t[dir], ZONE_DOOR_LR.times(1 / scale.x, 1 / scale.y).ceil());
-				if(dir == DIRECTION_UP || dir == DIRECTION_DOWN) end = Coordinate(door_zones_t[dir], ZONE_DOOR_UD.times(1 / scale.x, 1 / scale.y).ceil());
-				Coordinate i = Coordinate(door_zones_t[dir], size, door_zones_t[dir], end);
+				Coordinate end = Coordinate(door_zone_t(dir), ZONE_DOOR_LR.times(1 / scale.x, 1 / scale.y).ceil());
+				if(dir == DIRECTION_UP || dir == DIRECTION_DOWN) end = Coordinate(door_zone_t(dir), ZONE_DOOR_UD.times(1 / scale.x, 1 / scale.y).ceil());
+				Coordinate i = Coordinate(door_zone_t(dir), size, door_zone_t(dir), end);
 				do {
 					map->physical[i.single()] = FLOOR_INSTANCE;
 					sets->makeSet(i.single());
 					i.next();
-				} while(!i.equals(door_zones_t[dir]));
+				} while(!i.equals(door_zone_t(dir)));
 			}
 		}
 	}
@@ -122,6 +108,29 @@
 	int ConnectedRoom::keyChestsNumber() {
 		return locked_doors;
 	}
+	Coordinate ConnectedRoom::door_position(int dir) {
+		if(dir == DIRECTION_UP)			return Coordinate((size.x - DOOR_WIDTH) / 2, size.y - DOOR_DEPTH);
+		else if(dir == DIRECTION_RIGHT) return Coordinate(size.x - DOOR_DEPTH, (size.y - DOOR_WIDTH) / 2);
+		else if(dir == DIRECTION_DOWN)	return Coordinate((size.x - DOOR_WIDTH) / 2, 0);
+		else if(dir == DIRECTION_LEFT)	return Coordinate(0, (size.y - DOOR_WIDTH) / 2);
+		else return COORDINATE_ERROR;
+	}
+	Coordinate ConnectedRoom::door_entrance(int dir) {
+		if(dir == DIRECTION_UP) 		return Coordinate((size.x - p_width) / 2, size.y - DOOR_DEPTH - p_depth);
+		else if(dir == DIRECTION_RIGHT) return Coordinate(size.x - DOOR_DEPTH - p_width, (size.y - p_depth) / 2);
+		else if(dir == DIRECTION_DOWN)	return Coordinate((size.x - p_width) / 2, DOOR_DEPTH);
+		else if(dir == DIRECTION_LEFT)	return Coordinate(DOOR_DEPTH, (size.y - p_depth) / 2);
+		else return COORDINATE_ERROR;
+	}
+	Coordinate ConnectedRoom::door_zone_t(int dir) {
+
+		if(dir == DIRECTION_UP) 		return Coordinate((size_t.x - ZONE_DOOR_UD.x/scale.x) / 2, size_t.y - 1 - ZONE_DOOR_UD.y/scale.y);
+		else if(dir == DIRECTION_RIGHT) return Coordinate(size_t.x - 1 - ZONE_DOOR_LR.x/scale.x, (size_t.y - ZONE_DOOR_LR.y/scale.y) / 2);
+		else if(dir == DIRECTION_DOWN)	return Coordinate((size_t.x - ZONE_DOOR_UD.x/scale.x) / 2, 1);
+		else if(dir == DIRECTION_LEFT) 	return Coordinate(1, (size_t.y - ZONE_DOOR_LR.y/scale.y) / 2);
+		else return COORDINATE_ERROR;
+
+	}
 #pragma endregion AUSILIARIE
 
 
@@ -130,7 +139,7 @@
 	void ConnectedRoom::addDoor(int dir, lock_type lt, bool boss) {
 		Coordinate door_size = DOOR_SIZE;
 		if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) door_size = door_size.swapped();
-		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_positions[dir], door_size, door_entrances[dir], lt, boss);
+		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_position(dir), door_size, door_entrance(dir), lt, boss);
 	}
 	bool ConnectedRoom::addLockedDoor() {
 		if(locked_doors < LOCKED_DOORS_MAX) {

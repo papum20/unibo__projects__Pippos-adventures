@@ -35,7 +35,7 @@ const Coordinate SPAWN_DISTANCE = Coordinate(40, 14);				//distanza dal player i
 
 //SPAWN: istanze e probabilità
 //enemy
-const int ENEMIES_N[LEVELS_N] {10, 10, 10};
+const int ENEMIES_N[LEVELS_N] {3, 10, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]		= 	{
 															{Zombie(), Zombie()},
 															{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},

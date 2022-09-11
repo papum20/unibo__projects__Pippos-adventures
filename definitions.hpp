@@ -28,7 +28,11 @@
 // INVENTORY
 //space
 const int n_max_inventory_objects = 19;
+//SYSTEM_TEXT_WINDOW_CONSTANTS
+#define WINDOW_TEXT_HEIGHT 11
+#define WINDOW_TEXT_WIDTH 70
 #pragma endregion SCREENS_SIZES
+
 
 
 ////LEVEL
@@ -143,7 +147,7 @@ const char collect_item_difensive[max_words]={"HAI RACCOLTO UN ITEM DIFENSIVO"};
 const char collect_artifact[max_words]={"HAI RACCOLTO UN ARTEFATTO"};
 const char upgrade_equip[max_words]={"HAI MIGLIORATO UN OGGETTO NEL TUO EQUIPAGGIAMENTO"};
 const char no_upgrade[max_words]={"NON PUOI MIGLIORARE NESSUN ALTRO OGGETTO DEL TUO EQUIPAGGIAMENTO"};
-
+const char no_stamina[max_words]={"NON HAI STAMINA SUFFICIENTE PER ATTACCARE"};
 
 
 

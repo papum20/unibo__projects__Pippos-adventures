@@ -1,7 +1,6 @@
 #include "character.hpp"
 #include "map_handler.hpp"
 
-
 Character::Character() : Alive() {
 	is_attacking=false;
 	initialize_equipment();
@@ -197,9 +196,10 @@ void Character::apply_equipment (){
 //FUNZIONI MOVIMENTO
 
 void Character::moveUp(pMap map){
-	//Animate::moveUp(map);
-	resetAnimation();
-	equipaggiamento.arma->resetAnimation();
+	if (curStamina+stamina_gain>maxStamina)
+		curStamina=maxStamina;
+	else
+		curStamina+=stamina_gain;
 	if (current_animation==move_up_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -215,8 +215,10 @@ void Character::moveUp(pMap map){
 }
 
 void Character::moveDown(pMap map){
-	//Animate::moveDown(map);
-	resetAnimation();
+	if (curStamina+stamina_gain>maxStamina)
+		curStamina=maxStamina;
+	else
+		curStamina+=stamina_gain;
 	equipaggiamento.arma->resetAnimation();
 	if (current_animation==move_down_index){
 		next_animation();
@@ -235,9 +237,10 @@ void Character::moveDown(pMap map){
 }
 
 void Character::moveLeft(pMap map){
-	//Animate::moveLeft(map);
-	resetAnimation();
-	equipaggiamento.arma->resetAnimation();
+	if (curStamina+stamina_gain>maxStamina)
+		curStamina=maxStamina;
+	else
+		curStamina+=stamina_gain;
 	if (current_animation==move_left_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -255,9 +258,10 @@ void Character::moveLeft(pMap map){
 }
 
 void Character::moveRight(pMap map){
-	//Animate::moveRight(map);
-	resetAnimation();
-	equipaggiamento.arma->resetAnimation();
+	if (curStamina+stamina_gain>maxStamina)
+		curStamina=maxStamina;
+	else
+		curStamina+=stamina_gain;
 	if (current_animation==move_right_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -286,22 +290,24 @@ void Character::change_points(int delta){
 }
 
 void Character::initiate_attack (){
-	//animation_counter=0;
-	is_attacking=true;
-	(equipaggiamento.arma)->initiate_attack(direction);
-	switch (direction){
-		case 'u':
-			current_animation=move_up_index;
-			break;
-		case 'd':
-			current_animation=move_down_index;
-			break;
-		case 'r':
-			current_animation=move_right_index;
-			break;
-		case 'l':
-			current_animation=move_left_index;
-			break;
+	if (curStamina-stamina_cost>=0){
+		curStamina=curStamina-stamina_cost;
+		is_attacking=true;
+		(equipaggiamento.arma)->initiate_attack(direction);
+		switch (direction){
+			case 'u':
+				current_animation=move_up_index;
+				break;
+			case 'd':
+				current_animation=move_down_index;
+				break;
+			case 'r':
+				current_animation=move_right_index;
+				break;
+			case 'l':
+				current_animation=move_left_index;
+				break;
+		}
 	}
 }
 

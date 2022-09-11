@@ -1,7 +1,8 @@
 #include "player.hpp"
 #include "map_handler.hpp"
 
-Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
+Player::Player(pInputManager in, System_text* system_text):Character(p_max_health, p_max_stamina){
+	text=system_text;
 	size=Coordinate (p_width, p_depth);
 	speed = SPEED_PLAYER;
 
@@ -11,7 +12,6 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	n_keys = 0;
 	id=ID_PLAYER;
 	main_color = COLOR_PLAYER;
-	points = 0;
 
 	used_door = NULL;
 
@@ -35,7 +35,7 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	move_left_index=player_move_left_index;
 	move_up_index=player_move_up_index;
 	move_down_index=player_move_down_index;
-	points=0;
+	points=1500;
 
 
 	weapons[0]= new sword();
@@ -155,22 +155,26 @@ void Player::update(pMap map){
 					}
 					case ('w'):{
 						direction='u';
-						initiate_attack();
+						if (checkStamina())
+							initiate_attack();
 						break;
 					}
 					case ('a'):{
 						direction='l';
-						initiate_attack();
+						if (checkStamina())
+							initiate_attack();
 						break;
 					}
 					case ('d'):{
 						direction='r';
-						initiate_attack();
+						if (checkStamina())
+							initiate_attack();
 						break;
 					}
 					case ('s'):{
 						direction='d';
-						initiate_attack();
+						if (checkStamina())
+							initiate_attack();
 						break;
 					}
 				}
@@ -221,6 +225,14 @@ void Player::check_enemy_melee(pMap map){
     }
 }
 
+bool Player::checkStamina(){
+	if (curStamina-stamina_cost<0){
+		text->insert_string(no_stamina);
+		return false;
+	}
+	else
+		return true;
+}
 void Player::destroyInstance(pMap map){
 	for (int i=0; i<weapons_n; i++){
 		weapons[i]->destroy(NULL);

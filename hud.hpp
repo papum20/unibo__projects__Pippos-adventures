@@ -21,7 +21,7 @@ struct list{
 
 typedef list* p_list;
 
-#define HUD_WIDTH 200
+#define HUD_WIDTH 190
 #define HUD_HEIGHT 8
 #define HUD_OFFSET 1
 

@@ -23,7 +23,7 @@ void Hud::drawHud (){
     int health_counter;             //serve a contare quanto della barra della vita colorare
     int stamina_counter;            //serve a contare quanto della barra della stamina colorare
     int y_cursor, x_cursor;         //indici che mi aiutano nel disegno
-    int distance=20;                //distanza tra le icone dell'hud
+    int distance=15;                //distanza tra le icone dell'hud
     
     health_counter=(larghezza_blocchetto*n_blocchetti*(player->curHealth))/max_health;       //formula per calcolare quanta vita "percentuale" ha il personaggio
     stamina_counter=(larghezza_blocchetto*n_blocchetti*(player->curStamina))/max_stamina;

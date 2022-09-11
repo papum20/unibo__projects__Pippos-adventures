@@ -10,9 +10,7 @@
 #include "pixel_art.hpp"
 #include <cstring>
 
-#define WINDOW_TEXT_HEIGHT 13
-#define WINDOW_TEXT_WIDTH 70
-
+const int messages_saved=5;
 
 
 class System_text:public Overlay, Pixel_art {

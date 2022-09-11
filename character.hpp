@@ -5,12 +5,15 @@
 #include "weapon.hpp"
 #include "item_difensivi.hpp"
 #include "equipment/equipment.hpp"
+#include "system_text.hpp"
 
 
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 
 const int W_NUMBER=6;
 const int DEF_NUMBER=12;
+const int stamina_cost=10;
+const int stamina_gain=5;
 
 struct equipment {
 	pWeapon arma;
@@ -29,7 +32,6 @@ struct equipment {
 class Character : public Alive {
 		
 	protected:
-
 		bool is_attacking;
 		int attack_counter;				//variabile che contiene il contatore a cui l'animazione fa danno
 		int attacking_states;			//variabiile che contiene il numero di animazioni d'attacco

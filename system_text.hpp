@@ -5,9 +5,9 @@
 
 #include <curses.h>
 #include <iostream>
-#include "pixel_art.hpp"
 #include "definitions.hpp"
 #include "overlay.hpp"
+#include "pixel_art.hpp"
 #include <cstring>
 
 #define WINDOW_TEXT_HEIGHT 13
@@ -15,7 +15,7 @@
 
 
 
-class System_text:public Overlay {
+class System_text:public Overlay, Pixel_art {
 	protected:
     WINDOW * text;
     int space;
@@ -28,7 +28,6 @@ class System_text:public Overlay {
         void open();
         void close();
         void insert_string(const char string[]);
-        void clean_window(WINDOW* window, int w_hight, int w_lenght);
 };
 
 

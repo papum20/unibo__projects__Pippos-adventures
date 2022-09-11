@@ -13,6 +13,7 @@
 #include "start_menu.hpp"
 #include "minimap.hpp"
 #include "system_text.hpp"
+#include "game_over.hpp"
 
 #include "level.hpp"
 #include "player.hpp"

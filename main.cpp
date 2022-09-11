@@ -26,21 +26,21 @@ int main() {
 	getmaxyx(stdscr, stdscr_y, stdscr_x);
 	int level_x = (stdscr_x - CAMERA_WIDTH) / 2, level_y = (stdscr_y - (CAMERA_HEIGHT + HUD_HEIGHT + HUD_OFFSET)) / 2 + HUD_HEIGHT + HUD_OFFSET;
 	int input_x = level_x + CAMERA_WIDTH, input_y = level_y + CAMERA_HEIGHT - input_h;
-	int hud_x = ((stdscr_x - HUD_WIDTH) / 2)- WINDOW_TEXT_WIDTH/2, hud_y = level_y - HUD_HEIGHT - HUD_OFFSET;
+	int hud_x = (stdscr_x - HUD_WIDTH) / 2, hud_y = level_y - HUD_HEIGHT - HUD_OFFSET;
 	int map_x = (stdscr_x - MINIMAP_WIDTH) / 2, map_y = (stdscr_y - MINIMAP_HEIGHT) / 2;
 
 	//costruttori
-
-	System_text *text = new System_text(hud_x+HUD_WIDTH+1, hud_y-2);
 	pInputManager inputManager = new InputManager(input_x, input_y);
+	System_text *text = new System_text(stdscr_x, stdscr_y);
+
 	pPlayer player = new Player(inputManager, text);
 	pLevel level = new Level(level_x, level_y, player);	
 
+	Game_over *game_over = new Game_over(stdscr_x, stdscr_y, player);
 	Hud *hud = new Hud(hud_x, hud_y, player);
 	MiniMap *miniMap = new MiniMap(map_x, map_y, level);
-	Start_menu *main_menu = new Start_menu(stdscr_x, stdscr_y);
 	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y);
-	Game_over *game_over = new Game_over(stdscr_x, stdscr_y, player);
+	Start_menu *main_menu = new Start_menu(stdscr_x, stdscr_y);
 
 
 
@@ -126,7 +126,6 @@ int main() {
 					level->update(inputManager->get_input());
 					level->display();
 					hud->drawHud();
-					text->open();
 					game_over->update();
 				}
 			}

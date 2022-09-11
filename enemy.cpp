@@ -243,14 +243,14 @@ void Enemy::meleeIA(pMap map){
 
 void Enemy::make_step(pMap map){
 	if (current_step<max_steps){
-		if (memorized_path[current_step].x==pos.x){																//se è maggiore di uno mi muovo nella sua direzione
-			if (memorized_path[current_step].y>pos.y)
+		if (memorized_path[current_step].x==pos.intx()){																//se è maggiore di uno mi muovo nella sua direzione
+			if (memorized_path[current_step].y>pos.inty())
 				moveUp(map);
 			else
 				moveDown(map);
 			}	
 		else{																		
-			if (memorized_path[current_step].x>pos.x)
+			if (memorized_path[current_step].x>pos.intx())
 				moveRight(map);
 			else
 				moveLeft(map);

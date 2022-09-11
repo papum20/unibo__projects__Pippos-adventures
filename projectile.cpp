@@ -30,7 +30,7 @@ void Projectile::update(pMap map){
     if (!updated){    
         pAlive defender=NULL;
         pPhysical objects[ROOM_AREA];
-        Coordinate start = nextPos(), end = Coordinate(start, size);
+        Coordinate start = nextPos(), end = Coordinate(Coordinate(start, size), COORDINATE_NEGATIVE);
         /*switch (direction){                 //guardo se ci sono oggetti in collisione con il proiettile
             case 'u':
                 start= Coordinate (pos, Coordinate (0, vertical_size.y));

@@ -66,10 +66,10 @@ MapHandler::MapHandler() {
 				Coordinate start = Q.pop();							//vertice in basso a sinistra occupato dall'oggetto
 				Coordinate end = Coordinate(start, A->getSize());	//vertice in alto a destra
 				if(	//controlla i rettangoli in tutte le direzioni (cioè controlla di trovare B nel rettangolo lungo dist_max e non in quello lungo dist_min)
-					(findRectangle(map, B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x, start.y + dist_max))	&& (dist_min == 1 || !findRectangle(map, B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x, start.y + dist_min - 1))) 	) ||	//basso
-					(findRectangle(map, B, Coordinate(start.x - 1, end.y), Coordinate(start.x - dist_max, start.y)) 				&& (dist_min == 1 || !findRectangle(map, B, Coordinate(start.x - 1, end.y), Coordinate(start.x - dist_min + 1, start.y))) 				) ||	//sinistra
-					(findRectangle(map, B, Coordinate(end, DIRECTIONS[DIRECTION_UP]), Coordinate(start.x, end.y - dist_max) )		&& (dist_min == 1 || !findRectangle(map, B, Coordinate(end, DIRECTIONS[DIRECTION_UP]), Coordinate(start.x, end.y - dist_min + 1)))		) ||	//alto
-					(findRectangle(map, B, Coordinate(end.x + 1, start.y), Coordinate(end.x + dist_max, end.y)) 					&& (dist_min == 1 || !findRectangle(map, B, Coordinate(end.x + 1, start.y), Coordinate(end.x + dist_min, end.y)))						)		//destra
+					(findRectangle(map, B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x - 1, start.y - dist_max))	&& (dist_min == 1 || !findRectangle(map, B, Coordinate(start, DIRECTIONS[DIRECTION_DOWN]), Coordinate(end.x - 1, start.y - dist_min))) 	) ||	//basso
+					(findRectangle(map, B, Coordinate(start.x - 1, end.y - 1), Coordinate(start.x - dist_max, start.y)) 				&& (dist_min == 1 || !findRectangle(map, B, Coordinate(start.x - 1, end.y - 1), Coordinate(start.x - dist_min + 1, start.y))) 			) ||	//sinistra
+					(findRectangle(map, B, Coordinate(end.x - 1, end.y + 1), Coordinate(start.x, end.y + dist_max - 1) )				&& (dist_min == 1 || !findRectangle(map, B, Coordinate(end.x - 1, end.y + 1), Coordinate(start.x, end.y + dist_min - 2)))				) ||	//alto
+					(findRectangle(map, B, Coordinate(end.x, start.y), Coordinate(end.x + dist_max - 1, end.y - 1)) 					&& (dist_min == 1 || !findRectangle(map, B, Coordinate(end.x, start.y), Coordinate(end.x + dist_min - 2, end.y - 1)))					)		//destra
 				) {
 					reached = true;
 					res = start;
@@ -137,18 +137,21 @@ MapHandler::MapHandler() {
 		}
 		return length;
 	}
-	bool MapHandler::visionLine_check(pMap map, Coordinate source, pCharacter target, int range) {
-		bool valid = true;
-		Coordinate start = Coordinate(source, source.times(.5, .5)).integer(), end = Coordinate(target->getPosition(), target->getSize().times(.5, .5)).integer();
-		Coordinate delta = Coordinate::unitVector(start, end);
+	bool MapHandler::visionLine_check(pMap map, Coordinate source, Coordinate target, int range) {
+		Coordinate delta = Coordinate::unitVector(source, target);
+		
 		if(delta.equals(COORDINATE_ZERO)) return true;
 		else {
-			Coordinate i = Coordinate(start.x, start.y, map->size);
+			bool valid = true;
+			Coordinate i = Coordinate(source.x, source.y, map->size);
 			int dist = 0;
-			while(valid && (range < 1 || dist < range) && checkPosition(map, i) != target) {
-				if(checkLine_floor_next(map, i, delta).equals(COORDINATE_ERROR) || checkLine_ceil_next(map, i, delta).equals(COORDINATE_ERROR) || checkPosition(map, i)->getId() == ID_WALL || checkPosition(map, i.ceil())->getId() == ID_WALL)
+			while(valid && (range < 1 || dist < range) && !i.equals_int(target)) {
+				if(checkLine_floor_next(map, i, delta).equals(COORDINATE_ERROR) || checkLine_ceil_next(map, i, delta).equals(COORDINATE_ERROR) || map->physical[i.single()]->getId() == ID_WALL || map->physical[i.ceil().single()]->getId() == ID_WALL)
 					valid = false;
-				else i = Coordinate(i, delta);
+				else {
+					i = Coordinate(i, delta);
+					dist++;
+				}
 			}
 			return valid;
 		}
@@ -298,34 +301,22 @@ MapHandler::MapHandler() {
 	}
 	bool MapHandler::findRectangle(pMap map, pPhysical obj, Coordinate start, Coordinate end) {
 		//si potrebbe implementare semplicemente chiamando checkrectangle e cercando nell'array, ma almeno così se trova l'oggetto si può fermare subito
-		bool found = false;
-		if(start.lessEqual(end) || end.lessEqual(start)) {
-			//riga per riga
-			if(start.lessEqual(end)) {	//basso
-				while(!found && start.y <= end.y) {
-					found = findLine(map, obj, start, Coordinate(end.x, start.y));
-					start.y++;
-				}
-			} else {					//alto
-				while(!found && start.y >= end.y) {
-					found = findLine(map, obj, start, Coordinate(end.x, start.y));
-					start.y--;
-				}
-			}
-		} else {
-			//colonna per colonna
-			if(start.x <= end.x) {		//destra
-				while(!found && start.x <= end.x) {
-					found = findLine(map, obj, start, Coordinate(start.x, end.y));
-					start.x++;
-				}
-			} else {					//sinistra
-				while(!found && start.x >= end.x) {
-					found = findLine(map, obj, start, Coordinate(start.x, end.y));
-					start.x--;
-				}
-			}
+		start = start.integer(), end = end.integer();
+		Coordinate start1 = start, end1 = end;
+		if(end.x < start.x) {
+			start1.x = end.x;
+			end1.x = start.x;
+		if(end.y < start.y) 
+			start1.y = end.y;
+			end1.y = start.y;
 		}
+		bool found = false;
+		end1 = Coordinate(end1, COORDINATE_ONE);
+		Coordinate i = Coordinate(start1, map->size, start1, end1);
+		do {
+			if(checkPosition(map, i) == obj) found = true;
+			else i.next();
+		} while(!found && !i.equals(start1));
 		return found;
 	}
 
@@ -422,7 +413,7 @@ MapHandler::MapHandler() {
 				map->projectiles[i.single()] = NULL;
 				i.next();
 			} while(!i.equals_int(obj->getPosition()));
-		if(obj->isCharacter()) map->characters_n--;
+			if(obj->isCharacter()) map->characters_n--;
 		}
 	}
 	bool MapHandler::addProjectile(pMap map, pProjectile projectile) {
@@ -444,25 +435,27 @@ MapHandler::MapHandler() {
 	void MapHandler::addLineToCheck(pMap map, pPhysical obj[ROOM_AREA], int &found, Coordinate start, Coordinate end) {
 		pPhysical line[ROOM_AREA];
 		int len = checkLine(map, line, start, end);
+		int added = 0;
 		for(int i = 0; i < len; i++) {
 			if(!line[i]->findInArray(obj, found)) {
-				obj[found] = line[i];
-				found++;
+				obj[found + added] = line[i];
+				added++;
 			}
 		}
+		found += added;
 	}
 	Coordinate MapHandler::checkLine_floor_next(pMap map, Coordinate i, Coordinate delta) {
 		Coordinate j = Coordinate(i, delta);
 		Coordinate t1 = Coordinate(i.x, j.y, map->size);
 		Coordinate t2 = Coordinate(j.x, i.y, map->size);
-		if((t1.inOwnBounds() && map->physical[t1.single()]->getId() == ID_WALL) && (t2.inOwnBounds() && map->physical[t2.single()]->getId() == ID_WALL)) return COORDINATE_ERROR;
+		if((!t1.inOwnBounds() || map->physical[t1.single()]->getId() == ID_WALL) && (!t2.inOwnBounds() || map->physical[t2.single()]->getId() == ID_WALL)) return COORDINATE_ERROR;
 		else return j;
 	}
 	Coordinate MapHandler::checkLine_ceil_next(pMap map, Coordinate i, Coordinate delta) {
 		Coordinate j = Coordinate(i, delta);
 		Coordinate t1 = Coordinate(i.ceilx(), j.ceily(), map->size);
 		Coordinate t2 = Coordinate(j.ceilx(), i.ceily(), map->size);
-		if((t1.inOwnBounds() && map->physical[t1.ceil().single()]->getId() == ID_WALL) && (t2.inOwnBounds() && map->physical[t2.ceil().single()]->getId() == ID_WALL)) return COORDINATE_ERROR;
+		if((!t1.inOwnBounds() || map->physical[t1.single()]->getId() == ID_WALL) && (!t2.inOwnBounds() || map->physical[t2.single()]->getId() == ID_WALL)) return COORDINATE_ERROR;
 		else return j;
 	}
 #pragma endregion AUSILIARIE

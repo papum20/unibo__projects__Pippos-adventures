@@ -38,13 +38,14 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	points=0;
 
 
-	weapons[0]= new Arco();
-	/*artifacts[0] = new HealthPotion();
+	weapons[0]= new sword();
+	weapons[1]= new Arco();
+	artifacts[0] = new HealthPotion();
 	artifacts[1] = new Rune();
 	artifacts[2] = new Life_elixir();
-	*/weapons_n = 1;
+	weapons_n = 2;
 	defensive_items_n = 0;
-	artifacts_n = 0;
+	artifacts_n = 3;
 	change_weapon(weapons[0]);
 	
 
@@ -266,21 +267,24 @@ void Player::collect_item(pMap mappa){
 
 void Player::add_item(pWeapon w){
 	if (weapons_n<(W_NUMBER-1)){
-		weapons[weapons_n]=w;
+		weapons[weapons_n]=new Weapon();
+		weapons[weapons_n]->copyWeapon(*w);
 		weapons_n++;
 	}
 }
 
 void Player::add_item (pItem_def i){
 	if (defensive_items_n<(DEF_NUMBER-1)){
-		defensive_items[defensive_items_n]=i;
+		defensive_items[defensive_items_n]=new item_difensivo();
+		defensive_items[defensive_items_n]->copyItemDifensivo(*i);
 		defensive_items_n++;
 	}
 }
 
 void Player::add_item (pArtifact a){
 	if (artifacts_n<(MAX_ARTIFACTS-1)){
-		artifacts[artifacts_n]=a;
+		artifacts[artifacts_n]=new Artifact();
+		artifacts[artifacts_n]->copyArtifact(*a);
 		artifacts_n++;
 	}
 }

@@ -11,15 +11,6 @@
 		}
 
 		locked_doors = 0;
-		destroyed = false;
-	}
-	void ConnectedRoom::recursiveDestroy() {
-		destroyed = true;
-		for(int dir = 0; dir < MAX_CONNECTED_R; dir++) {
-			if(connected[dir] != NULL && !connected[dir]->wasDestroyed())
-				connected[dir]->recursiveDestroy();						//distruggi in ricorsione la stanza adiacente
-		}
-		Room::recursiveDestroy();										//distruggi tutto il resto della stanza
 	}
 	void ConnectedRoom::generate()
 	{
@@ -136,10 +127,10 @@
 
 
 #pragma region SET_GET
-	void ConnectedRoom::addDoor(int dir, lock_type lt, bool boss) {
+	void ConnectedRoom::addDoor(int dir, bool locked, bool boss) {
 		Coordinate door_size = DOOR_SIZE;
 		if(dir == DIRECTION_LEFT || dir == DIRECTION_RIGHT) door_size = door_size.swapped();
-		if(map->doors[dir] == NULL) map->doors[dir] = new Door(door_position(dir), door_size, door_entrance(dir), lt, boss);
+		map->doors[dir] = new Door(door_position(dir), door_size, door_entrance(dir), locked, boss);
 	}
 	bool ConnectedRoom::addLockedDoor() {
 		if(locked_doors < LOCKED_DOORS_MAX) {
@@ -148,34 +139,41 @@
 		} else return false;
 	}
 	void ConnectedRoom::makeConnection(pRoom room, int dir, lock_type lt, bool first) {
-		if(connected[dir] == NULL && room != NULL) {
-			connected[dir] = room;
-			if(first) {
-				if(locked_doors < LOCKED_DOORS_MAX && (lt == LOCK_OWN || lt == LOCK_BOTH)) {
-					addDoor(dir, true);
-					locked_doors++;
-				}
-				else addDoor(dir, false);
-				Room::makeConnection(room, dir, lt, true);
-			} else {
-				if(locked_doors < LOCKED_DOORS_MAX && (lt == LOCK_OTHER || lt == LOCK_BOTH)) {
-					addDoor(dir, true);
-					locked_doors++;
-				}
-				else addDoor(dir, false);
+		connected[dir] = room;
+		if(first) {
+			if(locked_doors < LOCKED_DOORS_MAX && (lt == LOCK_OWN || lt == LOCK_BOTH)) {
+				addDoor(dir, true);
+				locked_doors++;
 			}
+			else addDoor(dir, false);
+			Room::makeConnection(room, dir, lt, true);
+		} else {
+			if(locked_doors < LOCKED_DOORS_MAX && (lt == LOCK_OTHER || lt == LOCK_BOTH)) {
+				addDoor(dir, true);
+				locked_doors++;
+			}
+			else addDoor(dir, false);
 		}
 	}
 	void ConnectedRoom::unlockDoor(pDoor door) {
-		//PARTE COMMENTATA: per sbloccare anche dall'altro lato
-		//pRoom adjacent = NULL;
-		//int dir = 0;
-		//while(adjacent == NULL && dir < DIRECTIONS_N) {
-		//	if(map->doors[dir] == door) adjacent = connected[dir];
-		//	else dir++;
-		//}
+		//per sbloccare anche dall'altro lato
+		pRoom adjacent = NULL;
+		int dir = 0;
+		while(adjacent == NULL && dir < DIRECTIONS_N) {
+			if(map->doors[dir] == door) adjacent = connected[dir];
+			else dir++;
+		}
+		WINDOW *w =newwin(10,10,0,20);
+		box(w,0,0);
+		if(isBossRoom()) {
+			
+			mvwprintw(w,1,1,to_string(door->isUseable()).c_str());
+			mvwprintw(w,1,1,to_string(map->characters_n).c_str());
+		};
+			wgetch(w);
+		werase(w);wrefresh(w);
+		if(adjacent->isBossRoom()) adjacent->getDoor((dir + 2) % DIRECTIONS_N)->unlock();
 		door->unlock();
-		//adjacent->getDoor((dir + 2) % DIRECTIONS_N)->unlock();
 	}
 //// GET
 	pRoom ConnectedRoom::getConnectedRoom(pDoor door) {

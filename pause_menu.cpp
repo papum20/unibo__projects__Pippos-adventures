@@ -33,6 +33,7 @@ void Pause_menu::destroy(){
     delwin(w_weapon);
     delwin(w_equip);
     delwin(w_options);
+    Overlay::destroy();
 }
 
 bool Pause_menu::is_active(){

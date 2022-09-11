@@ -13,6 +13,7 @@ space=0;
 
 void System_text::destroy(){
     delwin(text);
+    Overlay::destroy();
 }
 
 bool System_text::is_active(){

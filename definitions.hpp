@@ -17,8 +17,8 @@
 
 #pragma region SCREENS_SIZES
 // CAMERA
-#define CAMERA_WIDTH  300//140//300//150//135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 70//30//70//50//35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH  250//140//300//150//135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 50//30//70//50//35	//altezza (massima) inquadratura livello
 // MINI-MAP
 #define MINIMAP_WIDTH (CAMERA_WIDTH - 4)
 #define MINIMAP_HEIGHT (CAMERA_HEIGHT - 2)

@@ -26,7 +26,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 	void BossRoom::setDoorsUseable() {
 		if(map->characters_n == 1) {						//se rimane solo il player
 			for(int dir = 0; dir < DIRECTIONS_N; dir++)
-				if(map->doors[dir] != NULL) map->doors[dir]->setUseable();
+				if(map->doors[dir] != NULL && map->doors[dir]->isBoss()) map->doors[dir]->setUseable();
 		}
 	}
 
@@ -71,7 +71,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 	}
 	int BossRoom::randDoor() {
 		// per come genera level la stanza, è garantito che ci sia sempre almeno uno spazio per una porta
-		int rand_dir = rand() % doorsNumber();
+		int rand_dir = rand() % (DIRECTIONS_N - doorsNumber());
 		bool found = false;
 		int dir = 0;
 		while(!found && rand_dir > 0) {

@@ -22,6 +22,7 @@ void Start_menu::destroy(){
     delwin(wface);
     delwin(caverna);
     delwin(w_options);
+    Overlay::destroy();
 }
 
 void Start_menu::open_options(){

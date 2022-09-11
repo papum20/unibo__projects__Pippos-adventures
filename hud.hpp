@@ -39,6 +39,9 @@ const int n_blocchetti=5;
 const int heart_rows=5;
 const int heart_columns=6;
 
+const int key_rows=4;
+const int key_columns=5;
+
 const int inventary_rows=4;
 const int inventary_columns=8;
 
@@ -60,6 +63,13 @@ const char cuore[heart_rows][heart_columns]=
   {'\\', '*', '*', '*', '*', '/'},
   {' ', '\\', '*', '*', '/', ' '},
   {' ', ' ', '\\', '/', ' ', ' '}
+};
+
+const char key [key_rows][key_columns]=
+{ {' ', ' ', '|', '_', '_'},
+  {' ', ' ', '|', '_', ' '},
+  {' ', '_', '|', '_', ' '},
+  {'/', '_', 'O', '_', '\\'}
 };
 
 const char inventary[inventary_rows][inventary_columns]=
@@ -184,6 +194,7 @@ class Hud :public Overlay {
     void draw_points(int x, int y);
     void draw_n(int x, int y);
     void draw_p(int x, int y);
+    void setPlayer(pPlayer player);
 		//void drawHud(int curr_health, int curr_st, int hearts);		//disegna hud (in gioco)
 		//void startMenu();	//inizializza il menu (quando si preme il tasto pausa)
 		//void updateMenu();	//disegna menu (solo se in pausa)

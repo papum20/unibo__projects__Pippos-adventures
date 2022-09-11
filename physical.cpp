@@ -15,6 +15,9 @@ Physical::Physical() {
 
     speed = COORDINATE_ONE;
     lastMove = COORDINATE_ZERO;
+
+    animation_rate= FRAMES_PER_SECOND/ANIMATIONS_PER_SECOND;
+    animation_counter=animation_rate;
 }
 
 void Physical::copyPhysical(Physical B) {
@@ -54,7 +57,14 @@ void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordina
 }
 
 void Physical::next_animation(){
-    animations[current_animation] = animations[current_animation]->next;
+    /*if (animation_counter>=animation_rate){
+        animations[current_animation] = animations[current_animation]->next;
+        animation_counter=0;
+    }
+    else
+        animation_counter++;
+    */
+   animations[current_animation] = animations[current_animation]->next;
 }
 
 
@@ -121,5 +131,9 @@ void Physical::next_animation(){
     void Physical::resetUpdate() {
         updated = false;
         drawn = false;
+    }
+
+    void Physical::resetAnimation(){
+        animation_counter=animation_rate;
     }
 #pragma endregion BOOL_GET_SET

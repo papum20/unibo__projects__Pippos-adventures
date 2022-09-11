@@ -107,6 +107,9 @@
 	Coordinate Coordinate::integer() const {
 		return Coordinate(Coordinate(intx(), inty()), size(), start(), end());
 	}
+	Coordinate Coordinate::floor() {
+		return Coordinate(Coordinate(Math::floor(x), Math::floor(y)), size(), start(), end());
+	}
 	Coordinate Coordinate::ceil() {
 		return Coordinate(Coordinate(Math::ceil(x), Math::ceil(y)), size(), start(), end());
 	}

@@ -62,6 +62,7 @@ Coordinate Weapon::getOffset() {
     return offset;
 }
 void Weapon::initiate_attack(char d){
+    //animation_counter=0;
     direction=d;
     switch (direction){
         case 'u':
@@ -79,6 +80,9 @@ void Weapon::initiate_attack(char d){
     }
 }
 
+bool Weapon::check_frame(){
+    return animations[current_animation]->isLastFrame();
+}
 
 bool Weapon::animationMask(Coordinate pos) {
     return getCurrentAnimation().at(pos) != CHAR_EMPTY && getCurrentAnimation().at(pos) != CHAR_WEAPON_MASK;

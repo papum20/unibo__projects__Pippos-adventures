@@ -156,23 +156,14 @@
 		}
 	}
 	void ConnectedRoom::unlockDoor(pDoor door) {
-		//per sbloccare anche dall'altro lato
-		pRoom adjacent = NULL;
+		//PARTE COMMENTATA: per sbloccare anche dall'altro lato
+		/*pRoom adjacent = NULL;
 		int dir = 0;
 		while(adjacent == NULL && dir < DIRECTIONS_N) {
 			if(map->doors[dir] == door) adjacent = connected[dir];
 			else dir++;
 		}
-		WINDOW *w =newwin(10,10,0,20);
-		box(w,0,0);
-		if(isBossRoom()) {
-			
-			mvwprintw(w,1,1,to_string(door->isUseable()).c_str());
-			mvwprintw(w,1,1,to_string(map->characters_n).c_str());
-		};
-			wgetch(w);
-		werase(w);wrefresh(w);
-		if(adjacent->isBossRoom()) adjacent->getDoor((dir + 2) % DIRECTIONS_N)->unlock();
+		if(adjacent->isBossRoom()) adjacent->getDoor((dir + 2) % DIRECTIONS_N)->unlock();*/
 		door->unlock();
 	}
 //// GET

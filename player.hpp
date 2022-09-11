@@ -174,7 +174,6 @@ class Player : public Character {
 		int getInventory(pItem inventory[n_max_inventory_objects]);
 		//SET
 		void removeItem(pItem item);
-		
 };
 
 typedef Player *pPlayer;

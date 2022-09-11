@@ -9,6 +9,7 @@
 //// REFRESH RATE : durata di un frame
 #pragma region REFRESH_RATE
 #define FRAMES_PER_SECOND 15					//aggiornamenti in un secondo
+#define ANIMATIONS_PER_SECOND 2
 #define REFRESH_RATE (1. / FRAMES_PER_SECOND)	//durata di un aggiornamento
 #define REFRESH_TIMER_INDEX 0					//indice del timer (implementazione)
 #define GAME_TIMER_INDEX 1
@@ -42,6 +43,7 @@ const int n_max_inventory_objects = 19;
 #define ROOM_HEIGHT (ROOM_HEIGHT_T * SCALE_Y)//180
 #define ROOM_BOSS_WIDTH 100
 #define ROOM_BOSS_HEIGHT 40
+#define ROOM_BOSS_WALL_DEPTH 3
 #define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT_T)
 #define ROOM_AREA (ROOM_WIDTH * ROOM_HEIGHT)
 #define CENTRAL_ROOM_WIDTH_T 9						//dimensioni dello spazio vuoto quadrato al centro (la width è prima dello scale)
@@ -50,7 +52,7 @@ const int n_max_inventory_objects = 19;
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
 //LEVEL
-#define N_ROOMS 3							//numero di stanze (normali) generate per livello
+#define N_ROOMS 8							//numero di stanze (normali) generate per livello
 #define LEVEL_AREA (N_ROOMS * N_ROOMS)		//dimensioni matrice livello
 #pragma endregion ROOM_DEFINITIONS
 

@@ -72,7 +72,7 @@ const int MAX_ANIMATIONS = 8;
 #pragma region PHYSICAL_STATS
 #define PHYSICAL_MAX_SPEED 20.
 // SPEED
-const Coordinate SPEED_PLAYER = Coordinate(22, 12);
+const Coordinate SPEED_PLAYER = Coordinate(30, 18);
 const Coordinate SPEED_ZOMBIE = Coordinate(5, 3);
 const Coordinate SPEED_SPIDER = Coordinate(8, 6);
 const Coordinate SPEED_WITCH = Coordinate(4, 4);
@@ -113,7 +113,9 @@ class Physical {
 		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata
 
 	public:
+		float animation_rate;
 		int current_animation;
+		int animation_counter;
 		
 		Physical();
 		void copyPhysical(Physical B);			//copia i parametri di B
@@ -150,7 +152,7 @@ class Physical {
 		void next_animation();
 		void setPosition(Coordinate pos);
 		void resetUpdate();					//rende non updated
-
+		void resetAnimation();
 };
 
 typedef Physical *pPhysical;

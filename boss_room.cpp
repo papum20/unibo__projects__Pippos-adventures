@@ -7,6 +7,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 }
 
 	void BossRoom::update(int input) {
+
 		Room::update(input);
 		setDoorsUseable();
 	}
@@ -38,7 +39,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 	void BossRoom::generateEmpty() {
 		Coordinate i = Coordinate(0, 0, size);
 		do {
-			if(!i.inBounds(COORDINATE_ONE, Coordinate(size, COORDINATE_NEGATIVE))) map->physical[i.single()] = WALL_INSTANCE;
+			if(!i.inBounds(COORDINATE_ONE.times(ROOM_BOSS_WALL_DEPTH, ROOM_BOSS_WALL_DEPTH), Coordinate(size, COORDINATE_NEGATIVE.times(ROOM_BOSS_WALL_DEPTH, ROOM_BOSS_WALL_DEPTH)))) map->physical[i.single()] = WALL_INSTANCE;
 			else map->physical[i.single()] = FLOOR_INSTANCE;
 			i.next();
 		} while(!i.equals(COORDINATE_ZERO));
@@ -74,7 +75,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 		int rand_dir = rand() % (DIRECTIONS_N - doorsNumber());
 		bool found = false;
 		int dir = 0;
-		while(!found && rand_dir > 0) {
+		while(!found && rand_dir > 0 && connected[dir] != NULL) {
 			if(connected[dir] == NULL && rand_dir == 0) found = true;
 			else {
 				if(connected[dir] == NULL) rand_dir--;

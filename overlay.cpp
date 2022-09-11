@@ -33,3 +33,8 @@ void Overlay::close() {
 	werase(window);
 	wrefresh(window);
 }
+
+
+bool Overlay::isOpen() {
+	return is_open;
+}

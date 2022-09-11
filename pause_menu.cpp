@@ -17,8 +17,8 @@ w_equip_is_active=false;
 
 this->w_inventory = newwin(PAUSE_MENU_HEIGHT, PAUSE_MENU_WIDTH, inventory_y_pos,inventory_x_pos);
 this->w_zaino = newwin(ZAINO_HEIGHT, ZAINO_WIDTH, zaino_y_pos, zaino_x_pos);
-this->w_item = newwin(ITEM_MENU_HEIGHT, ITEM_MENU_WIDTH, zaino_y_pos - 1, zaino_x_pos + ZAINO_WIDTH + 3);
-this->w_weapon = newwin(w_graphic_high + 1, w_graphic_lenght + 1, zaino_y_pos - 1 + 2, zaino_x_pos + ZAINO_WIDTH + 3);
+this->w_item = newwin(ITEM_MENU_HEIGHT, ITEM_MENU_WIDTH, zaino_y_pos +6, zaino_x_pos + ZAINO_WIDTH + 3);
+this->w_weapon = newwin(w_graphic_high + 1, w_graphic_lenght + 1, zaino_y_pos + 6 + 2, zaino_x_pos + ZAINO_WIDTH + 3);
 this->w_equip = newwin(STATUS_MENU_HEIGHT, STATUS_MENU_WIDTH, status_y_pos, status_x_pos);
 this->w_options = newwin(MENU_OPTIONS_HEIGHT, MENU_OPTIONS_WIDTH, options_y_pos, options_x_pos);
 
@@ -48,13 +48,14 @@ for(int i=0; i<curr_inventory_space;i++){
 }
 if(all_artifact)
     return (-1);
- while(true){
-  r = (rand() % curr_inventory_space);
+bool found=false;
+ while(!found){
+  r = rand() % (curr_inventory_space);
   if((check_class_name(r)==11) || (check_class_name(r)==12)){
-    return r;
+    found=true;
    }  
  }
-return (-1);
+return (r);
 }
 
 void Pause_menu::open_options(){

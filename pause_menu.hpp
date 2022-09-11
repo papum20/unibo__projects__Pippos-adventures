@@ -25,7 +25,7 @@ const int n_graphic_types_items = 11;
 
 
 #define ZAINO_WIDTH 55
-#define ZAINO_HEIGHT 38
+#define ZAINO_HEIGHT 52
 
 #define PAUSE_MENU_WIDTH 113
 #define PAUSE_MENU_HEIGHT 8

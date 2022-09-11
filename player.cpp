@@ -39,14 +39,10 @@ Player::Player(pInputManager in, System_text* system_text):Character(p_max_healt
 
 
 	weapons[0]= new sword();
-	weapons[1]= new Arco();
-	artifacts[0] = new HealthPotion();
-	artifacts[1] = new Rune();
-	artifacts[2] = new Life_elixir();
 	defensive_items[0] = new armor();
-	weapons_n = 2;
+	weapons_n = 1;
 	defensive_items_n = 1;
-	artifacts_n = 3;
+	artifacts_n = 0;
 	change_weapon(weapons[0]);
 	change_armor(defensive_items[0]);
 	

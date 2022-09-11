@@ -11,7 +11,7 @@
 //rappresenta un personaggio "vivente", come il giocatore o un qualsiasi nemico
 
 const int W_NUMBER=6;
-const int DEF_NUMBER=12;
+const int DEF_NUMBER=11;
 const int stamina_cost=10;
 const int stamina_gain=5;
 

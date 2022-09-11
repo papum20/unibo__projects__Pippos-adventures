@@ -31,6 +31,9 @@ void MiniMap::close() {
 bool MiniMap::isOpen() {
 	return is_open;
 }
+void MiniMap::setLevel(pLevel level) {
+	this->level = level;
+}
 
 
 

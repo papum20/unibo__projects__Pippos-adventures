@@ -124,12 +124,6 @@ void Character::update(pMap map) {
 
 void Character::drawAtPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_start, Coordinate win_size, Coordinate pos) {
 	if(!drawn) {
-		WINDOW *w = newwin(10,10,1,10);
-		box(w,0,0);
-		mvwprintw(w,1,1,to_string(id).c_str());
-		wrefresh(w);
-		mvwprintw(w,2,1,to_string(id).c_str());
-		wrefresh(w);
 		Animation a_weapon = equipaggiamento.arma->getCurrentAnimation();											//arma
 		Coordinate draw_start = Coordinate(pos, equipaggiamento.arma->getOffset().negative());						//inizio disegno (con l'arma), sulla mappa
 		Coordinate draw_end = Coordinate(draw_start, a_weapon.size);												//fine il disegno

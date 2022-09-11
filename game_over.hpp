@@ -25,6 +25,7 @@ class Game_over:public Overlay, Pixel_art {
         bool isGameOver();
 		void update();
         void open();
+		void setPlayer(pPlayer player);
 };
 
 

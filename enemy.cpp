@@ -75,59 +75,29 @@ void Enemy::copyEnemy(Enemy B) {
 
 void Enemy::update(pMap map){
 	if(!updated){
-				WINDOW *w = newwin(10,10,40,1);
-				box(w,0,0);
-				mvwaddch(w,1,1,'a');
-				wrefresh(w);
 		if (curHealth>0){	
-				mvwaddch(w,1,1,'b');
-				wrefresh(w);
 			if (!is_attacking){
-				mvwaddch(w,1,1,'c');
-				wrefresh(w);
 				if (equipaggiamento.arma->is_melee){
-				mvwaddch(w,1,1,'d');
-				wrefresh(w);
 					meleeIA(map);
-				mvwaddch(w,1,1,'e');
-				wrefresh(w);
 				}
 				else{
-				mvwaddch(w,1,1,'f');
-				wrefresh(w);
 					rangedIA(map);
-				mvwaddch(w,1,1,'g');
-				wrefresh(w);
 				}
 			}
 			else{
-				mvwaddch(w,1,1,'h');
-				wrefresh(w);
 				if (!animations[current_animation]->isLastFrame()){
 					next_animation();
 					equipaggiamento.arma->next_animation();
-				waddch(w,'i');
-				wrefresh(w);
 				}
 				
 				else{
-				mvwaddch(w,1,1,'j');
-				wrefresh(w);
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);
 					else{
-				mvwaddch(w,1,1,'k');
-				wrefresh(w);
 						check_enemy_melee(map);
-				mvwaddch(w,1,1,'l');
-				wrefresh(w);
 						if (player_found){
-				mvwaddch(w,1,1,'m');
-				wrefresh(w);
 							player->changeCurrentHealth(calculate_damage(player));
 							player_found=false;
-				mvwaddch(w,1,1,'n');
-				wrefresh(w);
 						}
 					}
 					is_attacking=false;
@@ -167,18 +137,12 @@ void Enemy::update(pMap map){
 								else
 									moveDown(map);
 							break;	
-				mvwaddch(w,1,1,'s');
-				wrefresh(w);
 					}
 				}
 			}
-				mvwaddch(w,1,1,'t');
-				wrefresh(w);
 			Character::update(map);
 		}
 		else{
-				mvwaddch(w,1,1,' ');
-				wrefresh(w);
 			player->change_points(points_given);
 			destroy(map);
 		}
@@ -250,42 +214,24 @@ void Enemy::meleeIA(pMap map){
 			//if (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)){
 			bool b = MapHandler::visionLine_check(map, Coordinate(pos,size.times(.5,.5)), Coordinate(player->getPosition(), player->getSize().times(.5, .5)), enemy_vision);
 			if (b){
-				WINDOW *w = newwin(10,10,30,1);
-				box(w,0,0);
-				mvwaddch(w,1,1,'a');
-				wrefresh(w);
 				player_in_vision=true;
 				int player_distance;
-				mvwaddch(w,1,1,'b');
-				wrefresh(w);
 				Coordinate path[ROOM_AREA];
 				player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
-				mvwaddch(w,1,1,'c');
-				wrefresh(w);
 				if (player_distance>=max_steps){
-				mvwaddch(w,1,1,'d');
-				wrefresh(w);
 					memorized_steps=max_steps;
 					for (int i=0; i<memorized_steps; i++){
 						memorized_path[i]=path[i];
 					}
-				mvwaddch(w,1,1,'e');
-				wrefresh(w);
 				}
 				else{
-				mvwaddch(w,1,1,'f');
-				wrefresh(w);
 					memorized_steps=player_distance;
 					for (int i=0; i<memorized_steps; i++){
 						memorized_path[i]=path[i];
 					}
 				}
-				mvwaddch(w,1,1,'g');
-				wrefresh(w);
 				current_step=1;
 				make_step(map);
-				mvwaddch(w,1,1,' ');
-				wrefresh(w);
 			}
 			else
 				player_in_vision=false;

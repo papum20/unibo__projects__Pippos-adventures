@@ -321,15 +321,6 @@ void Player::door_actions(pMap map){
 		newcoord.x=newcoord.x+size.x;
 	}
 	used_door=MapHandler::checkDoor(map, newcoord);
-	WINDOW *w=newwin(10,10,50,0);
-	box(w,0,0);
-	if(used_door == NULL) mvwaddch(w,1,1,'N');
-	else {
-		mvwaddch(w,1,1,'s');
-		wprintw(w,to_string(used_door->isLocked()).c_str());
-		wprintw(w,to_string(used_door->isUseable()).c_str());
-	}
-	wgetch(w);
 	if (used_door != NULL && used_door->isLocked()){
 		if (n_keys>0){
 			n_keys--;

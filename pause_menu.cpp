@@ -860,3 +860,8 @@ wrefresh(w_inventory);
 }
 
 
+
+
+void Pause_menu::setPlayer(pPlayer player ){
+    this->p = player;
+}

@@ -25,3 +25,9 @@ void Game_over::open(){
     wrefresh(window);
 }
 
+
+
+
+void Game_over::setPlayer(pPlayer player) {
+    this->player = player;
+}

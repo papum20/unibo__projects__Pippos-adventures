@@ -295,3 +295,7 @@ p_list Hud::head_insert (p_list head, int x){
         return tmp;
     }
 }
+
+void Hud::setPlayer(pPlayer player) {
+    this->player = player;
+}

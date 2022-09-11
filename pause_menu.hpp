@@ -462,6 +462,7 @@ class Pause_menu : public Pixel_art, public Overlay {
         void close();
         void update_w_use(int array_index);
         int random_item();
+        void setPlayer(pPlayer player);
         void destroy();
 
         

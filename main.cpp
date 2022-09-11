@@ -39,12 +39,13 @@ int main() {
 	System_text text = System_text(stdscr_x, stdscr_y);
 	Start_menu main_menu = Start_menu(stdscr_x, stdscr_y);
 	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y);
-	
+	Game_over game_over = Game_over(stdscr_x, stdscr_y);
+
 
 
 	
 	main_menu.open();
-	
+
 	WINDOW *debug = newwin(10,10,0,0);
 	box(debug,0,0);
 	wrefresh(debug);

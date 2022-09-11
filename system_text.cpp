@@ -3,7 +3,7 @@
 
 char window_write[6][max_words];
 
-System_text::System_text(int stdscr_x, int stdscr_y):Overlay() {
+System_text::System_text(int stdscr_x, int stdscr_y):Overlay(),Pixel_art() {
 text_x_pos = (stdscr_x - WINDOW_TEXT_WIDTH) / (2.2), text_y_pos = (stdscr_y - WINDOW_TEXT_HEIGHT) / (1.6);
 this->text = newwin(WINDOW_TEXT_HEIGHT, WINDOW_TEXT_WIDTH,text_y_pos, text_x_pos);
 is_open=false;
@@ -59,16 +59,6 @@ int j=1;
     }   
 
 wrefresh(text);
-}
-
-void System_text::clean_window(WINDOW* window, int w_hight, int w_lenght){
-wattron(window, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_BLACK))); 
-for(int i=1; i<w_hight; i++){
-    for(int j=1; j<w_lenght; j++){
-        mvwaddch(window, i, j, ' ');
-    }
-}
-wattroff(window, COLOR_PAIR(Cell::pairNumber(COLOR_BLACK, COLOR_BLACK)));   
 }
 
 void System_text::close(){

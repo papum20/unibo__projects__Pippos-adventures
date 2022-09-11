@@ -31,6 +31,10 @@
 		delete this;
 	}
 	void Room::update(int input) {
+				WINDOW *w = newwin(10,10,70,0);
+		box(w,0,0);
+		mvwprintw(w,0,0,to_string(map->characters_n).c_str());
+		wrefresh(w);
 		Coordinate i(0, 0, size);
 		// setta tutti gli oggetti come non updated e non drawn
 		do {

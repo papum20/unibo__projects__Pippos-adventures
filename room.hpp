@@ -35,7 +35,7 @@ const Coordinate SPAWN_DISTANCE = Coordinate(40, 14);				//distanza dal player i
 
 //SPAWN: istanze e probabilità
 //enemy
-const int ENEMIES_N[LEVELS_N] {25, 10, 10};
+const int ENEMIES_N[LEVELS_N] {10, 10, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]		= 	{
 															{Zombie(), Spider()},
 															{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
@@ -47,7 +47,7 @@ const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]			= 	{
 															{1, 2, 4, 4, 1}
 															};
 const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 12};
-const int BOSSES_N[LEVELS_N] {8, 6, 3};
+const int BOSSES_N[LEVELS_N] {15, 6, 3};
 const Enemy BOSSES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
 															{Zombie()},
 															{Snowman()},
@@ -114,7 +114,7 @@ class Room {
 	public:
 		Room(Coordinate pos);
 		virtual void destroy();									//elimina tutti i puntatori contenuti nella stanza, agendo poi ricorsivamente sulle stanze collegate
-		void update(int input);									//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
+		virtual void update(int input);							//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
 		
 		virtual void generate(); 								//genera uno schema randomico per i muri, inserendoli nell'array map
 		virtual void spawn(int level, pCharacter player, bool current = false);

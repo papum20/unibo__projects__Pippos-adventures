@@ -57,6 +57,7 @@ class Coordinate {
 		Coordinate times(float px, float py) const;						//return (x*px, y*py)
 		Coordinate times(Coordinate B) const;							//return (x*px, y*py)
 		Coordinate integer() const;
+		Coordinate floor();
 		Coordinate ceil();
 		void clamp(Coordinate mn, Coordinate mx);						//fa rientrare le coordinate nei bordi (mn lessEqual mx)
 		void next();													//trasforma in coordinata successiva rispetto a matrice (incrementata di 1, non esce fuori dai bordi, se arrivato alla fine diventa l'inizio della matrice); funziona solo con matrice impostata e x,y in essa (o ritorna ERROR_INT)

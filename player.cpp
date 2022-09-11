@@ -43,10 +43,12 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	artifacts[0] = new HealthPotion();
 	artifacts[1] = new Rune();
 	artifacts[2] = new Life_elixir();
+	defensive_items[0] = new armor();
 	weapons_n = 2;
-	defensive_items_n = 0;
+	defensive_items_n = 1;
 	artifacts_n = 3;
 	change_weapon(weapons[0]);
+	change_armor(defensive_items[0]);
 	
 
 	
@@ -318,6 +320,15 @@ void Player::door_actions(pMap map){
 		newcoord.x=newcoord.x+size.x;
 	}
 	used_door=MapHandler::checkDoor(map, newcoord);
+	WINDOW *w=newwin(10,10,50,0);
+	box(w,0,0);
+	if(used_door == NULL) mvwaddch(w,1,1,'N');
+	else {
+		mvwaddch(w,1,1,'s');
+		wprintw(w,to_string(used_door->isLocked()).c_str());
+		wprintw(w,to_string(used_door->isUseable()).c_str());
+	}
+	wgetch(w);
 	if (used_door != NULL && used_door->isLocked()){
 		if (n_keys>0){
 			n_keys--;

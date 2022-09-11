@@ -18,8 +18,8 @@
 
 #pragma region SCREENS_SIZES
 // CAMERA
-#define CAMERA_WIDTH  250//140//300//150//135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 50//30//70//50//35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH  235//300//150//135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 52//70//50//35		//altezza (massima) inquadratura livello
 // MINI-MAP
 #define MINIMAP_WIDTH (CAMERA_WIDTH - 4)
 #define MINIMAP_HEIGHT (CAMERA_HEIGHT - 2)
@@ -28,9 +28,27 @@
 // INVENTORY
 //space
 const int n_max_inventory_objects = 26;
-//SYSTEM_TEXT_WINDOW_CONSTANTS
+// SYSTEM_TEXT_WINDOW_CONSTANTS
 #define WINDOW_TEXT_HEIGHT 11
 #define WINDOW_TEXT_WIDTH 70
+// FINESTRA DEBUG
+#define DEBUG_WIDTH 13
+#define DEBUG_HEIGHT 3
+#define DEBUG_LENGTH (DEBUG_WIDTH + 1)
+#define DEBUG_X 0
+#define DEBUG_Y 0
+const char DEBUG_WRITE_LEVEL[] = "livello    ";
+const char DEBUG_WRITE_SECONDS[] = "    secondi";
+const char DEBUG_WRITE_FPS[] = "        FPS";
+#define DEBUG_Y_LEVEL 0
+#define DEBUG_Y_SECONDS 1
+#define DEBUG_Y_FPS 2
+#define DEBUG_X_LEVEL 8
+#define DEBUG_X_SECONDS 0
+#define DEBUG_X_FPS 0
+#define DEBUG_MAX_LEVEL 1000
+#define DEBUG_MAX_SECONDS 1000
+#define DEBUG_MAX_FPS 10000000
 #pragma endregion SCREENS_SIZES
 
 
@@ -56,7 +74,7 @@ const int n_max_inventory_objects = 26;
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
 //LEVEL
-#define N_ROOMS 2							//numero di stanze (normali) generate per livello
+#define N_ROOMS 10							//numero di stanze (normali) generate per livello
 #define LEVEL_AREA (N_ROOMS * N_ROOMS)		//dimensioni matrice livello
 #pragma endregion ROOM_DEFINITIONS
 

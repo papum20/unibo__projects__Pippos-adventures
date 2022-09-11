@@ -34,7 +34,7 @@ int main() {
 	System_text *text = new System_text(stdscr_x, stdscr_y);
 
 	pPlayer player = new Player(inputManager, text);
-	pLevel level = new Level(level_x, level_y, player);	
+	pLevel level = new Level(level_x, level_y, player, text);	
 
 	Game_over *game_over = new Game_over(stdscr_x, stdscr_y, player);
 	Hud *hud = new Hud(hud_x, hud_y, player);
@@ -42,17 +42,18 @@ int main() {
 	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y);
 	Start_menu *main_menu = new Start_menu(stdscr_x, stdscr_y);
 
-
-
-
-	
-	main_menu->open();
-	
-	WINDOW *debug = newwin(10,10,0,0);
-	box(debug,0,0);
-	wrefresh(debug);
-	int frame = 0;
+	//// FINESTRA DI DEBUG / INFORMAZIONI
+	WINDOW *debug = newwin(DEBUG_HEIGHT, DEBUG_WIDTH, DEBUG_Y, DEBUG_X);
+	int frames = 0;
 	game_timer.start(GAME_TIMER_INDEX);
+
+	
+
+	main_menu->open();
+	initDebug(debug);
+
+	
+	
 	//// UPDATE: ESEGUITO A OGNI FRAME
 	while (isRunning)
 	{
@@ -73,7 +74,6 @@ int main() {
 
 		//// MENU INIZIALE
 		if(main_menu->is_active()) {
-			if(frame % 2 == 0) mvwprintw(debug, 5, 1, "menu ");
 			main_menu->update(isRunning, inputManager->get_input());
 		}
 			// SE IL MENU INIZIALE È APPENA STATO CHIUSO
@@ -108,21 +108,16 @@ int main() {
 
 			//// UPDATE
 			if(pause_menu->is_active()) {
-				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "pause");
-
 				if(!pressedPause) pause_menu->update(inputManager->get_input());
 				else pause_menu->update(ERR);
 			}
 			else if(miniMap->isOpen()) {
-				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map  ");
 			}
 			else if(!game_over->isOpen()) {
 				if(game_over->isGameOver()) {
 					game_over->open();
 				}
 				else {
-					if(frame%2==0) mvwprintw(debug,5,1,"level");
-
 					level->update(inputManager->get_input());
 					level->display();
 					hud->drawHud();
@@ -131,14 +126,13 @@ int main() {
 			}
 		}
 
+
 		//// DEBUG
-		mvwprintw(debug,0,0,to_string(frame).c_str());
-		mvwprintw(debug,1,0,to_string((int)game_timer.get_time_passed(GAME_TIMER_INDEX)).c_str());
-		mvwprintw(debug,2,0,to_string((int)(frame / game_timer.get_time_passed(GAME_TIMER_INDEX))).c_str());
-		mvwaddch(debug,3,0,inputManager->get_input());
-		wrefresh(debug);
-		frame++;
+		printDebug(debug, level->getLevel(), game_timer.get_time_passed(GAME_TIMER_INDEX), frames / game_timer.get_time_passed(GAME_TIMER_INDEX));
+		frames++;
 	}
+
+
 
 
 	//// END
@@ -187,4 +181,40 @@ void gameEnd() {
 	FLOOR_INSTANCE->destroy(NULL);
 	WALL_INSTANCE->destroy(NULL);
 }
+
+void initDebug(WINDOW *win) {
+	mvwprintw(win, DEBUG_Y_LEVEL, 0, DEBUG_WRITE_LEVEL);
+	mvwprintw(win, DEBUG_Y_SECONDS, 0, DEBUG_WRITE_SECONDS);
+	mvwprintw(win, DEBUG_Y_FPS, 0, DEBUG_WRITE_FPS);
+	wrefresh(win);
+}
+void printDebug(WINDOW *win, int level, int seconds, int fps) {
+	initDebug(win);
+	
+	char level_s[DEBUG_LENGTH], seconds_s[DEBUG_LENGTH], fps_s[DEBUG_LENGTH];
+	int_to_string(level, level_s);
+	int_to_string(seconds, seconds_s);
+	int_to_string(fps, fps_s);
+	mvwprintw(win, DEBUG_Y_LEVEL, DEBUG_X_LEVEL, level_s);
+	mvwprintw(win, DEBUG_Y_SECONDS, DEBUG_X_SECONDS, seconds_s);
+	mvwprintw(win, DEBUG_Y_FPS, DEBUG_X_FPS, fps_s);
+	wrefresh(win);
+}
+
+int int_to_string(int n, char out[DEBUG_LENGTH]) {
+	if(n < 0) return -1;
+	else if(n < 10) {
+		out[0] = n + 48;
+		out[1] = '\0';
+		return 1;
+	} else {
+		int len = int_to_string(n / 10, out);
+		if(len < DEBUG_LENGTH - 2) {
+			out[len] = (n % 10) + 48;
+			out[len + 1] = '\0';
+		} else if(len < DEBUG_LENGTH) out[len] = '\0';
+		return len + 1;
+	}
+}
+
 #pragma endregion FUNZIONI

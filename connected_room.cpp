@@ -180,16 +180,6 @@
 	int ConnectedRoom::getLockedDoors() {
 		return locked_doors;
 	}
-	/*pDoor Map::getDoorInPosition(Coordinate pos) {
-		bool found = false;
-		int d = 0;
-		while(!found && d < MAX_CONNECTED_R) {
-			if(doors[d]->getPosition().equals(pos)) found = true;
-			else d++;
-		}
-		if(!found) return NULL;
-		else return doors[d];
-	}*/
 #pragma endregion SET_GET
 
 

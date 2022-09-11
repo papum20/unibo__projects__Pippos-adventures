@@ -136,4 +136,10 @@ void Physical::next_animation(){
     void Physical::resetAnimation(){
         animation_counter=animation_rate;
     }
+
+    void Physical::resetAttack(){
+        while (!animations[current_animation]->isFirstFrame()){
+            next_animation();
+        }
+    }
 #pragma endregion BOOL_GET_SET

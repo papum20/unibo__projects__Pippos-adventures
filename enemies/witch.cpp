@@ -23,6 +23,9 @@ Witch::Witch():Enemy(){
     maxHealth=Math::randomStep(40, 70, 10);
     curHealth=maxHealth;
     size=Coordinate (witch_width, witch_depth);
+
+    animation_rate=animation_rate*ranged_rate;
+    animation_counter=animation_rate;
 }
 
 Witch::Witch(pCharacter p):Enemy(p){
@@ -48,4 +51,7 @@ Witch::Witch(pCharacter p):Enemy(p){
     maxHealth=Math::randomStep(40, 70, 10);
     curHealth=maxHealth;
     size=Coordinate (witch_width, witch_depth);
+
+    animation_rate=animation_rate*ranged_rate;
+    animation_counter=animation_rate;
 }

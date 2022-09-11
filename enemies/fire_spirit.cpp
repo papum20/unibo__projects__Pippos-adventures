@@ -22,6 +22,9 @@ Fire_spirit::Fire_spirit():Enemy(){
     maxHealth=Math::randomStep(150, 200, 10);
     curHealth=maxHealth;
     size=Coordinate (fire_spirit_width, fire_spirit_depth);
+
+    animation_rate=animation_rate*ranged_rate;
+    animation_counter=animation_rate;
 }
 
 Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
@@ -46,4 +49,7 @@ Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
     maxHealth=Math::randomStep(150, 200, 10);
     curHealth=maxHealth;
     size=Coordinate (fire_spirit_width, fire_spirit_depth);
+    
+    animation_rate=animation_rate*ranged_rate;
+    animation_counter=animation_rate;
 }

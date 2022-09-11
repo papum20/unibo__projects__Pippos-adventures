@@ -38,8 +38,8 @@ Player::Player(pInputManager in, System_text* system_text):Character(p_max_healt
 	points=1500;
 
 
-	weapons[0]= new sword();
-	weapons[1]= new Arco();
+	weapons[1]= new Ascia();
+	weapons[0]= new Arco();
 	artifacts[0] = new HealthPotion();
 	artifacts[1] = new Rune();
 	artifacts[2] = new Life_elixir();
@@ -80,14 +80,16 @@ void Player::update(pMap map){
 						equipaggiamento.arma->next_animation();
 					}
 					else{
-						next_animation();
-						equipaggiamento.arma->next_animation();
 						if (!equipaggiamento.arma->is_melee)
 							ranged_attack(map);
 						else
 							check_enemy_melee(map);
 						is_attacking=false;
-						switch (direction){
+					}
+			}
+			else{
+				equipaggiamento.arma->resetAttack();
+				switch (direction){
 							case 'u':
 								current_animation=move_up_index;
 								equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
@@ -105,9 +107,6 @@ void Player::update(pMap map){
 								equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
 								break;	
 						}
-					}
-			}
-			else{
 				int input;
 				input=in_manager->get_input();
 				switch (input){
@@ -166,7 +165,6 @@ void Player::update(pMap map){
 		else
 			if (curHealth!=-1)
 				changeCurrentHealth(-1);
-			//else muore
 	}
 }
 

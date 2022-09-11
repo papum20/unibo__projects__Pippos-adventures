@@ -11,6 +11,7 @@
 
 #pragma region PHYSICAL_CONSTANTS
 
+#define ranged_rate 4
 const int MAX_ANIMATIONS = 8;
 // NUMERI
 #define N_ENEMIES 6
@@ -101,7 +102,7 @@ class Physical {
 		Coordinate lastMove;
 		int id;			//intero che identifica il tipo di oggetto (comune a tutti e soli gli oggetti della stessa classe)
 
-		p_Animation animations[MAX_ANIMATIONS]; //array di liste di array bidimensionali
+		 //array di liste di array bidimensionali
 		int animations_n;
 
 		//BOOL DI CONTROLLO
@@ -113,6 +114,7 @@ class Physical {
 		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata
 
 	public:
+	p_Animation animations[MAX_ANIMATIONS];
 		float animation_rate;
 		int current_animation;
 		float animation_counter;
@@ -153,6 +155,7 @@ class Physical {
 		void setPosition(Coordinate pos);
 		void resetUpdate();					//rende non updated
 		void resetAnimation();
+		void resetAttack();
 };
 
 typedef Physical *pPhysical;

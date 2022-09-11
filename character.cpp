@@ -287,6 +287,7 @@ void Character::initiate_attack (){
 	if (curStamina-stamina_cost>=0){
 		curStamina=curStamina-stamina_cost;
 		is_attacking=true;
+		animation_counter=0;
 		(equipaggiamento.arma)->initiate_attack(direction);
 		switch (direction){
 			case 'u':

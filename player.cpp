@@ -76,14 +76,16 @@ void Player::update(pMap map){
 						equipaggiamento.arma->next_animation();
 					}
 					else{
-						next_animation();
-						equipaggiamento.arma->next_animation();
 						if (!equipaggiamento.arma->is_melee)
 							ranged_attack(map);
 						else
 							check_enemy_melee(map);
 						is_attacking=false;
-						switch (direction){
+					}
+			}
+			else{
+				equipaggiamento.arma->resetAttack();
+				switch (direction){
 							case 'u':
 								current_animation=move_up_index;
 								equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
@@ -101,45 +103,22 @@ void Player::update(pMap map){
 								equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
 								break;	
 						}
-					}
-			}
-			else{
 				int input;
 				input=in_manager->get_input();
 				switch (input){
 					case KEY_UP:{
-						//WINDOW *w = newwin(10,10,0,20);
-						//box(w,0,0);
-						//mvwprintw(w,1,1,to_string(pos.x).c_str());
-						//mvwprintw(w,2,1,to_string(pos.y).c_str());
-						//wrefresh(w);
 						moveUp(map);
 						break;
 					}
 					case KEY_DOWN:{
-						//WINDOW *w = newwin(10,10,0,20);
-						//box(w,0,0);
-						//mvwprintw(w,1,1,to_string(pos.x).c_str());
-						//mvwprintw(w,2,1,to_string(pos.y).c_str());
-						//wrefresh(w);
 						moveDown(map);
 						break;
 					}	
 					case KEY_LEFT:{
-						//WINDOW *w = newwin(10,10,0,20);
-						//box(w,0,0);
-						//mvwprintw(w,1,1,to_string(pos.x).c_str());
-						//mvwprintw(w,2,1,to_string(pos.y).c_str());
-						//wrefresh(w);
 						moveLeft(map);
 						break;
 					}
 					case KEY_RIGHT:{
-						//WINDOW *w = newwin(10,10,0,20);
-						//box(w,0,0);
-						//mvwprintw(w,1,1,to_string(pos.x).c_str());
-						//mvwprintw(w,2,1,to_string(pos.y).c_str());
-						//wrefresh(w);
 						moveRight(map);
 						break;
 					}
@@ -182,7 +161,6 @@ void Player::update(pMap map){
 		else
 			if (curHealth!=-1)
 				changeCurrentHealth(-1);
-			//else muore
 	}
 }
 

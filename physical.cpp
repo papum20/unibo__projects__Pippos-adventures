@@ -57,14 +57,14 @@ void Physical::drawAtOwnPosition(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordina
 }
 
 void Physical::next_animation(){
-    /*if (animation_counter>=animation_rate){
+    if (animation_counter>=animation_rate){
         animations[current_animation] = animations[current_animation]->next;
-        animation_counter=0;
+        animation_counter=animation_counter-animation_rate;
     }
     else
         animation_counter++;
-    */
-   animations[current_animation] = animations[current_animation]->next;
+    
+   //animations[current_animation] = animations[current_animation]->next;
 }
 
 
@@ -135,5 +135,11 @@ void Physical::next_animation(){
 
     void Physical::resetAnimation(){
         animation_counter=animation_rate;
+    }
+
+    void Physical::resetAttack(){
+        while (!animations[current_animation]->isFirstFrame()){
+            next_animation();
+        }
     }
 #pragma endregion BOOL_GET_SET

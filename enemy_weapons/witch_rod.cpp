@@ -35,5 +35,8 @@ Witch_Rod::Witch_Rod():Rod(){
 
     projectile= Spell(danno_fisico, danno_magico, direction, owner_id);
     current_animation=0;
+
+    animation_rate=animation_rate*ranged_rate;
+    animation_counter=animation_rate;
 }
 

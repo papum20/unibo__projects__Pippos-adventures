@@ -70,6 +70,8 @@ void Enemy::copyEnemy(Enemy B) {
 		equipaggiamento.armatura->copyItemDifensivo(*B.equipaggiamento.armatura);
 	}
 	current_step=0;
+	animation_rate=FRAMES_PER_SECOND/ANIMATIONS_PER_SECOND;
+    animation_counter=animation_rate;
 	Character::copyCharacter(B);
 }
 
@@ -85,12 +87,12 @@ void Enemy::update(pMap map){
 				}
 			}
 			else{
-				if (!animations[current_animation]->isLastFrame()){
+				if (!equipaggiamento.arma->check_frame()){
 					next_animation();
 					equipaggiamento.arma->next_animation();
 				}
-				
 				else{
+					equipaggiamento.arma->resetAttack();
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);
 					else{
@@ -102,7 +104,7 @@ void Enemy::update(pMap map){
 					}
 					is_attacking=false;
 					switch (direction){
-						case 'o':
+						case 'u':
 							current_animation=move_up_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
 							if (!equipaggiamento.arma->is_melee)
@@ -111,7 +113,7 @@ void Enemy::update(pMap map){
 								else
 									moveLeft(map);
 							break;
-						case 'p':
+						case 'd':
 							current_animation=move_down_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
 							if (!equipaggiamento.arma->is_melee)
@@ -120,7 +122,7 @@ void Enemy::update(pMap map){
 								else
 									moveLeft(map);
 							break;
-						case 'q':
+						case 'l':
 							current_animation=move_left_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
 							if (!equipaggiamento.arma->is_melee)
@@ -242,14 +244,14 @@ void Enemy::meleeIA(pMap map){
 
 void Enemy::make_step(pMap map){
 	if (current_step<max_steps){
-		if (memorized_path[current_step].x==pos.x){																//se è maggiore di uno mi muovo nella sua direzione
-			if (memorized_path[current_step].y>pos.y)
+		if (memorized_path[current_step].x==pos.intx()){																//se è maggiore di uno mi muovo nella sua direzione
+			if (memorized_path[current_step].y>pos.inty())
 				moveUp(map);
 			else
 				moveDown(map);
 			}	
 		else{																		
-			if (memorized_path[current_step].x>pos.x)
+			if (memorized_path[current_step].x>pos.intx())
 				moveRight(map);
 			else
 				moveLeft(map);

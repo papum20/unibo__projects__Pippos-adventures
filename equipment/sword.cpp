@@ -24,8 +24,8 @@ sword::sword():Weapon(){
 
     animations[attack_up_index]= new Animation (sword_attack_up, Coordinate(sword_width, sword_height), sword_vertical_attack_states);
     animations[attack_down_index]= new Animation (sword_attack_down, Coordinate(sword_width, sword_height), sword_vertical_attack_states);
-    animations[attack_left_index]= new Animation (sword_attack_left, Coordinate(sword_width, sword_height), sword_horizontal_attack_states);
-    animations[attack_right_index]= new Animation (sword_attack_right, Coordinate(sword_width, sword_height), sword_horizontal_attack_states);
+    animations[attack_left_index]= new Animation (sword_attack_right, Coordinate(sword_width, sword_height), sword_horizontal_attack_states);
+    animations[attack_right_index]= new Animation (sword_attack_left, Coordinate(sword_width, sword_height), sword_horizontal_attack_states);
 
     is_melee=true;
     owner_id=ID_PLAYER;

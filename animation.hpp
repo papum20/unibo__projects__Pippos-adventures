@@ -40,6 +40,7 @@ class Animation {
 
 		char at(Coordinate pos);		//carattere in posizione pos (dal basso)
 		bool isLastFrame();				//se è l'ultimo frame dell'animazione
+		bool isFirstFrame();
 };
 
 typedef Animation *p_Animation;

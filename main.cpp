@@ -34,12 +34,12 @@ int main() {
 	pPlayer player = new Player(inputManager);
 	pLevel level = new Level(level_x, level_y, player);	
 
+	Game_over *game_over = new Game_over(stdscr_x, stdscr_y, player);
 	Hud *hud = new Hud(hud_x, hud_y, player);
 	MiniMap *miniMap = new MiniMap(map_x, map_y, level);
-	System_text *text = new System_text(stdscr_x, stdscr_y);
-	Start_menu *main_menu = new Start_menu(stdscr_x, stdscr_y);
 	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y);
-	Game_over game_over = Game_over(stdscr_x, stdscr_y);
+	Start_menu *main_menu = new Start_menu(stdscr_x, stdscr_y);
+	System_text *text = new System_text(stdscr_x, stdscr_y);
 
 
 
@@ -116,12 +116,18 @@ int main() {
 				else if(miniMap->isOpen()) {
 					if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map  ");
 				}
-				else {
-					if(frame%2==0) mvwprintw(debug,5,1,"level");
+				else if(!game_over->isOpen()) {
+					if(game_over->isGameOver()) {
+						game_over->open();
+					}
+					else {
+						if(frame%2==0) mvwprintw(debug,5,1,"level");
 
-					level->update(inputManager->get_input());
-					level->display();
-					hud->drawHud();
+						level->update(inputManager->get_input());
+						level->display();
+						hud->drawHud();
+						game_over->update();
+					}
 				}
 			}
 		}
@@ -140,13 +146,14 @@ int main() {
 	cursesEnd();
 	gameEnd();
 	//DELETE
-	//hud->destroy();
-	//inputManager->destroy();
+	game_over->destroy();
+	hud->destroy();
+	inputManager->destroy();
 	level->destroy();
-	//main_menu->destroy();
-	//miniMap->destroy();
-	//pause_menu->destroy();
-	//text->destroy();
+	main_menu->destroy();
+	miniMap->destroy();
+	pause_menu->destroy();
+	text->destroy();
 	
 }
 

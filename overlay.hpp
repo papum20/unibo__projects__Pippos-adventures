@@ -21,6 +21,7 @@ class Overlay {
 		virtual void open();				//apre sopra
 		virtual void open_over(Overlay *B);	//chiama il close della finestra e apre questa
 		virtual void close();
+		bool isOpen();
 };
 
 

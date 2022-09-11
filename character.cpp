@@ -315,6 +315,7 @@ int Character::getPoints(){
 	return -1;
 }
 
+
 /*
 #pragma region AUSILIARIE_GENERICHE
 	void Character::swapPositions(pCharacter this[], Coordinate a, Coordinate b) {

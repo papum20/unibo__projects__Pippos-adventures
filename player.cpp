@@ -178,10 +178,9 @@ void Player::update(pMap map){
 			Character::update(map);		//azioni generali
 		}
 		else
-			if (curHealth==-1)
-				destroy(map);
-			else
+			if (curHealth!=-1)
 				changeCurrentHealth(-1);
+			//else muore
 	}
 }
 

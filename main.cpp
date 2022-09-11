@@ -90,6 +90,7 @@ int main() {
 				hud->close();
 				in_mainMenu = true;
 				pressedMinimap = false, pressedPause = false;
+				if(pause_menu->is_active()) pause_menu->close();
 			}
 			else if(inputManager->get_input() == KEY_PAUSE) {
 				if(!pressedPause) {

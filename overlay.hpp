@@ -12,6 +12,7 @@ class Overlay {
 	protected:
 		WINDOW *window;
 		int width, height;
+		bool is_open;
 	public:
 		Overlay();
 		Overlay(int x, int y, int width, int height);

@@ -6,6 +6,7 @@
 #include "item_difensivi.hpp"
 #include "inanimate.hpp"
 #include "items/key.hpp"
+#include "items/artifacts.hpp"//
 
 const int chest_width=5;
 const int chest_height=3;

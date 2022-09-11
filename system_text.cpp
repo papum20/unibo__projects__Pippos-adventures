@@ -50,7 +50,11 @@ void System_text::insert_string(const char string[]){
     for(int i=0; i<space; i++){       
         int k=0;
         while(window_write[i][k]!='\0'){
-            mvwaddch(text, WINDOW_TEXT_HEIGHT - (j*2), k+1, window_write[i][k]);
+                mvwaddch(text, WINDOW_TEXT_HEIGHT - (j*2), k+1, window_write[i][k]);
+            k++;
+        }
+        while(k<WINDOW_TEXT_WIDTH-4) {
+            mvwaddch(text,  WINDOW_TEXT_HEIGHT - (j*2), k+1, ' ');
             k++;
         }
         j++;

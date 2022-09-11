@@ -26,12 +26,12 @@ int main() {
 	getmaxyx(stdscr, stdscr_y, stdscr_x);
 	int level_x = (stdscr_x - CAMERA_WIDTH) / 2, level_y = (stdscr_y - (CAMERA_HEIGHT + HUD_HEIGHT + HUD_OFFSET)) / 2 + HUD_HEIGHT + HUD_OFFSET;
 	int input_x = level_x + CAMERA_WIDTH, input_y = level_y + CAMERA_HEIGHT - input_h;
-	int hud_x = (stdscr_x - HUD_WIDTH) / 2, hud_y = level_y - HUD_HEIGHT - HUD_OFFSET;
+	int hud_x = (stdscr_x - HUD_WIDTH - WINDOW_TEXT_WIDTH) / 2, hud_y = level_y - HUD_HEIGHT - HUD_OFFSET;
 	int map_x = (stdscr_x - MINIMAP_WIDTH) / 2, map_y = (stdscr_y - MINIMAP_HEIGHT) / 2;
 
 	//costruttori
 	pInputManager inputManager = new InputManager(input_x, input_y);
-	System_text *text = new System_text(stdscr_x, stdscr_y);
+	System_text *text = new System_text(hud_x + HUD_WIDTH + 1, hud_y - 3);
 
 	pPlayer player = new Player(inputManager, text);
 	pLevel level = new Level(level_x, level_y, player, text);	

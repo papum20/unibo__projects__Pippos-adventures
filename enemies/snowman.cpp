@@ -17,8 +17,6 @@ Snowman::Snowman():Enemy(){
     points_given=snowman_points;
 
     change_armor(new armor());
-    change_necklace(new necklace());
-    change_boots(new boots());
     change_weapon(new Snowman_hands());
     
     maxHealth=Math::randomStep(40, 70, 10);
@@ -46,8 +44,6 @@ Snowman::Snowman(pCharacter p):Enemy(p){
     points_given=snowman_points;
 
     change_armor(new armor());
-    change_necklace(new necklace());
-    change_boots(new boots());
     change_weapon(new Snowman_hands());
     
     maxHealth=Math::randomStep(40, 70, 10);

@@ -1,5 +1,5 @@
 #include "key.hpp"
 
-Key::Key(){
+Key::Key():Artifact(){
     
 }

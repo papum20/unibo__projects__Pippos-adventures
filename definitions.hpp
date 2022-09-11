@@ -8,8 +8,7 @@
 
 //// REFRESH RATE : durata di un frame
 #pragma region REFRESH_RATE
-#define FRAMES_PER_SECOND 10					//aggiornamenti in un secondo
-#define ANIMATIONS_PER_SECOND 2                //animazioni al secondo
+#define FRAMES_PER_SECOND 15					//aggiornamenti in un secondo
 #define REFRESH_RATE (1. / FRAMES_PER_SECOND)	//durata di un aggiornamento
 #define REFRESH_TIMER_INDEX 0					//indice del timer (implementazione)
 #define GAME_TIMER_INDEX 1
@@ -18,7 +17,7 @@
 
 #pragma region SCREENS_SIZES
 // CAMERA
-#define CAMERA_WIDTH  150//140//300//150//135	//larghezza (massima) inquadratura livello
+#define CAMERA_WIDTH  250//140//300//150//135	//larghezza (massima) inquadratura livello
 #define CAMERA_HEIGHT 50//30//70//50//35	//altezza (massima) inquadratura livello
 // MINI-MAP
 #define MINIMAP_WIDTH (CAMERA_WIDTH - 4)
@@ -41,6 +40,8 @@ const int n_max_inventory_objects = 19;
 #define ROOM_WIDTH (ROOM_WIDTH_T * SCALE_X)//320	//larghezza (reale) stanza
 #define ROOM_HEIGHT_T 20//180
 #define ROOM_HEIGHT (ROOM_HEIGHT_T * SCALE_Y)//180
+#define ROOM_BOSS_WIDTH 100
+#define ROOM_BOSS_HEIGHT 40
 #define ROOM_AREA_T (ROOM_WIDTH_T * ROOM_HEIGHT_T)
 #define ROOM_AREA (ROOM_WIDTH * ROOM_HEIGHT)
 #define CENTRAL_ROOM_WIDTH_T 9						//dimensioni dello spazio vuoto quadrato al centro (la width è prima dello scale)
@@ -49,7 +50,7 @@ const int n_max_inventory_objects = 19;
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
 //LEVEL
-#define N_ROOMS 10							//numero di stanze (normali) generate per livello
+#define N_ROOMS 3							//numero di stanze (normali) generate per livello
 #define LEVEL_AREA (N_ROOMS * N_ROOMS)		//dimensioni matrice livello
 #pragma endregion ROOM_DEFINITIONS
 
@@ -122,6 +123,27 @@ const int scroll_right = KEY_RIGHT;
 
 
 #define ERROR_INT -1
+
+
+//MESSAGGI DI SISTEMA
+#define max_words 70
+const char door_unlocked[max_words]={"PORTA SBLOCCATA"};
+const char no_keys[max_words]={"CHIAVI INSUFFICIENTI"};
+const char gain_life[max_words]={"HAI RIPRISTINATO PARTE DELLA TUA SALUTE"};
+const char life_max[max_words]={"LA TUA SALUTE E' AL MASSIMO"};
+const char gain_heart[max_words]={"HAI OTTENUTO UNA VITA IN PIU'"};
+const char lose_heart[max_words]={"HAI PERSO UNA VITA"};
+const char life_full[max_words]={"HAI RAGGIUNTO IL NUMERO MASSIMO DI VITE"};
+const char no_weapon[max_words]={"NON PUOI PIU' RACCOGLIERE ARMI"};
+const char no_item_difensive[max_words]={"NON PUOI PIU' RACCOGLIERE OGGETTI DIFENSIVI"};
+const char no_artifacts[max_words]={"NON PUOI PIU' RACCOGLIERE ARTEFATTI"};
+const char collect_weapon[max_words]={"HAI RACCOLTO UN'ARMA"};
+const char collect_item_difensive[max_words]={"HAI RACCOLTO UN ITEM DIFENSIVO"};
+const char collect_artifact[max_words]={"HAI RACCOLTO UN ARTEFATTO"};
+const char upgrade_equip[max_words]={"HAI MIGLIORATO UN OGGETTO NEL TUO EQUIPAGGIAMENTO"};
+const char no_upgrade[max_words]={"NON PUOI MIGLIORARE NESSUN ALTRO OGGETTO DEL TUO EQUIPAGGIAMENTO"};
+
+
 
 
 #endif

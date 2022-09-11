@@ -10,6 +10,7 @@
 #include <curses.h>
 #include "coordinate.hpp"
 #include "math.hpp"
+#include "overlay.hpp"
 
 
 //// COSTANTI DI INIZIALIZZAZIONE ATTRIBUTI DI LEVEL
@@ -31,7 +32,7 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 
 
 #include "cell.hpp"
-#include "connected_room.hpp"
+#include "boss_room.hpp"
 #include "definitions.hpp"
 #include "enemies/enemies.hpp"
 #include "equipment/equipment.hpp"
@@ -46,11 +47,8 @@ const Coordinate CAMERA_OFFSET_MAX(15, 8);	//massimo spostamento della camera
 
 
 
-class Level {
+class Level : public Overlay {
 	private:
-		//dimensioni dello schermo disponibile, ovvero della parte di stanza disegnata a schermo
-		int width;
-		int height;
 		//spessore bordi laterali (lr) e sopra e sotto (tb)
 		int lr_border;
 		int tb_border;
@@ -74,7 +72,6 @@ class Level {
 		Coordinate pivotDistance;	//(se è cambiato il pivot) distanza dal vecchio pivot
 
 		//schermo:
-		WINDOW *levelWindow;
 		chtype screen[CAMERA_HEIGHT][CAMERA_WIDTH];	//array bidimensionale contenente le informazioni delle celle dello schermo (ciò che viene stampato)
 		//oggetti:
 		pRoom curRoom;				//stanza attuale, inquadrata e in cui si trova il giocatore
@@ -88,6 +85,7 @@ class Level {
 		
 		// FUNZIONI AUSILIARIE
 		void setUp(int win_x, int win_y, int win_w, int win_h, pPlayer player);					//setup per costruttore
+		void destroyRooms();
 		lock_type randLockedDoor(Room A, Room B);												//(per generate) ritorna casualmente se la/le porta/e tra la stanza da generare e room devono essere bloccate
 		pConnectedRoom findRoomAtCoordinates(pConnectedRoom rooms[], int len, Coordinate c);	//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		void cameraUpdate();																	//calcola il centro della camera
@@ -99,6 +97,7 @@ class Level {
 		Level(int win_x, int win_y, pPlayer player);
 		Level(int win_x, int win_y, int win_w, int win_h, pPlayer player);
 		void destroy();		
+		void open();								//disegna tutto da capo
 
 		void update(int input);						//da richiamare a ogni frame
 		void display();								//stampa la parte di stanza inquadrata nello schermo (chiamato a ogni frame, se non in pausa), con camera che segue il personaggio
@@ -115,6 +114,7 @@ class Level {
 		void setDefaultCameraSpecs();											//reimposta le caratteristiche di default della camera
 };
 
+typedef Level *pLevel;
 
 
 #endif

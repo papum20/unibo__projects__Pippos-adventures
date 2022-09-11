@@ -9,8 +9,6 @@
 		size_t = Coordinate(ROOM_WIDTH_T, ROOM_HEIGHT_T);
 		size = size_t.times(scale);
 
-		destroyed = false;
-
 		map = new Map;
 		map->size = size;
 		//mappe
@@ -22,8 +20,8 @@
 		}
 		map->characters_n = 0;
 	}
-	void Room::recursiveDestroy() {
-		Coordinate i(0, 0, size);
+	void Room::destroy() {
+		Coordinate i = Coordinate(0, 0, size);
 		do {
 			pPhysical obj = map->physical[i.single()];
 			if(obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) map->physical[i.single()]->destroy(map);
@@ -51,7 +49,6 @@
 		pUnionFind sets = new UnionFind();
 		//GENERA MURI LATERALI
 		generateSidesWalls();
-		//GENERA PORTE
 		//CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
 		generateInnerRoom(sets);
 		//RIEMPI LA STANZA DI MURI E CORRIDOI
@@ -62,11 +59,11 @@
 		resizeMap();
 	}
 
-	void Room::spawn(int level, pCharacter player) {
+	void Room::spawn(int level, pCharacter player, bool current) {
 		//segno le posizioni in un rettangolo come occupate dal player per non farci spawnare nemici
 		Coordinate start = Coordinate(size.times(.5, .5), SPAWN_DISTANCE.negative()).integer(), end = Coordinate(start, SPAWN_DISTANCE.times(2, 2));
 		Coordinate i = Coordinate(start, size, start, end);
-		if(player != NULL) {
+		if(current && player != NULL) {
 			do {
 				if(map->physical[i.single()]->getId() == ID_FLOOR) map->physical[i.single()] = player;
 				i.next();
@@ -75,7 +72,7 @@
 		//spawno nemici
 		for(int i = 0; i < ENEMIES_N[level]; i++) spawnEnemy(randEnemy(level, player));
 		//dopo averli spawnati, le elimino (tranne quelle dove va effettivamente)
-		if(player != NULL) {
+		if(current && player != NULL) {
 			player->setPosition(size.times(.5, .5).integer());
 			do {
 				if(map->physical[i.single()] == player) {
@@ -84,6 +81,7 @@
 				}
 				i.next();
 			} while(!i.equals(start));
+			map->characters_n++;
 		}
 		//spawno chest
 		int chests_n = chestsNumber(level);
@@ -382,8 +380,8 @@
 	pDoor Room::getDoor(int dir) {
 		return map->doors[dir];
 	}
-	bool Room::wasDestroyed() {
-		return destroyed;
+	bool Room::isBossRoom() {
+		return false;
 	}
 	Coordinate Room::getEntrance(pDoor door) {
 		return COORDINATE_ERROR;
@@ -391,10 +389,9 @@
 	pRoom Room::getConnectedRoom(pDoor room) {
 		return NULL;
 	}
-	/*void Room::getMap(pPhysical map[], Coordinate &size) {
-		for(s_coord i = 0; i < this->map->getSize().x / scale_x * this->map->getSize().y; i++) map[i] = this->map->checkPosition(Coordinate(i * scale_x, this->map->getSize()));
-		size = this->map->getSize().times(1. / scale_x, 1);
-	}*/
+	//pMap Room::getMap() {
+	//	return map;
+	//}
 	void Room::remove(pPhysical obj) {
 		MapHandler::remove(map, obj);
 	}

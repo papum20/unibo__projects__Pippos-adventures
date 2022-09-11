@@ -4,6 +4,8 @@
 #include "character.hpp"
 #include "inputmanager.hpp"
 #include "equipment/shield.hpp"
+#include "items/artifacts.hpp"
+
 
 const int player_idle_index = 0;
 const int player_move_right_index = 1;
@@ -120,7 +122,7 @@ const int mv_down=KEY_DOWN;
 const int mv_left=KEY_LEFT;
 const int mv_right=KEY_RIGHT;
 
-const int MAX_ARTIFACTS=10;
+const int MAX_ARTIFACTS=8;
 
 
 
@@ -133,12 +135,9 @@ class Player : public Character {
 
 		pWeapon weapons[W_NUMBER];
 		int weapons_n;
-		int curr_weapon;
 		pItem_def defensive_items[DEF_NUMBER];
 		int defensive_items_n;
-		int last_def;
 		pArtifact artifacts[MAX_ARTIFACTS];
-		int curr_artifact;
 		int artifacts_n;
 
 		pInputManager in_manager;

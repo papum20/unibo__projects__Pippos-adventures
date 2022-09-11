@@ -11,16 +11,22 @@ Enemy::Enemy() : Character() {
 	main_color = COLOR_ENEMY;
 	frames_passed=enemy_refreshing_rate;
 	current_step=0;
+	memorized_steps=0;
 }
 
 Enemy::Enemy(pCharacter p):Character() {
-    player=p;
+	player = p;
+
 	maxStamina=enemy_stamina;
 	curStamina=maxStamina;
 	id= ID_ENEMY_S;
 	animations_n = 5;
-	
+	player_in_vision=false;
+	player_found=false;
 	main_color = COLOR_ENEMY;
+	frames_passed=enemy_refreshing_rate;
+	current_step=0;
+	memorized_steps=0;
 }
 
 int Enemy::getPoints(){
@@ -69,34 +75,64 @@ void Enemy::copyEnemy(Enemy B) {
 
 void Enemy::update(pMap map){
 	if(!updated){
+				WINDOW *w = newwin(10,10,40,1);
+				box(w,0,0);
+				mvwaddch(w,1,1,'a');
+				wrefresh(w);
 		if (curHealth>0){	
+				mvwaddch(w,1,1,'b');
+				wrefresh(w);
 			if (!is_attacking){
+				mvwaddch(w,1,1,'c');
+				wrefresh(w);
 				if (equipaggiamento.arma->is_melee){
+				mvwaddch(w,1,1,'d');
+				wrefresh(w);
 					meleeIA(map);
+				mvwaddch(w,1,1,'e');
+				wrefresh(w);
 				}
 				else{
+				mvwaddch(w,1,1,'f');
+				wrefresh(w);
 					rangedIA(map);
+				mvwaddch(w,1,1,'g');
+				wrefresh(w);
 				}
 			}
 			else{
+				mvwaddch(w,1,1,'h');
+				wrefresh(w);
 				if (!animations[current_animation]->isLastFrame()){
 					next_animation();
 					equipaggiamento.arma->next_animation();
+				waddch(w,'i');
+				wrefresh(w);
 				}
 				
 				else{
+				mvwaddch(w,1,1,'j');
+				wrefresh(w);
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);
 					else{
+				mvwaddch(w,1,1,'k');
+				wrefresh(w);
 						check_enemy_melee(map);
+				mvwaddch(w,1,1,'l');
+				wrefresh(w);
 						if (player_found){
+				mvwaddch(w,1,1,'m');
+				wrefresh(w);
 							player->changeCurrentHealth(calculate_damage(player));
 							player_found=false;
+				mvwaddch(w,1,1,'n');
+				wrefresh(w);
 						}
 					}
 					is_attacking=false;
 					switch (direction){
-						case 'u':
+						case 'o':
 							current_animation=move_up_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
 							if (!equipaggiamento.arma->is_melee)
@@ -105,7 +141,7 @@ void Enemy::update(pMap map){
 								else
 									moveLeft(map);
 							break;
-						case 'd':
+						case 'p':
 							current_animation=move_down_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
 							if (!equipaggiamento.arma->is_melee)
@@ -114,7 +150,7 @@ void Enemy::update(pMap map){
 								else
 									moveLeft(map);
 							break;
-						case 'l':
+						case 'q':
 							current_animation=move_left_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
 							if (!equipaggiamento.arma->is_melee)
@@ -131,12 +167,18 @@ void Enemy::update(pMap map){
 								else
 									moveDown(map);
 							break;	
+				mvwaddch(w,1,1,'s');
+				wrefresh(w);
 					}
 				}
 			}
+				mvwaddch(w,1,1,'t');
+				wrefresh(w);
 			Character::update(map);
 		}
 		else{
+				mvwaddch(w,1,1,' ');
+				wrefresh(w);
 			player->change_points(points_given);
 			destroy(map);
 		}
@@ -199,31 +241,51 @@ void Enemy::meleeIA(pMap map){
 		}
 		else{
 			frames_passed=0;
-			Physical *obj[ROOM_AREA];
-			Physical *obj2[ROOM_AREA];
-			int objects_in_view;
-			int objects_in_view2;
-			objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
-			objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), enemy_vision);
-			if (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)){
+			//Physical *obj[ROOM_AREA];
+			//Physical *obj2[ROOM_AREA];
+			//int objects_in_view;
+			//int objects_in_view2;
+			//objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
+			//objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), enemy_vision);
+			//if (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)){
+			bool b = MapHandler::visionLine_check(map, Coordinate(pos,size.times(.5,.5)), Coordinate(player->getPosition(), player->getSize().times(.5, .5)), enemy_vision);
+			if (b){
+				WINDOW *w = newwin(10,10,30,1);
+				box(w,0,0);
+				mvwaddch(w,1,1,'a');
+				wrefresh(w);
 				player_in_vision=true;
 				int player_distance;
+				mvwaddch(w,1,1,'b');
+				wrefresh(w);
 				Coordinate path[ROOM_AREA];
 				player_distance=MapHandler::shortestPath_physical(map, path, this, player, 1, 1);
+				mvwaddch(w,1,1,'c');
+				wrefresh(w);
 				if (player_distance>=max_steps){
+				mvwaddch(w,1,1,'d');
+				wrefresh(w);
 					memorized_steps=max_steps;
 					for (int i=0; i<memorized_steps; i++){
 						memorized_path[i]=path[i];
 					}
+				mvwaddch(w,1,1,'e');
+				wrefresh(w);
 				}
 				else{
+				mvwaddch(w,1,1,'f');
+				wrefresh(w);
 					memorized_steps=player_distance;
 					for (int i=0; i<memorized_steps; i++){
 						memorized_path[i]=path[i];
 					}
 				}
+				mvwaddch(w,1,1,'g');
+				wrefresh(w);
 				current_step=1;
 				make_step(map);
+				mvwaddch(w,1,1,' ');
+				wrefresh(w);
 			}
 			else
 				player_in_vision=false;
@@ -251,13 +313,15 @@ void Enemy::make_step(pMap map){
 }
 
 void Enemy::rangedIA(pMap map){
-	Physical *obj[ROOM_AREA];
-	Physical *obj2[ROOM_AREA];
-	int objects_in_view;
-	int objects_in_view2;
-	objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
-	objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), enemy_vision);
-	if ( (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2) ) && inRange()){
+	//Physical *obj[ROOM_AREA];
+	//Physical *obj2[ROOM_AREA];
+	//int objects_in_view;
+	//int objects_in_view2;
+	//objects_in_view=MapHandler::vision(map, obj, pos, enemy_vision);
+	//objects_in_view2=MapHandler::vision(map, obj2, Coordinate(pos,size.times(.5,.5)), enemy_vision);
+	//if ( (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2) ) && inRange()){
+	bool b = MapHandler::visionLine_check(map, Coordinate(pos,size.times(.5,.5)), Coordinate(player->getPosition(), player->getSize().times(.5, .5)), enemy_vision);
+	if ( b && inRange()){
 		initiate_attack();
 	}
 	else{
@@ -269,7 +333,8 @@ void Enemy::rangedIA(pMap map){
 		}
 		else{
 			frames_passed=0;
-			if (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)){
+			//if (player->findInArray(obj, objects_in_view) || player->findInArray(obj2, objects_in_view2)){
+			if (b){
 				player_in_vision=true;
 				int player_distance;
 				Coordinate path[ROOM_AREA];

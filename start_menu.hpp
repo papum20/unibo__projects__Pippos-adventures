@@ -5,6 +5,7 @@
 #include <curses.h>
 #include <cstring>
 #include <ctime>
+#include "overlay.hpp"
 #include "inputmanager.hpp"
 #include "pixel_art.hpp"
 
@@ -22,12 +23,6 @@
 #define FACE_WIDTH 66
 
 
-//const int scroll_up = 'w';
-//const int scroll_down = 's';
-//const int scroll_left = KEY_LEFT;
-//const int scroll_right = KEY_RIGHT;
-//const int esc = 27; //tasto per uscire dall'inventario
-//const int invio = 10;
 const char choices[3][20]={"start", "opzioni", "chiudi"};
 
 const int c_hight = 31;
@@ -72,7 +67,7 @@ const int cave[c_hight][c_lenght]={
 };
 
 
-class Start_menu : public Pixel_art {
+class Start_menu : public Pixel_art, public Overlay {
 	protected:
         WINDOW * menu;
         WINDOW * wface;
@@ -94,7 +89,7 @@ class Start_menu : public Pixel_art {
         void open_options();
         void update(bool &isRunning, int input);
         bool is_active();
-        void close_menu();
+        void close();
         void open();
         void update_options();
         void destroy();

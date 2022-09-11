@@ -35,7 +35,7 @@ const Coordinate SPAWN_DISTANCE = Coordinate(40, 14);				//distanza dal player i
 
 //SPAWN: istanze e probabilità
 //enemy
-const int ENEMIES_N[LEVELS_N] {1, 10, 10};
+const int ENEMIES_N[LEVELS_N] {25, 10, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]		= 	{
 															{Witch(), Witch()},
 															{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
@@ -47,7 +47,7 @@ const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]			= 	{
 															{1, 2, 4, 4, 1}
 															};
 const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 12};
-const int BOSSES_N[LEVELS_N] {25, 6, 3};
+const int BOSSES_N[LEVELS_N] {8, 6, 3};
 const Enemy BOSSES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
 															{Zombie()},
 															{Snowman()},
@@ -96,8 +96,6 @@ class Room {
 		Coordinate scale;		//ridimensionamento
 		pMap map;
 
-		bool destroyed;							//serve per recursive destroy
-		
 		//// FUNZIONI
 		void addCharacter(pCharacter obj);							//aggiunge un character nella sua posizione
 		// FUNZIONI AUSILIARIE
@@ -115,11 +113,11 @@ class Room {
 
 	public:
 		Room(Coordinate pos);
-		void recursiveDestroy();								//elimina tutti i puntatori contenuti nella stanza, agendo poi ricorsivamente sulle stanze collegate
+		virtual void destroy();									//elimina tutti i puntatori contenuti nella stanza, agendo poi ricorsivamente sulle stanze collegate
 		void update(int input);									//da richiamare a ogni frame; chiama l'update di ogni elemento nella stanza
 		
 		virtual void generate(); 								//genera uno schema randomico per i muri, inserendoli nell'array map
-		virtual void spawn(int level, pCharacter player);
+		virtual void spawn(int level, pCharacter player, bool current = false);
 		
 		// DISEGNO
 		void draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center);	//riempie l'array con le informazioni per stampare a schermo, con opportune modifiche di prospettiva e altro;
@@ -128,11 +126,11 @@ class Room {
 		// GET
 		Coordinate getPos();
 		Coordinate getSize();
-		//void getMap(pPhysical map[], Coordinate &size);			//modifica mappa, ritorna dimensioni
+		//pMap getMap();
 		pDoor getDoor(int dir);										//porta in direzione
 		virtual Coordinate getEntrance(pDoor door);					//posizione in cui si entra nell'altra stanza attraversando questa porta
 		virtual Room *getConnectedRoom(pDoor door);					//ritorna il puntatore alla stanza collegata dalla porta
-		bool wasDestroyed();
+		virtual bool isBossRoom();
 
 		// SET
 		void remove(pPhysical obj);															//rimuove da map

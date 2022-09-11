@@ -1,7 +1,7 @@
 #include "hud.hpp"
 
 
-Hud::Hud(int x, int y, pPlayer p){
+Hud::Hud(int x, int y, pPlayer p):Overlay(){
     max_health=p->maxHealth;
     max_stamina=p->maxStamina;
     player=p;
@@ -12,7 +12,14 @@ Hud::Hud(int x, int y, pPlayer p){
     wrefresh(hud_win);
 }
 
+void Hud::destroy() {
+    Overlay::destroy();
+}
+
 void Hud::drawHud (){
+
+    box(hud_win, 0, 0);
+    
     int health_counter;             //serve a contare quanto della barra della vita colorare
     int stamina_counter;            //serve a contare quanto della barra della stamina colorare
     int y_cursor, x_cursor;         //indici che mi aiutano nel disegno

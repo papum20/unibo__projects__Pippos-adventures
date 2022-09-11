@@ -1,7 +1,7 @@
 #include "inputmanager.hpp"
 
 
-InputManager::InputManager(int x_win, int y_win) {
+InputManager::InputManager(int x_win, int y_win):Overlay() {
     input_window=newwin (input_h+2, input_l+2, y_win, x_win);
     keypad(input_window, true);
     nodelay(input_window, true);
@@ -13,7 +13,7 @@ InputManager::InputManager(int x_win, int y_win) {
     timer.start(INPUT_TIMER_INDEX);
 }
 void InputManager::destroy() {
-    delete this;
+    Overlay::destroy();
 }
 
 void InputManager::calculate_input(){

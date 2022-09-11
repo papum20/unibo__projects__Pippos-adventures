@@ -2,24 +2,17 @@
 
 
 #pragma region MAIN
-	Level::Level(int win_x, int win_y, int win_w, int win_h, pPlayer player) {
+	Level::Level(int win_x, int win_y, int win_w, int win_h, pPlayer player) : Overlay(win_x, win_y, win_w, win_h) {
 		setUp(win_x, win_y, win_w, win_h, player);
 	}
-	Level::Level(int win_x, int win_y, pPlayer player) {
+	Level::Level(int win_x, int win_y, pPlayer player) : Overlay(win_x, win_y, CAMERA_WIDTH, CAMERA_HEIGHT) {
 		setUp(win_x, win_y, CAMERA_WIDTH, CAMERA_HEIGHT, player);
 	}
 	void Level::setUp(int win_x, int win_y, int win_w, int win_h, pPlayer player) {
-		width = win_w;
-		height = win_h;
 		this->lr_border = LR_BORDER;
 		this->tb_border = TB_BORDER;
 		level = 0;
 		this->player = player;
-
-		//n_rooms = N_ROOMS;
-		levelWindow = newwin(height, width, win_y, win_x);
-		box(levelWindow, 0, 0);
-		wrefresh(levelWindow);
 
 		map_size = Coordinate(N_ROOMS, N_ROOMS);
 		generateMap();
@@ -35,8 +28,15 @@
 			for(int x = 0; x < width; x++) screen[y][x] = CHAR_EMPTY;
 	}
 	void Level::destroy() {
-		curRoom->recursiveDestroy();
-		delwin(levelWindow);
+		destroyRooms();
+		Overlay::destroy();
+	}
+	void Level::destroyRooms() {
+		Coordinate i = Coordinate(0, 0, map_size);
+		do {
+			if(map[i.single()] != NULL) map[i.single()]->destroy();
+			i.next();
+		} while(!i.equals(COORDINATE_ZERO));
 	}
 
 	void Level::generateMap()
@@ -64,9 +64,16 @@
 			//scegli la nuova posizione
 			RoomPosition new_pos = available.unevenRandom();
 			//crea la stanza
-			rooms[room] = new ConnectedRoom(new_pos.getPos());
-			map[new_pos.getPos().single_set(map_size)] = rooms[room];
+			if(room == N_ROOMS - 1) {								//se è l'ultima stanza: genera la stanza del boss
+				while(new_pos.getConnected() == 4) {
+					available.remove(new_pos);
+					new_pos = available.unevenRandom();
+				}
+				rooms[room] = new BossRoom(new_pos.getPos());
+			} else													//altrimenti genera una normale stanza con porte
+				rooms[room] = new ConnectedRoom(new_pos.getPos());
 			available.remove(new_pos);
+			map[new_pos.getPos().single_set(map_size)] = rooms[room];
 
 			//aggiorna stanze adiacenti e celle disponibili
 			r = rand() % DIRECTIONS_N;
@@ -86,19 +93,16 @@
 			}
 		}
 		//avvia generazione di tutte le stanze
-		curRoom->generate();
-		curRoom->spawn(level, player);
-		for(int i = 1; i < N_ROOMS; i++) {
-			if(rooms[i] != NULL) {
-				rooms[i]->generate();
-				rooms[i]->spawn(level, NULL);
-			}
+		for(int i = 0; i < N_ROOMS; i++) {
+			rooms[i]->generate();
+			if(i == 0) rooms[i]->spawn(level, player, true);
+			else rooms[i]->spawn(level, player, false);
 		}
 		available.destroy();
 	}
 
 	void Level::display() {
-		cameraUpdate();
+		//cameraUpdate();
 		//displayAtPosition(position);
 		//displayAtPosition(Coordinate(CENTRAL_ROOM_WIDTH_T*SCALE_X/2, CENTRAL_ROOM_HEIGHT/2));
 		displayAtPosition(player->getPosition());
@@ -118,12 +122,17 @@
 				chtype cellValue = t_scr[room_y][x].toChtype();
 				if(screen[room_y][x] != cellValue) {
 					int scr_y = height - room_y - tb_border - 1;
-					mvwaddch(levelWindow, scr_y, x + lr_border, cellValue);
+					mvwaddch(window, scr_y, x + lr_border, cellValue);
 					screen[room_y][x] = cellValue;
 				}
 			}
 		}
-		wrefresh(levelWindow);
+		wrefresh(window);
+	}
+	void Level::open() {
+		box(window, 0, 0);
+		for(int y = 0; y < height; y++)
+			for(int x = 0; x < width; x++) screen[y][x] = Cell().toChtype();
 	}
 
 	void Level::update(int input) {
@@ -132,9 +141,16 @@
 	}
 
 	void Level::changeRoom() {
+		WINDOW *w = newwin(10,10,10,0);
+		box(w,0,0);
+		mvwaddch(w,3,1,'B');
+		wrefresh(w);
 		pDoor new_door = player->usedDoor();
+			if(new_door!=NULL)mvwprintw(w,1,1,to_string(new_door->isUseable()).c_str());
 		if(new_door != NULL && new_door->isUseable()) {
-			curRoom->remove(player);
+			mvwprintw(w,2,1,to_string(new_door->isBoss()).c_str());
+			wrefresh(w);
+			curRoom->remove(player);		//rimuovo player cosi che non faccia il delete se va in next level
 			
 			if(new_door->isBoss()) {
 				nextLevel();
@@ -143,12 +159,12 @@
 				if(new_door->isLocked()) curRoom->unlockDoor(new_door);
 				player->setPosition(curRoom->getEntrance(new_door));
 				curRoom = curRoom->getConnectedRoom(new_door);
-				curRoom->addCharacter_strong(player);	//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
+				curRoom->addCharacter_strong(player);				//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
 			}
 		}
 	}
 	void Level::nextLevel() {
-		curRoom->recursiveDestroy();
+		destroyRooms();
 		level++;
 		generateMap();
 	}

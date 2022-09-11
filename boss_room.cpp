@@ -2,7 +2,8 @@
 
 
 BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
-
+	size = Coordinate(ROOM_BOSS_WIDTH, ROOM_BOSS_HEIGHT);
+	map->size = size;
 }
 
 	void BossRoom::update(int input) {
@@ -10,12 +11,12 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 		setDoorsUseable();
 	}
 	void BossRoom::generate() {
-		generateSidesWalls();		//muri laterali
+		generateEmpty();			//solo muri laterali e pavimento
+		addLevelDoor();				//porta per il prossimo livello
 		generateDoors();			//porte
-		generateLevelDoor();		//porta per il prossimo livello
 	}
-	void BossRoom::spawn(int level, pCharacter player) {
-		if(player != NULL) {
+	void BossRoom::spawn(int level, pCharacter player, bool current) {
+		if(current && player != NULL) {
 			player->setPosition(size.times(.5, .5).integer());
 			addCharacter(player);
 		}
@@ -25,7 +26,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 	void BossRoom::setDoorsUseable() {
 		if(map->characters_n == 1) {						//se rimane solo il player
 			for(int dir = 0; dir < DIRECTIONS_N; dir++)
-				if(map->doors[dir] != NULL) map->doors[dir]->setUseable();
+				if(map->doors[dir] != NULL && map->doors[dir]->isBoss()) map->doors[dir]->setUseable();
 		}
 	}
 
@@ -34,7 +35,15 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 //// AUSILIARIE
 #pragma region AUSILIARIE_PRINCIPALI
 
-	void BossRoom::generateLevelDoor() {
+	void BossRoom::generateEmpty() {
+		Coordinate i = Coordinate(0, 0, size);
+		do {
+			if(!i.inBounds(COORDINATE_ONE, Coordinate(size, COORDINATE_NEGATIVE))) map->physical[i.single()] = WALL_INSTANCE;
+			else map->physical[i.single()] = FLOOR_INSTANCE;
+			i.next();
+		} while(!i.equals(COORDINATE_ZERO));
+	}
+	void BossRoom::addLevelDoor() {
 		addDoor(randDoor(), LOCK_NONE, true);
 	}
 	pEnemy BossRoom::randEnemy(int level, pCharacter player) {
@@ -62,7 +71,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 	}
 	int BossRoom::randDoor() {
 		// per come genera level la stanza, è garantito che ci sia sempre almeno uno spazio per una porta
-		int rand_dir = rand() % doorsNumber();
+		int rand_dir = rand() % (DIRECTIONS_N - doorsNumber());
 		bool found = false;
 		int dir = 0;
 		while(!found && rand_dir > 0) {
@@ -76,3 +85,11 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 	}
 
 #pragma endregion AUSILIARIE SECONDARIE
+
+
+
+
+
+	bool BossRoom::isBossRoom() {
+		return true;
+	}

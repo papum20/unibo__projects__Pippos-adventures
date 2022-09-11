@@ -1,7 +1,7 @@
 #include "fire_spirit.hpp"
 
 Fire_spirit::Fire_spirit():Enemy(){
-
+    speed = SPEED_FIRE_SPIRIT;
     idle_index=fire_spirit_idle_index;
     move_up_index=fire_spirit_move_up_index;
     move_down_index=fire_spirit_move_down_index;
@@ -25,7 +25,7 @@ Fire_spirit::Fire_spirit():Enemy(){
 }
 
 Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
-
+    speed = SPEED_FIRE_SPIRIT;
     idle_index=fire_spirit_idle_index;
     move_up_index=fire_spirit_move_up_index;
     move_down_index=fire_spirit_move_down_index;

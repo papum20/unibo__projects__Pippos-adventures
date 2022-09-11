@@ -16,11 +16,11 @@ class ConnectedRoom : public Room {
 	private:
 		int n_doors_max;						//massimo numero porte (dimensione array)
 		int locked_doors;						//numero di porte che richiedono chiave
-		Coordinate door_positions[MAX_SIDES_R];
-		Coordinate door_entrances[MAX_SIDES_R];
-		Coordinate door_zones_t[MAX_SIDES_R];
 
 		//// FUNZONI AUSILIARIE
+		Coordinate door_position(int dir);
+		Coordinate door_entrance(int dir);
+		Coordinate door_zone_t(int dir);
 		int keyChestsNumber();
 		//FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
 		void generateDoorsPlacehodlers(pUnionFind sets);	//genera dei placeholder per le porte per far si che rimangano connesse al resto della stanza (generazione stanza)
@@ -35,13 +35,12 @@ class ConnectedRoom : public Room {
 		
 	public:
 		ConnectedRoom(Coordinate pos);
-		void recursiveDestroy();
 
 		void generate();
-		virtual void spawn(int level, pCharacter player);
+		virtual void spawn(int level, pCharacter player, bool current = false);
 
 		// SET
-		void addDoor(int dir, lock_type lt, bool boss = false);
+		void addDoor(int dir, bool locked, bool boss = false);
 		bool addLockedDoor();														//aggiunge una porta bloccata, se non superano il massimo (costante); ritorna true se ha successo
 		void makeConnection(pRoom room, int dir, lock_type lt, bool first = true);	//(overridden) connette questa stanza a room, creando una porta in direzione dir (e la relativa porta in room), con stato bloccato lt; first inizializzato da solo
 		void unlockDoor(pDoor door);												//sblocca porta da entrambi i lati

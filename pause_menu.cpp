@@ -1,7 +1,7 @@
 #include "pause_menu.hpp"
 
 
-Pause_menu::Pause_menu(Player * p, int stdscr_x, int stdscr_y):Pixel_art(){
+Pause_menu::Pause_menu(Player * p, int stdscr_x, int stdscr_y):Pixel_art(), Overlay(){
 
 zaino_x_pos = (stdscr_x - ZAINO_WIDTH) / (3.5), zaino_y_pos = (stdscr_y - ZAINO_HEIGHT) / 2.1;
 inventory_x_pos = (stdscr_x - PAUSE_MENU_WIDTH) / (2.2), inventory_y_pos = 3;
@@ -33,6 +33,7 @@ void Pause_menu::destroy(){
     delwin(w_weapon);
     delwin(w_equip);
     delwin(w_options);
+    Overlay::destroy();
 }
 
 bool Pause_menu::is_active(){
@@ -49,10 +50,10 @@ for(int i=0; i<curr_inventory_space;i++){
 if(all_artifact)
     return (-1);
  while(true){
-  r = (rand() % curr_inventory_space) + 1;
+  r = (rand() % curr_inventory_space);
   if((check_class_name(r)==11) || (check_class_name(r)==12)){
     return r;
-   }
+   }  
  }
 return (-1);
 }
@@ -72,6 +73,7 @@ void Pause_menu::open_options(){
     mvwprintw(w_options, 12, 2, "i tasti freccia servono a muoversi nelle 4 direzioni");
     mvwprintw(w_options, 14, 2, "i tasti w a s d servono ad attaccare nelle 4 direzioni");
     mvwprintw(w_options, 16, 2, "si può attaccare pure con ctrl + frecce direzionali");
+    mvwprintw(w_options, 18, 2, "nella mappa la P indica player e la B indica boss");
     wrefresh(w_options);
 }
 
@@ -448,7 +450,7 @@ if(input==invio){
 
 void Pause_menu::strcmp_rarity(WINDOW * win, int array_index, bool highlight){
 if(highlight){
-    if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
+    if(((strcmp(objects[array_index]->rarity, rarity[0]) == 0)) || (check_class_name(array_index)==13))
         wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
     else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
         wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLUE)));
@@ -459,7 +461,7 @@ if(highlight){
 }
 else{
     
-    if(strcmp(objects[array_index]->rarity, rarity[0]) == 0)
+    if(((strcmp(objects[array_index]->rarity, rarity[0]) == 0)) || (check_class_name(array_index)==13))
         wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
     else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
         wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLUE)));
@@ -626,8 +628,9 @@ void Pause_menu::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index
      counter = counter + 3 * high;
     if(wrtite_name)
         mvwprintw(win, y, x, objects[array_index]->name);
+    if((check_class_name(array_index)==11) || (check_class_name(array_index)==12)){
     mvwprintw(win, y + 1 + counter, x, "rarita'");
-    mvwprintw(win, y + 1 + counter, x + 10, objects[array_index]->rarity);
+    mvwprintw(win, y + 1 + counter, x + 10, objects[array_index]->rarity);}
     counter = counter + 3 * high;
     int i = 2;
     if((check_class_name(array_index))==11){
@@ -676,11 +679,16 @@ char attack[max_n_digit_stats];
 char attack_magic[max_n_digit_stats];
 char defense[max_n_digit_stats];
 char defense_magic[max_n_digit_stats];
+char number_keys[max_n_digit_stats];
+char number_hearts[max_n_digit_stats];
 int_to_string(p->curHealth, curr_life);
 int_to_string(p->danno_fisico, attack);
 int_to_string(p->danno_magico, attack_magic);
 int_to_string(p->difesa_fisica, defense);
 int_to_string(p->difesa_magica, defense_magic);
+int_to_string(p->n_keys, number_keys);
+int_to_string(p->n_hearts, number_hearts);
+
 mvwprintw(w_equip, 2, 60, "PERSONAGGIO");
 mvwprintw(w_equip, 5, 55, "vita:");
 mvwprintw(w_equip, 5, 72, curr_life);
@@ -697,6 +705,12 @@ mvwprintw(w_equip, 11, 72, defense);
 mvwprintw(w_equip, 13, 55, "difesa magica:");
 mvwprintw(w_equip, 13, 72, defense_magic);
 
+mvwprintw(w_equip, 15, 55, "chiavi:");
+mvwprintw(w_equip, 15, 72, number_keys);
+
+mvwprintw(w_equip, 17, 55, "vite rimanenti:");
+mvwprintw(w_equip, 17, 72, number_hearts);
+
 wrefresh(w_equip);
 
 
@@ -707,7 +721,7 @@ if((check_subclass_name(i)==2) && (static_cast< item_difensivo *>(objects[i])->i
     aux_equip_item_menu(w_equip, 12, 2, i, 0, true);
     }
 if((check_subclass_name(i)==3) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){
-    aux_equip_item_menu(w_equip, 12, 2, i, 0, true);
+    aux_equip_item_menu(w_equip, 17, 2, i, 0, true);
     }
 
 if((check_subclass_name(i)==4) && (static_cast< item_difensivo *>(objects[i])->is_equipped)){

@@ -72,9 +72,13 @@ const int MAX_ANIMATIONS = 8;
 #pragma region PHYSICAL_STATS
 #define PHYSICAL_MAX_SPEED 20.
 // SPEED
-const Coordinate SPEED_PLAYER = Coordinate(14, 9);
+const Coordinate SPEED_PLAYER = Coordinate(22, 12);
 const Coordinate SPEED_ZOMBIE = Coordinate(5, 3);
 const Coordinate SPEED_SPIDER = Coordinate(8, 6);
+const Coordinate SPEED_WITCH = Coordinate(4, 4);
+const Coordinate SPEED_FIRE_SPIRIT = Coordinate(3, 5);
+const Coordinate SPEED_SNOWMAN = Coordinate(3, 4);
+const Coordinate SPEED_TREE = Coordinate(6, 5);
 const Coordinate SPEED_PROJECTILE = Coordinate(30, 20);
 #pragma endregion PHYSICAL_STATS
 

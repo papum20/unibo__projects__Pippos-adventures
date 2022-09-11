@@ -4,6 +4,7 @@
 Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	size=Coordinate (p_width, p_depth);
 	speed = SPEED_PLAYER;
+
 	in_manager=in;
 
 	n_hearts=start_hearts;
@@ -26,6 +27,8 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	//animations[player_dash_left_index] = new Animation(dash_left, Coordinate(p_height, p_width), player_dash_left_states);
 	//animations[player_dash_right_index] = new Animation(dash_right, Coordinate(p_height, p_width), player_dash_right_states);
 
+	animations_n = 5;
+
 
 	idle_index=player_idle_index;
 	move_right_index=player_move_right_index;
@@ -36,13 +39,16 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 
 
 	weapons[0]= new sword();
-	defensive_items[0] = new armor();
-	weapons[1] = new sword();
+	weapons[1]= new Arco();
+	artifacts[0] = new HealthPotion();
+	artifacts[1] = new Rune();
+	artifacts[2] = new Life_elixir();
 	weapons_n = 2;
-	defensive_items_n = 1;
-	artifacts_n = 0;
+	defensive_items_n = 0;
+	artifacts_n = 3;
 	change_weapon(weapons[0]);
-	change_armor(defensive_items[0]);
+	
+
 	
 }
 
@@ -222,7 +228,7 @@ void Player::destroyInstance(pMap map){
 	for (int i=0; i<defensive_items_n; i++){
 		defensive_items[i]->destroy(NULL);
 	}
-	Character::destroy(map);
+	Character::destroyInstance(map);
 }
 
 void Player::collect_item(pMap mappa){
@@ -257,29 +263,30 @@ void Player::collect_item(pMap mappa){
 				n_keys++;
 				break;
 		}
+		chest->destroy(mappa);
 	}
 }
 
 void Player::add_item(pWeapon w){
-	if (curr_weapon<(W_NUMBER-1)){
-		curr_weapon++;
-		weapons[curr_weapon]=w;
+	if (weapons_n<(W_NUMBER-1)){
+		weapons[weapons_n]=new Weapon();
+		weapons[weapons_n]->copyWeapon(*w);
 		weapons_n++;
 	}
 }
 
 void Player::add_item (pItem_def i){
-	if (last_def<(DEF_NUMBER-1)){
-		last_def++;
-		defensive_items[last_def]=i;
+	if (defensive_items_n<(DEF_NUMBER-1)){
+		defensive_items[defensive_items_n]=new item_difensivo();
+		defensive_items[defensive_items_n]->copyItemDifensivo(*i);
 		defensive_items_n++;
 	}
 }
 
 void Player::add_item (pArtifact a){
-	if (curr_artifact<(MAX_ARTIFACTS-1)){
-		curr_artifact++;
-		artifacts[curr_artifact]=a;
+	if (artifacts_n<(MAX_ARTIFACTS-1)){
+		artifacts[artifacts_n]=new Artifact();
+		artifacts[artifacts_n]->copyArtifact(*a);
 		artifacts_n++;
 	}
 }

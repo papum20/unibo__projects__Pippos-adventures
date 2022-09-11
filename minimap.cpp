@@ -2,28 +2,29 @@
 
 
 
-MiniMap::MiniMap(int win_x, int win_y) {
+MiniMap::MiniMap(int win_x, int win_y, pLevel level) : Overlay(win_x, win_y, MINIMAP_WIDTH, MINIMAP_HEIGHT) {
 	position = Coordinate(win_x, win_y);
-	size = Coordinate(MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	size = Coordinate(width, height);
 	padding = Coordinate(MINIMAP_PADDING_X, MINIMAP_PADDING_Y);
-	window = newwin(size.y, size.x, win_y, win_x);
+	this->level = level;
 	is_open = false;
 }
 void MiniMap::destroy() {
-	delwin(window);
+	Overlay::destroy();
 }
 
 
 
-void MiniMap::open(Level level) {
+void MiniMap::open() {
 	pRoom rooms[LEVEL_AREA];
-	level.getLevelMap(rooms);
-	drawLevel(rooms, level.getSize(), level.getCurrentRoom());
+	level->getLevelMap(rooms);
+	drawLevel(rooms, level->getSize(), level->getCurrentRoom());
 	is_open = true;
 }
 
 void MiniMap::close() {
 	werase(window);
+	wrefresh(window);
 	is_open = false;
 }
 
@@ -71,7 +72,14 @@ void MiniMap::drawRoom_in_level(pRoom room, Coordinate start, Coordinate size, b
 		Cell cell;
 		if(!it.inBounds(Coordinate(start, COORDINATE_ONE), Coordinate(Coordinate(start, size), COORDINATE_NEGATIVE) ) )		//se sul bordo
 			cell = MINIMAP_ROOMS_BORDER;
-		else if(current && it.equals_int(Coordinate(start, size.times(.5, .5))) ) cell = MINIMAP_ROOMS_PLAYER;				//se al centro ed è la stanza attuale
+		else if(it.equals_int(Coordinate(start, size.times(.5, .5))) ) {													//se al centro
+			if(current) {
+				cell = MINIMAP_ROOMS_PLAYER;																				//disegna player	
+				if(room->isBossRoom()) mvwaddch(window, it.y, it.x - 1, MINIMAP_ROOMS_BOSS.toChtype());						//disegna boss
+			}
+			else if(room->isBossRoom()) cell = MINIMAP_ROOMS_BOSS;															//disegna boss
+			else cell = MINIMAP_ROOMS_EMPTY;																				//interno
+		}
 		else cell = MINIMAP_ROOMS_EMPTY;																					//interno
 		mvwaddch(window, it.y, it.x, cell.toChtype());
 		it.next();

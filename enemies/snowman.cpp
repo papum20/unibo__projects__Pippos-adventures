@@ -24,6 +24,9 @@ Snowman::Snowman():Enemy(){
     maxHealth=Math::randomStep(40, 70, 10);
     curHealth=maxHealth;
     size=Coordinate (snowman_width, snowman_depth);
+
+    animation_rate=animation_rate*ranged_rate;
+    animation_counter=animation_rate;
 };
 
 Snowman::Snowman(pCharacter p):Enemy(p){
@@ -50,4 +53,7 @@ Snowman::Snowman(pCharacter p):Enemy(p){
     maxHealth=Math::randomStep(40, 70, 10);
     curHealth=maxHealth;
     size=Coordinate (snowman_width, snowman_depth);
+
+    animation_rate=animation_rate*ranged_rate;
+    animation_counter=animation_rate;
 };

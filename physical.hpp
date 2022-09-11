@@ -11,6 +11,7 @@
 
 #pragma region PHYSICAL_CONSTANTS
 
+#define ranged_rate 4
 const int MAX_ANIMATIONS = 8;
 // NUMERI
 #define N_ENEMIES 6

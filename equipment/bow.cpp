@@ -26,8 +26,8 @@ Arco::Arco():Weapon(){
 
     animations[attack_up_index]= new Animation (bow_attack_up, Coordinate(bow_width, bow_height), bow_attack_states_vertical);
     animations[attack_down_index]= new Animation (bow_attack_down, Coordinate(bow_width, bow_height), bow_attack_states_vertical);
-    animations[attack_left_index]= new Animation (bow_attack_left, Coordinate(bow_width, bow_height), bow_attack_states_horizontal);
-    animations[attack_right_index]= new Animation (bow_attack_right, Coordinate(bow_width, bow_height), bow_attack_states_horizontal);
+    animations[attack_left_index]= new Animation (bow_attack_right, Coordinate(bow_width, bow_height), bow_attack_states_horizontal);
+    animations[attack_right_index]= new Animation (bow_attack_left, Coordinate(bow_width, bow_height), bow_attack_states_horizontal);
 
     is_melee=false;
     owner_id=ID_PLAYER;
@@ -36,4 +36,7 @@ Arco::Arco():Weapon(){
     vertical_attack_states=bow_attack_states_vertical;
     current_animation=0;
     projectile= Arrow(danno_fisico, danno_magico, direction, owner_id);
+
+    animation_rate=animation_rate;
+    animation_counter=animation_rate;
 }

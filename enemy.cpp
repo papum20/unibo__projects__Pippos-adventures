@@ -70,6 +70,8 @@ void Enemy::copyEnemy(Enemy B) {
 		equipaggiamento.armatura->copyItemDifensivo(*B.equipaggiamento.armatura);
 	}
 	current_step=0;
+	animation_rate=FRAMES_PER_SECOND/ANIMATIONS_PER_SECOND;
+    animation_counter=animation_rate;
 	Character::copyCharacter(B);
 }
 
@@ -85,12 +87,11 @@ void Enemy::update(pMap map){
 				}
 			}
 			else{
-				if (equipaggiamento.arma->check_frame()){
+				if (!equipaggiamento.arma->check_frame()){
 					next_animation();
 					equipaggiamento.arma->next_animation();
 				}
 				else{
-					resetAttack();
 					equipaggiamento.arma->resetAttack();
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);

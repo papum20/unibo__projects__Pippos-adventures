@@ -23,7 +23,7 @@ void Hud::drawHud (){
     int health_counter;             //serve a contare quanto della barra della vita colorare
     int stamina_counter;            //serve a contare quanto della barra della stamina colorare
     int y_cursor, x_cursor;         //indici che mi aiutano nel disegno
-    int distance=30;                //distanza tra le icone dell'hud
+    int distance=20;                //distanza tra le icone dell'hud
     
     health_counter=(larghezza_blocchetto*n_blocchetti*(player->curHealth))/max_health;       //formula per calcolare quanta vita "percentuale" ha il personaggio
     stamina_counter=(larghezza_blocchetto*n_blocchetti*(player->curStamina))/max_stamina;
@@ -94,10 +94,29 @@ void Hud::drawHud (){
     }
     wattroff(hud_win, COLORE_CUORE);
 
+    //disegno le chiavi
+
+    x_cursor=x_cursor+heart_columns+distance;
+    y_cursor=1;
+    draw_number(x_cursor, y_cursor, player->n_keys);
+    
+    wattron(hud_win, COLORE_INVENTARIO);
+    x_cursor=x_cursor+n_columns+2;
+    y_cursor=2;
+    for (int i=0; i<key_rows; i++){
+        for (int j=0; j<key_columns; j++){
+           mvwaddch(hud_win, y_cursor, x_cursor, key[i][j]);
+           x_cursor++; 
+        }
+        y_cursor++;
+        x_cursor=x_cursor-key_columns;
+    }
+    wattroff(hud_win, COLORE_INVENTARIO);
+    
     //disegno lettera per l'inventario
     wattron(hud_win, COLORE_INVENTARIO);
 
-    x_cursor=x_cursor+heart_columns+distance;
+    x_cursor=x_cursor+key_columns+distance;
     y_cursor=2;
     draw_n(x_cursor, y_cursor);
 

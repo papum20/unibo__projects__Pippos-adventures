@@ -10,6 +10,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 
 		Room::update(input);
 		setDoorsUseable();
+
 	}
 	void BossRoom::generate() {
 		generateEmpty();			//solo muri laterali e pavimento
@@ -30,7 +31,10 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 				if(map->doors[dir] != NULL && map->doors[dir]->isBoss()) map->doors[dir]->setUseable();
 		}
 	}
-
+	void BossRoom::reward() {
+		if(map->characters_n == 1)	//se rimane solo il player
+			spawnChest(randChest());
+	}
 
 
 //// AUSILIARIE

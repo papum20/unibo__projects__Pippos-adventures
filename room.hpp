@@ -78,8 +78,6 @@ class Room {
 
 		//// FUNZIONI
 		int chestsNumber(int level);								//numero di chest da spawnare in una stanza
-		pChest randChest();
-		pEnemy randEnemy(int level, pCharacter player);				//ritorna un nemico casuale
 		//// FUNZIONI AUSILIARIE
 		int getFreeCells(s_coord available[], Coordinate size);							//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// ADD
@@ -99,12 +97,13 @@ class Room {
 		//// FUNZIONI
 		void addCharacter(pCharacter obj);					//aggiunge un character nella sua posizione
 		pEnemy randBoss(int level, pCharacter player);		//ritorna un nemico casuale
-		pEnemy randEnemy(const Enemy enemies[], const int chances[], const int chance_tot, int level, pCharacter player);		//ritorna un nemico casuale
+		pChest randChest();
+		pEnemy randEnemy(int level, pCharacter player);		//ritorna un nemico casuale
 		// FUNZIONI AUSILIARIE
-		int doorDirection(pDoor door);													//direzione in cui si trova la porta
+		int doorDirection(pDoor door);						//direzione in cui si trova la porta
 		// SPAWN
-		void spawnChest(pChest chest);							//spawna una chest
-		void spawnEnemy(pEnemy enemy);							//spawna un nemico
+		void spawnChest(pChest chest);						//spawna una chest
+		void spawnEnemy(pEnemy enemy);						//spawna un nemico
 		// FUNZIONI AUSILIARIE DI GENERAZIONE - PRINCIPALI
 		void generateSidesWalls();
 		void generateInnerRoom(pUnionFind sets);

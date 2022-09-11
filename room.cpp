@@ -95,7 +95,6 @@
 			enemy->setPosition(Coordinate(available[rand() % av_size], size));
 			addCharacter(enemy);
 		}
-		//else enemy->destroy(NULL);
 	}
 	void Room::spawnChest(pChest chest) {
 		s_coord available[ROOM_AREA];
@@ -104,7 +103,6 @@
 			chest->setPosition(Coordinate(available[rand() % av_size], size));
 			addChest(chest);
 		}
-		//else chest->destroy(NULL);
 	}
 
 	void Room::draw(Cell scr[CAMERA_HEIGHT][CAMERA_WIDTH], Coordinate win_size, Coordinate center) {
@@ -122,13 +120,6 @@
 				else if(obj->isFixed()) obj->drawAtPosition(scr, wstart, win_size, map_it);					//disegna wall/door
 				else {																						//disegna animate/chest+floor
 					obj->drawAtOwnPosition(scr, wstart, win_size);
-					//else{ scr[scr_reverse.inty()][scr_reverse.intx()].edit('x',-1,-1,0);
-						//WINDOW *w = newwin(10,10,1,10);
-						//box(w,0,0);
-						//obj->getCurrentAnimation();
-						//mvwprintw(w,1,1,to_string(obj->getCurrentAnimation().size.x).append(" ").append(to_string(obj->getCurrentAnimation().size.y)).c_str());
-						//wrefresh(w);
-					//}
 					if(obj->getId() != ID_DOOR) FLOOR_INSTANCE->drawAtPosition(map, scr, wstart, win_size, map_it);
 				}
 			} else												//altrimenti "cancella"/lascia uno spazio vuoto

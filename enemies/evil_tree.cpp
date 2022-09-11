@@ -19,8 +19,6 @@ Evil_tree::Evil_tree():Enemy(){
     change_weapon(new Tree_branch());
     change_armor(new armor());
     change_necklace(new necklace());
-    change_boots(new boots());
-    change_helm(new helm());
 
     maxHealth=Math::randomStep(70, 100, 10);
     curHealth=maxHealth;
@@ -46,8 +44,6 @@ Evil_tree::Evil_tree(pCharacter p):Enemy(p){
     change_weapon(new Tree_branch());
     change_armor(new armor());
     change_necklace(new necklace());
-    change_boots(new boots());
-    change_helm(new helm());
 
     maxHealth=Math::randomStep(70, 100, 10);
     curHealth=maxHealth;

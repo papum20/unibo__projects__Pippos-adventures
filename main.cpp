@@ -86,8 +86,10 @@ int main() {
 		//// GESTIONE MENU APERTI CON INPUT
 			if(inputManager->get_input() == KEY_QUIT) isRunning = false;
 			else if(inputManager->get_input() == KEY_MAIN_MENU) {
-				main_menu->open_over(level);
 				hud->close();
+				miniMap->close();
+				pause_menu->close();
+				main_menu->open_over(level);
 				in_mainMenu = true;
 				pressedMinimap = false, pressedPause = false;
 			}

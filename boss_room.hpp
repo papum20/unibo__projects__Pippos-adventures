@@ -9,6 +9,7 @@ class BossRoom : public ConnectedRoom {
 	private:
 		// FUNZIONI
 		void setDoorsUseable();								//rende porte utilizzabili se sono soddisfatte le condizioni (uccidere tutti i nemici nella stanza)
+		void reward();										//premio per aver sconfitto la stanza
 		// GENERAZIONE
 		void generateEmpty();
 		void addLevelDoor();

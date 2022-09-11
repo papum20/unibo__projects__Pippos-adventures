@@ -44,7 +44,7 @@ sword::sword():Weapon(){
 }
 
 
-
+/*
 void sword::apply_rune() {
     
-}
+}*/

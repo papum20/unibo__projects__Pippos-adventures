@@ -245,7 +245,7 @@ class sword: public Weapon{
 		sword();
         sword (int d_f, int d_m, const char rar[], const char n[], const char desc[]);
 
-        void apply_rune();
+        //void apply_rune();
 };
 
 typedef sword* pSword;

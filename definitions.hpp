@@ -27,7 +27,7 @@
 #define MINIMAP_PADDING_Y 2
 // INVENTORY
 //space
-const int n_max_inventory_objects = 19;
+const int n_max_inventory_objects = 26;
 //SYSTEM_TEXT_WINDOW_CONSTANTS
 #define WINDOW_TEXT_HEIGHT 11
 #define WINDOW_TEXT_WIDTH 70

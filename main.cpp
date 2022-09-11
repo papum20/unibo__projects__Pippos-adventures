@@ -40,7 +40,7 @@ int main() {
 	MiniMap *miniMap = new MiniMap(map_x, map_y, level);
 	Start_menu *main_menu = new Start_menu(stdscr_x, stdscr_y);
 	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y);
-	Game_over game_over = Game_over(stdscr_x, stdscr_y);
+	Game_over *game_over = new Game_over(stdscr_x, stdscr_y, player);
 
 
 

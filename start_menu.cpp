@@ -195,6 +195,7 @@ wrefresh(caverna);
 
 
 void Start_menu::open(){
+default_color();
 menu_is_active=true;
 print_cave();
 print_face(wface, face, 65, 32);

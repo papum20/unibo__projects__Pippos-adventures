@@ -2,7 +2,7 @@
 
 Snowman_hands::Snowman_hands():Hands(){
     danno_fisico_iniziale=0;
-    danno_magico_iniziale=Math::randomStep(30, 60, 5);
+    danno_magico_iniziale=Math::randomStep(35, 55, 5);
     apply_rarity();
     
     move_up_index=snowman_hands_up_index;

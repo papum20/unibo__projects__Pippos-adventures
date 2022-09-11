@@ -1,8 +1,7 @@
 #include "tree_branch.hpp"
 
 Tree_branch::Tree_branch():Hands(){
-    danno_fisico_iniziale=Math::randomStep(30, 50, 5);
-    danno_magico_iniziale=Math::randomStep(30, 50, 5);
+    danno_fisico_iniziale=Math::randomStep(40, 50, 5);
     apply_rarity();
 
     move_up_index=tree_branch_up_index;

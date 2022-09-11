@@ -2,10 +2,12 @@
 #define KEY_HPP
 
 
-#include "../artifact.hpp"
+
+#include "../item.hpp"
 
 
-class Key : public Artifact {
+
+class Key : public item {
     protected:
 
     public:

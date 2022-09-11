@@ -10,9 +10,13 @@ HealthPotion::HealthPotion() : Artifact() {
 }
 
 
-void HealthPotion::use_item(pItem item, int &stat) {
-	if (stat+healthGained>=p_max_health)
+void HealthPotion::use_item(pItem item, int &stat, System_text* text) {
+	if (stat+healthGained>=p_max_health){
 		stat=p_max_health;
-	else
+		text->insert_string(life_max);
+	}
+	else{
 		stat=stat+healthGained;
+		text->insert_string(gain_life);
+	}
 }

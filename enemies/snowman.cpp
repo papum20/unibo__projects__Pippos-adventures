@@ -17,9 +17,10 @@ Snowman::Snowman():Enemy(){
     points_given=snowman_points;
 
     change_armor(new armor());
+    change_necklace(new necklace());
     change_weapon(new Snowman_hands());
     
-    maxHealth=Math::randomStep(40, 70, 10);
+    maxHealth=Math::randomStep(80, 100, 10);
     curHealth=maxHealth;
     size=Coordinate (snowman_width, snowman_depth);
 
@@ -44,6 +45,7 @@ Snowman::Snowman(pCharacter p):Enemy(p){
     points_given=snowman_points;
 
     change_armor(new armor());
+    change_necklace(new necklace());
     change_weapon(new Snowman_hands());
     
     maxHealth=Math::randomStep(40, 70, 10);

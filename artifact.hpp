@@ -10,7 +10,7 @@ class Artifact: public item{
         Artifact();
 		void copyArtifact(Artifact B);			//copia i parametri di B
 
-        virtual void use_item (pItem item, int &stat);
+        virtual void use_item (pItem item, int &stat, System_text* text);
 
 };
 

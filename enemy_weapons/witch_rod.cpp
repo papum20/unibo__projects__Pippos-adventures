@@ -2,7 +2,7 @@
 
 Witch_Rod::Witch_Rod():Rod(){
     danno_fisico_iniziale=0;
-    danno_magico_iniziale=Math::randomStep(30, 60, 5);
+    danno_magico_iniziale=Math::randomStep(25, 45, 5);
     apply_rarity();
 
     move_up_index=witch_rod_up_index;

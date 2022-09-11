@@ -1,7 +1,7 @@
 #include "zombie_hands.hpp"
 
 Zombie_hands::Zombie_hands():Hands(){
-    danno_fisico_iniziale=Math::randomStep(20, 40, 5);
+    danno_fisico_iniziale=Math::randomStep(15, 30, 5);
     danno_magico_iniziale=0;
     apply_rarity();
     

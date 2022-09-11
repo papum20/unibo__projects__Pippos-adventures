@@ -126,6 +126,7 @@
 		box(window, 0, 0);
 		for(int y = 0; y < height; y++)
 			for(int x = 0; x < width; x++) screen[y][x] = Cell().toChtype();
+		log->open();
 	}
 
 	void Level::update(int input) {

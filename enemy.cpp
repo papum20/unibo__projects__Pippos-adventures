@@ -85,12 +85,13 @@ void Enemy::update(pMap map){
 				}
 			}
 			else{
-				if (!animations[current_animation]->isLastFrame()){
+				if (equipaggiamento.arma->check_frame()){
 					next_animation();
 					equipaggiamento.arma->next_animation();
 				}
-				
 				else{
+					resetAttack();
+					equipaggiamento.arma->resetAttack();
 					if (!equipaggiamento.arma->is_melee)
 						ranged_attack(map);
 					else{
@@ -102,7 +103,7 @@ void Enemy::update(pMap map){
 					}
 					is_attacking=false;
 					switch (direction){
-						case 'o':
+						case 'u':
 							current_animation=move_up_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_up_index;
 							if (!equipaggiamento.arma->is_melee)
@@ -111,7 +112,7 @@ void Enemy::update(pMap map){
 								else
 									moveLeft(map);
 							break;
-						case 'p':
+						case 'd':
 							current_animation=move_down_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
 							if (!equipaggiamento.arma->is_melee)
@@ -120,7 +121,7 @@ void Enemy::update(pMap map){
 								else
 									moveLeft(map);
 							break;
-						case 'q':
+						case 'l':
 							current_animation=move_left_index;
 							equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
 							if (!equipaggiamento.arma->is_melee)

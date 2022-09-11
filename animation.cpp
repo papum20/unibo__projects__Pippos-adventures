@@ -95,3 +95,6 @@ char Animation::at(Coordinate pos) {
 bool Animation::isLastFrame() {
     return next->index == ANIMATION_FIRST_INDEX;
 }
+bool Animation::isFirstFrame(){
+    return index==ANIMATION_FIRST_INDEX;
+}

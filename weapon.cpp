@@ -62,7 +62,7 @@ Coordinate Weapon::getOffset() {
     return offset;
 }
 void Weapon::initiate_attack(char d){
-    //animation_counter=0;
+    animation_counter=0;
     direction=d;
     switch (direction){
         case 'u':

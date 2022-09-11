@@ -10,7 +10,7 @@ MiniMap::MiniMap(int win_x, int win_y, pLevel level) : Overlay(win_x, win_y, MIN
 	is_open = false;
 }
 void MiniMap::destroy() {
-	delwin(window);
+	Overlay::destroy();
 }
 
 

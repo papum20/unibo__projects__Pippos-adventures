@@ -26,7 +26,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 	void BossRoom::setDoorsUseable() {
 		if(map->characters_n == 1) {						//se rimane solo il player
 			for(int dir = 0; dir < DIRECTIONS_N; dir++)
-				if(map->doors[dir] != NULL) map->doors[dir]->setUseable();
+				if(map->doors[dir] != NULL && map->doors[dir]->isBoss()) map->doors[dir]->setUseable();
 		}
 	}
 

@@ -59,10 +59,10 @@ Chest::Chest(pItem_def d) : Inanimate(){
 }
 
 void Chest::destroyInstance(pMap map) {
-    if(type=='a') arma->destroyInstance(map);
-    else if(type=='k') key->destroyInstance(map);
-    else if(type =='d') item_def->destroyInstance(map);
-    else if(type =='a') artefatto->destroyInstance(map);
+    if(type=='w') arma->destroyInstance(NULL);
+    else if(type=='k') key->destroyInstance(NULL);
+    else if(type =='d') item_def->destroyInstance(NULL);
+    else if(type =='a') artefatto->destroyInstance(NULL);
     Inanimate::destroyInstance(map);
 }
 

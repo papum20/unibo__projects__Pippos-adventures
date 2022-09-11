@@ -9,8 +9,6 @@
 		size_t = Coordinate(ROOM_WIDTH_T, ROOM_HEIGHT_T);
 		size = size_t.times(scale);
 
-		destroyed = false;
-
 		map = new Map;
 		map->size = size;
 		//mappe
@@ -22,8 +20,8 @@
 		}
 		map->characters_n = 0;
 	}
-	void Room::recursiveDestroy() {
-		Coordinate i(0, 0, size);
+	void Room::destroy() {
+		Coordinate i = Coordinate(0, 0, size);
 		do {
 			pPhysical obj = map->physical[i.single()];
 			if(obj->getId() != ID_WALL && obj->getId() != ID_FLOOR) map->physical[i.single()]->destroy(map);
@@ -33,6 +31,10 @@
 		delete this;
 	}
 	void Room::update(int input) {
+		WINDOW *w = newwin(10,10,0,40);
+		box(w,0,0);
+		mvwprintw(w,1,1,to_string(map->characters_n).c_str());
+		wrefresh(w);
 		Coordinate i(0, 0, size);
 		// setta tutti gli oggetti come non updated e non drawn
 		do {
@@ -383,9 +385,6 @@
 	pDoor Room::getDoor(int dir) {
 		return map->doors[dir];
 	}
-	bool Room::wasDestroyed() {
-		return destroyed;
-	}
 	bool Room::isBossRoom() {
 		return false;
 	}
@@ -395,9 +394,9 @@
 	pRoom Room::getConnectedRoom(pDoor room) {
 		return NULL;
 	}
-	pMap Room::getMap() {
-		return map;
-	}
+	//pMap Room::getMap() {
+	//	return map;
+	//}
 	void Room::remove(pPhysical obj) {
 		MapHandler::remove(map, obj);
 	}

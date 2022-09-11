@@ -35,13 +35,12 @@ class ConnectedRoom : public Room {
 		
 	public:
 		ConnectedRoom(Coordinate pos);
-		void recursiveDestroy();
 
 		void generate();
 		virtual void spawn(int level, pCharacter player, bool current = false);
 
 		// SET
-		void addDoor(int dir, lock_type lt, bool boss = false);
+		void addDoor(int dir, bool locked, bool boss = false);
 		bool addLockedDoor();														//aggiunge una porta bloccata, se non superano il massimo (costante); ritorna true se ha successo
 		void makeConnection(pRoom room, int dir, lock_type lt, bool first = true);	//(overridden) connette questa stanza a room, creando una porta in direzione dir (e la relativa porta in room), con stato bloccato lt; first inizializzato da solo
 		void unlockDoor(pDoor door);												//sblocca porta da entrambi i lati

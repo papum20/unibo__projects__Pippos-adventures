@@ -28,9 +28,12 @@
 			for(int x = 0; x < width; x++) screen[y][x] = CHAR_EMPTY;
 	}
 	void Level::destroy() {
-		curRoom->recursiveDestroy();
+		Coordinate i = Coordinate(0, 0, map_size);
+		do {
+			if(map[i.single()] != NULL) map[i.single()]->destroy();
+			i.next();
+		} while(!i.equals(COORDINATE_ZERO));
 		Overlay::destroy();
-		delete this;
 	}
 
 	void Level::generateMap()
@@ -143,7 +146,7 @@
 	void Level::changeRoom() {
 		pDoor new_door = player->usedDoor();
 		if(new_door != NULL && new_door->isUseable()) {
-			curRoom->remove(player);
+			curRoom->remove(player);		//rimuovo player cosi che non faccia il delete se va in next level
 			
 			if(new_door->isBoss()) {
 				nextLevel();
@@ -151,15 +154,17 @@
 				player->useDoor();
 				if(new_door->isLocked()) curRoom->unlockDoor(new_door);
 				player->setPosition(curRoom->getEntrance(new_door));
-				MapHandler::remove(curRoom->getMap(), player);		//rimuovo player cosi che non faccia il delete
 				curRoom = curRoom->getConnectedRoom(new_door);
 				curRoom->addCharacter_strong(player);				//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
 			}
 		}
 	}
 	void Level::nextLevel() {
-		MapHandler::remove(curRoom->getMap(), player);		//rimuovo player cosi che non faccia il delete
-		curRoom->recursiveDestroy();
+		Coordinate i = Coordinate(0, 0, map_size);
+		do {
+			if(map[i.single() != NULL]) map[i.single()]->destroy();
+			i.next();
+		} while(!i.equals(COORDINATE_ZERO));
 		level++;
 		generateMap();
 	}

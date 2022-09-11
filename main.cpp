@@ -34,16 +34,16 @@ int main() {
 	pPlayer player = new Player(inputManager);
 	pLevel level = new Level(level_x, level_y, player);	
 
-	Hud hud = Hud(hud_x, hud_y, player);
+	Hud *hud = new Hud(hud_x, hud_y, player);
 	MiniMap *miniMap = new MiniMap(map_x, map_y, level);
-	System_text text = System_text(stdscr_x, stdscr_y);
-	Start_menu main_menu = Start_menu(stdscr_x, stdscr_y);
+	System_text *text = new System_text(stdscr_x, stdscr_y);
+	Start_menu *main_menu = new Start_menu(stdscr_x, stdscr_y);
 	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y);
 	
 
 
 	
-	main_menu.open();
+	main_menu->open();
 	
 	WINDOW *debug = newwin(10,10,0,0);
 	box(debug,0,0);
@@ -69,10 +69,10 @@ int main() {
 		if(pressedMinimap && inputManager->get_input() != KEY_MAP) pressedMinimap = false;
 
 		//// MENU INIZIALE
-		if(main_menu.is_active()) {
+		if(main_menu->is_active()) {
 			if(frame % 2 == 0) mvwprintw(debug, 5, 1, "menu ");
 
-			main_menu.update(isRunning, inputManager->get_input());
+			main_menu->update(isRunning, inputManager->get_input());
 		}
 		//// IN GIOCO
 		else {
@@ -84,8 +84,8 @@ int main() {
 		//// GESTIONE MENU APERTI CON INPUT
 			if(inputManager->get_input() == KEY_QUIT) isRunning = false;
 			else if(inputManager->get_input() == KEY_MAIN_MENU) {
-				main_menu.open_over(level);
-				hud.close();
+				main_menu->open_over(level);
+				hud->close();
 				in_mainMenu = true;
 				pressedMinimap = false, pressedPause = false;
 			}
@@ -120,7 +120,7 @@ int main() {
 
 					level->update(inputManager->get_input());
 					level->display();
-					hud.drawHud();
+					hud->drawHud();
 				}
 			}
 		}
@@ -139,13 +139,13 @@ int main() {
 	cursesEnd();
 	gameEnd();
 	//DELETE
-	hud.destroy();
-	inputManager->destroy();
+	//hud->destroy();
+	//inputManager->destroy();
 	level->destroy();
-	main_menu.destroy();
-	miniMap->destroy();
-	pause_menu->destroy();
-	player->destroy(NULL);
+	//main_menu->destroy();
+	//miniMap->destroy();
+	//pause_menu->destroy();
+	//text->destroy();
 	
 }
 

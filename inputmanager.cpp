@@ -13,7 +13,7 @@ InputManager::InputManager(int x_win, int y_win):Overlay() {
     timer.start(INPUT_TIMER_INDEX);
 }
 void InputManager::destroy() {
-    delete this;
+    Overlay::destroy();
 }
 
 void InputManager::calculate_input(){

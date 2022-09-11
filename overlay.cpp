@@ -3,7 +3,7 @@
 
 
 Overlay::Overlay() {
-	
+	window = NULL;
 }
 Overlay::Overlay(int x, int y, int width, int height) {
 	this->width = width;
@@ -12,7 +12,8 @@ Overlay::Overlay(int x, int y, int width, int height) {
 }
 
 void Overlay::destroy() {
-	delwin(window);
+	if(window != NULL) delwin(window);
+	delete this;
 }
 
 void Overlay::open() {

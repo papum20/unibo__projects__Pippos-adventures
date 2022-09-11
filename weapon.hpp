@@ -44,6 +44,7 @@ class Weapon : public item {
 
 		Coordinate getOffset();
 		void initiate_attack(char d);
+		bool check_frame();
 
 		bool animationMask(Coordinate pos);		//true se la posizione, relativa all'animazione dell'arma, copre il personaggio o quello che c'è sotto
 };

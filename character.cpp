@@ -198,6 +198,8 @@ void Character::apply_equipment (){
 
 void Character::moveUp(pMap map){
 	//Animate::moveUp(map);
+	resetAnimation();
+	equipaggiamento.arma->resetAnimation();
 	if (current_animation==move_up_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -214,6 +216,8 @@ void Character::moveUp(pMap map){
 
 void Character::moveDown(pMap map){
 	//Animate::moveDown(map);
+	resetAnimation();
+	equipaggiamento.arma->resetAnimation();
 	if (current_animation==move_down_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -224,12 +228,16 @@ void Character::moveDown(pMap map){
 		equipaggiamento.arma->current_animation=equipaggiamento.arma->move_down_index;
 		direction='d';
 		equipaggiamento.arma->direction=direction;
+		resetAnimation();
+		equipaggiamento.arma->resetAnimation();
 	}
 	Animate::move(map);
 }
 
 void Character::moveLeft(pMap map){
 	//Animate::moveLeft(map);
+	resetAnimation();
+	equipaggiamento.arma->resetAnimation();
 	if (current_animation==move_left_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -240,12 +248,16 @@ void Character::moveLeft(pMap map){
 		equipaggiamento.arma->current_animation=equipaggiamento.arma->move_left_index;
 		direction='l';
 		equipaggiamento.arma->direction=direction;
+		resetAnimation();
+		equipaggiamento.arma->resetAnimation();
 	}
 	Animate::move(map);
 }
 
 void Character::moveRight(pMap map){
 	//Animate::moveRight(map);
+	resetAnimation();
+	equipaggiamento.arma->resetAnimation();
 	if (current_animation==move_right_index){
 		next_animation();
 		if (equipaggiamento.arma!=NULL)
@@ -256,6 +268,8 @@ void Character::moveRight(pMap map){
 		equipaggiamento.arma->current_animation=equipaggiamento.arma->move_right_index;
 		direction='r';
 		equipaggiamento.arma->direction=direction;
+		resetAnimation();
+		equipaggiamento.arma->resetAnimation();
 	}
 	Animate::move(map);
 }
@@ -272,6 +286,7 @@ void Character::change_points(int delta){
 }
 
 void Character::initiate_attack (){
+	//animation_counter=0;
 	is_attacking=true;
 	(equipaggiamento.arma)->initiate_attack(direction);
 	switch (direction){

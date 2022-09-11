@@ -115,7 +115,7 @@ class Physical {
 	public:
 		float animation_rate;
 		int current_animation;
-		int animation_counter;
+		float animation_counter;
 		
 		Physical();
 		void copyPhysical(Physical B);			//copia i parametri di B

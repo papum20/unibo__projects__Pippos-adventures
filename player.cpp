@@ -112,38 +112,18 @@ void Player::update(pMap map){
 				input=in_manager->get_input();
 				switch (input){
 					case KEY_UP:{
-						//WINDOW *w = newwin(10,10,0,20);
-						//box(w,0,0);
-						//mvwprintw(w,1,1,to_string(pos.x).c_str());
-						//mvwprintw(w,2,1,to_string(pos.y).c_str());
-						//wrefresh(w);
 						moveUp(map);
 						break;
 					}
 					case KEY_DOWN:{
-						//WINDOW *w = newwin(10,10,0,20);
-						//box(w,0,0);
-						//mvwprintw(w,1,1,to_string(pos.x).c_str());
-						//mvwprintw(w,2,1,to_string(pos.y).c_str());
-						//wrefresh(w);
 						moveDown(map);
 						break;
 					}	
 					case KEY_LEFT:{
-						//WINDOW *w = newwin(10,10,0,20);
-						//box(w,0,0);
-						//mvwprintw(w,1,1,to_string(pos.x).c_str());
-						//mvwprintw(w,2,1,to_string(pos.y).c_str());
-						//wrefresh(w);
 						moveLeft(map);
 						break;
 					}
 					case KEY_RIGHT:{
-						//WINDOW *w = newwin(10,10,0,20);
-						//box(w,0,0);
-						//mvwprintw(w,1,1,to_string(pos.x).c_str());
-						//mvwprintw(w,2,1,to_string(pos.y).c_str());
-						//wrefresh(w);
 						moveRight(map);
 						break;
 					}

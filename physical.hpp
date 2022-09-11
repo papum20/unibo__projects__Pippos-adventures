@@ -109,7 +109,9 @@ class Physical {
 		//precondizione: da richiamare con coordinate giuste, e con pos con matrice impostata
 
 	public:
+		float animation_rate;
 		int current_animation;
+		int animation_counter;
 		
 		Physical();
 		void copyPhysical(Physical B);			//copia i parametri di B
@@ -146,7 +148,7 @@ class Physical {
 		void next_animation();
 		void setPosition(Coordinate pos);
 		void resetUpdate();					//rende non updated
-
+		void resetAnimation();
 };
 
 typedef Physical *pPhysical;

@@ -9,6 +9,7 @@
 //// REFRESH RATE : durata di un frame
 #pragma region REFRESH_RATE
 #define FRAMES_PER_SECOND 10					//aggiornamenti in un secondo
+#define ANIMATIONS_PER_SECOND 2                //animazioni al secondo
 #define REFRESH_RATE (1. / FRAMES_PER_SECOND)	//durata di un aggiornamento
 #define REFRESH_TIMER_INDEX 0					//indice del timer (implementazione)
 #define GAME_TIMER_INDEX 1
@@ -17,8 +18,8 @@
 
 #pragma region SCREENS_SIZES
 // CAMERA
-#define CAMERA_WIDTH  300//140//300//150//135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 70//30//70//50//35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH  150//140//300//150//135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 50//30//70//50//35	//altezza (massima) inquadratura livello
 // MINI-MAP
 #define MINIMAP_WIDTH (CAMERA_WIDTH - 4)
 #define MINIMAP_HEIGHT (CAMERA_HEIGHT - 2)

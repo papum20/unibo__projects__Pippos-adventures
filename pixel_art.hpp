@@ -256,6 +256,8 @@ class Pixel_art {
         short d_r_cyan, d_g_cyan, d_b_cyan; 
         short d_r_magenta, d_g_magenta, d_b_magenta; 
         short d_r_blue, d_g_blue, d_b_blue; 
+        short d_r_green, d_g_green, d_b_green;
+        short d_r_brown, d_g_brown, d_b_brown;  
 
 	public:
 		Pixel_art();

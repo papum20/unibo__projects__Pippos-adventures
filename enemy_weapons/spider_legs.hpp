@@ -19,11 +19,11 @@ const int spider_legs_attack_down_index=5;
 const int spider_legs_attack_left_index=6;
 const int spider_legs_attack_right_index=7;
 
-const int spider_legs_height=7;
+const int spider_legs_height=8;
 const int spider_legs_width=11;
 
-const int spider_x_coordinate=1;
-const int spider_y_coordinate=1;
+const int spider_x_coordinate=2;
+const int spider_y_coordinate=2;
 
 const int spider_horizontal_attack_width=3;
 const int spider_horizontal_attack_height=2;
@@ -40,12 +40,14 @@ const char spider_legs_up[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
+	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '}
 	}
 };
 
 const char spider_legs_down[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
+	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -62,12 +64,14 @@ const char spider_legs_left[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
+	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '}
 	}
 };
 
 const char spider_legs_right[1][ANIMATION_HEIGHT][ANIMATION_WIDTH]={
 {	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
+	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},
 	{' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '},

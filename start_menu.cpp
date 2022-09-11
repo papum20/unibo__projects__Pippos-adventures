@@ -3,14 +3,13 @@
 
 Start_menu::Start_menu(int stdscr_x, int stdscr_y):Pixel_art(),Overlay() {
 options_x_pos = (stdscr_x - MENU_OPTIONS_WIDTH) / (2.3), options_y_pos = (stdscr_y - MENU_OPTIONS_HEIGHT) / (1.7);
-face_x_pos = (stdscr_x - FACE_WIDTH) / (5.6), face_y_pos = (stdscr_y - FACE_HEIGHT) / (1.65);
 menu_x_pos = (stdscr_x - MENU_WIDTH) / (2.2), menu_y_pos = (stdscr_y - MENU_HEIGHT) / (1.6);
 
 
 this->menu_is_active=false;
 
 this->menu = newwin(MENU_HEIGHT, MENU_WIDTH, menu_y_pos, menu_x_pos);
-this->wface = newwin(FACE_HEIGHT, FACE_WIDTH, face_y_pos, face_x_pos);
+this->wface = newwin(FACE_HEIGHT, FACE_WIDTH, menu_y_pos - 3, menu_x_pos - FACE_WIDTH - 2);
 this->caverna = newwin(stdscr_y, stdscr_x, 0, 0);
 this->w_options = newwin(MENU_OPTIONS_HEIGHT, MENU_OPTIONS_WIDTH, options_y_pos, options_x_pos);
 highlight=0;

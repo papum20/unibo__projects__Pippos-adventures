@@ -410,8 +410,6 @@ class Pause_menu : public Pixel_art, public Overlay {
         int inventory_x_pos;
         int zaino_y_pos;
         int zaino_x_pos;
-        int item_menu_y_pos;
-        int item_menu_x_pos;
         bool is_open;
         bool options_is_active;
         bool zaino_is_active;

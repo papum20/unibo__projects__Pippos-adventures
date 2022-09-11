@@ -77,7 +77,6 @@ class Start_menu : public Pixel_art, public Overlay {
         int input;
         int menu_x_pos, menu_y_pos;
         int options_x_pos, options_y_pos;
-        int face_x_pos, face_y_pos;
         bool menu_is_active;
         bool options_is_active;
         int highlight;

@@ -37,7 +37,7 @@ const Coordinate SPAWN_DISTANCE = Coordinate(40, 14);				//distanza dal player i
 //enemy
 const int ENEMIES_N[LEVELS_N] {8, 10, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]		= 	{
-															{Witch(), Spider()},
+															{Zombie(), Spider()},
 															{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
 															{Spider(), Fire_spirit(), Snowman(), Witch(), Evil_tree()}
 															};
@@ -79,7 +79,7 @@ class Room {
 		//// FUNZIONI
 		int chestsNumber(int level);								//numero di chest da spawnare in una stanza
 		pChest randChest();
-		virtual pEnemy randEnemy(int level, pCharacter player);		//ritorna un nemico casuale
+		pEnemy randEnemy(int level, pCharacter player);				//ritorna un nemico casuale
 		//// FUNZIONI AUSILIARIE
 		int getFreeCells(s_coord available[], Coordinate size);							//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// ADD
@@ -97,7 +97,9 @@ class Room {
 		pMap map;
 
 		//// FUNZIONI
-		void addCharacter(pCharacter obj);							//aggiunge un character nella sua posizione
+		void addCharacter(pCharacter obj);					//aggiunge un character nella sua posizione
+		pEnemy randBoss(int level, pCharacter player);		//ritorna un nemico casuale
+		pEnemy randEnemy(const Enemy enemies[], const int chances[], const int chance_tot, int level, pCharacter player);		//ritorna un nemico casuale
 		// FUNZIONI AUSILIARIE
 		int doorDirection(pDoor door);													//direzione in cui si trova la porta
 		// SPAWN

@@ -113,7 +113,7 @@ int main() {
 			}
 			else if(miniMap->isOpen()) {
 			}
-			else if(!game_over->isOpen()) {
+			else if(!game_over->isOpen() && !main_menu->is_active()) {
 				if(game_over->isGameOver()) {
 					game_over->open();
 				}

@@ -191,6 +191,9 @@ void Enemy::check_enemy_melee(pMap map){
 
 
 void Enemy::meleeIA(pMap map){
+	WINDOW *w = newwin(10,10,10,1);
+	box(w,0,0);
+	mvwaddch(w,1,1,)
 	check_enemy_melee(map);
 	if (player_found){
 		initiate_attack();
@@ -230,7 +233,7 @@ void Enemy::meleeIA(pMap map){
 						memorized_path[i]=path[i];
 					}
 				}
-				current_step=1;
+				current_step=0;
 				make_step(map);
 			}
 			else

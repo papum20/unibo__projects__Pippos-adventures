@@ -48,7 +48,7 @@
 		//stanze generate
 		pConnectedRoom rooms[N_ROOMS];
 		for(int i = 1; i < N_ROOMS; i++) rooms[i] = NULL;
-		rooms[0] = new ConnectedRoom(LEVEL_CENTER);
+		rooms[0] = new BossRoom(LEVEL_CENTER);
 		this->curRoom = rooms[0];
 		map[curRoom->getPos().single_set(map_size)] = curRoom;
 		//aggiungi ad available le posizioni adiacenti alla prima stanza

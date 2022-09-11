@@ -47,7 +47,7 @@ const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]			= 	{
 															{1, 2, 4, 4, 1}
 															};
 const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 12};
-const int BOSSES_N[LEVELS_N] {15, 6, 3};
+const int BOSSES_N[LEVELS_N] {1, 6, 3};
 const Enemy BOSSES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
 															{Zombie()},
 															{Snowman()},

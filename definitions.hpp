@@ -17,8 +17,8 @@
 
 #pragma region SCREENS_SIZES
 // CAMERA
-#define CAMERA_WIDTH  300//140//300//150//135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 70//30//70//50//35	//altezza (massima) inquadratura livello
+#define CAMERA_WIDTH  250//140//300//150//135	//larghezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 50//30//70//50//35	//altezza (massima) inquadratura livello
 // MINI-MAP
 #define MINIMAP_WIDTH (CAMERA_WIDTH - 4)
 #define MINIMAP_HEIGHT (CAMERA_HEIGHT - 2)
@@ -50,7 +50,7 @@ const int n_max_inventory_objects = 19;
 #define MAX_CONNECTED_R 5					//massimo numero di stanze collegate a ognuna
 #define MAX_SIDES_R 4						//massimo numero di stanze (normali) collegate sui lati
 //LEVEL
-#define N_ROOMS 10							//numero di stanze (normali) generate per livello
+#define N_ROOMS 3							//numero di stanze (normali) generate per livello
 #define LEVEL_AREA (N_ROOMS * N_ROOMS)		//dimensioni matrice livello
 #pragma endregion ROOM_DEFINITIONS
 

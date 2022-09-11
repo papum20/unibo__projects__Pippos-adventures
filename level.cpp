@@ -28,12 +28,15 @@
 			for(int x = 0; x < width; x++) screen[y][x] = CHAR_EMPTY;
 	}
 	void Level::destroy() {
+		destroyRooms();
+		Overlay::destroy();
+	}
+	void Level::destroyRooms() {
 		Coordinate i = Coordinate(0, 0, map_size);
 		do {
 			if(map[i.single()] != NULL) map[i.single()]->destroy();
 			i.next();
 		} while(!i.equals(COORDINATE_ZERO));
-		Overlay::destroy();
 	}
 
 	void Level::generateMap()
@@ -133,19 +136,20 @@
 	}
 
 	void Level::update(int input) {
-		WINDOW *w = newwin(10,10,10,0);
-		box(w,0,0);
-		mvwprintw(w,1,1,to_string(curRoom->isBossRoom()).c_str());
-		wrefresh(w);
 		curRoom->update(input);
-		mvwprintw(w,1,2,to_string(curRoom->isBossRoom()).c_str());
-		wrefresh(w);
 		changeRoom();
 	}
 
 	void Level::changeRoom() {
+		WINDOW *w = newwin(10,10,10,0);
+		box(w,0,0);
+		mvwaddch(w,3,1,'B');
+		wrefresh(w);
 		pDoor new_door = player->usedDoor();
+			if(new_door!=NULL)mvwprintw(w,1,1,to_string(new_door->isUseable()).c_str());
 		if(new_door != NULL && new_door->isUseable()) {
+			mvwprintw(w,2,1,to_string(new_door->isBoss()).c_str());
+			wrefresh(w);
 			curRoom->remove(player);		//rimuovo player cosi che non faccia il delete se va in next level
 			
 			if(new_door->isBoss()) {
@@ -160,11 +164,7 @@
 		}
 	}
 	void Level::nextLevel() {
-		Coordinate i = Coordinate(0, 0, map_size);
-		do {
-			if(map[i.single() != NULL]) map[i.single()]->destroy();
-			i.next();
-		} while(!i.equals(COORDINATE_ZERO));
+		destroyRooms();
 		level++;
 		generateMap();
 	}

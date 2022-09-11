@@ -31,10 +31,6 @@
 		delete this;
 	}
 	void Room::update(int input) {
-		WINDOW *w = newwin(10,10,0,40);
-		box(w,0,0);
-		mvwprintw(w,1,1,to_string(map->characters_n).c_str());
-		wrefresh(w);
 		Coordinate i(0, 0, size);
 		// setta tutti gli oggetti come non updated e non drawn
 		do {
@@ -53,7 +49,6 @@
 		pUnionFind sets = new UnionFind();
 		//GENERA MURI LATERALI
 		generateSidesWalls();
-		//GENERA PORTE
 		//CREA STANZA NELLA STANZA (QUADRATO VUOTO AL CENTRO)
 		generateInnerRoom(sets);
 		//RIEMPI LA STANZA DI MURI E CORRIDOI

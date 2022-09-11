@@ -71,7 +71,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 	}
 	int BossRoom::randDoor() {
 		// per come genera level la stanza, è garantito che ci sia sempre almeno uno spazio per una porta
-		int rand_dir = rand() % doorsNumber();
+		int rand_dir = rand() % (DIRECTIONS_N - doorsNumber());
 		bool found = false;
 		int dir = 0;
 		while(!found && rand_dir > 0) {

@@ -38,13 +38,14 @@ Player::Player(pInputManager in):Character(p_max_health, p_max_stamina){
 	points=0;
 
 
-	weapons[0]= new Arco();
-	/*artifacts[0] = new HealthPotion();
+	weapons[0]= new sword();
+	weapons[1]= new Arco();
+	artifacts[0] = new HealthPotion();
 	artifacts[1] = new Rune();
 	artifacts[2] = new Life_elixir();
-	*/weapons_n = 1;
+	weapons_n = 2;
 	defensive_items_n = 0;
-	artifacts_n = 0;
+	artifacts_n = 3;
 	change_weapon(weapons[0]);
 	
 

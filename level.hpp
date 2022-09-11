@@ -85,6 +85,7 @@ class Level : public Overlay {
 		
 		// FUNZIONI AUSILIARIE
 		void setUp(int win_x, int win_y, int win_w, int win_h, pPlayer player);					//setup per costruttore
+		void destroyRooms();
 		lock_type randLockedDoor(Room A, Room B);												//(per generate) ritorna casualmente se la/le porta/e tra la stanza da generare e room devono essere bloccate
 		pConnectedRoom findRoomAtCoordinates(pConnectedRoom rooms[], int len, Coordinate c);	//ritorna la stanza dell'array con tali coordinate (NULL se non presente)
 		void cameraUpdate();																	//calcola il centro della camera

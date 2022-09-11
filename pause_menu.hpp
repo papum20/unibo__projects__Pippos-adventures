@@ -424,7 +424,7 @@ class Pause_menu : public Pixel_art, public Overlay {
         int u_highlight;
         int z_highlight;
         Player * p;
-        
+        System_text* text;
         int curr_inventory_space;
         pItem objects[n_max_inventory_objects];
         
@@ -432,7 +432,7 @@ class Pause_menu : public Pixel_art, public Overlay {
         
         
 
-	Pause_menu(Player * p, int stdscr_x, int stdscr_y);
+	Pause_menu(Player * p, int stdscr_x, int stdscr_y, System_text* text);
         void open_options();
         void update_options();
         void wattroff_inventory(WINDOW * win);

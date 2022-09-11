@@ -17,9 +17,10 @@ Fire_spirit::Fire_spirit():Enemy(){
     points_given=fire_spirit_points;
 
     change_weapon(new Fire_spirit_hands());
+    change_boots(new boots());
     change_necklace(new necklace());
 
-    maxHealth=Math::randomStep(150, 200, 10);
+    maxHealth=Math::randomStep(60, 100, 10);
     curHealth=maxHealth;
     size=Coordinate (fire_spirit_width, fire_spirit_depth);
 
@@ -44,9 +45,10 @@ Fire_spirit::Fire_spirit(pCharacter p):Enemy(p){
     points_given=fire_spirit_points;
 
     change_weapon(new Fire_spirit_hands());
+    change_boots(new boots());
     change_necklace(new necklace());
 
-    maxHealth=Math::randomStep(150, 200, 10);
+    maxHealth=Math::randomStep(60, 100, 10);
     curHealth=maxHealth;
     size=Coordinate (fire_spirit_width, fire_spirit_depth);
     

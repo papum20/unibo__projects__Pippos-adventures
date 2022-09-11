@@ -8,6 +8,11 @@ Life_elixir::Life_elixir() : Artifact() {
     strcpy (name, elixir_name);
 }
 
-void Life_elixir::use_item (pItem item, int &stat){
-    stat=stat+life_added;
+void Life_elixir::use_item (pItem item, int &stat, System_text* text){
+    if (stat==5)
+        text->insert_string(life_full);  
+    else{    
+        stat=stat+life_added;
+        text->insert_string(gain_heart);
+    }
 }

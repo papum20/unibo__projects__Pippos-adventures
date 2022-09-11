@@ -13,7 +13,7 @@ class Rune: public Artifact{
         Rune();
 
         void use_rune (pItem item);
-        void use_item (pItem item, int &stat);
+        void use_item (pItem item, int &stat, System_text* text);
 };
 
 typedef Rune* pRune;

@@ -10,6 +10,7 @@ void Rune::use_rune(pItem item){
     item->apply_rune();
 }
 
-void Rune::use_item (pItem item, int &stat){
+void Rune::use_item (pItem item, int &stat, System_text* text){
     use_rune(item);
+    text->insert_string(upgrade_equip);
 }

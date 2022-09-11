@@ -13,7 +13,7 @@ void Artifact::copyArtifact(Artifact B) {
 }
 
 
-void Artifact::use_item(pItem item, int &stat) {
+void Artifact::use_item(pItem item, int &stat, System_text* text) {
 
 }
 

@@ -58,6 +58,7 @@ void Player::changeCurrentHealth(int delta){
 		if (curHealth+delta<0){
 			if (n_hearts>0){
 				n_hearts--;
+				text->insert_string(lose_heart);
 				curHealth=p_max_health;
 			}
 			else
@@ -259,7 +260,10 @@ void Player::add_item(pWeapon w){
 		weapons[weapons_n]=new Weapon();
 		weapons[weapons_n]->copyWeapon(*w);
 		weapons_n++;
+		text->insert_string(collect_weapon);
 	}
+	else
+		text->insert_string(no_weapon);
 }
 
 void Player::add_item (pItem_def i){
@@ -267,7 +271,10 @@ void Player::add_item (pItem_def i){
 		defensive_items[defensive_items_n]=new item_difensivo();
 		defensive_items[defensive_items_n]->copyItemDifensivo(*i);
 		defensive_items_n++;
+		text->insert_string(collect_item_difensive);
 	}
+	else
+		text->insert_string(no_item_difensive);
 }
 
 void Player::add_item (pArtifact a){
@@ -275,7 +282,10 @@ void Player::add_item (pArtifact a){
 		artifacts[artifacts_n]=new Artifact();
 		artifacts[artifacts_n]->copyArtifact(*a);
 		artifacts_n++;
+		text->insert_string(collect_artifact);
 	}
+	else
+		text->insert_string(no_artifacts);
 }
 
 void Player::modify_lifes (int delta){
@@ -309,11 +319,13 @@ void Player::door_actions(pMap map){
 	used_door=MapHandler::checkDoor(map, newcoord);
 	if (used_door != NULL && used_door->isLocked()){
 		if (n_keys>0){
+			text->insert_string(door_unlocked);
 			n_keys--;
 		}
-		else
+		else{
 			used_door=NULL;
-			//messaggio giuseppe
+			text->insert_string(no_keys);
+		}
 	}
 }
 

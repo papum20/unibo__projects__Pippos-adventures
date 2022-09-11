@@ -17,10 +17,9 @@ Witch::Witch():Enemy(){
     points_given=witch_points;
     
     change_armor(new armor());
-    change_necklace(new necklace());
     change_weapon(new Witch_Rod());
 
-    maxHealth=Math::randomStep(40, 70, 10);
+    maxHealth=Math::randomStep(70, 90, 10);
     curHealth=maxHealth;
     size=Coordinate (witch_width, witch_depth);
 
@@ -45,10 +44,9 @@ Witch::Witch(pCharacter p):Enemy(p){
     points_given=witch_points;
     
     change_armor(new armor());
-    change_necklace(new necklace());
     change_weapon(new Witch_Rod());
 
-    maxHealth=Math::randomStep(40, 70, 10);
+    maxHealth=Math::randomStep(70, 90, 10);
     curHealth=maxHealth;
     size=Coordinate (witch_width, witch_depth);
 

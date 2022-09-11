@@ -4,6 +4,7 @@
 #include "animate.hpp"
 #include <cstring>
 #include "math.hpp"
+#include "system_text.hpp"
 
 const int description_length=200;
 const int name_length=25;

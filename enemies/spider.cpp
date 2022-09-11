@@ -15,11 +15,10 @@ Spider::Spider():Enemy(){
 
     points_given=spider_points;
 
-    //change_armor(new armor());
-    change_boots(new boots());
+    change_armor(new armor());
     change_weapon(new Spider_legs());
 
-    maxHealth=Math::randomStep(30, 50, 10);
+    maxHealth=Math::randomStep(60, 80, 10);
     curHealth=maxHealth;
     size=Coordinate (spider_width, spider_depth);
     speed = SPEED_SPIDER;
@@ -40,12 +39,11 @@ Spider::Spider(pCharacter p):Enemy(p){
 
     points_given=spider_points;
 
-    //change_armor(new armor());
-    change_boots(new boots());
+    change_armor(new armor());
     change_weapon(new Spider_legs());
 
 
-    maxHealth=Math::randomStep(30, 50, 10);
+    maxHealth=Math::randomStep(60, 80, 10);
     curHealth=maxHealth;
     size=Coordinate (spider_width, spider_depth);
     speed = SPEED_SPIDER;

@@ -39,7 +39,7 @@ int main() {
 	Game_over *game_over = new Game_over(stdscr_x, stdscr_y, player);
 	Hud *hud = new Hud(hud_x, hud_y, player);
 	MiniMap *miniMap = new MiniMap(map_x, map_y, level);
-	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y);
+	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y, text);
 	Start_menu *main_menu = new Start_menu(stdscr_x, stdscr_y);
 
 

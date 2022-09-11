@@ -21,7 +21,7 @@ Zombie::Zombie():Enemy(){
     change_weapon(new Zombie_hands());
     change_armor(new armor());
 
-    maxHealth=Math::randomStep(20, 40, 10);
+    maxHealth=Math::randomStep(50, 80, 10);
     curHealth=maxHealth;
 }
 Zombie::Zombie(pCharacter p):Enemy(p){
@@ -45,6 +45,6 @@ Zombie::Zombie(pCharacter p):Enemy(p){
     change_weapon(new Zombie_hands());
     change_armor(new armor());
 
-    maxHealth=Math::randomStep(20, 40, 10);
+    maxHealth=Math::randomStep(50, 80, 10);
     curHealth=maxHealth;
 }

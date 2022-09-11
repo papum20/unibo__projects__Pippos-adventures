@@ -1,7 +1,7 @@
 #include "spider_legs.hpp"
 
 Spider_legs::Spider_legs():Hands(){
-    danno_fisico_iniziale=Math::randomStep(30, 50, 10);  //30-50
+    danno_fisico_iniziale=Math::randomStep(30, 40, 5); 
     danno_magico_iniziale=0;
     apply_rarity();
 

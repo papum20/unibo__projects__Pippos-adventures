@@ -84,6 +84,7 @@ class Character : public Alive {
 
 
 		equipment *getEqipment();
+
 		
 };
 

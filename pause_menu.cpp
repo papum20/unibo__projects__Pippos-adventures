@@ -5,7 +5,6 @@ Pause_menu::Pause_menu(Player * p, int stdscr_x, int stdscr_y):Pixel_art(), Over
 
 zaino_x_pos = (stdscr_x - ZAINO_WIDTH) / (3.5), zaino_y_pos = (stdscr_y - ZAINO_HEIGHT) / 2.1;
 inventory_x_pos = (stdscr_x - PAUSE_MENU_WIDTH) / (2.2), inventory_y_pos = 3;
-item_menu_x_pos = zaino_x_pos + ZAINO_WIDTH + 3, item_menu_y_pos = (stdscr_y - ZAINO_HEIGHT) / (2.2);
 status_x_pos = (stdscr_x - STATUS_MENU_WIDTH) / (2.2), status_y_pos = (stdscr_y - STATUS_MENU_HEIGHT) / (2.3);
 options_x_pos = (stdscr_x - MENU_OPTIONS_WIDTH) / (2.3), options_y_pos = (stdscr_y - MENU_OPTIONS_HEIGHT) / (2.1);
 
@@ -18,8 +17,8 @@ w_equip_is_active=false;
 
 this->w_inventory = newwin(PAUSE_MENU_HEIGHT, PAUSE_MENU_WIDTH, inventory_y_pos,inventory_x_pos);
 this->w_zaino = newwin(ZAINO_HEIGHT, ZAINO_WIDTH, zaino_y_pos, zaino_x_pos);
-this->w_item = newwin(ITEM_MENU_HEIGHT, ITEM_MENU_WIDTH, item_menu_y_pos, item_menu_x_pos);
-this->w_weapon = newwin(w_graphic_high + 1, w_graphic_lenght + 1, item_menu_y_pos + 2, item_menu_x_pos + 1);
+this->w_item = newwin(ITEM_MENU_HEIGHT, ITEM_MENU_WIDTH, zaino_y_pos - 1, zaino_x_pos + ZAINO_WIDTH + 3);
+this->w_weapon = newwin(w_graphic_high + 1, w_graphic_lenght + 1, zaino_y_pos - 1 + 2, zaino_x_pos + ZAINO_WIDTH + 3);
 this->w_equip = newwin(STATUS_MENU_HEIGHT, STATUS_MENU_WIDTH, status_y_pos, status_x_pos);
 this->w_options = newwin(MENU_OPTIONS_HEIGHT, MENU_OPTIONS_WIDTH, options_y_pos, options_x_pos);
 
@@ -860,3 +859,8 @@ wrefresh(w_inventory);
 }
 
 
+
+
+void Pause_menu::setPlayer(pPlayer player ){
+    this->p = player;
+}

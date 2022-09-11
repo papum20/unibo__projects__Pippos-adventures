@@ -194,6 +194,7 @@ class Hud :public Overlay {
     void draw_points(int x, int y);
     void draw_n(int x, int y);
     void draw_p(int x, int y);
+    void setPlayer(pPlayer player);
 		//void drawHud(int curr_health, int curr_st, int hearts);		//disegna hud (in gioco)
 		//void startMenu();	//inizializza il menu (quando si preme il tasto pausa)
 		//void updateMenu();	//disegna menu (solo se in pausa)

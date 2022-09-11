@@ -32,7 +32,7 @@ class MiniMap : public Overlay {
 		void close();
 
 		bool isOpen();
-		void setLevel();
+		void setLevel(pLevel level);
 };
 
 

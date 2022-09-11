@@ -86,7 +86,10 @@
 					pConnectedRoom adjacent_room = findRoomAtCoordinates(rooms, room, nxt_pos);
 					int adjacent_cell = available.findPos(nxt);
 					
-					if(adjacent_room != NULL) rooms[room]->makeConnection(adjacent_room, dir, randLockedDoor(*rooms[room], *adjacent_room));	//se è una stanza, collegala a quella appena generata
+					if(adjacent_room != NULL) {
+						if(adjacent_room->isBossRoom()) rooms[room]->makeConnection(adjacent_room, dir, LOCK_NONE);			//se è boss room, non mette porta bloccata
+						else rooms[room]->makeConnection(adjacent_room, dir, randLockedDoor(*rooms[room], *adjacent_room));	//se è una stanza, collegala a quella appena generata
+					}
 					else if(adjacent_cell != -1) available.increaseKey(nxt, RoomPosition(Coordinate(), 1));										//se era già presente come cella disponibile, aumentane il numero di stanze adiacenti
 					else available.insert(nxt);																									//altrimenti aggiungi la cella come disponibile
 				}
@@ -141,25 +144,19 @@
 	}
 
 	void Level::changeRoom() {
-		WINDOW *w = newwin(10,10,10,0);
-		box(w,0,0);
-		mvwaddch(w,3,1,'B');
-		wrefresh(w);
 		pDoor new_door = player->usedDoor();
-			if(new_door!=NULL)mvwprintw(w,1,1,to_string(new_door->isUseable()).c_str());
-		if(new_door != NULL && new_door->isUseable()) {
-			mvwprintw(w,2,1,to_string(new_door->isBoss()).c_str());
-			wrefresh(w);
-			curRoom->remove(player);		//rimuovo player cosi che non faccia il delete se va in next level
-			
-			if(new_door->isBoss()) {
-				nextLevel();
-			} else {
-				player->useDoor();
-				if(new_door->isLocked()) curRoom->unlockDoor(new_door);
-				player->setPosition(curRoom->getEntrance(new_door));
-				curRoom = curRoom->getConnectedRoom(new_door);
-				curRoom->addCharacter_strong(player);				//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
+		if(new_door != NULL) {
+			player->useDoor();
+			if(new_door->isUseable()) {
+				curRoom->remove(player);		//rimuovo player cosi che non faccia il delete se va in next level
+				if(new_door->isBoss()) {
+					nextLevel();
+				} else {
+					if(new_door->isLocked()) curRoom->unlockDoor(new_door);
+					player->setPosition(curRoom->getEntrance(new_door));
+					curRoom = curRoom->getConnectedRoom(new_door);
+					curRoom->addCharacter_strong(player);				//riposiziona player (la funzione ha sempre successo perché si fa in modo che item e wall non spawnino vicino la porta)
+				}
 			}
 		}
 	}

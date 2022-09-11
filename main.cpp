@@ -42,6 +42,9 @@ int main() {
 	Pause_menu  *pause_menu = new Pause_menu(player,stdscr_x, stdscr_y);
 	Game_over game_over = Game_over(stdscr_x, stdscr_y);
 
+
+
+
 	
 	main_menu->open();
 	
@@ -71,16 +74,15 @@ int main() {
 		//// MENU INIZIALE
 		if(main_menu->is_active()) {
 			if(frame % 2 == 0) mvwprintw(debug, 5, 1, "menu ");
-
 			main_menu->update(isRunning, inputManager->get_input());
+		}
+			// SE IL MENU INIZIALE È APPENA STATO CHIUSO
+		else if(in_mainMenu) {
+			level->open();
+			in_mainMenu = false;
 		}
 		//// IN GIOCO
 		else {
-			// SE IL MENU INIZIALE È APPENA STATO CHIUSO
-			if(in_mainMenu) {
-				level->open();
-				in_mainMenu = false;
-			}
 		//// GESTIONE MENU APERTI CON INPUT
 			if(inputManager->get_input() == KEY_QUIT) isRunning = false;
 			else if(inputManager->get_input() == KEY_MAIN_MENU) {
@@ -105,15 +107,18 @@ int main() {
 			}
 
 			//// UPDATE
-			if(!in_mainMenu) {
-				if(pause_menu->is_active()) {
-					if(frame % 2 == 0) mvwprintw(debug, 5, 1, "pause");
+			if(pause_menu->is_active()) {
+				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "pause");
 
-					if(!pressedPause) pause_menu->update(inputManager->get_input());
-					else pause_menu->update(ERR);
-				}
-				else if(miniMap->isOpen()) {
-					if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map  ");
+				if(!pressedPause) pause_menu->update(inputManager->get_input());
+				else pause_menu->update(ERR);
+			}
+			else if(miniMap->isOpen()) {
+				if(frame % 2 == 0) mvwprintw(debug, 5, 1, "map  ");
+			}
+			else if(!game_over->isOpen()) {
+				if(game_over->isGameOver()) {
+					game_over->open();
 				}
 				else {
 					if(frame%2==0) mvwprintw(debug,5,1,"level");
@@ -122,6 +127,7 @@ int main() {
 					level->display();
 					hud->drawHud();
 					text->open();
+					game_over->update();
 				}
 			}
 		}
@@ -140,13 +146,14 @@ int main() {
 	cursesEnd();
 	gameEnd();
 	//DELETE
-	//hud->destroy();
-	//inputManager->destroy();
-	level->destroy();
-	//main_menu->destroy();
-	//miniMap->destroy();
-	//pause_menu->destroy();
-	//text->destroy();
+	if(!in_mainMenu) level->destroy();
+	game_over->destroy();
+	hud->destroy();
+	inputManager->destroy();
+	main_menu->destroy();
+	miniMap->destroy();
+	pause_menu->destroy();
+	text->destroy();
 	
 }
 

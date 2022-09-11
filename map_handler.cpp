@@ -333,7 +333,7 @@ MapHandler::MapHandler() {
 		Coordinate i = Coordinate(target, map->size, target, Coordinate(target, obj->getSize()));
 		bool allowed = true;
 		do {
-			if(checkPosition(map, i) != NULL && map->physical[i.single()] != obj) allowed = false;
+			if(!i.inBounds(COORDINATE_ZERO, map->size) || (checkPosition(map, i) != NULL && map->physical[i.single()] != obj)) allowed = false;
 			else i.next();
 		} while(allowed && !i.equals(target));
 		return allowed;
@@ -378,7 +378,7 @@ MapHandler::MapHandler() {
 
 //// EDIT
 	bool MapHandler::move(pMap map, pPhysical obj, Coordinate target) {
-		Coordinate target_int = target.integer();
+		Coordinate target_int = target.floor();
 		if(!obj->isInanimate() && obj->getPosition().inBounds(COORDINATE_ZERO, map->size) && isLegalMove(map, obj, target_int)) {
 			//SPOSTA
 			Coordinate i = Coordinate(target_int, map->size, target_int, Coordinate(target_int, obj->getSize()));

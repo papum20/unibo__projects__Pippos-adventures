@@ -56,7 +56,7 @@ void Animate::moveRight(pMap map){
 }
 void Animate::move(pMap map) {
 	Coordinate target = nextPos(), direction = toDirection().negative();
-	while(!target.equals_int(pos) && !MapHandler::move(map, this, nextPos())) target = Coordinate(target, direction);
+	while(!target.equals_int(pos) && !MapHandler::move(map, this, target)) target = Coordinate(target, direction);
 	lastMove = Coordinate(target, pos.negative());
 	pos = target;
 }

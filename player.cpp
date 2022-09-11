@@ -43,10 +43,12 @@ Player::Player(pInputManager in, System_text* system_text):Character(p_max_healt
 	artifacts[0] = new HealthPotion();
 	artifacts[1] = new Rune();
 	artifacts[2] = new Life_elixir();
+	defensive_items[0] = new armor();
 	weapons_n = 2;
-	defensive_items_n = 0;
+	defensive_items_n = 1;
 	artifacts_n = 3;
 	change_weapon(weapons[0]);
+	change_armor(defensive_items[0]);
 	
 
 	
@@ -182,10 +184,9 @@ void Player::update(pMap map){
 			Character::update(map);		//azioni generali
 		}
 		else
-			if (curHealth==-1)
-				destroy(map);
-			else
+			if (curHealth!=-1)
 				changeCurrentHealth(-1);
+			//else muore
 	}
 }
 

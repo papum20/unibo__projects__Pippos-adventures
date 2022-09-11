@@ -5,7 +5,6 @@
 #include "connected_room.hpp"
 
 
-
 class BossRoom : public ConnectedRoom {
 	private:
 		// FUNZIONI
@@ -13,8 +12,6 @@ class BossRoom : public ConnectedRoom {
 		// GENERAZIONE
 		void generateEmpty();
 		void addLevelDoor();
-		// SPAWN
-		pEnemy randEnemy(int level, pCharacter player);		//ritorna un nemico casuale
 		// AUSILIARIE
 		int doorsNumber();
 		int randDoor();										//indice/direzione in cui generare porta

@@ -28,6 +28,11 @@
 	void cursesEnd();
 	void gameEnd();
 
+//// FUNCTIONS
+	void initDebug(WINDOW *win);
+	void printDebug(WINDOW *win, int level, int seconds, int fps);
+	int int_to_string(int n, char out[]);		//per n >= 0, altrimenti ritorna -1
+
 
 
 #endif

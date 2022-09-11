@@ -435,6 +435,18 @@
 		res->copyEnemy(ENEMIES_INSTANCES[level][i]);
 		return res;
 	}
+	pEnemy Room::randBoss(int level, pCharacter player) {
+		int r = rand() % BOSSES_CHANCE_TOT[level];
+		int i = 0, counter = 0;
+		while(r >= counter + BOSSES_CHANCHES[level][i]) {
+			counter += BOSSES_CHANCHES[level][i];
+			i++;
+		}
+		pEnemy res = new Enemy(player);
+		res->copyEnemy(BOSSES_INSTANCES[level][i]);
+		return res;
+	}
+
 	pChest Room::randChest() {
 		int r = rand() % ITEMS_INSTANCES_N;
 		pChest res;

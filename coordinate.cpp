@@ -69,12 +69,6 @@
 	bool Coordinate::inOwnBounds() {
 		return (x >= startx && x < endx && y >= starty && y < endy);
 	}
-	/*bool Coordinate::inBoundsX(float xmin, float xmax) {
-		return (x >= xmin && x <= xmax); 
-	}
-	bool Coordinate::inBoundsY(float ymin, float ymax) {
-		return (y >= ymin && y <= ymax);
-	}*/
 	bool Coordinate::equals(Coordinate B) const {
 		return x == B.x && y == B.y;
 	}
@@ -84,10 +78,6 @@
 	bool Coordinate::lessEqual(Coordinate B) {
 		return x <= B.x && y <= B.y;
 	}
-	//bool Coordinate::equalsDirection(Coordinate B) {
-	//	float proportion_b_y = B.x * y / x;
-	//	return proportion_b_y == B.y;
-	//}
 	#pragma endregion BOOL
 
 //// EDIT

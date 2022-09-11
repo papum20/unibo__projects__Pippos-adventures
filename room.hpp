@@ -35,21 +35,21 @@ const Coordinate SPAWN_DISTANCE = Coordinate(40, 14);				//distanza dal player i
 
 //SPAWN: istanze e probabilità
 //enemy
-const int ENEMIES_N[LEVELS_N] {8, 10, 10};
+const int ENEMIES_N[LEVELS_N] {10, 8, 10};
 const Enemy ENEMIES_INSTANCES[LEVELS_N][N_ENEMIES]		= 	{
-															{Witch(), Spider()},
-															{Zombie(), Spider(), Fire_spirit(), Snowman(), Witch()},
+															{Zombie(), Spider(), Fire_spirit()},
+															{Snowman(), Witch()},
 															{Spider(), Fire_spirit(), Snowman(), Witch(), Evil_tree()}
 															};
 const int ENEMIES_CHANCHES[LEVELS_N][N_ENEMIES]			= 	{
-															{3, 1},
-															{2, 3, 4, 1, 1},
+															{2, 1, 1},
+															{1, 1},
 															{1, 2, 4, 4, 1}
 															};
-const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 11, 12};
-const int BOSSES_N[LEVELS_N] {15, 6, 3};
+const int ENEMIES_CHANCE_TOT[LEVELS_N] = {4, 2, 12};
+const int BOSSES_N[LEVELS_N] {1, 6, 3};
 const Enemy BOSSES_INSTANCES[LEVELS_N][N_ENEMIES]	= 	{
-															{Zombie()},
+															{Evil_tree()},
 															{Snowman()},
 															{Evil_tree()}
 															};
@@ -79,7 +79,7 @@ class Room {
 		//// FUNZIONI
 		int chestsNumber(int level);								//numero di chest da spawnare in una stanza
 		pChest randChest();
-		virtual pEnemy randEnemy(int level, pCharacter player);		//ritorna un nemico casuale
+		pEnemy randEnemy(int level, pCharacter player);				//ritorna un nemico casuale
 		//// FUNZIONI AUSILIARIE
 		int getFreeCells(s_coord available[], Coordinate size);							//modifica l'array con le celle disponibili per lo spawn di qualcosa di dimensione size e ne ritorna il numero
 		// ADD
@@ -97,7 +97,9 @@ class Room {
 		pMap map;
 
 		//// FUNZIONI
-		void addCharacter(pCharacter obj);							//aggiunge un character nella sua posizione
+		void addCharacter(pCharacter obj);					//aggiunge un character nella sua posizione
+		pEnemy randBoss(int level, pCharacter player);		//ritorna un nemico casuale
+		pEnemy randEnemy(const Enemy enemies[], const int chances[], const int chance_tot, int level, pCharacter player);		//ritorna un nemico casuale
 		// FUNZIONI AUSILIARIE
 		int doorDirection(pDoor door);													//direzione in cui si trova la porta
 		// SPAWN

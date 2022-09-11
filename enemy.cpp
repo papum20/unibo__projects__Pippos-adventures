@@ -193,7 +193,6 @@ void Enemy::check_enemy_melee(pMap map){
 
 
 void Enemy::meleeIA(pMap map){
-	check_enemy_melee(map);
 	if (player_found){
 		initiate_attack();
 		player_found=false;
@@ -232,7 +231,7 @@ void Enemy::meleeIA(pMap map){
 						memorized_path[i]=path[i];
 					}
 				}
-				current_step=1;
+				current_step=0;
 				make_step(map);
 			}
 			else

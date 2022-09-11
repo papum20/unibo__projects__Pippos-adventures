@@ -21,7 +21,7 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 			player->setPosition(size.times(.5, .5).integer());
 			addCharacter(player);
 		}
-		for(int i = 0; i < BOSSES_N[level]; i++) spawnEnemy(randEnemy(level, player));
+		for(int i = 0; i < BOSSES_N[level]; i++) spawnEnemy(randBoss(level, player));//(randEnemy(level, player));
 	}
 
 	void BossRoom::setDoorsUseable() {
@@ -46,17 +46,6 @@ BossRoom::BossRoom(Coordinate pos) : ConnectedRoom(pos) {
 	}
 	void BossRoom::addLevelDoor() {
 		addDoor(randDoor(), LOCK_NONE, true);
-	}
-	pEnemy BossRoom::randEnemy(int level, pCharacter player) {
-		int r = rand() % BOSSES_CHANCE_TOT[level];
-		int i = 0, counter = 0;
-		while(r >= counter + BOSSES_CHANCHES[level][i]) {
-			counter += BOSSES_CHANCHES[level][i];
-			i++;
-		}
-		pEnemy res = new Enemy(player);
-		res->copyEnemy(BOSSES_INSTANCES[level][i]);
-		return res;
 	}
 
 #pragma endregion AUSILIARIE_PRINCIPALI

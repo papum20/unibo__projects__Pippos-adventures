@@ -22,11 +22,6 @@ Player::Player(pInputManager in, System_text* system_text):Character(p_max_healt
 	animations[player_move_up_index] = new Animation(move_up, Coordinate(p_height, p_width), player_move_up_states);
 	animations[player_move_down_index] = new Animation(move_down, Coordinate(p_height, p_width), player_move_down_states);
 
-	//animations[player_dash_up_index] = new Animation(dash_up, Coordinate(p_height, p_width), player_dash_up_states);
-	//animations[player_dash_down_index] = new Animation(dash_down, Coordinate(p_height, p_width), player_dash_down_states);
-	//animations[player_dash_left_index] = new Animation(dash_left, Coordinate(p_height, p_width), player_dash_left_states);
-	//animations[player_dash_right_index] = new Animation(dash_right, Coordinate(p_height, p_width), player_dash_right_states);
-
 	animations_n = 5;
 
 
@@ -39,12 +34,15 @@ Player::Player(pInputManager in, System_text* system_text):Character(p_max_healt
 
 
 	weapons[0]= new sword();
+	weapons[1]= new Arco();
 	defensive_items[0] = new armor();
-	weapons_n = 1;
-	defensive_items_n = 1;
+	defensive_items[1] = new helm();
+	weapons_n = 2;
+	defensive_items_n = 2;
 	artifacts_n = 0;
 	change_weapon(weapons[0]);
 	change_armor(defensive_items[0]);
+	change_helm(defensive_items[1]);
 	
 
 	

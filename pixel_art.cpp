@@ -6,6 +6,8 @@ Pixel_art::Pixel_art() {
     color_content(COLOR_CYAN, &d_r_cyan, &d_g_cyan, &d_b_cyan);
     color_content(COLOR_MAGENTA, &d_r_magenta, &d_g_magenta, &d_b_magenta);
     color_content(COLOR_BLUE, &d_r_blue, &d_g_blue, &d_b_blue);
+    color_content(COLOR_GREEN, &d_r_green, &d_g_green, &d_b_green);
+    color_content(COLOR_BROWN, &d_r_brown, &d_g_brown, &d_b_brown);
 	
       
 }
@@ -14,6 +16,8 @@ void Pixel_art::default_color(){
 init_color(COLOR_CYAN, d_r_cyan, d_g_cyan, d_b_cyan);
 init_color(COLOR_MAGENTA, d_r_magenta, d_g_magenta, d_b_magenta); 
 init_color(COLOR_BLUE, d_r_blue, d_g_blue, d_b_blue); 
+init_color(COLOR_GREEN, d_r_green, d_g_green, d_b_green); 
+init_color(COLOR_BROWN, d_r_brown, d_g_brown, d_b_brown); 
 }
 
 void Pixel_art::convert_char_to_pixel(WINDOW* menu, int start_x, int start_y, char c, bool highlight){

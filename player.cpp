@@ -30,7 +30,7 @@ Player::Player(pInputManager in, System_text* system_text):Character(p_max_healt
 	move_left_index=player_move_left_index;
 	move_up_index=player_move_up_index;
 	move_down_index=player_move_down_index;
-	points=1500;
+	points=0;
 
 
 	weapons[0]= new sword();

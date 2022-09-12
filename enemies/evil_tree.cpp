@@ -17,8 +17,9 @@ Evil_tree::Evil_tree():Enemy(){
     points_given=tree_points;
 
     change_weapon(new Tree_branch());
+    change_necklace(new necklace());
 
-    maxHealth=Math::randomStep(90, 110, 10);
+    maxHealth=Math::randomStep(70, 100, 10);
     curHealth=maxHealth;
     size=Coordinate (tree_width, tree_depth);
 }
@@ -40,10 +41,9 @@ Evil_tree::Evil_tree(pCharacter p):Enemy(p){
     points_given=tree_points;
 
     change_weapon(new Tree_branch());
-    change_armor(new armor());
     change_necklace(new necklace());
 
-    maxHealth=Math::randomStep(90, 110, 10);
+    maxHealth=Math::randomStep(70, 100, 10);
     curHealth=maxHealth;
     size=Coordinate (tree_width, tree_depth);
 }

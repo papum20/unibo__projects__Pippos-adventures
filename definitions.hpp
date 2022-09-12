@@ -164,6 +164,7 @@ const char no_artifacts[max_words]={"NON PUOI PIU' RACCOGLIERE ARTEFATTI"};
 const char collect_weapon[max_words]={"HAI RACCOLTO UN'ARMA"};
 const char collect_item_difensive[max_words]={"HAI RACCOLTO UN ITEM DIFENSIVO"};
 const char collect_artifact[max_words]={"HAI RACCOLTO UN ARTEFATTO"};
+const char collect_key[max_words]={"HAI RACCOLTO UNA CHIAVE"};
 const char upgrade_equip[max_words]={"HAI MIGLIORATO UN OGGETTO NEL TUO EQUIPAGGIAMENTO"};
 const char no_upgrade[max_words]={"NON PUOI MIGLIORARE NESSUN ALTRO OGGETTO DEL TUO EQUIPAGGIAMENTO"};
 const char no_stamina[max_words]={"NON HAI STAMINA SUFFICIENTE PER ATTACCARE"};

@@ -20,7 +20,7 @@ Fire_spirit::Fire_spirit():Enemy(){
     change_boots(new boots());
     change_necklace(new necklace());
 
-    maxHealth=Math::randomStep(60, 100, 10);
+    maxHealth=Math::randomStep(60, 60, 10);
     curHealth=maxHealth;
     size=Coordinate (fire_spirit_width, fire_spirit_depth);
 

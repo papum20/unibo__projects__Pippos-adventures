@@ -3,6 +3,7 @@
 
 char window_write[messages_saved][max_words];
 
+
 System_text::System_text(int stdscr_x, int stdscr_y):Overlay(),Pixel_art() {
     this->text = newwin(WINDOW_TEXT_HEIGHT, WINDOW_TEXT_WIDTH,stdscr_y, stdscr_x);
     is_open=false;
@@ -31,7 +32,7 @@ void System_text::open(){
 
 void System_text::insert_string(const char string[]){
     space++;
-    if(space>messages_saved){
+    if(space>messages_saved)
         space=messages_saved;
         for(int i=space-1; i>0;i--){
             char tmp[max_words];
@@ -40,10 +41,6 @@ void System_text::insert_string(const char string[]){
             strcpy(window_write[i-1], tmp);
         }
         strcpy (window_write[0], string);
-    }
-    else{
-        strcpy (window_write[space-1], string);
-    }
     clean_window(text, WINDOW_TEXT_HEIGHT - 2, WINDOW_TEXT_WIDTH - 1);
     open();
     int j=1;

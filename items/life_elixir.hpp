@@ -10,12 +10,11 @@ const char elixir_name[name_length]="Elisir della vita";
 
 class Life_elixir:public Artifact {
     protected:
-        int life_added;                     //numero di vite che si aggiungono al player
+        //int life_added;                     //numero di vite che si aggiungono al player
     public:
         Life_elixir();
         Life_elixir(const char n[], const char desc[]);
         
-        void use_item (pItem intem, int &stat, System_text* text);         //metodo che aggiunge una vita al player
 };
 
 typedef Life_elixir* pElixir;

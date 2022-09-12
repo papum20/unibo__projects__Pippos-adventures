@@ -3,7 +3,7 @@
 
 Pause_menu::Pause_menu(Player * p, int stdscr_x, int stdscr_y, System_text* text):Pixel_art(), Overlay(){
 
-text=text;
+this->text=text;
 zaino_x_pos = (stdscr_x - ZAINO_WIDTH) / (3.5), zaino_y_pos = (stdscr_y - ZAINO_HEIGHT) / 2.1;
 inventory_x_pos = (stdscr_x - PAUSE_MENU_WIDTH) / (2.2), inventory_y_pos = 3;
 status_x_pos = (stdscr_x - STATUS_MENU_WIDTH) / (2.2), status_y_pos = (stdscr_y - STATUS_MENU_HEIGHT) / (2.3);

@@ -19,7 +19,7 @@
 #pragma region SCREENS_SIZES
 // CAMERA
 #define CAMERA_WIDTH  235//300//150//135	//larghezza (massima) inquadratura livello
-#define CAMERA_HEIGHT 52//70//50//35		//altezza (massima) inquadratura livello
+#define CAMERA_HEIGHT 46//70//50//35		//altezza (massima) inquadratura livello
 // MINI-MAP
 #define MINIMAP_WIDTH (CAMERA_WIDTH - 4)
 #define MINIMAP_HEIGHT (CAMERA_HEIGHT - 2)
@@ -124,6 +124,7 @@ const int p_depth = 2;
 
 //PLAYER
 #define p_max_health 100
+#define p_max_lives 5
 
 //// COMANDI
 #pragma region KEY_BINDINGS

@@ -3,16 +3,12 @@
 Life_elixir::Life_elixir() : Artifact() {
     //strcpy(rarity, rare);
     id=ID_LIFE_ELIXIR;
-    life_added=life_increase;
+    //life_added=life_increase;
+    increment=life_increase;
+    max_stat=p_max_lives;
     strcpy (description, elixir_description);
     strcpy (name, elixir_name);
+    strcpy(text_error, life_full);
+    strcpy(text_success, gain_heart);
 }
 
-void Life_elixir::use_item (pItem item, int &stat, System_text* text){
-    if (stat==5)
-        text->insert_string(life_full);  
-    else{    
-        stat=stat+life_added;
-        text->insert_string(gain_heart);
-    }
-}

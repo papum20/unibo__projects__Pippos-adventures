@@ -18,7 +18,7 @@ Spider::Spider():Enemy(){
     change_armor(new armor());
     change_weapon(new Spider_legs());
 
-    maxHealth=Math::randomStep(60, 80, 10);
+    maxHealth=Math::randomStep(45, 55, 10);
     curHealth=maxHealth;
     size=Coordinate (spider_width, spider_depth);
     speed = SPEED_SPIDER;
@@ -43,7 +43,7 @@ Spider::Spider(pCharacter p):Enemy(p){
     change_weapon(new Spider_legs());
 
 
-    maxHealth=Math::randomStep(60, 80, 10);
+    maxHealth=Math::randomStep(45, 55, 10);
     curHealth=maxHealth;
     size=Coordinate (spider_width, spider_depth);
     speed = SPEED_SPIDER;

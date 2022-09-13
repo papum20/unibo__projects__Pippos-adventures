@@ -124,6 +124,7 @@ const int p_depth = 2;
 
 //PLAYER
 #define p_max_health 100
+#define p_max_lives 5
 
 //// COMANDI
 #pragma region KEY_BINDINGS

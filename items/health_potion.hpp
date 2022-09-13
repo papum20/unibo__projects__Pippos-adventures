@@ -10,12 +10,11 @@ const char potion_name[name_length]="Pozione della vita";
 
 class HealthPotion : public Artifact {
 	private:
-		int healthGained;				//valore di quanto incrementare la vita del player 
+		//int healthGained;				//valore di quanto incrementare la vita del player 
 	public:
 		HealthPotion();
 		HealthPotion(const char n[], const char desc[]);
 
-		void use_item(pItem item, int &stat, System_text* text);		//metodo che usa la pozione
 };
 
 

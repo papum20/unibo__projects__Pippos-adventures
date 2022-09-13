@@ -5,14 +5,17 @@
 
 class Artifact: public item{
     protected:
-        int life_added;
-        int healthGained;
+        int increment;
+        int max_stat;
+        char text_error[max_words];
+        char text_success[max_words];
+
     public:
 
         Artifact();
 		void copyArtifact(Artifact B);			//copia i parametri di B
 
-        virtual void use_item (pItem item, int &stat, System_text* text);
+        void use_item (pItem item, int &stat, System_text* text);
 
 };
 

@@ -4,19 +4,12 @@
 HealthPotion::HealthPotion() : Artifact() {
 	//strcpy(rarity, common);
 	id=ID_HEALTH_POTION;
-	healthGained = HEALTH_GAINED;
+	//healthGained = HEALTH_GAINED;
+	increment = HEALTH_GAINED;
+	max_stat = p_max_health;
 	strcpy (name, potion_name);
 	strcpy (description, potion_description);
+	strcpy(text_error, life_max);
+	strcpy(text_success, gain_life);
 }
 
-
-void HealthPotion::use_item(pItem item, int &stat, System_text* text) {
-	if (stat+healthGained>=p_max_health){
-		stat=p_max_health;
-		text->insert_string(life_max);
-	}
-	else{
-		stat=stat+healthGained;
-		text->insert_string(gain_life);
-	}
-}

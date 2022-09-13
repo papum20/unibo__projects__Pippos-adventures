@@ -5,12 +5,5 @@ Rune::Rune() : Artifact() {
     id=ID_RUNE;
     strcpy (description, rune_description);
     strcpy (name, rune_name);
-}
-void Rune::use_rune(pItem item){
-    item->apply_rune();
-}
-
-void Rune::use_item (pItem item, int &stat, System_text* text){
-    use_rune(item);
-    text->insert_string(upgrade_equip);
+    strcpy(text_success, upgrade_equip);
 }

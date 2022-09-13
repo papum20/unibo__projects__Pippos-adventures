@@ -22,6 +22,8 @@
 #define FACE_HEIGHT 33
 #define FACE_WIDTH 66
 
+#define GAME_NAME_HEIGHT 7
+#define GAME_NAME_WIDTH 103
 
 const char choices[3][20]={"start", "opzioni", "chiudi"};
 
@@ -73,10 +75,12 @@ class Start_menu : public Pixel_art, public Overlay {
         WINDOW * wface;
         WINDOW * caverna;
         WINDOW * w_options;
+        WINDOW * game_name;
         //int yMax, xMax;
         int input;
         int menu_x_pos, menu_y_pos;
         int options_x_pos, options_y_pos;
+        int game_name_x_pos, game_name_y_pos;
         bool menu_is_active;
         bool options_is_active;
         int highlight;
@@ -92,6 +96,7 @@ class Start_menu : public Pixel_art, public Overlay {
         void open();
         void update_options();
         void destroy();
+        void print_game_name();
 };      
 
 typedef Start_menu* pMenu;

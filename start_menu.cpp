@@ -3,7 +3,8 @@
 
 Start_menu::Start_menu(int stdscr_x, int stdscr_y):Pixel_art(),Overlay() {
 options_x_pos = (stdscr_x - MENU_OPTIONS_WIDTH) / (2.3), options_y_pos = (stdscr_y - MENU_OPTIONS_HEIGHT) / (1.7);
-menu_x_pos = (stdscr_x - MENU_WIDTH) / (2.2), menu_y_pos = (stdscr_y - MENU_HEIGHT) / (1.6);
+menu_x_pos = (stdscr_x - MENU_WIDTH) / 2, menu_y_pos = (stdscr_y - MENU_HEIGHT) / (1.6);
+game_name_x_pos = (stdscr_x - GAME_NAME_WIDTH) / 2, game_name_y_pos = 1;
 
 
 this->menu_is_active=false;
@@ -12,6 +13,7 @@ this->menu = newwin(MENU_HEIGHT, MENU_WIDTH, menu_y_pos, menu_x_pos);
 this->wface = newwin(FACE_HEIGHT, FACE_WIDTH, menu_y_pos - 3, menu_x_pos - FACE_WIDTH - 2);
 this->caverna = newwin(stdscr_y, stdscr_x, 0, 0);
 this->w_options = newwin(MENU_OPTIONS_HEIGHT, MENU_OPTIONS_WIDTH, options_y_pos, options_x_pos);
+this->game_name = newwin(GAME_NAME_HEIGHT, GAME_NAME_WIDTH, game_name_y_pos, game_name_x_pos);
 highlight=0;
 options_is_active=false;
 }
@@ -21,6 +23,7 @@ void Start_menu::destroy(){
     delwin(wface);
     delwin(caverna);
     delwin(w_options);
+    delwin(game_name);
     Overlay::destroy();
 }
 
@@ -32,6 +35,7 @@ void Start_menu::open_options(){
     wrefresh(wface);
     wrefresh(menu);
     print_cave();
+    print_game_name();
     box(w_options, 0, 0);
     mvwaddch(w_options, 2, 2, KEY_PAUSE);
     wprintw(w_options, " = apri e chiudi menu di pausa");
@@ -66,9 +70,11 @@ void Start_menu::close(){
     werase(wface);
     werase(menu);
     werase(caverna);
+    werase(game_name);
     wrefresh(wface);
     wrefresh(menu);
     wrefresh(caverna);
+    wrefresh(game_name);
 }
 
 void Start_menu::update(bool &isRunning, int input){
@@ -191,6 +197,11 @@ wrefresh(caverna);
 
 }
 
+void Start_menu::print_game_name(){
+    box(game_name, 4, 0);
+    pixel_phrase(game_name, 1, 1, "Pippos adventures", true);
+    wrefresh(game_name);
+}
 
 
 void Start_menu::open(){
@@ -198,6 +209,7 @@ default_color();
 menu_is_active=true;
 print_cave();
 print_face(wface, face, 65, 32);
+print_game_name();
 box(menu, 0, 0);
 keypad(menu, true);   
 

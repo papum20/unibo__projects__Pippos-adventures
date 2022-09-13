@@ -642,7 +642,7 @@ void Pause_menu::aux_equip_item_menu(WINDOW * win, int y, int x, int array_index
             counter = counter + 3 * high;
 
             char s_attack_magic[max_n_digit_stats];
-       int_to_string(static_cast< Weapon *>(objects[array_index])->danno_fisico, s_attack_magic);
+       int_to_string(static_cast< Weapon *>(objects[array_index])->danno_magico, s_attack_magic);
             mvwprintw(win, y + i + counter, x, "attacco magico");
             mvwprintw(win, y + i + counter, x + 15, s_attack_magic);
             i++;

@@ -123,6 +123,7 @@ int main() {
 					level->update(inputManager->get_input());
 					level->display();
 					hud->drawHud();
+					text->open();
 					game_over->update();
 				}
 			}

@@ -3,7 +3,7 @@
 sword::sword():Weapon(){
     //strcpy(rarity, rare);
     id=ID_SWORD;
-    danno_fisico_iniziale=Math::randomStep(30, 50, 5);
+    danno_fisico_iniziale=Math::randomStep(150, 200, 5);
     danno_magico_iniziale=0;
     apply_rarity();
 

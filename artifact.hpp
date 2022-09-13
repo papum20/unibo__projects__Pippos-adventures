@@ -5,8 +5,10 @@
 
 class Artifact: public item{
     protected:
-
+        int life_added;
+        int healthGained;
     public:
+
         Artifact();
 		void copyArtifact(Artifact B);			//copia i parametri di B
 

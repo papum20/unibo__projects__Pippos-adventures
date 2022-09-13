@@ -13,9 +13,9 @@ void Artifact::copyArtifact(Artifact B) {
 }
 
 
-void Artifact::use_item(pItem item, int &stat, System_text* text) {
+/*void Artifact::use_item(pItem item, int &stat, System_text* text) {
 
-}
+}*/
 
 void apply_rune(){
     

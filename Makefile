@@ -153,4 +153,4 @@ weapon.o: weapon.cpp weapon.hpp
 
 
 clean:
-	rm *.o */*.o main main.exe
+	rm -r *.o */*.o main main.exe

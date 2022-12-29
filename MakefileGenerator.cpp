@@ -28,7 +28,7 @@ const char EXTENSIONS[EXTENSIONS_NUMBER][EXTENSION_LENGTH] = {"cpp", "hpp"};
 const char *COMPILE_COMMAND = "g++";
 const char *LINK_PARAMETERS = "-lncurses -o";
 const char *COMPILE_PARAMETERS = "-c";
-const char *CLEAN_COMMAND = "clean:\n\trm -r*.o */*.o %s %s.exe";
+const char *CLEAN_COMMAND = "clean:\n\trm -r *.o */*.o %s %s.exe";
 
 
 //// FUNCTIONS

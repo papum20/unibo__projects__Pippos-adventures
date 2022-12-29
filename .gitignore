@@ -1,0 +1,7 @@
+# vscode
+.vscode
+# cpp files
+*.o
+# executables
+main
+main.exe

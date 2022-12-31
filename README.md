@@ -1,6 +1,30 @@
 # unibo__projects__Pippos-adventures
-project for programming class in Computer Science at University of Bologna - year 2021-2022
+project for programming class in Computer Science at University of Bologna - year 2021-2022.
 
+## GAME RULES:
+Pippo's Adventures is a rogue-like game with a top-down view:  
+there are endless levels full of monsters to kill, items/weapons to find in chests, doors to open.  
+Some doors are already open, and you can just step into them to pass to another room, whereas others need key to be unlocked (V button), which you can find in chests.  
+There's also a "special room"/"boss room" for each level, with plenty of monsters to kill: once you enter that room you can't exit until you have killed all of them;
+but if you manage to do that, you can go to the next level.  
+You can also use the map (B button) to get some help to find the special room:
+- P indicates the player position;
+- B indicates the boss room.
+
+## COMMANDS:
+### IN-GAME:
+- Arrows: movement
+- WASD: hit/shoot in the four directions
+- V: open locked door (if you have a key)
+- C: open chest
+### MENUS:
+- B: open/close map
+- M: open/close pause menu
+- Arrows: choose menu options
+- Enter: select menu entry
+- Q: previous menu page
+  
+TIP: remember, you can always check the commands either in the start menu or in the in-game menu (M button), from the "options" entry.
 
 ## DISCLAIMERS:
 The terminal on which the game is supposed to be run should meet the following requirements:
@@ -17,29 +41,12 @@ Thus, if you encounter a problem of visualization, the following could be some s
     - zoom out your terminal.
   
 So, linux terminals and wsl are ok, windows cmd and PowerShell not.
+
 ## COMPILING AND RUNNING:
 - there's a makefile;
 - the executable created is called main (or main.exe if executing on linux/wsl).
-## COMMANDS:
-### IN-GAME:
-- Arrows: movement
-- WASD: hit/shoot in the four directions
-- V: open locked door (if you have a key)
-- C: open chest
-### MENUS:
-- B: open/close map
-- M: open/close pause menu
-- Arrows: choose menu options
-- Enter: select menu entry
-- Q: previous menu page
-##RULES:
-Pippo's Adventures is a rogue-like game with a top-down view:  
-there are endless levels full of monsters to kill, items/weapons to find in chests, doors to open.  
-Some doors are already open, and you can just step into them to pass to another room, whereas others need key to be unlocked (V button), which you can find in chests.  
-There's also a "special room"/"boss room" for each level, with plenty of monsters to kill: once you enter that room you can't exit until you have killed all of them;
-but if you manage to do that, you can go to the next level.  
-You can also use the map (B button) to get some help to find the special room:
-- P indicates the player position;
-- B indicates the boss room.
-  
-TIP: remember, you can always check the commands either in the start menu or in the in-game menu (M button), from the "options" entry.
+
+
+#  
+#  
+some files used for testing and analyzing are here: https://github.com/papum20/unibo__projects__Pippos-adventures-extra

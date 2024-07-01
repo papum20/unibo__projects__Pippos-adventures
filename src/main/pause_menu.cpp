@@ -41,22 +41,22 @@ bool Pause_menu::is_active(){
 }
 
 int Pause_menu::random_item(){
-int r;
-bool all_artifact=true;
-for(int i=0; i<curr_inventory_space;i++){
-    if((check_class_name(i)==11) || (check_class_name(i)==12))
-        all_artifact=false;
-}
-if(all_artifact)
-    return (-1);
-bool found=false;
- while(!found){
-  r = rand() % (curr_inventory_space);
-  if((check_class_name(r)==11) || (check_class_name(r)==12)){
-    found=true;
-   }  
- }
-return (r);
+    int r;
+    bool all_artifact=true;
+    for(int i=0; i<curr_inventory_space;i++){
+        if((check_class_name(i)==11) || (check_class_name(i)==12))
+            all_artifact=false;
+    }
+    if(all_artifact)
+        return (-1);
+    bool found=false;
+    while(!found){
+        r = rand() % (curr_inventory_space);
+        if((check_class_name(r)==11) || (check_class_name(r)==12)){
+            found=true;
+        }  
+    }
+    return (r);
 }
 
 void Pause_menu::open_options(){
@@ -64,16 +64,16 @@ void Pause_menu::open_options(){
     keypad(w_inventory,false);
     box(w_options, 0, 0);
     mvwaddch(w_options, 2, 2, KEY_PAUSE);
-    wprintw(w_options, " = apri e chiudi menu di pausa");
+    wprintw(w_options, " = apri/chiudi menu di pausa");
     mvwaddch(w_options, 4, 2, KEY_ESC);
-    wprintw(w_options, " = torni indietro nei menu");
-    mvwprintw(w_options, 6, 2, "barra spaziatrice = tasto per interagire");
+    wprintw(w_options, " = in un menu, pagina precedente");
+    mvwprintw(w_options, 6, 2, "c = apri cesta, v = apri porta con chiave");
     mvwaddch(w_options, 8, 2, KEY_MAP);
     wprintw(w_options, " = apri la minimappa");
-    mvwprintw(w_options, 10, 2, "invio = tasto di selezione nei menu");
-    mvwprintw(w_options, 12, 2, "i tasti freccia servono a muoversi nelle 4 direzioni");
-    mvwprintw(w_options, 14, 2, "i tasti w a s d servono ad attaccare nelle 4 direzioni");
-    mvwprintw(w_options, 16, 2, "nella mappa la P indica player e la B indica boss");
+    mvwprintw(w_options, 10, 2, "invio = in un menu, tasto di selezione");
+    mvwprintw(w_options, 12, 2, "tasti freccia = movimento");
+    mvwprintw(w_options, 14, 2, "w a s d  = attacca nelle 4 direzioni");
+    mvwprintw(w_options, 16, 2, "nella mappa, P = player, B = boss");
     wrefresh(w_options);
 }
 
@@ -284,159 +284,112 @@ wrefresh(w_use);
 }
 
 void Pause_menu::update_w_use(int array_index){
-if(input==KEY_ESC){
-    w_use_is_active=false;
-    keypad(w_use, false); 
-    keypad(w_zaino, true); 
-    werase(w_use);
-    wrefresh(w_zaino);
-    wrefresh(w_use);
-    return;
-    }
-if(input==scroll_up){
-        u_highlight--;
-        if(u_highlight<=0){
-              u_highlight=1;
-        }
-}
-if(input==scroll_down){
-        if(check_class_name(array_index)==13){
-            u_highlight++;
-            if(u_highlight>=3){
-            u_highlight=2;
-            }
-        }
-        else if(check_class_name(array_index)==12){
-            if(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped)){
-                u_highlight++;
-               if(u_highlight>=3){
-                    u_highlight=2;
-                }} 
-        }
-        else if(check_class_name(array_index)==11){
-            if(!(static_cast<Weapon *>(objects[array_index])->is_equipped)){
-                u_highlight++;
-               if(u_highlight>=3){
-                    u_highlight=2;
-                }} 
-        }
-}
-if(u_highlight==1){
-    wattron(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK))); 
-    if(((check_class_name(array_index))==13))
-        mvwprintw(w_use, 1, 4, "usa");
-    else
-        mvwprintw(w_use, 1, 2, "equipaggia");   
-    wattroff(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
-    wattron(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK))); 
-
-    if(check_class_name(array_index)==13){
-            mvwprintw(w_use, 2, 3, "scarta");
-        }
-        else if(check_class_name(array_index)==12){
-            if(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))
-               mvwprintw(w_use, 2, 3, "scarta"); 
-        }
-        else if(check_class_name(array_index)==11){
-            if(!(static_cast<Weapon *>(objects[array_index])->is_equipped))
-               mvwprintw(w_use, 2, 3, "scarta"); 
-        }
-    
-    wattroff(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
-    wrefresh(w_use);
-}
-else if(u_highlight==2){
-    wattron(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
-    if(check_class_name(array_index)==13){
-            mvwprintw(w_use, 2, 3, "scarta");
-        }
-        else if(check_class_name(array_index)==12){
-            if(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped)){
-               mvwprintw(w_use, 2, 3, "scarta");
-            }
-        }
-        else if(check_class_name(array_index)==11){
-            if(!(static_cast<Weapon *>(objects[array_index])->is_equipped))
-               mvwprintw(w_use, 2, 3, "scarta"); 
-        }
-    wattroff(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
-    wattron(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK))); 
-    if(((check_class_name(array_index))==13))
-        mvwprintw(w_use, 1, 4, "usa");
-    else
-        mvwprintw(w_use, 1, 2, "equipaggia");
-    wattroff(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
-
-wrefresh(w_use);
-}
-
-if(input==invio){
- if(u_highlight==1){
-    if(check_class_name(array_index)==13){
-        pArtifact tmp =  static_cast< Artifact *>(objects[array_index]);
-        if(tmp->getId() == ID_HEALTH_POTION) tmp->use_item(objects[array_index], p->curHealth, text);
-        else if(tmp->getId() == ID_KEY) tmp->use_item(objects[array_index], p->n_keys, text);
-        else if(tmp->getId() == ID_LIFE_ELIXIR) tmp->use_item(objects[array_index], p->n_hearts, text);
-        else if(tmp->getId() == ID_RUNE) {
-          int item_index=random_item();
-          if(item_index!=(-1)){
-            tmp->use_item(objects[item_index], p->n_hearts, text);
-            }
-        }
-        fix_array(array_index);
-        clean_window(w_zaino, ZAINO_HEIGHT - 1, ZAINO_WIDTH -1);
-        clean_window(w_item, ITEM_MENU_HEIGHT -1, ITEM_MENU_WIDTH - 1); 
-        wrefresh(w_item);
-        keypad(w_use, false); 
-        keypad(w_zaino, true);
-        w_use_is_active=false; 
-        werase(w_use);
-        wrefresh(w_zaino);
-        wrefresh(w_use);
-        input=scroll_up;
-        open_zaino();
-        zaino_menu(array_index);
-        return;  
-    }
-            if(check_class_name(array_index)==11){
-                        p->change_weapon(static_cast< pWeapon> (objects[array_index]));
-            }
-            if(check_class_name(array_index)==12){
-                        if(check_subclass_name(array_index)==2){
-                            p->change_armor (static_cast< pArmor>(objects[array_index]));
-                        }
-                        if(check_subclass_name(array_index)==3){
-                            p->change_shield (static_cast< pShield>(objects[array_index])); 
-                        }
-                        if(check_subclass_name(array_index)==4){
-                            p->change_helm (static_cast< pHelm>(objects[array_index])); 
-                        }
-                        if(check_subclass_name(array_index)==8){
-                            p->change_necklace (static_cast< pNecklace>(objects[array_index]));
-                        }
-                        if(check_subclass_name(array_index)==7){
-                            p->change_boots (static_cast< pBoots>(objects[array_index]));
-                        }
-            }
+    if(input==KEY_ESC){
+        w_use_is_active=false;
         keypad(w_use, false); 
         keypad(w_zaino, true); 
-        w_use_is_active=false;
         werase(w_use);
         wrefresh(w_zaino);
         wrefresh(w_use);
-        input=scroll_up;
-        open_zaino();   
-        zaino_menu(array_index + 1);
-        return;  
+        return;
         }
-        else if(u_highlight==2){
+    if(input==scroll_up){
+            u_highlight--;
+            if(u_highlight<=0){
+                u_highlight=1;
+            }
+    }
+    if(input==scroll_down){
+            if(check_class_name(array_index)==13){
+                u_highlight++;
+                if(u_highlight>=3){
+                u_highlight=2;
+                }
+            }
+            else if(check_class_name(array_index)==12){
+                if(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped)){
+                    u_highlight++;
+                if(u_highlight>=3){
+                        u_highlight=2;
+                    }} 
+            }
+            else if(check_class_name(array_index)==11){
+                if(!(static_cast<Weapon *>(objects[array_index])->is_equipped)){
+                    u_highlight++;
+                if(u_highlight>=3){
+                        u_highlight=2;
+                    }} 
+            }
+    }
+    if(u_highlight==1){
+        wattron(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK))); 
+        if(((check_class_name(array_index))==13))
+            mvwprintw(w_use, 1, 4, "usa");
+        else
+            mvwprintw(w_use, 1, 2, "equipaggia");   
+        wattroff(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
+        wattron(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK))); 
+
+        if(check_class_name(array_index)==13){
+                mvwprintw(w_use, 2, 3, "scarta");
+            }
+            else if(check_class_name(array_index)==12){
+                if(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped))
+                mvwprintw(w_use, 2, 3, "scarta"); 
+            }
+            else if(check_class_name(array_index)==11){
+                if(!(static_cast<Weapon *>(objects[array_index])->is_equipped))
+                mvwprintw(w_use, 2, 3, "scarta"); 
+            }
+        
+        wattroff(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
+        wrefresh(w_use);
+    }
+    else if(u_highlight==2){
+        wattron(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
+        if(check_class_name(array_index)==13){
+                mvwprintw(w_use, 2, 3, "scarta");
+            }
+            else if(check_class_name(array_index)==12){
+                if(!(static_cast< item_difensivo *>(objects[array_index])->is_equipped)){
+                mvwprintw(w_use, 2, 3, "scarta");
+                }
+            }
+            else if(check_class_name(array_index)==11){
+                if(!(static_cast<Weapon *>(objects[array_index])->is_equipped))
+                mvwprintw(w_use, 2, 3, "scarta"); 
+            }
+        wattroff(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
+        wattron(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK))); 
+        if(((check_class_name(array_index))==13))
+            mvwprintw(w_use, 1, 4, "usa");
+        else
+            mvwprintw(w_use, 1, 2, "equipaggia");
+        wattroff(w_use, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
+
+    wrefresh(w_use);
+    }
+
+    if(input==invio){
+    if(u_highlight==1){
+        if(check_class_name(array_index)==13){
+            pArtifact tmp =  static_cast< Artifact *>(objects[array_index]);
+            if(tmp->getId() == ID_HEALTH_POTION) tmp->use_item(objects[array_index], p->curHealth, text);
+            else if(tmp->getId() == ID_KEY) tmp->use_item(objects[array_index], p->n_keys, text);
+            else if(tmp->getId() == ID_LIFE_ELIXIR) tmp->use_item(objects[array_index], p->n_hearts, text);
+            else if(tmp->getId() == ID_RUNE) {
+            int item_index=random_item();
+            if(item_index!=(-1)){
+                tmp->use_item(objects[item_index], p->n_hearts, text);
+                }
+            }
             fix_array(array_index);
             clean_window(w_zaino, ZAINO_HEIGHT - 1, ZAINO_WIDTH -1);
-            clean_window(w_item, ITEM_MENU_HEIGHT -1, ITEM_MENU_WIDTH - 1);  
+            clean_window(w_item, ITEM_MENU_HEIGHT -1, ITEM_MENU_WIDTH - 1); 
             wrefresh(w_item);
             keypad(w_use, false); 
-            keypad(w_zaino, true); 
-            w_use_is_active=false;
+            keypad(w_zaino, true);
+            w_use_is_active=false; 
             werase(w_use);
             wrefresh(w_zaino);
             wrefresh(w_use);
@@ -445,31 +398,78 @@ if(input==invio){
             zaino_menu(array_index);
             return;  
         }
-    }
+                if(check_class_name(array_index)==11){
+                            p->change_weapon(static_cast< pWeapon> (objects[array_index]));
+                }
+                if(check_class_name(array_index)==12){
+                            if(check_subclass_name(array_index)==2){
+                                p->change_armor (static_cast< pArmor>(objects[array_index]));
+                            }
+                            if(check_subclass_name(array_index)==3){
+                                p->change_shield (static_cast< pShield>(objects[array_index])); 
+                            }
+                            if(check_subclass_name(array_index)==4){
+                                p->change_helm (static_cast< pHelm>(objects[array_index])); 
+                            }
+                            if(check_subclass_name(array_index)==8){
+                                p->change_necklace (static_cast< pNecklace>(objects[array_index]));
+                            }
+                            if(check_subclass_name(array_index)==7){
+                                p->change_boots (static_cast< pBoots>(objects[array_index]));
+                            }
+                }
+            keypad(w_use, false); 
+            keypad(w_zaino, true); 
+            w_use_is_active=false;
+            werase(w_use);
+            wrefresh(w_zaino);
+            wrefresh(w_use);
+            input=scroll_up;
+            open_zaino();   
+            zaino_menu(array_index + 1);
+            return;  
+            }
+            else if(u_highlight==2){
+                fix_array(array_index);
+                clean_window(w_zaino, ZAINO_HEIGHT - 1, ZAINO_WIDTH -1);
+                clean_window(w_item, ITEM_MENU_HEIGHT -1, ITEM_MENU_WIDTH - 1);  
+                wrefresh(w_item);
+                keypad(w_use, false); 
+                keypad(w_zaino, true); 
+                w_use_is_active=false;
+                werase(w_use);
+                wrefresh(w_zaino);
+                wrefresh(w_use);
+                input=scroll_up;
+                open_zaino();
+                zaino_menu(array_index);
+                return;  
+            }
+        }
 }
 
 void Pause_menu::strcmp_rarity(WINDOW * win, int array_index, bool highlight){
-if(highlight){
-    if(((strcmp(objects[array_index]->rarity, rarity[0]) == 0)) || (check_class_name(array_index)==13))
-        wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
-    else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
-        wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLUE)));
-    else if(strcmp(objects[array_index]->rarity, rarity[2]) == 0)
-        wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_MAGENTA)));
-    else if(strcmp(objects[array_index]->rarity, rarity[3]) == 0)
-        wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_CYAN)));   
-}
-else{
-    
-    if(((strcmp(objects[array_index]->rarity, rarity[0]) == 0)) || (check_class_name(array_index)==13))
-        wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
-    else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
-        wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLUE)));
-    else if(strcmp(objects[array_index]->rarity, rarity[2]) == 0)
-        wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_MAGENTA)));
-    else if(strcmp(objects[array_index]->rarity, rarity[3]) == 0)
-        wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_CYAN)));
-}   
+    if(highlight){
+        if(((strcmp(objects[array_index]->rarity, rarity[0]) == 0)) || (check_class_name(array_index)==13))
+            wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLACK)));
+        else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
+            wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_BLUE)));
+        else if(strcmp(objects[array_index]->rarity, rarity[2]) == 0)
+            wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_MAGENTA)));
+        else if(strcmp(objects[array_index]->rarity, rarity[3]) == 0)
+            wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_YELLOW, COLOR_CYAN)));   
+    }
+    else{
+        
+        if(((strcmp(objects[array_index]->rarity, rarity[0]) == 0)) || (check_class_name(array_index)==13))
+            wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLACK)));
+        else if(strcmp(objects[array_index]->rarity, rarity[1]) == 0)
+            wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_BLUE)));
+        else if(strcmp(objects[array_index]->rarity, rarity[2]) == 0)
+            wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_MAGENTA)));
+        else if(strcmp(objects[array_index]->rarity, rarity[3]) == 0)
+            wattron(win, COLOR_PAIR(Cell::pairNumber(COLOR_WHITE, COLOR_CYAN)));
+    }   
 }
 
 void Pause_menu::print_item_name(WINDOW * win, int y, int x, int array_index){

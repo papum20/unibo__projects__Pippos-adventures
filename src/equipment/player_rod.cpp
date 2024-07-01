@@ -6,7 +6,7 @@ Player_Rod::Player_Rod():Rod(){
     apply_rarity();
 
     move_up_index=player_rod_up_index;
-	move_up_index=player_rod_down_index;
+	move_down_index=player_rod_down_index;
 	move_left_index=player_rod_left_index;
 	move_right_index=player_rod_right_index;
 
@@ -22,8 +22,8 @@ Player_Rod::Player_Rod():Rod(){
 
     animations[attack_up_index]= new Animation (player_rod_attack_up, Coordinate(player_rod_width, player_rod_height), player_rod_attack_states);
     animations[attack_down_index]= new Animation (player_rod_attack_down, Coordinate(player_rod_width, player_rod_height), player_rod_attack_states);
-    animations[attack_left_index]= new Animation (player_rod_attack_right, Coordinate(player_rod_width, player_rod_height), player_rod_attack_states);
-    animations[attack_right_index]= new Animation (player_rod_attack_left, Coordinate(player_rod_width, player_rod_height), player_rod_attack_states);
+    animations[attack_left_index]= new Animation (player_rod_attack_left, Coordinate(player_rod_width, player_rod_height), player_rod_attack_states);
+    animations[attack_right_index]= new Animation (player_rod_attack_right, Coordinate(player_rod_width, player_rod_height), player_rod_attack_states);
 
     is_melee=false;
     owner_id=ID_PLAYER;

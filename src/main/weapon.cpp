@@ -72,10 +72,10 @@ void Weapon::initiate_attack(char d){
             current_animation=attack_down_index;
             break;
         case 'l':
-            current_animation=attack_right_index;
+            current_animation=attack_left_index;
             break;
         case 'r':
-            current_animation=attack_left_index;
+            current_animation=attack_right_index;
             break;
     }
 }

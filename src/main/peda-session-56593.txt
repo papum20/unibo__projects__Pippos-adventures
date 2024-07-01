@@ -1,4 +1,0 @@
-break main
-catch throw
-
-set exec-wrapper logging enabled

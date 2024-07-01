@@ -38,16 +38,16 @@ void Start_menu::open_options(){
     print_game_name();
     box(w_options, 0, 0);
     mvwaddch(w_options, 2, 2, KEY_PAUSE);
-    wprintw(w_options, " = apri e chiudi menu di pausa");
+    wprintw(w_options, " = apri/chiudi menu di pausa");
     mvwaddch(w_options, 4, 2, KEY_ESC);
-    wprintw(w_options, " = torni indietro nei menu");
-    mvwprintw(w_options, 6, 2, "barra spaziatrice = tasto per interagire");
+    wprintw(w_options, " = in un menu, pagina precedente");
+    mvwprintw(w_options, 6, 2, "c = apri cesta, v = apri porta con chiave");
     mvwaddch(w_options, 8, 2, KEY_MAP);
     wprintw(w_options, " = apri la minimappa");
-    mvwprintw(w_options, 10, 2, "invio = tasto di selezione nei menu");
-    mvwprintw(w_options, 12, 2, "i tasti freccia servono a muoversi nelle 4 direzioni");
-    mvwprintw(w_options, 14, 2, "i tasti w a s d servono ad attaccare nelle 4 direzioni");
-    mvwprintw(w_options, 16, 2, "nella mappa la P indica player e la B indica boss");
+    mvwprintw(w_options, 10, 2, "invio = in un menu, tasto di selezione");
+    mvwprintw(w_options, 12, 2, "tasti freccia = movimento");
+    mvwprintw(w_options, 14, 2, "w a s d  = attacca nelle 4 direzioni");
+    mvwprintw(w_options, 16, 2, "nella mappa, P = player, B = boss");
     wrefresh(w_options);
 }
 

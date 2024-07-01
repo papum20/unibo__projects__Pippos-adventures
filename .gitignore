@@ -1,13 +1,12 @@
 # vscode
 .vscode
 # cpp files
-*.o
+obj/
 # executables
-pippos-adventures
-pippos-adventures.exe
+bin/
 
 # debugger
 # gdb
-.gdb_history
+.gdb_history*
 ## peda
-peda-session-pippos-adventures.txt 
+peda-session-*

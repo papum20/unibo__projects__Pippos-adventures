@@ -22,8 +22,8 @@ Spider_legs::Spider_legs():Hands(){
 
     animations[attack_up_index]= new Animation (spider_legs_attack_up, Coordinate(spider_legs_width, spider_legs_height), spider_legs_vertical_attack_states);
     animations[attack_down_index]= new Animation (spider_legs_attack_down, Coordinate(spider_legs_width, spider_legs_height), spider_legs_vertical_attack_states);
-    animations[attack_left_index]= new Animation (spider_legs_attack_right, Coordinate(spider_legs_width, spider_legs_height), spider_legs_horizontal_attack_states);
-    animations[attack_right_index]= new Animation (spider_legs_attack_left, Coordinate(spider_legs_width, spider_legs_height), spider_legs_horizontal_attack_states);
+    animations[attack_left_index]= new Animation (spider_legs_attack_left, Coordinate(spider_legs_width, spider_legs_height), spider_legs_horizontal_attack_states);
+    animations[attack_right_index]= new Animation (spider_legs_attack_right, Coordinate(spider_legs_width, spider_legs_height), spider_legs_horizontal_attack_states);
     offset = Coordinate(spider_x_coordinate, spider_y_coordinate);
 
     is_melee=true;

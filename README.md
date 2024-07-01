@@ -1,6 +1,9 @@
 # unibo__projects__Pippos-adventures
 project for programming course in Computer Science at University of Bologna - year 2021-2022.
 
+![in_game_sword](./doc/img/action_sword.png)
+
+Other images in [doc/img/](./doc/img/)  
 
 ## Install
 
@@ -69,7 +72,10 @@ So, linux terminals and wsl are ok, windows cmd and PowerShell not.
 
 ### Possible issues
 
-*   if the terminal window is too small, a `Segmentation fault` error will occur: try to enlarge it
+*   if the terminal window is too small, you may not be able to see the game properly, or a `Segmentation fault` error may occur (although it probably got fixed lately): try to enlarge it
+*	using `ncurses`, colors only depend on your own terminal :
+	*	if you can't see them, ensure they are supported, or try to change terminal
+	*	if they look strange or the game isn't clearly visible... I don't know how to change them, but it's your terminal's fault, so do a research on how to change them
 
 
 ## Extra

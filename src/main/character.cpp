@@ -183,7 +183,7 @@ void Character::apply_equipment (){
 	}
 
 	if ((equipaggiamento.elmo!=NULL)){
-		difesa_fisica=difesa_fisica+(equipaggiamento.elmo)->difesa_fisica;;
+		difesa_fisica=difesa_fisica+(equipaggiamento.elmo)->difesa_fisica;
 	}
 }
 

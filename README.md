@@ -10,8 +10,18 @@ Other images in [doc/img/](./doc/img/)
 Use the provided makefile and run the created executable, in the `bin/` folder:
 *	linux :
 	*	```bash
-		make						# compile
-		./bin/pippos-adventures		# run
+		git clone git@github.com:papum20/unibo__projects__Pippos-adventures.git pippos-adventures && \
+   			cd pippos-adventures && \
+			# compile
+   			make && \
+   			# run
+			./bin/pippos-adventures
+		```
+   *	```bash
+		# compile
+     	make
+     	# run the executable ./bin/pipppos-adventures
+      	./bin/pippos-adventures
 		```
 
 ### notes

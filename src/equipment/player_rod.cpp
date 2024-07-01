@@ -1,4 +1,4 @@
-#include "player_rod.hpp"
+#include "equipment/player_rod.hpp"
 
 Player_Rod::Player_Rod():Rod(){
     danno_fisico_iniziale=0;

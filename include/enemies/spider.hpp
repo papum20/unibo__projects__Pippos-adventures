@@ -1,8 +1,8 @@
 #ifndef SPIDER_HPP
 #define SPIDER_HPP
 
-#include "../enemy.hpp"
-#include "../enemy_weapons/spider_legs.hpp"
+#include "main/enemy.hpp"
+#include "enemy_weapons/spider_legs.hpp"
 
 const int spider_points=40;
 

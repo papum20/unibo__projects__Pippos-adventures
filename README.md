@@ -1,7 +1,25 @@
 # unibo__projects__Pippos-adventures
-project for programming class in Computer Science at University of Bologna - year 2021-2022.
+project for programming course in Computer Science at University of Bologna - year 2021-2022.
 
-## GAME RULES:
+
+## Install
+
+Use the provided makefile and run the created executable, in the `bin/` folder:
+*	linux :
+	*	```bash
+		make						# compile
+		./bin/pippos-adventures		# run
+		```
+
+### notes
+
+The previous makefile generator, now in the `scripts/` folder, doesn't work; besides, the new one is more generalized, using wildcards.  
+
+
+## The game
+
+### Description and rules
+
 Pippo's Adventures is a rogue-like game with a top-down view:  
 there are endless levels full of monsters to kill, items/weapons to find in chests, doors to open.  
 Some doors are already open, and you can just step into them to pass to another room, whereas others need key to be unlocked (V button), which you can find in chests.  
@@ -11,13 +29,17 @@ You can also use the map (B button) to get some help to find the special room:
 - P indicates the player position;
 - B indicates the boss room.
 
-## COMMANDS:
-### IN-GAME:
+### Commands
+
+#### in game
+
 - Arrows: movement
 - WASD: hit/shoot in the four directions
 - V: open locked door (if you have a key)
 - C: open chest
-### MENUS:
+
+#### menus
+
 - B: open/close map
 - M: open/close pause menu
 - Arrows: choose menu options
@@ -26,7 +48,9 @@ You can also use the map (B button) to get some help to find the special room:
   
 TIP: remember, you can always check the commands either in the start menu or in the in-game menu (M button), from the "options" entry.
 
-## DISCLAIMERS:
+
+## Requirements
+
 The terminal on which the game is supposed to be run should meet the following requirements:
 - support for changing colors (needed for ncurses)
 - not too small: the game window size adjustes accordingly to the available screen (terminal) dimensions,
@@ -35,18 +59,19 @@ however, with a terminal window too small - i.e. showing too few characters -
 you won't be able to see the minimum number of icons/images/sprites you're supposed to see to play the game,  
 while with a screen which is big enuogh, the size of the map which you'll see around the player will depend on the terminal size.  
 Thus, if you encounter a problem of visualization, the following could be some solutions:
-    - set the terminal full-screen;
-    - reduce the font size/increase the number of characters showed in the terminal;
-    - zoom out the screen of your computer;
-    - zoom out your terminal.
+	- set the terminal full-screen;
+	- reduce the font size/increase the number of characters showed in the terminal;
+	- zoom out the screen of your computer;
+	- zoom out your terminal.
   
 So, linux terminals and wsl are ok, windows cmd and PowerShell not.
 
-## COMPILING AND RUNNING:
-- there's a makefile;
-- the executable created is called main (or main.exe if executing on linux/wsl).
+
+### Possible issues
+
+*   if the terminal window is too small, a `Segmentation fault` error will occur: try to enlarge it
 
 
-#  
-#  
+## Extra
+
 some files used for testing and analyzing are here: https://github.com/papum20/unibo__projects__Pippos-adventures-extra

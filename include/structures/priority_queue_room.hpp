@@ -5,9 +5,9 @@
 
 
 #include <iostream>
-#include "../definitions.hpp"
-#include "priority_queue.hpp"
-#include "room_position.hpp"
+#include "main/definitions.hpp"
+#include "structures/priority_queue.hpp"
+#include "structures/room_position.hpp"
 
 
 

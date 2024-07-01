@@ -1,8 +1,8 @@
 #ifndef EVIL_TREE_HPP
 #define EVIL_TREE_HPP
 
-#include "../enemy.hpp"
-#include "../enemy_weapons/tree_branch.hpp"
+#include "main/enemy.hpp"
+#include "enemy_weapons/tree_branch.hpp"
 
 const int tree_points=100;
 

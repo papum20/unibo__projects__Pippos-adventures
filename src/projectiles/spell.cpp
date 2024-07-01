@@ -1,4 +1,4 @@
-#include "spell.hpp"
+#include "projectiles/spell.hpp"
 
 Spell::Spell(int fisico, int magico, char dir, int shooter):Projectile(fisico, magico, dir, shooter){
     move_up_index=spell_up_index;

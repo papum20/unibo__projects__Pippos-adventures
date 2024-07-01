@@ -1,4 +1,4 @@
-#include "comparable.hpp"
+#include "structures/comparable.hpp"
 
 
 Comparable::Comparable() {

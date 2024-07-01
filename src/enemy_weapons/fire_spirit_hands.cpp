@@ -1,4 +1,4 @@
-#include "fire_spirit_hands.hpp"
+#include "enemy_weapons/fire_spirit_hands.hpp"
 
 Fire_spirit_hands::Fire_spirit_hands():Hands(){
     danno_fisico_iniziale=0;

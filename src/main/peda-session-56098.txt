@@ -1,0 +1,4 @@
+break main
+break main.cpp:11
+
+set exec-wrapper logging enabled

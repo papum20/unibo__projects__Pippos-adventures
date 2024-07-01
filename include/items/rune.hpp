@@ -1,7 +1,7 @@
 #ifndef RUNE_HPP
 #define RUNE_HPP
 
-#include "../artifact.hpp"
+#include "main/artifact.hpp"
 
 const char rune_description[description_length]="Runa magica molto potente capace di aumentare la rarita' di un oggetto random equipaggiato";
 const char rune_name[name_length]="Runa magica";

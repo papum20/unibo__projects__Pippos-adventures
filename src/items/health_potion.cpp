@@ -1,4 +1,4 @@
-#include "health_potion.hpp"
+#include "items/health_potion.hpp"
 
 
 HealthPotion::HealthPotion() : Artifact() {

@@ -1,9 +1,9 @@
 #ifndef SPELL_HPP
 #define SPELL_HPP
 
-#include "../projectile.hpp"
-//#include "../equipment/player_rod.hpp"
-//#include "witch_rod.hpp"
+#include "main/projectile.hpp"
+//#include "equipment/player_rod.hpp"
+//#include "main/witch_rod.hpp"
 
 const int spell_states=1;
 const int spell_up_index=0;

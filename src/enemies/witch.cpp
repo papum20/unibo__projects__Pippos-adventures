@@ -1,4 +1,4 @@
-#include "witch.hpp"
+#include "enemies/witch.hpp"
 
 Witch::Witch():Enemy(){
     speed = SPEED_WITCH;

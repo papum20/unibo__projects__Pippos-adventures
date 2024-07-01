@@ -1,4 +1,4 @@
-#include "rune.hpp"
+#include "items/rune.hpp"
 
 Rune::Rune() : Artifact() {
     //strcpy(rarity, epic);

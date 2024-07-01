@@ -1,4 +1,4 @@
-#include "hands.hpp"
+#include "equipment/hands.hpp"
 
 Hands::Hands():Weapon(){
 

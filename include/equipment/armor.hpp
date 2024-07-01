@@ -1,7 +1,7 @@
 #ifndef ARMOR_HPP
 #define ARMOR_HPP
 #include <cstring>
-#include "../item_difensivi.hpp" 
+#include "main/item_difensivi.hpp" 
 
 const char armor_description[description_length]="Forgiata dalla dea Teti per suo figlio Achille, e' ancora ricoperta del sangue delle vittime della funesta ira dell'eroe.";
 const char armor_name[name_length]="Armatura di Achille";

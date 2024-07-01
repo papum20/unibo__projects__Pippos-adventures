@@ -4,8 +4,8 @@
 #define UNION_FIND_HPP
 
 
-#include "../coordinate.hpp"
-#include "../definitions.hpp"
+#include "main/coordinate.hpp"
+#include "main/definitions.hpp"
 
 
 #define UNION_FIND_SIZE (ROOM_AREA)

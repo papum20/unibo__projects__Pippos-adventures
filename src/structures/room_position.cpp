@@ -1,4 +1,4 @@
-#include "room_position.hpp"
+#include "structures/room_position.hpp"
 
 
 	RoomPosition::RoomPosition() : Comparable() {

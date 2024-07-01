@@ -1,4 +1,4 @@
-#include "arrow.hpp"
+#include "projectiles/arrow.hpp"
 
 Arrow::Arrow(int fisico, int magico, char dir, int shooter):Projectile( fisico,  magico,  dir,  shooter){
     move_up_index=arrow_up_index;

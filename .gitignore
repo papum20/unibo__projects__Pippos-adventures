@@ -3,5 +3,11 @@
 # cpp files
 *.o
 # executables
-main
-main.exe
+pippos-adventures
+pippos-adventures.exe
+
+# debugger
+# gdb
+.gdb_history
+## peda
+peda-session-pippos-adventures.txt 

@@ -1,7 +1,7 @@
 #ifndef HANDS_HPP
 #define HANDS_HPP
 
-#include "../weapon.hpp"
+#include "main/weapon.hpp"
 
 
 class Hands: public Weapon {

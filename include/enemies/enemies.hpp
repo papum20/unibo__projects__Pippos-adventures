@@ -4,12 +4,12 @@
 #define ENEMIES_HPP
 
 
-#include "evil_tree.hpp"
-#include "fire_spirit.hpp"
-#include "snowman.hpp"
-#include "spider.hpp"
-#include "witch.hpp"
-#include "zombie.hpp"
+#include "enemies/evil_tree.hpp"
+#include "enemies/fire_spirit.hpp"
+#include "enemies/snowman.hpp"
+#include "enemies/spider.hpp"
+#include "enemies/witch.hpp"
+#include "enemies/zombie.hpp"
 
 
 #endif

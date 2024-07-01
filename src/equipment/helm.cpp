@@ -1,4 +1,4 @@
-#include "helm.hpp"
+#include "equipment/helm.hpp"
 
 helm::helm():item_difensivo(){
     //strcpy(rarity, rare);

@@ -1,4 +1,4 @@
-#include "queue_coordinate.hpp"
+#include "structures/queue_coordinate.hpp"
 
 
 QueueCoordinate::QueueCoordinate() {

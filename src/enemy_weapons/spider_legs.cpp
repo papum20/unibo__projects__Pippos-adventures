@@ -1,4 +1,4 @@
-#include "spider_legs.hpp"
+#include "enemy_weapons/spider_legs.hpp"
 
 Spider_legs::Spider_legs():Hands(){
     danno_fisico_iniziale=Math::randomStep(30, 50, 5); 

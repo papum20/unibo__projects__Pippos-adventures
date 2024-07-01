@@ -1,4 +1,4 @@
-#include "zombie.hpp"
+#include "enemies/zombie.hpp"
 
 Zombie::Zombie():Enemy(){
     size=Coordinate (zombie_width, zombie_depth);

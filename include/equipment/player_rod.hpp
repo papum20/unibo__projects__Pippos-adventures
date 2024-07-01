@@ -1,8 +1,8 @@
 #ifndef PLAYER_ROD_HPP
 #define PLAYER_ROD_HPP
 
-#include "rod.hpp"
-#include "../projectiles/spell.hpp"
+#include "equipment/equipment.hpp"
+#include "projectiles/spell.hpp"
 
 const char player_rod_description[description_length]="Raro bastone intriso di grandi poteri, usato da stregoni provenienti da tutto il mondo e di tutti i tempi ";
 const char player_rod_name[name_length]="Bastone magico";

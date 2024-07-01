@@ -1,4 +1,4 @@
-#include "sword.hpp"
+#include "equipment/sword.hpp"
 
 sword::sword():Weapon(){
     //strcpy(rarity, rare);

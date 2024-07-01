@@ -1,4 +1,4 @@
-#include "snowball.hpp"
+#include "projectiles/snowball.hpp"
 
 Snowball::Snowball(int fisico, int magico, char dir, int shooter):Projectile( fisico,  magico,  dir,  shooter){
     move_up_index=snowball_up_index;

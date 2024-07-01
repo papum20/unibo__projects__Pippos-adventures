@@ -1,4 +1,4 @@
-#include "zombie_hands.hpp"
+#include "enemy_weapons/zombie_hands.hpp"
 
 Zombie_hands::Zombie_hands():Hands(){
     danno_fisico_iniziale=Math::randomStep(15, 60, 5);

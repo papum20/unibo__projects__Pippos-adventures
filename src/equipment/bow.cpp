@@ -1,4 +1,4 @@
-#include "bow.hpp"
+#include "equipment/bow.hpp"
 #include <cstring> 
 
 Arco::Arco():Weapon(){
@@ -10,7 +10,7 @@ Arco::Arco():Weapon(){
     apply_rarity();
 
     move_up_index=bow_up_index;
-	move_up_index=bow_down_index;
+	move_down_index=bow_down_index;
 	move_left_index=bow_left_index;
 	move_right_index=bow_right_index;
 

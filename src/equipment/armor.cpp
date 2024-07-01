@@ -1,4 +1,4 @@
-#include "armor.hpp"
+#include "equipment/armor.hpp"
 
 armor::armor():item_difensivo(){
     //strcpy(rarity, rare);

@@ -7,6 +7,7 @@ IDIRS = $(wildcard $(IDIR)/*) # include sub-directories
 ODIR = obj
 SDIR = src
 SDIRS = $(wildcard $(SDIR)/*) # source sub-directories
+EXE_NAME = pippos-adventures
 
 INCS = $(wildcard $(IDIR)/*/*.hpp)
 
@@ -24,11 +25,13 @@ DEFS = $(INCS) Makefile
 # 	-mno-gpopt -G 0 -fno-pic -mno-abicalls -o
 # this CFLAGS' options:
 # std=gnu99 supports: inline, typeof
-CFLAGS = 
-CFLAGSINC = $(patsubst %, -iquote%, $(IDIRS))
+CFLAGS = -c -o
+CFLAGSINC = -iquote$(IDIR)
+# CFLAGSINC = $(patsubst %, -iquote%, $(IDIRS))	# all subdirs too
+LDFLAGS = -lncurses
 
 CC = g++
-LD = ld
+LD = g++
 
 
 # keep the .o
@@ -45,10 +48,9 @@ all: mk_obj_dirs src exe
 
 
 .PHONY: exe
-exe: $(BDIR)/main
-$(BDIR)/main: $(OBJS)
-	$(LD) $(OBJS) -o $(BDIR)/main
-
+exe: $(BDIR)/$(EXE_NAME)
+$(BDIR)/$(EXE_NAME): $(OBJS)
+	$(LD) -o $(BDIR)/$(EXE_NAME) $(OBJS) $(LDFLAGS)
 
 .PHONY: src
 src: $(OBJS)
@@ -72,6 +74,7 @@ help:
 	@echo "make"
 	@echo "make			: make mk_obj_dirs && make src"
 	@echo "make src		: compile src"
+	@echo "make exe		: make executable, after object files"
 	@echo "make mk_obj_dirs	: create output dirs tree (obj/*)"
 	@echo "make help		: show this help message"
 	@echo "make clean		: clean"

@@ -1,8 +1,8 @@
 #ifndef FIRE_SPIRIT_HANDS_HPP
 #define FIRE_SPIRIT_HANDS_HPP
 
-#include "../equipment/hands.hpp"
-#include "../projectiles/fireball.hpp"
+#include "equipment/hands.hpp"
+#include "projectiles/fireball.hpp"
 
 const int fire_spirit_hands_movement_states=1;
 const int fire_spirit_hands_attack_states=3;

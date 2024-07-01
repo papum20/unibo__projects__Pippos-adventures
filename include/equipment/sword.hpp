@@ -1,7 +1,7 @@
 #ifndef SWORD_HPP
 #define SWORD_HPP
 #include <cstring>
-#include "../weapon.hpp" 
+#include "main/weapon.hpp" 
 
 const char sword_description[description_length]="forgiata da un artigiano leggendario, si dice che questa spada una volta sfoderata, non possa essere riposta senza aver preso una vita.";
 const char sword_name[name_length]="Spada bramasangue";

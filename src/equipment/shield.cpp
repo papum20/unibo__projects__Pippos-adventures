@@ -1,4 +1,4 @@
-#include "shield.hpp"
+#include "equipment/shield.hpp"
 #include <cstring> 
 
 shield::shield():item_difensivo(){

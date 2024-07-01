@@ -1,4 +1,4 @@
-#include "axe.hpp"
+#include "equipment/axe.hpp"
 #include <cstring>
 
 Ascia::Ascia():Weapon(){
@@ -9,7 +9,7 @@ Ascia::Ascia():Weapon(){
     apply_rarity();
 
     move_up_index=axe_up_index;
-	move_up_index=axe_down_index;
+	move_down_index=axe_down_index;
 	move_left_index=axe_left_index;
 	move_right_index=axe_right_index;
 
@@ -25,22 +25,13 @@ Ascia::Ascia():Weapon(){
 
     animations[attack_up_index]= new Animation (axe_attack_up, Coordinate(axe_width, axe_height), axe_vertical_attack_states);
     animations[attack_down_index]= new Animation (axe_attack_down, Coordinate(axe_width, axe_height), axe_vertical_attack_states);
-    animations[attack_left_index]= new Animation (axe_attack_right, Coordinate(axe_width, axe_height), axe_horizontal_attack_states);
-    animations[attack_right_index]= new Animation (axe_attack_left, Coordinate(axe_width, axe_height), axe_horizontal_attack_states);
+    animations[attack_left_index]= new Animation (axe_attack_left, Coordinate(axe_width, axe_height), axe_horizontal_attack_states);
+    animations[attack_right_index]= new Animation (axe_attack_right, Coordinate(axe_width, axe_height), axe_horizontal_attack_states);
 
     is_melee=true;
     owner_id=ID_PLAYER;
     strcpy (description, axe_description);
     strcpy (name, axe_name);
 
-    horizontal_size=Coordinate(axe_horizontal_attack_width, axe_horizontal_attack_height);
-    vertical_size=Coordinate(axe_vertical_attack_width, axe_vertical_attack_height);
-
-    horizontal_attack_states=axe_horizontal_attack_states;
-    vertical_attack_states=axe_vertical_attack_states;
-
-    vertical_attack_animation=axe_vertical_attack_animation;
-    horizontal_attack_animation=axe_horizontal_attack_animation;
-    current_animation=0;
 }
 

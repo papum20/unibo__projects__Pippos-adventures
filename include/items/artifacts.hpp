@@ -4,10 +4,10 @@
 #define ARTIFACTS_HPP
 
 
-#include "health_potion.hpp"
-#include "key.hpp"
-#include "life_elixir.hpp"
-#include "rune.hpp"
+#include "items/health_potion.hpp"
+#include "items/key.hpp"
+#include "items/life_elixir.hpp"
+#include "items/rune.hpp"
 
 
 #endif

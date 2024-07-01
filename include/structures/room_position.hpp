@@ -2,8 +2,8 @@
 #define ROOM_POSITION_HPP
 
 
-#include "../coordinate.hpp"
-#include "comparable.hpp"
+#include "main/coordinate.hpp"
+#include "structures/comparable.hpp"
 
 
 class RoomPosition : public Comparable {

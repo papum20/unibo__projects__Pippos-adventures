@@ -1,7 +1,7 @@
 #ifndef FIREBALL_HPP
 #define FIREBALL_HPP
 
-#include "../projectile.hpp"
+#include "main/projectile.hpp"
 
 const int fireball_states=1;
 const int fireball_up_index=0;

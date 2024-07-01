@@ -1,4 +1,4 @@
-#include "evil_tree.hpp"
+#include "enemies/evil_tree.hpp"
 
 Evil_tree::Evil_tree():Enemy(){
     speed = SPEED_TREE;

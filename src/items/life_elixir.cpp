@@ -1,4 +1,4 @@
-#include "life_elixir.hpp"
+#include "items/life_elixir.hpp"
 
 Life_elixir::Life_elixir() : Artifact() {
     //strcpy(rarity, rare);

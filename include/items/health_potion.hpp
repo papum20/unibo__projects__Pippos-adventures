@@ -1,7 +1,7 @@
 #ifndef HEALTH_POTION_HPP
 #define HEALTH_POTION_HPP
 
-#include "../artifact.hpp"
+#include "main/artifact.hpp"
 
 const char potion_description[description_length]="Pozione che ripristina 20 punti vita ";
 const char potion_name[name_length]="Pozione della vita";

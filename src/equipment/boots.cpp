@@ -1,5 +1,5 @@
 #include <cstring> 
-#include "boots.hpp"
+#include "equipment/boots.hpp"
 
 boots::boots():item_difensivo(){
     //strcpy(rarity, epic);

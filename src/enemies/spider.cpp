@@ -1,4 +1,4 @@
-#include "spider.hpp"
+#include "enemies/spider.hpp"
 
 Spider::Spider():Enemy(){
     idle_index=spider_idle_index;

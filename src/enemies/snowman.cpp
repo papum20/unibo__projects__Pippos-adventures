@@ -1,4 +1,4 @@
-#include "snowman.hpp"
+#include "enemies/snowman.hpp"
 
 Snowman::Snowman():Enemy(){
     speed = SPEED_SNOWMAN;

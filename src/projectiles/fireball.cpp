@@ -1,4 +1,4 @@
-#include "fireball.hpp"
+#include "projectiles/fireball.hpp"
 
 Fireball::Fireball(int fisico, int magico, char dir, int shooter):Projectile( fisico,  magico,  dir,  shooter){
     move_up_index=fireball_up_index;

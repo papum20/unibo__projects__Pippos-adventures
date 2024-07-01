@@ -1,4 +1,4 @@
-#include "fire_spirit.hpp"
+#include "enemies/fire_spirit.hpp"
 
 Fire_spirit::Fire_spirit():Enemy(){
     speed = SPEED_FIRE_SPIRIT;

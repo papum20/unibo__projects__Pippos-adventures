@@ -1,4 +1,4 @@
-#include "necklace.hpp"
+#include "equipment/necklace.hpp"
 #include <cstring>
 
 necklace::necklace():item_difensivo(){

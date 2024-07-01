@@ -1,7 +1,7 @@
 #ifndef ARROW_HPP
 #define ARROW_HPP
 
-#include "../projectile.hpp"
+#include "main/projectile.hpp"
 
 const int arrow_states=1;
 const int arrow_up_index=0;

@@ -8,8 +8,8 @@
 
 
 #include <iostream>
-#include "comparable.hpp"
-#include "../definitions.hpp"
+#include "structures/comparable.hpp"
+#include "main/definitions.hpp"
 
 
 #define HEAP_SIZE_MAX LEVEL_AREA//ROOM_AREA		//deve contenere un "quadrato" di N_ROOMS e uno di ROOM_AREA

@@ -1,4 +1,4 @@
-#include "union_find.hpp"
+#include "structures/union_find.hpp"
 
 
 UnionFind::UnionFind() {
